@@ -5,6 +5,7 @@ const Customer = () => {
         <>
             <Styled.CustomerContainer>
                 <Styled.TitlePage>Customer Page</Styled.TitlePage>
+                <p>Subtitle</p>
             </Styled.CustomerContainer>
         </>
     )
