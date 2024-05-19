@@ -1,0 +1,382 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="stylesheet.css">
+    <link href='https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css' rel='stylesheet'>
+</head>
+
+<body>
+    <div class="section">
+        <div class="container">
+            <div class="wrap">
+                <div class="product dotgrid">
+                    <div class="wrapper">
+                        <div class="image">
+                            <div class="outer-thumb ob-cover">
+                                <div class="thumbnail-image">
+                                    <div class="item selected" onclick="changeImage('/Image/item1.png', this)">
+                                        <img src="/ProductDetailsPage/Image/item1.png" alt="Thumb 1">
+                                    </div>
+                                    <div class="item" onclick="changeImage('/Image/item2.png', this)">
+                                        <img src="/ProductDetailsPage/Image/item2.png" alt="Thumb 2">
+                                    </div>
+                                    <div class="item" onclick="changeImage('/Image/item3.png', this)">
+                                        <img src="/ProductDetailsPage/Image/item3.png" alt="Thumb 3">
+                                    </div>
+                                    <div class="item" onclick="changeImage('/Image/item4.png', this)">
+                                        <img src="/ProductDetailsPage/Image/item4.png" alt="Thumb 4">
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="outer-main">
+                                <div class="main-image">
+                                    <div class="item">
+                                        <img id="mainImage" src="/ProductDetailsPage/Image/item1.png" alt="Main">
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-detail">
+                    <div class="entry">
+                        <div class="heading">
+                            <h1 class="title">Three-Stone Trapezoid Sidestone Diamond Ring</h1>
+                            <span class="product-rating">
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                                <i class='bx bxs-star'></i>
+                            </span>
+                        </div>
+
+                        <div class="product-metal">
+                            <span class="fill">Metal Type:</span>
+                            <div class="wrap">
+                                <button class="white selected"><span>14k</span></button>
+                                <button class="yellow"><span>14k</span></button>
+                                <button class="rose"><span>14k</span></button>
+                                <button class="platinum"><span>Pt</span></button>
+                            </div>
+                        </div>
+                        <div class="product-carat">
+                            <span class="fill">Total carat:</span>
+                            <div class="wrap">
+                                <button disabled>0.25</button>
+                                <button>0.5</button>
+                                <button class="selected">1</button>
+                                <button>2</button>
+                            </div>
+                        </div>
+                        <div class="ring-size-container">
+                            <select class="ring-size-select" name="ring-size" id="ring-size">
+                                <option value="" disabled selected>Ring Size</option>
+                                <!-- Dropdown options from 8 to 20 -->
+                                <option value="8">8</option>
+                                <option value="9">9</option>
+                                <option value="10">10</option>
+                                <option value="11">11</option>
+                                <option value="12">12</option>
+                                <option value="13">13</option>
+                                <option value="14">14</option>
+                                <option value="15">15</option>
+                                <option value="16">16</option>
+                                <option value="17">17</option>
+                                <option value="18">18</option>
+                                <option value="19">19</option>
+                                <option value="20">20</option>
+                            </select>
+                            <a class="ring-size-help" href="#">Ring size help</a>
+                        </div>
+                        <div class="product-group">
+                            <div class="product-price">
+                                <span class="current">$45.00</span>
+                                <div class="wrap">
+                                    <span class="before">$50.00</span>
+                                    <span class="discount">-25%</span>
+                                </div>
+                            </div>
+
+                        </div>
+
+
+                    </div>
+                    <div class="outlet">
+                        <section class="select-button">
+                            <div>
+                                <h5 class="selection-title">Select Voucher</h5>
+                                <p class="select-name">Anniversary Gifts 30% </p>
+                            </div>
+                            <span class="arrow-icon"><i class='bx bx-chevron-right'></i></span>
+                        </section>
+                        <section class="select-button">
+                            <div>
+                                <h5 class="selection-title">Select Payment Method</h5>
+                                <p class="select-name">Payment via MoMo e-wallet</p>
+                            </div>
+                            <span class="arrow-icon"><i class='bx bx-chevron-right'></i></span>
+                        </section>
+                        <div class="button-container">
+                            <button class="button">ADD TO CART</button>
+                            <button class="button">CHECKOUT</button>
+                        </div>
+                        <div class="shipping">
+                            <ul>
+                                <li>
+                                    <i class='bx bxs-gift'></i>
+                                    <span>Free shipping & return</span>
+                                </li>
+                                <li>
+                                    <i class='bx bx-home-smile'></i>
+                                    <span>Estimate delivery:</span>
+                                    <span class="delivery">01 - 07 Jan, 2024</span>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+
+    </div>
+    <div class="product-description contain">
+        <div class="tabbed">
+            <nav class="list-inline">
+                <ul class="wrapper">
+                    <li id="tab-product-description" class="active-tab">
+                        <a href="#" onclick="showTab('product-description'); return false;"><span>Product detail</span></a>
+                    </li>
+                    <li id="tab-product-review">
+                        <a href="#" onclick="showTab('product-review'); return false;"><span>Reviews</span></a>
+                    </li>
+                </ul>
+            </nav>
+            <div id="product-description" class="product-about description active">
+                <!-- Product detail content -->
+                <div class="text-block">
+                    <h3>Three-Stone Trapezoid Sidestone Diamond Ring</h3>
+                    <div class="grey-color"></div>
+                    <p>Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis? </p>
+                    <p>Dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas.</p>
+                </div>
+                <div class="dotgrid">
+                    <div class="wrapper2">
+                        <div class="list-block">
+                            <h4>What is this?</h4>
+                            <ul>
+                                <li>ID Number: 501410r14</li>
+                                <li>Width: 2.00mm</li>
+                                <li>Quantity: 16</li>
+                                <li>Shape: Round</li>
+                                <li>Total Carat (Average): 0.24</li>
+                                <li>Color: I</li>
+                                <li>Clarity: SI2</li>
+                                <li>Setting Type: Pave </li>
+                            </ul>
+                        </div>
+                        <div class="list-block">
+                            <h4>What makes our product unique? </h4>
+                            <ul>
+                                <li>New style and pretty design.
+
+                                </li>
+                                <li>Our effort to design beautiful jewelry in top quality.</li>
+                            </ul>
+                        </div>
+                        <div class="list-block">
+                            <h4>About?</h4>
+                            <ul>
+                                <li>Lorem ipsum.</li>
+                                <li>Dolor sit amet consectetur adipisicing elit.</li>
+
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div id="product-review" class="product-about review hide">
+                <!-- Review content -->
+                <div class="">
+                    <div class="head-review">
+                        <div class="sum-rating">
+                            <strong>5.0</strong>
+                            <span>3 reviews</span>
+                        </div>
+                    </div>
+                    <div class="body-review">
+                        <div class="profile">
+                            <div class="thumb-name">
+                                <div class="image">
+                                    <img src="/ProductDetailsPage/Image/customer1.jpg" alt="">
+                                </div>
+                                <div class="grouping">
+                                    <div class="name">Olivia Williams</div>
+                                    <div class="rating">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                    <div class="date grey-color">On November 7, 2022</div>
+                                </div>
+
+                            </div>
+                            <div class="comment">
+                                <strong>Awesome Product</strong>
+                                <p class="grey-color">Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.</p>
+                            </div>
+                            <div class="reply">
+                                <strong>Seller's Feedback</strong>
+                                <p class="grey-color">Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.</p>
+                                <div class="date grey-color">On November 7, 2022</div>
+                            </div>
+                        </div>
+                        <div class="profile">
+                            <div class="thumb-name">
+                                <div class="image">
+                                    <img src="/ProductDetailsPage/Image/customer1.jpg" alt="">
+                                </div>
+                                <div class="grouping">
+                                    <div class="name">Olivia Williams</div>
+                                    <div class="rating">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                    <div class="date grey-color">On November 7, 2022</div>
+                                </div>
+
+                            </div>
+                            <div class="comment">
+                                <strong>Awesome Product</strong>
+                                <p class="grey-color">Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.</p>
+                            </div>
+                            <div class="reply">
+                                <strong>Seller's Feedback</strong>
+                                <p class="grey-color">Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.</p>
+                                <div class="date grey-color">On November 7, 2022</div>
+                            </div>
+                        </div>
+                        <div class="profile">
+                            <div class="thumb-name">
+                                <div class="image">
+                                    <img src="/ProductDetailsPage/Image/customer1.jpg" alt="">
+                                </div>
+                                <div class="grouping">
+                                    <div class="name">Olivia Williams</div>
+                                    <div class="rating">
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                        <i class='bx bxs-star'></i>
+                                    </div>
+                                    <div class="date grey-color">On November 7, 2022</div>
+                                </div>
+
+                            </div>
+                            <div class="comment">
+                                <strong>Awesome Product</strong>
+                                <p class="grey-color">Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.</p>
+                            </div>
+                            <div class="reply">
+                                <strong>Seller's Feedback</strong>
+                                <p class="grey-color">Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.</p>
+                                <div class="date grey-color">On November 7, 2022</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="contain same-brand">
+        <section class="product" id="products">
+            <h2>SAME BRAND</h2>
+            <div class="listProduct">
+
+                <div class="item">
+                    <img src="/ProductDetailsPage/Image/product1.png" alt="Sofa">
+                    <h4 class="item-name">Petite Pavé Leaf Halo Diamond Engagement Ring</h4>
+
+                    <div class="price">$13.99</div>
+                    <button class="addCart">
+                        <a href="" class="link-add">Add To Cart</a>
+                    </button>
+
+                </div>
+                <div class="item">
+                    <img src="/ProductDetailsPage/Image/product2.png" alt="">
+                    <h4 class="item-name">Shank Double Pavé Diamond Engagement Ring</h4>
+
+                    <div class="price">$16.99</div>
+                    <button class="addCart">
+                        <a href="" class="link-add">Add To Cart</a>
+            </button>
+                </div>
+                <div class="item">
+                    <img src="/ProductDetailsPage/Image/product3.png" alt="">
+                    <h4 class="item-name">Shank Tripple Pavé Diamond Engagement Ring</h4>
+
+                    <div class="price">$19.99</div>
+                    <button class="addCart">
+                        <a href="" class="link-add">Add To Cart</a>
+            </button>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <div class="contain recently-viewed">
+        <section class="product">
+            <h2>RECENTLY VIEWED</h2>
+            <div class="listProduct">
+
+                <div class="item">
+                    <img src="/ProductDetailsPage/Image/product1.png" alt="Sofa">
+                    <h4 class="item-name">Petite Pavé Leaf Halo Diamond Engagement Ring</h4>
+
+                    <div class="price">$13.99</div>
+                    <button class="addCart">
+                        <a href="" class="link-add">Add To Cart</a>
+                    </button>
+
+                </div>
+                <div class="item">
+                    <img src="/ProductDetailsPage/Image/product2.png" alt="">
+                    <h4 class="item-name">Shank Double Pavé Diamond Engagement Ring</h4>
+
+                    <div class="price">$16.99</div>
+                    <button class="addCart">
+                        <a href="" class="link-add">Add To Cart</a>
+            </button>
+                </div>
+                <div class="item">
+                    <img src="/ProductDetailsPage/Image/product3.png" alt="">
+                    <h4 class="item-name">Shank Tripple Pavé Diamond Engagement Ring</h4>
+
+                    <div class="price">$19.99</div>
+                    <button class="addCart">
+                        <a href="" class="link-add">Add To Cart</a>
+            </button>
+                </div>
+
+            </div>
+        </section>
+    </div>
+    <script src="script.js"></script>
+</body>
+
+</html>
