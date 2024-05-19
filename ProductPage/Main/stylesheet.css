@@ -1,0 +1,322 @@
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inika:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+    @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+     :root {
+        --text-01: #45413E;
+        --brand-01: #f8f0e5;
+        --brand-02: #eadbc8;
+        --brand-03: #dac0a3;
+        --brand-04: #102c57;
+        --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
+        --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+        --hover-timing: all 0.2s ease;
+        --nav-card-size: 240px;
+        -webkit-font-smoothing: antialiased;
+        scroll-behavior: smooth;
+        --transition-color: color .3s;
+        --transition-background: background-color .3s;
+        --transition-border: border .3s;
+        --transition-transform: transform .3s;
+    }
+    
+    .container {
+        background-color: #f8f0e5;
+    }
+    
+    body {
+        font-family: Arial, sans-serif;
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+    }
+    
+    .banner {
+        background-color: #eadbc8;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .left-section {
+        width: 50%;
+        padding: 10px;
+        align-items: center;
+        margin: 50px 150px;
+    }
+    
+    .left-section h2 {
+        font-size: 50px;
+        margin-bottom: 10px;
+        text-align: center;
+        font-family: "Great Vibes", cursive;
+        font-weight: 500;
+        color: #102c57;
+    }
+    
+    .left-section .subheading {
+        font-size: 15px;
+        margin-bottom: 10px;
+        line-height: 1.5;
+        text-align: center;
+        font-family: "Crimson Text", sans-serif;
+        color: #45413E;
+    }
+    
+    .left-section .consult-button {
+        padding: 10px 20px;
+        background-color: #102c57;
+        color: white;
+        border: none;
+        border-radius: 15px;
+        cursor: pointer;
+        font-size: 14px;
+        align-self: center;
+        margin-left: 180px;
+        font-family: "Poppins", sans-serif;
+        margin-top: 10px;
+    }
+    
+    .left-section .consult-button:hover {
+        background-color: #D8A25A;
+        color: #45413E;
+        font-weight: 600;
+        transition: all .45s ease;
+    }
+    
+    .left-section .consult-button button {
+        margin: 0 auto;
+    }
+    
+    .right-section img {
+        width: 50%;
+        height: auto;
+        border-radius: 10px;
+        margin-left: 100px;
+    }
+    /*QUESTION*/
+    
+    .product-list,
+    .faqs {
+        padding: 20px;
+        margin: 20px auto;
+    }
+    
+    .faqs {
+        display: flex;
+        margin: 50px auto;
+        max-width: 1200px;
+        text-align: center;
+    }
+    
+    .faqs .left-faq {
+        width: 30%;
+        padding-right: 20px;
+        padding-top: 20px;
+    }
+    
+    .faqs .right-faq {
+        width: 70%;
+        padding-left: 20px;
+    }
+    
+    .faqs h2 {
+        font-size: 24px;
+        margin-bottom: 20px;
+        font-family: "Playfair Display", sans-serif;
+        color: #102c57;
+    }
+    
+    .wrapper {
+        max-width: 100%;
+        margin: auto;
+    }
+    
+    .wrapper>p {
+        margin: 1.5rem 0;
+        text-align: center;
+    }
+    
+    .accordion {
+        background-color: #f8f0e5;
+        color: #102c57;
+        cursor: pointer;
+        font-size: 18px;
+        width: 100%;
+        padding: 2rem 2.5rem;
+        border: none;
+        outline: none;
+        transition: 0.4s;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        font-family: "Crimson Text", sans-serif;
+        font-weight: 600;
+    }
+    
+    .accordion i {
+        font-size: 1.6rem;
+    }
+    
+    .active,
+    .accordion:hover {
+        background-color: #EADBC8;
+    }
+    
+    .panel {
+        padding: 0 18px;
+        color: #45413E;
+        display: none;
+        background-color: #f8f0e5;
+        padding: 0 2rem 2.5rem 2rem;
+        overflow: hidden;
+    }
+    
+    .panel p {
+        color: rgba(0, 0, 0, 0.7);
+        font-size: 16px;
+        line-height: 1.4;
+        font-family: "Crimson Text", sans-serif;
+    }
+    
+    .faq {
+        margin: 10px 0;
+    }
+    
+    .faq.active {
+        border: none;
+    }
+    /*PRODUCT*/
+    
+    .listProduct {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 40px;
+        align-items: center;
+        text-align: center;
+        justify-content: center;
+        padding: 35px;
+        padding-top: 0;
+    }
+    
+    .listProduct .item {
+        background-color: transparent;
+        padding: 10px;
+        border-radius: 15px;
+        width: 300px;
+        height: 350px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+    
+    .listProduct .item:hover {
+        transform: translateY(-5px);
+        cursor: pointer;
+        transition: all .45s ease;
+    }
+    
+    .listProduct .item img {
+        width: 80%;
+        height: auto;
+        filter: drop-shadow(0 10px 15px #0009);
+        padding-bottom: 10px;
+    }
+    
+    .listProduct .item h4 {
+        font-weight: 700;
+        font-size: 18px;
+        margin: 10px;
+        font-family: "Crimson Text", serif;
+        color: #102c57;
+    }
+    
+    .listProduct .item .price {
+        font-size: small;
+        font-family: "Inika", serif;
+        color: 45413E;
+        font-weight: 600;
+        font-size: 14px;
+    }
+    
+    .listProduct .item button {
+        background-color: #102c57;
+        color: #f8f0e5;
+        padding: 12px 10px;
+        border-radius: 20px;
+        border: none;
+        cursor: pointer;
+        margin-top: 10px;
+        width: 100%;
+        box-sizing: border-box;
+        font-weight: 600;
+        font-family: "Poppins", sans-serif;
+    }
+    
+    .listProduct .item button:hover {
+        background: #D8A25A;
+        transition: all .45s ease;
+    }
+    
+    .listProduct .item a {
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        width: 100%;
+        height: 100%;
+        box-sizing: border-box;
+    }
+    
+    .button button {
+        border-width: 0;
+        margin-right: 75px;
+    }
+    
+    .item-custom {
+        background-color: #EADBC8;
+        width: 90%;
+        margin-left: 16px;
+        height: 103%;
+        margin-top: 48px;
+        border-radius: 30px;
+    }
+    
+    .custom-card-content {
+        padding: 20px;
+        justify-content: center;
+        text-align: center;
+        align-items: center;
+        padding-top: 100px;
+    }
+    
+    .custom-card-title {
+        font-size: 17px;
+        margin-bottom: 30px;
+        font-family: "Crimson Text", sans-serif;
+        color: #102c57;
+        font-weight: 500;
+    }
+    
+    .custom-button {
+        text-decoration: none;
+        padding: 10px 30px;
+        color: #f8f0e5;
+        background-color: #102c57;
+        border-radius: 20px;
+        font-size: 14px;
+        font-weight: 500;
+        font-family: "Poppins", sans-serif;
+        border-color: transparent;
+    }
+    
+    .custom-button a {
+        text-decoration: none;
+        color: inherit;
+    }
+    
+    .custom-button:hover {
+        background-color: #D8A25A;
+        transition: all .45s ease;
+    }
