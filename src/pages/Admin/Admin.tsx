@@ -1,5 +1,6 @@
 import * as Styled from './Admin.styled'
 // import OrderPage from './Order'
+import { Link } from 'react-router-dom';
 import { ProductOutlined, ShoppingCartOutlined,
     SketchOutlined, AudioOutlined, CommentOutlined,
     TeamOutlined, CustomerServiceOutlined, KeyOutlined,
@@ -75,9 +76,12 @@ const Admin = () => {
                             </div>
                             <div className="menuElement">
                                 <ShoppingCartOutlined />
-                                <a href="./Order.tsx">
+                                {/* <a href="./Order.tsx">
                                     <p>Order</p>
-                                </a>
+                                </a> */}
+                                <Link to="/order">
+                                    <p>Order</p>
+                                </Link>
                             </div>
                             <div className="menuElement">
                                 <SketchOutlined />
