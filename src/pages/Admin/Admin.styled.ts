@@ -17,7 +17,6 @@ body {
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
-    /* height: 100%; */
     width: 100%;
 }
 
