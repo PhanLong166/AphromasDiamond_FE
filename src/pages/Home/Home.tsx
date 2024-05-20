@@ -4,7 +4,8 @@ const Home = () => {
     return(
         <>
             <Styled.HomeContainer>
-                <h1>Home Page</h1>
+                <h1 className='title-page'>Home Page</h1>
+                <Styled.TitlePage>Home Page</Styled.TitlePage>
             </Styled.HomeContainer>
         </>
     )

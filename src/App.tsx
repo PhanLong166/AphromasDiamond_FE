@@ -4,6 +4,7 @@ import Admin from './pages/Admin/Admin'
 import Order from './pages/Admin/Order'
 import Customer from './pages/Customer/Customer'
 import Headers from './components/Headers/Headers'
+import Footer from './components/Footer/Footer'
 
 const App = () => {
 
@@ -14,9 +15,10 @@ const App = () => {
         <Route path='/' element={<Home/>}/>
         <Route path='/admin' element={<Admin/>}/>
         <Route path='/customer' element={<Customer/>}/>
-    
+
         <Route path="/order" element={<Order/>}/>
       </Routes>
+      <Footer/>
     </>
   )
 }

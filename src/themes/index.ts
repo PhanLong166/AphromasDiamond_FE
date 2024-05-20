@@ -12,5 +12,6 @@ export const theme = {
         secondary: SECONDARY_COLOR,
         third: THIRD_COLOR,
         forth: FORTH_COLOR,
+        white: "#fff",
     }
 }
