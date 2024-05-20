@@ -9,22 +9,20 @@ import styled from "styled-components";
 // `;
 
 export const AdminContainer = styled.section`
-body {
-    margin: 0px 0px 0px 0px;
-}
+
 
 .dashboardArea {
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
     width: 100%;
+    margin-top: 0px;
 }
 
-/* =============== SIDEBAR ================= */
+// =============== SIDEBAR ================= 
 
 .sidebar {
     width: 280px;
-    /* height: 100%; */
     background-color: #EADBC8;
     color: #102C57;
     top: 0px;
@@ -34,7 +32,6 @@ body {
     display: fix;
     flex-grow: 1;
     flex-direction: column;
-    /* justify-content: space-between; */
     padding: 20px 0 41px;
     margin-right: 50px;
     position: fixed;
@@ -74,7 +71,6 @@ body {
     display: flex;
     align-items: center;
     padding: 0px 0px 0px 31px;
-    /* margin: 0px 35px 0px 35px; */
 }
 .menuElement-active ion-icon {
     padding-right: 15px;
@@ -86,10 +82,6 @@ body {
     margin: 0px 35px 0px 35px;
 }
 .menuElement:hover {
-    /* background-color: #102C57;
-    color: #FFF7E8;
-    border-radius: 16px;
-    margin: 0px 19px 0px 16px; */
     cursor: pointer;
 }
 .menuElement ion-icon {
@@ -103,7 +95,6 @@ body {
 }
 .accOut {
     display: flex;
-    /* text-align: end; */
     align-items: center;
     justify-content: space-around;
     padding: 18px 0px 0px 0px;
@@ -143,10 +134,10 @@ body {
     color:#102C57;
 }
 
-/* =============== DASHBOARD ================= */
+// /* =============== DASHBOARD ================= */
 
 .dashboard {
-    margin-left: 280px;
+    margin: 0px 0px 0px 280px;
     width: 100%;
     height: 100%;
     padding: 0px 60px 40px;
@@ -165,7 +156,7 @@ body {
     margin-top: 30px;
 }
 
-/* ------------- DASHBOARD - ROW 1 ----------- */
+// /* ------------- DASHBOARD - ROW 1 ----------- */
 .dashContent_1 {
     display:flex;
     justify-content: space-between;
@@ -192,7 +183,7 @@ body {
     color:#B19F8A;
 }
 
-/* ------------- DASHBOARD - ROW 2 ----------- */
+// /* ------------- DASHBOARD - ROW 2 ----------- */
 
 .dashContent_2 {
     display:flex;
@@ -229,7 +220,6 @@ body {
     margin-right: 10px;
 }
 .chatNofi_content {
-    /* padding-bottom: 45px; */
     color:#102C57;
 }
 .cusChat {
@@ -244,7 +234,6 @@ body {
     border-radius: 16px;
     background-color: #EADBC8;
     cursor: pointer;
-    /* margin: 0px 10px 0px 10px; */
 }
 .cusChat_ava-name {
     display: flex;
@@ -315,7 +304,7 @@ flex-direction: column;
     color: #734A00;
 }
 
-/* ------------- DASHBOARD - ROW 3 ----------- */
+// /* ------------- DASHBOARD - ROW 3 ----------- */
 
 
 .dashContent_3 {
