@@ -4,7 +4,8 @@ const Customer = () => {
     return(
         <>
             <Styled.CustomerContainer>
-                <h1>Customer Page</h1>
+                <Styled.TitlePage>Customer Page</Styled.TitlePage>
+                <p>Subtitle</p>
             </Styled.CustomerContainer>
         </>
     )

@@ -1,0 +1,268 @@
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inika:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+         :root {
+            --text-01: #45413E;
+            --brand-01: #f8f0e5;
+            --brand-02: #eadbc8;
+            --brand-03: #dac0a3;
+            --brand-04: #102c57;
+            --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
+            --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+            --hover-timing: all 0.2s ease;
+            --nav-card-size: 240px;
+            -webkit-font-smoothing: antialiased;
+            scroll-behavior: smooth;
+            --transition-color: color .3s;
+            --transition-background: background-color .3s;
+            --transition-border: border .3s;
+            --transition-transform: transform .3s;
+        }
+        
+        * {
+            box-sizing: border-box;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .section {
+            margin: 0 auto;
+            background-color: #f8f0e5;
+        }
+        
+        .container {
+            padding-top: 30px;
+        }
+        /*slide bar*/
+        
+        .sidebar-title {
+            font-size: 26px;
+            font-family: "Crimson Text", serif;
+            color: #102c57;
+            font-weight: 600;
+        }
+        
+        .sidebar .sidebar-title {
+            margin-bottom: 20px;
+        }
+        
+        .sidebar label {
+            display: flex;
+            justify-content: space-between;
+            cursor: pointer;
+        }
+        
+        .sidebar label span {
+            font-weight: 600;
+            font-family: "Crimson Text", serif;
+            color: #102c57;
+        }
+        
+        .sidebar label i {
+            font-size: 20px;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all .045s ease;
+        }
+        
+        .bx-chevron-down {
+            color: #102c57;
+        }
+        
+        .sidebar-content .accord ul.wapper li a {
+            font-family: "Crimson Text", serif;
+            opacity: .8;
+        }
+        
+        .sidebar .list-block ul {
+            padding-left: 15px;
+            margin-top: 20px;
+            height: 230px;
+        }
+        
+        .sidebar .list-block li {
+            list-style: none;
+            text-decoration: none;
+            color: #102c57;
+            cursor: pointer;
+        }
+        
+        .sidebar .widget input[type="checkbox"] {
+            display: none;
+        }
+        
+        .sidebar .widget .accord {
+            padding: 10px;
+            max-height: 0;
+            opacity: 0;
+            visibility: hidden;
+            transition: all .45s ease;
+        }
+        
+        .sidebar .widget input:checked~div {
+            max-height: 1000px;
+            opacity: 1;
+            visibility: visible;
+        }
+        
+        .sidebar .widget input:checked~label i {
+            transform: rotate(180deg);
+        }
+        
+        .sidebar-content {
+            margin-left: 30px;
+        }
+        
+        .heading h2 {
+            font-size: 32px;
+            text-align: center;
+            margin: 30px auto;
+            font-family: "Playfair Display", serif;
+            color: #102c57;
+            font-weight: 700;
+        }
+        
+        .sidebar-content .accord ul.wapper li a {
+            text-decoration: none;
+            color: inherit;
+        }
+        
+        .sidebar-content .accord.list-block.scrollto {
+            padding-bottom: 0;
+            padding-top: 0;
+        }
+        
+        .sidebar-content .accord.list-block.scrollto .initial {
+            margin-top: 0;
+        }
+        
+        .content {
+            margin-left: 20px;
+        }
+        
+        .grey-color {
+            color: #696969;
+        }
+        /*RIGHT*/
+        
+        .content {
+            display: grid;
+            grid-template-columns: 1fr 6fr;
+            /*(!!!)*/
+            gap: 60px;
+        }
+        
+        .category-content .button {
+            margin: 60px 0 100px;
+            text-align: center;
+        }
+        /*Product*/
+        
+        .listProduct {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            align-items: center;
+            text-align: center;
+            justify-content: center;
+            padding: 35px;
+            padding-left: 20px;
+        }
+        
+        .listProduct .item {
+            background-color: transparent;
+            padding: 10px;
+            border-radius: 15px;
+            width: 300px;
+            height: 350px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .listProduct .item:hover {
+            transform: translateY(-5px);
+            cursor: pointer;
+            transition: all .45s ease;
+        }
+        
+        .listProduct .item img {
+            width: 80%;
+            height: auto;
+            filter: drop-shadow(0 10px 15px #0009);
+            padding-bottom: 10px;
+        }
+        
+        .listProduct .item h4 {
+            font-weight: 700;
+            font-size: 18px;
+            margin: 10px;
+            font-family: "Crimson Text", serif;
+            color: #102c57;
+        }
+        
+        .listProduct .item .price {
+            font-size: small;
+            font-family: "Inika", serif;
+            color: 45413E;
+            font-weight: 600;
+            font-size: 14px;
+        }
+        
+        .listProduct .item button {
+            background-color: #102c57;
+            color: #f8f0e5;
+            padding: 12px 10px;
+            border-radius: 20px;
+            border: none;
+            cursor: pointer;
+            margin-top: 10px;
+            width: 100%;
+            box-sizing: border-box;
+            font-weight: 600;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        .listProduct .item button:hover {
+            background: #D8A25A;
+            transition: all .45s ease;
+        }
+        
+        .listProduct .item a {
+            text-decoration: none;
+            color: inherit;
+            display: block;
+            width: 100%;
+            height: 100%;
+            box-sizing: border-box;
+        }
+        
+        .button button {
+            border-width: 0;
+            margin-right: 75px;
+        }
+        
+        .more-btn {
+            padding: 15px 20px;
+            background-color: #102c57;
+            border-radius: 20px;
+        }
+        
+        a.more-btn {
+            text-decoration: none;
+            color: #f8f0e5;
+            font-weight: 600;
+            font-size: 14px;
+            cursor: pointer;
+            font-family: "Poppins", sans-serif;
+        }
+        
+        a.more-btn:hover {
+            background: #D8A25A;
+            transition: all .45s ease;
+        }
