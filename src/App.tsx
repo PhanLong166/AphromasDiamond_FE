@@ -14,18 +14,46 @@ const App = () => {
 
   return (
     <>
-      <Headers/>
       <Routes>
-        <Route path='/' element={<Home/>}/>
-        <Route path='/admin' element={<Admin/>}/>
-        <Route path='/customer' element={<Customer/>}/>
-        <Route path='/login' element={<Login/>}/>
-        <Route path='/all' element={<AllProduct/>}/>
-        <Route path='/product' element={<Product/>}/>
-        <Route path='/details' element={<ProductDetails/>}/>
-        <Route path="/orderAdmin" element={<OrderAdmin/>}/>
+        <Route path='/' element={
+          <>
+            <Headers />
+            <Home />
+            <Footer />
+          </>
+        } />
+        <Route path='/admin' element={<Admin />} />
+        <Route path='/customer' element={
+          <>
+            <Headers />
+            <Customer />
+            <Footer />
+          </>
+        } />
+        <Route path='/login' element={<Login />} />
+        <Route path='/all' element={
+          <>
+            <Headers/>
+            <AllProduct />
+            <Footer/>
+          </>
+        } />
+        <Route path='/product' element={
+          <>
+            <Headers/>
+            <Product />
+            <Footer />
+          </>
+        } />
+        <Route path='/details' element={
+          <>
+            <Headers/>
+            <ProductDetails />
+            <Footer/>
+          </>
+        } />
+        <Route path="/orderAdmin" element={<OrderAdmin />} />
       </Routes>
-      <Footer/>
     </>
   )
 }

@@ -52,7 +52,7 @@ const Product: React.FC = () => {
         {Array.from({ length: 8 }).map((_, index) => (
           <ProductItem key={index}>
             <a href="/ProductDetailsPage/Main/details.html">
-              <ProductImage src={`/ProductPage/Image/product${index % 6 + 1}.png`} alt="" />
+              <ProductImage src={`./ProductPage/Image/product${index % 6 + 1}.png`} alt="" />
             </a>
             <a href="/ProductDetailsPage/Main/details.html">
               <ItemName>Petite Pavé Leaf Halo Diamond Engagement Ring</ItemName>
