@@ -57,32 +57,6 @@ export const SBContent = styled.div `
     
 `;
 
-// export const ActiveLive = styled.div `
-//     width: 3px;
-//     height: 32px;
-//     border-radius: 0px 15px 15px 0px;
-//     background-color: ${theme.color.primary};
-//     left: 0px;
-// `;
-
-// export const Active = styled.div `
-//     background-color: ${theme.color.primary};
-//     color: ${theme.color.forth};
-//     border-radius: 16px;
-//     margin: 0px 19px 0px 16px;
-//     width: 100%;
-// `;
-
-// export const MenuElement_Active = styled.div `
-//     display: flex;
-//     align-items: center;
-//     padding: 0px 0px 0px 31px;
-
-//     ProductOutlined {
-//         padding-right: 15px;
-//     }
-// `;
-
 export const MenuElement = styled.div `
     display: flex;
     align-items: center;
@@ -108,12 +82,26 @@ export const AccOut = styled.div `
     white-space: nowrap;
     align-items: flex-end;
     margin-top: 222px;
+
+    .anticon {
+        color: red;
+        font-size: 27px;
+    }
+    .anticon:hover {
+        cursor: pointer;
+    }
 `;
 
 export const Account = styled.div `
     display: flex;
     align-items: center;
+    .anticon {
+        
+        margin-right: 7px;
+        color: ${theme.color.primary};
+    }
 `;
+
 
 export const AccInfor = styled.div `
     display: inline-block;
@@ -133,5 +121,9 @@ export const AccInfor = styled.div `
         font-size: 10px;
         width: max-content;
         padding: 2px 4px 2px 4px;
+    }
+
+    p{
+        margin: 0px 0px 0px 0px;
     }
 `;

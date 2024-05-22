@@ -1,64 +1,70 @@
-import * as Styled from './Order.styled';
+import * as Styled from './Confirmed.styled';
 import { Link } from 'react-router-dom';
-import { 
-    SearchOutlined, UpOutlined, FilterOutlined, 
+import { SearchOutlined, FilterOutlined, 
     ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
-import Sidebar from '../../components/Admin/Sidebar/Sidebar';
+import { DownOutlined } from '@ant-design/icons';
+import type { MenuProps } from 'antd';
+import { Dropdown, Space } from 'antd';
+import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
+import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
     
-    const Order = () => {
+    const ConfirmedOrder = () => {
+        const items: MenuProps['items'] = [
+            {
+              label: <a href="/" style={{  }}>Soonest</a>,
+              key: '0',
+            },
+            {
+              label: <a href="/">Latest</a>,
+              key: '1',
+            },
+            // {
+            //   type: 'divider',
+            // },
+            {
+              label: <a href="/">Low to High</a>,
+              key: '2',
+            },
+            {
+                label: <a href="/">High to Low</a>,
+                key: '3',
+            }
+        ];
+
         return(
             <>
-                <Styled.OrderAdmin>
-                    <div className="dashboardArea">
+                <Styled.OrderAdminArea>
                         <Sidebar/>
                         
+                        <Styled.AdminPage>
+                            <OrderMenu/>
 
-                        <div className="dashboard">
-                            <div className="titlePage">
-                                <h1>Order Management</h1>
-                                <p>View and manage Orders</p>
-                            </div>
-                            <div className="orderCatalog">
-                                <div className="orderCatalog_ele">
-                                    <div className="adMenu_active-line"></div>
-                                    <h3>Pending confirm</h3>
-                                </div>
-                                <div className="orderCatalog_ele">
-                                    <div className="adMenu_line"></div>
-                                    <h3>Confirmed</h3>
-                                </div>
-                                <div className="orderCatalog_ele">
-                                    <div className="adMenu_line"></div>
-                                    <h3>Delivering</h3>
-                                </div>
-                                <div className="orderCatalog_ele">
-                                    <div className="adMenu_line"></div>
-                                    <h3>Delivered</h3>
-                                </div>
-                                <div className="orderCatalog_ele">
-                                    <div className="adMenu_line"></div>
-                                    <h3>Cancelled</h3>
-                                </div>
-                            </div>
-                            <div className="orderContent">
-                                <div className="orderContent_header">
+                            <Styled.OrderContent>
+                                <Styled.OrderContent_Head>
                                     <h2>Pending confirm</h2>
-                                    <div className="orderContent_header-benefit">
-                                        <div  className="searchArea">
+                                    <Styled.OrderContent_HeadBenefit>
+                                        <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
                                             <SearchOutlined />
-                                        </div>
+                                        </Styled.SearchArea>
                                         <button>
-                                            Sort by
-                                            <UpOutlined />
+                                            <Dropdown menu={{ items }} trigger={['click']}>
+                                                <a onClick={(e) => e.preventDefault()}>
+                                                <Space>
+                                                    Sort by
+                                                    <DownOutlined />
+                                                </Space>
+                                                </a>
+                                            </Dropdown>
                                         </button>
                                         <button>
                                             <FilterOutlined /> 
                                             Filters
                                         </button>
-                                    </div>
-                                </div>
-                                <div className="pendConfirm_table">
+                                    </Styled.OrderContent_HeadBenefit>
+                                </Styled.OrderContent_Head>
+
+                                <Styled.Pending_Table>
                                     <table>
                                         <tr>
                                             <th>No</th>
@@ -76,10 +82,10 @@ import Sidebar from '../../components/Admin/Sidebar/Sidebar';
                                             <td>Esther Eden</td>
                                             <td>$701</td>
                                             <td>
-                                                <button className="pendStatus">Pending
+                                                <button className="pendStatus">Confirmed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Confirm
+                                            <td><button className="confirmBtn">Transfer
                                                 </button>
                                             </td>
                                         </tr>
@@ -90,10 +96,10 @@ import Sidebar from '../../components/Admin/Sidebar/Sidebar';
                                             <td>Esther Eden</td>
                                             <td>$701</td>
                                             <td>
-                                                <button className="pendStatus">Pending
+                                                <button className="pendStatus">Confirmed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Confirm
+                                            <td><button className="confirmBtn">Transfer
                                                 </button>
                                             </td>
                                         </tr>
@@ -104,10 +110,10 @@ import Sidebar from '../../components/Admin/Sidebar/Sidebar';
                                             <td>Ajmal Abdul Rahiman</td>
                                             <td>$701</td>
                                             <td>
-                                                <button className="pendStatus">Pending
+                                                <button className="pendStatus">Confirmed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Confirm
+                                            <td><button className="confirmBtn">Transfer
                                                 </button>
                                             </td>
                                         </tr>
@@ -118,10 +124,10 @@ import Sidebar from '../../components/Admin/Sidebar/Sidebar';
                                             <td>Ajmal Abdul Rahiman</td>
                                             <td>$701</td>
                                             <td>
-                                                <button className="pendStatus">Pending
+                                                <button className="pendStatus">Confirmed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Confirm
+                                            <td><button className="confirmBtn">Transfer
                                                 </button>
                                             </td>
                                         </tr>
@@ -132,10 +138,10 @@ import Sidebar from '../../components/Admin/Sidebar/Sidebar';
                                             <td>Ajmal Abdul Rahiman</td>
                                             <td>$701</td>
                                             <td>
-                                                <button className="pendStatus">Pending
+                                                <button className="pendStatus">Confirmed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Confirm
+                                            <td><button className="confirmBtn">Transfer
                                                 </button>
                                             </td>
                                         </tr>
@@ -146,36 +152,36 @@ import Sidebar from '../../components/Admin/Sidebar/Sidebar';
                                             <td>Ajmal Abdul Rahiman</td>
                                             <td>$701</td>
                                             <td>
-                                                <button className="pendStatus">Pending
+                                                <button className="pendStatus">Confirmed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Confirm
+                                            <td><button className="confirmBtn">Transfer
                                                 </button>
                                             </td>
                                         </tr>
                                     </table>
-                                </div>
-                                <div className="pendConfirm_table-footer">
-                                    <div className="pageNum">
+                                </Styled.Pending_Table>
+                                
+                                <Styled.OrderContent_Foot>
+                                    <Styled.PageNum>
                                         <p className="nowPage">1</p>
                                         <p>of</p>
                                         <p className="lastPage">5</p>
-                                    </div>
-                                    <div className="movePage">
-                                        <button className="backArrow"/>
+                                    </Styled.PageNum>
+                                    <Styled.MovePage>
+                                        <button className="backArrow">
                                         <ArrowLeftOutlined />
-                                        {/* </button> */}
+                                        </button>
                                         <button className="nextArrow">
                                         <ArrowRightOutlined />
                                         </button>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </Styled.OrderAdmin> 
-                </>
+                                    </Styled.MovePage>
+                                </Styled.OrderContent_Foot>
+                            </Styled.OrderContent>
+                        </Styled.AdminPage>
+                    </Styled.OrderAdminArea> 
+            </>
     )
 };
 
-export default Order; 
+export default ConfirmedOrder; 

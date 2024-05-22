@@ -60,10 +60,9 @@ const Sidebar = () => {
                             <div className={active === 'Dashboard' ? 'active' : ''}>
                             <Styled.MenuElement>
                                 <ProductOutlined />
-                                <a href="/admin">
+                                <Link to="/admin">
                                     <p>Dashboard</p>
-                                </a>
-                                
+                                </Link>
                             </Styled.MenuElement>
                             </div>
                     </Styled.SBContent>
@@ -73,9 +72,9 @@ const Sidebar = () => {
                         <div className={active === 'Order' ? 'active' : ''}>
                             <Styled.MenuElement>
                                 <ShoppingCartOutlined />
-                                <a href="/orderAdmin">
+                                <Link to="/orderAdmin">
                                     <p>Order</p>
-                                </a>
+                                </Link>
                             </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -85,7 +84,9 @@ const Sidebar = () => {
                         <div className={active === 'Product' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <SketchOutlined />
-                            <p>Product</p>
+                            <Link to="/productAdmin">
+                                <p>Product</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -95,7 +96,9 @@ const Sidebar = () => {
                         <div className={active === 'Marketing' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <AudioOutlined />
-                            <p>Marketing</p>
+                            <Link to="/marketingAdmin">
+                                <p>Marketing</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -105,7 +108,9 @@ const Sidebar = () => {
                         <div className={active === 'ClientCaring' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <CommentOutlined />
-                            <p>Client Caring</p>
+                            <Link to="/client-caringAdmin">
+                                <p>Client Caring</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -115,7 +120,9 @@ const Sidebar = () => {
                         <div className={active === 'Customer' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <TeamOutlined />
-                            <p>Customer</p>
+                            <Link to="/customerAdmin">
+                                <p>Customer</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -125,7 +132,9 @@ const Sidebar = () => {
                         <div className={active === 'Staff' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <CustomerServiceOutlined />
-                            <p>Staff</p>
+                            <Link to="/staffAdmin">
+                                <p>Staff</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -135,7 +144,9 @@ const Sidebar = () => {
                         <div className={active === 'Manager' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <KeyOutlined />
-                            <p>Manager</p>
+                            <Link to="/managerAdmin">
+                                <p>Manager</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
@@ -145,7 +156,9 @@ const Sidebar = () => {
                         <div className={active === 'Theme' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <LayoutOutlined />
-                            <p>Theme</p>
+                            <Link to="/themeAdmin">
+                                <p>Theme</p>
+                            </Link>
                         </Styled.MenuElement>
                         </div>
                     </Styled.SBContent>
