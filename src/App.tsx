@@ -1,7 +1,7 @@
 import { Routes, Route } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Admin from './pages/Admin/Admin'
-import Order from './pages/Admin/Order'
+import OrderAdmin from './pages/Admin/Order'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
 import AllProduct from './pages/Home/AllProduct/AllProduct'
@@ -24,6 +24,7 @@ const App = () => {
         <Route path='/product' element={<Product/>}/>
         <Route path='/details' element={<ProductDetails/>}/>
         <Route path="/order" element={<Order/>}/>
+        <Route path="/orderAdmin" element={<OrderAdmin/>}/>
       </Routes>
       <Footer/>
     </>
