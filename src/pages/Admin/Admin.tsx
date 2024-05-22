@@ -1,11 +1,7 @@
 import * as Styled from './Admin.styled'
-// import OrderPage from './Order'
+import Sidebar from '../../components/Admin/Sidebar/Sidebar';
 import { Link } from 'react-router-dom';
-import { ProductOutlined, ShoppingCartOutlined,
-    SketchOutlined, AudioOutlined, CommentOutlined,
-    TeamOutlined, CustomerServiceOutlined, KeyOutlined,
-    LayoutOutlined, SmileOutlined, LogoutOutlined,
-    ArrowRightOutlined, SendOutlined} from '@ant-design/icons';
+import { ArrowRightOutlined, SendOutlined} from '@ant-design/icons';
 
 // import { IonIcon } from '@ionic/react'
 
@@ -58,72 +54,7 @@ const Admin = () => {
         <>
             <Styled.AdminContainer>            
                 <div className="dashboardArea">
-                    <div className="sidebar">
-                        <div className="logo">
-                            <h2>LOGO</h2>
-                        </div>
-                        <div className="sidebar_menu">
-                            <div className="sidebar_content">
-                                <div className="active-line"></div>
-                                <div className="active">
-                                    <div className="menuElement-active">
-                                    <ProductOutlined />
-                                    <a href="/admin">
-                                        <p>Dashboard</p>
-                                    </a>
-                                    </div>
-                                </div>
-                            </div>
-                            <div className="menuElement">
-                                <ShoppingCartOutlined />
-                                {/* <a href="./Order.tsx">
-                                    <p>Order</p>
-                                </a> */}
-                                <Link to="/order">
-                                    <p>Order</p>
-                                </Link>
-                            </div>
-                            <div className="menuElement">
-                                <SketchOutlined />
-                                <p>Product</p>
-                            </div>
-                            <div className="menuElement">
-                                <AudioOutlined />
-                                <p>Marketing</p>
-                            </div>
-                            <div className="menuElement">
-                                <CommentOutlined />
-                                <p>Client Caring</p>
-                            </div>
-                            <div className="menuElement">
-                                <TeamOutlined />
-                                <p>Customer</p>
-                            </div>
-                            <div className="menuElement">
-                                <CustomerServiceOutlined />
-                                <p>Staff</p>
-                            </div>
-                            <div className="menuElement">
-                                <KeyOutlined />
-                                <p>Manager</p>
-                            </div>
-                            <div className="menuElement">
-                                <LayoutOutlined />
-                                <p>Theme</p>
-                            </div>
-                        </div>
-                        <div className="accOut">
-                            <div className="accInfor">
-                                <SmileOutlined />
-                                <div className="accInfor_name-role">
-                                    <p className="accInfor_name">Trang.admin</p>
-                                    <p className="accOut_role">Admin</p>
-                                </div>
-                            </div>
-                            <LogoutOutlined />
-                        </div>
-                    </div>
-
+                <Sidebar/>
 
                     <div className="dashboard">
                         <div className="titlePage">
