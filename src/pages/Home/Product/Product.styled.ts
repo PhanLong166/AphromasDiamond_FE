@@ -2,6 +2,10 @@ import { createGlobalStyle } from 'styled-components';
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=Crimson+Text:ital,wght@0,400;0,600;0,700;1,400;1,600;1,700&family=Inika:wght@400;700&family=Playfair+Display:ital,wght@0,400..900;1,400..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
   body {
     font-family: 'Great Vibes', cursive;
@@ -57,15 +61,15 @@ export const LeftSection = styled.div`
     cursor: pointer;
     font-size: 14px;
     align-self: center;
-    margin-left: 180px;
+    margin-left: 205px;
     font-family: "Poppins", sans-serif;
     margin-top: 10px;
+    font-weight: 500;
 
     &:hover {
       background-color: #d8a25a;
-      color: #45413e;
-     
-      transition: all 0.45s ease;
+      color: #fff;
+      transition: all 0.6s ease;
     }
   }
 `;
@@ -79,17 +83,15 @@ export const RightSection = styled.div`
   }
 `;
 
-export const ProductList = styled.section`
-  padding: 20px;
-  margin: 20px auto;
-  display: grid;
-  grid-template-columns: repeat(4, 1fr);
-  gap: 40px;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  padding: 35px;
-  padding-top: 0;
+export const ListProduct = styled.div`
+display: grid;
+grid-template-columns: repeat(4, 1fr);
+gap: 30px;
+align-items: center;
+text-align: center;
+justify-content: center;
+padding: 35px;
+padding-left: 55px;
 `;
 
 export const ProductItem = styled.div`
@@ -145,8 +147,8 @@ export const ProductImage = styled.img`
 
 export const ItemName = styled.p`
   color: #102c57;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   font-family: "Crimson Text", serif;
 `;
 
@@ -155,7 +157,7 @@ export const Price = styled.p`
     font-family: "Inika", serif;
     color: 45413E;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
 `;
 
 export const AddCartButton = styled.button`
@@ -168,8 +170,8 @@ export const AddCartButton = styled.button`
     margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
+   
+    
     
     &:hover {
         background: #D8A25A;
@@ -180,15 +182,17 @@ export const AddCartButton = styled.button`
 
 export const AddLink = styled.a`
     text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
 `;
 
 export const CustomCard = styled.div`
   background-color: #eadbc8;
-  width: 90%;
-  margin-left: 16px;
-  height: 103%;
-  margin-top: 48px;
+  width: 83%;
+  margin-left: 10px;
+  height: 97%;
   border-radius: 30px;
+  margin-bottom: 8px;
 `;
 
 export const CustomCardContent = styled.div`
@@ -196,14 +200,15 @@ export const CustomCardContent = styled.div`
   justify-content: center;
   text-align: center;
   align-items: center;
-  padding-top: 100px;
+  padding-top: 120px;
+  font-family: "Crimson Text", sans-serif;
 `;
 
 export const CustomCardTitle = styled.h6`
-  font-size: 17px;
+  font-size: 15px;
   margin-bottom: 30px;
   font-family: "Crimson Text", sans-serif;
-  color: #102c57;
+  color: #45413e;
   font-weight: 500;
 `;
 
@@ -213,14 +218,14 @@ export const CustomButton = styled.button`
   color: #f8f0e5;
   background-color: #102c57;
   border-radius: 20px;
-  font-size: 14px;
-  font-weight: 500;
+  font-size: 13px;
   font-family: "Poppins", sans-serif;
   border-color: transparent;
 
   a {
     text-decoration: none;
     color: inherit;
+    font-weight: 600;
   }
 
   &:hover {
@@ -231,27 +236,37 @@ export const CustomButton = styled.button`
 
 export const FAQs = styled.section`
   display: flex;
+  margin-left: 100px;
+  margin-top: 50px;
+
 `;
 
 
 export const LeftFAQ = styled.div`
-  width: 30%;
+  width: 40%;
   padding-right: 20px;
   padding-top: 20px;
+  h2{
+    font-size: 30px;
+    font-family: "Playfair Display", sans-serif;
+    color: #102c57;
+  }
 `;
 
 export const Wrapper = styled.div`
-  max-width: 100%;
-  margin: auto;
+  max-width: 50%;
+  margin-left: 0;
+
+  
 `;
 
 export const Accordion = styled.button`
   background-color: #f8f0e5;
   color: #102c57;
   cursor: pointer;
-  font-size: 18px;
+  font-size: 16px;
   width: 100%;
-  padding: 2rem 2.5rem;
+  padding: 20px 30px;
   border: none;
   outline: none;
   transition: 0.4s;
@@ -260,6 +275,8 @@ export const Accordion = styled.button`
   align-items: center;
   font-family: "Crimson Text", sans-serif;
   font-weight: 600;
+
+
 
   i {
     font-size: 1.6rem;
@@ -273,10 +290,17 @@ export const Accordion = styled.button`
 export const Panel = styled.div`
   padding: 0 18px;
   color: #45413e;
-  display: none;
   background-color: #f8f0e5;
   padding: 0 2rem 2.5rem 2rem;
   overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease-out, visibility 0.4s ease-out;
+  visibility: hidden;
+
+  &.active {
+    max-height: 500px; 
+    visibility: visible;
+  }
 
   p {
     color: rgba(0, 0, 0, 0.7);
@@ -287,9 +311,11 @@ export const Panel = styled.div`
 `;
 
 export const FAQ = styled.div`
-  margin: 10px 0;
+  margin: 10px 80px;
+  
 
   &.active {
     border: none;
+    width: 50%;
   }
 `;
