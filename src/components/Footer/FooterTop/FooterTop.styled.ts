@@ -12,7 +12,7 @@ export const TopContainer = styled.div`
 export const TopFlexbox = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 1440px;
+    width: 1600px;
     padding: 20px;
 `;
 
@@ -41,9 +41,22 @@ export const SNSContainer = styled.div`
 
 export const CategoryContainer = styled.div`
     display: flex;
-    gap: 20px;
+    gap: 50px;
 `;
 
 export const NavigationTitle = styled.div`
+`;
 
+export const FooterElement = styled.div`
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    height: 300px;
+    gap: 20px;
+    margin-top: 20px;
+`;
+
+export const NavElement = styled.p`
+    font-family: "Crimson Text", serif;
+    color: gray;
 `;
