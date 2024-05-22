@@ -39,7 +39,7 @@ export const SidebarContent = styled.div`
 `;
 
 export const SidebarTitle = styled.div`
-  font-size: 26px;
+  font-size: 24px;
   font-family: "Crimson Text", serif;
   color: #102c57;
   font-weight: 600;
@@ -62,6 +62,7 @@ export const Summary = styled.div`
       font-weight: 600;
       font-family: "Crimson Text", serif;
       color: #102c57;
+      font-size: 18px;
     }
 
     i {
@@ -108,6 +109,7 @@ export const Wapper = styled.ul`
     text-decoration: none;
     color: #102c57;
     cursor: pointer;
+    font-size: 17px;
 
     a {
       font-family: "Crimson Text", serif;
@@ -134,7 +136,11 @@ export const Sorter = styled.div`
   }
 `;
 
-export const Left = styled.div``;
+export const Left = styled.div`
+  font-size: 16px;
+  font-family: "Crimson Text", serif;
+
+`;
 
 export const ProductSection = styled.section``;
 
@@ -202,8 +208,8 @@ export const ProductImage = styled.img`
 
 export const ItemName = styled.p`
   color: #102c57;
-  font-size: 18px;
-  font-weight: 500;
+  font-size: 17px;
+  font-weight: 600;
   font-family: "Crimson Text", serif;
 `;
 
@@ -212,7 +218,7 @@ export const Price = styled.p`
     font-family: "Inika", serif;
     color: 45413E;
     font-weight: 600;
-    font-size: 14px;
+    font-size: 16px;
 `;
 
 export const AddCartButton = styled.button`
@@ -225,8 +231,8 @@ export const AddCartButton = styled.button`
     margin-top: 10px;
     width: 100%;
     box-sizing: border-box;
-    font-weight: 600;
-    font-family: "Poppins", sans-serif;
+   
+    
     
     &:hover {
         background: #D8A25A;
@@ -237,6 +243,8 @@ export const AddCartButton = styled.button`
 
 export const AddLink = styled.a`
     text-decoration: none;
+    font-family: "Poppins", sans-serif;
+    font-weight: 600;
 `;
 
 export const MoreButton = styled.button`
