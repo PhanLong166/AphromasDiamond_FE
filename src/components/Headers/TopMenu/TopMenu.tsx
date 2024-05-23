@@ -24,7 +24,7 @@ const TopMenu = () => {
                             allowClear
                         />
                         <ShoppingCartOutlined />
-                        <Link to="/customer">
+                        <Link to="/login">
                             <SmileOutlined />
                         </Link>
                     </Styled.Feature>

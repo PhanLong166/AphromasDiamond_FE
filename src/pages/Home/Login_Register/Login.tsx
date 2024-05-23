@@ -26,7 +26,7 @@ const Login: React.FC = () => {
       <GlobalStyle />
       <CornerButton>
         <IconItem>
-          <IconLink href=''>
+          <IconLink href='/'>
             <a><HomeFilled style={{ marginLeft: '23px', marginTop:'20px'}}/> </a>
          </IconLink>
         </IconItem>
