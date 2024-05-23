@@ -57,6 +57,7 @@ const App = () => {
           </>
         } />
         <Route path="/orderAdmin" element={<OrderAdmin />} />
+        <Route path="/productAdmin" element={<ProductAdmin/>}/>
       </Routes>
     </>
   )
