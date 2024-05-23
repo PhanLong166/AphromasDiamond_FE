@@ -81,7 +81,7 @@ import {
 
     const categories = [
         {
-            href: '#',
+            href: '/product',
             imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578',
             title: 'Rings'
         },
