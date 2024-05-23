@@ -1,7 +1,6 @@
 import * as Styled from './Order.styled';
 import { Link } from 'react-router-dom';
-import { 
-    SearchOutlined, UpOutlined, FilterOutlined, 
+import { SearchOutlined, UpOutlined, FilterOutlined, 
     ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';

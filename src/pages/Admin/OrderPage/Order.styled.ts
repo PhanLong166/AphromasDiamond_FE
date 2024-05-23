@@ -1,4 +1,6 @@
 import styled from "styled-components";
+import { theme } from "../../../themes";
+
 
 export const OrderAdminArea = styled.section`
 // body {
@@ -35,7 +37,7 @@ export const AdminPage = styled.section`
 
 export const OrderContent = styled.section`
     width: 100%;
-    background-color: #FFF7E8;
+    background-color: ${theme.color.fifth};
     border-radius: 16px;
     padding-bottom: 30px;
 `;
@@ -61,7 +63,7 @@ export const OrderContent_HeadBenefit = styled.section`
     button {
         height: 55px;
         width: 139px;
-        background-color: #FFF7E8;
+        background-color: ${theme.color.fifth};
         border-radius: 16px;
         border: none;
         display: flex;
@@ -96,7 +98,7 @@ export const SearchArea = styled.section`
         width: 90%;
         font-size: 20px;
         padding-left: 10px;
-        background-color: #FFF7E8;
+        background-color: ${theme.color.fifth};
         height: 55px;
         border:none;
         border-radius: 16px 0px 0px 16px;
@@ -106,9 +108,9 @@ export const SearchArea = styled.section`
     .anticon {
         font-size: 23px;
         color: #102C57;
-        background-color: #FFF7E8;
+        background-color: ${theme.color.fifth};
         height: 55px;
-        border: 1px solid #FFF7E8;
+        border: 1px solid ${theme.color.fifth};
         padding: 0px 20px 0px 20px;
         border-radius: 0px 16px 16px 0px;
     }
@@ -128,10 +130,18 @@ export const Pending_Table = styled.section`
     td {
         padding: 8px;
         text-align: left;
-        /* border-bottom: 1px solid #DDD; */
+        font-size: 16px;
+        color: ${theme.color.primary};
     }
     th {
         color: #783232;
+        font-size: 20px;
+    }
+    tr .TextAlign{
+        text-align: center;
+    }
+    td .anticon:hover {
+        cursor: pointer;
     }
     .pendStatus {
         background-color: #F8E7EE;
@@ -183,7 +193,7 @@ export const MovePage = styled.section`
     button {
         width:40px;
         height: 40px;
-        background-color: #FFF7E8;
+        background-color: ${theme.color.fifth};
         border-radius: 12px;
         border: none;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);

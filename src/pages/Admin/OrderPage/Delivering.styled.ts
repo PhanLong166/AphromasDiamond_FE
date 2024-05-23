@@ -44,14 +44,14 @@ export const OrderContent_Head = styled.section`
         margin: 0px 0px 0px 0px;
         padding: 39px 0px 27px;
         font-size: 24px;
-        color: #102C57;
+        color: ${theme.color.primary};
     }
 `;
 
 export const OrderContent_HeadBenefit = styled.section`
     display: flex;
     justify-content: space-between;
-    background-color: #EADBC8;
+    background-color: ${theme.color.third};
     padding: 20px 60px 20px 60px;
     border-radius: 16px;
 
@@ -65,7 +65,7 @@ export const OrderContent_HeadBenefit = styled.section`
         justify-content: space-evenly;
         align-items: center;
         font-size: 16px;
-        color: #102C57;
+        color: ${theme.color.primary};
         font-weight: 600;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     }
@@ -93,11 +93,11 @@ export const SearchArea = styled.section`
         border:none;
         border-radius: 16px 0px 0px 16px;
         padding-right: 20px;
-        color:#102C57;
+        color:${theme.color.primary};
     }
     .anticon {
         font-size: 23px;
-        color: #102C57;
+        color: ${theme.color.primary};
         background-color: ${theme.color.fifth};
         height: 55px;
         border: 1px solid ${theme.color.fifth};
@@ -134,11 +134,11 @@ export const Pending_Table = styled.section`
         cursor: pointer;
     }
     .pendStatus {
-        background-color: #F9F2B2;
+        background-color: #D2EEFF;
         border-radius: 100px;
         padding: 5px 10px 5px 10px;
         font-size: 12px;
-        color: #B7751E;
+        color: ${theme.color.primary};
         border: none;
     }
     .confirmBtn {
@@ -159,7 +159,7 @@ export const OrderContent_Foot = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #EADBC8;
+    background-color: ${theme.color.third};
     padding: 12px 60px 12px 60px;
     border-radius: 16px;
     margin: 39px 40px 0px 40px;
@@ -175,7 +175,7 @@ export const PageNum = styled.section`
     }
 
     .nowPage {
-        color:#102C57;
+        color:${theme.color.primary};
     }
 `;
 
@@ -201,7 +201,7 @@ export const MovePage = styled.section`
         color: #92929D;
     }
     .nextArrow .anticon {
-        color:#102C57;
+        color:${theme.color.primary};
     }
 `;
 
