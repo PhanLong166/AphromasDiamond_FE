@@ -12,15 +12,18 @@ const ProductMenu = () => {
                 setActive('Diamond');
                 break;
             case '/productAdmin/ringShell':
-                setActive('Shell');
+                setActive('RingShell');
                 break;
-            case '/delivering-order':
+            case '/productAdmin/ring':
+                setActive('Ring');
+                break;
+            case '/productAdmin/jewelry':
                 setActive('Jewelry');
                 break;
-            case '/completed-order':
+            case '/productAdmin/jewelryType':
                 setActive('JewelryType');
                 break;
-            case '/cancelled-order':
+            case '/productAdmin/material':
                 setActive('Material');
                 break;
             default:
@@ -47,8 +50,8 @@ const ProductMenu = () => {
                                         <h3>Diamond</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'Shell' ? 'active' : ''}>
-                                    <div className={`btn ${active === 'Shell' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Shell')}></div>
+                                <Styled.OrderCatalog_Ele className={active === 'RingShell' ? 'active' : ''}>
+                                    <div className={`btn ${active === 'RingShell' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('RingShell')}></div>
                                     <Link to="/productAdmin/ringShell">
                                         <h3>Ring Shell</h3>
                                     </Link>

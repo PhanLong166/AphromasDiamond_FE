@@ -7,6 +7,7 @@ import DeliveringOrder from './pages/Admin/OrderPage/Delivering'
 import CompletedOrder from './pages/Admin/OrderPage/Completed'
 import CancelledOrder from './pages/Admin/OrderPage/Cancelled'
 import ProductAdmin from './pages/Admin/ProductPage/Product'
+import RingShell from './pages/Admin/ProductPage/RingShell'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
 import AllProduct from './pages/Home/AllProduct/AllProduct'
@@ -66,6 +67,7 @@ const App = () => {
         <Route path="/orderAdmin/cancelled" element={<CancelledOrder />} />
 
         <Route path="/productAdmin" element={<ProductAdmin />} />
+        <Route path="/productAdmin/ringShell" element={<RingShell />} />
       </Routes>
     </>
   )
