@@ -14,14 +14,14 @@ const OrderMenu = () => {
             case '/orderAdmin/confirmed':
                 setActive('Confirmed');
                 break;
-            case '/delivering-order':
-                setActive('Product');
+            case '/orderAdmin/delivering':
+                setActive('Delivering');
                 break;
-            case '/completed-order':
-                setActive('Marketing');
+            case '/orderAdmin/completed':
+                setActive('Completed');
                 break;
-            case '/cancelled-order':
-                setActive('ClientCaring');
+            case '/orderAdmin/cancelled':
+                setActive('Cancelled');
                 break;
             default:
                 setActive('');
@@ -56,15 +56,21 @@ const OrderMenu = () => {
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Delivering' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Delivering' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Delivering')}></div>
-                                    <h3>Delivering</h3>
+                                    <Link to="/orderAdmin/delivering">
+                                        <h3>Delivering</h3>
+                                    </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Completed' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Completed' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Completed')}></div>
-                                    <h3>Completed</h3>
+                                    <Link to="/orderAdmin/completed">
+                                        <h3>Completed</h3>
+                                    </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Cancelled' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Cancelled' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Cancelled')}></div>
-                                    <h3>Cancelled</h3>
+                                    <Link to="/orderAdmin/cancelled">
+                                        <h3>Cancelled</h3>
+                                    </Link>
                                 </Styled.OrderCatalog_Ele>
                             </Styled.OrderCatalog>
                             {/* </Styled.OrderMenu>  */}

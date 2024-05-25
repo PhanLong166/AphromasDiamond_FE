@@ -1,6 +1,6 @@
-import * as Styled from './Confirmed.styled';
+import * as Styled from './Completed.styled';
 import { Link } from 'react-router-dom';
-import { SearchOutlined, FilterOutlined, 
+import { SearchOutlined, FilterOutlined, EyeOutlined,
     ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
 import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
@@ -8,7 +8,7 @@ import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
     
-    const ConfirmedOrder = () => {
+    const CompletedOrder = () => {
         const items: MenuProps['items'] = [
             {
               label: <a href="/" style={{  }}>Soonest</a>,
@@ -41,7 +41,7 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
 
                             <Styled.OrderContent>
                                 <Styled.OrderContent_Head>
-                                    <h2>Confirmed</h2>
+                                    <h2>Completed</h2>
                                     <Styled.OrderContent_HeadBenefit>
                                         <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
@@ -71,22 +71,22 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                             <th>ID Order</th>
                                             <th>Date</th>
                                             <th>Customer</th>
-                                            <th>Total</th>
+                                            <th>Delivery Staff</th>
                                             <th>Status</th>
-                                            <th>Confirm</th>
+                                            <th className='TextAlign'>Invoice</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
                                             <td>2 Jan 2023</td>
                                             <td>Esther Eden</td>
-                                            <td>$701</td>
+                                            <td>Ajmal Abdul Rahiman</td>
                                             <td>
-                                                <button className="pendStatus">Confirmed
+                                                <button className="pendStatus">Completed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Transfer
-                                                </button>
+                                            <td className='TextAlign'>
+                                                <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
@@ -94,13 +94,13 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                             <td>#12345124</td>
                                             <td>3 Jan 2023</td>
                                             <td>Esther Eden</td>
-                                            <td>$701</td>
+                                            <td>Ajmal Abdul Rahiman</td>
                                             <td>
-                                                <button className="pendStatus">Confirmed
+                                                <button className="pendStatus">Completed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Transfer
-                                                </button>
+                                            <td className='TextAlign'>
+                                                <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
@@ -108,13 +108,13 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                             <td>#12345125</td>
                                             <td>4 Jan 2023</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>$701</td>
+                                            <td>Ajmal Abdul Rahiman</td>
                                             <td>
-                                                <button className="pendStatus">Confirmed
+                                                <button className="pendStatus">Completed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Transfer
-                                                </button>
+                                            <td className='TextAlign'>
+                                                <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
@@ -122,13 +122,13 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                             <td>#12345126</td>
                                             <td>5 Jan 2023</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>$701</td>
+                                            <td>Ajmal Abdul Rahiman</td>
                                             <td>
-                                                <button className="pendStatus">Confirmed
+                                                <button className="pendStatus">Completed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Transfer
-                                                </button>
+                                            <td className='TextAlign'>
+                                                <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
@@ -136,13 +136,13 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                             <td>#12345127</td>
                                             <td>6 Jan 2023</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>$701</td>
+                                            <td>Ajmal Abdul Rahiman</td>
                                             <td>
-                                                <button className="pendStatus">Confirmed
+                                                <button className="pendStatus">Completed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Transfer
-                                                </button>
+                                            <td className='TextAlign'>
+                                                <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
@@ -150,13 +150,13 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                             <td>#12345128</td>
                                             <td>7 Jan 2023</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>$701</td>
+                                            <td>Ajmal Abdul Rahiman</td>
                                             <td>
-                                                <button className="pendStatus">Confirmed
+                                                <button className="pendStatus">Completed
                                                 </button>
                                             </td>
-                                            <td><button className="confirmBtn">Transfer
-                                                </button>
+                                            <td className='TextAlign'>
+                                                <EyeOutlined />
                                             </td>
                                         </tr>
                                     </table>
@@ -184,4 +184,4 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
     )
 };
 
-export default ConfirmedOrder; 
+export default CompletedOrder; 

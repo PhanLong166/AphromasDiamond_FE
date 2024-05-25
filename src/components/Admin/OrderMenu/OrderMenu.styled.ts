@@ -22,7 +22,7 @@ export const TitlePage = styled.div `
 
 export const OrderCatalog = styled.div `
     height: 100px;
-    background-color: ${theme.color.forth};
+    background-color: ${theme.color.fifth};
     border-radius: 16px;
     display: flex;
     color: ${theme.color.primary};
@@ -50,7 +50,7 @@ export const OrderCatalog_Ele = styled.div `
     }
 
     .adMenu_line {
-        background-color: ${theme.color.forth};
+        background-color: ${theme.color.fifth};
         border-radius: 0px 0px 16px 16px;
         height: fit-content;
         height: 4px;

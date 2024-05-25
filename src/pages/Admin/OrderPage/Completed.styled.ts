@@ -10,13 +10,9 @@ export const OrderAdminArea = styled.section`
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
-    /* height: 100%; */
+    // height: 100%; 
     width: 100%;
-
-    .custom-dropdown .ant-dropdown-menu {
-        background-color: red; /* Màu nền */
-        border: 1px solid #ccc; /* Viền */
-      }
+    padding-bottom: 20px;
 
 `;
 
@@ -49,14 +45,14 @@ export const OrderContent_Head = styled.section`
         margin: 0px 0px 0px 0px;
         padding: 39px 0px 27px;
         font-size: 24px;
-        color: #102C57;
+        color: ${theme.color.primary};
     }
 `;
 
 export const OrderContent_HeadBenefit = styled.section`
     display: flex;
     justify-content: space-between;
-    background-color: #EADBC8;
+    background-color: ${theme.color.third};
     padding: 20px 60px 20px 60px;
     border-radius: 16px;
 
@@ -70,7 +66,7 @@ export const OrderContent_HeadBenefit = styled.section`
         justify-content: space-evenly;
         align-items: center;
         font-size: 16px;
-        color: #102C57;
+        color: ${theme.color.primary};
         font-weight: 600;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     }
@@ -82,11 +78,6 @@ export const OrderContent_HeadBenefit = styled.section`
     button .anticon {
         font-size: 18px;
     }
-
-    .custom-dropdown .ant-dropdown-menu {
-        background-color: red; /* Màu nền */
-        border: 1px solid #ccc; /* Viền */
-      }
 `;
 
 export const SearchArea = styled.section`
@@ -103,11 +94,11 @@ export const SearchArea = styled.section`
         border:none;
         border-radius: 16px 0px 0px 16px;
         padding-right: 20px;
-        color:#102C57;
+        color:${theme.color.primary};
     }
     .anticon {
         font-size: 23px;
-        color: #102C57;
+        color: ${theme.color.primary};
         background-color: ${theme.color.fifth};
         height: 55px;
         border: 1px solid ${theme.color.fifth};
@@ -144,21 +135,21 @@ export const Pending_Table = styled.section`
         cursor: pointer;
     }
     .pendStatus {
-        background-color: #F8E7EE;
+        background-color: #C7FCC2;
         border-radius: 100px;
         padding: 5px 10px 5px 10px;
         font-size: 12px;
-        color: #CD486B;
+        color: #2D6528;
         border: none;
     }
     .confirmBtn {
-        background-color: #CD486B;
+        background-color: #B7751E;
         border-radius: 100px;
+        /* font-size: 12px; */
+        color: #F9F2B2;
+        border: none;
         padding: 7px 17px 7px 17px;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-        /* font-size: 12px; */
-        color: #F8E7EE;
-        border: none;
     }
     .confirmBtn:hover {
         cursor: pointer;
@@ -169,7 +160,7 @@ export const OrderContent_Foot = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #EADBC8;
+    background-color: ${theme.color.third};
     padding: 12px 60px 12px 60px;
     border-radius: 16px;
     margin: 39px 40px 0px 40px;
@@ -185,7 +176,7 @@ export const PageNum = styled.section`
     }
 
     .nowPage {
-        color:#102C57;
+        color:${theme.color.primary};
     }
 `;
 
@@ -211,7 +202,7 @@ export const MovePage = styled.section`
         color: #92929D;
     }
     .nextArrow .anticon {
-        color:#102C57;
+        color:${theme.color.primary};
     }
 `;
 

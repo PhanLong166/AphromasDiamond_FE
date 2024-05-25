@@ -3,6 +3,8 @@ import Home from './pages/Home/Home'
 import Admin from './pages/Admin/Admin'
 import OrderAdmin from './pages/Admin/OrderPage/Order'
 import ConfirmedOrder from './pages/Admin/OrderPage/Confirmed'
+import DeliveringOrder from './pages/Admin/OrderPage/Delivering'
+import CompletedOrder from './pages/Admin/OrderPage/Completed'
 import ProductAdmin from './pages/Admin/ProductPage/Product'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
@@ -57,7 +59,11 @@ const App = () => {
           </>
         } />
         <Route path="/orderAdmin" element={<OrderAdmin />} />
-        <Route path="/productAdmin" element={<ProductAdmin/>}/>
+        <Route path="/orderAdmin/confirmed" element={<ConfirmedOrder />} />
+        <Route path="/orderAdmin/delivering" element={<DeliveringOrder />} />
+        <Route path="/orderAdmin/completed" element={<CompletedOrder />} />
+
+        <Route path="/productAdmin" element={<ProductAdmin />} />
       </Routes>
     </>
   )
