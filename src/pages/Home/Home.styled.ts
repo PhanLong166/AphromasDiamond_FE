@@ -140,7 +140,7 @@ export const CateTitle = styled.p`
 
 export const LeftButtonWrapper = styled.div`
     position: absolute;
-    top: 117%;
+    top: 115%;
     transform: translateY(-50%);
     left: 198px;
     &:hover {
@@ -151,9 +151,9 @@ export const LeftButtonWrapper = styled.div`
 
 export const RightButtonWrapper = styled.div`
     position: relative;
-    top: 86%;
+    top: 85%;
     transform: translateY(-50%);
-    right: 72px;
+    right: 65px;
 
    
     
