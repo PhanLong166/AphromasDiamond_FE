@@ -142,7 +142,7 @@ export const Pending_Table = styled.section`
     }
     th,
     td {
-        padding: 8px;
+        padding: 8px 0px 8px 0px;
         text-align: left;
         font-size: 16px;
         color: ${theme.color.primary};
@@ -155,7 +155,7 @@ export const Pending_Table = styled.section`
         text-align: center;
     }
     tr .TextAlign input{
-        width: fit-content;
+        width: 80px;
     }
     td img {
         width: 77px;
@@ -167,29 +167,19 @@ export const Pending_Table = styled.section`
         padding: 5px;
         border: 1px solid ${theme.color.primary};
         border-radius: 5px;
+
+    }
+    td input:active{
+        border: none;
+    }
+    td .anticon {
+        font-size: 23px;
     }
     td .anticon:hover {
         cursor: pointer;
     }
-    .pendStatus {
-        background-color: #C7FCC2;
-        border-radius: 100px;
-        padding: 5px 10px 5px 10px;
-        font-size: 12px;
-        color: #2D6528;
-        border: none;
-    }
-    .confirmBtn {
-        background-color: #B7751E;
-        border-radius: 100px;
-        /* font-size: 12px; */
-        color: #F9F2B2;
-        border: none;
-        padding: 7px 17px 7px 17px;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    }
-    .confirmBtn:hover {
-        cursor: pointer;
+    .deleBtn {
+        color: red;
     }
 `;
 

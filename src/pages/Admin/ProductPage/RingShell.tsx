@@ -1,9 +1,10 @@
 import * as Styled from '../ProductPage/RingShell.styled';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
+    ArrowLeftOutlined, ArrowRightOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
+import { Select } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
 
@@ -29,6 +30,19 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                 key: '3',
             }
           ];
+
+          const shelltype: ShellTypeMenu['shelltype'] = [
+            { value: 'jack', label: 'Jack' },
+            { value: 'lucy', label: 'Lucy' },
+            { value: 'Yiminghe', label: 'yiminghe' },
+            { value: 'disabled', label: 'Disabled', disabled: true }
+          ];
+
+          const handleChange = (value: string) => {
+            console.log(`selected ${value}`);
+          };
+
+            
         return(
             <>
                 <Styled.ProductAdminArea>
@@ -76,11 +90,11 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <th>ID Diamond</th>
                                             <th>Image</th>
                                             <th>Name</th>
-                                            <th>Price</th>
+                                            <th className='TextAlign'>Price</th>
                                             <th className='TextAlign'>Type</th>
                                             <th className='TextAlign'>Width</th>
                                             <th className='TextAlign'>Material</th>
-                                            <th className='TextAlign'>Detail</th>
+                                            <th className='TextAlign'>Action</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
@@ -88,10 +102,15 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
+                                            <td className='TextAlign'><Space wrap><Select
+                defaultValue="lucy"
+                style={{ width: 120 }}
+                onChange={handleChange}
+                options={[ shelltype ]} trigger={['click']}
+            /></Space></td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
-                                            <td className='TextAlign'>Edit  |  Delete</td>
+                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
@@ -102,7 +121,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
-                                            <td className='TextAlign'>Edit  |  Delete</td>
+                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
@@ -113,7 +132,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
-                                            <td className='TextAlign'>Edit  |  Delete</td>
+                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
@@ -124,7 +143,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
-                                            <td className='TextAlign'>Edit  |  Delete</td>
+                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
@@ -135,7 +154,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
-                                            <td className='TextAlign'>Edit  |  Delete</td>
+                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
@@ -146,7 +165,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
-                                            <td className='TextAlign'>Edit  |  Delete</td>
+                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                     </table>
                                 </Styled.Pending_Table>
