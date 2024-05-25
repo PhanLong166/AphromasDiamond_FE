@@ -10,7 +10,7 @@ export const OrderAdminArea = styled.section`
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
-    /* height: 100%; */
+    // height: 100%; 
     width: 100%;
     padding-bottom: 20px;
 
@@ -135,11 +135,11 @@ export const Pending_Table = styled.section`
         cursor: pointer;
     }
     .pendStatus {
-        background-color: #D2EEFF;
+        background-color: #C7FCC2;
         border-radius: 100px;
         padding: 5px 10px 5px 10px;
         font-size: 12px;
-        color: ${theme.color.primary};
+        color: #2D6528;
         border: none;
     }
     .confirmBtn {

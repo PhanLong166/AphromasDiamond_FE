@@ -51,7 +51,7 @@ export const OrderContent_Head = styled.section`
 export const OrderContent_HeadBenefit = styled.section`
     display: flex;
     justify-content: space-between;
-    background-color: #EADBC8;
+    background-color: ${theme.color.third};
     padding: 20px 60px 20px 60px;
     border-radius: 16px;
 
@@ -159,7 +159,7 @@ export const OrderContent_Foot = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: #EADBC8;
+    background-color: ${theme.color.third};
     padding: 12px 60px 12px 60px;
     border-radius: 16px;
     margin: 39px 40px 0px 40px;
