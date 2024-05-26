@@ -8,6 +8,11 @@ import CompletedOrder from './pages/Admin/OrderPage/Completed'
 import CancelledOrder from './pages/Admin/OrderPage/Cancelled'
 import ProductAdmin from './pages/Admin/ProductPage/Product'
 import RingShell from './pages/Admin/ProductPage/RingShell'
+import Ring from './pages/Admin/ProductPage/Ring'
+import Jewelry from './pages/Admin/ProductPage/Jewelry'
+import JewelryType from './pages/Admin/ProductPage/JewelryType'
+import Material from './pages/Admin/ProductPage/Material'
+import Promotion from './pages/Admin/MarketingPage/Promotion'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
 import AllProduct from './pages/Home/AllProduct/AllProduct'
@@ -15,10 +20,12 @@ import Product from './pages/Home/Product/Product'
 import ProductDetails from './pages/Home/ProductDetails/ProductDetails'
 import Headers from './components/Headers/Headers'
 import Footer from './components/Footer/Footer'
+
 import Cart from './pages/Customer/Cart/Cart'
 import Checkout from './pages/Customer/Checkout/Checkout'
 import OrderList from './pages/Customer/OderList/OderList'
 import Account from './pages/Customer/AccountDetail/AccountDetail'
+// import About from './pages/Home/AboutUs/AboutUs'
 
 
 
@@ -93,6 +100,13 @@ const App = () => {
             <Footer/>
           </>
         } />
+        {/* <Route path='/about' element={
+          <>
+            <Headers/>
+            <About />
+            <Footer/>
+          </>
+        } /> */}
         <Route path="/orderAdmin" element={<OrderAdmin />} />
         <Route path="/orderAdmin/confirmed" element={<ConfirmedOrder />} />
         <Route path="/orderAdmin/delivering" element={<DeliveringOrder />} />
@@ -101,6 +115,12 @@ const App = () => {
 
         <Route path="/productAdmin" element={<ProductAdmin />} />
         <Route path="/productAdmin/ringShell" element={<RingShell />} />
+        <Route path="/productAdmin/ring" element={<Ring />} />
+        <Route path="/productAdmin/jewelry" element={<Jewelry />} />
+        <Route path="/productAdmin/jewelryType" element={<JewelryType />} />
+        <Route path="/productAdmin/material" element={<Material />} />
+
+        <Route path="/marketingAdmin" element={<Promotion />} />
       </Routes>
     </>
   )

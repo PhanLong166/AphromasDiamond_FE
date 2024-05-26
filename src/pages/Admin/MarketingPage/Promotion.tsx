@@ -1,11 +1,10 @@
-import * as Styled from '../ProductPage/Product.styled';
+import * as Styled from './Promotion.styled';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
+    ArrowLeftOutlined, ArrowRightOutlined, DeleteOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
-import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
 
 const items: MenuProps['items'] = [
     {
@@ -20,12 +19,20 @@ const items: MenuProps['items'] = [
     //   type: 'divider',
     // },
     {
-      label: <a href="/">Low to High</a>,
+      label: <a href="/">Start Soonest</a>,
       key: '2',
     },
     {
-        label: <a href="/">High to Low</a>,
+        label: <a href="/">Start Latest</a>,
         key: '3',
+    },
+    {
+        label: <a href="/">End Soonest</a>,
+        key: '4',
+    },
+    {
+        label: <a href="/">End Latest</a>,
+        key: '5',
     }
   ];
   
@@ -37,15 +44,18 @@ const items: MenuProps['items'] = [
                         <Sidebar/>
                         
                         <Styled.AdminPage>
-                            <ProductMenu/>
+                            <Styled.TitlePage>
+                                    <h1>Promotion Management</h1>
+                                    <p>View and manage Promotion</p>
+                            </Styled.TitlePage>
 
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>
                                     <Styled.AdPageContent_HeadTop>
-                                        <h2>Diamond</h2>
+                                        <h2>Promotion List</h2>
                                         <button>
                                             <PlusCircleOutlined />
-                                            Add New Diamond
+                                            Add New Promotion
                                         </button>
                                     </Styled.AdPageContent_HeadTop>
                                     <Styled.AdPageContent_HeadBenefit>
@@ -75,78 +85,78 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Diamond</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th className='TextAlign'>Color</th>
-                                            <th className='TextAlign'>Shape</th>
-                                            <th className='TextAlign'>Detail</th>
+                                            <th>ID</th>
+                                            <th>% discount</th>
+                                            <th>Start Date</th>
+                                            <th>End Date</th>
+                                            <th className='TextAlign'>Edit</th>
+                                            <th className='TextAlign'>Delete</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td>10%</td>
+                                            <td>2 Jan 2023</td>
+                                            <td>2 Jan 2024</td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td>15%</td>
+                                            <td>2 Jan 2023</td>
+                                            <td>2 Jan 2024</td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td>10%</td>
+                                            <td>2 Jan 2023</td>
+                                            <td>2 Jan 2024</td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td>15%</td>
+                                            <td>2 Jan 2023</td>
+                                            <td>2 Jan 2024</td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td>10%</td>
+                                            <td>2 Jan 2023</td>
+                                            <td>2 Jan 2024</td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td>30%</td>
+                                            <td>2 Jan 2023</td>
+                                            <td>2 Jan 2024</td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                     </table>
                                 </Styled.Pending_Table>

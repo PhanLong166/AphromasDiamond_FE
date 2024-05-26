@@ -1,54 +1,3 @@
-// import styled from 'styled-components';
-
-// export const SwiperContainer = styled.div`
-//     width: 100%;
-//     height: 600px;
-// `;
-
-// export const SwiperWrapper = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-// `;
-
-// export const SwiperSlide = styled.div`
-//     text-align: center;
-//     font-size: 18px;
-//     background: #fff;
-//     display: flex;
-//     justify-content: center;
-//     align-items: center;
-
-//     img {
-//         display: block;
-//         width: 100%;
-//         height: 100%;
-//         object-fit: cover;
-//     }
-// `;
-
-// export const SwiperButtonNext = styled.div`
-//     color: #fff;
-//     padding-right: 25px;
-// `;
-
-// export const SwiperButtonPrev = styled.div`
-//     color: #fff;
-// `;
-
-// export const SwiperPagination = styled.div`
-//     /* CSS của chỉ số trang */
-// `;
-
-// export const HomeContainer = styled.section`
-    
-    
-// `;
-
-// export const TitlePage = styled.h1`
-//     color: red;
-// `;
-
 
 import styled from 'styled-components';
 
@@ -74,26 +23,9 @@ export const Container = styled.div`
 `;
 
 export const Categories = styled.div`
+    margin-top: 60px;
     margin-bottom: 60px;
 
-`;
-
-export const Contain = styled.div`
-    margin: 40px auto;
-    max-width: 1400px;
-    margin-left: 190px;
-   
-`;
-
-export const DotGrid = styled.div`
-
-`;
-
-export const Wrapper = styled.div`
-    display: grid;
-    --grid-col: 165px;
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
-    gap: 20px;
 `;
 
 export const Heading = styled.div`
@@ -113,73 +45,97 @@ export const Heading = styled.div`
     }
 `;
 
+export const Contain = styled.div`
+  margin: 40px auto;
+  max-width: 1400px;
+  margin-left: 110px;
+  justify-content: center;
+`;
+
+export const DotGrid = styled.div``;
+
+export const Wrapper = styled.div`
+  display: grid;
+  --grid-col: 150px;
+  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
+  gap: 20px;
+`;
+
 export const Cate = styled.div`
-    margin: 10px;
-    text-align: center;
-    box-sizing: border-box;
-    display: grid;
+  text-align: center;
+  box-sizing: border-box;
+  display: grid;
+  justify-content: center;
+  
+
 `;
 
 export const CateImage = styled.div`
-    img {
-        max-width: 180px;
-        height: auto;
-        background-color: #fff;
-        padding: 10px;
-        border-radius: 100px;
-        cursor: pointer;
-    }
+  img {
+    max-width: 180px;
+    height: auto;
+    background-color: #fff;
+    padding: 5px;
+    border-radius: 100px;
+    cursor: pointer;
+    
+   
+  }
 `;
 
 export const CateTitle = styled.p`
-    color: #102c57;
-    font-size: 18px;
-    font-family: "Crimson Text", serif;
-    cursor: pointer;
-`;
-
-export const LeftButtonWrapper = styled.div`
-    position: absolute;
-    top: 115%;
-    transform: translateY(-50%);
-    left: 198px;
-    &:hover {
-        color: #102c57;
-    }
-
-`;
-
-export const RightButtonWrapper = styled.div`
-    position: relative;
-    top: 85%;
-    transform: translateY(-50%);
-    right: 65px;
-
-   
-    
+  color: #102c57;
+  font-size: 18px;
+  font-family: "Crimson Text", serif;
+  cursor: pointer;
+  text-align: start;
+  margin-left: 60px;
+  margin-top: 15px;
   
 `;
 
-export const Button = styled.button`
-    padding: 10px;
-    cursor: pointer;
-    border-radius: 50%;
-    background-color: #696969;
-    border: none;
-    opacity: .5;
-    
-    &:hover {
-        opacity: .8;
-        background-color: #fff;
-        transition: all .45s ease;
-    }
+export const LeftButtonWrapper = styled.div`
+  position: absolute;
+  top: 116.5%;
+  transform: translateY(-50%);
+  z-index: 1;
 `;
+
+export const RightButtonWrapper = styled.div`
+  position: absolute;
+  top: 116.5%;
+  right: 107px; 
+  transform: translateY(-50%);
+  z-index: 1;
+`;
+
+export const Button = styled.button`
+  padding: 10px;
+  cursor: pointer;
+  border-radius: 50%;
+  background-color: #696969;
+  border: none;
+  opacity: 0.5;
+
+  &:hover {
+    opacity: 0.8;
+    background-color: #fff;
+    transition: all 0.45s ease;
+  }
+`;
+
 
 export const WrapperShape = styled.div`
     display: grid;
-    --grid-col: 165px;
+    --grid-col: 140px;
     grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
-    gap: 20px;
+  
+`;
+
+export const ContainShape = styled.div`
+  margin: 0 auto;
+  max-width: 1200px;
+  justify-content: center;
 `;
 
 export const Shape = styled.section`
@@ -243,13 +199,17 @@ border: solid 2px #f8f0e5;
     }
 `;
 export const RightButtonShape = styled.div`
-    position: relative;
+position: absolute;
     top: 82%;
     transform: translateY(-50%);
     right: 10px;
+  
+`;
 
-   
-    
+export const LeftButtonShape = styled.div`
+position: absolute;
+    top: 82%;
+    transform: translateY(-50%);
   
 `;
 
