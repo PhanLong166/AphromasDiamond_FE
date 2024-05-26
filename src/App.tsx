@@ -18,6 +18,7 @@ import Footer from './components/Footer/Footer'
 import Cart from './pages/Customer/Cart/Cart'
 import Checkout from './pages/Customer/Checkout/Checkout'
 import OrderList from './pages/Customer/OderList/OderList'
+import Account from './pages/Customer/AccountDetail/AccountDetail'
 
 
 
@@ -82,6 +83,13 @@ const App = () => {
           <>
             <Headers/>
             <OrderList />
+            <Footer/>
+          </>
+        } />
+        <Route path='/Account' element={
+          <>
+            <Headers/>
+            <Account />
             <Footer/>
           </>
         } />
