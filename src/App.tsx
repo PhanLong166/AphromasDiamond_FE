@@ -11,6 +11,7 @@ import RingShell from './pages/Admin/ProductPage/RingShell'
 import Ring from './pages/Admin/ProductPage/Ring'
 import Jewelry from './pages/Admin/ProductPage/Jewelry'
 import JewelryType from './pages/Admin/ProductPage/JewelryType'
+import Material from './pages/Admin/ProductPage/Material'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
 import AllProduct from './pages/Home/AllProduct/AllProduct'
@@ -74,6 +75,7 @@ const App = () => {
         <Route path="/productAdmin/ring" element={<Ring />} />
         <Route path="/productAdmin/jewelry" element={<Jewelry />} />
         <Route path="/productAdmin/jewelryType" element={<JewelryType />} />
+        <Route path="/productAdmin/material" element={<Material />} />
       </Routes>
     </>
   )

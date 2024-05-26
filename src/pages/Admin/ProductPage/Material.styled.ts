@@ -13,11 +13,7 @@ export const ProductAdminArea = styled.section`
     // height: 100%; 
     width: 100%;
     padding-bottom: 20px;
-
 `;
-
-
-// /* =============== ORDER ================= */
 
 export const AdminPage = styled.section`
     margin-left: 320px;
@@ -29,7 +25,7 @@ export const AdminPage = styled.section`
 
 
 
-// /* -------------------- ORDER CONTENT =============== */
+// /* -------------------- PRODUCT CONTENT =============== */
 
 export const OrderContent = styled.section`
     width: 100%;
@@ -136,12 +132,10 @@ export const SearchArea = styled.section`
 
 export const Pending_Table = styled.section`
     padding: 0px 50px 0px 50px;
-    display: flex;
-    justify-content: center;
 
     table {
         border-collapse: collapse;
-        width: 90%;
+        width: 100%;
     }
     th,
     td {
@@ -153,6 +147,9 @@ export const Pending_Table = styled.section`
     th {
         color: #783232;
         font-size: 20px;
+    }
+    tr {
+        // border-bottom: 1px solid ${theme.color.primary};
     }
     tr .TextAlign{
         text-align: center;
@@ -171,6 +168,7 @@ export const Pending_Table = styled.section`
         border: 1px solid ${theme.color.fifth};
         border-radius: 5px;
         height: 100%;
+        // width: fit-content;
     }
     td input:active{
         border: none;
@@ -198,7 +196,7 @@ export const Pending_Table = styled.section`
         background-color: ${theme.color.fifth} !important;
         color: ${theme.color.primary} !important;
     }
-    
+
     .confirmBtn {
         background-color: ${theme.color.primary};
         border-radius: 100px;
@@ -211,6 +209,7 @@ export const Pending_Table = styled.section`
     .confirmBtn:hover {
         cursor: pointer;
     }
+    
 `;
 
 export const OrderContent_Foot = styled.section`

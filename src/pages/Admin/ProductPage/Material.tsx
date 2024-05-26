@@ -1,4 +1,4 @@
-import * as Styled from '../ProductPage/JewelryType.styled';
+import * as Styled from '../ProductPage/Material.styled';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
     ArrowLeftOutlined, ArrowRightOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
@@ -8,20 +8,18 @@ import { Select } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
 
-    const RingShell = () => {
+    const Material = () => {
         const items: MenuProps['items'] = [
             {
-              label: <a href="/" style={{  }}>A - Z</a>,
-              key: '0',
+              label: <a href="/">Low to High</a>,
+              key: '2',
             },
             {
-              label: <a href="/">Z - A</a>,
-              key: '1',
-            },
-            // {
-            //   type: 'divider',
-            // },
+                label: <a href="/">High to Low</a>,
+                key: '3',
+            }
           ];
+
 
             
         return(
@@ -35,10 +33,10 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                             <Styled.OrderContent>
                                 <Styled.OrderContent_Head>
                                     <Styled.OrderContent_HeadTop>
-                                        <h2>Jewelry Type</h2>
+                                        <h2>Material</h2>
                                         <button>
                                             <PlusCircleOutlined />
-                                            Add New Jewelry Type
+                                            Add New Material
                                         </button>
                                     </Styled.OrderContent_HeadTop>
                                     <Styled.OrderContent_HeadBenefit>
@@ -68,15 +66,19 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID</th>
-                                            <th>Jewelry Type</th>
+                                            <th>ID Material</th>
+                                            <th>Material</th>
+                                            <th>% gold</th>
+                                            <th>Price per Gram</th>
                                             <th className='TextAlign'>Edit</th>
                                             <th className='TextAlign'>Delete</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td><input type="text" name="JewelryType" value="Ring"/></td>
+                                            <td><input type="text" name="MaterialName" value="14K White Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
                                             </td>
@@ -85,7 +87,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                         <tr>
                                             <td>02</td>
                                             <td>#12345123</td>
-                                            <td><input type="text" name="JewelryType" value="Necklace"/></td>
+                                            <td><input type="text" name="MaterialName" value="14K Yellow Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
                                             </td>
@@ -94,7 +98,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                         <tr>
                                             <td>03</td>
                                             <td>#12345123</td>
-                                            <td><input type="text" name="JewelryType" value="Earring"/></td>
+                                            <td><input type="text" name="MaterialName" value="14K Rose Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
                                             </td>
@@ -103,7 +109,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                         <tr>
                                             <td>04</td>
                                             <td>#12345123</td>
-                                            <td><input type="text" name="JewelryType" value="Bracelet"/></td>
+                                            <td><input type="text" name="MaterialName" value="Platinum"/></td>
+                                            <td><input type="text" name="PercentGold" value="0% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
                                             </td>
@@ -112,7 +120,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                         <tr>
                                             <td>05</td>
                                             <td>#12345123</td>
-                                            <td><input type="text" name="JewelryType" value="Anklet"/></td>
+                                            <td><input type="text" name="MaterialName" value="18K White Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="75% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
                                             </td>
@@ -121,7 +131,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                         <tr>
                                             <td>06</td>
                                             <td>#12345123</td>
-                                            <td><input type="text" name="JewelryType" value="Bangle"/></td>
+                                            <td><input type="text" name="MaterialName" value="18K White Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="75% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
                                             </td>
@@ -134,7 +146,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <Styled.PageNum>
                                         <p className="nowPage">1</p>
                                         <p>of</p>
-                                        <p className="lastPage">2</p>
+                                        <p className="lastPage">5</p>
                                     </Styled.PageNum>
                                     <Styled.MovePage>
                                         <button className="backArrow">
@@ -152,4 +164,4 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
     )
 };
 
-export default RingShell; 
+export default Material; 
