@@ -172,7 +172,9 @@ const Sidebar = () => {
                             <p className="accOut_role">Admin</p>
                         </Styled.AccInfor>
                     </Styled.Account>
-                    <LogoutOutlined />
+                    <Link to="/login">
+                        <LogoutOutlined />
+                    </Link>
                 </Styled.AccOut>
             </Styled.SidebarContainer>
         </>
