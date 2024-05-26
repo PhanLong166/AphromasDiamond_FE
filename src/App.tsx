@@ -20,7 +20,13 @@ import Product from './pages/Home/Product/Product'
 import ProductDetails from './pages/Home/ProductDetails/ProductDetails'
 import Headers from './components/Headers/Headers'
 import Footer from './components/Footer/Footer'
+
+import Cart from './pages/Customer/Cart/Cart'
+import Checkout from './pages/Customer/Checkout/Checkout'
+import OrderList from './pages/Customer/OderList/OderList'
+import Account from './pages/Customer/AccountDetail/AccountDetail'
 // import About from './pages/Home/AboutUs/AboutUs'
+
 
 
 
@@ -63,6 +69,34 @@ const App = () => {
           <>
             <Headers/>
             <ProductDetails />
+            <Footer/>
+          </>
+        } />
+        <Route path='/Cart' element={
+          <>
+            <Headers/>
+            <Cart />
+            <Footer/>
+          </>
+        } />
+        <Route path='/Checkout' element={
+          <>
+            <Headers/>
+            <Checkout />
+            <Footer/>
+          </>
+        } />
+        <Route path='/OrderList' element={
+          <>
+            <Headers/>
+            <OrderList />
+            <Footer/>
+          </>
+        } />
+        <Route path='/Account' element={
+          <>
+            <Headers/>
+            <Account />
             <Footer/>
           </>
         } />
