@@ -151,6 +151,9 @@ export const Pending_Table = styled.section`
         color: #783232;
         font-size: 20px;
     }
+    tr {
+        // border-bottom: 1px solid ${theme.color.primary};
+    }
     tr .TextAlign{
         text-align: center;
     }
@@ -165,9 +168,9 @@ export const Pending_Table = styled.section`
         background-color: ${theme.color.fifth};
         color: ${theme.color.primary};
         padding: 5px;
-        border: 1px solid ${theme.color.primary};
+        border: 1px solid ${theme.color.fifth};
         border-radius: 5px;
-
+        height: 100%;
     }
     td input:active{
         border: none;
@@ -181,6 +184,21 @@ export const Pending_Table = styled.section`
     .deleBtn {
         color: red;
     }
+    .custom-select .ant-select-selector {
+        background-color: ${theme.color.fifth} !important;
+        color: ${theme.color.primary} !important;
+    }
+    
+    .custom-select .ant-select-dropdown {
+        background-color: ${theme.color.fifth} !important;
+        color: ${theme.color.primary} !important;
+    }
+    
+    .custom-select .ant-select-item-option-selected {
+        background-color: ${theme.color.fifth} !important;
+        color: ${theme.color.primary} !important;
+    }
+    
 `;
 
 export const OrderContent_Foot = styled.section`

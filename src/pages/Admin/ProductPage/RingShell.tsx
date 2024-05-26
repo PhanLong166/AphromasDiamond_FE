@@ -31,16 +31,52 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
             }
           ];
 
-          const shelltype: ShellTypeMenu['shelltype'] = [
-            { value: 'jack', label: 'Jack' },
-            { value: 'lucy', label: 'Lucy' },
-            { value: 'Yiminghe', label: 'yiminghe' },
-            { value: 'disabled', label: 'Disabled', disabled: true }
-          ];
-
           const handleChange = (value: string) => {
             console.log(`selected ${value}`);
           };
+
+          const shelltype = (
+            <Space wrap>
+              <Select
+                defaultValue="ring"
+                className="custom-select"
+                style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
+                onChange={handleChange}
+                options={[
+                  { value: "ring", label: "Ring" },
+                  { value: "necklace", label: "Necklace" },
+                  { value: "earring", label: "Earring" },
+                  { value: "bracelet", label: "Bracelet" },
+                  { value: "anklet", label: "Anklet" },
+                  { value: "bangle", label: "Bangle" },
+                  { value: "choker", label: "Choker" },
+                  { value: "pendant", label: "Pendant" },
+                ]}
+              />
+            </Space>
+          );
+
+
+          const material = (
+            <Space wrap>
+              <Select
+                defaultValue="14K White Gold"
+                className="custom-select"
+                style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
+                onChange={handleChange}
+                options={[
+                  { value: "14Kwhite", label: "14K White Gold" },
+                  { value: "14Kyellow", label: "14K Yellow Gold" },
+                  { value: "14Krose", label: "14K Rose Gold" },
+                  { value: "18Kwhite", label: "18K White Gold" },
+                  { value: "18Kyellow", label: "18K Yellow Gold" },
+                  { value: "18Krose", label: "18K Rose Gold" },
+                  { value: "platinum", label: "Platinum" },
+                ]}
+              />
+            </Space>
+          );
+          
 
             
         return(
@@ -102,14 +138,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><Space wrap><Select
-                defaultValue="lucy"
-                style={{ width: 120 }}
-                onChange={handleChange}
-                options={[ shelltype ]} trigger={['click']}
-            /></Space></td>
+                                            <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
+                                            <td className='TextAlign'>{material}</td>
                                             <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
@@ -118,9 +149,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
+                                            <td className='TextAlign'>{material}</td>
                                             <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
@@ -129,9 +160,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
+                                            <td className='TextAlign'>{material}</td>
                                             <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
@@ -140,9 +171,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
+                                            <td className='TextAlign'>{material}</td>
                                             <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
@@ -151,9 +182,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
+                                            <td className='TextAlign'>{material}</td>
                                             <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
@@ -162,9 +193,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
                                             <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
                                             <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellType" value="Ring"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellMaterial" value="14K Yellow Gold"/></td>
+                                            <td className='TextAlign'>{material}</td>
                                             <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                     </table>
