@@ -11,11 +11,11 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
     const Ring = () => {
         const items: MenuProps['items'] = [
             {
-              label: <a href="/" style={{  }}>Soonest</a>,
+              label: <a href="/" style={{  }}>A - Z</a>,
               key: '0',
             },
             {
-              label: <a href="/">Latest</a>,
+              label: <a href="/">Z - A</a>,
               key: '1',
             },
             // {
