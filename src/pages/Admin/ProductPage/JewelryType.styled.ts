@@ -133,10 +133,12 @@ export const SearchArea = styled.section`
 
 export const Pending_Table = styled.section`
     padding: 0px 50px 0px 50px;
+    display: flex;
+    justify-content: center;
 
     table {
         border-collapse: collapse;
-        width: 100%;
+        width: 90%;
     }
     th,
     td {
@@ -148,9 +150,6 @@ export const Pending_Table = styled.section`
     th {
         color: #783232;
         font-size: 20px;
-    }
-    tr {
-        // border-bottom: 1px solid ${theme.color.primary};
     }
     tr .TextAlign{
         text-align: center;
@@ -260,3 +259,4 @@ export const MovePage = styled.section`
         color:${theme.color.primary};
     }
 `;
+

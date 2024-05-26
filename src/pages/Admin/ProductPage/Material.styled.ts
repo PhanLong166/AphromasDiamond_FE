@@ -13,7 +13,6 @@ export const ProductAdminArea = styled.section`
     // height: 100%; 
     width: 100%;
     padding-bottom: 20px;
-
 `;
 
 export const AdminPage = styled.section`
@@ -169,6 +168,7 @@ export const Pending_Table = styled.section`
         border: 1px solid ${theme.color.fifth};
         border-radius: 5px;
         height: 100%;
+        // width: fit-content;
     }
     td input:active{
         border: none;
@@ -196,7 +196,7 @@ export const Pending_Table = styled.section`
         background-color: ${theme.color.fifth} !important;
         color: ${theme.color.primary} !important;
     }
-    
+
     .confirmBtn {
         background-color: ${theme.color.primary};
         border-radius: 100px;
@@ -209,6 +209,7 @@ export const Pending_Table = styled.section`
     .confirmBtn:hover {
         cursor: pointer;
     }
+    
 `;
 
 export const AdPageContent_Foot = styled.section`

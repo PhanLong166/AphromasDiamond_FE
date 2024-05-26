@@ -7,6 +7,7 @@ export const TitlePage = styled.div `
         font-weight: 36px;
         color: ${theme.color.primary};
         margin: 47px 0px 0px 0px;
+        padding-bottom: 7px;
     }
 
     p {
@@ -17,10 +18,10 @@ export const TitlePage = styled.div `
 `;
 
 
-// /* -------------------- ORDER CATALOG =============== */
+// /* -------------------- MINI CATALOG =============== */
 
 
-export const OrderCatalog = styled.div `
+export const MiniCatalog = styled.div `
     height: 100px;
     background-color: ${theme.color.fifth};
     border-radius: 16px;
@@ -30,7 +31,7 @@ export const OrderCatalog = styled.div `
     margin-top: 21px;
 `;
 
-export const OrderCatalog_Ele = styled.div `
+export const MiniCatalog_Ele = styled.div `
     margin-right: 50px;
 
     &:hover {

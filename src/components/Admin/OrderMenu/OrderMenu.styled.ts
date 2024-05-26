@@ -7,6 +7,7 @@ export const TitlePage = styled.div `
         font-weight: 36px;
         color: ${theme.color.primary};
         margin: 47px 0px 0px 0px;
+        padding-bottom: 7px;
     }
 
     p {

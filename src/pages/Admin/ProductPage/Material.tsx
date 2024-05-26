@@ -1,36 +1,27 @@
-import * as Styled from '../ProductPage/Product.styled';
+import * as Styled from '../ProductPage/Material.styled';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
+    ArrowLeftOutlined, ArrowRightOutlined, EditOutlined, DeleteOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
+import { Select } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
 
-const items: MenuProps['items'] = [
-    {
-      label: <a href="/" style={{  }}>A - Z</a>,
-      key: '0',
-    },
-    {
-      label: <a href="/">Z - A</a>,
-      key: '1',
-    },
-    // {
-    //   type: 'divider',
-    // },
-    {
-      label: <a href="/">Low to High</a>,
-      key: '2',
-    },
-    {
-        label: <a href="/">High to Low</a>,
-        key: '3',
-    }
-  ];
-  
-    
-    const Product = () => {
+    const Material = () => {
+        const items: MenuProps['items'] = [
+            {
+              label: <a href="/">Low to High</a>,
+              key: '2',
+            },
+            {
+                label: <a href="/">High to Low</a>,
+                key: '3',
+            }
+          ];
+
+
+            
         return(
             <>
                 <Styled.ProductAdminArea>
@@ -42,10 +33,10 @@ const items: MenuProps['items'] = [
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>
                                     <Styled.AdPageContent_HeadTop>
-                                        <h2>Diamond</h2>
+                                        <h2>Material</h2>
                                         <button>
                                             <PlusCircleOutlined />
-                                            Add New Diamond
+                                            Add New Material
                                         </button>
                                     </Styled.AdPageContent_HeadTop>
                                     <Styled.AdPageContent_HeadBenefit>
@@ -75,78 +66,78 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Diamond</th>
-                                            <th>Name</th>
-                                            <th>Price</th>
-                                            <th className='TextAlign'>Color</th>
-                                            <th className='TextAlign'>Shape</th>
-                                            <th className='TextAlign'>Detail</th>
+                                            <th>ID Material</th>
+                                            <th>Material</th>
+                                            <th>% gold</th>
+                                            <th>Price per Gram</th>
+                                            <th className='TextAlign'>Edit</th>
+                                            <th className='TextAlign'>Delete</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><input type="text" name="MaterialName" value="14K White Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><input type="text" name="MaterialName" value="14K Yellow Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><input type="text" name="MaterialName" value="14K Rose Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><input type="text" name="MaterialName" value="Platinum"/></td>
+                                            <td><input type="text" name="PercentGold" value="0% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><input type="text" name="MaterialName" value="18K White Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="75% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><input type="text" name="MaterialName" value="18K White Gold"/></td>
+                                            <td><input type="text" name="PercentGold" value="75% gold"/></td>
+                                            <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
-                                                <EyeOutlined />
+                                                <button className="confirmBtn">Save</button>
                                             </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                     </table>
                                 </Styled.Pending_Table>
@@ -173,4 +164,4 @@ const items: MenuProps['items'] = [
     )
 };
 
-export default Product; 
+export default Material; 

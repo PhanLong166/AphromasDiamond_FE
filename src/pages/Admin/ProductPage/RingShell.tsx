@@ -11,11 +11,11 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
     const RingShell = () => {
         const items: MenuProps['items'] = [
             {
-              label: <a href="/" style={{  }}>Soonest</a>,
+              label: <a href="/" style={{  }}>A - Z</a>,
               key: '0',
             },
             {
-              label: <a href="/">Latest</a>,
+              label: <a href="/">Z - A</a>,
               key: '1',
             },
             // {
@@ -87,16 +87,16 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                         <Styled.AdminPage>
                             <ProductMenu/>
 
-                            <Styled.OrderContent>
-                                <Styled.OrderContent_Head>
-                                    <Styled.OrderContent_HeadTop>
+                            <Styled.AdPageContent>
+                                <Styled.AdPageContent_Head>
+                                    <Styled.AdPageContent_HeadTop>
                                         <h2>Ring Shell</h2>
                                         <button>
                                             <PlusCircleOutlined />
                                             Add New Ring Shell
                                         </button>
-                                    </Styled.OrderContent_HeadTop>
-                                    <Styled.OrderContent_HeadBenefit>
+                                    </Styled.AdPageContent_HeadTop>
+                                    <Styled.AdPageContent_HeadBenefit>
                                         <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
                                             <SearchOutlined />
@@ -116,21 +116,22 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <FilterOutlined /> 
                                             Filters
                                         </button>
-                                    </Styled.OrderContent_HeadBenefit>
-                                </Styled.OrderContent_Head>
+                                    </Styled.AdPageContent_HeadBenefit>
+                                </Styled.AdPageContent_Head>
 
                                 <Styled.Pending_Table>
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Diamond</th>
+                                            <th>ID Shell</th>
                                             <th>Image</th>
                                             <th>Name</th>
                                             <th className='TextAlign'>Price</th>
                                             <th className='TextAlign'>Type</th>
                                             <th className='TextAlign'>Width</th>
                                             <th className='TextAlign'>Material</th>
-                                            <th className='TextAlign'>Action</th>
+                                            <th className='TextAlign'>Edit</th>
+                                            <th className='TextAlign'>Delete</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
@@ -141,7 +142,10 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'>{material}</td>
-                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
+                                            <td className='TextAlign'>
+                                                <button className="confirmBtn">Save</button>
+                                            </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
@@ -152,7 +156,10 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'>{material}</td>
-                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
+                                            <td className='TextAlign'>
+                                                <button className="confirmBtn">Save</button>
+                                            </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
@@ -163,7 +170,10 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'>{material}</td>
-                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
+                                            <td className='TextAlign'>
+                                                <button className="confirmBtn">Save</button>
+                                            </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
@@ -174,7 +184,10 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'>{material}</td>
-                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
+                                            <td className='TextAlign'>
+                                                <button className="confirmBtn">Save</button>
+                                            </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
@@ -185,7 +198,10 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'>{material}</td>
-                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
+                                            <td className='TextAlign'>
+                                                <button className="confirmBtn">Save</button>
+                                            </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
@@ -196,12 +212,15 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td className='TextAlign'>{shelltype}</td>
                                             <td className='TextAlign'><input type="text" name="ShellWidth" value="2.80mm"/></td>
                                             <td className='TextAlign'>{material}</td>
-                                            <td className='TextAlign'><EditOutlined />  |  <DeleteOutlined className='deleBtn'/></td>
+                                            <td className='TextAlign'>
+                                                <button className="confirmBtn">Save</button>
+                                            </td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                     </table>
                                 </Styled.Pending_Table>
                                 
-                                <Styled.OrderContent_Foot>
+                                <Styled.AdPageContent_Foot>
                                     <Styled.PageNum>
                                         <p className="nowPage">1</p>
                                         <p>of</p>
@@ -215,8 +234,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <ArrowRightOutlined />
                                         </button>
                                     </Styled.MovePage>
-                                </Styled.OrderContent_Foot>
-                            </Styled.OrderContent>
+                                </Styled.AdPageContent_Foot>
+                            </Styled.AdPageContent>
                         </Styled.AdminPage>
                     </Styled.ProductAdminArea> 
             </>
