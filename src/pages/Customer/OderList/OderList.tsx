@@ -1,5 +1,5 @@
-import React from 'react';
 import styled from 'styled-components';
+
 
 interface OrderData {
   rowNumber: number;
@@ -26,90 +26,111 @@ const OrderList = () => {
       <Section>
         <FlexColumn>
           <Anchor href="/wishlist">
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/88bfff5ee32dfca7d0563ed2c4ac0ca7bcf89c5a410104fc9f6b4062d523f8c7?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Wishlist Icon" />
-            <Text>Wishlist</Text>
+            <Text><span><i className="fa-solid fa-heart"></i></span>Wishlist</Text>
+              
           </Anchor>
           <Anchor href="/signout">
-            <Text>Sign Out</Text>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/b52a55cd61cfd96b2785ded756ed1aac26ee013a7d184b86271d39fe7f934b37?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Sign Out Icon" />
+            <Text><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span>Sign Out</Text>
           </Anchor>
         </FlexColumn>
-        <Banner src="https://cdn.builder.io/api/v1/image/assets/TEMP/58c425c0dfdc13b98bd59ddae43e37c2f8382c9add805d23c126aecaab4bff46?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Banner Image" />
+        <Banner src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderList%2FBanner-LuxuryDiamondCompany-1300x600-S1860.jpg?alt=media&token=0b9d1885-a948-4d3f-9677-a35334124a22" alt="Banner Image" />
         <Options>
           <OptionLink href="/account-details">Account Details</OptionLink>
-          <OptionLink href="/orders">My Orders</OptionLink>
+          <OptionLink style={{fontWeight: 800}} href="/orders">My Orders</OptionLink>
           <OptionLink href="/history">History</OptionLink>
           <OptionLink href="/notifications">Notifications</OptionLink>
           <OptionLink href="/vouchers">Voucher</OptionLink>
         </Options>
         <Title>All Orders</Title>
         <Filters>
-          
-          <CustomSelect>
-          <CustomInput>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/7d180ede1e5a24e1790ffc4498c2d09888ca77d75df2507d9db1d38978cc0fcb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Search Icon" />
-            <InputText>Search</InputText>
-          </CustomInput>
-            <Text>Category</Text>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/32ae71796fbbabb595be68696a3fdcd56833b6024f84a99006c0e287b81d3b21?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Category Icon" />
+
+          <CustomSelects>
+            <CustomInput>
+              <InputText><span><i className="fa-solid fa-magnifying-glass fa-sm"></i></span>Search</InputText>
+            </CustomInput>
+            <Text><label>Category</label>
+              <select id="Category">
+                <option value="">Sample</option>
+                <option value="4.5">Sample</option>
+                <option value="5">Sample</option>
+                <option value="5.5">Sample</option>
+                <option value="6">Sample</option>
+              </select>
+            </Text>
             <CustomSelect>
-            <Text>Price</Text>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/54df9a144a01eef74ed3aac58f5ca70575889fb9fd34834a3950566de94d41c4?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Price Icon" />
-          </CustomSelect>
-          <CustomSelect>
-            <Text>Status</Text>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/ff57ed213a48662aaa3c0f970fc3532f9064cf37866e76a8f6b94a49a41642fb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Status Icon" />
-          </CustomSelect>
-          <CustomSelect>
-            <Text>Date</Text>
-            <Icon src="https://cdn.builder.io/api/v1/image/assets/TEMP/964a928af1d2c7df7ec10d83d93ad49b984648b33bc8b7d084a2de245500bc86?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Date Icon" />
-          </CustomSelect>
-          </CustomSelect>
+              <Text><label>Price</label>
+                <select id="ringSize">
+                  <option value="4">Sample</option>
+                  <option value="4.5">Sample</option>
+                  <option value="5">Sample</option>
+                  <option value="5.5">Sample</option>
+                  <option value="6">Sample</option>
+                </select></Text>
+            </CustomSelect>
+            <CustomSelect>
+              <Text><label>Status</label>
+                <select id="Status">
+                  <option value="4">Sample</option>
+                  <option value="4.5">Sample</option>
+                  <option value="5">Sample</option>
+                  <option value="5.5">Sample</option>
+                  <option value="6">Sample</option>
+                </select></Text>
+            </CustomSelect>
+            <CustomSelect>
+              <Text><label>Date</label>
+                <select id="Date">
+                  <option value="4">Sample</option>
+                  <option value="4.5">Sample</option>
+                  <option value="5">Sample</option>
+                  <option value="5.5">Sample</option>
+                  <option value="6">Sample</option>
+                </select></Text>
+            </CustomSelect>
+          </CustomSelects>
         </Filters>
-        <Filters>
-          
-        </Filters>
+       
         <Table>
           <thead>
-             <tr>
-               <TableHeader>No</TableHeader>
-               <TableHeader>ID Order</TableHeader>
-               <TableHeader>Order Date</TableHeader>
-               <TableHeader>Delivering Staff</TableHeader>
-               <TableHeader>Price</TableHeader>
-               <TableHeader>Status</TableHeader>
-               <TableHeader>Actions</TableHeader>
-             </tr>
-           </thead>
-           <tbody>
-             {data.map((order) => (
-               <tr key={order.rowNumber}>
-                 <TableData>{order.rowNumber}</TableData>
-                 <TableData>{order.orderId}</TableData>
-                 <TableData>{order.orderDate}</TableData>
-                 <TableData>{order.staff}</TableData>
-                 <TableData>{order.price}</TableData>
-                 <TableData>{order.status}</TableData>
-                 <TableData>
-                   <ActionLink href="#">VIEW | CANCEL</ActionLink>
-                 </TableData>
-               </tr>
-             ))}
-           </tbody>
-         </Table>
-       </Section>
-     </main>
-   );
- };
+            <tr>
+              <TableHeader>No</TableHeader>
+              <TableHeader>ID Order</TableHeader>
+              <TableHeader>Order Date</TableHeader>
+              <TableHeader>Delivering Staff</TableHeader>
+              <TableHeader>Price</TableHeader>
+              <TableHeader>Status</TableHeader>
+              <TableHeader>Actions</TableHeader>
+            </tr>
+          </thead>
+          <tbody>
+            {data.map((order) => (
+              <tr key={order.rowNumber}>
+                <TableData>{order.rowNumber}</TableData>
+                <TableData>{order.orderId}</TableData>
+                <TableData>{order.orderDate}</TableData>
+                <TableData>{order.staff}</TableData>
+                <TableData>{order.price}</TableData>
+                <TableData>{order.status}</TableData>
+                <TableData>
+                  <ActionLink href="#">VIEW | CANCEL</ActionLink>
+                </TableData>
+              </tr>
+            ))}
+          </tbody>
+        </Table>
+      </Section>
+    </main>
+  );
+};
 
 const Header = styled.header`
-  border: 1px solid rgba(0, 0, 0, 1);
   background: #fff;
   width: 100%;
   padding: 23px 60px;
   color: #818594;
   font: 15px/150% 'Crimson Text', sans-serif;
-  margin-top: 44px;
+  border-bottom: 1px solid #000;
+  
 
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
@@ -134,6 +155,7 @@ const FlexColumn = styled.div`
   color: #000;
   font-size: 13px;
   line-height: 150%;
+  justify-content: space-between;
 
   @media (max-width: 991px) {
     flex-wrap: wrap;
@@ -141,12 +163,13 @@ const FlexColumn = styled.div`
   }
 `;
 
-const Icon = styled.img`
-  width: 12px;
-`;
 
 const Text = styled.span`
   font-family: 'Poppins', sans-serif;
+  display: flex;
+ gap: 20px;
+ margin-top: 35px;
+ border-radius: 7px;
 `;
 
 const Anchor = styled.a`
@@ -198,17 +221,20 @@ const Title = styled.h1`
 `;
 
 const Filters = styled.div`
-  display: flex;
-  margin-top: 53px;
-  width: 100%;
-  max-width: 1219px;
-  gap: 20px;
-  font-size: 16px;
+display: flex;
+margin-top: 53px;
+width: 100%;
+max-width: 1146px;  
+gap: 20px;
+font-size: 16px;
+justify-content: center;  
+align-items: center;  
 
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-    margin-top: 40px;
-  }
+
+@media (max-width: 991px) {
+  flex-wrap: wrap;
+  margin-top: 40px;
+}
 `;
 
 const CustomInput = styled.div`
@@ -218,6 +244,7 @@ const CustomInput = styled.div`
   border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 52.56px;
   padding: 4px 12px;
+  width: 228px;
 
   @media (max-width: 991px) {
     flex-wrap: wrap;
@@ -228,25 +255,39 @@ const CustomSelect = styled.div`
   display: flex;
   gap: 20px;
   color: #000;
-  border: 1px solid rgba(0, 0, 0, 0.5);
+  //  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 7px;
   padding: 7px 26px;
   justify-content: space-between;
-
+  
   @media (max-width: 991px) {
     padding-left: 20px;
   }
 `;
+const CustomSelects = styled.div`
+display: flex;
+  gap: 20px;
+  color: #000;
+   //border: 1px solid rgba(0, 0, 0, 0.5);
+  border-radius: 7px;
+  padding: 7px 26px;
+  justify-content: space-between;
+  align-items: center;
+  align-items: baseline;
+  font-size: 18px;
+
+`;
 
 const InputText = styled.span`
   font-family: 'Inter', sans-serif;
-`;
+  
+  `;
 
 const Table = styled.table`
-  margin-top: 45px;
-  width: 100%;
-  max-width: 1146px;
-  border-spacing: 0 15px;
+margin-top: 45px;
+width: 100%;
+max-width: 1146px;  // Đặt cùng chiều ngang với Filters
+border-spacing: 0 15px;
 
   @media (max-width: 991px) {
     margin-top: 40px;
@@ -264,7 +305,6 @@ const TableData = styled.td`
   font-family: 'Poppins', sans-serif;
   color: #102c57;
   white-space: nowrap;
-
   @media (max-width: 991px) {
     white-space: initial;
   }
