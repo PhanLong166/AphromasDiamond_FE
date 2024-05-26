@@ -87,16 +87,16 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                         <Styled.AdminPage>
                             <ProductMenu/>
 
-                            <Styled.OrderContent>
-                                <Styled.OrderContent_Head>
-                                    <Styled.OrderContent_HeadTop>
+                            <Styled.AdPageContent>
+                                <Styled.AdPageContent_Head>
+                                    <Styled.AdPageContent_HeadTop>
                                         <h2>Ring Shell</h2>
                                         <button>
                                             <PlusCircleOutlined />
                                             Add New Ring Shell
                                         </button>
-                                    </Styled.OrderContent_HeadTop>
-                                    <Styled.OrderContent_HeadBenefit>
+                                    </Styled.AdPageContent_HeadTop>
+                                    <Styled.AdPageContent_HeadBenefit>
                                         <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
                                             <SearchOutlined />
@@ -116,8 +116,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <FilterOutlined /> 
                                             Filters
                                         </button>
-                                    </Styled.OrderContent_HeadBenefit>
-                                </Styled.OrderContent_Head>
+                                    </Styled.AdPageContent_HeadBenefit>
+                                </Styled.AdPageContent_Head>
 
                                 <Styled.Pending_Table>
                                     <table>
@@ -220,7 +220,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     </table>
                                 </Styled.Pending_Table>
                                 
-                                <Styled.OrderContent_Foot>
+                                <Styled.AdPageContent_Foot>
                                     <Styled.PageNum>
                                         <p className="nowPage">1</p>
                                         <p>of</p>
@@ -234,8 +234,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <ArrowRightOutlined />
                                         </button>
                                     </Styled.MovePage>
-                                </Styled.OrderContent_Foot>
-                            </Styled.OrderContent>
+                                </Styled.AdPageContent_Foot>
+                            </Styled.AdPageContent>
                         </Styled.AdminPage>
                     </Styled.ProductAdminArea> 
             </>

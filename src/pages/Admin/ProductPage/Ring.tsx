@@ -31,52 +31,6 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
             }
           ];
 
-          const handleChange = (value: string) => {
-            console.log(`selected ${value}`);
-          };
-
-          const shelltype = (
-            <Space wrap>
-              <Select
-                defaultValue="ring"
-                className="custom-select"
-                style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
-                onChange={handleChange}
-                options={[
-                  { value: "ring", label: "Ring" },
-                  { value: "necklace", label: "Necklace" },
-                  { value: "earring", label: "Earring" },
-                  { value: "bracelet", label: "Bracelet" },
-                  { value: "anklet", label: "Anklet" },
-                  { value: "bangle", label: "Bangle" },
-                  { value: "choker", label: "Choker" },
-                  { value: "pendant", label: "Pendant" },
-                ]}
-              />
-            </Space>
-          );
-
-
-          const material = (
-            <Space wrap>
-              <Select
-                defaultValue="14K White Gold"
-                className="custom-select"
-                style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
-                onChange={handleChange}
-                options={[
-                  { value: "14Kwhite", label: "14K White Gold" },
-                  { value: "14Kyellow", label: "14K Yellow Gold" },
-                  { value: "14Krose", label: "14K Rose Gold" },
-                  { value: "18Kwhite", label: "18K White Gold" },
-                  { value: "18Kyellow", label: "18K Yellow Gold" },
-                  { value: "18Krose", label: "18K Rose Gold" },
-                  { value: "platinum", label: "Platinum" },
-                ]}
-              />
-            </Space>
-          );
-          
 
             
         return(
@@ -87,16 +41,16 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                         <Styled.AdminPage>
                             <ProductMenu/>
 
-                            <Styled.OrderContent>
-                                <Styled.OrderContent_Head>
-                                    <Styled.OrderContent_HeadTop>
+                            <Styled.AdPageContent>
+                                <Styled.AdPageContent_Head>
+                                    <Styled.AdPageContent_HeadTop>
                                         <h2>Ring</h2>
                                         <button>
                                             <PlusCircleOutlined />
                                             Add New Ring
                                         </button>
-                                    </Styled.OrderContent_HeadTop>
-                                    <Styled.OrderContent_HeadBenefit>
+                                    </Styled.AdPageContent_HeadTop>
+                                    <Styled.AdPageContent_HeadBenefit>
                                         <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
                                             <SearchOutlined />
@@ -116,8 +70,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <FilterOutlined /> 
                                             Filters
                                         </button>
-                                    </Styled.OrderContent_HeadBenefit>
-                                </Styled.OrderContent_Head>
+                                    </Styled.AdPageContent_HeadBenefit>
+                                </Styled.AdPageContent_Head>
 
                                 <Styled.Pending_Table>
                                     <table>
@@ -192,7 +146,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     </table>
                                 </Styled.Pending_Table>
                                 
-                                <Styled.OrderContent_Foot>
+                                <Styled.AdPageContent_Foot>
                                     <Styled.PageNum>
                                         <p className="nowPage">1</p>
                                         <p>of</p>
@@ -206,8 +160,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <ArrowRightOutlined />
                                         </button>
                                     </Styled.MovePage>
-                                </Styled.OrderContent_Foot>
-                            </Styled.OrderContent>
+                                </Styled.AdPageContent_Foot>
+                            </Styled.AdPageContent>
                         </Styled.AdminPage>
                     </Styled.ProductAdminArea> 
             </>

@@ -43,44 +43,44 @@ const ProductMenu = () => {
                                 <p>View and manage Products</p>
                             </Styled.TitlePage>
                             
-                            <Styled.OrderCatalog>
-                                <Styled.OrderCatalog_Ele className={active === 'Diamond' ? 'active' : ''}>
+                            <Styled.MiniCatalog>
+                                <Styled.MiniCatalog_Ele className={active === 'Diamond' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Diamond' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('Diamond')} ></div>
                                     <Link to="/productAdmin">
                                         <h3>Diamond</h3>
                                     </Link>
-                                </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'RingShell' ? 'active' : ''}>
+                                </Styled.MiniCatalog_Ele>
+                                <Styled.MiniCatalog_Ele className={active === 'RingShell' ? 'active' : ''}>
                                     <div className={`btn ${active === 'RingShell' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('RingShell')}></div>
                                     <Link to="/productAdmin/ringShell">
                                         <h3>Ring Shell</h3>
                                     </Link>
-                                </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'Ring' ? 'active' : ''}>
+                                </Styled.MiniCatalog_Ele>
+                                <Styled.MiniCatalog_Ele className={active === 'Ring' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Ring' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Ring')}></div>
                                     <Link to="/productAdmin/ring">
                                         <h3>Ring</h3>
                                     </Link>
-                                </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'Jewelry' ? 'active' : ''}>
+                                </Styled.MiniCatalog_Ele>
+                                <Styled.MiniCatalog_Ele className={active === 'Jewelry' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Jewelry' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Jewelry')}></div>
                                     <Link to="/productAdmin/jewelry">
                                         <h3>Jewelry</h3>
                                     </Link>
-                                </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'JewelryType' ? 'active' : ''}>
+                                </Styled.MiniCatalog_Ele>
+                                <Styled.MiniCatalog_Ele className={active === 'JewelryType' ? 'active' : ''}>
                                     <div className={`btn ${active === 'JewelryType' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('JewelryType')}></div>
                                     <Link to="/productAdmin/jewelryType">
                                         <h3>Jewelry Type</h3>
                                     </Link>
-                                </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'Material' ? 'active' : ''}>
+                                </Styled.MiniCatalog_Ele>
+                                <Styled.MiniCatalog_Ele className={active === 'Material' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Material' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Material')}></div>
                                     <Link to="/productAdmin/material">
                                         <h3>Material</h3>
                                     </Link>
-                                </Styled.OrderCatalog_Ele>
-                            </Styled.OrderCatalog>
+                                </Styled.MiniCatalog_Ele>
+                            </Styled.MiniCatalog>
                             {/* </Styled.OrderMenu>  */}
                 </>
     )

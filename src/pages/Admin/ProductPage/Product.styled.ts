@@ -3,10 +3,6 @@ import { theme } from "../../../themes";
 
 
 export const ProductAdminArea = styled.section`
-// body {
-//     margin: 0px 0px 0px 0px;
-// }
-
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
@@ -21,9 +17,6 @@ export const ProductAdminArea = styled.section`
 
 `;
 
-
-// /* =============== ORDER ================= */
-
 export const AdminPage = styled.section`
     margin-left: 320px;
     margin-right: 70px;
@@ -36,14 +29,14 @@ export const AdminPage = styled.section`
 
 // /* -------------------- ORDER CONTENT =============== */
 
-export const OrderContent = styled.section`
+export const AdPageContent = styled.section`
     width: 100%;
     background-color: #FFF7E8;
     border-radius: 16px;
     padding-bottom: 30px;
 `;
 
-export const OrderContent_Head = styled.section`
+export const AdPageContent_Head = styled.section`
     margin: 39px 40px 30px 40px;
 
     h2 {
@@ -54,7 +47,7 @@ export const OrderContent_Head = styled.section`
     }
 `;
 
-export const OrderContent_HeadTop = styled.section`
+export const AdPageContent_HeadTop = styled.section`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -78,7 +71,7 @@ export const OrderContent_HeadTop = styled.section`
     }
 `;
 
-export const OrderContent_HeadBenefit = styled.section`
+export const AdPageContent_HeadBenefit = styled.section`
     display: flex;
     justify-content: space-between;
     background-color: #EADBC8;
@@ -195,7 +188,7 @@ export const Pending_Table = styled.section`
     }
 `;
 
-export const OrderContent_Foot = styled.section`
+export const AdPageContent_Foot = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -245,7 +238,3 @@ export const MovePage = styled.section`
     }
 `;
 
-
-export const hehe = styled.section`
-
-`;
