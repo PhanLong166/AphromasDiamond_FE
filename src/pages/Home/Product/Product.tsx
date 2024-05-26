@@ -23,7 +23,14 @@ import {
   Panel,
 } from './Product.styled';
 import { CaretDownOutlined} from '@ant-design/icons';
+import styled from 'styled-components';
+import {  Breadcrumb  } from 'antd';
 import { Link } from 'react-router-dom';
+const CustomBreadcrumb = styled(Breadcrumb)`
+margin-left: 175px;
+padding-top: 10px;
+padding-bottom: 10px;
+`;
 
 const Product: React.FC = () => {
   const [activeIndex, setActiveIndex] = useState<number | null>(null);
@@ -35,6 +42,21 @@ const Product: React.FC = () => {
   return (
 
     <Container>
+      <div>
+      <CustomBreadcrumb
+        separator=">"
+        items={[
+          {
+            title: 'Home',
+            href: '/',
+          },
+          {
+            title: 'Round Ring',
+          },
+          
+        ]}
+      />
+    </div>
       <Banner>
         <LeftSection>
           <h2>Round Rings</h2>
@@ -51,7 +73,7 @@ const Product: React.FC = () => {
 
       <ListProduct>
       {[
-          { href: '/details', name: 'Petite Pavé Leaf Halo Diamond Engagement Ring', price: '$13.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct1.png?alt=media&token=8c409126-be7d-4d54-8475-3e3539ad9743' },
+          { href: '/details', name: 'Petite Pavé Leaf Halo Diamond Engagement Ring', price: '$13.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102' },
           { href: '#', name: 'Shank Double Pavé Diamond Engagement Ring', price: '$16.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct2.png?alt=media&token=fa0d4535-33eb-4fcc-8a67-5ed310fd3f7f' },
           { href: '#', name: 'Shank Triple Pavé Diamond Engagement Ring', price: '$19.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct3.png?alt=media&token=29b58243-7981-4e8d-a6b3-2c964de6ab7d' },
           { href: '#', name: 'Graduated Milgrain Diamond Engagement Ring', price: '$11.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct4.png?alt=media&token=ed7b509a-55f7-4b14-a6c6-c46107d25acb' },

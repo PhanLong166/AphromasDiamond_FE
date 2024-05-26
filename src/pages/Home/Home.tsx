@@ -39,7 +39,7 @@
 
 // export default Home;
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { 
     Body,
     Banner,
@@ -57,8 +57,10 @@ import {
     Button, 
     Shape, 
     ShapeItem, 
+    LeftButtonShape,
     RightButtonShape, 
     ButtonShape,
+    ContainShape,
     DotImage, 
     DotInfo, 
     DotTitle,
@@ -77,7 +79,16 @@ import {
     Banner3, 
     Banner3Container } from './Home.styled';
 
-    import {RightOutlined, LeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
+    import {RightOutlined, LeftOutlined, ArrowRightOutlined, ArrowLeftOutlined} from '@ant-design/icons';
+
+    import { Carousel } from 'antd';
+
+    const images = [
+        'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f',
+        'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_4.png?alt=media&token=a6e6aabe-a969-4b02-8660-e44118da1b04',
+        'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_2.png?alt=media&token=4cedc076-d124-41fd-9ca2-d6fe32bf8f26',
+        'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_6.png?alt=media&token=f47c7382-21cb-4e21-95b0-e76f2581d19b'
+      ];
 
     const categories = [
         {
@@ -104,81 +115,135 @@ import {
             href: '#',
             imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fchokers.png?alt=media&token=87149e42-e447-49f3-a5f1-274054d33ffb',
             title: 'Chokers'
+        },
+        {
+            href: '/product',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578',
+            title: 'Rings'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fnecklaces.png?alt=media&token=f93e37c0-56ba-465b-8cd4-bae4e0f2f01b',
+            title: 'Necklaces'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fearring.png?alt=media&token=9463ef63-fd14-469e-85c4-acaadab99c89',
+            title: 'Earrings'
         }
+       
     ];
 
     const shapes = [
         { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=cadd1209-a915-4159-a1dd-391c7bad3b1a", title: "Round" },
         { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=42e764cf-1a58-45c8-b4d7-898f4f55a64d", title: "Princess" },
-        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Pear" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Cushion" },
         { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=cadd1209-a915-4159-a1dd-391c7bad3b1a", title: "Oval" },
         { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=42e764cf-1a58-45c8-b4d7-898f4f55a64d", title: "Emerald" },
-        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Heart" }
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Pear" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Asscher" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=cadd1209-a915-4159-a1dd-391c7bad3b1a", title: "Heart" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=42e764cf-1a58-45c8-b4d7-898f4f55a64d", title: "Radiant" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Marquise" }
         // Add more shapes as needed
     ];
 
 const Home: React.FC = () => {
+    type Carousel = /*unresolved*/ any
+    const carouselRef = React.useRef<Carousel | null>(null);
+
+    const handlePrev = () => {
+    carouselRef.current?.prev();
+    };
+
+    const handleNext = () => {
+    carouselRef.current?.next();
+    };
+
+    
     return (
         <Body>
         <Container>
-            <Banner></Banner>
+        <Carousel arrows infinite={false}>
+            {images.map((image, index) => (
+            <div key={index}>
+                <img src={image} alt={`Slide ${index + 1}`} style={{ width: '100%', height: '500px', objectFit: 'cover' }} />
+            </div>
+            ))}
+        </Carousel>
             <Categories>
             <Heading>
                 <h2 className="title-cate">CATEGORIES</h2>
             </Heading> 
-                <Contain>
-                
-                       
-                        <DotGrid>
-                            <Wrapper style={{ gap: '50px' }}>
-                                <LeftButtonWrapper>
-                                    <Button className="left-button"><LeftOutlined style={{color: '#102c57', fontSize: '14px'}}/></Button>
-                                </LeftButtonWrapper>
-                                {categories.map((category, index) => (
-                                    <Cate key={index}>
-                                        <CateImage>
-                                            <a href={category.href}><img src={category.imgSrc} alt={category.title} /></a>
-                                        </CateImage>
-                                        <DotInfo>
-                                            <a href={category.href}>
-                                                <CateTitle>{category.title}</CateTitle>
-                                            </a>
-                                        </DotInfo>
-                                    </Cate>
-                                ))}
-                                <RightButtonWrapper>
-                                    <Button className="right-button"><RightOutlined style={{color: '#102c57', fontSize: '14px'}}/></Button>
-                                </RightButtonWrapper>
-                            </Wrapper>
-                        </DotGrid>
-                   
-                </Contain>
+            <Contain>
+      <DotGrid>
+        <LeftButtonWrapper>
+          <Button className="left-button" onClick={handlePrev}>
+            <LeftOutlined style={{ color: '#102c57', fontSize: '14px' }} />
+          </Button>
+        </LeftButtonWrapper>
+
+        <Carousel ref={carouselRef} slidesToShow={5} slidesToScroll={3} dots={false} infinite={false}>
+          {categories.map((category, index) => (
+            <Cate key={index}>
+              <CateImage>
+                <a href={category.href}>
+                  <img src={category.imgSrc} alt={category.title} />
+                </a>
+              </CateImage>
+              <div>
+                <a href={category.href}>
+                  <CateTitle>{category.title}</CateTitle>
+                </a>
+              </div>
+            </Cate>
+          ))}
+        </Carousel>
+
+        <RightButtonWrapper>
+          <Button className="right-button" onClick={handleNext}>
+            <RightOutlined style={{ color: '#102c57', fontSize: '14px' }} />
+          </Button>
+        </RightButtonWrapper>
+      </DotGrid>
+    </Contain>
             </Categories>
             <Shape>
                 <Heading>
                             <h2 className="title">DIAMOND SHAPE</h2>
                 </Heading>
-                <Contain>
+                <ContainShape>
                     <DotGrid>
-                        <Wrapper style={{ gap: '5px' }}>
-                            {shapes.map((shape, index) => (
-                            <ShapeItem key={index}>
-                            <DotImage>
-                            <a href={shape.href}><img src={shape.imgSrc} alt={shape.title} /></a>
-                            </DotImage>
-                            <DotInfo>
-                            <a href={shape.href}>
-                                <DotTitle className="dot-title">{shape.title}</DotTitle>
-                            </a>
-                            </DotInfo>
-                            </ShapeItem>
-                        ))}
-                        <RightButtonShape className="right-button-wrapper">
-                            <ButtonShape className="button-shape right-button"><ArrowRightOutlined style={{color: '#fff', fontSize: '14px'}}/></ButtonShape>
-                        </RightButtonShape>
-                    </Wrapper>
+                    {/* <LeftButtonShape>
+          <ButtonShape className="left-button">
+            <ArrowLeftOutlined style={{color: '#fff', fontSize: '14px'}}/>
+          </ButtonShape>
+        </LeftButtonShape> */}
+
+        <Carousel slidesToShow={10} slidesToScroll={3} dots={false} infinite={false}>
+          {shapes.map((shape, index) => (
+            <ShapeItem key={index}>
+              <DotImage>
+                <a href={shape.href}>
+                  <img src={shape.imgSrc} alt={shape.title} />
+                </a>
+              </DotImage>
+              <DotInfo>
+                <a href={shape.href}>
+                  <DotTitle>{shape.title}</DotTitle>
+                </a>
+              </DotInfo>
+            </ShapeItem>
+          ))}
+        </Carousel>
+
+        {/* <RightButtonShape>
+          <ButtonShape className="right-button">
+             <ArrowRightOutlined style={{color: '#fff', fontSize: '14px'}}/>
+          </ButtonShape>
+        </RightButtonShape> */}
                     </DotGrid> 
-                </Contain>
+                </ContainShape>
             </Shape>
             <Banner2>
                 <Banner2Container>
@@ -208,10 +273,10 @@ const Home: React.FC = () => {
             <Feature>
                 <Container>
                     <h2 className="title-best">BESTSELLER</h2>
-                    <div className="nav-buttons">
+                    {/* <div className="nav-buttons">
                         <button className="nav-button prev-button"><LeftOutlined/></button>
                         <button className="nav-button next-button"><RightOutlined/></button>
-                    </div>
+                    </div> */}
                     <FeatureContent>
                         <Row>
                             <div className="main-row">
@@ -277,7 +342,10 @@ const Home: React.FC = () => {
             </About>
         </Container>
     </Body>
+
+    
     );
+    
 }
 
 export default Home;
