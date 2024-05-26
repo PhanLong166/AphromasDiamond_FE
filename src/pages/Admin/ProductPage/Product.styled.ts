@@ -66,6 +66,7 @@ export const OrderContent_HeadTop = styled.section`
         height: 55px;
         border-radius: 16px;
         font-size: 16px;
+        border: none;
     }
 
     button:hover{

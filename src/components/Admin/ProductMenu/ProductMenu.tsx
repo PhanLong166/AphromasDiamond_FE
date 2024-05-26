@@ -56,21 +56,27 @@ const ProductMenu = () => {
                                         <h3>Ring Shell</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
+                                <Styled.OrderCatalog_Ele className={active === 'Ring' ? 'active' : ''}>
+                                    <div className={`btn ${active === 'Ring' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Ring')}></div>
+                                    <Link to="/productAdmin/ring">
+                                        <h3>Ring</h3>
+                                    </Link>
+                                </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Jewelry' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Jewelry' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Jewelry')}></div>
-                                    <Link to="/productAdmin/confirmed">
+                                    <Link to="/productAdmin/jewelry">
                                         <h3>Jewelry</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'JewelryType' ? 'active' : ''}>
                                     <div className={`btn ${active === 'JewelryType' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('JewelryType')}></div>
-                                    <Link to="/productAdmin/confirmed">
+                                    <Link to="/productAdmin/jewelryType">
                                         <h3>Jewelry Type</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Material' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Material' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Material')}></div>
-                                    <Link to="/productAdmin/confirmed">
+                                    <Link to="/productAdmin/material">
                                         <h3>Material</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>

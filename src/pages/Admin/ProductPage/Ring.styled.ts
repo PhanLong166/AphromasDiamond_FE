@@ -152,8 +152,8 @@ export const Pending_Table = styled.section`
         color: #783232;
         font-size: 20px;
     }
-    tr {
-        // border-bottom: 1px solid ${theme.color.primary};
+    td {
+        width: fit-content;
     }
     tr .TextAlign{
         text-align: center;
