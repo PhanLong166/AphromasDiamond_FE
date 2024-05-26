@@ -19,12 +19,20 @@ const items: MenuProps['items'] = [
     //   type: 'divider',
     // },
     {
-      label: <a href="/">Low to High</a>,
+      label: <a href="/">Start Soonest</a>,
       key: '2',
     },
     {
-        label: <a href="/">High to Low</a>,
+        label: <a href="/">Start Latest</a>,
         key: '3',
+    },
+    {
+        label: <a href="/">End Soonest</a>,
+        key: '4',
+    },
+    {
+        label: <a href="/">End Latest</a>,
+        key: '5',
     }
   ];
   
