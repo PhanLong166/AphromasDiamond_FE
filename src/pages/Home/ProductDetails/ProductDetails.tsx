@@ -1,4 +1,7 @@
 import { useState } from 'react';
+// import { Pagination } from 'antd';
+import {  Breadcrumb  } from 'antd';
+import styled from 'styled-components';
 import {
   Body,
   Section,
@@ -50,9 +53,16 @@ import {
   Price,
   AddCartButton,
   AddLink,
-  HeadingTitle
+  HeadingTitle,
+  // PageLink
 } from './ProductDetails.styled';
 import {StarFilled, RightOutlined, GiftFilled, HomeFilled} from '@ant-design/icons';
+
+const CustomBreadcrumb = styled(Breadcrumb)`
+margin-left: 175px;
+padding-top: 20px;
+`;
+
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState('https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Fdetails1.png?alt=media&token=c27d4467-63b4-4eec-9d09-6cb865e6d7d9');
@@ -69,12 +79,39 @@ const ProductDetails = () => {
         setActiveTab(tabId);
     };
 
+ 
+
+
 
 
   return (
     <Body>
+    <div>
+      <CustomBreadcrumb
+        separator=">"
+        items={[
+          {
+            title: 'Home',
+            href: '/',
+          },
+          {
+            title: 'Round Ring',
+            href: '/product',
+          },
+          {
+            title: 'All Product',
+            href: '/all',
+          },
+          {
+            title: 'Ring - #012345',
+          },
+        ]}
+      />
+    </div>
     <Section>
+      
       <Container>
+        
         <Wrap>
           <ProductDotGrid>
             <Wrapper>
@@ -259,6 +296,21 @@ const ProductDetails = () => {
                                 <span>3 reviews</span>
                             </div>
                             <button className="view-all-button">All</button>
+                {/* <Pagination
+                    current={current}
+                    onChange={onChange}
+                    total={50}
+                    itemRender={(page, type, originalElement) => {
+                    if (type === 'page') {
+                    if (page === 1) {
+                       return originalElement;
+                    } else {
+                        return <PageLink href={`/page-${page}`}>{page}</PageLink>;
+                   }
+                    }
+                  return originalElement;
+                   }}/> */}
+   
                         </div>
                         <div className="body-review">
                             <div className="profile">

@@ -11,6 +11,7 @@ import Product from './pages/Home/Product/Product'
 import ProductDetails from './pages/Home/ProductDetails/ProductDetails'
 import Headers from './components/Headers/Headers'
 import Footer from './components/Footer/Footer'
+// import About from './pages/Home/AboutUs/AboutUs'
 
 
 
@@ -56,6 +57,13 @@ const App = () => {
             <Footer/>
           </>
         } />
+        {/* <Route path='/about' element={
+          <>
+            <Headers/>
+            <About />
+            <Footer/>
+          </>
+        } /> */}
         <Route path="/orderAdmin" element={<OrderAdmin />} />
         <Route path="/productAdmin" element={<ProductAdmin/>}/>
       </Routes>
