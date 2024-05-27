@@ -45,7 +45,7 @@ const items: MenuProps['items'] = [
                         
                         <Styled.AdminPage>
                             <Styled.TitlePage>
-                                    <h1>Promotion Management</h1>
+                                    <h1>Marketing Management</h1>
                                     <p>View and manage Promotion</p>
                             </Styled.TitlePage>
 

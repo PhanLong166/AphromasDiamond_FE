@@ -3,10 +3,6 @@ import { theme } from "../../../themes";
 
 
 export const ProductAdminArea = styled.section`
-// body {
-//     margin: 0px 0px 0px 0px;
-// }
-
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
