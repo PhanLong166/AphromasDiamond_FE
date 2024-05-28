@@ -25,7 +25,13 @@ import Cart from './pages/Customer/Cart/Cart'
 import Checkout from './pages/Customer/Checkout/Checkout'
 import OrderList from './pages/Customer/OderList/OderList'
 import Account from './pages/Customer/AccountDetail/AccountDetail'
+<<<<<<< HEAD
+import History from './pages/Customer/History/History'
+import Voucher from './pages/Customer/Voucher/Voucher'
+import AccountCus from './components/AccountCus/AccountCus'
+=======
 // import About from './pages/Home/AboutUs/AboutUs'
+>>>>>>> 7008c1b6cc6cc7349021bd18c3026a401be86c45
 
 
 
@@ -96,10 +102,31 @@ const App = () => {
         <Route path='/Account' element={
           <>
             <Headers/>
+            <AccountCus/>
             <Account />
             <Footer/>
           </>
         } />
+<<<<<<< HEAD
+         <Route path='/History' element={
+          <>
+            <Headers/>
+            <History />
+            <Footer/>
+          </>
+        } />
+
+        <Route path='/Voucher' element={
+          <>
+            <Headers/>
+            <AccountCus/>
+            <Voucher />
+            <Footer/>
+          
+          </>
+        } />
+        
+=======
         {/* <Route path='/about' element={
           <>
             <Headers/>
@@ -107,6 +134,7 @@ const App = () => {
             <Footer/>
           </>
         } /> */}
+>>>>>>> 7008c1b6cc6cc7349021bd18c3026a401be86c45
         <Route path="/orderAdmin" element={<OrderAdmin />} />
         <Route path="/orderAdmin/confirmed" element={<ConfirmedOrder />} />
         <Route path="/orderAdmin/delivering" element={<DeliveringOrder />} />
