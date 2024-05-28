@@ -3,16 +3,18 @@ import { theme } from "../../../themes";
 
 
 export const ProductAdminArea = styled.section`
-// body {
-//     margin: 0px 0px 0px 0px;
-// }
-
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
-    // height: 100%; 
+    /* height: 100%; */
     width: 100%;
-    padding-bottom: 20px;
+    padding-bottom: 70px;
+
+
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
 
 `;
 
@@ -24,13 +26,27 @@ export const AdminPage = styled.section`
     padding-bottom: 30px;
 `;
 
+export const TitlePage = styled.div `
+    h1 {
+        font-weight: 36px;
+        color: ${theme.color.primary};
+        margin: 47px 0px 0px 0px;
+        padding-bottom: 7px;
+    }
+
+    p {
+        color: #B19F8A;
+        font-size: 16px;
+        margin: 0px 0px 0px 0px;
+    }
+`;
 
 
-// /* -------------------- CONTENT =============== */
+// /* -------------------- ORDER CONTENT =============== */
 
 export const AdPageContent = styled.section`
     width: 100%;
-    background-color: ${theme.color.fifth};
+    background-color: #FFF7E8;
     border-radius: 16px;
     padding-bottom: 30px;
 `;
@@ -42,7 +58,7 @@ export const AdPageContent_Head = styled.section`
         margin: 0px 0px 0px 0px;
         padding: 39px 0px 27px;
         font-size: 24px;
-        color: ${theme.color.primary};
+        color: #102C57;
     }
 `;
 
@@ -73,21 +89,21 @@ export const AdPageContent_HeadTop = styled.section`
 export const AdPageContent_HeadBenefit = styled.section`
     display: flex;
     justify-content: space-between;
-    background-color: ${theme.color.third};
+    background-color: #EADBC8;
     padding: 20px 60px 20px 60px;
     border-radius: 16px;
 
     button {
         height: 55px;
         width: 139px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFF7E8;
         border-radius: 16px;
         border: none;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         font-size: 16px;
-        color: ${theme.color.primary};
+        color: #102C57;
         font-weight: 600;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     }
@@ -99,6 +115,11 @@ export const AdPageContent_HeadBenefit = styled.section`
     button .anticon {
         font-size: 18px;
     }
+
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
 `;
 
 export const SearchArea = styled.section`
@@ -110,19 +131,19 @@ export const SearchArea = styled.section`
         width: 90%;
         font-size: 20px;
         padding-left: 10px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFF7E8;
         height: 55px;
         border:none;
         border-radius: 16px 0px 0px 16px;
         padding-right: 20px;
-        color:${theme.color.primary};
+        color:#102C57;
     }
     .anticon {
         font-size: 23px;
-        color: ${theme.color.primary};
-        background-color: ${theme.color.fifth};
+        color: #102C57;
+        background-color: #FFF7E8;
         height: 55px;
-        border: 1px solid ${theme.color.fifth};
+        border: 1px solid #FFF7E8;
         padding: 0px 20px 0px 20px;
         border-radius: 0px 16px 16px 0px;
     }
@@ -140,7 +161,8 @@ export const Pending_Table = styled.section`
     }
     th,
     td {
-        padding: 8px 0px 8px 0px;
+        padding: 15px 0px 10px 0px;
+        // padding: 8px;
         text-align: left;
         font-size: 16px;
         color: ${theme.color.primary};
@@ -150,28 +172,10 @@ export const Pending_Table = styled.section`
         font-size: 20px;
     }
     tr {
-        // border-bottom: 1px solid ${theme.color.primary};
+        
     }
     tr .TextAlign{
         text-align: center;
-    }
-    tr .TextAlign input{
-        width: 80px;
-    }
-    td img {
-        width: 77px;
-    }
-    td input {
-        font-size: 16px;
-        background-color: ${theme.color.fifth};
-        color: ${theme.color.primary};
-        padding: 5px;
-        border: 1px solid ${theme.color.fifth};
-        border-radius: 5px;
-        height: 100%;
-    }
-    td input:active{
-        border: none;
     }
     td .anticon {
         font-size: 23px;
@@ -182,21 +186,15 @@ export const Pending_Table = styled.section`
     .deleBtn {
         color: red;
     }
-    .custom-select .ant-select-selector {
-        background-color: ${theme.color.fifth} !important;
-        color: ${theme.color.primary} !important;
+
+    .pendStatus {
+        background-color: #F8E7EE;
+        border-radius: 100px;
+        padding: 5px 10px 5px 10px;
+        font-size: 12px;
+        color: #CD486B;
+        border: none;
     }
-    
-    .custom-select .ant-select-dropdown {
-        background-color: ${theme.color.fifth} !important;
-        color: ${theme.color.primary} !important;
-    }
-    
-    .custom-select .ant-select-item-option-selected {
-        background-color: ${theme.color.fifth} !important;
-        color: ${theme.color.primary} !important;
-    }
-    
     .confirmBtn {
         background-color: ${theme.color.primary};
         border-radius: 100px;
@@ -215,7 +213,7 @@ export const AdPageContent_Foot = styled.section`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: ${theme.color.third};
+    background-color: #EADBC8;
     padding: 12px 60px 12px 60px;
     border-radius: 16px;
     margin: 39px 40px 0px 40px;
@@ -231,7 +229,7 @@ export const PageNum = styled.section`
     }
 
     .nowPage {
-        color:${theme.color.primary};
+        color:#102C57;
     }
 `;
 
@@ -239,7 +237,7 @@ export const MovePage = styled.section`
     button {
         width:40px;
         height: 40px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFF7E8;
         border-radius: 12px;
         border: none;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
@@ -257,6 +255,7 @@ export const MovePage = styled.section`
         color: #92929D;
     }
     .nextArrow .anticon {
-        color:${theme.color.primary};
+        color:#102C57;
     }
 `;
+

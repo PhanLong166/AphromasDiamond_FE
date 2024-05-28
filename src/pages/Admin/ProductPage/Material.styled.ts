@@ -3,17 +3,12 @@ import { theme } from "../../../themes";
 
 
 export const ProductAdminArea = styled.section`
-// body {
-//     margin: 0px 0px 0px 0px;
-// }
-
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
     // height: 100%; 
     width: 100%;
     padding-bottom: 20px;
-
 `;
 
 export const AdminPage = styled.section`
@@ -169,6 +164,7 @@ export const Pending_Table = styled.section`
         border: 1px solid ${theme.color.fifth};
         border-radius: 5px;
         height: 100%;
+        // width: fit-content;
     }
     td input:active{
         border: none;
@@ -196,7 +192,7 @@ export const Pending_Table = styled.section`
         background-color: ${theme.color.fifth} !important;
         color: ${theme.color.primary} !important;
     }
-    
+
     .confirmBtn {
         background-color: ${theme.color.primary};
         border-radius: 100px;
@@ -209,6 +205,7 @@ export const Pending_Table = styled.section`
     .confirmBtn:hover {
         cursor: pointer;
     }
+    
 `;
 
 export const AdPageContent_Foot = styled.section`

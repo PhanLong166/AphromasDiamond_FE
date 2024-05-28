@@ -1,36 +1,64 @@
-import * as Styled from '../ProductPage/Product.styled';
+import * as Styled from '../ProductPage/Jewelry.styled';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
     ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
+import { Select } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
 
-const items: MenuProps['items'] = [
-    {
-      label: <a href="/" style={{  }}>A - Z</a>,
-      key: '0',
-    },
-    {
-      label: <a href="/">Z - A</a>,
-      key: '1',
-    },
-    // {
-    //   type: 'divider',
-    // },
-    {
-      label: <a href="/">Low to High</a>,
-      key: '2',
-    },
-    {
-        label: <a href="/">High to Low</a>,
-        key: '3',
-    }
-  ];
-  
-    
-    const Product = () => {
+    const Jewelry = () => {
+        const items: MenuProps['items'] = [
+            {
+              label: <a href="/" style={{  }}>A - Z</a>,
+              key: '0',
+            },
+            {
+              label: <a href="/">Z - A</a>,
+              key: '1',
+            },
+            // {
+            //   type: 'divider',
+            // },
+            {
+              label: <a href="/">Low to High</a>,
+              key: '2',
+            },
+            {
+                label: <a href="/">High to Low</a>,
+                key: '3',
+            }
+          ];
+
+          const handleChange = (value: string) => {
+            console.log(`selected ${value}`);
+          };
+
+          const shelltype = (
+            <Space wrap>
+              <Select
+                defaultValue="ring"
+                className="custom-select"
+                style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
+                onChange={handleChange}
+                options={[
+                  { value: "ring", label: "Ring" },
+                  { value: "necklace", label: "Necklace" },
+                  { value: "earring", label: "Earring" },
+                  { value: "bracelet", label: "Bracelet" },
+                  { value: "anklet", label: "Anklet" },
+                  { value: "bangle", label: "Bangle" },
+                  { value: "choker", label: "Choker" },
+                  { value: "pendant", label: "Pendant" },
+                ]}
+              />
+            </Space>
+          );
+
+          
+
+            
         return(
             <>
                 <Styled.ProductAdminArea>
@@ -42,10 +70,10 @@ const items: MenuProps['items'] = [
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>
                                     <Styled.AdPageContent_HeadTop>
-                                        <h2>Diamond</h2>
+                                        <h2>Jewelry</h2>
                                         <button>
                                             <PlusCircleOutlined />
-                                            Add New Diamond
+                                            Add New Jewelry
                                         </button>
                                     </Styled.AdPageContent_HeadTop>
                                     <Styled.AdPageContent_HeadBenefit>
@@ -75,20 +103,22 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Diamond</th>
+                                            <th>ID Jewelry</th>
+                                            <th>Image</th>
                                             <th>Name</th>
-                                            <th>Price</th>
-                                            <th className='TextAlign'>Color</th>
-                                            <th className='TextAlign'>Shape</th>
+                                            <th className='TextAlign'>Price</th>
+                                            <th className='TextAlign'>Type</th>
+                                            <th className='TextAlign'>Quantity</th>
                                             <th className='TextAlign'>Detail</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
+                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
+                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
+                                            <td className='TextAlign'>38</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -96,10 +126,11 @@ const items: MenuProps['items'] = [
                                         <tr>
                                             <td>02</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
+                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
+                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
+                                            <td className='TextAlign'>38</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -107,10 +138,11 @@ const items: MenuProps['items'] = [
                                         <tr>
                                             <td>03</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
+                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
+                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
+                                            <td className='TextAlign'>38</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -118,10 +150,11 @@ const items: MenuProps['items'] = [
                                         <tr>
                                             <td>04</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
+                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
+                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
+                                            <td className='TextAlign'>38</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -129,10 +162,11 @@ const items: MenuProps['items'] = [
                                         <tr>
                                             <td>05</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
+                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
+                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
+                                            <td className='TextAlign'>38</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -140,10 +174,11 @@ const items: MenuProps['items'] = [
                                         <tr>
                                             <td>06</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
+                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
+                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
+                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
+                                            <td className='TextAlign'>{shelltype}</td>
+                                            <td className='TextAlign'>38</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -173,4 +208,4 @@ const items: MenuProps['items'] = [
     )
 };
 
-export default Product; 
+export default Jewelry; 

@@ -303,4 +303,23 @@ export const MoreLink = styled.a`
   }
 `;
 
+export const PageLink = styled.a`
+  margin: 0 5px;
+  padding: 5px 10px;
+  color: #102c57;
+  cursor: pointer;
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+    color: #101010;
+  }
+`;
+
+export const Paging = styled.div`
+margin-left: 430px;
+margin-bottom: 40px;
+`;
+
+
+
 

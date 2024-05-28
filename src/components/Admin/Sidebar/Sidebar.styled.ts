@@ -15,6 +15,7 @@ export const SidebarContainer = styled.div`
     padding: 20px 0 41px;
     margin-right: 50px;
     position: fixed;
+    font-family: "Poppins", sans-serif;
 `;
 
 export const Logo = styled.div `

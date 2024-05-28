@@ -1,4 +1,9 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { createRoot } from 'react-dom/client';
+import { Pagination } from 'antd';
+import styled from 'styled-components';
+import {  Breadcrumb  } from 'antd';
+
 import {
   Section,
   Container,
@@ -25,18 +30,48 @@ import {
   Price,
   AddCartButton,
   AddLink,
-  ButtonContainer,
-  LoadMoreButton,
-  MoreLink
- 
+  PageLink,
+  Paging
+
 } from './AllProduct.styled';
 import { CaretDownOutlined} from '@ant-design/icons';
 import { Link } from 'react-router-dom';
+const CustomBreadcrumb = styled(Breadcrumb)`
+margin-left: 175px;
+padding-top: 20px;
+`;
 
 
 const AllProduct: React.FC = () => {
+  const [current, setCurrent] = useState(1);
+
+  const onChange = (page: number) => {
+    console.log(page);
+    setCurrent(page);
+    window.history.pushState({}, '', `/page-${page}`); // Cập nhật URL bằng JavaScript
+  };
   return (
+    
     <Section>
+      <div>
+      <CustomBreadcrumb
+        separator=">"
+        items={[
+          {
+            title: 'Home',
+            href: '/',
+          },
+          {
+            title: 'Round Ring',
+            href: '/product',
+          },
+          {
+            title: 'All Product',
+          },
+          
+        ]}
+      />
+    </div>
       <Container className="wide">
         <Wrap>
           <Heading>
@@ -114,12 +149,12 @@ const AllProduct: React.FC = () => {
               <ProductSection id="products">
                 <ListProduct>
                   {[
-                    { href: '/details', name: 'Petite Pavé Leaf Halo Diamond Engagement Ring', price: '$13.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct1.png?alt=media&token=8c409126-be7d-4d54-8475-3e3539ad9743' },
-                    { href: '#', name: 'Shank Double Pavé Diamond Engagement Ring', price: '$16.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct2.png?alt=media&token=fa0d4535-33eb-4fcc-8a67-5ed310fd3f7f' },
+                    { href: '/details', name: 'Petite Pavé Leaf Halo Diamond Engagement Ring', price: '$13.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102' },
+                    { href: '#', name: 'Shank Double Pavé Diamond Engagement Ring', price: '$16.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct13.png?alt=media&token=f76015c8-b828-438c-b99a-57f0938e3aaf' },
                     { href: '#', name: 'Shank Triple Pavé Diamond Engagement Ring', price: '$19.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct3.png?alt=media&token=29b58243-7981-4e8d-a6b3-2c964de6ab7d' },
                     { href: '#', name: 'Graduated Milgrain Diamond Engagement Ring', price: '$11.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct4.png?alt=media&token=ed7b509a-55f7-4b14-a6c6-c46107d25acb' },
                     { href: '#', name: 'Six-Prong Hand-Engraved Diamond Engagement Ring', price: '$13.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct5.png?alt=media&token=fcedf915-c5f5-4215-9226-7f8088c4102e' },
-                    { href: '#', name: 'Tapered Baguette Diamond Engagement Ring', price: '$15.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102' },
+                    { href: '#', name: 'Tapered Baguette Diamond Engagement Ring', price: '$15.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct1.png?alt=media&token=8c409126-be7d-4d54-8475-3e3539ad9743' },
                     { href: '#', name: 'Shank Double Lave Diamond Engagement Ring', price: '$17.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct7.png?alt=media&token=6da53894-3b1f-47f6-8c95-e073e76c0dc7' },
                     { href: '#', name: 'Stone Trapezoid Sidestone Diamond Ring', price: '$23.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543' },
                     { href: '#', name: 'Six-Prong Hand-Engraved Diamond Engagement Ring', price: '$13.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct9.png?alt=media&token=55c3fb6a-569b-41cf-b994-b6d657424695' }
@@ -137,11 +172,23 @@ const AllProduct: React.FC = () => {
                   ))}
                 </ListProduct>
               </ProductSection>
-                <ButtonContainer >
-                    <LoadMoreButton style={{ marginLeft: '505px'}}>
-                        <MoreLink href="">Load More</MoreLink>
-                    </LoadMoreButton>
-                </ButtonContainer>
+              <Paging>
+                <Pagination
+                    current={current}
+                    onChange={onChange}
+                    total={50}
+                    itemRender={(page, type, originalElement) => {
+                    if (type === 'page') {
+                    if (page === 1) {
+                       return originalElement;
+                    } else {
+                        return <PageLink href={`/page-${page}`}>{page}</PageLink>;
+                   }
+                    }
+                  return originalElement;
+                   }}
+      />
+    </Paging>
             </CategoryContent>
           </Content>
         </Wrap>

@@ -771,3 +771,8 @@ export const AddLink = styled.a`
     font-family: "Poppins", sans-serif;
     font-weight: 600;
 `;
+
+export const PageLink = styled.a`
+ 
+  
+`;
