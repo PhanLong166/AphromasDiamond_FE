@@ -192,7 +192,7 @@ const Container = styled.div`
 
 const Header = styled.header`
   display: flex;
-  margin-top: 39px;
+  margin-top: 22px;
   width: 100%;
   flex-direction: column;
   align-items: center;
@@ -204,8 +204,7 @@ const Header = styled.header`
 
 const HeaderTitle = styled.h1`
   color: #000;
-  margin-top: 62px;
-  font: 600 35px/150% Poppins, sans-serif;
+  font: 600 32px Crimson Text, sans-serif;
   @media (max-width: 991px) {
     margin-top: 40px;
   }

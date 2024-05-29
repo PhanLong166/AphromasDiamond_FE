@@ -89,14 +89,15 @@ const App = () => {
         <Route path='/Checkout' element={
           <>
             <Headers/>
-            <Checkout />
+            <Checkout/>
             <Footer/>
           </>
         } />
         <Route path='/OrderList' element={
           <>
             <Headers/>
-            <OrderList />
+            <AccountCus/>
+            <OrderList/>
             <Footer/>
           </>
         } />
@@ -111,7 +112,8 @@ const App = () => {
          <Route path='/History' element={
           <>
             <Headers/>
-            <History />
+            <AccountCus/>
+            <History/>
             <Footer/>
           </>
         } />
