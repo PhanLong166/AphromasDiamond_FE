@@ -14,6 +14,7 @@ import JewelryType from './pages/Admin/ProductPage/JewelryType'
 import Material from './pages/Admin/ProductPage/Material'
 import Promotion from './pages/Admin/MarketingPage/Promotion'
 import Message from './pages/Admin/ClientCaringPage/Message'
+import Feedback from './pages/Admin/ClientCaringPage/Feedback'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
 import AllProduct from './pages/Home/AllProduct/AllProduct'
@@ -123,6 +124,7 @@ const App = () => {
 
         <Route path="/marketingAdmin" element={<Promotion />} />
         <Route path="/clientcaringAdmin" element={<Message />} />
+        <Route path="/clientcaringAdmin/feedback" element={<Feedback />} />
       </Routes>
     </>
   )

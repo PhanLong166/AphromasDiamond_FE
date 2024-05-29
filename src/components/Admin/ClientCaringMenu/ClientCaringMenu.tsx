@@ -54,7 +54,7 @@ const ClientCaringMenu = () => {
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Feedback' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Feedback' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Feedback')}></div>
-                                    <Link to="/clientcaringAdmin/confirmed">
+                                    <Link to="/clientcaringAdmin/feedback">
                                         <h3>Feedback</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
