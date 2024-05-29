@@ -9,7 +9,7 @@ const Cart = () => {
           <TitlePage>Cart</TitlePage>
           <MainSection>
             <Column>
-              <ContinueShopping>Continue Shopping</ContinueShopping>
+              <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span>Continue Shopping</ContinueShopping>
               <ItemContainer>
                 <ActionText>VIEW | REMOVE</ActionText>
                 <ItemDetails>
@@ -51,6 +51,46 @@ const Cart = () => {
                 </ItemDetails>
               </ItemContainer>
               <ItemContainer>
+                <ActionText>VIEW | REMOVE</ActionText>
+                <ItemDetails>
+                  <ItemInfo>
+                    <ItemType>Diamond (Loose)</ItemType>
+                    <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
+                  </ItemInfo>
+                  <ItemDescription>
+                    <ProductDescription>
+                      1.52 Carat F-VS1 Princess Cut Diamond <br />
+                      SKU&nbsp;18633320
+                    </ProductDescription>
+                    <AddOptions>
+                      <AddOp>
+                        <label>Ring size</label>
+                        <select id="ringSize">
+                          <option value="4">4</option>
+                          <option value="4.5">4.5</option>
+                          <option value="5">5</option>
+                          <option value="5.5">5.5</option>
+                          <option value="6">6</option>
+                          <option value="6.5">6.5</option>
+                          <option value="7">7</option>
+                          <option value="7.5">7.5</option>
+                          <option value="8">8</option>
+                          <option value="8.5">8.5</option>
+                          <option value="9">9</option>
+                          <option value="9.5">9.5</option>
+                          <option value="10">10</option>
+                          <option value="10.5">10.5</option>
+                          <option value="11">11</option>
+                          <option value="11.5">11.5</option>
+                          <option value="12">12</option>
+                        </select>
+                      </AddOp>
+                    </AddOptions>
+                  </ItemDescription>
+                  <RingPrice>$8,000</RingPrice>
+                </ItemDetails>
+              </ItemContainer>
+               <ItemContainer>
                 <ActionText>VIEW | REMOVE</ActionText>
                 <ItemDetails>
                   <ItemInfo>
@@ -204,7 +244,7 @@ const ContinueShopping = styled.a`
 const ItemContainer = styled.article`
  background-color: #fff;
  border-radius: 20px;
- box-shadow: 0 4px 4px 7px rgba(0, 0, 0, 0.25);
+ box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
  border: 1px solid rgba(0, 0, 0, 1);
  display: flex;
  flex-direction: column;
@@ -259,9 +299,13 @@ const ItemDescription = styled.div`
  }
 `;
 
+// const ProductDescription = styled.p`
+//  letter-spacing: 0.15px;
+//  font: 400 15px/23px Poppins, sans-serif;
+// `;
 const ProductDescription = styled.p`
  letter-spacing: 0.15px;
- font: 400 15px/23px Poppins, sans-serif;
+ font: 400 15px/ Poppins, sans-serif;
 `;
 
 const AddOptions = styled.div`
@@ -283,15 +327,15 @@ const AddOption = styled.p`
 
 const RingPrice = styled.div`
 letter-spacing: 0.6px;
-    font: 400 10px / 150% Poppins, sans-serif;
-    margin-top: 179px;
+    font: 400 15px / 150% Poppins, sans-serif;
+    margin-top: 196px;
     margin-left: 106px;
 `;
 
 const ItemPrice = styled.p`
  letter-spacing: 0.6px;
- font: 400 10px/150% Poppins, sans-serif;
- margin-top: 179px;
+ font: 400 15px/150% Poppins, sans-serif;
+ margin-top: 196px;
  margin-left: 106px;
  @media (max-width: 991px) {
    margin-top: 40px;
@@ -305,7 +349,7 @@ const AddOp = styled.p`
 const SummaryContainer = styled.div`
  background-color: #fff;
  border: 1px solid rgba(0, 0, 0, 1);
- box-shadow: 0 4px 18px 17px rgba(0, 0, 0, 0.25);
+ box-shadow: rgba(51, 59, 69, 0.15) 0px 0px 40px;
  display: flex;
  flex-direction: column;
  align-items: center;
@@ -339,17 +383,18 @@ const SummaryRow = styled.div`
 `;
 
 const SummaryLabel = styled.p`
- font-family: Poppins, sans-serif;
+font: 400 15px / 150% Poppins, sans-serif;
 `;
 
 const SummaryValue = styled.p`
- font-family: Poppins, sans-serif;
+font: 400 15px / 150% Poppins, sans-serif;
 `;
 
 const PromoCode = styled.div`
  display: flex;
  align-items: center;
  gap: 4px;
+ font: 400 15px / 150% Poppins, sans-serif;
  padding: 18px 0;
  border-top: 1px solid rgba(0, 0, 0, 1);
  border-bottom: 1px solid rgba(0, 0, 0, 1);
@@ -374,6 +419,7 @@ const PromoText = styled.p`
 const SummaryTotal = styled.div`
  margin-top: -28px;
  display: flex;
+ font: 400 15px / 150% Poppins, sans-serif;
  justify-content: space-between;
  @media (max-width: 991px) {
    margin-top: 40px;
@@ -399,6 +445,26 @@ const CheckoutButton = styled.button`
  padding: 22px 27px;
  font: 500 13px Poppins, sans-serif;
  margin-top: 30px;
+//  &:hover {
+//   color: #fff;
+//    background-color: #000;
+// }
+
+// &.active {
+//   font-weight: 600;
+//   color: #fff;
+//   background-color: #000;
+// }
+&:hover {
+  color: #fff;
+   background-color: #000;
+}
+
+&.active {
+  font-weight: 600;
+  color: #fff;
+  background-color: #000;
+}
  @media (max-width: 991px) {
    margin-top: 40px;
    white-space: normal;

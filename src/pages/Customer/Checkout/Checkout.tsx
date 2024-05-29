@@ -1,5 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 interface ContactInfoProps {
   email: string;
   onEdit: () => void;
@@ -44,7 +45,6 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
   <Section>
     <h2>Shipping & Billing</h2>
     <EditPTag><p>Address Delivery<span><hr></hr></span></p></EditPTag>
-    
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="firstName">First Name</StyledLabel>
@@ -56,7 +56,6 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
       </InputGroup>
     </InputRow>
     <label htmlFor="country">Country</label>
-
     <Country>
       <img
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b114f2edfa3b31c61ea104edda326263461457a90784dc66d09c3575872d199?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
@@ -66,7 +65,7 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
     </Country>
     <label htmlFor="address">Address Details</label>
     <StyledInput id="address" type="text" />
-    <Button>Fill Auto </Button>
+    <Button><span style={{paddingRight: 10}}><i className="fa-regular fa-circle"></i></span>Fill Auto </Button>
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="firstName">Phone Number</StyledLabel>
@@ -110,7 +109,7 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 
 const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
   <SummarySection>
-    <a style={{ textAlign: "end", fontSize: 15 }} href="#">EDIT CART</a>
+   <a style={{ textAlign: "end", fontSize: 17, marginTop: -28 }} href="#">EDIT CART</a>
     {items.map((item, index) => (
       <CartItem
         key={index}
@@ -141,7 +140,7 @@ const Checkout: React.FC = () => {
   return (
     <Wrapper>
       <Title>CHECKOUT</Title>
-      <StyledLink href="#">BACK TO CART</StyledLink>
+      <StyledLink ><Link to="/CART">BACK TO CART</Link></StyledLink>
       <Content>
         <Form>
           <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} />
@@ -149,24 +148,10 @@ const Checkout: React.FC = () => {
             address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
             country="VietNam"
           />
-          
-          {/* <PaymentMethod
-            paymentMethods={[
-              {
-                id: "credit-card",
-                imgSrc:
-                  "https://cdn.builder.io/api/v1/image/assets/TEMP/cf80dd34693b8ee36689f6cdbf9c8af4d9dd7c2416ceab835ab7d256a0a98cc2?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
-              },
-              {
-                id: "paypal",
-                imgSrc:
-                  "https://cdn.builder.io/api/v1/image/assets/TEMP/d7dfd775276b304c961268c7106f9586aecbb972a877c1150bdab755dcaa79a2?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
-              },
-            ]}
-
-          /> */}
 
         </Form>
+        {/* <FixedSizeSummary> */}
+          {/* <ScrollableSummary> */}
         <Summary
           items={[
             {
@@ -190,9 +175,33 @@ const Checkout: React.FC = () => {
               sku: "SKU 18633320",
               price: "$8,000",
             },
+            {
+              name: "Diamond (Loose)",
+              image:
+                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+              sku: "SKU 18633320",
+              price: "$8,000",
+            },
+            {
+              name: "Diamond (Loose)",
+              image:
+                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+              sku: "SKU 18633320",
+              price: "$8,000",
+            },
+            {
+              name: "Diamond (Loose)",
+              image:
+                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+              sku: "SKU 18633320",
+              price: "$8,000",
+            },
+            
           ]}
           subtotal="$10,000"
         />
+        {/* </ScrollableSummary> */}
+        {/* </FixedSizeSummary> */}
       </Content>
       
       <Editbtn><a style={{ color: "white" }} href="#" >Continue</a> </Editbtn>
@@ -224,7 +233,9 @@ const StyledLink = styled.a`
   color: #000;
   text-decoration: underline;
   margin-top: 57px;
-  margin-right: 1276px;
+  margin-bottom: 10px;
+  // margin-right: 1276px;
+  width: 86%;
   font: 250 10px/150% Poppins, sans-serif;
   @media (max-width: 991px) {
     margin-top: 40px;
@@ -235,7 +246,8 @@ const Content = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  width: 100%;
+  width: 86%;
+  align-items: flex-start;
   @media (max-width: 991px) {
     flex-direction: column;
   }
@@ -246,8 +258,8 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
+  
 `;
-
 const Section = styled.section`
   background-color: #fff;
   display: flex;
@@ -260,6 +272,29 @@ const Section = styled.section`
     padding: 0 20px;
   }
 `;
+
+const SummarySection = styled(Section)`
+  flex: 1;
+  line-height:40px;
+`;
+
+// const ScrollableSummary = styled(SummarySection)`
+//   max-height: 100%; /* Đảm bảo SummarySection chỉ chiếm không gian tối đa của phần còn lại */
+//   overflow-y: auto; /* Kích hoạt thanh cuộn khi nội dung vượt quá kích thước */
+//   padding: 20px; /* Thêm padding cho đẹp */
+// `;
+
+// const FixedSizeSummary = styled.div`
+//   flex: 1;
+//   max-height: calc(100vh - 200px); /* Đặt chiều cao tối đa của SummarySection để không vượt qua hai phần tử bên trái */
+//   overflow-y: auto; /* Kích hoạt thanh cuộn khi nội dung vượt quá kích thước */
+//   position: sticky;
+//   top: 0;
+//   z-index: 1;
+//   background-color: #fff;
+// `;
+
+
 
 const PromoCoder = styled.div`
  display: flex;
@@ -284,17 +319,16 @@ const PromoIcon = styled.img`
 const PromoText = styled.p`
  font-family: Poppins, sans-serif;
  flex-grow: 1;
+ width: 315px;
 `;
-const SummarySection = styled(Section)`
-  flex: 1;
-  line-height:40px;
-`;
+
 
 const Button = styled.button`
   font-family: Poppins, sans-serif;
   color: #000;
   background-color: #fff;
   border: none;
+  gap: 10px;
   // padding: 11px 30px;
   align-self: flex-start;
   margin-top: -2px;
@@ -342,10 +376,10 @@ max-width: 100%;
 
 const EditTotal = styled.div`
 display: flex;
-word-spacing: 234px;
+word-spacing: 171px;
 `;
 const EditTotal1 = styled.div`
-word-spacing: 266px;
+ word-spacing: 203px;
 `;
 const Editbtn = styled.div`
 font-family: Poppins, sans-serif;
@@ -353,15 +387,16 @@ font-family: Poppins, sans-serif;
     color: #fff;
     border-radius: 5px;
     padding: 11px 30px;
-    align-self: flex-start;
-    margin-top: 16px;
-    margin-left: 1211px;
+    align-self: flex-end;
+    margin-top: 25px;
+    margin-right: 94px;
 
 `;
 
 const ImagesContainer = styled.div`
   display: flex; 
   gap: 10px; 
+  justify-content: space-between;
 `;
 
 const EditPTag = styled.p`
@@ -371,25 +406,26 @@ font-weight: bold;
 
 const InputRow = styled.div`
   display: flex;
-  gap: 20px; /* Khoảng cách giữa các cặp label và input */
+  gap: 20px; 
 `;
 
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1; /* Để các cặp input cùng chia sẻ không gian */
+  flex: 1; 
 `;
 
 const StyledLabel = styled.label`
   margin-bottom: 5px;
-  font-weight: 600;
+ 
 `;
 
 const StyledInputt = styled.input`
   padding: 10px;
   border-radius: 10px;
   font-size: 16px;
-  width: 100%; /* Đảm bảo input chiếm toàn bộ chiều rộng của parent */
+  width: 100%; 
+  
 `;
 
 const PaymentSection = styled.div`
