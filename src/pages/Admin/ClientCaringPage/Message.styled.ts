@@ -17,8 +17,6 @@ export const OrderAdminArea = styled.section`
 `;
 
 
-// /* =============== ORDER ================= */
-
 export const AdminPage = styled.div`
     margin-left: 320px;
     margin-right: 70px;
@@ -27,9 +25,6 @@ export const AdminPage = styled.div`
     padding-bottom: 30px;
 `;
 
-
-
-// /* -------------------- ORDER CONTENT =============== */
 
 export const AdPageContent = styled.div`
     width: 100%;
@@ -41,9 +36,7 @@ export const AdPageContent = styled.div`
 `;
 
 
-export const hehe = styled.section`
 
-`;
 
 export const MessageContent = styled.div`
   padding: 25px 30px 30px 25px;
@@ -56,6 +49,18 @@ export const ChatSidebar = styled.div`
 //   border-right: 1px solid #ccc;
   padding: 10px;
   box-sizing: border-box;
+`;
+
+export const AdPageContent_Head = styled.div`
+    // margin: 39px 40px 30px 40px;
+
+    h2 {
+        margin: 0px 0px 0px 0px;
+        padding: 0px 0px 27px;
+        font-size: 24px;
+        color: #102C57;
+        
+    }
 `;
 
 export const SearchArea = styled.div`
@@ -143,10 +148,10 @@ export const ChatContainer = styled.div`
     flex: 1;
     display: flex;
     flex-direction: column;
-    //   padding: 10px;
     box-sizing: border-box;
     border: 1px solid #D9D9D9;
     border-radius: 16px;
+    margin-left: 10px;
 `;
 
 export const CustomerName = styled.div`

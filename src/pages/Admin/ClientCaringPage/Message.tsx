@@ -113,6 +113,9 @@ const initialChats: Chat[] = [
                             <Styled.AdPageContent>
                                 <Styled.MessageContent>
                                     <Styled.ChatSidebar>
+                                        <Styled.AdPageContent_Head>
+                                            <h2>Message</h2>
+                                        </Styled.AdPageContent_Head>
                                         <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
                                             <SearchOutlined />

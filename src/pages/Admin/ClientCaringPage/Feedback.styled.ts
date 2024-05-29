@@ -25,10 +25,6 @@ export const AdminPage = styled.div`
     padding-bottom: 30px;
 `;
 
-
-
-// /* -------------------- ORDER CONTENT =============== */
-
 export const AdPageContent = styled.div`
     width: 100%;
     background-color: #FFF7E8;
@@ -90,7 +86,6 @@ export const AdPageContent_HeadBenefit = styled.div`
         align-items: center;
         font-size: 16px;
         color: #102C57;
-        font-weight: 600;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     }
 

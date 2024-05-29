@@ -39,7 +39,7 @@ export const MiniCatalog_Ele = styled.div `
     }
 
     h3 {
-        margin: 27px 0px 0px 0px;
+        margin: 31px 0px 0px 0px;
         font-size: 24px;
     }
 

@@ -42,7 +42,7 @@ const ClientCaringMenu = () => {
             <>
                             <Styled.TitlePage>
                                 <h1>Client Caring</h1>
-                                <p>Advise to customers</p>
+                                <p>Advice to customers</p>
                             </Styled.TitlePage>
                             
                             <Styled.OrderCatalog>

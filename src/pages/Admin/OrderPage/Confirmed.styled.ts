@@ -66,7 +66,6 @@ export const OrderContent_HeadBenefit = styled.div`
         align-items: center;
         font-size: 16px;
         color: #102C57;
-        font-weight: 600;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     }
 
