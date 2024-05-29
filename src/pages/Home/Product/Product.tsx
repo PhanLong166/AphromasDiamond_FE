@@ -101,7 +101,10 @@ const Product: React.FC = () => {
           <CustomCardContent>
             <CustomCardTitle>Don't see what you're looking for? <br /> Browse our full catalog</CustomCardTitle>
             <CustomButton>
-              <a href="/all" className="link-add">Show All</a>
+            <Link to={'/all'} className="link-add">
+              Show All
+            </Link>
+             
             </CustomButton>
           </CustomCardContent>
         </CustomCard>

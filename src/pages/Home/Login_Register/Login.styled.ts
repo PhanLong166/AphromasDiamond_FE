@@ -1,17 +1,17 @@
 
 
 import styled, { createGlobalStyle } from 'styled-components';
-
+import { theme } from "../../../themes";
 export const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
   
   :root {
       --text-01: #45413E;
-      --brand-01: #f8f0e5;
-      --brand-02: #eadbc8;
-      --brand-03: #dac0a3;
-      --brand-04: #102c57;
+      --brand-01: ${theme.color.forth};;
+      --brand-02: ${theme.color.third};;
+      --brand-03: ${theme.color.secondary};;
+      --brand-04: ${theme.color.primary};;
       --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
       --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
       --hover-timing: all 0.2s ease;
@@ -174,7 +174,7 @@ export const FormContent = styled.div`
   .title {
     font-size: 24px;
     font-weight: 600;
-    color: #102c57;
+    color: ${theme.color.primary};;
     position: relative;
     font-family: "Playfair Display", sans-serif;
 
@@ -216,7 +216,7 @@ export const FormContent = styled.div`
             
     
             &:focus {
-            border-color: #102c57;
+            border-color: ${theme.color.primary};;
             }
     
             &:valid {
@@ -240,7 +240,7 @@ export const FormContent = styled.div`
     
             a {
             text-decoration: none;
-            color: #102c57;
+            color: ${theme.color.primary};;
             font-weight: 500;
     
             &:hover {
@@ -251,20 +251,20 @@ export const FormContent = styled.div`
             &:active,
             &:visited {
             text-decoration: none;
-            color: #102c57;
+            color: ${theme.color.primary};;
             }
         }
 
     }
 
     .button {
-        color: #eadbc8;
+        color: ${theme.color.third};;
         margin-top: 15px;
      
       
     
         input {
-          background-color: #102c57;
+          background-color: ${theme.color.primary};;
           color: var(--light-01);
           border-radius: 6px;
           padding: 0;
@@ -276,9 +276,9 @@ export const FormContent = styled.div`
     
           &:hover {
             background: #ECBD73;
-            color: #102c57;
+            color: ${theme.color.primary};;
             font-weight: bold;
-            border-color: #102c57;
+            border-color: ${theme.color.primary};;
           }
         }
       }
@@ -407,7 +407,7 @@ export const SignForm = styled.div`
         &:checked + label {
           color: var(--text-01);
           background-color: #ECBD73;
-          border: 1px solid #102c57;
+          border: 1px solid ${theme.color.primary};;
     
         }
       }

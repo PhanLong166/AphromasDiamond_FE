@@ -1,8 +1,9 @@
 import styled from 'styled-components';
+import { theme } from "../../../themes";
 
 export const Section = styled.div`
   margin: 0 auto;
-  background-color: #f8f0e5;
+  background-color: ${theme.color.forth};;
 `;
 
 export const Container = styled.div`
@@ -17,7 +18,7 @@ export const Heading = styled.div`
     text-align: center;
     margin: 30px auto;
     font-family: "Playfair Display", serif;
-    color: #102c57;
+    color: ${theme.color.primary};;
     font-weight: 700;
     margin-bottom: 50px;
   }
@@ -41,7 +42,7 @@ export const SidebarContent = styled.div`
 export const SidebarTitle = styled.div`
   font-size: 24px;
   font-family: "Crimson Text", serif;
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-weight: 600;
   margin-bottom: 20px;
 `;
@@ -61,7 +62,7 @@ export const Summary = styled.div`
     span {
       font-weight: 600;
       font-family: "Crimson Text", serif;
-      color: #102c57;
+      color: ${theme.color.primary};;
       font-size: 18px;
     }
 
@@ -77,7 +78,7 @@ export const Summary = styled.div`
   }
 
   .bx-chevron-down {
-    color: #102c57;
+    color: ${theme.color.primary};;
   }
 `;
 
@@ -107,7 +108,7 @@ export const Wapper = styled.ul`
   li {
     list-style: none;
     text-decoration: none;
-    color: #102c57;
+    color: ${theme.color.primary};;
     cursor: pointer;
     font-size: 17px;
 
@@ -195,7 +196,7 @@ export const ProductItem = styled.div`
     font-size: 18px;
     margin: 10px;
     font-family: "Crimson Text", serif;
-    color: #102c57;
+    color: ${theme.color.primary};;
 }
 `;
 
@@ -207,7 +208,7 @@ export const ProductImage = styled.img`
 `;
 
 export const ItemName = styled.p`
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 17px;
   font-weight: 600;
   font-family: "Crimson Text", serif;
@@ -222,8 +223,8 @@ export const Price = styled.p`
 `;
 
 export const AddCartButton = styled.button`
-    background-color: #102c57;
-    color: #f8f0e5;
+    background-color: ${theme.color.primary};;
+    color: ${theme.color.forth};;
     padding: 12px 10px;
     border-radius: 20px;
     border: none;
@@ -255,13 +256,13 @@ export const MoreButton = styled.button`
 
    a {
     text-decoration: none;
-    color: #f8f0e5;
+    color: ${theme.color.forth};;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     font-family: "Poppins", sans-serif;
     padding: 15px 20px;
-    background-color: #102c57;
+    background-color: ${theme.color.primary};;
     border-radius: 20px;
    }
 
@@ -288,10 +289,10 @@ export const LoadMoreButton = styled.button`
 
 export const MoreLink = styled.a`
   padding: 15px 20px;
-  background-color: #102c57;
+  background-color: ${theme.color.primary};;
   border-radius: 20px;
   text-decoration: none;
-  color: #f8f0e5;
+  color: ${theme.color.forth};;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
@@ -306,7 +307,7 @@ export const MoreLink = styled.a`
 export const PageLink = styled.a`
   margin: 0 5px;
   padding: 5px 10px;
-  color: #102c57;
+  color: ${theme.color.primary};;
   cursor: pointer;
   text-decoration: none;
   &:hover {

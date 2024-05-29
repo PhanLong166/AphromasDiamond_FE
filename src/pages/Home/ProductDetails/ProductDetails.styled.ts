@@ -1,11 +1,12 @@
 import styled from 'styled-components';
+import { theme } from "../../../themes";
 
 
 export const Body = styled.div`
 margin: 0;
 padding: 0;
 box-sizing: border-box;
-background-color: #f8f0e5;
+background-color: ${theme.color.forth};;
 `;
 
 export const Section = styled.div`
@@ -71,7 +72,7 @@ export const Item = styled.div`
   &.selected {
     background-color: #fbf6ef;
     border-radius: 20px;
-    border: solid 2px #dac0a3;
+    border: solid 2px ${theme.color.secondary};;
   }
 `;
 
@@ -118,7 +119,7 @@ export const Heading = styled.div`
 
 export const Title = styled.h1`
   margin: 0;
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 24px;
   font-family: "Playfair Display", serif;
   padding-bottom: 8px;
@@ -137,7 +138,7 @@ export const ProductMetal = styled.div`
 }
 
   span {
-    color: #102c57;
+    color: ${theme.color.primary};;
     font-family: "Crimson Text", serif;
     font-weight: 600;
     font-size: 14px;
@@ -181,7 +182,7 @@ button:hover:not(.selected) {
 
 export const ProductInfo = styled.div`
 span {
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-family: "Crimson Text", serif;
   font-weight: 600;
   font-size: 14px;
@@ -203,7 +204,7 @@ span {
   border: 1px solid #d9d9d9;
   border-radius: 10px; 
   background-color: #d9d9d9; 
-  color: #102c57; 
+  color: ${theme.color.primary};; 
   opacity: .8;
 }
 
@@ -219,14 +220,14 @@ export const RingSizeContainer = styled.div`
 export const RingSizeSelect = styled.select`
   padding: 8px 20px 8px 5px;
   font-size: 12px;
-  color: #102c57;
+  color: ${theme.color.primary};;
   opacity: .7;
   border-radius: 10px;
 `;
 
 export const RingSizeHelp = styled.a`
   text-decoration: none;
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 12px;
   font-weight: bold;
 `;
@@ -241,7 +242,7 @@ border-radius: 5px;
 margin-bottom: 5px;
 cursor: pointer;
 width: 520px;
-background-color: #dac0a3;
+background-color: ${theme.color.secondary};;
 border-radius: 20px;
 `;
 
@@ -250,7 +251,7 @@ export const SelectionTitle = styled.h5`
   font-size: 14px;
   text-align: left;
   font-family: "Playfair Display", sans-serif;
-  color: #102c57;
+  color: ${theme.color.primary};;
 `;
 
 export const SelectName = styled.p`
@@ -284,8 +285,8 @@ export const Button = styled.button`
 flex-grow: 1;
 padding: 20px;
 text-align: center;
-background-color: #102c57;
-color: #f8f0e5;
+background-color: ${theme.color.primary};;
+color: ${theme.color.forth};;
 border: none;
 cursor: pointer;
 border-radius: 15px;
@@ -313,7 +314,7 @@ export const ShippingItem = styled.li`
   display: flex;
   align-items: center;
   span {
-    color: #102c57;
+    color: ${theme.color.primary};;
     font-family: "Crimson Text", sans-serif;
     font-size: 14px;
     font-weight: bold;
@@ -360,7 +361,7 @@ export const CurrentPrice = styled.span`
   font-size: 25px;
   font-family: "Inika", serif;
   font-weight: bold;
-  color: #102c57;
+  color: ${theme.color.primary};;
 `;
 
 export const BeforePrice = styled.span`
@@ -374,7 +375,7 @@ export const Discount = styled.span`
   width: 50px;
   font-size: 18px;
   padding: 8px;
-  background-color: #102c57;
+  background-color: ${theme.color.primary};;
   color: #fff;
   margin-left: -10px;
   text-align: center;
@@ -403,7 +404,7 @@ export const Tabbed = styled.div`
         top: 40px;
         height: 1px;
         width: 100%;
-        background-color: #102c57;
+        background-color: ${theme.color.primary};;
         opacity: .4;
     }
     
@@ -423,14 +424,14 @@ export const Tabbed = styled.div`
         padding: 20px 0;
         margin-right: 30px;
         white-space: nowrap;
-        color: #102c57;
+        color: ${theme.color.primary};;
         text-decoration: none;
         font-family: "Playfair Display", sans-serif;
     }
     
     nav ul :is(li.active a,
       li a:hover) {
-          color: #102c57;
+          color: ${theme.color.primary};;
           font-weight: bold;
       }
 
@@ -447,13 +448,13 @@ export const ProductAbout = styled.div`
     h3 {
       font-size: 18px;
       font-family: "Playfair Display", sans-serif;
-      color: #102c57;
+      color: ${theme.color.primary};;
   }
 
   h4 {
     font-weight: 700;
     font-family: "Crimson Text", sans-serif;
-    color: #102c57;
+    color: ${theme.color.primary};;
     font-size: 16px;
 }
     
@@ -513,14 +514,14 @@ export const Review = styled.div`
       align-items: center;
       justify-content: space-between;
       margin-bottom: 30px;
-      border-bottom: 1px solid #102c57;
+      border-bottom: 1px solid ${theme.color.primary};;
       padding-top: 10px;
       padding-bottom: 5px;
       justify-content: space-between;
 
       .view-all-button {
-        background-color: #102c57; 
-        color:#f8f0e5;            
+        background-color: ${theme.color.primary};; 
+        color:${theme.color.forth};;            
         border: none;
         padding: 10px 15px;
         cursor: pointer;
@@ -536,13 +537,13 @@ export const Review = styled.div`
         strong {
             font-size: 40px;
             font-family: "Playfair Display", sans-serif;
-            color: #102c57;
+            color: ${theme.color.primary};;
         }
 
         span {
             position: relative;
             padding-left: 20px;
-            color: #102c57;
+            color: ${theme.color.primary};;
             font-family: "Playfair Display", sans-serif;
             font-size: 14px;
 
@@ -601,7 +602,7 @@ export const Review = styled.div`
                     .name,
                     .reply strong {
                         font-weight: bold;
-                        color: #102c57;
+                        color: ${theme.color.primary};;
                         font-family: "Crimson Text", sans-serif;
                         font-size: 15px;
                     }
@@ -629,7 +630,7 @@ export const Review = styled.div`
                 }
 
                 strong {
-                    color: #102c57;
+                    color: ${theme.color.primary};;
                     font-size: 15px;
                     font-family: "Playfair Display", sans-serif;
                 }
@@ -637,7 +638,7 @@ export const Review = styled.div`
 
             .reply {
                 margin-left: 92px;
-                background-color: #DAC0A3;
+                background-color: ${theme.color.secondary};;
                 width: fit-content;
                 padding: 10px;
                 border-radius: 20px;
@@ -664,7 +665,7 @@ export const ProductSection = styled.section`
   ;
 
 export const HeadingTitle = styled.h2`
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 22px;
   font-family: "Playfair Display", sans-serif;
 `;
@@ -720,7 +721,7 @@ export const ProductItem = styled.div`
     font-size: 18px;
     margin: 10px;
     font-family: "Crimson Text", serif;
-    color: #102c57;
+    color: ${theme.color.primary};;
 }
 `;
 
@@ -732,7 +733,7 @@ export const ProductImage = styled.img`
 `;
 
 export const ItemName = styled.p`
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 17px;
   font-weight: 600;
   font-family: "Crimson Text", serif;
@@ -747,8 +748,8 @@ export const Price = styled.p`
 `;
 
 export const AddCartButton = styled.button`
-    background-color: #102c57;
-    color: #f8f0e5;
+    background-color: ${theme.color.primary};;
+    color: ${theme.color.forth};;
     padding: 12px 10px;
     border-radius: 20px;
     border: none;

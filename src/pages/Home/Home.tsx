@@ -1,43 +1,3 @@
-// import { useEffect, useRef } from 'react';
-// import { SwiperContainer, SwiperWrapper, SwiperSlide, SwiperButtonNext, SwiperButtonPrev, SwiperPagination } from './Home.styled';
-// import Swiper from 'swiper';
-
-// const Home = () => {
-//     const swiperRef = useRef(null);
-
-//     useEffect(() => {
-//         if (swiperRef.current) {
-//             const swiper = new Swiper(swiperRef.current, {
-//                 navigation: {
-//                     nextEl: ".swiper-button-next",
-//                     prevEl: ".swiper-button-prev",
-//                 },
-//             });
-
-//             return () => {
-//                 swiper.destroy();
-//             };
-//         }
-//     }, []);
-
-//     return (
-//         <SwiperContainer ref={swiperRef} className="mySwiper">
-//             <SwiperWrapper>
-//                 <SwiperSlide>
-//                     <img src="" alt="" />
-//                 </SwiperSlide>
-//                 <SwiperSlide>
-//                     <img src="/HomePage/Image/banner2.png" alt="" />
-//                 </SwiperSlide>
-//             </SwiperWrapper>
-//             <SwiperButtonNext />
-//             <SwiperButtonPrev />
-//             <SwiperPagination />
-//         </SwiperContainer>
-//     );
-// }
-
-// export default Home;
 
 import React, { useState, useEffect } from 'react';
 import {
@@ -81,8 +41,9 @@ import {
 } from './Home.styled';
 
 import { RightOutlined, LeftOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
-
+import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
+
 
 const images = [
     'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f',
@@ -91,63 +52,66 @@ const images = [
     'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_6.png?alt=media&token=f47c7382-21cb-4e21-95b0-e76f2581d19b'
 ];
 
-const categories = [
-    {
-        href: '/product',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578',
-        title: 'Rings'
-    },
-    {
-        href: '#',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fnecklaces.png?alt=media&token=f93e37c0-56ba-465b-8cd4-bae4e0f2f01b',
-        title: 'Necklaces'
-    },
-    {
-        href: '#',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fearring.png?alt=media&token=9463ef63-fd14-469e-85c4-acaadab99c89',
-        title: 'Earrings'
-    },
-    {
-        href: '#',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbracelets.png?alt=media&token=153a1833-4a24-465d-8cd8-27e2e7d8bb73',
-        title: 'Bracelets'
-    },
-    {
-        href: '#',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fchokers.png?alt=media&token=87149e42-e447-49f3-a5f1-274054d33ffb',
-        title: 'Chokers'
-    },
-    {
-        href: '/product',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578',
-        title: 'Rings'
-    },
-    {
-        href: '#',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fnecklaces.png?alt=media&token=f93e37c0-56ba-465b-8cd4-bae4e0f2f01b',
-        title: 'Necklaces'
-    },
-    {
-        href: '#',
-        imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fearring.png?alt=media&token=9463ef63-fd14-469e-85c4-acaadab99c89',
-        title: 'Earrings'
-    }
 
-];
+    const categories = [
+        {
+            href: '/product',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578',
+            title: 'Rings'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fnecklaces.png?alt=media&token=f93e37c0-56ba-465b-8cd4-bae4e0f2f01b',
+            title: 'Necklaces'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fearring.png?alt=media&token=9463ef63-fd14-469e-85c4-acaadab99c89',
+            title: 'Earrings'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbracelets.png?alt=media&token=153a1833-4a24-465d-8cd8-27e2e7d8bb73',
+            title: 'Bracelets'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fchokers.png?alt=media&token=87149e42-e447-49f3-a5f1-274054d33ffb',
+            title: 'Chokers'
+        },
+        {
+            href: '/product',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FAnklets.png?alt=media&token=4e1b0051-2862-46d2-bfc4-5063adf2995b',
+            title: 'Anklets'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FBangles.png?alt=media&token=9e311318-1224-4c59-9c64-12a552139b90',
+            title: 'Bangles'
+        },
+        {
+            href: '#',
+            imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FPendants.png?alt=media&token=952c14cf-4c39-4560-b9e2-79a4ff31258d',
+            title: 'Pendants'
+        }
+       
+    ];
 
-const shapes = [
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=cadd1209-a915-4159-a1dd-391c7bad3b1a", title: "Round" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=42e764cf-1a58-45c8-b4d7-898f4f55a64d", title: "Princess" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Cushion" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=cadd1209-a915-4159-a1dd-391c7bad3b1a", title: "Oval" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=42e764cf-1a58-45c8-b4d7-898f4f55a64d", title: "Emerald" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Pear" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Asscher" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=cadd1209-a915-4159-a1dd-391c7bad3b1a", title: "Heart" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=42e764cf-1a58-45c8-b4d7-898f4f55a64d", title: "Radiant" },
-    { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=486195d7-e4f8-4475-a3f8-eb4ebafb72e1", title: "Marquise" }
-    // Add more shapes as needed
-];
+    const shapes = [
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fround.png?alt=media&token=5530d43b-1410-4a18-baf4-77d713e0bbc7", title: "Round" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=bce10f6f-b8b1-4329-836a-d043b006bfa4", title: "Princess" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fcushion.png?alt=media&token=2cdab80b-7a8b-483a-8f94-12c1d2bcb35c", title: "Cushion" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Foval.png?alt=media&token=416ab721-32c6-4589-a42e-c01ee403cdce", title: "Oval" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Femerald.png?alt=media&token=3adab2d8-1886-4233-9e41-722ad1f97960", title: "Emerald" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fpear.png?alt=media&token=f8961325-5cd0-437b-ace0-fbe5bcb9a08c", title: "Pear" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincess.png?alt=media&token=bce10f6f-b8b1-4329-836a-d043b006bfa4", title: "Asscher" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheart.png?alt=media&token=b846620c-9e63-45c7-a1c7-3ed7d37194b0", title: "Heart" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fradiant.png?alt=media&token=9871c3e3-7d1b-4033-b7b3-9d1bdfa4d2d1", title: "Radiant" },
+        { href: "#", imgSrc: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fmarquise.png?alt=media&token=e44d3a52-1746-4b2b-8dd0-3ecdada1b0e4", title: "Marquise" }
+        // Add more shapes as needed
+    ];
+
+
 
 const Home: React.FC = () => {
     type Carousel = /*unresolved*/ any
@@ -184,22 +148,24 @@ const Home: React.FC = () => {
                                 </Button>
                             </LeftButtonWrapper>
 
-                            <Carousel ref={carouselRef} slidesToShow={5} slidesToScroll={3} dots={false} infinite={false}>
-                                {categories.map((category, index) => (
-                                    <Cate key={index}>
-                                        <CateImage>
-                                            <a href={category.href}>
-                                                <img src={category.imgSrc} alt={category.title} />
-                                            </a>
-                                        </CateImage>
-                                        <div>
-                                            <a href={category.href}>
-                                                <CateTitle>{category.title}</CateTitle>
-                                            </a>
-                                        </div>
-                                    </Cate>
-                                ))}
-                            </Carousel>
+
+        <Carousel ref={carouselRef} slidesToShow={5} slidesToScroll={3} dots={false} infinite={false}>
+          {categories.map((category, index) => (
+            <Cate key={index}>
+              <CateImage>
+              <Link to={category.href}>
+                <img src={category.imgSrc} alt={category.title} />
+            </Link>
+              </CateImage>
+              <div>
+              <Link to={category.href}>
+              <CateTitle>{category.title}</CateTitle>
+            </Link>
+              </div>
+            </Cate>
+          ))}
+        </Carousel>
+
 
                             <RightButtonWrapper>
                                 <Button className="right-button" onClick={handleNext}>
@@ -221,22 +187,25 @@ const Home: React.FC = () => {
           </ButtonShape>
         </LeftButtonShape> */}
 
-                            <Carousel slidesToShow={10} slidesToScroll={3} dots={false} infinite={false}>
-                                {shapes.map((shape, index) => (
-                                    <ShapeItem key={index}>
-                                        <DotImage>
-                                            <a href={shape.href}>
-                                                <img src={shape.imgSrc} alt={shape.title} />
-                                            </a>
-                                        </DotImage>
-                                        <DotInfo>
-                                            <a href={shape.href}>
-                                                <DotTitle>{shape.title}</DotTitle>
-                                            </a>
-                                        </DotInfo>
-                                    </ShapeItem>
-                                ))}
-                            </Carousel>
+
+        <Carousel slidesToShow={10} slidesToScroll={3} dots={false} infinite={false}>
+          {shapes.map((shape, index) => (
+            <ShapeItem key={index}>
+              <DotImage>
+              <Link to={shape.href}>
+              <img src={shape.imgSrc} alt={shape.title} />
+            </Link>
+              
+              </DotImage>
+              <DotInfo>
+              <Link to={shape.href}>
+              <DotTitle>{shape.title}</DotTitle>
+            </Link>
+              </DotInfo>
+            </ShapeItem>
+          ))}
+        </Carousel>
+
 
                             {/* <RightButtonShape>
           <ButtonShape className="right-button">

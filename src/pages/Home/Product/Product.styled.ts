@@ -1,4 +1,5 @@
 import { createGlobalStyle } from 'styled-components';
+import { theme } from "../../../themes";
 
 const GlobalStyle = createGlobalStyle`
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
@@ -17,11 +18,11 @@ export default GlobalStyle;
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: #f8f0e5;
+  background-color: ${theme.color.forth};;
 `;
 
 export const Banner = styled.section`
-  background-color: #eadbc8;
+  background-color: ${theme.color.third};;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -40,7 +41,7 @@ export const LeftSection = styled.div`
     text-align: center;
     font-family: 'Great Vibes';
     font-weight: 500;
-    color: #102c57;
+    color: ${theme.color.primary};;
   }
 
   .subheading {
@@ -54,7 +55,7 @@ export const LeftSection = styled.div`
 
   .consult-button {
     padding: 10px 20px;
-    background-color: #102c57;
+    background-color: ${theme.color.primary};;
     color: white;
     border: none;
     border-radius: 15px;
@@ -134,7 +135,7 @@ export const ProductItem = styled.div`
     font-size: 18px;
     margin: 10px;
     font-family: "Crimson Text", serif;
-    color: #102c57;
+    color: ${theme.color.primary};;
 }
 `;
 
@@ -146,7 +147,7 @@ export const ProductImage = styled.img`
 `;
 
 export const ItemName = styled.p`
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 17px;
   font-weight: 600;
   font-family: "Crimson Text", serif;
@@ -161,8 +162,8 @@ export const Price = styled.p`
 `;
 
 export const AddCartButton = styled.button`
-    background-color: #102c57;
-    color: #f8f0e5;
+    background-color: ${theme.color.primary};;
+    color: ${theme.color.forth};;
     padding: 12px 10px;
     border-radius: 20px;
     border: none;
@@ -187,7 +188,7 @@ export const AddLink = styled.a`
 `;
 
 export const CustomCard = styled.div`
-  background-color: #eadbc8;
+  background-color: ${theme.color.third};;
   width: 83%;
   margin-left: 10px;
   height: 97%;
@@ -215,8 +216,8 @@ export const CustomCardTitle = styled.h6`
 export const CustomButton = styled.button`
   text-decoration: none;
   padding: 10px 30px;
-  color: #f8f0e5;
-  background-color: #102c57;
+  color: ${theme.color.forth};;
+  background-color: ${theme.color.primary};;
   border-radius: 20px;
   font-size: 13px;
   font-family: "Poppins", sans-serif;
@@ -249,7 +250,7 @@ export const LeftFAQ = styled.div`
   h2{
     font-size: 30px;
     font-family: "Playfair Display", sans-serif;
-    color: #102c57;
+    color: ${theme.color.primary};;
   }
 `;
 
@@ -261,8 +262,8 @@ export const Wrapper = styled.div`
 `;
 
 export const Accordion = styled.button`
-  background-color: #f8f0e5;
-  color: #102c57;
+  background-color: ${theme.color.forth};;
+  color: ${theme.color.primary};;
   cursor: pointer;
   font-size: 16px;
   width: 100%;
@@ -283,14 +284,14 @@ export const Accordion = styled.button`
   }
 
   &:hover {
-    background-color: #eadbc8;
+    background-color: ${theme.color.third};;
   }
 `;
 
 export const Panel = styled.div`
   padding: 0 18px;
   color: #45413e;
-  background-color: #f8f0e5;
+  background-color: ${theme.color.forth};;
   padding: 0 2rem 2.5rem 2rem;
   overflow: hidden;
   max-height: 0;

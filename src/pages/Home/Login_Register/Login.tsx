@@ -86,9 +86,9 @@ const Login: React.FC = () => {
               </div>
             
               <div className="input-box radio-gender">
-                    <div className="input-gender">
+                    {/* <div className="input-gender">
                         <i className="fas fa-transgender"  style={{ fontSize: 24 }}></i>
-                    </div>
+                    </div> */}
                    
                     <input
                         type="radio"

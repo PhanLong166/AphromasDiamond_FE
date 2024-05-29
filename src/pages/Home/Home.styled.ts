@@ -1,8 +1,9 @@
 
 import styled from 'styled-components';
+import { theme } from "../../themes";
 
 export const Body = styled.div`
-    background-color: #f8f0e5;
+    background-color: ${theme.color.forth};;
    
 `;
 
@@ -33,14 +34,14 @@ export const Heading = styled.div`
     .title-cate {
         font-size: 32px;
         font-family: "Playfair Display", serif;
-        color: #102c57;
+        color: ${theme.color.primary};;
     }
 
     .title {
         font-size: 32px;
         margin-bottom: 20px;
         font-family: "Playfair Display", serif;
-        color: #eadbc8;
+        color: ${theme.color.third};;
          
     }
 `;
@@ -84,7 +85,7 @@ export const CateImage = styled.div`
 `;
 
 export const CateTitle = styled.p`
-  color: #102c57;
+  color: ${theme.color.primary};;
   font-size: 18px;
   font-family: "Crimson Text", serif;
   cursor: pointer;
@@ -96,14 +97,14 @@ export const CateTitle = styled.p`
 
 export const LeftButtonWrapper = styled.div`
   position: absolute;
-  top: 116.5%;
+  top: 114.5%;
   transform: translateY(-50%);
   z-index: 1;
 `;
 
 export const RightButtonWrapper = styled.div`
   position: absolute;
-  top: 116.5%;
+  top: 114.5%;
   right: 107px; 
   transform: translateY(-50%);
   z-index: 1;
@@ -140,7 +141,7 @@ export const ContainShape = styled.div`
 
 export const Shape = styled.section`
     padding: 50px 0;
-    background-color: #102c57;
+    background-color: ${theme.color.primary};;
 `;
 
 export const ShapeWrapper = styled.div`
@@ -178,9 +179,9 @@ export const DotInfo = styled.div`
 `;
 
 export const DotTitle = styled.div`
-margin-top: 10px;   
+margin: 10px 20px 0 0;   
     font-size: 15px;
-    color: #f8f0e5;
+    color: ${theme.color.forth};;
     font-family: "Playfair Display", serif;
 
 `;
@@ -189,12 +190,12 @@ export const ButtonShape = styled.button`
 padding: 10px;
 cursor: pointer;
 border-radius: 50%;
-background-color: #102c57;
-border: solid 2px #f8f0e5;
+background-color: ${theme.color.primary};;
+border: solid 2px ${theme.color.forth};;
     
     
     &:hover {
-        background-color: #f8f0e5;
+        background-color: ${theme.color.forth};;
         transition: all .45s ease;
     }
 `;
@@ -223,7 +224,7 @@ export const Banner2 = styled.section`
 `;
 
 export const Banner2Container = styled.div`
-    color: #102c57;
+    color: ${theme.color.primary};;
     text-align: center;
     margin-top: 0;
     font-family: "Playfair Display", serif;
@@ -232,7 +233,7 @@ export const Banner2Container = styled.div`
     h6 {
         font-size: 16px;
         font-family: "Crimson Text", serif;
-        color: #102c57;
+        color: ${theme.color.primary};;
         font-weight: bold;
         padding-top: 60px;
     }
@@ -242,16 +243,16 @@ export const Banner2Container = styled.div`
         font-weight: 700;
         font-family: "Poppins", sans-serif;
         padding-top: 10px;
-        color: #102c57;
+        color: ${theme.color.primary};;
     }
     button {
         padding: 1rem 2rem;
         font-size: 1rem;
-        color: #f8f0e5;
+        color: ${theme.color.forth};;
         outline: none;
         border: none;
         border-radius: 15px;
-        background-color: #102c57;
+        background-color: ${theme.color.primary};;
         cursor: pointer;
         margin-top: 15px;
         font-family: "Poppins", sans-serif;
@@ -260,7 +261,7 @@ export const Banner2Container = styled.div`
         margin-bottom: 60px;
         &:hover {
             background-color: #D8A25A;
-            color: #102c57;
+            color: ${theme.color.primary};;
         }
     }
 `;
@@ -316,7 +317,7 @@ export const Feature = styled.section`
         font-size: 34px;
         margin-bottom: 20px;
         font-family: "Playfair Display", serif;
-        color: #102c57;
+        color: ${theme.color.primary};;
         text-align: center;
         font-weight: bolder;
     }
@@ -324,7 +325,7 @@ export const Feature = styled.section`
     .prev-button:hover,
     .next-button:hover {
         cursor: pointer;
-        color: #102c57;
+        color: ${theme.color.primary};;
         opacity: 1;
        
     }
@@ -340,7 +341,7 @@ export const FeatureContent = styled.div`
 
 export const Row = styled.div`
     padding: 30px 30px;
-    background-color: #102c57;
+    background-color: ${theme.color.primary};;
     border-radius: 20px;
     transition: all .45s ease;
    
@@ -383,8 +384,8 @@ export const RowText = styled.div`
     .row-btn {
         display: inline-block;
         padding: 10px 20px;
-        background-color: #dac0a3;
-        color: #102c57;
+        background-color: ${theme.color.secondary};;
+        color: ${theme.color.primary};;
         font-size: 12px;
         border-radius: 30px;
         transition: all .45s ease;
@@ -392,7 +393,7 @@ export const RowText = styled.div`
         font-family: "Poppins", serif;
         font-weight: 600;
         &:hover {
-            color: #102c57;
+            color: ${theme.color.primary};;
             background-color: #D8A25A;
         }
     }
@@ -422,7 +423,7 @@ export const About = styled.section`
 `;
 
 export const AboutImg = styled.div`
-    background: #EDDAA9;
+    background: ${theme.color.third};;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -439,7 +440,7 @@ export const AboutImg = styled.div`
 `;
 
 export const AboutText = styled.div`
-    background: #EDDAA9;
+    background: ${theme.color.third};;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -452,7 +453,7 @@ export const AboutText = styled.div`
         font-size: 32px;
         text-transform: uppercase;
         font-family: "Playfair Display", serif;
-        color: #102c57;
+        color: ${theme.color.primary};;
         font-weight: bolder;
     }
     p {
@@ -468,11 +469,11 @@ export const AboutText = styled.div`
     .row-btn {
         padding: 10px 15px;
         font-size: 12px;
-        color: #102c57;
+        color: ${theme.color.forth};;
         outline: none;
         border: none;
         border-radius: 15px;
-        background-color: #eadbc8;
+        background-color: ${theme.color.primary};;
         cursor: pointer;
         font-family: "Poppins", sans-serif;
         font-weight: 600;
@@ -497,7 +498,7 @@ export const Banner3Container = styled.div`
     h6 {
         font-size: 16px;
         font-family: "Crimson Text", serif;
-        color: #102c57;
+        color: ${theme.color.primary};;
         font-weight: bold;
     }
     h2 {
@@ -505,14 +506,14 @@ export const Banner3Container = styled.div`
         text-align: left;
         margin-top: 40px;
         font-family: "Playfair Display", serif;
-        color: #102c57;
+        color: ${theme.color.primary};;
         font-weight: 700;
     }
     button {
         font-size: 12px;
         padding: 10px 20px;
-        background-color: #102c57;
-        color: #dac0a3;
+        background-color: ${theme.color.primary};;
+        color: ${theme.color.secondary};;
         border: none;
         border-radius: 15px;
         cursor: pointer;
@@ -523,7 +524,7 @@ export const Banner3Container = styled.div`
         margin-top: 40px;
         &:hover {
             background-color: #D8A25A;
-            color: #102c57;
+            color: ${theme.color.primary};;
         }
     }
 `;

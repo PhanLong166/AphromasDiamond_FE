@@ -25,10 +25,13 @@ import Cart from './pages/Customer/Cart/Cart'
 import Checkout from './pages/Customer/Checkout/Checkout'
 import OrderList from './pages/Customer/OderList/OderList'
 import Account from './pages/Customer/AccountDetail/AccountDetail'
+import About from './pages/Home/AboutUs/AboutUs'
+import Gift from './pages/Home/Gift/Gift'
 import History from './pages/Customer/History/History'
 import Voucher from './pages/Customer/Voucher/Voucher'
 import AccountCus from './components/AccountCus/AccountCus'
 // import About from './pages/Home/AboutUs/AboutUs'
+
 
 
 
@@ -123,13 +126,21 @@ const App = () => {
           </>
         } />
         
-        {/* <Route path='/about' element={
+      <Route path='/about' element={
+
           <>
             <Headers/>
             <About />
             <Footer/>
           </>
-        } /> */}
+        } />
+        <Route path='/gift' element={
+          <>
+            <Headers/>
+            <Gift />
+            <Footer/>
+          </>
+        } />
         <Route path="/orderAdmin" element={<OrderAdmin />} />
         <Route path="/orderAdmin/confirmed" element={<ConfirmedOrder />} />
         <Route path="/orderAdmin/delivering" element={<DeliveringOrder />} />
