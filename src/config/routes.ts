@@ -1,5 +1,3 @@
-import Jewelry from "../pages/Admin/ProductPage/Jewelry";
-
 const routes = {
     public: {
         home: '/',
@@ -10,7 +8,7 @@ const routes = {
         notFound: '/404'
     },
     customer: {
-        profile: '/profile',
+        account: '/account',
         cart: '/cart',
         checkout: '/checkout',
         orderList: '/order-list',
