@@ -68,8 +68,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID</th>
-                                            <th>Jewelry Type</th>
+                                            <th>Jewelry Type ID</th>
+                                            <th>Jewelry Type Name</th>
                                             <th className='TextAlign'>Edit</th>
                                             <th className='TextAlign'>Delete</th>
                                         </tr>

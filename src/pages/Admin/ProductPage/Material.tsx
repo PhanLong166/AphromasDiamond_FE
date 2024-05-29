@@ -66,8 +66,8 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Material</th>
-                                            <th>Material</th>
+                                            <th>Material ID</th>
+                                            <th>Material Name</th>
                                             {/* <th>% gold</th> */}
                                             <th>Price per Gram</th>
                                             <th className='TextAlign'>Edit</th>

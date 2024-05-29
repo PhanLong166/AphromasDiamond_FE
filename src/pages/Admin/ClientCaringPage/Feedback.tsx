@@ -72,7 +72,7 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Feedback</th>
+                                            <th>Feedback ID</th>
                                             <th>Product Name</th>
                                             <th>Customer</th>
                                             <th>Description</th>

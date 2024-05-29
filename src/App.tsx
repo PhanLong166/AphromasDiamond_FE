@@ -16,6 +16,8 @@ import Promotion from './pages/Admin/MarketingPage/Promotion'
 import Message from './pages/Admin/ClientCaringPage/Message'
 import Feedback from './pages/Admin/ClientCaringPage/Feedback'
 import CustomerAdmin from './pages/Admin/CustomerPage/Customer'
+import SalesStaff from './pages/Admin/StaffPage/SalesStaff'
+import DeliveryStaff from './pages/Admin/StaffPage/DeliveryStaff'
 import Customer from './pages/Customer/Customer'
 import Login from './pages/Home/Login_Register/Login'
 import AllProduct from './pages/Home/AllProduct/AllProduct'
@@ -126,8 +128,10 @@ const App = () => {
         <Route path="/marketingAdmin" element={<Promotion />} />
         <Route path="/clientcaringAdmin" element={<Message />} />
         <Route path="/clientcaringAdmin/feedback" element={<Feedback />} />
-
         <Route path="/customerAdmin" element={<CustomerAdmin />} />
+
+        <Route path="/staffAdmin" element={<SalesStaff />} />
+        <Route path="/staffAdmin/deliveryStaff" element={<DeliveryStaff />} />
       </Routes>
     </>
   )

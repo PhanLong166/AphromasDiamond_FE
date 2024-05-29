@@ -1,11 +1,11 @@
-import * as Styled from '../ProductPage/Product.styled';
+import * as Styled from '../StaffPage/SalesStaff.styled';
 import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
+    ArrowLeftOutlined, ArrowRightOutlined, DeleteOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
-import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
+import SalesStaffMenu from '../../../components/Admin/SalesStaffMenu/SalesStaffMenu';
 
 const items: MenuProps['items'] = [
     {
@@ -30,22 +30,22 @@ const items: MenuProps['items'] = [
   ];
   
     
-    const Product = () => {
+    const SalesStaff = () => {
         return(
             <>
                 <Styled.ProductAdminArea>
                         <Sidebar/>
                         
                         <Styled.AdminPage>
-                            <ProductMenu/>
+                            <SalesStaffMenu/>
 
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>
                                     <Styled.AdPageContent_HeadTop>
-                                        <h2>Diamond</h2>
+                                        <h2>Sales Staff</h2>
                                         <button>
                                             <PlusCircleOutlined />
-                                            Add New Diamond
+                                            Add New Sales Staff
                                         </button>
                                     </Styled.AdPageContent_HeadTop>
                                     <Styled.AdPageContent_HeadBenefit>
@@ -75,78 +75,59 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>Diamond ID</th>
-                                            <th>Diamond Name</th>
-                                            <th>Price</th>
-                                            <th className='TextAlign'>Color</th>
-                                            <th className='TextAlign'>Shape</th>
-                                            <th className='TextAlign'>Detail</th>
+                                            <th>Staff ID</th>
+                                            <th>Staff Name</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th className='TextAlign'>Ban</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
                                             <td>#12345123</td>
-                                            <td>1.00 Carat H-VS2 Emerald Cut Diamond</td>
-                                            <td>$4,080</td>
-                                            <td className='TextAlign'>H</td>
-                                            <td className='TextAlign'>Marquise</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
+                                            <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                     </table>
                                 </Styled.Pending_Table>
@@ -173,4 +154,4 @@ const items: MenuProps['items'] = [
     )
 };
 
-export default Product; 
+export default SalesStaff; 

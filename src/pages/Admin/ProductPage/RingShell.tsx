@@ -123,7 +123,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Shell</th>
+                                            <th>ID</th>
                                             <th>Image</th>
                                             <th>Name</th>
                                             <th className='TextAlign'>Price</th>
