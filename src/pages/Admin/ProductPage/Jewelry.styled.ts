@@ -17,7 +17,7 @@ export const ProductAdminArea = styled.section`
 `;
 
 
-export const AdminPage = styled.section`
+export const AdminPage = styled.div`
     margin-left: 320px;
     margin-right: 70px;
     width: 100%;
@@ -29,14 +29,14 @@ export const AdminPage = styled.section`
 
 // /* -------------------- CONTENT =============== */
 
-export const AdPageContent = styled.section`
+export const AdPageContent = styled.div`
     width: 100%;
     background-color: ${theme.color.fifth};
     border-radius: 16px;
     padding-bottom: 30px;
 `;
 
-export const AdPageContent_Head = styled.section`
+export const AdPageContent_Head = styled.div`
     margin: 39px 40px 30px 40px;
 
     h2 {
@@ -47,7 +47,7 @@ export const AdPageContent_Head = styled.section`
     }
 `;
 
-export const AdPageContent_HeadTop = styled.section`
+export const AdPageContent_HeadTop = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -71,7 +71,7 @@ export const AdPageContent_HeadTop = styled.section`
     }
 `;
 
-export const AdPageContent_HeadBenefit = styled.section`
+export const AdPageContent_HeadBenefit = styled.div`
     display: flex;
     justify-content: space-between;
     background-color: ${theme.color.third};
@@ -102,7 +102,7 @@ export const AdPageContent_HeadBenefit = styled.section`
     }
 `;
 
-export const SearchArea = styled.section`
+export const SearchArea = styled.div`
     width: 70%;
     display: inline-flex;
     align-items: center; 
@@ -132,7 +132,7 @@ export const SearchArea = styled.section`
     }
 `;
 
-export const Pending_Table = styled.section`
+export const Pending_Table = styled.div`
     padding: 0px 50px 0px 50px;
 
     table {
@@ -200,7 +200,7 @@ export const Pending_Table = styled.section`
     
 `;
 
-export const AdPageContent_Foot = styled.section`
+export const AdPageContent_Foot = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -210,7 +210,7 @@ export const AdPageContent_Foot = styled.section`
     margin: 39px 40px 0px 40px;
 `;
 
-export const PageNum = styled.section`
+export const PageNum = styled.div`
     display: flex;
 
     p {
@@ -224,7 +224,7 @@ export const PageNum = styled.section`
     }
 `;
 
-export const MovePage = styled.section`
+export const MovePage = styled.div`
     button {
         width:40px;
         height: 40px;

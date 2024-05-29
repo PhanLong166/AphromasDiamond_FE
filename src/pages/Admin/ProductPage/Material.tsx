@@ -68,7 +68,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <th>No</th>
                                             <th>ID Material</th>
                                             <th>Material</th>
-                                            <th>% gold</th>
+                                            {/* <th>% gold</th> */}
                                             <th>Price per Gram</th>
                                             <th className='TextAlign'>Edit</th>
                                             <th className='TextAlign'>Delete</th>
@@ -77,7 +77,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td>01</td>
                                             <td>#12345123</td>
                                             <td><input type="text" name="MaterialName" value="14K White Gold"/></td>
-                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            {/* <td><input type="text" name="PercentGold" value="58% gold"/></td> */}
                                             <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
@@ -88,7 +88,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td>02</td>
                                             <td>#12345123</td>
                                             <td><input type="text" name="MaterialName" value="14K Yellow Gold"/></td>
-                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            {/* <td><input type="text" name="PercentGold" value="58% gold"/></td> */}
                                             <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
@@ -99,7 +99,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td>03</td>
                                             <td>#12345123</td>
                                             <td><input type="text" name="MaterialName" value="14K Rose Gold"/></td>
-                                            <td><input type="text" name="PercentGold" value="58% gold"/></td>
+                                            {/* <td><input type="text" name="PercentGold" value="58% gold"/></td> */}
                                             <td><input type="text" name="PriceGram" value="$43.91 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
@@ -110,7 +110,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td>04</td>
                                             <td>#12345123</td>
                                             <td><input type="text" name="MaterialName" value="Platinum"/></td>
-                                            <td><input type="text" name="PercentGold" value="0% gold"/></td>
+                                            {/* <td><input type="text" name="PercentGold" value="0% gold"/></td> */}
                                             <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
@@ -121,7 +121,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td>05</td>
                                             <td>#12345123</td>
                                             <td><input type="text" name="MaterialName" value="18K White Gold"/></td>
-                                            <td><input type="text" name="PercentGold" value="75% gold"/></td>
+                                            {/* <td><input type="text" name="PercentGold" value="75% gold"/></td> */}
                                             <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>
@@ -132,7 +132,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                             <td>06</td>
                                             <td>#12345123</td>
                                             <td><input type="text" name="MaterialName" value="18K White Gold"/></td>
-                                            <td><input type="text" name="PercentGold" value="75% gold"/></td>
+                                            {/* <td><input type="text" name="PercentGold" value="75% gold"/></td> */}
                                             <td><input type="text" name="PriceGram" value="$33.32 USD"/></td>
                                             <td className='TextAlign'>
                                                 <button className="confirmBtn">Save</button>

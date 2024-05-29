@@ -24,6 +24,7 @@ export const Logo = styled.div `
 
     h2 {
         margin: 0px 0px 0px 0px;
+        font-family: "Playfair Display", serif;
     }
 `;
 

@@ -18,12 +18,12 @@ export const ProductAdminArea = styled.section`
 
 `;
 
-export const AdminPage = styled.section`
+export const AdminPage = styled.div`
     margin-left: 320px;
     margin-right: 70px;
     width: 100%;
     height: 100%;
-    padding-bottom: 30px;
+    // padding-bottom: 30px;
 `;
 
 export const TitlePage = styled.div `
@@ -44,15 +44,15 @@ export const TitlePage = styled.div `
 
 // /* -------------------- ORDER CONTENT =============== */
 
-export const AdPageContent = styled.section`
+export const AdPageContent = styled.div`
     width: 100%;
     background-color: #FFF7E8;
     border-radius: 16px;
     padding-bottom: 30px;
 `;
 
-export const AdPageContent_Head = styled.section`
-    margin: 39px 40px 30px 40px;
+export const AdPageContent_Head = styled.div`
+    margin: 28px 40px 30px 40px;
 
     h2 {
         margin: 0px 0px 0px 0px;
@@ -62,7 +62,7 @@ export const AdPageContent_Head = styled.section`
     }
 `;
 
-export const AdPageContent_HeadTop = styled.section`
+export const AdPageContent_HeadTop = styled.div`
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -86,7 +86,7 @@ export const AdPageContent_HeadTop = styled.section`
     }
 `;
 
-export const AdPageContent_HeadBenefit = styled.section`
+export const AdPageContent_HeadBenefit = styled.div`
     display: flex;
     justify-content: space-between;
     background-color: #EADBC8;
@@ -122,7 +122,7 @@ export const AdPageContent_HeadBenefit = styled.section`
       }
 `;
 
-export const SearchArea = styled.section`
+export const SearchArea = styled.div`
     width: 70%;
     display: inline-flex;
     align-items: center; 
@@ -152,7 +152,7 @@ export const SearchArea = styled.section`
     }
 `;
 
-export const Pending_Table = styled.section`
+export const Pending_Table = styled.div`
     padding: 0px 50px 0px 50px;
 
     table {
@@ -209,7 +209,7 @@ export const Pending_Table = styled.section`
     }
 `;
 
-export const AdPageContent_Foot = styled.section`
+export const AdPageContent_Foot = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
@@ -233,7 +233,7 @@ export const PageNum = styled.section`
     }
 `;
 
-export const MovePage = styled.section`
+export const MovePage = styled.div`
     button {
         width:40px;
         height: 40px;
