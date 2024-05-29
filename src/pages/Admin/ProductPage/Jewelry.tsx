@@ -103,9 +103,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Jewelry</th>
+                                            <th>Jewelry ID</th>
                                             <th>Image</th>
-                                            <th>Name</th>
+                                            <th>Jewelry Name</th>
                                             <th className='TextAlign'>Price</th>
                                             <th className='TextAlign'>Type</th>
                                             <th className='TextAlign'>Quantity</th>

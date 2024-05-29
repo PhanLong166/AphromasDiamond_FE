@@ -90,7 +90,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>
                                     <Styled.AdPageContent_HeadTop>
-                                        <h2>Ring Shell</h2>
+                                        <h2>Ring Setting</h2>
                                         <button>
                                             <PlusCircleOutlined />
                                             Add New Ring Shell
@@ -123,7 +123,7 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Shell</th>
+                                            <th>ID</th>
                                             <th>Image</th>
                                             <th>Name</th>
                                             <th className='TextAlign'>Price</th>

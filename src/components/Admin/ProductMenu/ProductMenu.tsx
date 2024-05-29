@@ -53,7 +53,7 @@ const ProductMenu = () => {
                                 <Styled.MiniCatalog_Ele className={active === 'RingShell' ? 'active' : ''}>
                                     <div className={`btn ${active === 'RingShell' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('RingShell')}></div>
                                     <Link to="/productAdmin/ringShell">
-                                        <h3>Ring Shell</h3>
+                                        <h3>Ring Setting</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
                                 <Styled.MiniCatalog_Ele className={active === 'Ring' ? 'active' : ''}>

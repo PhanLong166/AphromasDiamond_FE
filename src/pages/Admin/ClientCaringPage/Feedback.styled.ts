@@ -2,22 +2,20 @@ import styled from "styled-components";
 import { theme } from "../../../themes";
 
 
-export const OrderAdminArea = styled.section`
-// body {
-//     margin: 0px 0px 0px 0px;
-// }
-
+export const ProductAdminArea = styled.section`
     display: inline-flex;
     background-color: #EEEBE6;
     font-family: "Poppins", sans-serif;
-    // height: 100%; 
+    /* height: 100%; */
     width: 100%;
-    padding-bottom: 20px;
+
+
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
 
 `;
-
-
-// /* =============== ORDER ================= */
 
 export const AdminPage = styled.div`
     margin-left: 320px;
@@ -27,46 +25,67 @@ export const AdminPage = styled.div`
     padding-bottom: 30px;
 `;
 
-
-
-// /* -------------------- ORDER CONTENT =============== */
-
-export const OrderContent = styled.div`
+export const AdPageContent = styled.div`
     width: 100%;
-    background-color: ${theme.color.fifth};
+    background-color: #FFF7E8;
     border-radius: 16px;
     padding-bottom: 30px;
 `;
 
-export const OrderContent_Head = styled.div`
+export const AdPageContent_Head = styled.div`
     margin: 39px 40px 30px 40px;
 
     h2 {
         margin: 0px 0px 0px 0px;
         padding: 39px 0px 27px;
         font-size: 24px;
-        color: ${theme.color.primary};
+        color: #102C57;
+        
     }
 `;
 
-export const OrderContent_HeadBenefit = styled.div`
+export const AdPageContent_HeadTop = styled.div`
     display: flex;
     justify-content: space-between;
-    background-color: ${theme.color.third};
+    align-items: center;
+
+    button {
+        background-color: ${theme.color.primary};
+        color: ${theme.color.forth};
+        width: 210px;
+        height: 55px;
+        border-radius: 16px;
+        font-size: 16px;
+        border: none;
+    }
+
+    button:hover{
+        cursor: pointer;
+    }
+
+    button .anticon {
+        margin-right: 7px;
+    }
+`;
+
+export const AdPageContent_HeadBenefit = styled.div`
+    display: flex;
+    justify-content: space-between;
+    background-color: #EADBC8;
     padding: 20px 60px 20px 60px;
     border-radius: 16px;
 
     button {
         height: 55px;
         width: 139px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFF7E8;
         border-radius: 16px;
         border: none;
         display: flex;
         justify-content: space-evenly;
         align-items: center;
         font-size: 16px;
-        color: ${theme.color.primary};
+        color: #102C57;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
     }
 
@@ -77,6 +96,11 @@ export const OrderContent_HeadBenefit = styled.div`
     button .anticon {
         font-size: 18px;
     }
+
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
 `;
 
 export const SearchArea = styled.div`
@@ -88,19 +112,19 @@ export const SearchArea = styled.div`
         width: 90%;
         font-size: 20px;
         padding-left: 10px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFF7E8;
         height: 55px;
         border:none;
         border-radius: 16px 0px 0px 16px;
         padding-right: 20px;
-        color:${theme.color.primary};
+        color:#102C57;
     }
     .anticon {
         font-size: 23px;
-        color: ${theme.color.primary};
-        background-color: ${theme.color.fifth};
+        color: #102C57;
+        background-color: #FFF7E8;
         height: 55px;
-        border: 1px solid ${theme.color.fifth};
+        border: 1px solid #FFF7E8;
         padding: 0px 20px 0px 20px;
         border-radius: 0px 16px 16px 0px;
     }
@@ -118,7 +142,8 @@ export const Pending_Table = styled.div`
     }
     th,
     td {
-        padding: 8px;
+        padding: 15px 0px 10px 0px;
+        // padding: 8px;
         text-align: left;
         font-size: 16px;
         color: ${theme.color.primary};
@@ -127,39 +152,52 @@ export const Pending_Table = styled.div`
         color: #783232;
         font-size: 20px;
     }
+    tr {
+        
+    }
     tr .TextAlign{
         text-align: center;
+    }
+    td input {
+        font-size: 16px;
+        background-color: ${theme.color.fifth};
+        color: ${theme.color.primary};
+        padding: 5px;
+        border: 1px solid ${theme.color.fifth};
+        border-radius: 5px;
+        height: 100%;
+    }
+    td input:active{
+        border: none;
+    }
+    td .anticon {
+        font-size: 23px;
     }
     td .anticon:hover {
         cursor: pointer;
     }
-    .pendStatus {
-        background-color: #C7FCC2;
-        border-radius: 100px;
-        padding: 5px 10px 5px 10px;
-        font-size: 12px;
-        color: #2D6528;
-        border: none;
+    .deleBtn {
+        color: red;
     }
     .confirmBtn {
-        background-color: #B7751E;
+        background-color: ${theme.color.primary};
         border-radius: 100px;
-        /* font-size: 12px; */
-        color: #F9F2B2;
-        border: none;
         padding: 7px 17px 7px 17px;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+        /* font-size: 12px; */
+        color: ${theme.color.fifth};
+        border: none;
     }
     .confirmBtn:hover {
         cursor: pointer;
     }
 `;
 
-export const OrderContent_Foot = styled.div`
+export const AdPageContent_Foot = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    background-color: ${theme.color.third};
+    background-color: #EADBC8;
     padding: 12px 60px 12px 60px;
     border-radius: 16px;
     margin: 39px 40px 0px 40px;
@@ -175,7 +213,7 @@ export const PageNum = styled.div`
     }
 
     .nowPage {
-        color:${theme.color.primary};
+        color:#102C57;
     }
 `;
 
@@ -183,7 +221,7 @@ export const MovePage = styled.div`
     button {
         width:40px;
         height: 40px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFF7E8;
         border-radius: 12px;
         border: none;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
@@ -201,11 +239,7 @@ export const MovePage = styled.div`
         color: #92929D;
     }
     .nextArrow .anticon {
-        color:${theme.color.primary};
+        color:#102C57;
     }
 `;
 
-
-export const hehe = styled.div`
-
-`;

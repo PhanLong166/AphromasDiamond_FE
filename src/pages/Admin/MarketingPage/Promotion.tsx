@@ -85,7 +85,7 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID</th>
+                                            <th>Promotion ID</th>
                                             <th>% discount</th>
                                             <th>Start Date</th>
                                             <th>End Date</th>

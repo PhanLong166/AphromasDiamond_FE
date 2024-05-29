@@ -1,48 +1,57 @@
-import * as Styled from './Delivering.styled';
+import * as Styled from './Customer.styled';
 import { Link } from 'react-router-dom';
-import { SearchOutlined, FilterOutlined, EyeOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined} from '@ant-design/icons';
-import { DownOutlined } from '@ant-design/icons';
+import { SearchOutlined, FilterOutlined, DownOutlined,
+    ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
-import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
-    
-    const ConfirmedOrder = () => {
-        const items: MenuProps['items'] = [
-            {
-              label: <a href="/" style={{  }}>Soonest</a>,
-              key: '0',
-            },
-            {
-              label: <a href="/">Latest</a>,
-              key: '1',
-            },
-            // {
-            //   type: 'divider',
-            // },
-            {
-              label: <a href="/">Low to High</a>,
-              key: '2',
-            },
-            {
-                label: <a href="/">High to Low</a>,
-                key: '3',
-            }
-        ];
 
+const items: MenuProps['items'] = [
+    {
+      label: <a href="/" style={{  }}>A - Z</a>,
+      key: '0',
+    },
+    {
+      label: <a href="/">Z - A</a>,
+      key: '1',
+    },
+    {
+      label: <a href="/">Start Soonest</a>,
+      key: '2',
+    },
+    {
+        label: <a href="/">Start Latest</a>,
+        key: '3',
+    },
+    {
+        label: <a href="/">End Soonest</a>,
+        key: '4',
+    },
+    {
+        label: <a href="/">End Latest</a>,
+        key: '5',
+    }
+  ];
+  
+    
+    const Customer = () => {
         return(
             <>
-                <Styled.OrderAdminArea>
+                <Styled.ProductAdminArea>
                         <Sidebar/>
                         
                         <Styled.AdminPage>
-                            <OrderMenu/>
+                            <Styled.TitlePage>
+                                    <h1>Customer Management</h1>
+                                    <p>View and manage Customer</p>
+                            </Styled.TitlePage>
 
-                            <Styled.OrderContent>
-                                <Styled.OrderContent_Head>
-                                    <h2>Delivering</h2>
-                                    <Styled.OrderContent_HeadBenefit>
+                            <Styled.AdPageContent>
+                                <Styled.AdPageContent_Head>
+                                    <Styled.AdPageContent_HeadTop>
+                                        <h2>Customer List</h2>
+                                    </Styled.AdPageContent_HeadTop>
+                                    <Styled.AdPageContent_HeadBenefit>
                                         <Styled.SearchArea>
                                             <input className="searchInput" type="text" />
                                             <SearchOutlined />
@@ -57,104 +66,80 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                                 </a>
                                             </Dropdown>
                                         </button>
+                                        
                                         <button>
                                             <FilterOutlined /> 
                                             Filters
                                         </button>
-                                    </Styled.OrderContent_HeadBenefit>
-                                </Styled.OrderContent_Head>
+                                    </Styled.AdPageContent_HeadBenefit>
+                                </Styled.AdPageContent_Head>
 
                                 <Styled.Pending_Table>
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>Order ID</th>
-                                            <th>Date</th>
-                                            <th>Customer</th>
-                                            <th>Delivery Staff</th>
-                                            <th>Status</th>
-                                            <th className='TextAlign'>Invoice</th>
+                                            <th>Customer ID</th>
+                                            <th>Customer Name</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th className='TextAlign'>Deltail</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>Esther Eden</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>
-                                                <button className="pendStatus">Delivering
-                                                </button>
-                                            </td>
+                                            <td>hthuyntrang@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
-                                            <td>#12345124</td>
-                                            <td>3 Jan 2023</td>
-                                            <td>Esther Eden</td>
+                                            <td>#12345123</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>
-                                                <button className="pendStatus">Delivering
-                                                </button>
-                                            </td>
+                                            <td>hthuyntrang@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
-                                            <td>#12345125</td>
-                                            <td>4 Jan 2023</td>
+                                            <td>#12345123</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>Ajmal Abdul Rahiman</td>
-                                            <td>
-                                                <button className="pendStatus">Delivering
-                                                </button>
-                                            </td>
+                                            <td>hthuyntrang@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
-                                            <td>#12345126</td>
-                                            <td>5 Jan 2023</td>
+                                            <td>#12345123</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>Ajmal Abdul Rahiman</td>
-                                            <td>
-                                                <button className="pendStatus">Delivering
-                                                </button>
-                                            </td>
+                                            <td>hthuyntrang@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
-                                            <td>#12345127</td>
-                                            <td>6 Jan 2023</td>
+                                            <td>#12345123</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>Ajmal Abdul Rahiman</td>
-                                            <td>
-                                                <button className="pendStatus">Delivering
-                                                </button>
-                                            </td>
+                                            <td>hthuyntrang@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
-                                            <td>#12345128</td>
-                                            <td>7 Jan 2023</td>
+                                            <td>#12345123</td>
                                             <td>Ajmal Abdul Rahiman</td>
-                                            <td>Ajmal Abdul Rahiman</td>
-                                            <td>
-                                                <button className="pendStatus">Delivering
-                                                </button>
-                                            </td>
+                                            <td>hthuyntrang@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
                                                 <EyeOutlined />
                                             </td>
@@ -162,7 +147,7 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                     </table>
                                 </Styled.Pending_Table>
                                 
-                                <Styled.OrderContent_Foot>
+                                <Styled.AdPageContent_Foot>
                                     <Styled.PageNum>
                                         <p className="nowPage">1</p>
                                         <p>of</p>
@@ -170,18 +155,18 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                     </Styled.PageNum>
                                     <Styled.MovePage>
                                         <button className="backArrow">
-                                        <ArrowLeftOutlined />
+                                            <ArrowLeftOutlined />
                                         </button>
                                         <button className="nextArrow">
-                                        <ArrowRightOutlined />
+                                            <ArrowRightOutlined />
                                         </button>
                                     </Styled.MovePage>
-                                </Styled.OrderContent_Foot>
-                            </Styled.OrderContent>
+                                </Styled.AdPageContent_Foot>
+                            </Styled.AdPageContent>
                         </Styled.AdminPage>
-                    </Styled.OrderAdminArea> 
+                    </Styled.ProductAdminArea> 
             </>
     )
 };
 
-export default ConfirmedOrder; 
+export default Customer; 

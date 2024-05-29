@@ -77,9 +77,9 @@ import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Ring</th>
+                                            <th>Ring ID</th>
                                             <th>Image</th>
-                                            <th>Name</th>
+                                            <th>Ring Name</th>
                                             <th className='TextAlign'>Total Price</th>
                                             <th className='TextAlign'>Detail</th>
                                         </tr>

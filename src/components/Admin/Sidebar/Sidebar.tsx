@@ -24,7 +24,7 @@ const Sidebar = () => {
             case '/marketingAdmin':
                 setActive('Marketing');
                 break;
-            case '/client-caringAdmin':
+            case '/clientcaringAdmin':
                 setActive('ClientCaring');
                 break;
             case '/customerAdmin':
@@ -52,7 +52,7 @@ const Sidebar = () => {
         <>
             <Styled.SidebarContainer>
                 <Styled.Logo>
-                    <h2>LOGO</h2>
+                    <h2>APHROMAS</h2>
                 </Styled.Logo>
                 <Styled.SBMenu id='SBMenu'>
                     <Styled.SBContent>                        
@@ -108,7 +108,7 @@ const Sidebar = () => {
                         <div className={active === 'ClientCaring' ? 'active' : ''}>
                         <Styled.MenuElement>
                             <CommentOutlined />
-                            <Link to="/client-caringAdmin">
+                            <Link to="/clientcaringAdmin">
                                 <p>Client Caring</p>
                             </Link>
                         </Styled.MenuElement>

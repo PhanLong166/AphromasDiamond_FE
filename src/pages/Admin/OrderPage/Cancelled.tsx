@@ -68,7 +68,7 @@ import OrderMenu from '../../../components/Admin/OrderMenu/OrderMenu';
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>ID Order</th>
+                                            <th>Order ID</th>
                                             <th>Date</th>
                                             <th>Customer</th>
                                             <th>Total</th>
