@@ -7,7 +7,7 @@ export const NavbarContainer = styled.nav`
     background-color: ${theme.color.third};
     padding: 10px;
 
-    font-family: "Crimson Text", serif;
+    font-family: "Poppins", san-serif;
 `;
 
 export const NavbarFlexbox = styled.div`
@@ -27,6 +27,6 @@ export const Logo = styled.div`
 export const DropdownFrame = styled.div`
     display: flex;
     align-items: center;
-    font-size: 20px;
+    font-size: 16px;
     gap: 50px;
 `;

@@ -1,3 +1,5 @@
+import Jewelry from "../pages/Admin/ProductPage/Jewelry";
+
 const routes = {
     public: {
         home: '/',
@@ -11,13 +13,24 @@ const routes = {
         profile: '/profile',
         cart: '/cart',
         checkout: '/checkout',
-        purchased: '/purchased',
+        orderList: '/order-list',
         orderSuccess: '/confirm',
+        history: '/history',
+        voucher: '/voucher'
     },
     admin: {
         dashboard: '/admin',
-        orders: '/admin/order',
-        products: '/admin/product',
+        order: '/admin/order',
+        confirmedOrder: '/admin/order/confirmed',
+        deliveringOrder: '/admin/order/delivering',
+        completedOrder: '/admin/order/completed',
+        cancelledOrder: '/admin/order/cancelled',
+        product: '/admin/product',
+        ringSettingProduct: '/admin/product/ring-setting',
+        ringProduct: '/admin/product/ring',
+        jewelryProduct: '/admin/product/jewelry',
+        jewelryTypeProduct: '/admin/product/jewelry-type',
+        materialProduct: '/admin/product/material',
         marketing: '/admin/marketing',
         clientCaring: '/admin/client-caring',
         customer: '/admin/customer',

@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Admin from './pages/Admin/Admin'
 import OrderAdmin from './pages/Admin/OrderPage/Order'
@@ -37,6 +37,7 @@ const App = () => {
 
   return (
     <>
+      <BrowserRouter>
       <Routes>
         <Route path='/' element={
           <>
@@ -144,6 +145,8 @@ const App = () => {
 
         <Route path="/marketingAdmin" element={<Promotion />} />
       </Routes>
+      </BrowserRouter>
+
     </>
   )
 }
