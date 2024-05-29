@@ -8,7 +8,8 @@ export const TopMenuContainer = styled.section`
     align-item: center;
     padding: 10px;
 
-    font-family: "Crimson Text", serif;
+    font-family: "Poppins", san-serif;
+    font-size: 16px;
     border-bottom: 1px solid gray;
 `;
 

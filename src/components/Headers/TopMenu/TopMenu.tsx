@@ -1,4 +1,4 @@
-import { MailFilled, MailOutlined, PhoneFilled, ShoppingCartOutlined, SmileOutlined } from '@ant-design/icons';
+import { MailFilled, PhoneFilled, ShoppingCartOutlined, SmileOutlined } from '@ant-design/icons';
 import * as Styled from './TopMenu.styled';
 import Search from 'antd/es/input/Search';
 import { Link } from 'react-router-dom';

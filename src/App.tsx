@@ -1,4 +1,4 @@
-import { Routes, Route } from 'react-router-dom'
+import { Routes, Route, BrowserRouter } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Admin from './pages/Admin/Admin'
 import OrderAdmin from './pages/Admin/OrderPage/Order'
@@ -27,6 +27,11 @@ import OrderList from './pages/Customer/OderList/OderList'
 import Account from './pages/Customer/AccountDetail/AccountDetail'
 import About from './pages/Home/AboutUs/AboutUs'
 import Gift from './pages/Home/Gift/Gift'
+import History from './pages/Customer/History/History'
+import Voucher from './pages/Customer/Voucher/Voucher'
+import AccountCus from './components/AccountCus/AccountCus'
+// import About from './pages/Home/AboutUs/AboutUs'
+
 
 
 
@@ -35,6 +40,7 @@ const App = () => {
 
   return (
     <>
+      <BrowserRouter>
       <Routes>
         <Route path='/' element={
           <>
@@ -97,11 +103,31 @@ const App = () => {
         <Route path='/Account' element={
           <>
             <Headers/>
+            <AccountCus/>
             <Account />
             <Footer/>
           </>
         } />
-        <Route path='/about' element={
+         <Route path='/History' element={
+          <>
+            <Headers/>
+            <History />
+            <Footer/>
+          </>
+        } />
+
+        <Route path='/Voucher' element={
+          <>
+            <Headers/>
+            <AccountCus/>
+            <Voucher />
+            <Footer/>
+          
+          </>
+        } />
+        
+      <Route path='/about' element={
+
           <>
             <Headers/>
             <About />
@@ -130,6 +156,8 @@ const App = () => {
 
         <Route path="/marketingAdmin" element={<Promotion />} />
       </Routes>
+      </BrowserRouter>
+
     </>
   )
 }

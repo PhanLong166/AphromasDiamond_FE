@@ -22,13 +22,12 @@ export const ContactUs = styled.div`
     gap: 15px;
 `;
 
-export const TitleCategory = styled.h1`
+export const TitleCategory = styled.h2`
     font-family: "Playfair Display", serif;
     color: ${theme.color.primary};
 `;
 
 export const DescriptionContact = styled.p`
-    font-family: "Crimson Text", serif;
     color: gray;
     width: 500px;
     font-size: 16px;
@@ -57,6 +56,6 @@ export const FooterElement = styled.div`
 `;
 
 export const NavElement = styled.p`
-    font-family: "Crimson Text", serif;
     color: gray;
+    font-size: 16px;
 `;
