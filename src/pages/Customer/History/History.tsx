@@ -46,45 +46,39 @@ const History = () => {
 
           <CustomSelects>
             <CustomInput>
-              <InputText><span><i className="fa-solid fa-magnifying-glass fa-sm"></i></span>Search</InputText>
+              <InputText><span style={{gap: 12}}><i className="fa-solid fa-magnifying-glass fa-sm"></i></span>Search</InputText>
             </CustomInput>
-            <Text><label>Category</label>
+            <Text><label>Category:</label>
               <select id="Category">
-                <option value="">Sample</option>
-                <option value="4.5">Sample</option>
-                <option value="5">Sample</option>
-                <option value="5.5">Sample</option>
-                <option value="6">Sample</option>
+                <option value="">Diamond</option>
+                <option value="">Ring</option>
+                <option value="">Pendant</option>
               </select>
             </Text>
             <CustomSelect>
-              <Text><label>Price</label>
-                <select id="ringSize">
-                  <option value="4">Sample</option>
-                  <option value="4.5">Sample</option>
-                  <option value="5">Sample</option>
-                  <option value="5.5">Sample</option>
-                  <option value="6">Sample</option>
+              <Text><label>Price:</label>
+                <select id="Price">
+                  <option value="">Under 2000$</option>
+                  <option value="">Above 2000$</option>
                 </select></Text>
             </CustomSelect>
             <CustomSelect>
               <Text><label>Status</label>
-                <select id="Status">
-                  <option value="4">Sample</option>
-                  <option value="4.5">Sample</option>
-                  <option value="5">Sample</option>
-                  <option value="5.5">Sample</option>
-                  <option value="6">Sample</option>
+                <select id="Status:">
+                  <option value="">Delivering</option>
+                  <option value="">Delivered</option>
+                  <option value="">Pending</option>
+                  <option value="">Canceled</option>
                 </select></Text>
             </CustomSelect>
             <CustomSelect>
-              <Text><label>Date</label>
+              <Text><label>Date:</label>
                 <select id="Date">
-                  <option value="4">Sample</option>
-                  <option value="4.5">Sample</option>
-                  <option value="5">Sample</option>
-                  <option value="5.5">Sample</option>
-                  <option value="6">Sample</option>
+                  <option value="">Today</option>
+                  <option value="">Yesterday</option>
+                  <option value="">10 days ago</option>
+                  <option value="">20 days ago</option>
+                  <option value="">30 days ago</option>
                 </select></Text>
             </CustomSelect>
           </CustomSelects>
@@ -307,6 +301,7 @@ const TableData = styled.td`
 const ActionLink = styled.a`
   font-family: 'Poppins', sans-serif;
   text-decoration: underline;
+  font-sizze: 17px;
 `;
 
 export default History;
