@@ -23,7 +23,9 @@ const TopMenu = () => {
                             placeholder='Search'
                             allowClear
                         />
-                        <ShoppingCartOutlined />
+                        <Link to='/cart'>
+                            <ShoppingCartOutlined />
+                        </Link>
                         <Link to="/login">
                             <SmileOutlined />
                         </Link>

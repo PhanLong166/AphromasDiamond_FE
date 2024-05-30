@@ -1,4 +1,5 @@
 // import * as React from 'react';
+import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 
 const Cart = () => {
@@ -90,7 +91,7 @@ const Cart = () => {
                   <RingPrice>$8,000</RingPrice>
                 </ItemDetails>
               </ItemContainer>
-               <ItemContainer>
+              <ItemContainer>
                 <ActionText>VIEW | REMOVE</ActionText>
                 <ItemDetails>
                   <ItemInfo>
@@ -151,7 +152,9 @@ const Cart = () => {
                     <TotalValue>$10,000</TotalValue>
                   </SummaryTotal>
                 </SummaryDetails>
-                <CheckoutButton>CHECKOUT</CheckoutButton>
+                <Link to='/checkout'>
+                  <CheckoutButton>CHECKOUT</CheckoutButton>
+                </Link>
                 <OrDivider>OR</OrDivider>
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/4762099b96e0d9911e6dbbff51ed4164d0ebf441a4af10ca789ca321f8ea0dbb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/33c97bbfdfd1027e752ab9f974297feaabc0fea312ba85eead4c91a971711218?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
