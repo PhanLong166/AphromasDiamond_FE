@@ -1,6 +1,7 @@
 // import * as React from 'react';
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
+import { Button, Flex } from 'antd';
 
 const Cart = () => {
   return (
@@ -10,9 +11,14 @@ const Cart = () => {
           <TitlePage>Cart</TitlePage>
           <MainSection>
             <Column>
-              <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span>Continue Shopping</ContinueShopping>
+              <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span><Link to={"/all"}>Continue Shopping</Link></ContinueShopping>
               <ItemContainer>
-                <ActionText>VIEW | REMOVE</ActionText>
+                <ActionText>
+                  <Flex gap="small" wrap>
+                    <Button type="text">VIEW</Button>
+                    <Button type="text">REMOVE</Button>
+                  </Flex>
+                </ActionText>
                 <ItemDetails>
                   <ItemInfo>
                     <ItemType>Diamond (Loose)</ItemType>
@@ -24,15 +30,24 @@ const Cart = () => {
                       SKU&nbsp;18633320
                     </ProductDescription>
                     <AddOptions>
-                      <AddOption>+Add a Ring</AddOption>
-                      <AddOption>+Add a Pendant</AddOption>
+                      <AddOption> <Flex gap="small" wrap>
+                        <Button type="text">+Add a Ring</Button>
+                      </Flex>
+                      </AddOption>
+                      <AddOption> <Flex gap="small" wrap>
+                        <Button type="text">+Add a Pendant</Button>
+                      </Flex>
+                      </AddOption>
                     </AddOptions>
                   </ItemDescription>
                   <ItemPrice>$8,000</ItemPrice>
                 </ItemDetails>
               </ItemContainer>
               <ItemContainer>
-                <ActionText>VIEW | REMOVE</ActionText>
+                <ActionText> <Flex gap="small" wrap>
+                  <Button type="text">VIEW</Button>
+                  <Button type="text">REMOVE</Button>
+                </Flex></ActionText>
                 <ItemDetails>
                   <ItemInfo>
                     <ItemType>Diamond (Loose)</ItemType>
@@ -44,15 +59,25 @@ const Cart = () => {
                       SKU&nbsp;18633320
                     </ProductDescription>
                     <AddOptions>
-                      <AddOption>+Add a Ring</AddOption>
-                      <AddOption>+Add a Pendant</AddOption>
+                      <AddOption> <Flex gap="small" wrap>
+                        <Button type="text">+Add a Ring</Button>
+                      </Flex>
+                      </AddOption>
+                      <AddOption> <Flex gap="small" wrap>
+                        <Button type="text">+Add a Pendant</Button>
+                      </Flex>
+                      </AddOption>
                     </AddOptions>
                   </ItemDescription>
                   <ItemPrice>$8,000</ItemPrice>
                 </ItemDetails>
               </ItemContainer>
               <ItemContainer>
-                <ActionText>VIEW | REMOVE</ActionText>
+                <ActionText> <Flex gap="small" wrap>
+                  <Button type="text">VIEW</Button>
+                  <Button type="text">REMOVE</Button>
+                </Flex>
+                </ActionText>
                 <ItemDetails>
                   <ItemInfo>
                     <ItemType>Diamond (Loose)</ItemType>
@@ -92,7 +117,11 @@ const Cart = () => {
                 </ItemDetails>
               </ItemContainer>
               <ItemContainer>
-                <ActionText>VIEW | REMOVE</ActionText>
+                <ActionText> <Flex gap="small" wrap>
+                  <Button type="text">VIEW</Button>
+                  <Button type="text">REMOVE</Button>
+                </Flex>
+                </ActionText>
                 <ItemDetails>
                   <ItemInfo>
                     <ItemType>Diamond (Loose)</ItemType>
@@ -302,10 +331,6 @@ const ItemDescription = styled.div`
  }
 `;
 
-// const ProductDescription = styled.p`
-//  letter-spacing: 0.15px;
-//  font: 400 15px/23px Poppins, sans-serif;
-// `;
 const ProductDescription = styled.p`
  letter-spacing: 0.15px;
  font: 400 15px/ Poppins, sans-serif;
@@ -317,12 +342,12 @@ const AddOptions = styled.div`
  margin-top: 35px;
 `;
 
-const AddOption = styled.p`
+const AddOption = styled.div`
  font: 300 10px/150% Poppins, sans-serif;
  border-radius: 53px;
  border: 1px dashed rgba(0, 0, 0, 1);
- background-color: #fff;
- padding: 18px 27px;
+ color: #fff;
+ padding: 9px 0px;
  @media (max-width: 991px) {
    padding: 0 20px;
  }
@@ -448,16 +473,6 @@ const CheckoutButton = styled.button`
  padding: 22px 27px;
  font: 500 13px Poppins, sans-serif;
  margin-top: 30px;
-//  &:hover {
-//   color: #fff;
-//    background-color: #000;
-// }
-
-// &.active {
-//   font-weight: 600;
-//   color: #fff;
-//   background-color: #000;
-// }
 &:hover {
   color: #fff;
    background-color: #000;

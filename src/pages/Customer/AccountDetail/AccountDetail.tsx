@@ -91,10 +91,10 @@ const ProfileTitle = styled.div`
 `;
 
 const InfoSection = styled.section`
-  margin-top: 91px;
   width: 100%;
   max-width: 1194px;
   padding: 0 20px;
+  margin: 0 auto;
   @media (max-width: 991px) {
     max-width: 100%;
     margin-top: 40px;
