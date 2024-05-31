@@ -15,7 +15,7 @@ const Account = () => {
                 <DetailGroup>
                   <Label>CITY</Label>
                   <Detail>Forrest Ray</Detail>
-                  <Label>PHONE NUMBER</Label>
+                  <Label>PHONE </Label>
                   <Detail>(404) 960-3807</Detail>
                 </DetailGroup>
               </InfoItem>
@@ -61,22 +61,18 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 `;
 
 const Section = styled.section`
-  border-color: rgba(0, 0, 0, 1);
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  background-color: #fff;
-  align-self: stretch;
-  // margin-top: 29px;
-  width: 100%;
-  align-items: start;
-  color: #000;
-  justify-content: center;
-  padding: 19px 127px;
-  font: 400 15px/150% 'Crimson Text', sans-serif;
-  margin-bottom: 150px;
+border-color: rgba(0, 0, 0, 1);
+background-color: #fff;
+color: #000;
+justify-content: center;
+margin: 0 auto;
+font: 400 15px / 150% 'Crimson Text', sans-serif;
+margin-bottom: 150px;
+width: 150vh;
   @media (max-width: 991px) {
     max-width: 100%;
     padding: 0 20px 0 30px;
@@ -165,7 +161,7 @@ const DetailGroup = styled.div`
   margin-top: -2px;
   align-items: start;
   font-weight: 250;
-  padding: 0 75px 0 21px;
+  padding: 0 20px 0 21px;
   @media (max-width: 991px) {
     margin-top: 40px;
     padding: 0 20px;
