@@ -1,81 +1,106 @@
 import styled from 'styled-components';
 import React from 'react';
 import DropdownButton from './DropdownButton';
-import DropdownButton1 from './DropdownButton';
-
+import { Input } from 'antd';
+import type { MenuProps } from 'antd';
+import { Dropdown, Space } from 'antd';
 
 interface OrderData {
   rowNumber: number;
   orderDate: string;
+  product: string;
   price: string;
   status: string;
 }
 
+
 const data: OrderData[] = [
-  { rowNumber: 1, orderDate: '2 Jan 2023', price: '1000$', status: 'Pending' },
-  { rowNumber: 2, orderDate: '14 Dec 2022', price: '2450$', status: 'Delivered' },
-  { rowNumber: 3, orderDate: '14 Dec 2022', price: '700$', status: 'Pending' },
-  { rowNumber: 4, orderDate: '14 Dec 2022', price: '1520$', status: 'Canceled' },
-  { rowNumber: 5, orderDate: '14 Dec 2022', price: '2000$', status: 'Delivered' },
-  { rowNumber: 6, orderDate: '14 Dec 2022', price: '5000$', status: 'Delivering' },
+  { rowNumber: 1, product: 'Diamond Ring', orderDate: '2 Jan 2023', price: '1000$', status: 'Pending' },
+  { rowNumber: 2, product: 'Diamond Necklaces', orderDate: '14 Dec 2022', price: '2450$', status: 'Delivered' },
+  { rowNumber: 3, product: 'Diamond Earrings', orderDate: '14 Dec 2022', price: '700$', status: 'Pending' },
+  { rowNumber: 4, product: 'Diamond Braclets', orderDate: '14 Dec 2022', price: '1520$', status: 'Canceled' },
+  { rowNumber: 5, product: 'Diamond Chokers', orderDate: '14 Dec 2022', price: '2000$', status: 'Delivered' },
+  { rowNumber: 6, product: 'Diamond Round', orderDate: '14 Dec 2022', price: '5000$', status: 'Delivering' },
 ];
 
 const OrderList = () => {
+  const menuItems1 = [
+    { text: 'Rings', link: '#action1' },
+    { text: 'Necklaces', link: '#action2' },
+    { text: 'Earrings', link: '#action3' },
+    { text: 'Braclets', link: '#action4' },
+    { text: 'Chokers', link: '#action5' },
+  ];
+
+  const menuItems2 = [
+    { text: 'Hight-Low', link: '#option1' },
+    { text: 'Low-Hight', link: '#option2' },
+
+  ];
+  const menuItems3 = [
+    { text: 'Newest', link: '#action1' },
+    { text: '10 days ago', link: '#action2' },
+
+  ];
+
+  const menuItems4 = [
+    { text: 'Pending', link: '#option1' },
+    { text: 'Delivered', link: '#option2' },
+    { text: 'Delivering', link: '#option3' },
+    { text: 'Canceled', link: '#option4' },
+  ];
+
+
+  const items: MenuProps['items'] = [
+    {
+      key: '1',
+      label: (
+        <a target="_blank" rel="#" href="#">
+          View
+        </a>
+      ),
+    },
+    {
+      key: '2',
+      label: (
+        <a target="_blank" rel="#" href="#">
+          Cancel
+        </a>
+      ),
+    },
+
+  ];
+
   return (
     <main>
       <Section>
         <Title>All Orders</Title>
         <Filters>
           <CustomSelects>
-            <CustomInput>
-              <InputText><input></input><span style={{ gap: 12 }}><i className="fa-solid fa-magnifying-glass fa-sm"></i></span>Search</InputText>
-            </CustomInput>
-            <Text><label>Category:</label>
-              <select id="Category">
-                <option value="">Diamond</option>
-                <option value="">Ring</option>
-                <option value="">Pendant</option>
-              </select>
+            <Input placeholder="Search" />
+            <Text>
+              <Text>
+                <DropdownButton buttonText="Category" menuItems={menuItems1} />
+              </Text>
             </Text>
             <CustomSelect>
-              <Text><label>Price:</label>
-                <select id="Price">
-                  <option value="">Under 2000$</option>
-                  <option value="">Above 2000$</option>
-                </select></Text>
+              <Text><DropdownButton buttonText="Date" menuItems={menuItems3} /></Text>
             </CustomSelect>
             <CustomSelect>
-              <Text><label>Status</label>
-                <select id="Status:">
-                  <option value="">Delivering</option>
-                  <option value="">Delivered</option>
-                  <option value="">Pending</option>
-                  <option value="">Canceled</option>
-                </select></Text>
+              <Text>
+                <DropdownButton buttonText="Price" menuItems={menuItems2} />
+              </Text>
             </CustomSelect>
             <CustomSelect>
-              <Text><button >
-                <select id="Date">
-                  <option value="">Today</option>
-                  <option value="">Yesterday</option>
-                  <option value="">10 days ago</option>
-                  <option value="">20 days ago</option>
-                  <option value="">30 days ago</option>
-                </select>
-                </button></Text>
-                
-                                      
-                                        <Text>
-                                        <DropdownButton/>
-                                        
-                                        </Text>
-
-                                        
+              <Text>
+                <DropdownButton buttonText="Status" menuItems={menuItems4} />
+              </Text>
             </CustomSelect>
           </CustomSelects>
         </Filters>
         <TableContainer>
           <TableHeader>No</TableHeader>
+          <TableHeader>Product</TableHeader>
           <TableHeader>Order Date</TableHeader>
           <TableHeader>Price</TableHeader>
           <TableHeader>Status</TableHeader>
@@ -83,15 +108,21 @@ const OrderList = () => {
           {data.map((order) => (
             <React.Fragment key={order.rowNumber}>
               <TableData>{order.rowNumber}</TableData>
+              <TableData>{order.product}</TableData>
               <TableData style={{ paddingLeft: 10 }}>{order.orderDate}</TableData>
               <TableData>{order.price}</TableData>
               <TableData>{order.status}</TableData>
               <TableData>
-                <ActionLink>View | Cancel</ActionLink>
+                <Editbt>
+                  <Dropdown menu={{items}}>
+                    <a onClick={(e) => e.preventDefault()}><Space>...</Space></a>
+                  </Dropdown>
+                </Editbt>
               </TableData>
             </React.Fragment>
           ))}
         </TableContainer>
+
       </Section>
     </main>
   );
@@ -103,6 +134,9 @@ const Section = styled.section`
   align-items: center;
   margin-top: 29px;
   background: #fff;
+`;
+const Editbt = styled.div`
+padding-left: 25px;
 `;
 
 const Text = styled.span`
@@ -137,18 +171,6 @@ const Filters = styled.div`
   }
 `;
 
-const CustomInput = styled.div`
-  display: flex;
-  color: #828282;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 52.56px;
-  padding: 4px 7px;
-  width: 228px;
-
-  @media (max-width: 991px) {
-    flex-wrap: wrap;
-  }
-`;
 
 const CustomSelect = styled.div`
   display: flex;
@@ -168,34 +190,31 @@ const CustomSelects = styled.div`
   gap: 5px;
   color: #000;
   border-radius: 7px;
-  padding: 7px 26px;
+  padding: 0px 10px;
   justify-content: space-between;
-  align-items: center;
   align-items: baseline;
   font-size: 18px;
+  width: 100%;
 `;
 
-const InputText = styled.span`
-  font-family: 'Inter', sans-serif;
-  display: flex;
-  gap: 3px;
-`;
 
-const TableContainer = styled.div`
+const TableContainer = styled.table`
   display: grid;
   width: 100%;
-  max-width: 1471px;
-  grid-template-columns: 0.5fr 1.2fr 1fr 1fr 2fr;
+  max-width: 1167px;
+  grid-template-columns: 0.5fr 1.3fr 1fr 1fr 1fr 0.5fr;
   grid-gap: 15px;
   margin-top: 45px;
-  padding-left: 15rem;
-  padding-bottom: 15rem;
+  padding-left: 1rem;
+  padding-bottom: 11rem;
 
   @media (max-width: 991px) {
     margin-top: 40px;
     grid-template-columns: 1fr;
   }
 `;
+
+
 
 const TableHeader = styled.div`
   text-align: left;
@@ -215,9 +234,5 @@ const TableData = styled.div`
   }
 `;
 
-const ActionLink = styled.a`
-  font-family: 'Poppins', sans-serif;
-  text-decoration: underline;
-`;
 
 export default OrderList;

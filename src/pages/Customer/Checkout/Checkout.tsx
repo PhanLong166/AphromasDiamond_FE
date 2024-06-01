@@ -1,17 +1,18 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Checkbox } from 'antd';
+import type { CheckboxProps } from 'antd';
+
 interface ContactInfoProps {
   email: string;
   onEdit: () => void;
 }
 
 interface AddressDetailsProps {
-
   address: string;
   country: string;
 }
-
 
 interface CartItemProps {
   name: string;
@@ -25,10 +26,17 @@ interface SummaryProps {
   subtotal: string;
 }
 
+const onChange: CheckboxProps['onChange'] = (e) => {
+  console.log(`checked = ${e.target.checked}`);
+};
+
 const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => (
   <Section>
-    <Buttons onClick={onEdit}><button style={{ backgroundColor: "white", border: "none", fontSize: 17, paddingTop: 23 }}>EDIT</button> </Buttons>
-    <h2>Contact Information</h2>
+   
+    <TextContact>
+      <h2>Contact Information</h2>
+      <Buttons onClick={onEdit}><button style={{ backgroundColor: "white", border: "none", fontSize: 13, paddingTop: 23 }}>EDIT</button> </Buttons>
+       </TextContact>
     <p>Email address</p>
     <p>{email}</p>
 
@@ -37,8 +45,6 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => (
 );
 
 const AddressDetails: React.FC<AddressDetailsProps> = ({
-
-
 
   country,
 }) => (
@@ -65,7 +71,7 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
     </Country>
     <label htmlFor="address">Address Details</label>
     <StyledInput id="address" type="text" />
-    <Button><span style={{paddingRight: 10}}><i className="fa-regular fa-circle"></i></span>Fill Auto </Button>
+    <Button><Checkbox onChange={onChange}>Fill auto</Checkbox></Button>
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="firstName">Phone Number</StyledLabel>
@@ -109,7 +115,12 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 
 const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
   <SummarySection>
-   <a style={{ textAlign: "end", fontSize: 17, marginTop: -28 }} href="#">EDIT CART</a>
+    <ItemNumner>
+    <NumberItem>6 ITEMS</NumberItem>
+    <a style={{ textAlign: "end", fontSize: 13, marginTop: 4 }} href="#">EDIT CART</a>
+    
+    </ItemNumner>
+   
     {items.map((item, index) => (
       <CartItem
         key={index}
@@ -150,8 +161,7 @@ const Checkout: React.FC = () => {
           />
 
         </Form>
-        {/* <FixedSizeSummary> */}
-          {/* <ScrollableSummary> */}
+      
         <Summary
           items={[
             {
@@ -200,8 +210,7 @@ const Checkout: React.FC = () => {
           ]}
           subtotal="$10,000"
         />
-        {/* </ScrollableSummary> */}
-        {/* </FixedSizeSummary> */}
+       
       </Content>
       
       <Editbtn><a style={{ color: "white" }} href="#" >Continue</a> </Editbtn>
@@ -212,6 +221,21 @@ const Checkout: React.FC = () => {
 
 
 export default Checkout;
+
+
+const ItemNumner = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
+const  NumberItem = styled.div`
+// font-size: 14px;
+//  font-weight: 400;
+`; 
+const TextContact = styled.div`
+display: flex;
+justify-content: space-between;
+`;
 
 const Wrapper = styled.div`
   background-color: #fff;
@@ -265,8 +289,9 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 78px 70px;
-  font-weight: 500;
+  padding: 48px 40px;
+  font-weight: 400;
+  font-size: 16px;
   box-shadow: 0px 4px 18px #d9d9d9;
   @media (max-width: 991px) {
     padding: 0 20px;
@@ -277,24 +302,6 @@ const SummarySection = styled(Section)`
   flex: 1;
   line-height:40px;
 `;
-
-// const ScrollableSummary = styled(SummarySection)`
-//   max-height: 100%; /* Đảm bảo SummarySection chỉ chiếm không gian tối đa của phần còn lại */
-//   overflow-y: auto; /* Kích hoạt thanh cuộn khi nội dung vượt quá kích thước */
-//   padding: 20px; /* Thêm padding cho đẹp */
-// `;
-
-// const FixedSizeSummary = styled.div`
-//   flex: 1;
-//   max-height: calc(100vh - 200px); /* Đặt chiều cao tối đa của SummarySection để không vượt qua hai phần tử bên trái */
-//   overflow-y: auto; /* Kích hoạt thanh cuộn khi nội dung vượt quá kích thước */
-//   position: sticky;
-//   top: 0;
-//   z-index: 1;
-//   background-color: #fff;
-// `;
-
-
 
 const PromoCoder = styled.div`
  display: flex;
@@ -329,7 +336,6 @@ const Button = styled.button`
   background-color: #fff;
   border: none;
   gap: 10px;
-  // padding: 11px 30px;
   align-self: flex-start;
   margin-top: -2px;
   font-size: 13px;
@@ -383,7 +389,7 @@ const EditTotal1 = styled.div`
 `;
 const Editbtn = styled.div`
 font-family: Poppins, sans-serif;
-    background-color: #000;
+    background-color: #102C57;
     color: #fff;
     border-radius: 5px;
     padding: 11px 30px;
