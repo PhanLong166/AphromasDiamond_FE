@@ -1,27 +1,115 @@
 import styled from 'styled-components';
-import React from 'react';
 import DropdownButton from './DropdownButton';
 import { Input } from 'antd';
-import type { MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
+// import type { MenuProps } from 'antd';
+import {  Space } from 'antd';
+import {  Table} from 'antd';
+import type { TableProps } from 'antd';
 
-interface OrderData {
-  rowNumber: number;
-  orderDate: string;
+
+
+
+interface DataType {
+  key: string;
+  No: string;
   product: string;
+  orderDate: string;
   price: string;
   status: string;
+  
 }
 
 
-const data: OrderData[] = [
-  { rowNumber: 1, product: 'Diamond Ring', orderDate: '2 Jan 2023', price: '1000$', status: 'Pending' },
-  { rowNumber: 2, product: 'Diamond Necklaces', orderDate: '14 Dec 2022', price: '2450$', status: 'Delivered' },
-  { rowNumber: 3, product: 'Diamond Earrings', orderDate: '14 Dec 2022', price: '700$', status: 'Pending' },
-  { rowNumber: 4, product: 'Diamond Braclets', orderDate: '14 Dec 2022', price: '1520$', status: 'Canceled' },
-  { rowNumber: 5, product: 'Diamond Chokers', orderDate: '14 Dec 2022', price: '2000$', status: 'Delivered' },
-  { rowNumber: 6, product: 'Diamond Round', orderDate: '14 Dec 2022', price: '5000$', status: 'Delivering' },
+const data: DataType[] = [
+  {
+    key: '1',
+    No: '1',
+    product: 'Diamind Ring',
+    orderDate: '24 Dec 2023',
+    price: '1000$',
+    status: 'Delivered'
+  },
+  {
+    key: '2',
+    No: '2',
+    product: 'Diamind Earrings',
+    orderDate: '24 June 2023',
+   price: '2000$',
+   status: 'Canceled',
+  },
+  {
+    key: '3',
+    No: '3',
+    product: 'Diamond Necklaces',
+    orderDate: '27 Jan 2024',
+    price: '2000$',
+   status: 'Pending',
+  },
+  {
+    key: '4',
+    No: '4',
+    product: 'Diamind Braclets',
+    orderDate: '24 Dec 2023',
+    price: '7000$',
+    status: 'Delivering'
+  },
+  {
+    key: '5',
+    No: '5',
+    product: 'Diamind Chokers',
+    orderDate: '27 Dec 2023',
+   price: '2000$',
+   status: 'Canceled',
+  },
+  {
+    key: '6',
+    No: '6',
+    product: 'Diamond Round',
+    orderDate: '27 Jan 2024',
+    price: '5000$',
+   status: 'Pending',
+  },
 ];
+const columns: TableProps<DataType>['columns'] = [
+  {
+    title: 'No',
+    dataIndex: 'No',
+    key: 'No',
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+    key: 'product',
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+    key: 'product',
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
+ 
+  {
+    title: 'Action',
+    key: 'action',
+    render: () => (
+      <Space size="middle">
+        <a>View</a>
+        <a>Cancel</a>
+      </Space>
+    ),
+  },
+];
+
 
 const OrderList = () => {
   const menuItems1 = [
@@ -48,27 +136,6 @@ const OrderList = () => {
     { text: 'Delivered', link: '#option2' },
     { text: 'Delivering', link: '#option3' },
     { text: 'Canceled', link: '#option4' },
-  ];
-
-
-  const items: MenuProps['items'] = [
-    {
-      key: '1',
-      label: (
-        <a target="_blank" rel="#" href="#">
-          View
-        </a>
-      ),
-    },
-    {
-      key: '2',
-      label: (
-        <a target="_blank" rel="#" href="#">
-          Cancel
-        </a>
-      ),
-    },
-
   ];
 
   return (
@@ -99,30 +166,8 @@ const OrderList = () => {
           </CustomSelects>
         </Filters>
         <TableContainer>
-          <TableHeader>No</TableHeader>
-          <TableHeader>Product</TableHeader>
-          <TableHeader>Order Date</TableHeader>
-          <TableHeader>Price</TableHeader>
-          <TableHeader>Status</TableHeader>
-          <TableHeader>Actions</TableHeader>
-          {data.map((order) => (
-            <React.Fragment key={order.rowNumber}>
-              <TableData>{order.rowNumber}</TableData>
-              <TableData>{order.product}</TableData>
-              <TableData style={{ paddingLeft: 10 }}>{order.orderDate}</TableData>
-              <TableData>{order.price}</TableData>
-              <TableData>{order.status}</TableData>
-              <TableData>
-                <Editbt>
-                  <Dropdown menu={{items}}>
-                    <a onClick={(e) => e.preventDefault()}><Space>...</Space></a>
-                  </Dropdown>
-                </Editbt>
-              </TableData>
-            </React.Fragment>
-          ))}
+        <Table columns={columns} dataSource={data} />
         </TableContainer>
-
       </Section>
     </main>
   );
@@ -135,9 +180,7 @@ const Section = styled.section`
   margin-top: 29px;
   background: #fff;
 `;
-const Editbt = styled.div`
-padding-left: 25px;
-`;
+
 
 const Text = styled.span`
   font-family: 'Poppins', sans-serif;
@@ -177,7 +220,7 @@ const CustomSelect = styled.div`
   gap: 5px;
   color: #000;
   border-radius: 7px;
-  padding: 7px 4px;
+  // padding: 7px 4px;
   justify-content: space-between;
 
   @media (max-width: 991px) {
@@ -190,7 +233,6 @@ const CustomSelects = styled.div`
   gap: 5px;
   color: #000;
   border-radius: 7px;
-  padding: 0px 10px;
   justify-content: space-between;
   align-items: baseline;
   font-size: 18px;
@@ -202,10 +244,8 @@ const TableContainer = styled.table`
   display: grid;
   width: 100%;
   max-width: 1167px;
-  grid-template-columns: 0.5fr 1.3fr 1fr 1fr 1fr 0.5fr;
   grid-gap: 15px;
   margin-top: 45px;
-  padding-left: 1rem;
   padding-bottom: 11rem;
 
   @media (max-width: 991px) {
@@ -213,26 +253,5 @@ const TableContainer = styled.table`
     grid-template-columns: 1fr;
   }
 `;
-
-
-
-const TableHeader = styled.div`
-  text-align: left;
-  font: 600 20px 'Poppins', sans-serif;
-  color: #102c57;
-  padding: 10px 0;
-`;
-
-const TableData = styled.div`
-  padding: 16px 0;
-  font-family: 'Poppins', sans-serif;
-  color: #102c57;
-  white-space: nowrap;
-
-  @media (max-width: 991px) {
-    white-space: initial;
-  }
-`;
-
 
 export default OrderList;
