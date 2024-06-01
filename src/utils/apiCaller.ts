@@ -9,7 +9,11 @@ export const request = (
     body: object = {},
 ): Promise<AxiosResponse> => {
     return axios({
-
+        url: config.publicRuntime.API_URL + endpoint,
+        method: method,
+        headers: Object.assign({}, headers, {Authorization: `Bearer `}),
+        params: Object.assign(params),
+        data: body,
     });
 }
 
