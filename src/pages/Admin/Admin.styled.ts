@@ -51,7 +51,7 @@ export const DBContent_1 = styled.div`
 export const StatistiBox = styled.div`
     width: 30%;
     height: 183px;
-    background-color: ${theme.color.fifth};
+    background-color: ${theme.color.secondary};
     border-radius: 16px;
     text-align: center;
     display: inline;
@@ -82,7 +82,7 @@ export const DBContent_2 = styled.div`
 export const ChatGene = styled.div`
     width: 40%;
     height: 298px;
-    background-color: ${theme.color.fifth};
+    background-color: ${theme.color.secondary};
     border-radius: 16px;
 `;
 
@@ -134,7 +134,7 @@ export const ChatGene_Content = styled.div`
     }
     .cusChat:hover {
         border-radius: 16px;
-        background-color: ${theme.color.third};
+        background-color: ${theme.color.secondary};
         cursor: pointer;
     }
     .cusChat_ava-name {
@@ -159,7 +159,7 @@ export const ChatGene_Content = styled.div`
 export const Revenue = styled.div`
     width: 30%;
     height: 298px;
-    background-color: ${theme.color.fifth};
+    background-color: ${theme.color.secondary};
     border-radius: 16px;
 `;
 
@@ -204,7 +204,7 @@ export const TopTime = styled.div`
 
 export const TopMonth = styled.div`
     height: 45%;
-    background-color: ${theme.color.fifth};
+    background-color: ${theme.color.secondary};
     border-radius: 16px;
     margin-bottom: 25px;
     padding: 20px 20px 15px 25px;
@@ -216,7 +216,7 @@ export const TopMonth = styled.div`
 
 export const TopYear = styled.div`
     height: 45%;
-    background-color: ${theme.color.fifth};
+    background-color: ${theme.color.secondary};
     border-radius: 16px;
     padding: 20px 20px 15px 25px;
     display: flex;
@@ -236,7 +236,7 @@ export const DBContent_3 = styled.div`
 export const Shell = styled.div`
     width: 30%;
     height: 298px;
-    background-color: ${theme.color.fifth};
+    background-color: ${theme.color.secondary};
     border-radius: 16px;
 `;
 
@@ -270,7 +270,7 @@ export const Shell_Content = styled.div`
     }
     .shell_eleButton {
         color:${theme.color.primary};
-        background-color: ${theme.color.fifth};
+        background-color: ${theme.color.secondary};
         border: 1px solid ${theme.color.primary};
         border-radius: 16px;
         padding: 7px 10px 7px 10px;
@@ -278,7 +278,7 @@ export const Shell_Content = styled.div`
     .shell_eleButton:hover {
         cursor: pointer;
         background-color: ${theme.color.primary};
-        color:${theme.color.fifth};
+        color:${theme.color.secondary};
     }
 `;
 

@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from 'react-router-dom'
+import { Routes, Route, BrowserRouter as Router } from 'react-router-dom'
 import Home from './pages/Home/Home'
 import Admin from './pages/Admin/Admin'
 import OrderAdmin from './pages/Admin/OrderPage/Order'
@@ -35,6 +35,7 @@ import Gift from './pages/Home/Gift/Gift'
 import History from './pages/Customer/History/History'
 import Voucher from './pages/Customer/Voucher/Voucher'
 import AccountCus from './components/AccountCus/AccountCus'
+import RoutesComponent from './routes'
 // import About from './pages/Home/AboutUs/AboutUs'
 
 
@@ -45,8 +46,8 @@ const App = () => {
 
   return (
     <>
-      <BrowserRouter>
-      <Routes>
+      <Router>
+      {/* <Routes>
         <Route path='/' element={
           <>
             <Headers />
@@ -168,8 +169,9 @@ const App = () => {
 
         <Route path="/staffAdmin" element={<SalesStaff />} />
         <Route path="/staffAdmin/deliveryStaff" element={<DeliveryStaff />} />
-      </Routes>
-      </BrowserRouter>
+      </Routes> */}
+        <RoutesComponent/>
+      </Router>
 
     </>
   )
