@@ -5,15 +5,16 @@ import { theme } from "../../../themes";
 
 export const TitlePage = styled.div `
     h1 {
+        font-size: 22px;
         font-weight: 36px;
-        color: ${theme.color.primary};
-        margin: 47px 0px 0px 0px;
+        color: #151542;
+        margin: 30px 0px 0px 0px;
         padding-bottom: 7px;
     }
 
     p {
-        color: #B19F8A;
-        font-size: 16px;
+        color: #92929D;
+        font-size: 13px;
         margin: 0px 0px 0px 0px;
     }
 `;
@@ -23,36 +24,42 @@ export const TitlePage = styled.div `
 
 
 export const OrderCatalog = styled.div `
-    height: 100px;
-    background-color: ${theme.color.fifth};
+    height: 64px;
+    background-color: #FFFFFF;
     border-radius: 16px;
     display: flex;
-    color: ${theme.color.primary};
+    color: #151542;
     padding-left: 40px;
     margin-top: 21px;
+    width: 100%;
 `;
 
 export const OrderCatalog_Ele = styled.div `
     margin-right: 50px;
+
+    &.active h3{
+        color: #151542;
+    }
 
     &:hover {
         cursor: pointer;
     }
 
     h3 {
-        margin: 31px 0px 0px 0px;
-        font-size: 24px;
+        margin: 18px 0px 0px 0px;
+        font-size: 17px;
+        color: #92929D;
     }
 
     .adMenu_active-line {
-        background-color: ${theme.color.primary};
+        background-color: #151542;
         border-radius: 0px 0px 16px 16px;
         height: fit-content;
         height: 4px;
     }
 
     .adMenu_line {
-        background-color: ${theme.color.fifth};
+        background-color: #FFFFFF;
         border-radius: 0px 0px 16px 16px;
         height: fit-content;
         height: 4px;
