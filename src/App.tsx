@@ -33,10 +33,14 @@ import Account from './pages/Customer/AccountDetail/AccountDetail'
 import About from './pages/Home/AboutUs/AboutUs'
 import Gift from './pages/Home/Gift/Gift'
 import History from './pages/Customer/History/History'
-import Voucher from './pages/Customer/Voucher/Voucher'
+
+// import Voucher from './pages/Customer/Voucher/dad'
 import AccountCus from './components/AccountCus/AccountCus'
 import RoutesComponent from './routes'
+import Nofications from './pages/Customer/Nofications/Nofications'
+import Voucher from './pages/Customer/Voucher/Voucher'
 // import About from './pages/Home/AboutUs/AboutUs'
+
 
 
 
@@ -124,48 +128,48 @@ const App = () => {
           </>
         } />
 
-        <Route path='/Voucher' element={
-          <>
-            <Headers/>
-            <AccountCus/>
-            <Voucher />
-            <Footer/>
-          
-          </>
-        } />
-        
-      <Route path='/about' element={
+          <Route path='/Voucher' element={
+            <>
+              <Headers />
+              <AccountCus />
+              <Voucher />
+              <Footer />
 
-          <>
-            <Headers/>
-            <About />
-            <Footer/>
-          </>
-        } />
-        <Route path='/gift' element={
-          <>
-            <Headers/>
-            <Gift />
-            <Footer/>
-          </>
-        } />
-        <Route path="/orderAdmin" element={<OrderAdmin />} />
-        <Route path="/orderAdmin/confirmed" element={<ConfirmedOrder />} />
-        <Route path="/orderAdmin/delivering" element={<DeliveringOrder />} />
-        <Route path="/orderAdmin/completed" element={<CompletedOrder />} />
-        <Route path="/orderAdmin/cancelled" element={<CancelledOrder />} />
+            </>
+          } />
 
-        <Route path="/productAdmin" element={<ProductAdmin />} />
-        <Route path="/productAdmin/ringShell" element={<RingShell />} />
-        <Route path="/productAdmin/ring" element={<Ring />} />
-        <Route path="/productAdmin/jewelry" element={<Jewelry />} />
-        <Route path="/productAdmin/jewelryType" element={<JewelryType />} />
-        <Route path="/productAdmin/material" element={<Material />} />
+          <Route path='/about' element={
 
-        <Route path="/marketingAdmin" element={<Promotion />} />
-        <Route path="/clientcaringAdmin" element={<Message />} />
-        <Route path="/clientcaringAdmin/feedback" element={<Feedback />} />
-        <Route path="/customerAdmin" element={<CustomerAdmin />} />
+            <>
+              <Headers />
+              <About />
+              <Footer />
+            </>
+          } />
+          <Route path='/gift' element={
+            <>
+              <Headers />
+              <Gift />
+              <Footer />
+            </>
+          } />
+          <Route path="/orderAdmin" element={<OrderAdmin />} />
+          <Route path="/orderAdmin/confirmed" element={<ConfirmedOrder />} />
+          <Route path="/orderAdmin/delivering" element={<DeliveringOrder />} />
+          <Route path="/orderAdmin/completed" element={<CompletedOrder />} />
+          <Route path="/orderAdmin/cancelled" element={<CancelledOrder />} />
+
+          <Route path="/productAdmin" element={<ProductAdmin />} />
+          <Route path="/productAdmin/ringShell" element={<RingShell />} />
+          <Route path="/productAdmin/ring" element={<Ring />} />
+          <Route path="/productAdmin/jewelry" element={<Jewelry />} />
+          <Route path="/productAdmin/jewelryType" element={<JewelryType />} />
+          <Route path="/productAdmin/material" element={<Material />} />
+
+          <Route path="/marketingAdmin" element={<Promotion />} />
+          <Route path="/clientcaringAdmin" element={<Message />} />
+          <Route path="/clientcaringAdmin/feedback" element={<Feedback />} />
+          <Route path="/customerAdmin" element={<CustomerAdmin />} />
 
         <Route path="/staffAdmin" element={<SalesStaff />} />
         <Route path="/staffAdmin/deliveryStaff" element={<DeliveryStaff />} />

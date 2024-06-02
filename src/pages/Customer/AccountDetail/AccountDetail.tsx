@@ -141,7 +141,6 @@ const SubTitle = styled.h5`
   font-weight: 250;
   align-self: start;
   margin-top: 48px;
-  margin-left: 21px;
   @media (max-width: 991px) {
     margin-top: 40px;
     margin-left: 10px;
@@ -152,7 +151,6 @@ const Description = styled.p`
   font-family: 'Poppins', sans-serif;
   letter-spacing: 3.75px;
   margin-top: 12px;
-  padding-left: 21px;
 `;
 
 const DetailGroup = styled.div`
@@ -161,7 +159,6 @@ const DetailGroup = styled.div`
   margin-top: -2px;
   align-items: start;
   font-weight: 250;
-  padding: 0 20px 0 21px;
   @media (max-width: 991px) {
     margin-top: 40px;
     padding: 0 20px;

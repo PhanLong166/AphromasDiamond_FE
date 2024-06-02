@@ -275,7 +275,7 @@ const ContinueShopping = styled.a`
 
 const ItemContainer = styled.article`
  background-color: #fff;
- border-radius: 20px;
+//  border-radius: 20px;
  box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
  border: 1px solid rgba(0, 0, 0, 1);
  display: flex;
