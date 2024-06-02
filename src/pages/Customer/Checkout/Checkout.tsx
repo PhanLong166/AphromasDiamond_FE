@@ -54,14 +54,17 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="firstName">First Name</StyledLabel>
+        {/* <Input  placeholder="Basic usage" /> */}
+
         <StyledInputt type="text" id="firstName" />
       </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
+        {/* <Input  placeholder="Basic usage" /> */}
         <StyledInputt type="text" id="lastName" />
       </InputGroup>
     </InputRow>
-    <label htmlFor="country">Country</label>
+    <label style={{marginBottom: -15}} htmlFor="country">Country</label>
     <Country>
       <img
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b114f2edfa3b31c61ea104edda326263461457a90784dc66d09c3575872d199?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
@@ -69,17 +72,18 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
       />
       <span>{country}</span>
     </Country>
-    <label htmlFor="address">Address Details</label>
-    <StyledInput id="address" type="text" />
+    <label style={{marginBottom: -15}} htmlFor="address">Address Details</label>
+    <StyledInputt type="text" id="phoneNumber" />
+     
     <Button><Checkbox onChange={onChange}>Fill auto</Checkbox></Button>
     <InputRow>
       <InputGroup>
-        <StyledLabel htmlFor="firstName">Phone Number</StyledLabel>
-        <StyledInput type="text" id="firstName" />
+        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
+        <StyledInputt type="text" id="phoneNumber" />
       </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="lastName">City</StyledLabel>
-        <StyledInput type="text" id="lastName" />
+        <StyledInputt type="text" id="lastName" />
       </InputGroup>
     </InputRow>
     <PaymentMethod />
@@ -159,9 +163,7 @@ const Checkout: React.FC = () => {
             address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
             country="VietNam"
           />
-
         </Form>
-      
         <Summary
           items={[
             {
@@ -292,7 +294,7 @@ const Section = styled.section`
   padding: 48px 40px;
   font-weight: 400;
   font-size: 16px;
-  box-shadow: 0px 4px 18px #d9d9d9;
+  box-shadow: 0px 4px 18px #999797;
   @media (max-width: 991px) {
     padding: 0 20px;
   }
@@ -350,12 +352,6 @@ const Buttons = styled.button`
   margin-top: -44px;
   
 `;
-const StyledInput = styled.input`
-height: 35px;
-border-radius: 10px;
-`;
-
-
 
 const Country = styled.div`
   display: flex;
@@ -425,13 +421,27 @@ const StyledLabel = styled.label`
   margin-bottom: 5px;
  
 `;
+// const StyledLabell = styled.label`
+// margin-bottom: 5px`;
+
 
 const StyledInputt = styled.input`
-  padding: 10px;
+  padding: 9px;
   border-radius: 10px;
   font-size: 16px;
   width: 100%; 
-  
+  border: 1px solid;
+   transition: border-color 0.3s, background-color 0.3s;
+  &:hover {
+            border-color: #1677ff;
+          //  background-color: #1677ff;
+        }
+
+        /* Optional: Add focus effect to make it consistent */
+        &:focus {
+            border-color: #1677ff;
+            outline: none;
+            
 `;
 
 const PaymentSection = styled.div`
