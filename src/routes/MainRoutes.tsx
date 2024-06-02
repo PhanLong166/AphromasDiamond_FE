@@ -7,6 +7,11 @@ import OrderList from "../pages/Customer/OderList/OderList";
 import Voucher from "../pages/Customer/Voucher/Voucher";
 import Home from "../pages/Home/Home";
 import { Outlet } from "react-router-dom";
+import Product from "@/pages/Home/Product/Product";
+import AllProduct from "@/pages/Home/AllProduct/AllProduct";
+import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
+import NotiPage from "@/pages/Customer/Nofications/Nofications";
+
 
 const MainRouter = () => {
     return <MainLayout />
@@ -19,6 +24,9 @@ const CustomerRouter = () => {
 const publicRoutes = {
     children: [
         { path: config.routes.public.home, element: <Home /> },
+        { path: config.routes.public.product, element: <ProductDetails /> },
+        { path: config.routes.public.productList, element: <Product /> },
+        { path: config.routes.public.allProduct, element: <AllProduct /> }
     ]
 }
 
@@ -30,6 +38,7 @@ const customerRoutes = {
         { path: config.routes.customer.account, element: <Account /> },
         { path: config.routes.customer.orderList, element: <OrderList /> },
         { path: config.routes.customer.history, element: <Voucher /> },
+        {path: config.routes.customer.notification, element: <NotiPage/>}
     ]
 }
 

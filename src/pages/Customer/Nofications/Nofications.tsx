@@ -73,7 +73,7 @@ const columns: TableProps<DataType>['columns'] = [
 ];
 
 
-const OrderList = () => {
+const NotiPage = () => {
   return (
     <main>
       <Section>
@@ -168,4 +168,4 @@ const TableContainer = styled.table`
   }
 `;
 
-export default OrderList;
+export default NotiPage;

@@ -5,7 +5,10 @@ const routes = {
         register: '/register',
         forgotPassword: '/forgot-password',
         setPassword: '/set-password',
-        notFound: '/404'
+        notFound: '/404',
+        product: '/product',
+        productList: '/list',
+        allProduct: '/all'
     },
     customer: {
         account: '/account',
@@ -14,7 +17,8 @@ const routes = {
         orderList: '/order-list',
         orderSuccess: '/confirm',
         history: '/history',
-        voucher: '/voucher'
+        voucher: '/voucher',
+        notification: '/noti'
     },
     admin: {
         dashboard: '/admin',
