@@ -15,7 +15,7 @@ const Account = () => {
                 <DetailGroup>
                   <Label>CITY</Label>
                   <Detail>Forrest Ray</Detail>
-                  <Label>PHONE NUMBER</Label>
+                  <Label>PHONE </Label>
                   <Detail>(404) 960-3807</Detail>
                 </DetailGroup>
               </InfoItem>
@@ -61,22 +61,18 @@ const MainContainer = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 `;
 
 const Section = styled.section`
-  border-color: rgba(0, 0, 0, 1);
-  border-top-width: 1px;
-  border-bottom-width: 1px;
-  background-color: #fff;
-  align-self: stretch;
-  // margin-top: 29px;
-  width: 100%;
-  align-items: start;
-  color: #000;
-  justify-content: center;
-  padding: 19px 127px;
-  font: 400 15px/150% 'Crimson Text', sans-serif;
-  margin-bottom: 150px;
+border-color: rgba(0, 0, 0, 1);
+background-color: #fff;
+color: #000;
+justify-content: center;
+margin: 0 auto;
+font: 400 15px / 150% 'Crimson Text', sans-serif;
+margin-bottom: 150px;
+width: 150vh;
   @media (max-width: 991px) {
     max-width: 100%;
     padding: 0 20px 0 30px;
@@ -95,10 +91,10 @@ const ProfileTitle = styled.div`
 `;
 
 const InfoSection = styled.section`
-  margin-top: 91px;
   width: 100%;
   max-width: 1194px;
   padding: 0 20px;
+  margin: 0 auto;
   @media (max-width: 991px) {
     max-width: 100%;
     margin-top: 40px;
@@ -145,7 +141,6 @@ const SubTitle = styled.h5`
   font-weight: 250;
   align-self: start;
   margin-top: 48px;
-  margin-left: 21px;
   @media (max-width: 991px) {
     margin-top: 40px;
     margin-left: 10px;
@@ -156,7 +151,6 @@ const Description = styled.p`
   font-family: 'Poppins', sans-serif;
   letter-spacing: 3.75px;
   margin-top: 12px;
-  padding-left: 21px;
 `;
 
 const DetailGroup = styled.div`
@@ -165,7 +159,6 @@ const DetailGroup = styled.div`
   margin-top: -2px;
   align-items: start;
   font-weight: 250;
-  padding: 0 75px 0 21px;
   @media (max-width: 991px) {
     margin-top: 40px;
     padding: 0 20px;

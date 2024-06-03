@@ -8,22 +8,22 @@ const ProductMenu = () => {
 
     useEffect(() => {
         switch (location.pathname) {
-            case '/productAdmin':
+            case '/admin/product':
                 setActive('Diamond');
                 break;
-            case '/productAdmin/ringShell':
-                setActive('RingShell');
+            case '/admin/product/ring-setting':
+                setActive('RingSetting');
                 break;
-            case '/productAdmin/ring':
+            case '/admin/product/ring':
                 setActive('Ring');
                 break;
-            case '/productAdmin/jewelry':
+            case '/admin/product/jewelry':
                 setActive('Jewelry');
                 break;
-            case '/productAdmin/jewelryType':
+            case '/admin/product/jewelry-type':
                 setActive('JewelryType');
                 break;
-            case '/productAdmin/material':
+            case '/admin/product/material':
                 setActive('Material');
                 break;
             default:
@@ -46,37 +46,37 @@ const ProductMenu = () => {
                             <Styled.MiniCatalog>
                                 <Styled.MiniCatalog_Ele className={active === 'Diamond' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Diamond' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('Diamond')} ></div>
-                                    <Link to="/productAdmin">
+                                    <Link to="/admin/product">
                                         <h3>Diamond</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
-                                <Styled.MiniCatalog_Ele className={active === 'RingShell' ? 'active' : ''}>
-                                    <div className={`btn ${active === 'RingShell' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('RingShell')}></div>
-                                    <Link to="/productAdmin/ringShell">
+                                <Styled.MiniCatalog_Ele className={active === 'RingSetting' ? 'active' : ''}>
+                                    <div className={`btn ${active === 'RingSetting' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('RingSetting')}></div>
+                                    <Link to="/admin/product/ring-setting">
                                         <h3>Ring Setting</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
                                 <Styled.MiniCatalog_Ele className={active === 'Ring' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Ring' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Ring')}></div>
-                                    <Link to="/productAdmin/ring">
+                                    <Link to="/admin/product/ring">
                                         <h3>Ring</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
                                 <Styled.MiniCatalog_Ele className={active === 'Jewelry' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Jewelry' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Jewelry')}></div>
-                                    <Link to="/productAdmin/jewelry">
+                                    <Link to="/admin/product/jewelry">
                                         <h3>Jewelry</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
                                 <Styled.MiniCatalog_Ele className={active === 'JewelryType' ? 'active' : ''}>
                                     <div className={`btn ${active === 'JewelryType' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('JewelryType')}></div>
-                                    <Link to="/productAdmin/jewelryType">
+                                    <Link to="/admin/product/jewelry-type">
                                         <h3>Jewelry Type</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
                                 <Styled.MiniCatalog_Ele className={active === 'Material' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Material' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Material')}></div>
-                                    <Link to="/productAdmin/material">
+                                    <Link to="/admin/product/material">
                                         <h3>Material</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>

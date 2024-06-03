@@ -11,7 +11,7 @@ const items: MenuProps['items'] = [
         children: [
             {
                 key: '1-1',
-                label: '1st menu item',
+                label: '1st item',
             },
             {
                 key: '1-2',

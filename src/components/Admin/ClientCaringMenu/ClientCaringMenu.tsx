@@ -8,10 +8,10 @@ const ClientCaringMenu = () => {
 
     useEffect(() => {
         switch (location.pathname) {
-            case '/clientcaringAdmin':
+            case '/admin/client-caring':
                 setActive('Message');
                 break;
-            case '/clientcaringAdmin/feedback':
+            case '/admin/client-caring/feedback':
                 setActive('Feedback');
                 break;
             default:
@@ -48,13 +48,13 @@ const ClientCaringMenu = () => {
                             <Styled.OrderCatalog>
                                 <Styled.OrderCatalog_Ele className={active === 'Message' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Message' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('Message')} ></div>
-                                    <Link to="/clientcaringAdmin">
+                                    <Link to="/admin/client-caring">
                                         <h3>Message</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Feedback' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Feedback' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Feedback')}></div>
-                                    <Link to="/clientcaringAdmin/feedback">
+                                    <Link to="/admin/client-caring/feedback">
                                         <h3>Feedback</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>

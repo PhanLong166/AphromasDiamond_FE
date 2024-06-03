@@ -37,7 +37,7 @@ const items: MenuProps['items'] = [
   ];
   
     
-    const Product = () => {
+    const Promotion = () => {
         return(
             <>
                 <Styled.ProductAdminArea>
@@ -183,4 +183,4 @@ const items: MenuProps['items'] = [
     )
 };
 
-export default Product; 
+export default Promotion; 

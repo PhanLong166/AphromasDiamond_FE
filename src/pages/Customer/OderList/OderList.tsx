@@ -1,102 +1,177 @@
 import styled from 'styled-components';
+import DropdownButton from './DropdownButton';
+import { Input } from 'antd';
+// import type { MenuProps } from 'antd';
+import {  Space } from 'antd';
+import {  Table} from 'antd';
+import type { TableProps } from 'antd';
 
 
-interface OrderData {
-  rowNumber: number;
-  
+
+
+interface DataType {
+  key: string;
+  No: string;
+  product: string;
   orderDate: string;
- 
   price: string;
   status: string;
+  
 }
 
-const data: OrderData[] = [
-  { rowNumber: 1,  orderDate: '2 Jan 2023',  price: '1000$', status: 'Pending' },
-  { rowNumber: 2,  orderDate: '14 Dec 2022',  price: '2450$', status: 'Delivered' },
-  { rowNumber: 3,  orderDate: '14 Dec 2022',  price: '700$', status: 'Pending' },
-  { rowNumber: 4,  orderDate: '14 Dec 2022',  price: '1520$', status: 'Canceled' },
-  { rowNumber: 5,  orderDate: '14 Dec 2022',  price: '2000$', status: 'Delivered' },
-  { rowNumber: 6, orderDate: '14 Dec 2022',  price: '5000$', status: 'Delivering' },
+
+const data: DataType[] = [
+  {
+    key: '1',
+    No: '1',
+    product: 'Diamind Ring',
+    orderDate: '24 Dec 2023',
+    price: '1000$',
+    status: 'Delivered'
+  },
+  {
+    key: '2',
+    No: '2',
+    product: 'Diamind Earrings',
+    orderDate: '24 June 2023',
+   price: '2000$',
+   status: 'Canceled',
+  },
+  {
+    key: '3',
+    No: '3',
+    product: 'Diamond Necklaces',
+    orderDate: '27 Jan 2024',
+    price: '2000$',
+   status: 'Pending',
+  },
+  {
+    key: '4',
+    No: '4',
+    product: 'Diamind Braclets',
+    orderDate: '24 Dec 2023',
+    price: '7000$',
+    status: 'Delivering'
+  },
+  {
+    key: '5',
+    No: '5',
+    product: 'Diamind Chokers',
+    orderDate: '27 Dec 2023',
+   price: '2000$',
+   status: 'Canceled',
+  },
+  {
+    key: '6',
+    No: '6',
+    product: 'Diamond Round',
+    orderDate: '27 Jan 2024',
+    price: '5000$',
+   status: 'Pending',
+  },
+];
+const columns: TableProps<DataType>['columns'] = [
+  {
+    title: 'No',
+    dataIndex: 'No',
+    key: 'No',
+    render: (text) => <a>{text}</a>,
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+    key: 'product',
+  },
+  {
+    title: 'Product',
+    dataIndex: 'product',
+    key: 'product',
+  },
+  {
+    title: 'Price',
+    dataIndex: 'price',
+    key: 'price',
+  },
+  {
+    title: 'Status',
+    dataIndex: 'status',
+    key: 'status',
+  },
+ 
+  {
+    title: 'Action',
+    key: 'action',
+    render: () => (
+      <Space size="middle">
+        <a>View</a>
+        <a>Cancel</a>
+      </Space>
+    ),
+  },
 ];
 
+
 const OrderList = () => {
+  const menuItems1 = [
+    { text: 'Rings', link: '#action1' },
+    { text: 'Necklaces', link: '#action2' },
+    { text: 'Earrings', link: '#action3' },
+    { text: 'Braclets', link: '#action4' },
+    { text: 'Chokers', link: '#action5' },
+  ];
+
+  const menuItems2 = [
+    { text: 'Hight-Low', link: '#option1' },
+    { text: 'Low-Hight', link: '#option2' },
+
+  ];
+  const menuItems3 = [
+    { text: 'Newest', link: '#action1' },
+    { text: '10 days ago', link: '#action2' },
+
+  ];
+
+  const menuItems4 = [
+    { text: 'Pending', link: '#option1' },
+    { text: 'Delivered', link: '#option2' },
+    { text: 'Delivering', link: '#option3' },
+    { text: 'Canceled', link: '#option4' },
+  ];
+
   return (
     <main>
       <Section>
         <Title>All Orders</Title>
         <Filters>
-
           <CustomSelects>
-            <CustomInput>
-              <InputText><span style={{gap: 12}}><i className="fa-solid fa-magnifying-glass fa-sm"></i></span>Search</InputText>
-            </CustomInput>
-            <Text><label>Category:</label>
-              <select id="Category">
-                <option value="">Diamond</option>
-                <option value="">Ring</option>
-                <option value="">Pendant</option>
-              </select>
+            <Input placeholder="Search" />
+            <Text>
+              <Text>
+                <DropdownButton buttonText="Category" menuItems={menuItems1} />
+              </Text>
             </Text>
             <CustomSelect>
-              <Text><label>Price:</label>
-                <select id="Price">
-                  <option value="">Under 2000$</option>
-                  <option value="">Above 2000$</option>
-                </select></Text>
+              <Text><DropdownButton buttonText="Date" menuItems={menuItems3} /></Text>
             </CustomSelect>
             <CustomSelect>
-              <Text><label>Status</label>
-                <select id="Status:">
-                  <option value="">Delivering</option>
-                  <option value="">Delivered</option>
-                  <option value="">Pending</option>
-                  <option value="">Canceled</option>
-                </select></Text>
+              <Text>
+                <DropdownButton buttonText="Price" menuItems={menuItems2} />
+              </Text>
             </CustomSelect>
             <CustomSelect>
-              <Text><label>Date:</label>
-                <select id="Date">
-                  <option value="">Today</option>
-                  <option value="">Yesterday</option>
-                  <option value="">10 days ago</option>
-                  <option value="">20 days ago</option>
-                  <option value="">30 days ago</option>
-                </select></Text>
+              <Text>
+                <DropdownButton buttonText="Status" menuItems={menuItems4} />
+              </Text>
             </CustomSelect>
           </CustomSelects>
         </Filters>
-       
-        <Table>
-          <thead>
-            <tr>
-              <TableHeader>No</TableHeader>
-              
-              <TableHeader>Order Date</TableHeader>
-              
-              <TableHeader>Price</TableHeader>
-              <TableHeader>Status</TableHeader>
-              <TableHeader>Actions</TableHeader>
-            </tr>
-          </thead>
-          <tbody>
-            {data.map((order) => (
-              <tr key={order.rowNumber}>
-                <TableData>{order.rowNumber}</TableData>
-                <TableData>{order.orderDate}</TableData>               
-                <TableData>{order.price}</TableData>
-                <TableData>{order.status}</TableData>
-                <TableData>
-                  <ActionLink >View | Cancel</ActionLink>
-                </TableData>
-              </tr>
-            ))}
-          </tbody>
-        </Table>
+        <TableContainer>
+        <Table columns={columns} dataSource={data} />
+        </TableContainer>
       </Section>
     </main>
   );
 };
-
 
 const Section = styled.section`
   display: flex;
@@ -106,12 +181,13 @@ const Section = styled.section`
   background: #fff;
 `;
 
+
 const Text = styled.span`
   font-family: 'Poppins', sans-serif;
   display: flex;
- gap: 5px;
- margin-top: 35px;
- border-radius: 7px;
+  gap: 5px;
+  margin-top: 35px;
+  border-radius: 7px;
 `;
 
 const Title = styled.h1`
@@ -123,101 +199,59 @@ const Title = styled.h1`
 `;
 
 const Filters = styled.div`
-display: flex;
-margin-top: 53px;
-width: 100%;
-max-width: 1146px;  
-gap: 20px;
-font-size: 16px;
-justify-content: center;  
-align-items: center;  
-
-
-@media (max-width: 991px) {
-  flex-wrap: wrap;
-  margin-top: 40px;
-}
-`;
-
-const CustomInput = styled.div`
   display: flex;
-  // gap: 12px;
-  color: #828282;
-  border: 1px solid rgba(0, 0, 0, 0.5);
-  border-radius: 52.56px;
-  padding: 4px 7px;
-  width: 228px;
+  margin-top: 53px;
+  width: 100%;
+  max-width: 1146px;
+  gap: 20px;
+  font-size: 16px;
+  justify-content: center;
+  align-items: center;
 
   @media (max-width: 991px) {
     flex-wrap: wrap;
+    margin-top: 40px;
   }
 `;
+
 
 const CustomSelect = styled.div`
   display: flex;
   gap: 5px;
   color: #000;
-  //  border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 7px;
-  padding: 7px 4px;
+  // padding: 7px 4px;
   justify-content: space-between;
-  
+
   @media (max-width: 991px) {
     padding-left: 20px;
   }
 `;
+
 const CustomSelects = styled.div`
-display: flex;
+  display: flex;
   gap: 5px;
   color: #000;
-   //border: 1px solid rgba(0, 0, 0, 0.5);
   border-radius: 7px;
-  padding: 7px 26px;
   justify-content: space-between;
-  align-items: center;
   align-items: baseline;
   font-size: 18px;
-
+  width: 100%;
 `;
 
-const InputText = styled.span`
-  font-family: 'Inter', sans-serif;
-  display: flex;
-    gap: 3px;
-  
-  `;
 
-  const Table = styled.table`
-  margin-top: 45px;
+const TableContainer = styled.table`
+  display: grid;
   width: 100%;
-  max-width: 1471px;
-  border-spacing: 0 15px;
-  padding-left: 15rem;
-  padding-bottom: 15rem;
+  max-width: 1167px;
+  grid-gap: 15px;
+  margin-top: 45px;
+  padding-bottom: 11rem;
+
   @media (max-width: 991px) {
     margin-top: 40px;
+    grid-template-columns: 1fr;
   }
-`;
-
-const TableHeader = styled.th`
-  text-align: left;
-  font: 600 20px 'Poppins', sans-serif;
-  color: #102c57;
-`;
-
-const TableData = styled.td`
-  padding: 16px 0;
-  font-family: 'Poppins', sans-serif;
-  color: #102c57;
-  white-space: nowrap;
-  @media (max-width: 991px) {
-    white-space: initial;
-  }
-`;
-
-const ActionLink = styled.a`
-  font-family: 'Poppins', sans-serif;
-  text-decoration: underline;
 `;
 
 export default OrderList;

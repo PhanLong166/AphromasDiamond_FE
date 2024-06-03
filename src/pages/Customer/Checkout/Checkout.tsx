@@ -1,17 +1,18 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+import { Checkbox } from 'antd';
+import type { CheckboxProps } from 'antd';
+
 interface ContactInfoProps {
   email: string;
   onEdit: () => void;
 }
 
 interface AddressDetailsProps {
-
   address: string;
   country: string;
 }
-
 
 interface CartItemProps {
   name: string;
@@ -25,10 +26,17 @@ interface SummaryProps {
   subtotal: string;
 }
 
+const onChange: CheckboxProps['onChange'] = (e) => {
+  console.log(`checked = ${e.target.checked}`);
+};
+
 const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => (
   <Section>
-    <Buttons onClick={onEdit}><button style={{ backgroundColor: "white", border: "none", fontSize: 17, paddingTop: 23 }}>EDIT</button> </Buttons>
-    <h2>Contact Information</h2>
+   
+    <TextContact>
+      <h2>Contact Information</h2>
+      <Buttons onClick={onEdit}><button style={{ backgroundColor: "white", border: "none", fontSize: 13, paddingTop: 23 }}>EDIT</button> </Buttons>
+       </TextContact>
     <p>Email address</p>
     <p>{email}</p>
 
@@ -38,8 +46,6 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => (
 
 const AddressDetails: React.FC<AddressDetailsProps> = ({
 
-
-
   country,
 }) => (
   <Section>
@@ -48,14 +54,17 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="firstName">First Name</StyledLabel>
+        {/* <Input  placeholder="Basic usage" /> */}
+
         <StyledInputt type="text" id="firstName" />
       </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
+        {/* <Input  placeholder="Basic usage" /> */}
         <StyledInputt type="text" id="lastName" />
       </InputGroup>
     </InputRow>
-    <label htmlFor="country">Country</label>
+    <label style={{marginBottom: -15}} htmlFor="country">Country</label>
     <Country>
       <img
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b114f2edfa3b31c61ea104edda326263461457a90784dc66d09c3575872d199?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
@@ -63,17 +72,18 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
       />
       <span>{country}</span>
     </Country>
-    <label htmlFor="address">Address Details</label>
-    <StyledInput id="address" type="text" />
-    <Button><span style={{paddingRight: 10}}><i className="fa-regular fa-circle"></i></span>Fill Auto </Button>
+    <label style={{marginBottom: -15}} htmlFor="address">Address Details</label>
+    <StyledInputt type="text" id="phoneNumber" />
+     
+    <Button><Checkbox onChange={onChange}>Fill auto</Checkbox></Button>
     <InputRow>
       <InputGroup>
-        <StyledLabel htmlFor="firstName">Phone Number</StyledLabel>
-        <StyledInput type="text" id="firstName" />
+        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
+        <StyledInputt type="text" id="phoneNumber" />
       </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="lastName">City</StyledLabel>
-        <StyledInput type="text" id="lastName" />
+        <StyledInputt type="text" id="lastName" />
       </InputGroup>
     </InputRow>
     <PaymentMethod />
@@ -109,7 +119,12 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 
 const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
   <SummarySection>
-   <a style={{ textAlign: "end", fontSize: 17, marginTop: -28 }} href="#">EDIT CART</a>
+    <ItemNumner>
+    <NumberItem>6 ITEMS</NumberItem>
+    <a style={{ textAlign: "end", fontSize: 13, marginTop: 4 }} href="#">EDIT CART</a>
+    
+    </ItemNumner>
+   
     {items.map((item, index) => (
       <CartItem
         key={index}
@@ -148,10 +163,7 @@ const Checkout: React.FC = () => {
             address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
             country="VietNam"
           />
-
         </Form>
-        {/* <FixedSizeSummary> */}
-          {/* <ScrollableSummary> */}
         <Summary
           items={[
             {
@@ -200,8 +212,7 @@ const Checkout: React.FC = () => {
           ]}
           subtotal="$10,000"
         />
-        {/* </ScrollableSummary> */}
-        {/* </FixedSizeSummary> */}
+       
       </Content>
       
       <Editbtn><a style={{ color: "white" }} href="#" >Continue</a> </Editbtn>
@@ -212,6 +223,21 @@ const Checkout: React.FC = () => {
 
 
 export default Checkout;
+
+
+const ItemNumner = styled.div`
+display: flex;
+justify-content: space-between;
+`;
+
+const  NumberItem = styled.div`
+// font-size: 14px;
+//  font-weight: 400;
+`; 
+const TextContact = styled.div`
+display: flex;
+justify-content: space-between;
+`;
 
 const Wrapper = styled.div`
   background-color: #fff;
@@ -265,9 +291,10 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 78px 70px;
-  font-weight: 500;
-  box-shadow: 0px 4px 18px #d9d9d9;
+  padding: 48px 40px;
+  font-weight: 400;
+  font-size: 16px;
+  box-shadow: 0px 4px 18px #999797;
   @media (max-width: 991px) {
     padding: 0 20px;
   }
@@ -277,24 +304,6 @@ const SummarySection = styled(Section)`
   flex: 1;
   line-height:40px;
 `;
-
-// const ScrollableSummary = styled(SummarySection)`
-//   max-height: 100%; /* Đảm bảo SummarySection chỉ chiếm không gian tối đa của phần còn lại */
-//   overflow-y: auto; /* Kích hoạt thanh cuộn khi nội dung vượt quá kích thước */
-//   padding: 20px; /* Thêm padding cho đẹp */
-// `;
-
-// const FixedSizeSummary = styled.div`
-//   flex: 1;
-//   max-height: calc(100vh - 200px); /* Đặt chiều cao tối đa của SummarySection để không vượt qua hai phần tử bên trái */
-//   overflow-y: auto; /* Kích hoạt thanh cuộn khi nội dung vượt quá kích thước */
-//   position: sticky;
-//   top: 0;
-//   z-index: 1;
-//   background-color: #fff;
-// `;
-
-
 
 const PromoCoder = styled.div`
  display: flex;
@@ -329,7 +338,6 @@ const Button = styled.button`
   background-color: #fff;
   border: none;
   gap: 10px;
-  // padding: 11px 30px;
   align-self: flex-start;
   margin-top: -2px;
   font-size: 13px;
@@ -344,12 +352,6 @@ const Buttons = styled.button`
   margin-top: -44px;
   
 `;
-const StyledInput = styled.input`
-height: 35px;
-border-radius: 10px;
-`;
-
-
 
 const Country = styled.div`
   display: flex;
@@ -383,7 +385,7 @@ const EditTotal1 = styled.div`
 `;
 const Editbtn = styled.div`
 font-family: Poppins, sans-serif;
-    background-color: #000;
+    background-color: #102C57;
     color: #fff;
     border-radius: 5px;
     padding: 11px 30px;
@@ -419,13 +421,27 @@ const StyledLabel = styled.label`
   margin-bottom: 5px;
  
 `;
+// const StyledLabell = styled.label`
+// margin-bottom: 5px`;
+
 
 const StyledInputt = styled.input`
-  padding: 10px;
+  padding: 9px;
   border-radius: 10px;
   font-size: 16px;
   width: 100%; 
-  
+  border: 1px solid;
+   transition: border-color 0.3s, background-color 0.3s;
+  &:hover {
+            border-color: #1677ff;
+          //  background-color: #1677ff;
+        }
+
+        /* Optional: Add focus effect to make it consistent */
+        &:focus {
+            border-color: #1677ff;
+            outline: none;
+            
 `;
 
 const PaymentSection = styled.div`

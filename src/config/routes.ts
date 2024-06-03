@@ -5,7 +5,10 @@ const routes = {
         register: '/register',
         forgotPassword: '/forgot-password',
         setPassword: '/set-password',
-        notFound: '/404'
+        notFound: '/404',
+        product: '/product',
+        productList: '/list',
+        allProduct: '/all'
     },
     customer: {
         account: '/account',
@@ -14,7 +17,8 @@ const routes = {
         orderList: '/order-list',
         orderSuccess: '/confirm',
         history: '/history',
-        voucher: '/voucher'
+        voucher: '/voucher',
+        notification: '/noti'
     },
     admin: {
         dashboard: '/admin',
@@ -31,8 +35,10 @@ const routes = {
         materialProduct: '/admin/product/material',
         marketing: '/admin/marketing',
         clientCaring: '/admin/client-caring',
+        feedback: '/admin/client-caring/feedback',
         customer: '/admin/customer',
-        staff: '/admin/staff',
+        salesStaff: '/admin/sales-staff',
+        deliveryStaff: '/admin/staff/delivery-staff',
         manager: '/admin/manager',
         theme: '/admin/theme'
     },
