@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from "../../themes";
 
 export const Body = styled.div`
-    background-color: ${theme.color.forth};;
+    background-color: ${theme.color.secondary};;
    
 `;
 
@@ -41,7 +41,7 @@ export const Heading = styled.div`
         font-size: 32px;
         margin-bottom: 20px;
         font-family: "Playfair Display", serif;
-        color: ${theme.color.third};;
+        color: ${theme.color.secondary};;
          
     }
 `;
@@ -78,9 +78,7 @@ export const CateImage = styled.div`
     background-color: #fff;
     padding: 5px;
     border-radius: 100px;
-    cursor: pointer;
-    
-   
+    cursor: pointer;   
   }
 `;
 
@@ -181,7 +179,7 @@ export const DotInfo = styled.div`
 export const DotTitle = styled.div`
 margin: 10px 20px 0 0;   
     font-size: 15px;
-    color: ${theme.color.forth};;
+    color: ${theme.color.secondary};;
     font-family: "Playfair Display", serif;
 
 `;
@@ -191,11 +189,11 @@ padding: 10px;
 cursor: pointer;
 border-radius: 50%;
 background-color: ${theme.color.primary};;
-border: solid 2px ${theme.color.forth};;
+border: solid 2px ${theme.color.secondary};;
     
     
     &:hover {
-        background-color: ${theme.color.forth};;
+        background-color: ${theme.color.secondary};;
         transition: all .45s ease;
     }
 `;
@@ -248,7 +246,7 @@ export const Banner2Container = styled.div`
     button {
         padding: 1rem 2rem;
         font-size: 1rem;
-        color: ${theme.color.forth};;
+        color: ${theme.color.secondary};;
         outline: none;
         border: none;
         border-radius: 15px;
@@ -423,7 +421,7 @@ export const About = styled.section`
 `;
 
 export const AboutImg = styled.div`
-    background: ${theme.color.third};;
+    background: ${theme.color.secondary};;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -440,7 +438,7 @@ export const AboutImg = styled.div`
 `;
 
 export const AboutText = styled.div`
-    background: ${theme.color.third};;
+    background: ${theme.color.secondary};;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -469,7 +467,7 @@ export const AboutText = styled.div`
     .row-btn {
         padding: 10px 15px;
         font-size: 12px;
-        color: ${theme.color.forth};;
+        color: ${theme.color.secondary};;
         outline: none;
         border: none;
         border-radius: 15px;
