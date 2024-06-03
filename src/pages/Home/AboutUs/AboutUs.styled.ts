@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import { theme } from "../../../themes";
 
 export const Body = styled.div`
-    background-color: ${theme.color.forth};;
+    background-color: ${theme.color.white};;
 `;
 
 export const ContainerBanner = styled.div`
@@ -114,13 +114,13 @@ export const Welcome = styled.div`
     padding: 60px;
     text-align: center;
     .title {
-    color: ${theme.color.forth};
+    color: ${theme.color.white};
     font-family: "Playfair Display";
     font-weight: 600;
     }
     
     .section_subtitle {
-        color: ${theme.color.forth};
+        color: ${theme.color.white};
         font-family: "Crimson Text";
         font-size: 16px;
         padding: 10px; 
@@ -214,7 +214,7 @@ p{
 export const ServiceButton= styled.button`
   text-decoration: none;
   padding: 10px 30px;
-  color: ${theme.color.forth};;
+  color: ${theme.color.white};;
   background-color: ${theme.color.primary};;
   border-radius: 10px;
   font-size: 10px;
@@ -264,7 +264,7 @@ export const Why= styled.div`
 
 
 .item {
-    background: ${theme.color.third};
+    background: ${theme.color.secondary};
     text-align: center;
     padding: 50px 35px;
     box-shadow: 0 0px 25px rgba(0, 0, 0, 0.07);
@@ -274,7 +274,7 @@ export const Why= styled.div`
 }
 
 .item:hover {
-    background: ${theme.color.secondary};
+    background: ${theme.color.primary};
     box-shadow: 0 8px 20px 0px rgba(0, 0, 0, 0.2);
     transition: all .5s ease 0;
     transition: all 0.5s ease 0s;
@@ -282,13 +282,14 @@ export const Why= styled.div`
 
 .item:hover .item,
 .item:hover span.icon {
-    background:  ${theme.color.forth};
+    background:  ${theme.color.secondary};
+    color: ${theme.color.primary};
     border-radius: 10px;
     transition: all .5s ease 0;
     transition: all 0.5s ease 0s;
 }
 
-.item:hover h6,
+.item:hover h5,
 .item:hover p {
     color: #fff;
     transition: all .5s ease 0;
@@ -308,8 +309,8 @@ export const Why= styled.div`
 
 
 .item .feature_box_col_six, .item .feature_box_col_five, .item .feature_box_col_four, .item .feature_box_col_two, .item .feature_box_col_one, .item .feature_box_col_three {
-    background: ${theme.color.forth};
-    color: ${theme.color.primary};
+    background: ${theme.color.primary};
+    color: ${theme.color.secondary};
     padding: 20px;
 }
 
@@ -337,13 +338,13 @@ export const Commitment = styled.div`
     padding: 70px;
     text-align: center;
     .title {
-    color: ${theme.color.forth};
+    color: ${theme.color.white};
     font-family: "Playfair Display";
     font-weight: 600;
     }
     
     .section_subtitle {
-        color: ${theme.color.forth};
+        color: ${theme.color.white};
         font-family: "Crimson Text";
         font-size: 16px;
         margin: 0 300px;
@@ -382,7 +383,7 @@ export const Box = styled.div`
   box-shadow: 0 0px 25px rgba(0, 0, 0, 0.2);
 
   &:hover {
-    background: ${theme.color.third};
+    background: ${theme.color.secondary};
     transition: 0.2s all linear;
   }
 

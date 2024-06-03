@@ -10,18 +10,18 @@ const GlobalStyle = `
 
   body {
     font-family: 'Great Vibes', cursive;
-    background-color: ${theme.color.forth};
+    background-color: ${theme.color.white};
   }
 `;
 
 export default GlobalStyle;
 
 export const Container = styled.div`
-  background-color: ${theme.color.forth};
+  background-color: ${theme.color.white};
 `;
 
 export const Banner = styled.section`
-  background-color: ${theme.color.third};
+  background-color: ${theme.color.secondary};
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -93,38 +93,35 @@ p {
     color: #45413e;
 }
 `;
-export const GiftSection = styled.div``;
-
-
-export const GiftItem = styled.div`
+export const GiftSection = styled.div`
+.gift-item1 {
 display: grid;
 grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
 align-items: center;
 max-width: 1200px;
-margin: 0 auto;`;
-
-
-export const GiftImg = styled.div`
-background: #fff;
-display: flex;
-flex-direction: column;
-justify-content: center;
-align-items: center;
-box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
-transition: all 0.2s ease;
-img {
-    width: 600px;
-    height: 300px
+margin: 30px auto;
 }
-`;
+.gift-img1 {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+    img {
+      width: 600px;
+      height: 300px
+    }
+  }
 
-
-export const GiftText = styled.div`
-padding: 50px;
+  .gift-text1 {
+    padding: 50px;
 background: #fff;
 display: flex;
 flex-direction: column;
-
+text-align: left;
+align-items: start;
 box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
 transition: all 0.2s ease;
 h2 {
@@ -142,18 +139,89 @@ p {
     width: 80%;
     text-align: left;
 }
-`;
+  }
 
-export const GiftButton = styled.button`
-text-decoration: none;
+  .gift-button1 {
+    text-decoration: none;
 padding: 10px 30px;
-color: ${theme.color.forth};;
+color: ${theme.color.white};;
 background-color: ${theme.color.primary};;
-border-radius: 10px;
+border-radius: 8px;
 font-size: 10px;
 font-family: "Poppins", sans-serif;
 border-color: transparent;
-width: 30%;
+
+
+a {
+  text-decoration: none;
+  color: inherit;
+  font-weight: 600;
+  text-align: center;
+}
+
+&:hover {
+  transform: translateY(-5px);
+  transition: all 0.45s ease;
+}
+  }
+
+  .gift-item {
+display: grid;
+grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
+align-items: center;
+max-width: 1200px;
+margin: 30px auto;
+}
+.gift-img {
+  background: #fff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
+  transition: all 0.2s ease;
+    img {
+      width: 600px;
+      height: 300px
+    }
+  }
+
+  .gift-text {
+    padding: 50px;
+background: #fff;
+display: flex;
+flex-direction: column;
+text-align: right;
+align-items: end;
+box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
+transition: all 0.2s ease;
+h2 {
+    font-family: 'Great Vibes';
+    font-size: 2.5rem;
+    margin-top: 20px;
+    color: ${theme.color.primary};;
+}
+p {
+    font-size: 16px;
+    font-family: "Crimson Text", sans-serif;
+    color: #45413e;
+    line-height: 1.5;
+    margin-bottom: 10px;
+    width: 80%;
+    text-align: left;
+}
+  }
+
+  .gift-button {
+    text-decoration: none;
+padding: 10px 30px;
+color: ${theme.color.white};;
+background-color: ${theme.color.primary};;
+border-radius: 8px;
+font-size: 10px;
+font-family: "Poppins", sans-serif;
+border-color: transparent;
+
 
 a {
   text-decoration: none;
@@ -162,7 +230,93 @@ a {
 }
 
 &:hover {
-  background-color: #d8a25a;
+  transform: translateY(-5px);
   transition: all 0.45s ease;
 }
+  }
+
 `;
+export const FAQs = styled.section`
+  display: flex;
+ margin: 50px auto;
+ max-width: 1200px;
+ justify-content: space-between;
+
+`;
+
+
+export const LeftFAQ = styled.div`
+  width: 50%;
+  padding-right: 20px;
+  padding-top: 20px;
+  h2{
+    font-size: 30px;
+    font-family: "Playfair Display", sans-serif;
+    color: ${theme.color.primary};;
+  }
+`;
+
+export const Wrapper = styled.div`
+  max-width: 50%;
+  margin-left: 0;
+
+  
+`;
+
+export const Accordion = styled.button`
+  background-color: ${theme.color.secondary};;
+  color: ${theme.color.primary};;
+  cursor: pointer;
+  font-size: 16px;
+  width: 100%;
+  padding: 20px 30px;
+  border: none;
+  outline: none;
+  transition: 0.4s;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: "Crimson Text", sans-serif;
+  font-weight: 600;
+
+
+
+  i {
+    font-size: 1.6rem;
+  }
+
+`;
+
+export const Panel = styled.div`
+  padding: 0 18px;
+  color: #45413e;
+  background-color: ${theme.color.secondary};;
+  padding: 0 2rem 2.5rem 2rem;
+  overflow: hidden;
+  max-height: 0;
+  transition: max-height 0.4s ease-out, visibility 0.4s ease-out;
+  visibility: hidden;
+
+  &.active {
+    max-height: 500px; 
+    visibility: visible;
+  }
+
+  p {
+    color: rgba(0, 0, 0, 0.7);
+    font-size: 16px;
+    line-height: 1.4;
+    font-family: "Crimson Text", sans-serif;
+  }
+`;
+
+export const FAQ = styled.div`
+  margin: 10px 80px;
+  
+
+  &.active {
+    border: none;
+    width: 50%;
+  }
+`;
+
