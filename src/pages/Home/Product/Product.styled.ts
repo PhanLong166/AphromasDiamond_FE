@@ -18,11 +18,11 @@ export default GlobalStyle;
 import styled from 'styled-components';
 
 export const Container = styled.div`
-  background-color: ${theme.color.forth};;
+  background-color: ${theme.color.white};;
 `;
 
 export const Banner = styled.section`
-  background-color: ${theme.color.third};;
+  background-color: ${theme.color.secondary};;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -58,7 +58,7 @@ export const LeftSection = styled.div`
     background-color: ${theme.color.primary};;
     color: white;
     border: none;
-    border-radius: 15px;
+    border-radius: 8px;
     cursor: pointer;
     font-size: 14px;
     align-self: center;
@@ -68,8 +68,7 @@ export const LeftSection = styled.div`
     font-weight: 500;
 
     &:hover {
-      background-color: #d8a25a;
-      color: #fff;
+      transform: translateY(-5px);
       transition: all 0.6s ease;
     }
   }
@@ -98,7 +97,7 @@ padding-left: 55px;
 export const ProductItem = styled.div`
     background-color: transparent;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 8px;
     width: 300px;
     height: 350px;
     display: flex;
@@ -154,18 +153,18 @@ export const ItemName = styled.p`
 `;
 
 export const Price = styled.p`
-    font-size: small;
     font-family: "Inika", serif;
-    color: 45413E;
+    color: #45413E;
     font-weight: 600;
     font-size: 16px;
+    margin-top: 10px;
 `;
 
 export const AddCartButton = styled.button`
     background-color: ${theme.color.primary};;
-    color: ${theme.color.forth};;
+    color: ${theme.color.white};;
     padding: 12px 10px;
-    border-radius: 20px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
     margin-top: 10px;
@@ -175,7 +174,7 @@ export const AddCartButton = styled.button`
     
     
     &:hover {
-        background: #D8A25A;
+        font-size: 14px;
         transition: all .45s ease;
     }   
 
@@ -188,11 +187,11 @@ export const AddLink = styled.a`
 `;
 
 export const CustomCard = styled.div`
-  background-color: ${theme.color.third};;
+  background-color: ${theme.color.secondary};;
   width: 83%;
   margin-left: 10px;
   height: 97%;
-  border-radius: 30px;
+  border-radius: 16px;
   margin-bottom: 8px;
 `;
 
@@ -216,9 +215,9 @@ export const CustomCardTitle = styled.h6`
 export const CustomButton = styled.button`
   text-decoration: none;
   padding: 10px 30px;
-  color: ${theme.color.forth};;
+  color: ${theme.color.white};;
   background-color: ${theme.color.primary};;
-  border-radius: 20px;
+  border-radius: 8px;
   font-size: 13px;
   font-family: "Poppins", sans-serif;
   border-color: transparent;
@@ -230,21 +229,22 @@ export const CustomButton = styled.button`
   }
 
   &:hover {
-    background-color: #d8a25a;
+    transform: translateY(-5px);
     transition: all 0.45s ease;
   }
 `;
 
 export const FAQs = styled.section`
   display: flex;
-  margin-left: 100px;
-  margin-top: 50px;
+ margin: 50px auto;
+ max-width: 1200px;
+ justify-content: space-between;
 
 `;
 
 
 export const LeftFAQ = styled.div`
-  width: 40%;
+  width: 50%;
   padding-right: 20px;
   padding-top: 20px;
   h2{
@@ -262,7 +262,7 @@ export const Wrapper = styled.div`
 `;
 
 export const Accordion = styled.button`
-  background-color: ${theme.color.forth};;
+  background-color: ${theme.color.secondary};;
   color: ${theme.color.primary};;
   cursor: pointer;
   font-size: 16px;
@@ -283,15 +283,12 @@ export const Accordion = styled.button`
     font-size: 1.6rem;
   }
 
-  &:hover {
-    background-color: ${theme.color.third};;
-  }
 `;
 
 export const Panel = styled.div`
   padding: 0 18px;
   color: #45413e;
-  background-color: ${theme.color.forth};;
+  background-color: ${theme.color.secondary};;
   padding: 0 2rem 2.5rem 2rem;
   overflow: hidden;
   max-height: 0;

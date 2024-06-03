@@ -23,28 +23,28 @@ const Sidebar = () => {
       case "/admin":
         setActive("Dashboard");
         break;
-      case "/orderAdmin":
+      case "/admin/order":
         setActive("Order");
         break;
-      case "/productAdmin":
+      case "/admin/product":
         setActive("Product");
         break;
-      case "/marketingAdmin":
+      case "/admin/marketing":
         setActive("Marketing");
         break;
-      case "/clientcaringAdmin":
+      case "/admin/client-caring":
         setActive("ClientCaring");
         break;
-      case "/customerAdmin":
+      case "/admin/customer":
         setActive("Customer");
         break;
-      case "/staffAdmin":
+      case "/admin/sales-staff":
         setActive("Staff");
         break;
-      case "/managerAdmin":
+      case "/admin/manager":
         setActive("Manager");
         break;
-      case "/themeAdmin":
+      case "/admin/theme":
         setActive("Theme");
         break;
       default:
@@ -87,7 +87,7 @@ const Sidebar = () => {
               <div className={active === "Order" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <ShoppingCartOutlined />
-                  <Link to="/orderAdmin">
+                  <Link to="/admin/order">
                     <p>Order</p>
                   </Link>
                 </Styled.MenuElement>
@@ -102,7 +102,7 @@ const Sidebar = () => {
               <div className={active === "Product" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <SketchOutlined />
-                  <Link to="/productAdmin">
+                  <Link to="/admin/product">
                     <p>Product</p>
                   </Link>
                 </Styled.MenuElement>
@@ -117,7 +117,7 @@ const Sidebar = () => {
               <div className={active === "Marketing" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <AudioOutlined />
-                  <Link to="/marketingAdmin">
+                  <Link to="/admin/marketing">
                     <p>Marketing</p>
                   </Link>
                 </Styled.MenuElement>
@@ -134,7 +134,7 @@ const Sidebar = () => {
               <div className={active === "ClientCaring" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <CommentOutlined />
-                  <Link to="/clientcaringAdmin">
+                  <Link to="/admin/client-caring">
                     <p>Client Caring</p>
                   </Link>
                 </Styled.MenuElement>
@@ -149,7 +149,7 @@ const Sidebar = () => {
               <div className={active === "Customer" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <TeamOutlined />
-                  <Link to="/customerAdmin">
+                  <Link to="/admin/customer">
                     <p>Customer</p>
                   </Link>
                 </Styled.MenuElement>
@@ -164,7 +164,7 @@ const Sidebar = () => {
               <div className={active === "Staff" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <CustomerServiceOutlined />
-                  <Link to="/staffAdmin">
+                  <Link to="/admin/sales-staff">
                     <p>Staff</p>
                   </Link>
                 </Styled.MenuElement>
@@ -179,7 +179,7 @@ const Sidebar = () => {
               <div className={active === "Manager" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <KeyOutlined />
-                  <Link to="/managerAdmin">
+                  <Link to="/admin/manager">
                     <p>Manager</p>
                   </Link>
                 </Styled.MenuElement>
@@ -194,7 +194,7 @@ const Sidebar = () => {
               <div className={active === "Theme" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <LayoutOutlined />
-                  <Link to="/themeAdmin">
+                  <Link to="/admin/theme">
                     <p>Theme</p>
                   </Link>
                 </Styled.MenuElement>
