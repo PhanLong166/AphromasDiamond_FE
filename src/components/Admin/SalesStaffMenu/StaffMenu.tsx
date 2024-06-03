@@ -1,4 +1,4 @@
-import * as Styled from './SalesStaffMenu.styled';
+import * as Styled from './StaffMenu.styled';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
     
