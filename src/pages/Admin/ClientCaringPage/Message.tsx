@@ -1,11 +1,8 @@
 import * as Styled from './Message.styled';
 import { InputField, SendButton } from './Message.styled';
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
 import { SearchOutlined, SendOutlined} from '@ant-design/icons';
-import { DownOutlined } from '@ant-design/icons';
 import type { MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import ClientCaringMenu from '../../../components/Admin/ClientCaringMenu/ClientCaringMenu';
 
@@ -40,7 +37,7 @@ const initialChats: Chat[] = [
     },
 ];
 
-    const CancelledOrder = () => {
+    const Messages = () => {
         const items: MenuProps['items'] = [
             {
               label: <a href="/" style={{  }}>Soonest</a>,
@@ -190,4 +187,4 @@ const initialChats: Chat[] = [
     )
 };
 
-export default CancelledOrder; 
+export default Messages; 
