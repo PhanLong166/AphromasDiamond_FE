@@ -2,16 +2,16 @@ import * as Styled from './StaffMenu.styled';
 import { Link, useLocation } from 'react-router-dom';
 import React, { useState, useEffect } from 'react';
     
-const ProductMenu = () => {
+const StaffMenu = () => {
     const location = useLocation();
     const [active, setActive] = useState<string>('');
 
     useEffect(() => {
         switch (location.pathname) {
-            case '/staffAdmin':
+            case '/admin/sales-staff':
                 setActive('SalesStaff');
                 break;
-            case '/staffAdmin/deliveryStaff':
+            case '/admin/staff/delivery-staff':
                 setActive('DeliveryStaff');
                 break;
             default:
@@ -34,13 +34,13 @@ const ProductMenu = () => {
                             <Styled.MiniCatalog>
                                 <Styled.MiniCatalog_Ele className={active === 'SalesStaff' ? 'active' : ''}>
                                     <div className={`btn ${active === 'SalesStaff' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('SalesStaff')} ></div>
-                                    <Link to="/staffAdmin">
+                                    <Link to="/admin/sales-staff">
                                         <h3>Sales Staff</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
                                 <Styled.MiniCatalog_Ele className={active === 'DeliveryStaff' ? 'active' : ''}>
                                     <div className={`btn ${active === 'DeliveryStaff' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('DeliveryStaff')}></div>
-                                    <Link to="/staffAdmin/deliveryStaff">
+                                    <Link to="/admin/staff/delivery-staff">
                                         <h3>Delivery Staff</h3>
                                     </Link>
                                 </Styled.MiniCatalog_Ele>
@@ -50,4 +50,4 @@ const ProductMenu = () => {
     )
 };
 
-export default ProductMenu; 
+export default StaffMenu; 

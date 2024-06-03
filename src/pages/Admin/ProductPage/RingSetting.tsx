@@ -1,5 +1,4 @@
-import * as Styled from "../ProductPage/RingShell.styled";
-import { Link } from "react-router-dom";
+import * as Styled from "./RingSetting.styled";
 import {
   SearchOutlined,
   FilterOutlined,
@@ -7,7 +6,6 @@ import {
   PlusCircleOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
-  EditOutlined,
   DeleteOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
@@ -16,7 +14,7 @@ import { Select } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
-const RingShell = () => {
+const RingSetting = () => {
   const items: MenuProps["items"] = [
     {
       label: (
@@ -353,4 +351,4 @@ const RingShell = () => {
   );
 };
 
-export default RingShell;
+export default RingSetting;
