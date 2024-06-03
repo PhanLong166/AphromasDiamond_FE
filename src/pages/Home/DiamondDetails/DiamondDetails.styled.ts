@@ -85,13 +85,13 @@ export const OuterMain = styled.div`
 
 export const MainImage = styled.div`
   width: 100%;
-  height: 585px;
+  height: 480px;
   overflow: hidden;
   background-color: ${theme.color.secondary};
   border-radius: 8px;
   img {
-    width: 100%;
-    height: 585px;
+    width: 465px;
+    height: 480px;
   }
 `;
 

@@ -3,7 +3,7 @@ import { theme } from "../../../themes";
 
 export const Section = styled.div`
   margin: 0 auto;
-  background-color: ${theme.color.forth};;
+  background-color: ${theme.color.white};;
 `;
 
 export const Container = styled.div`
@@ -159,7 +159,7 @@ padding-left: 20px;
 export const ProductItem = styled.div`
     background-color: transparent;
     padding: 10px;
-    border-radius: 15px;
+    border-radius: 8px;
     width: 300px;
     height: 350px;
     display: flex;
@@ -215,18 +215,18 @@ export const ItemName = styled.p`
 `;
 
 export const Price = styled.p`
-    font-size: small;
-    font-family: "Inika", serif;
-    color: 45413E;
+    font-family: "Poppins", serif;
+    color: #45413E;
     font-weight: 600;
     font-size: 16px;
+    margin-top: 10px
 `;
 
 export const AddCartButton = styled.button`
     background-color: ${theme.color.primary};;
-    color: ${theme.color.forth};;
+    color: ${theme.color.white};;
     padding: 12px 10px;
-    border-radius: 20px;
+    border-radius: 8px;
     border: none;
     cursor: pointer;
     margin-top: 10px;
@@ -236,7 +236,7 @@ export const AddCartButton = styled.button`
     
     
     &:hover {
-        background: #D8A25A;
+        font-size: 14px;
         transition: all .45s ease;
     }   
 
@@ -256,19 +256,14 @@ export const MoreButton = styled.button`
 
    a {
     text-decoration: none;
-    color: ${theme.color.forth};;
+    color: ${theme.color.white};;
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
     font-family: "Poppins", sans-serif;
     padding: 15px 20px;
     background-color: ${theme.color.primary};;
-    border-radius: 20px;
-   }
-
-   a:hover {
-    background: #D8A25A;
-    transition: all .45s ease;  
+    border-radius:8px;
    }
         
 `;
@@ -290,18 +285,14 @@ export const LoadMoreButton = styled.button`
 export const MoreLink = styled.a`
   padding: 15px 20px;
   background-color: ${theme.color.primary};;
-  border-radius: 20px;
+  border-radius: 8px;
   text-decoration: none;
-  color: ${theme.color.forth};;
+  color: ${theme.color.white};;
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
   font-family: "Poppins", sans-serif;
 
-  &:hover {
-    background: #d8a25a;
-    transition: all 0.45s ease;
-  }
 `;
 
 export const PageLink = styled.a`

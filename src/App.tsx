@@ -35,7 +35,9 @@ import Gift from './pages/Home/Gift/Gift'
 import History from './pages/Customer/History/History'
 import Voucher from './pages/Customer/Voucher/Voucher'
 import AccountCus from './components/AccountCus/AccountCus'
-// import About from './pages/Home/AboutUs/AboutUs'
+import LearnAbout from './pages/Home/LearnAbout/LearnAbout'
+import DiamondDetails from './pages/Home/DiamondDetails/DiamondDetails'
+import NecklaceDetails from './pages/Home/NecklaceDetails/NecklaceDetails'
 
 
 
@@ -145,6 +147,27 @@ const App = () => {
           <>
             <Headers/>
             <Gift />
+            <Footer/>
+          </>
+        } />
+        <Route path='/learn' element={
+          <>
+            <Headers/>
+            <LearnAbout />
+            <Footer/>
+          </>
+        } />
+        <Route path='/diamondDetails' element={
+          <>
+            <Headers/>
+            <DiamondDetails />
+            <Footer/>
+          </>
+        } />
+        <Route path='/necklaceDetails' element={
+          <>
+            <Headers/>
+            <NecklaceDetails />
             <Footer/>
           </>
         } />

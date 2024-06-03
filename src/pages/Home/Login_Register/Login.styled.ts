@@ -36,7 +36,7 @@ export const GlobalStyle = createGlobalStyle`
       min-height: 100vh;
       align-items: center;
       justify-content: center;
-      background: var(--brand-02);
+      background: ${theme.color.white};
       padding: 30px;
       display: flexbox;
       margin-left: 300px;
@@ -98,7 +98,7 @@ export const IconLink = styled.a`
   }
 
   &:hover::before {
-    background: #ECBD73;
+    background: ${theme.color.secondary};
   }
 `;
 
@@ -183,7 +183,7 @@ export const FormContent = styled.div`
         position: absolute;
         height: 2px;
         width: 60px;
-        background: #ECBD73;
+        background: ${theme.color.secondary};
         left: 0;
         bottom: 0;
         }
@@ -220,12 +220,12 @@ export const FormContent = styled.div`
             }
     
             &:valid {
-            border-color: #ECBD73;
+            border-color: ${theme.color.secondary};
             }
             
             i {
                 position: absolute;
-                color: #ECBD73;
+                color: ${theme.color.secondary};
                 font-size: 17px;
               }
         }
@@ -275,7 +275,7 @@ export const FormContent = styled.div`
           
     
           &:hover {
-            background: #ECBD73;
+            background: ${theme.color.secondary};
             color: ${theme.color.primary};;
             font-weight: bold;
             border-color: ${theme.color.primary};;
@@ -284,7 +284,7 @@ export const FormContent = styled.div`
       }
 
       label {
-        color: #ECBD73;
+        color: ${theme.color.primary};
         cursor: pointer;
         font-family: "Poppins", sans-serif;
         font-size: 15px;

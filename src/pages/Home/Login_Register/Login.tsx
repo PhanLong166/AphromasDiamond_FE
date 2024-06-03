@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { Link } from 'react-router-dom';
 import {
   GlobalStyle,
   CornerButton,
@@ -27,7 +28,9 @@ const Login: React.FC = () => {
       <CornerButton>
         <IconItem>
           <IconLink href='/'>
-            <a><HomeFilled style={{ marginLeft: '23px', marginTop:'20px'}}/> </a>
+          <Link to={'/'} >
+          <HomeFilled style={{ marginLeft: '23px', marginTop:'20px'}}/>
+            </Link>
          </IconLink>
         </IconItem>
       </CornerButton>
