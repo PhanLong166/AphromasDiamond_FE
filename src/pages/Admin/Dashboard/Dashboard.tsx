@@ -1,5 +1,5 @@
-import * as Styled from './Admin.styled'
-import Sidebar from '../../components/Admin/Sidebar/Sidebar';
+import * as Styled from './Dashboard.styled'
+import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 // import { Link } from 'react-router-dom';
 import { ArrowRightOutlined, SendOutlined} from '@ant-design/icons';
 
@@ -14,7 +14,7 @@ interface Chat {
     name: string;
   }
 
-const Admin = () => {
+const Dashboard = () => {
     const chats: Chat[] = [
         {
           name: 'Aphromas Diamond',
@@ -206,4 +206,4 @@ const Admin = () => {
     )
 };
 
-export default Admin;
+export default Dashboard;

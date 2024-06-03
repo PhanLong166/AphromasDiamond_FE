@@ -1,7 +1,5 @@
+import { theme } from "@/themes";
 import styled from "styled-components";
-import { theme } from "../../themes";
-
-
 
 export const AdminContainer = styled.section`
     display: inline-flex;
