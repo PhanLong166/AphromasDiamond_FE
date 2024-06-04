@@ -8,6 +8,7 @@ const App = () => {
       <Router>
         <RoutesComponent />
       </Router>
+
     </>
   )
 }

@@ -1,15 +1,11 @@
-
-
 import styled, { createGlobalStyle } from 'styled-components';
 import { theme } from "../../../themes";
 export const GlobalStyle = createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
-  @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-  
+    
   :root {
       --text-01: #45413E;
-      --brand-01: ${theme.color.forth};;
-      --brand-02: ${theme.color.third};;
+      --brand-01: ${theme.color.primary};;
+      --brand-02: ${theme.color.secondary};;
       --brand-03: ${theme.color.secondary};;
       --brand-04: ${theme.color.primary};;
       --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
@@ -24,23 +20,14 @@ export const GlobalStyle = createGlobalStyle`
       --transition-transform: transform .3s;
   }
 
-  * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-      
-  }
-
   body {
       font-family: 'Poppins', sans-serif;
       min-height: 100vh;
       align-items: center;
       justify-content: center;
-      background: var(--brand-02);
+      background: ${theme.color.white};
       padding: 30px;
-      display: flexbox;
-      margin-left: 300px;
-      margin-top: 65px;
+      display: flex;
      
   }
 `;
@@ -98,7 +85,7 @@ export const IconLink = styled.a`
   }
 
   &:hover::before {
-    background: #ECBD73;
+    background: ${theme.color.secondary};
   }
 `;
 
@@ -171,6 +158,7 @@ export const FormContent = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
+  width: 700px;
   .title {
     font-size: 24px;
     font-weight: 600;
@@ -183,7 +171,7 @@ export const FormContent = styled.div`
         position: absolute;
         height: 2px;
         width: 60px;
-        background: #ECBD73;
+        background: ${theme.color.secondary};
         left: 0;
         bottom: 0;
         }
@@ -220,12 +208,12 @@ export const FormContent = styled.div`
             }
     
             &:valid {
-            border-color: #ECBD73;
+            border-color: ${theme.color.secondary};
             }
             
             i {
                 position: absolute;
-                color: #ECBD73;
+                color: ${theme.color.secondary};
                 font-size: 17px;
               }
         }
@@ -258,7 +246,7 @@ export const FormContent = styled.div`
     }
 
     .button {
-        color: ${theme.color.third};;
+        color: ${theme.color.secondary};;
         margin-top: 15px;
      
       
@@ -275,7 +263,7 @@ export const FormContent = styled.div`
           
     
           &:hover {
-            background: #ECBD73;
+            background: ${theme.color.secondary};
             color: ${theme.color.primary};;
             font-weight: bold;
             border-color: ${theme.color.primary};;
@@ -284,7 +272,7 @@ export const FormContent = styled.div`
       }
 
       label {
-        color: #ECBD73;
+        color: ${theme.color.primary};
         cursor: pointer;
         font-family: "Poppins", sans-serif;
         font-size: 15px;

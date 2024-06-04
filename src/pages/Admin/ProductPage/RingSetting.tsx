@@ -1,5 +1,4 @@
-import * as Styled from "../ProductPage/Ring.styled";
-import { Link } from "react-router-dom";
+import * as Styled from "./RingSetting.styled";
 import {
   SearchOutlined,
   FilterOutlined,
@@ -7,7 +6,7 @@ import {
   PlusCircleOutlined,
   ArrowLeftOutlined,
   ArrowRightOutlined,
-  EyeOutlined,
+  DeleteOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
 import { Dropdown, Space } from "antd";
@@ -15,7 +14,7 @@ import { Select } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
-const Ring = () => {
+const RingSetting = () => {
   const items: MenuProps["items"] = [
     {
       label: (
@@ -42,6 +41,51 @@ const Ring = () => {
     },
   ];
 
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const shelltype = (
+    <Space wrap>
+      <Select
+        defaultValue="ring"
+        className="custom-select"
+        style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
+        onChange={handleChange}
+        options={[
+          { value: "ring", label: "Ring" },
+          { value: "necklace", label: "Necklace" },
+          { value: "earring", label: "Earring" },
+          { value: "bracelet", label: "Bracelet" },
+          { value: "anklet", label: "Anklet" },
+          { value: "bangle", label: "Bangle" },
+          { value: "choker", label: "Choker" },
+          { value: "pendant", label: "Pendant" },
+        ]}
+      />
+    </Space>
+  );
+
+  const material = (
+    <Space wrap>
+      <Select
+        defaultValue="14K White Gold"
+        className="custom-select"
+        style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
+        onChange={handleChange}
+        options={[
+          { value: "14Kwhite", label: "14K White Gold" },
+          { value: "14Kyellow", label: "14K Yellow Gold" },
+          { value: "14Krose", label: "14K Rose Gold" },
+          { value: "18Kwhite", label: "18K White Gold" },
+          { value: "18Kyellow", label: "18K Yellow Gold" },
+          { value: "18Krose", label: "18K Rose Gold" },
+          { value: "platinum", label: "Platinum" },
+        ]}
+      />
+    </Space>
+  );
+
   return (
     <>
       <Styled.ProductAdminArea>
@@ -53,10 +97,10 @@ const Ring = () => {
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
               <Styled.AdPageContent_HeadTop>
-                <h2>Ring</h2>
+                <h2>Ring Setting</h2>
                 <button>
                   <PlusCircleOutlined />
-                  Add New Ring
+                  Add New Ring Shell
                 </button>
               </Styled.AdPageContent_HeadTop>
               <Styled.AdPageContent_HeadBenefit>
@@ -86,11 +130,15 @@ const Ring = () => {
               <table>
                 <tr>
                   <th>No</th>
-                  <th>Ring ID</th>
+                  <th>ID</th>
                   <th>Image</th>
-                  <th>Ring Name</th>
-                  <th className="TextAlign">Total Price</th>
-                  <th className="TextAlign">Detail</th>
+                  <th>Name</th>
+                  <th className="TextAlign">Price</th>
+                  <th className="TextAlign">Type</th>
+                  <th className="TextAlign">Width</th>
+                  <th className="TextAlign">Material</th>
+                  <th className="TextAlign">Edit</th>
+                  <th className="TextAlign">Delete</th>
                 </tr>
                 <tr>
                   <td>01</td>
@@ -102,14 +150,25 @@ const Ring = () => {
                     />
                   </td>
                   <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
+                    <input
+                      type="text"
+                      name="ShellName"
+                      value="Petite Twist Diamond Engagement Ring"
+                    />
                   </td>
                   <td className="TextAlign">
                     <input type="text" name="ShellPrice" value="$4,080" />
                   </td>
+                  <td className="TextAlign">{shelltype}</td>
                   <td className="TextAlign">
-                    <EyeOutlined />
+                    <input type="text" name="ShellWidth" value="2.80mm" />
+                  </td>
+                  <td className="TextAlign">{material}</td>
+                  <td className="TextAlign">
+                    <button className="confirmBtn">Save</button>
+                  </td>
+                  <td className="TextAlign">
+                    <DeleteOutlined className="deleBtn" />
                   </td>
                 </tr>
                 <tr>
@@ -122,14 +181,25 @@ const Ring = () => {
                     />
                   </td>
                   <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
+                    <input
+                      type="text"
+                      name="ShellName"
+                      value="Petite Twist Diamond Engagement Ring"
+                    />
                   </td>
                   <td className="TextAlign">
                     <input type="text" name="ShellPrice" value="$4,080" />
                   </td>
+                  <td className="TextAlign">{shelltype}</td>
                   <td className="TextAlign">
-                    <EyeOutlined />
+                    <input type="text" name="ShellWidth" value="2.80mm" />
+                  </td>
+                  <td className="TextAlign">{material}</td>
+                  <td className="TextAlign">
+                    <button className="confirmBtn">Save</button>
+                  </td>
+                  <td className="TextAlign">
+                    <DeleteOutlined className="deleBtn" />
                   </td>
                 </tr>
                 <tr>
@@ -142,14 +212,25 @@ const Ring = () => {
                     />
                   </td>
                   <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
+                    <input
+                      type="text"
+                      name="ShellName"
+                      value="Petite Twist Diamond Engagement Ring"
+                    />
                   </td>
                   <td className="TextAlign">
                     <input type="text" name="ShellPrice" value="$4,080" />
                   </td>
+                  <td className="TextAlign">{shelltype}</td>
                   <td className="TextAlign">
-                    <EyeOutlined />
+                    <input type="text" name="ShellWidth" value="2.80mm" />
+                  </td>
+                  <td className="TextAlign">{material}</td>
+                  <td className="TextAlign">
+                    <button className="confirmBtn">Save</button>
+                  </td>
+                  <td className="TextAlign">
+                    <DeleteOutlined className="deleBtn" />
                   </td>
                 </tr>
                 <tr>
@@ -162,14 +243,25 @@ const Ring = () => {
                     />
                   </td>
                   <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
+                    <input
+                      type="text"
+                      name="ShellName"
+                      value="Petite Twist Diamond Engagement Ring"
+                    />
                   </td>
                   <td className="TextAlign">
                     <input type="text" name="ShellPrice" value="$4,080" />
                   </td>
+                  <td className="TextAlign">{shelltype}</td>
                   <td className="TextAlign">
-                    <EyeOutlined />
+                    <input type="text" name="ShellWidth" value="2.80mm" />
+                  </td>
+                  <td className="TextAlign">{material}</td>
+                  <td className="TextAlign">
+                    <button className="confirmBtn">Save</button>
+                  </td>
+                  <td className="TextAlign">
+                    <DeleteOutlined className="deleBtn" />
                   </td>
                 </tr>
                 <tr>
@@ -182,14 +274,25 @@ const Ring = () => {
                     />
                   </td>
                   <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
+                    <input
+                      type="text"
+                      name="ShellName"
+                      value="Petite Twist Diamond Engagement Ring"
+                    />
                   </td>
                   <td className="TextAlign">
                     <input type="text" name="ShellPrice" value="$4,080" />
                   </td>
+                  <td className="TextAlign">{shelltype}</td>
                   <td className="TextAlign">
-                    <EyeOutlined />
+                    <input type="text" name="ShellWidth" value="2.80mm" />
+                  </td>
+                  <td className="TextAlign">{material}</td>
+                  <td className="TextAlign">
+                    <button className="confirmBtn">Save</button>
+                  </td>
+                  <td className="TextAlign">
+                    <DeleteOutlined className="deleBtn" />
                   </td>
                 </tr>
                 <tr>
@@ -202,14 +305,25 @@ const Ring = () => {
                     />
                   </td>
                   <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
+                    <input
+                      type="text"
+                      name="ShellName"
+                      value="Petite Twist Diamond Engagement Ring"
+                    />
                   </td>
                   <td className="TextAlign">
                     <input type="text" name="ShellPrice" value="$4,080" />
                   </td>
+                  <td className="TextAlign">{shelltype}</td>
                   <td className="TextAlign">
-                    <EyeOutlined />
+                    <input type="text" name="ShellWidth" value="2.80mm" />
+                  </td>
+                  <td className="TextAlign">{material}</td>
+                  <td className="TextAlign">
+                    <button className="confirmBtn">Save</button>
+                  </td>
+                  <td className="TextAlign">
+                    <DeleteOutlined className="deleBtn" />
                   </td>
                 </tr>
               </table>
@@ -237,4 +351,4 @@ const Ring = () => {
   );
 };
 
-export default Ring;
+export default RingSetting;

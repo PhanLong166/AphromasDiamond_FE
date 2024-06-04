@@ -1,3 +1,4 @@
+
 const routes = {
     public: {
         home: '/',
@@ -35,13 +36,19 @@ const routes = {
         materialProduct: '/admin/product/material',
         marketing: '/admin/marketing',
         clientCaring: '/admin/client-caring',
+        feedback: '/admin/client-caring/feedback',
         customer: '/admin/customer',
-        staff: '/admin/staff',
+        salesStaff: '/admin/sales-staff',
+        deliveryStaff: '/admin/staff/delivery-staff',
         manager: '/admin/manager',
         theme: '/admin/theme'
     },
+    staff: {
+        dashboard: '/staff',
+        deliveryReport: '/staff/delivery-report'
+    },
     api: {
-        loginGoogle: 'auth/callback/google/redirect'
+        loginGoogle: '/auth/signin'
     }
 };
 

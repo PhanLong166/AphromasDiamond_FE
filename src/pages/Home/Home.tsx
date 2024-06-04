@@ -2,12 +2,11 @@
 import React, { useState, useEffect } from 'react';
 import {
     Body,
-    Banner,
     Categories,
     Container,
     Contain,
     DotGrid,
-    Wrapper,
+
     Heading,
     Cate,
     CateImage,
@@ -17,9 +16,6 @@ import {
     Button,
     Shape,
     ShapeItem,
-    LeftButtonShape,
-    RightButtonShape,
-    ButtonShape,
     ContainShape,
     DotImage,
     DotInfo,
@@ -300,7 +296,7 @@ const Home: React.FC = () => {
                 </Banner3>
                 <About id="about" className="about container">
                     <AboutImg>
-                        <img src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fabout3.png?alt=media&token=f9133ffc-075b-494d-b4be-ceabdbd266f1" alt="About Us" />
+                        <img src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fabout%20(2).png?alt=media&token=ebc8d076-ccd5-4488-829c-adc79de3b144" alt="About Us" />
                     </AboutImg>
                     <AboutText>
                         <h2>ABOUT OUR COMPANY</h2>

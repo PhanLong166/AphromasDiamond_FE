@@ -3,7 +3,7 @@ import styled from 'styled-components';
 import { theme } from "../../themes";
 
 export const Body = styled.div`
-    background-color: ${theme.color.forth};;
+    background-color: ${theme.color.white};
    
 `;
 
@@ -34,14 +34,14 @@ export const Heading = styled.div`
     .title-cate {
         font-size: 32px;
         font-family: "Playfair Display", serif;
-        color: ${theme.color.primary};;
+        color: ${theme.color.primary};
     }
 
     .title {
         font-size: 32px;
         margin-bottom: 20px;
         font-family: "Playfair Display", serif;
-        color: ${theme.color.third};;
+        color: ${theme.color.white};
          
     }
 `;
@@ -75,12 +75,15 @@ export const CateImage = styled.div`
   img {
     max-width: 180px;
     height: auto;
-    background-color: #fff;
+    background-color: ${theme.color.secondary};
     padding: 5px;
     border-radius: 100px;
     cursor: pointer;
-    
-   
+    box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
+  }
+
+  &:hover {
+    transform: translateY(-1px);
   }
 `;
 
@@ -166,7 +169,7 @@ export const DotImage = styled.div`
     height: auto;
     background-color: #fff;
     padding: 40px 20px;
-    border-radius: 30px;
+    border-radius: 10px;
     &:hover {
         transform: translateY(-5px);
         cursor: pointer;
@@ -181,7 +184,7 @@ export const DotInfo = styled.div`
 export const DotTitle = styled.div`
 margin: 10px 20px 0 0;   
     font-size: 15px;
-    color: ${theme.color.forth};;
+    color: ${theme.color.white};
     font-family: "Playfair Display", serif;
 
 `;
@@ -191,11 +194,11 @@ padding: 10px;
 cursor: pointer;
 border-radius: 50%;
 background-color: ${theme.color.primary};;
-border: solid 2px ${theme.color.forth};;
+border: solid 2px ${theme.color.white};;
     
     
     &:hover {
-        background-color: ${theme.color.forth};;
+        transform: translateY(-5px);
         transition: all .45s ease;
     }
 `;
@@ -248,10 +251,10 @@ export const Banner2Container = styled.div`
     button {
         padding: 1rem 2rem;
         font-size: 1rem;
-        color: ${theme.color.forth};;
+        color: ${theme.color.white};;
         outline: none;
         border: none;
-        border-radius: 15px;
+        border-radius: 8px;
         background-color: ${theme.color.primary};;
         cursor: pointer;
         margin-top: 15px;
@@ -260,8 +263,7 @@ export const Banner2Container = styled.div`
         transition: all .45s ease;
         margin-bottom: 60px;
         &:hover {
-            background-color: #D8A25A;
-            color: ${theme.color.primary};;
+            transform: translateY(-5px);
         }
     }
 `;
@@ -277,10 +279,10 @@ export const Countdown = styled.div`
 export const Square = styled.div`
     width: 70px;
     height: 70px;
-    background-color: #D8A25A;
+    background-color:  ${theme.color.white};
     display: grid;
     place-content: center;
-    border-radius: 25px;
+    border-radius: 12px;
     span {
         font-family: "Poppins", sans-serif;
         font-size: 14px;
@@ -342,7 +344,7 @@ export const FeatureContent = styled.div`
 export const Row = styled.div`
     padding: 30px 30px;
     background-color: ${theme.color.primary};;
-    border-radius: 20px;
+    border-radius: 10px;
     transition: all .45s ease;
    
 .main-row {
@@ -387,14 +389,13 @@ export const RowText = styled.div`
         background-color: ${theme.color.secondary};;
         color: ${theme.color.primary};;
         font-size: 12px;
-        border-radius: 30px;
+        border-radius: 8px;
         transition: all .45s ease;
         text-decoration: none;
         font-family: "Poppins", serif;
         font-weight: 600;
         &:hover {
-            color: ${theme.color.primary};;
-            background-color: #D8A25A;
+            transform: translateY(-5px);
         }
     }
 `;
@@ -423,30 +424,30 @@ export const About = styled.section`
 `;
 
 export const AboutImg = styled.div`
-    background: ${theme.color.third};;
+    background: ${theme.color.secondary};;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
     img {
         max-width: 100%;
         height: auto;
-        border-radius: 15px;
+        border-radius: 10px;
     }
 `;
 
 export const AboutText = styled.div`
-    background: ${theme.color.third};;
+    background: ${theme.color.secondary};;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
     padding: 20px;
-    border-radius: 12px;
+    border-radius: 10px;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
     h2 {
@@ -469,23 +470,23 @@ export const AboutText = styled.div`
     .row-btn {
         padding: 10px 15px;
         font-size: 12px;
-        color: ${theme.color.forth};;
+        color: ${theme.color.secondary};;
         outline: none;
         border: none;
-        border-radius: 15px;
+        border-radius: 10px;
         background-color: ${theme.color.primary};;
         cursor: pointer;
         font-family: "Poppins", sans-serif;
         font-weight: 600;
         transition: all .45s ease;
         &:hover {
-            background-color: #D8A25A;
+            transform: translateY(-5px);
         }
     }
 `;
 
 export const Banner3 = styled.section`
-    background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner3.png?alt=media&token=9457db46-4c50-4c8a-a3be-f92587d1008a");
+    background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner3.png?alt=media&token=da3e8dcd-be1f-4668-8b66-7ffbaced087c");
     background-position: center center;
     background-size: cover;
     background-repeat: no-repeat;
@@ -515,7 +516,7 @@ export const Banner3Container = styled.div`
         background-color: ${theme.color.primary};;
         color: ${theme.color.secondary};;
         border: none;
-        border-radius: 15px;
+        border-radius: 8px;
         cursor: pointer;
         transition: background-color 0.3s ease;
         font-family: "Poppins", serif;
@@ -523,8 +524,7 @@ export const Banner3Container = styled.div`
         transition: all .45s ease;
         margin-top: 40px;
         &:hover {
-            background-color: #D8A25A;
-            color: ${theme.color.primary};;
+            transform: translateY(-5px);
         }
     }
 `;
