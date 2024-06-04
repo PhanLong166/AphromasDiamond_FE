@@ -6,7 +6,7 @@ export const TopContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    background-color: ${theme.color.third};
+    background-color: ${theme.color.white};
 `;
 
 export const TopFlexbox = styled.div`
@@ -23,7 +23,6 @@ export const ContactUs = styled.div`
 `;
 
 export const TitleCategory = styled.h2`
-    font-family: "Playfair Display", serif;
     color: ${theme.color.primary};
 `;
 
