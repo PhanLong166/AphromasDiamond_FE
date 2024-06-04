@@ -33,7 +33,7 @@ const publicRoutes = {
 const customerRoutes = {
     element: <CustomerRouter />,
     children: [
-        { path: config.routes.customer.cart, element: <Cart /> },
+        { path: config.routes.customer.cart, element:  <Cart /> },
         { path: config.routes.customer.checkout, element: <Checkout /> },
         { path: config.routes.customer.account, element: <Account /> },
         { path: config.routes.customer.orderList, element: <OrderList /> },

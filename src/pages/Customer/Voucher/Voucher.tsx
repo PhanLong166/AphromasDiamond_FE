@@ -5,7 +5,7 @@ import styled from "styled-components";
 const Voucher = () => {
   return (
     <Main>
-      <Title>Nofications</Title>
+      <Title>Voucher</Title>
     <VoucherCardContainer>
       
       

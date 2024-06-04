@@ -17,9 +17,9 @@ const AccountCus = () => {
         </ProfileSection>
         <NavSection>
           <StyledNavLink to="/account">Account Details</StyledNavLink>
-          <StyledNavLink to="/orderlist">My Orders</StyledNavLink>
+          <StyledNavLink to="/OrderList">My Orders</StyledNavLink>
           <StyledNavLink to="/history">History</StyledNavLink>
-          <StyledNavLink to="/nofications">Nofications</StyledNavLink>
+          <StyledNavLink to="/NotiPage">Nofications</StyledNavLink>
           <StyledNavLink to="/voucher">Voucher</StyledNavLink>
         </NavSection>
       </Section>
@@ -36,6 +36,7 @@ const Header = styled.header`
   color: #818594;
   font: 15px/150% 'Crimson Text', sans-serif;
   border-bottom: 1px solid #000;
+  // border-top: 1px solid #000;
 
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;

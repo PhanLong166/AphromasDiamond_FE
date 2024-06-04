@@ -13,6 +13,7 @@ const AdminRoutes = {
         {path: config.routes.admin.dashboard, element: <Dashboard/>},
 
     ]
+
 }
 
 export default AdminRoutes;
