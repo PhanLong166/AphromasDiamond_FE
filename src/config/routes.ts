@@ -42,8 +42,11 @@ const routes = {
         manager: '/admin/manager',
         theme: '/admin/theme'
     },
+    staff: {
+        dashboard: '/staff'
+    },
     api: {
-        loginGoogle: 'auth/callback/google/redirect'
+        loginGoogle: '/auth/signin'
     }
 };
 
