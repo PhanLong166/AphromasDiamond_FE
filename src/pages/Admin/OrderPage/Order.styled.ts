@@ -9,11 +9,6 @@ export const OrderAdminArea = styled.section`
     /* height: 100%; */
     width: 100%;
 
-    .custom-dropdown .ant-dropdown-menu {
-        background-color: red; /* Màu nền */
-        border: 1px solid #ccc; /* Viền */
-      }
-
 `;
 
 export const AdminPage = styled.div`
@@ -23,7 +18,6 @@ export const AdminPage = styled.div`
     height: 100%;
     padding-bottom: 55px;
 `;
-
 
 
 // /* -------------------- CONTENT =============== */
@@ -42,7 +36,7 @@ export const OrderContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 301px;
+    width: 30%;
     height: 45px;
     display: flex;
     align-items: center;
