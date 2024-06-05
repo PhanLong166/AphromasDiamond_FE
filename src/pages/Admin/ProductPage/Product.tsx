@@ -1,6 +1,6 @@
 import * as Styled from "../ProductPage/Product.styled";
 import { useState } from "react";
-import { Space, Table } from "antd";
+import { Space, Table} from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
