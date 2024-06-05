@@ -33,7 +33,7 @@ export const OrderContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 301px;
+    width: 30%;
     height: 45px;
     display: flex;
     align-items: center;
