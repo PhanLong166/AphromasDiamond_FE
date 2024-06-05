@@ -9,14 +9,13 @@ interface CardProps {
 }
 
 const StatusCard: React.FC<CardProps> = ({ imageSrc, altText, status, count }) => (
-    <article className="status-card">
+    <StyledStatusCard
         <img className="status-card__image" loading="lazy" src={imageSrc} alt={altText} />
         <div className="status-card__content">
             <div className="status-card__status">{status}</div>
             <div className="status-card__count">{count}</div>
         </div>
-
-    </article>
+    />
 );
 
 const StatusSection: React.FC = () => {
