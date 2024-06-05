@@ -91,9 +91,9 @@ export const SearchArea = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 50px 0px 50px;
+  padding: 0px 40px 0px 40px;
 
-  table {
+  .ant-table {
     border-collapse: collapse;
     width: 100%;
   }
@@ -103,13 +103,11 @@ export const AdminTable = styled.div`
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
+    border: none;
   }
   th {
     color: #783232;
     font-size: 20px;
-  }
-  tr {
-    // border-bottom: 1px solid ${theme.color.primary};
   }
   tr .TextAlign {
     text-align: center;
@@ -122,100 +120,12 @@ export const AdminTable = styled.div`
   }
   td input {
     font-size: 16px;
-    background-color: ${theme.color.fifth};
     color: ${theme.color.primary};
     padding: 5px;
-    border: 1px solid ${theme.color.fifth};
     border-radius: 5px;
     height: 100%;
   }
   td input:active {
     border: none;
-  }
-  td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
-    cursor: pointer;
-  }
-  .deleBtn {
-    color: red;
-  }
-  .custom-select .ant-select-selector {
-    background-color: ${theme.color.fifth} !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .custom-select .ant-select-dropdown {
-    background-color: ${theme.color.fifth} !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .custom-select .ant-select-item-option-selected {
-    background-color: ${theme.color.fifth} !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .confirmBtn {
-    background-color: ${theme.color.primary};
-    border-radius: 100px;
-    padding: 7px 17px 7px 17px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    /* font-size: 12px; */
-    color: ${theme.color.fifth};
-    border: none;
-  }
-  .confirmBtn:hover {
-    cursor: pointer;
-  }
-`;
-
-export const AdPageContent_Foot = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: ${theme.color.third};
-  padding: 12px 60px 12px 60px;
-  border-radius: 16px;
-  margin: 39px 40px 0px 40px;
-`;
-
-export const PageNum = styled.div`
-  display: flex;
-
-  p {
-    margin: 0px 7px 0px 0px;
-    color: #b19f8a;
-    font-weight: 500;
-  }
-
-  .nowPage {
-    color: ${theme.color.primary};
-  }
-`;
-
-export const MovePage = styled.div`
-  button {
-    width: 40px;
-    height: 40px;
-    background-color: ${theme.color.fifth};
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-    font-size: 20px;
-    display: inline;
-    align-items: center;
-    text-align: center;
-    margin-right: 5px;
-    font-size: 15px;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  .backArrow .anticon {
-    color: #92929d;
-  }
-  .nextArrow .anticon {
-    color: ${theme.color.primary};
   }
 `;

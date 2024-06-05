@@ -96,96 +96,35 @@ export const AdminTable = styled.div`
   table {
     border-collapse: collapse;
     width: 100%;
-  }
-  th,
-  td {
-    padding: 15px 0px 10px 0px;
-    // padding: 8px;
+}
+th,
+td {
+    padding: 8px 0px 8px 0px;
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
-  }
-  th {
+}
+th {
     color: #783232;
-    font-size: 20px;
-  }
-  tr {
-  }
-  tr .TextAlign {
+    font-size: 16px;
+}
+td {
+    width: fit-content;
+}
+tr .TextAlign{
     text-align: center;
-  }
-  td .anticon:hover {
+}
+tr .TextAlign input{
+    width: 80px;
+}
+td img {
+    width: 77px;
+}
+td .anticon {
+    font-size: 23px;
+}
+td .anticon:hover {
     cursor: pointer;
-  }
-
-  .pendStatus {
-    background-color: #f8e7ee;
-    border-radius: 100px;
-    padding: 5px 10px 5px 10px;
-    font-size: 12px;
-    color: #cd486b;
-    border: none;
-  }
-  .confirmBtn {
-    background-color: #cd486b;
-    border-radius: 100px;
-    padding: 7px 17px 7px 17px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    /* font-size: 12px; */
-    color: #f8e7ee;
-    border: none;
-  }
-  .confirmBtn:hover {
-    cursor: pointer;
-  }
+}
 `;
 
-export const AdPageContent_Foot = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  background-color: #eadbc8;
-  padding: 12px 60px 12px 60px;
-  border-radius: 16px;
-  margin: 39px 40px 0px 40px;
-`;
-
-export const PageNum = styled.div`
-  display: flex;
-
-  p {
-    margin: 0px 7px 0px 0px;
-    color: #b19f8a;
-    font-weight: 500;
-  }
-
-  .nowPage {
-    color: #102c57;
-  }
-`;
-
-export const MovePage = styled.div`
-  button {
-    width: 40px;
-    height: 40px;
-    background-color: #fff7e8;
-    border-radius: 12px;
-    border: none;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-    font-size: 20px;
-    display: inline;
-    align-items: center;
-    text-align: center;
-    margin-right: 5px;
-    font-size: 15px;
-  }
-  button:hover {
-    cursor: pointer;
-  }
-  .backArrow .anticon {
-    color: #92929d;
-  }
-  .nextArrow .anticon {
-    color: #102c57;
-  }
-`;

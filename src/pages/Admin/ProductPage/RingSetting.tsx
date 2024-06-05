@@ -1,5 +1,6 @@
 import * as Styled from "./RingSetting.styled";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   SearchOutlined,
   PlusCircleOutlined,
@@ -16,7 +17,6 @@ import {
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
-import { Link } from "react-router-dom";
 
 interface Item {
   key: React.Key;
@@ -238,9 +238,9 @@ const RingSetting = () => {
       ringSettingImg: "",
       ringSettingName: "",
       price: "",
-      Type: "",
-      Width: "",
-      Material: "",
+      type: "",
+      width: "",
+      material: "",
       ...record,
     });
     setEditingKey(record.key);
@@ -353,6 +353,7 @@ const RingSetting = () => {
     {
       title: "Edit",
       dataIndex: "edit",
+      className: "TextAlign",
       render: (_: any, record: Item) => {
         const editable = isEditing(record);
         return editable ? (
@@ -380,6 +381,7 @@ const RingSetting = () => {
     {
       title: "Delete",
       dataIndex: "delete",
+      className: "TextAlign",
       render: (_, record) =>
         originData.length >= 1 ? (
           <Popconfirm
@@ -452,7 +454,6 @@ const RingSetting = () => {
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-
               <Form form={form} component={false}>
                 <Table
                   components={{

@@ -1,13 +1,10 @@
 import * as Styled from "../ProductPage/Product.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag } from "antd";
+import { Space, Table } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
-  DownOutlined,
   PlusCircleOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
