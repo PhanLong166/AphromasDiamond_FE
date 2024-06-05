@@ -11,6 +11,7 @@ import Product from "@/pages/Home/Product/Product";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
 import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
 import NotiPage from "@/pages/Customer/Nofications/Nofications";
+import History from "@/pages/Customer/History/History";
 
 
 const MainRouter = () => {
@@ -37,8 +38,9 @@ const customerRoutes = {
         { path: config.routes.customer.checkout, element: <Checkout /> },
         { path: config.routes.customer.account, element: <Account /> },
         { path: config.routes.customer.orderList, element: <OrderList /> },
-        { path: config.routes.customer.history, element: <Voucher /> },
-        {path: config.routes.customer.notification, element: <NotiPage/>}
+        { path: config.routes.customer.history, element: <History /> },
+        { path:config.routes.customer.voucher, element:<Voucher />},
+        {path: config.routes.customer.notification, element: <NotiPage />}
     ]
 }
 
