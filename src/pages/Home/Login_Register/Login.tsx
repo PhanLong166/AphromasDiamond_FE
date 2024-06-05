@@ -17,9 +17,11 @@ import {
 import { UserOutlined, LockOutlined, MailOutlined, EyeOutlined, HomeFilled } from '@ant-design/icons';
 import { Button } from '../Home.styled';
 import { LOGIN_GOOGLE_URL } from '@/config/constants';
+import useDocumentTitle from '@/hooks/useDocumentTitle';
 
 
 const Login: React.FC = () => {
+  useDocumentTitle('Login');
   const [selectedGender, setSelectedGender] = useState<string>('male');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     setSelectedGender(event.target.id);
