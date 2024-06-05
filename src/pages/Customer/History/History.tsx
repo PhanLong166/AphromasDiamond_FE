@@ -5,6 +5,8 @@ import { Input } from 'antd';
 import {  Space } from 'antd';
 import {  Table} from 'antd';
 import type { TableProps } from 'antd';
+import Footer from '@/components/Footer/Footer';
+import AccountCus from '@/components/AccountCus/AccountCus';
 
 
 
@@ -111,7 +113,7 @@ const columns: TableProps<DataType>['columns'] = [
 ];
 
 
-const OrderList = () => {
+const History = () => {
   const menuItems1 = [
     { text: 'Rings', link: '#action1' },
     { text: 'Necklaces', link: '#action2' },
@@ -140,6 +142,9 @@ const OrderList = () => {
 
   return (
     <main>
+
+      <div>
+        <AccountCus/>
       <Section>
         <Title>History</Title>
         <Filters>
@@ -169,6 +174,8 @@ const OrderList = () => {
         <Table columns={columns} dataSource={data} />
         </TableContainer>
       </Section>
+      <Footer/>
+      </div>
     </main>
   );
 };
@@ -254,4 +261,4 @@ const TableContainer = styled.table`
   }
 `;
 
-export default OrderList;
+export default History;

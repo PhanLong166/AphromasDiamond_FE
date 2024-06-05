@@ -1,3 +1,4 @@
+
 const routes = {
     public: {
         home: '/',
@@ -43,7 +44,8 @@ const routes = {
         theme: '/admin/theme'
     },
     staff: {
-        dashboard: '/staff'
+        dashboard: '/staff',
+        deliveryReport: '/staff/delivery-report'
     },
     api: {
         loginGoogle: '/auth/signin'

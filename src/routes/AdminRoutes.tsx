@@ -58,6 +58,7 @@ const AdminRoutes = {
         // {path: config.routes.admin.manager, element: <Manager/>},
         // {path: config.routes.admin.theme, element: <Theme/>},
     ]
+
 }
 
 export default AdminRoutes;
