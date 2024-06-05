@@ -2,8 +2,8 @@ import * as Styled from "./DelveryReport.styled";
 import { useState } from "react";
 import { Button, Space, Table, Tag } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import type { TableColumnsType, TableProps } from "antd";
+import Sidebar from "../../../components/Admin/Sidebar/SidebarStaff/Sidebar";
 import StatusSection from "./Section";
 
 interface DataType {
@@ -93,11 +93,11 @@ const columns: TableColumnsType<DataType> = [
           //  else if (status === "Confirmed") {
           //   color = "yellow";
           // }
-           else if (status === "Delivering") {
+          else if (status === "Delivering") {
             color = "geekblue";
           } else if (status === "Completed") {
             color = "green";
-          } 
+          }
           // else if (status === "Cancelled") {
           //   color = "grey";
           // }
@@ -251,17 +251,13 @@ const DeliveryReport = () => {
     <>
       <Styled.OrderAdminArea>
         <Sidebar />
-        
-
         <Styled.AdminPage>
-        <Styled.TitlePage>
-                                <h1>Delivery Report</h1>
-                                <p>View and manage Delivery</p>
-                            </Styled.TitlePage>
+          <Styled.TitlePage>
+            <h1>Delivery Report</h1>
+            <p>View and manage Delivery</p>
+          </Styled.TitlePage>
           {/* <DeliveryMenu/> */}
-          
-          <StatusSection/>
-        
+          <StatusSection />
           <Styled.OrderContent>
             <Styled.OrderContent_Head>
               <Styled.SearchArea>
