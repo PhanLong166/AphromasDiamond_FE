@@ -1,4 +1,5 @@
 import styled from "styled-components";
+
 // import { theme } from "../../../themes";
 
 
@@ -47,11 +48,11 @@ export const AdminPage = styled.div`
 
 export const OrderContent = styled.div`
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #e0dfdf;
     border-radius: 16px;
     margin-top: 28px;
     padding-top: 25px;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
 `;
 
 export const OrderContent_Head = styled.div`
@@ -59,7 +60,8 @@ export const OrderContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 301px;
+    // width: 301px; gia tri cu
+    width: 100%;
     height: 45px;
     display: flex;
     align-items: center;
@@ -101,7 +103,6 @@ export const SearchArea = styled.div`
 export const Pending_Table = styled.div`
     padding: 0px 10px 0px 10px;
     color: #151542;
-
     table {
         border-collapse: collapse;
         width: 100%;
@@ -124,7 +125,7 @@ export const Pending_Table = styled.div`
         cursor: pointer;
     }
     .confirmBtn {
-        background-color: #CD486B;
+        background-color: #151542;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
         color: #F8E7EE;
         border: none;
