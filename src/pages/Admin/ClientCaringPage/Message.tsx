@@ -101,7 +101,7 @@ const initialChats: Chat[] = [
 
         return(
             <>
-                <Styled.OrderAdminArea>
+                <Styled.ClientCaringAdminArea>
                         <Sidebar/>
                         
                         <Styled.AdminPage>
@@ -182,7 +182,7 @@ const initialChats: Chat[] = [
 
                             </Styled.AdPageContent>
                         </Styled.AdminPage>
-                    </Styled.OrderAdminArea> 
+                    </Styled.ClientCaringAdminArea> 
             </>
     )
 };
