@@ -1,211 +1,384 @@
-import * as Styled from '../ProductPage/Jewelry.styled';
-import { Link } from 'react-router-dom';
-import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
-import { Dropdown, Space } from 'antd';
-import { Select } from 'antd';
-import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
-import ProductMenu from '../../../components/Admin/ProductMenu/ProductMenu';
+import * as Styled from "../ProductPage/Jewelry.styled";
+import { useState } from "react";
+import { Space, Table, Select } from "antd";
+import { Link } from "react-router-dom";
+import {
+  SearchOutlined,
+  FilterOutlined,
+  DownOutlined,
+  PlusCircleOutlined,
+  ArrowLeftOutlined,
+  ArrowRightOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
+import type { MenuProps, TableColumnsType, TableProps } from "antd";
+import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
-    const Jewelry = () => {
-        const items: MenuProps['items'] = [
-            {
-              label: <a href="/" style={{  }}>A - Z</a>,
-              key: '0',
-            },
-            {
-              label: <a href="/">Z - A</a>,
-              key: '1',
-            },
-            // {
-            //   type: 'divider',
-            // },
-            {
-              label: <a href="/">Low to High</a>,
-              key: '2',
-            },
-            {
-                label: <a href="/">High to Low</a>,
-                key: '3',
-            }
-          ];
+interface DataType {
+  key: React.Key;
+  jewelryID: string;
+  jewelryImg: string;
+  jewelryName: string;
+  price: number;
+  type: string;
+  quantity: number;
+  exchangeRate: number;
+  currencyType: string;
+}
 
-          const handleChange = (value: string) => {
-            console.log(`selected ${value}`);
-          };
 
-          const shelltype = (
-            <Space wrap>
-              <Select
-                defaultValue="ring"
-                className="custom-select"
-                style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
-                onChange={handleChange}
-                options={[
-                  { value: "ring", label: "Ring" },
-                  { value: "necklace", label: "Necklace" },
-                  { value: "earring", label: "Earring" },
-                  { value: "bracelet", label: "Bracelet" },
-                  { value: "anklet", label: "Anklet" },
-                  { value: "bangle", label: "Bangle" },
-                  { value: "choker", label: "Choker" },
-                  { value: "pendant", label: "Pendant" },
-                ]}
-              />
-            </Space>
-          );
 
-          
-
-            
-        return(
-            <>
-                <Styled.ProductAdminArea>
-                        <Sidebar/>
-                        
-                        <Styled.AdminPage>
-                            <ProductMenu/>
-
-                            <Styled.AdPageContent>
-                                <Styled.AdPageContent_Head>
-                                    <Styled.AdPageContent_HeadTop>
-                                        <h2>Jewelry</h2>
-                                        <button>
-                                            <PlusCircleOutlined />
-                                            Add New Jewelry
-                                        </button>
-                                    </Styled.AdPageContent_HeadTop>
-                                    <Styled.AdPageContent_HeadBenefit>
-                                        <Styled.SearchArea>
-                                            <input className="searchInput" type="text" />
-                                            <SearchOutlined />
-                                        </Styled.SearchArea>
-                                        <button>
-                                            <Dropdown menu={{ items }} trigger={['click']}>
-                                                <a onClick={(e) => e.preventDefault()}>
-                                                <Space>
-                                                    Sort by
-                                                    <DownOutlined />
-                                                </Space>
-                                                </a>
-                                            </Dropdown>
-                                        </button>
-                                        
-                                        <button>
-                                            <FilterOutlined /> 
-                                            Filters
-                                        </button>
-                                    </Styled.AdPageContent_HeadBenefit>
-                                </Styled.AdPageContent_Head>
-
-                                <Styled.Pending_Table>
-                                    <table>
-                                        <tr>
-                                            <th>No</th>
-                                            <th>Jewelry ID</th>
-                                            <th>Image</th>
-                                            <th>Jewelry Name</th>
-                                            <th className='TextAlign'>Price</th>
-                                            <th className='TextAlign'>Type</th>
-                                            <th className='TextAlign'>Quantity</th>
-                                            <th className='TextAlign'>Detail</th>
-                                        </tr>
-                                        <tr>
-                                            <td>01</td>
-                                            <td>#12345123</td>
-                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
-                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'>{shelltype}</td>
-                                            <td className='TextAlign'>38</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>02</td>
-                                            <td>#12345123</td>
-                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
-                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'>{shelltype}</td>
-                                            <td className='TextAlign'>38</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>03</td>
-                                            <td>#12345123</td>
-                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
-                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'>{shelltype}</td>
-                                            <td className='TextAlign'>38</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>04</td>
-                                            <td>#12345123</td>
-                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
-                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'>{shelltype}</td>
-                                            <td className='TextAlign'>38</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>05</td>
-                                            <td>#12345123</td>
-                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
-                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'>{shelltype}</td>
-                                            <td className='TextAlign'>38</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
-                                        </tr>
-                                        <tr>
-                                            <td>06</td>
-                                            <td>#12345123</td>
-                                            <td><img src='https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89' alt=''/></td>
-                                            <td><input type="text" name="ShellName" value="Petite Twist Diamond Engagement Ring"/></td>
-                                            <td className='TextAlign'><input type="text" name="ShellPrice" value="$4,080"/></td>
-                                            <td className='TextAlign'>{shelltype}</td>
-                                            <td className='TextAlign'>38</td>
-                                            <td className='TextAlign'>
-                                                <EyeOutlined />
-                                            </td>
-                                        </tr>
-                                    </table>
-                                </Styled.Pending_Table>
-                                
-                                <Styled.AdPageContent_Foot>
-                                    <Styled.PageNum>
-                                        <p className="nowPage">1</p>
-                                        <p>of</p>
-                                        <p className="lastPage">5</p>
-                                    </Styled.PageNum>
-                                    <Styled.MovePage>
-                                        <button className="backArrow">
-                                            <ArrowLeftOutlined />
-                                        </button>
-                                        <button className="nextArrow">
-                                            <ArrowRightOutlined />
-                                        </button>
-                                    </Styled.MovePage>
-                                </Styled.AdPageContent_Foot>
-                            </Styled.AdPageContent>
-                        </Styled.AdminPage>
-                    </Styled.ProductAdminArea> 
-            </>
-    )
+const onChange: TableProps<DataType>["onChange"] = (
+  pagination,
+  filters,
+  sorter,
+  extra
+) => {
+  console.log("params", pagination, filters, sorter, extra);
 };
 
-export default Jewelry; 
+const Jewelry = () => {
+
+  const [searchText, setSearchText] = useState("");
+  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
+
+  const onSearch = (value) => {
+    console.log("Search:", value);
+    // Thực hiện logic tìm kiếm ở đây
+  };
+
+  const handleKeyPress = (e) => {
+    if (e.key === "Enter") {
+      onSearch(searchText);
+    }
+  };
+
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const handleCurrencyChange = (value: "VND" | "USD") => {
+    setCurrency(value);
+  };
+
+  const convertPrice = (price: number, exchangeRate: number, currency: "VND" | "USD") => {
+    if (currency === "VND") {
+      return price * exchangeRate;
+    }
+    return price;
+  };
+
+
+  const columns: TableColumnsType<DataType> = [
+    {
+      title: "Jewelry ID",
+      dataIndex: "jewelryID",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.jewelryID.localeCompare(b.jewelryID),
+    },
+    {
+      title: "Image",
+      key: "jewelryImg",
+      className: "TextAlign",
+      render: (_, record) => (
+        <a href={record.link} target="_blank" rel="noopener noreferrer">
+          <img
+            src={record.jewelryImg}
+            alt={record.jewelryName}
+            style={{ width: "50px", height: "50px" }}
+          />
+        </a>
+      ),
+    },
+    {
+      title: "Jewelry Name",
+      dataIndex: "jewelryName",
+      showSorterTooltip: { target: "full-header" },
+      onFilter: (value, record) =>
+        record.jewelryName.indexOf(value as string) === 0,
+      sorter: (a, b) => a.jewelryName.length - b.jewelryName.length,
+      sortDirections: ["descend"],
+    },
+    {
+      title: `Price (${currency})`,
+      key: "price",
+      sorter: (a, b) => convertPrice(a.price, a.exchangeRate, currency) - convertPrice(b.price, b.exchangeRate, currency),
+      render: (_, record) => {
+        const convertedPrice = convertPrice(record.price, record.exchangeRate, currency);
+        return `${convertedPrice.toFixed(2)} ${currency}`;
+      },
+    },
+    {
+      title: "Exchange Rate",
+      dataIndex: "exchangeRate",
+      key: "exchangeRate",
+      render: (_, record) => `${record.exchangeRate} VND/USD`,
+    },
+    {
+      title: "Price in USD/Won",
+      key: "convertedPrice",
+      render: (_, record) => {
+        const convertedPrice =
+          record.currencyType === "USD"
+            ? (record.price / record.exchangeRate).toFixed(2)
+            : (record.price / record.exchangeRate).toFixed(0);
+        return `${convertedPrice} ${record.currencyType}`;
+      },
+    },
+    {
+      title: "Type",
+      dataIndex: "type",
+      key: "type",
+      filters: [
+        { text: "Ring", value: "Ring" },
+        { text: "Necklace", value: "Necklace" },
+        { text: "Earring", value: "Earring" },
+        { text: "Bracelet", value: "Bracelet" },
+        { text: "Anklet", value: "Anklet" },
+        { text: "Bangle", value: "Bangle" },
+        { text: "Choker", value: "Choker" },
+        { text: "Pendant", value: "Pendant" },
+      ],
+      onFilter: (value, record) => record.type.indexOf(value as string) === 0,
+      sortDirections: ["descend"],
+    },
+    {
+      title: "Quantity",
+      dataIndex: "quantity",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.quantity - b.quantity,
+    },
+    {
+      title: "Detail",
+      key: "detail",
+      className: "TextAlign",
+      render: (_) => (
+        <Space size="middle">
+          <EyeOutlined />
+        </Space>
+      ),
+    },
+  ];
+  
+  const data = [
+    {
+      key: "1",
+      jewelryID: "12345121",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 2500000,
+      type: "Necklace",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "2",
+      jewelryID: "12345122",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 5.08,
+      type: "Earring",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "3",
+      jewelryID: "12345123",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 7.08,
+      type: "Necklace",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "4",
+      jewelryID: "12345124",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 6.08,
+      type: "Bracelet",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "5",
+      jewelryID: "12345125",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 3.08,
+      type: "Bracelet",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "6",
+      jewelryID: "12345126",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 9.08,
+      type: "Anklet",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "7",
+      jewelryID: "12345127",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 2.04,
+      type: "Bangle",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "8",
+      jewelryID: "12345128",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 7.03,
+      type: "Choker",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "9",
+      jewelryID: "12345129",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 5.07,
+      type: "Bangle",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+    {
+      key: "10",
+      jewelryID: "12345130",
+      jewelryImg:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      jewelryName: "Petite Twist Diamond Engagement Ring",
+      price: 4.2,
+      type: "Choker",
+      quantity: 51,
+      exchangeRate: 23000,
+      currencyType: "USD",
+    },
+  ];
+
+
+
+
+
+  const onChange: TableProps<DataType>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
+
+
+
+
+
+
+  const shelltype = (
+    <Space wrap>
+      <Select
+        defaultValue="ring"
+        className="custom-select"
+        style={{ width: 120, background: "#FFF7E8", color: "#102C57" }}
+        onChange={handleChange}
+        options={[
+          { value: "ring", label: "Ring" },
+          { value: "necklace", label: "Necklace" },
+          { value: "earring", label: "Earring" },
+          { value: "bracelet", label: "Bracelet" },
+          { value: "anklet", label: "Anklet" },
+          { value: "bangle", label: "Bangle" },
+          { value: "choker", label: "Choker" },
+          { value: "pendant", label: "Pendant" },
+        ]}
+      />
+    </Space>
+  );
+
+  return (
+    <>
+      <Styled.ProductAdminArea>
+        <Sidebar />
+
+        <Styled.AdminPage>
+          <ProductMenu />
+
+          <Styled.AdPageContent>
+            <Styled.AdPageContent_Head>
+              <Styled.SearchArea>
+                <SearchOutlined className="searchIcon" />
+                <input
+                  className="searchInput"
+                  type="text"
+                  size="large"
+                  placeholder="Search here..."
+                  value={searchText}
+                  onChange={(e) => setSearchText(e.target.value)}
+                  onKeyPress={handleKeyPress}
+                />
+              </Styled.SearchArea>
+              
+              <Select
+                defaultValue="USD"
+                style={{ width: 120 }}
+                onChange={handleCurrencyChange}
+                options={[
+                  { value: "USD", label: "USD" },
+                  { value: "VND", label: "VND" },
+                ]}
+              />
+
+              <Link to="">
+                <button>
+                  <PlusCircleOutlined />
+                  Add New Product
+                </button>
+              </Link>
+            </Styled.AdPageContent_Head>
+
+            <Styled.AdminTable>
+              <Table
+                className="table"
+                columns={columns}
+                dataSource={data}
+                pagination={{ pageSize: 6 }} // Add pagination here
+                onChange={onChange}
+                showSorterTooltip={{ target: "sorter-icon" }}
+              />
+            </Styled.AdminTable>
+          </Styled.AdPageContent>
+        </Styled.AdminPage>
+      </Styled.ProductAdminArea>
+    </>
+  );
+};
+
+export default Jewelry;

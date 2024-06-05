@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
 
 
 export const OrderAdminArea = styled.section`
@@ -8,6 +7,11 @@ export const OrderAdminArea = styled.section`
     font-family: "Poppins", sans-serif;
     /* height: 100%; */
     width: 100%;
+
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
 
 `;
 
@@ -18,6 +22,7 @@ export const AdminPage = styled.div`
     height: 100%;
     padding-bottom: 55px;
 `;
+
 
 
 // /* -------------------- CONTENT =============== */
@@ -36,7 +41,7 @@ export const OrderContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 30%;
+    width: 301px;
     height: 45px;
     display: flex;
     align-items: center;

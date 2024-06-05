@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+
+// import { theme } from "../../../themes";
 
 
 export const OrderAdminArea = styled.section`
@@ -9,7 +10,29 @@ export const OrderAdminArea = styled.section`
     /* height: 100%; */
     width: 100%;
 
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
+
 `;
+export const TitlePage = styled.div `
+    h1 {
+        font-size: 22px;
+        font-weight: 36px;
+        color: #151542;
+        margin: 30px 0px 0px 0px;
+        padding-bottom: 7px;
+    }
+
+    p {
+        color: #92929D;
+        font-size: 13px;
+        margin: 0px 0px 0px 0px;
+    }
+`;
+
+
 
 export const AdminPage = styled.div`
     margin-left: 320px;
@@ -20,23 +43,25 @@ export const AdminPage = styled.div`
 `;
 
 
+
 // /* -------------------- CONTENT =============== */
 
 export const OrderContent = styled.div`
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #e0dfdf;
     border-radius: 16px;
     margin-top: 28px;
     padding-top: 25px;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
 `;
 
 export const OrderContent_Head = styled.div`
-    margin: 0px 40px 30px 40px;
+    margin: 0px 10px 30px 10px;
 `;
 
 export const SearchArea = styled.div`
-    width: 30%;
+    // width: 301px; gia tri cu
+    width: 100%;
     height: 45px;
     display: flex;
     align-items: center;
@@ -76,9 +101,8 @@ export const SearchArea = styled.div`
 `;
 
 export const Pending_Table = styled.div`
-    padding: 0px 50px 0px 50px;
+    padding: 0px 10px 0px 10px;
     color: #151542;
-
     table {
         border-collapse: collapse;
         width: 100%;
@@ -101,7 +125,7 @@ export const Pending_Table = styled.div`
         cursor: pointer;
     }
     .confirmBtn {
-        background-color: #CD486B;
+        background-color: #151542;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
         color: #F8E7EE;
         border: none;
