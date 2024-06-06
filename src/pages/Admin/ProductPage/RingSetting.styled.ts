@@ -112,8 +112,13 @@ export const AdminTable = styled.div`
   tr .TextAlign {
     text-align: center;
   }
-  tr .TextAlign input {
-    width: 80px;
+  tr th {
+    font-size: 13px;
+    color: #92929D !important;
+  }
+  .SmallSize {
+    font-size: 16px;
+    overflow-wrap: normal !important;
   }
   td img {
     width: 77px;

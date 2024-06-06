@@ -111,14 +111,16 @@ export const Pending_Table = styled.div`
         color: #783232;
         font-size: 20px;
     }
-    tr {
-        // border-bottom: 1px solid ${theme.color.primary};
-    }
     tr .TextAlign{
         text-align: center;
     }
-    tr .TextAlign input{
-        width: 80px;
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
+    }
+    .SmallSize {
+        font-size: 16px;
+        overflow-wrap: normal !important;
     }
     td img {
         width: 77px;

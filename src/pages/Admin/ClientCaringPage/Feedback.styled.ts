@@ -93,7 +93,7 @@ export const AdminTable = styled.div`
 
   table {
     border-collapse: collapse;
-    width: 90%;
+    width: 100%;
   }
   th,
   td {
@@ -102,18 +102,15 @@ export const AdminTable = styled.div`
     font-size: 16px;
     color: ${theme.color.primary};
   }
-  th {
-    color: #783232;
-    font-size: 20px;
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
   }
-  td {
-    width: fit-content;
+  td .ant-rate {
+    display: flex;
   }
   tr .TextAlign {
     text-align: center;
-  }
-  tr .TextAlign input {
-    width: 80px;
   }
   td img {
     width: 77px;

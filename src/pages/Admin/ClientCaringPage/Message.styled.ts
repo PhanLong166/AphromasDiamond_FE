@@ -29,7 +29,7 @@ export const AdPageContent = styled.div`
 export const MessageContent = styled.div`
   padding: 25px 30px 30px 25px;
   display: flex;
-  height: 100%;
+  height: 430px;
 `;
 
 export const ChatSidebar = styled.div`
@@ -140,7 +140,7 @@ export const ChatContainer = styled.div`
 `;
 
 export const CustomerName = styled.div`
-  background-color: #f3efe6;
+  background-color: #F9F8F9;
   border-radius: 16px 16px 0px 0px;
   height: 80px;
   width: 100%;
@@ -175,15 +175,18 @@ export const MessagesContainer = styled.div`
 
 export const InputContainer = styled.div`
   display: flex;
+  .anticon {
+    font-size: 17px;
+  }
 `;
 
 export const InputField = styled.input`
   flex: 1;
   padding: 10px;
   margin-right: 10px;
-  border: 1px solid #d9d9d9;
+  border: 1px solid #E0E5EA;
   border-radius: 16px;
-  background-color: #f3efe6;
+  background-color: #F6F7FA;
   color: ${theme.color.primary};
   font-size: 16px;
 `;
@@ -209,7 +212,7 @@ export const MessageItem = styled.div<{ isSender: boolean }>`
   margin-bottom: 10px;
 
   div {
-    background-color: ${({ isSender }) => (isSender ? "#E0E0E0" : "#F3EFE6")};
+    background-color: ${({ isSender }) => (isSender ? "#DDE2E8" : "#F6F7FA")};
     border-radius: 10px;
     padding: 10px;
     max-width: 60%;

@@ -122,7 +122,7 @@ const initialChats: Chat[] = [
                                             <Styled.ChatListItem 
                                             key={chat.id} 
                                             onClick={() =>  setActiveChatId(chat.id)}
-                                            style={{ backgroundColor: activeChatId === chat.id ? '#EADBC8' : 'transparent' }}
+                                            style={{ backgroundColor: activeChatId === chat.id ? '#DDE2E8' : 'transparent' }}
                                             >
                                                 <Styled.ChatListItem_Text>
                                                 <img src={chat.img} alt={chat.id} />
@@ -170,9 +170,10 @@ const initialChats: Chat[] = [
                                                 onChange={(e) => setInputValue(e.target.value)}
                                                 onKeyPress={(e) => { if (e.key === 'Enter') sendMessage(); }}
                                                 />
-                                                <SendButton onClick={sendMessage}>
-                                                    <SendOutlined />
-                                                </SendButton>
+                                                <SendOutlined onClick={sendMessage}/>
+                                                {/* <SendButton onClick={sendMessage}>
+                                                    
+                                                </SendButton> */}
                                             </Styled.InputContainer>
                                             )}
                                         </Styled.ChatContent>
