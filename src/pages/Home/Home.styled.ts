@@ -430,6 +430,7 @@ export const About = styled.section`
 `;
 
 export const AboutImg = styled.div`
+
     background: ${theme.color.white};;
     display: flex;
     flex-direction: column;

@@ -1,3 +1,4 @@
+
 const routes = {
     public: {
         home: '/',
@@ -42,8 +43,12 @@ const routes = {
         manager: '/admin/manager',
         theme: '/admin/theme'
     },
+    staff: {
+        dashboard: '/staff',
+        deliveryReport: '/staff/delivery-report'
+    },
     api: {
-        loginGoogle: 'auth/callback/google/redirect'
+        loginGoogle: '/auth/signin'
     }
 };
 

@@ -37,7 +37,7 @@ export const OrderContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 301px;
+    width: 30%;
     height: 45px;
     display: flex;
     align-items: center;
@@ -80,9 +80,7 @@ export const Pending_Table = styled.div`
     padding: 0px 50px 0px 50px;
     color: #151542;
 
-    .TextAlignCenter{
-        text-align: center;
-    }
+    
 
     td {
         padding: 8px;
@@ -94,10 +92,15 @@ export const Pending_Table = styled.div`
         color: #783232;
         font-size: 20px;
     }
-    tr {
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
     }
     td .anticon:hover {
         cursor: pointer;
+    }
+    tr .TextAlign{
+        text-align: center;
     }
     
 `;

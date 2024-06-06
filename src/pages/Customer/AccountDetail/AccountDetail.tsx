@@ -1,8 +1,12 @@
 import styled from 'styled-components';
+import AccountCus from '@/components/AccountCus/AccountCus';
 
 const Account = () => {
   return (
+    <div>
+      <AccountCus/>
     <MainContainer>
+      
       <Section>
         <ProfileTitle>My Account</ProfileTitle>
         <InfoSection>
@@ -53,6 +57,7 @@ const Account = () => {
         </InfoSection>
       </Section>
     </MainContainer>
+    </div>
   );
 };
 
@@ -194,7 +199,7 @@ const EditButton = styled.button`
   transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
-    background-color: #000;
+    background-color: #102C57;
     color: #fff;
   }
 

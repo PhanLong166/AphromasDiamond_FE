@@ -1,5 +1,6 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+
+// import { theme } from "../../../themes";
 
 
 export const OrderAdminArea = styled.section`
@@ -9,12 +10,34 @@ export const OrderAdminArea = styled.section`
     /* height: 100%; */
     width: 100%;
 
+    .custom-dropdown .ant-dropdown-menu {
+        background-color: red; /* Màu nền */
+        border: 1px solid #ccc; /* Viền */
+      }
+
 `;
+export const TitlePage = styled.div `
+    h1 {
+        font-size: 22px;
+        font-weight: 36px;
+        color: #151542;
+        margin: 30px 0px 0px 0px;
+        padding-bottom: 7px;
+    }
+
+    p {
+        color: #92929D;
+        font-size: 13px;
+        margin: 0px 0px 0px 0px;
+    }
+`;
+
+
 
 export const AdminPage = styled.div`
     margin-left: 320px;
     margin-right: 70px;
-    width: 90%;
+    width: 100%;
     height: 100%;
     padding-bottom: 55px;
 `;
@@ -25,19 +48,20 @@ export const AdminPage = styled.div`
 
 export const OrderContent = styled.div`
     width: 100%;
-    background-color: #FFFFFF;
+    background-color: #e0dfdf;
     border-radius: 16px;
     margin-top: 28px;
     padding-top: 25px;
-    padding-bottom: 30px;
+    padding-bottom: 5px;
 `;
 
 export const OrderContent_Head = styled.div`
-    margin: 0px 40px 30px 40px;
+    margin: 0px 10px 30px 10px;
 `;
 
 export const SearchArea = styled.div`
-    width: 30%;
+    // width: 301px; gia tri cu
+    width: 100%;
     height: 45px;
     display: flex;
     align-items: center;
@@ -46,38 +70,39 @@ export const SearchArea = styled.div`
     color: #151542;
     background-color: #F8F9FB;
 
-    .searchInputContainer {
+  .searchInputContainer {
     display: flex;
     align-items: center;
     border-radius: 4px;
     padding: 4px 8px;
     width: calc(100% - 46px); // Adjust width to fit the layout
-    }
-    .searchIcon {
+  }
+  .searchIcon {
     margin: 0px 10px 0px 10px;
-    }
-    .searchInput {
+  }
+  .searchInput {
     border: none;
     outline: none;
     flex-grow: 1;
     // font-size: 16px;
     background-color: #F8F9FB;
     padding: 0px;
-    }
-    .filterIcon {
+  }
+  .filterIcon {
     font-size: 20px;
     margin-left: 10px;
     background: none;
     border: none;
     cursor: pointer;
     text-align: center;
-    }
+  }
+    
+
 `;
 
 export const Pending_Table = styled.div`
-    padding: 0px 50px 0px 50px;
+    padding: 0px 10px 0px 10px;
     color: #151542;
-
     table {
         border-collapse: collapse;
         width: 100%;
@@ -99,20 +124,14 @@ export const Pending_Table = styled.div`
     td .anticon:hover {
         cursor: pointer;
     }
-    tr th {
-        font-size: 13px;
-        color: #92929D !important;
-    }
-    
-    .transferBtn {
-        background-color: #B7751E;
+    .confirmBtn {
+        background-color: #151542;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-        /* font-size: 12px; */
-        color: #F9F2B2;
+        color: #F8E7EE;
         border: none;
         cursor: pointer;
     }
-    .transferBtn:hover {
+    .confirmBtn:hover {
         color: #CD486B;
         background-color: #F8E7EE;
     }
@@ -122,7 +141,7 @@ export const Pending_Table = styled.div`
 //     display: flex;
 //     align-items: center;
 //     justify-content: space-between;
-//     background-color: ${theme.color.third};
+//     background-color: #EADBC8;
 //     padding: 12px 60px 12px 60px;
 //     border-radius: 16px;
 //     margin: 39px 40px 0px 40px;

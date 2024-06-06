@@ -1,17 +1,18 @@
-import * as Styled from "./Completed.styled";
+import * as Styled from "./DelveryReport.styled";
 import { useState } from "react";
 import { Button, Space, Table, Tag } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
+import type { TableColumnsType, TableProps } from "antd";
+import Sidebar from "../../../components/Admin/Sidebar/SidebarStaff/Sidebar";
+import StatusSection from "./Section";
 
 interface DataType {
   key: React.Key;
   orderID: string;
   date: Date;
   cusName: string;
-  deliveryStaff: string;
+  deliName: string;
+  product: string;
   statuses: string[];
 }
 
@@ -29,7 +30,23 @@ const columns: TableColumnsType<DataType> = [
     sorter: (a, b) => a.date - b.date,
   },
   {
-    title: "Customer",
+    title: " Delivery Staff",
+    dataIndex: "deliName",
+    showSorterTooltip: { target: "full-header" },
+    filters: [
+      { text: "Agoda", value: "Agoda" },
+      { text: "Abatoka", value: "Abatoka" },
+      { text: "Esulami", value: "Esulami" },
+      { text: "Mamono", value: "Mamono" },
+    ],
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    onFilter: (value, record) => record.deliName.indexOf(value as string) === 0,
+    sorter: (a, b) => a.deliName.length - b.deliName.length,
+    sortDirections: ["descend"],
+  },
+  {
+    title: " Recipient",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
     filters: [
@@ -45,20 +62,21 @@ const columns: TableColumnsType<DataType> = [
     sortDirections: ["descend"],
   },
   {
-    title: "Delivery Staff",
-    dataIndex: "deliveryStaff",
+    title: " Product",
+    dataIndex: "product",
     showSorterTooltip: { target: "full-header" },
     filters: [
-      { text: "Joe", value: "Joe" },
-      { text: "Jim", value: "Jim" },
-      { text: "Esther", value: "Esther" },
-      { text: "Ajmal", value: "Ajmal" },
+      { text: "Diamind Ring", value: "Diamind Ring" },
+      { text: "Diamond Necklaces", value: "Diamond Necklaces" },
+      { text: "Diamond Round", value: "Diamond Round" },
+      { text: "Diamond Earrings", value: "Diamond Earrings" },
+      { text: "Diamond Bracelets", value: "Diamond Bracelets" },
+      { text: "Diamond Chokers", value: "Diamond Chokers" },
     ],
     // specify the condition of filtering result
     // here is that finding the name started with `value`
-    onFilter: (value, record) =>
-      record.deliveryStaff.indexOf(value as string) === 0,
-    sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
+    onFilter: (value, record) => record.product.indexOf(value as string) === 0,
+    sorter: (a, b) => a.product.length - b.product.length,
     sortDirections: ["descend"],
   },
   {
@@ -69,17 +87,20 @@ const columns: TableColumnsType<DataType> = [
       <>
         {statuses.map((status) => {
           let color = status.length > 9 ? "geekblue" : "green";
-          if (status === "Pending") {
+          if (status === "On Hold") {
             color = "volcano";
-          } else if (status === "Confirmed") {
-            color = "yellow";
-          } else if (status === "Delivering") {
+          }
+          //  else if (status === "Confirmed") {
+          //   color = "yellow";
+          // }
+          else if (status === "Delivering") {
             color = "geekblue";
           } else if (status === "Completed") {
             color = "green";
-          } else if (status === "Cancelled") {
-            color = "grey";
           }
+          // else if (status === "Cancelled") {
+          //   color = "grey";
+          // }
           return (
             <Tag color={color} key={status}>
               {status.toUpperCase()}
@@ -90,15 +111,24 @@ const columns: TableColumnsType<DataType> = [
     ),
   },
   {
-    title: "Invoice",
-    key: "invoice",
-    className: "TextAlign",
+    title: "Action",
+    key: "action",
     render: (_) => (
-      <Space size="middle" >
-        <EyeOutlined />
+      <Space size="middle">
+        <Button className="confirmBtn">Contact DS</Button>
       </Space>
     ),
   },
+  // {
+  //   title: "Detail",
+  //   key: "detail",
+  //   className: "TextAlign",
+  //   render: (_) => (
+  //     <Space size="middle">
+  //       <EyeOutlined />
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const data = [
@@ -107,15 +137,17 @@ const data = [
     orderID: "12345124",
     date: "6 Jan 2023",
     cusName: "Joe Black",
-    deliveryStaff: "Ajmal Abdul Rahiman",
-    statuses: ["Completed"],
+    deliName: "Abatoka",
+    product: "Diamond Chokers",
+    statuses: ["Delivering"],
   },
   {
     key: "2",
     orderID: "12345122",
     date: "2 Jan 2023",
     cusName: "Jim Green",
-    deliveryStaff: "Joe Black",
+    deliName: "Abatoka",
+    product: "Diamond Chokers",
     statuses: ["Completed"],
   },
   {
@@ -123,7 +155,8 @@ const data = [
     orderID: "12345121",
     date: "3 Jan 2023",
     cusName: "Joe Black",
-    deliveryStaff: "Esther Eden",
+    deliName: "Abatoka",
+    product: "Diamond Chokers",
     statuses: ["Completed"],
   },
   {
@@ -131,56 +164,63 @@ const data = [
     orderID: "12345123",
     date: "4 Jan 2023",
     cusName: "Jim Red",
-    deliveryStaff: "Esther Eden",
-    statuses: ["Completed"],
+    deliName: "Abatoka",
+    product: "Diamond Chokers",
+    statuses: ["Pending"],
   },
   {
     key: "5",
     orderID: "12345121",
     date: "2 Jan 2023",
     cusName: "Esther Eden",
-    deliveryStaff: "Ajmal Abdul Rahiman",
-    statuses: ["Completed"],
+    deliName: "Esulami",
+    product: "Diamond Chokers",
+    statuses: ["On Hold"],
   },
   {
     key: "6",
     orderID: "12345125",
     date: "6 Jan 2023",
     cusName: "Ajmal Abdul Rahiman",
-    deliveryStaff: "Jim Red",
-    statuses: ["Completed"],
+    deliName: "Esulami",
+    product: "Diamond Chokers",
+    statuses: ["On Hold"],
   },
   {
     key: "7",
     orderID: "12345127",
     date: "6 Jan 2023",
-    cusName: "Jim Red",
-    deliveryStaff: "Joe Black",
-    statuses: ["Completed"],
+    cusName: "Ajmal Abdul Rahiman",
+    deliName: "Mamono",
+    product: "Diamond Necklaces",
+    statuses: ["Delivering"],
   },
   {
     key: "8",
     orderID: "12345127",
     date: "6 Jan 2023",
     cusName: "Ajmal Abdul Rahiman",
-    deliveryStaff: "Joe Black",
+    deliName: "Abatoka",
+    product: "Diamond Round",
     statuses: ["Completed"],
   },
   {
     key: "9",
     orderID: "12345125",
     date: "6 Jan 2023",
-    cusName: "Joe Black",
-    deliveryStaff: "Jim Red",
+    cusName: "Ajmal Abdul Rahiman",
+    deliName: "Mamono",
+    product: "Diamond Earrings",
     statuses: ["Completed"],
   },
   {
     key: "10",
     orderID: "12345125",
     date: "6 Jan 2023",
-    cusName: "Jim Green",
-    deliveryStaff: "Esther Eden",
-    statuses: ["Completed"],
+    cusName: "Ajmal Abdul Rahiman",
+    deliName: "Agoda",
+    product: "Diamond Bracelets",
+    statuses: ["On Hold"],
   },
 ];
 
@@ -193,7 +233,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const CompletedOrder = () => {
+const DeliveryReport = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value) => {
@@ -211,14 +251,16 @@ const CompletedOrder = () => {
     <>
       <Styled.OrderAdminArea>
         <Sidebar />
-
         <Styled.AdminPage>
-          <OrderMenu />
-
+          <Styled.TitlePage>
+            <h1>Delivery Report</h1>
+            <p>View and manage Delivery</p>
+          </Styled.TitlePage>
+          {/* <DeliveryMenu/> */}
+          <StatusSection />
           <Styled.OrderContent>
             <Styled.OrderContent_Head>
               <Styled.SearchArea>
-                {/* <div className="searchInputContainer"> */}
                 <SearchOutlined className="searchIcon" />
                 <input
                   className="searchInput"
@@ -229,11 +271,6 @@ const CompletedOrder = () => {
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
                 />
-                {/* </div> */}
-                {/* <button className="filterIcon">
-                  <FilterOutlined />
-                </button> */}
-                {/* <Button className="filterIcon" icon={<FilterOutlined />} size="large" /> */}
               </Styled.SearchArea>
             </Styled.OrderContent_Head>
 
@@ -242,7 +279,7 @@ const CompletedOrder = () => {
                 className="table"
                 columns={columns}
                 dataSource={data}
-                pagination={{ pageSize: 7 }} // Add pagination here
+                pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
@@ -254,4 +291,4 @@ const CompletedOrder = () => {
   );
 };
 
-export default CompletedOrder;
+export default DeliveryReport;
