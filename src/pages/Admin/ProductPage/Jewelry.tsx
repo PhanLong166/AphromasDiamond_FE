@@ -21,13 +21,12 @@ interface DataType {
   jewelryImg: string;
   jewelryName: string;
   price: number;
+  markupPercentage: number;
   type: string;
   quantity: number;
   exchangeRate: number;
   currencyType: string;
 }
-
-
 
 const onChange: TableProps<DataType>["onChange"] = (
   pagination,
@@ -39,7 +38,6 @@ const onChange: TableProps<DataType>["onChange"] = (
 };
 
 const Jewelry = () => {
-
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
 
@@ -62,13 +60,20 @@ const Jewelry = () => {
     setCurrency(value);
   };
 
-  const convertPrice = (price: number, exchangeRate: number, currency: "VND" | "USD") => {
+  const convertPrice = (
+    price: number,
+    exchangeRate: number,
+    currency: "VND" | "USD"
+  ) => {
     if (currency === "VND") {
       return price * exchangeRate;
     }
     return price;
   };
 
+  const sellingPrice = (price: number, markupPercentage: number) => {
+    return price * (1 + markupPercentage / 100);
+  };
 
   const columns: TableColumnsType<DataType> = [
     {
@@ -101,29 +106,37 @@ const Jewelry = () => {
       sortDirections: ["descend"],
     },
     {
-      title: `Price (${currency})`,
+      title: `Cost Price (${currency})`,
       key: "price",
-      sorter: (a, b) => convertPrice(a.price, a.exchangeRate, currency) - convertPrice(b.price, b.exchangeRate, currency),
+      sorter: (a, b) =>
+        convertPrice(a.price, a.exchangeRate, currency) -
+        convertPrice(b.price, b.exchangeRate, currency),
       render: (_, record) => {
-        const convertedPrice = convertPrice(record.price, record.exchangeRate, currency);
+        const convertedPrice = convertPrice(
+          record.price,
+          record.exchangeRate,
+          currency
+        );
         return `${convertedPrice.toFixed(2)} ${currency}`;
       },
     },
     {
-      title: "Exchange Rate",
-      dataIndex: "exchangeRate",
-      key: "exchangeRate",
-      render: (_, record) => `${record.exchangeRate} VND/USD`,
+      title: "Markup Percentage",
+      dataIndex: "markupPercentage",
+      key: "markupPercentage",
+      render: (_, record) => `${record.markupPercentage}%`,
     },
     {
-      title: "Price in USD/Won",
-      key: "convertedPrice",
+      title: `Selling Price (${currency})`,
+      key: "sellingPrice",
       render: (_, record) => {
-        const convertedPrice =
-          record.currencyType === "USD"
-            ? (record.price / record.exchangeRate).toFixed(2)
-            : (record.price / record.exchangeRate).toFixed(0);
-        return `${convertedPrice} ${record.currencyType}`;
+        const convertedPrice = convertPrice(
+          record.price,
+          record.exchangeRate,
+          currency
+        );
+        const price = sellingPrice(convertedPrice, record.markupPercentage);
+        return `${price.toFixed(2)} ${currency}`;
       },
     },
     {
@@ -160,7 +173,7 @@ const Jewelry = () => {
       ),
     },
   ];
-  
+
   const data = [
     {
       key: "1",
@@ -168,7 +181,8 @@ const Jewelry = () => {
       jewelryImg:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 2500000,
+      price: 5.08,
+      markupPercentage: 100,
       type: "Necklace",
       quantity: 51,
       exchangeRate: 23000,
@@ -181,6 +195,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 5.08,
+      markupPercentage: 100,
       type: "Earring",
       quantity: 51,
       exchangeRate: 23000,
@@ -193,6 +208,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 7.08,
+      markupPercentage: 100,
       type: "Necklace",
       quantity: 51,
       exchangeRate: 23000,
@@ -205,6 +221,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 6.08,
+      markupPercentage: 150,
       type: "Bracelet",
       quantity: 51,
       exchangeRate: 23000,
@@ -217,6 +234,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 3.08,
+      markupPercentage: 100,
       type: "Bracelet",
       quantity: 51,
       exchangeRate: 23000,
@@ -229,6 +247,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 9.08,
+      markupPercentage: 150,
       type: "Anklet",
       quantity: 51,
       exchangeRate: 23000,
@@ -241,6 +260,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 2.04,
+      markupPercentage: 100,
       type: "Bangle",
       quantity: 51,
       exchangeRate: 23000,
@@ -253,6 +273,7 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 7.03,
+      markupPercentage: 100,
       type: "Choker",
       quantity: 51,
       exchangeRate: 23000,
@@ -266,6 +287,7 @@ const Jewelry = () => {
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 5.07,
       type: "Bangle",
+      markupPercentage: 100,
       quantity: 51,
       exchangeRate: 23000,
       currencyType: "USD",
@@ -277,16 +299,13 @@ const Jewelry = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
       jewelryName: "Petite Twist Diamond Engagement Ring",
       price: 4.2,
+      markupPercentage: 150,
       type: "Choker",
       quantity: 51,
       exchangeRate: 23000,
       currencyType: "USD",
     },
   ];
-
-
-
-
 
   const onChange: TableProps<DataType>["onChange"] = (
     pagination,
@@ -296,11 +315,6 @@ const Jewelry = () => {
   ) => {
     console.log("params", pagination, filters, sorter, extra);
   };
-
-
-
-
-
 
   const shelltype = (
     <Space wrap>
@@ -345,7 +359,7 @@ const Jewelry = () => {
                   onKeyPress={handleKeyPress}
                 />
               </Styled.SearchArea>
-              
+
               <Select
                 defaultValue="USD"
                 style={{ width: 120 }}

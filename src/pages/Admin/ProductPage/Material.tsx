@@ -181,7 +181,7 @@ const Material = () => {
     {
       title: "Edit",
       dataIndex: "edit",
-      className: "TextAlign",
+      className: "TextAlign SmallSize",
       render: (_: any, record: Item) => {
         const editable = isEditing(record);
         return editable ? (

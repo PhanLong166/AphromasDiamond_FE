@@ -99,6 +99,10 @@ export const Pending_Table = styled.div`
     td .anticon:hover {
         cursor: pointer;
     }
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
+    }
     
     .transferBtn {
         background-color: #B7751E;

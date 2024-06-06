@@ -327,12 +327,12 @@ const RingSetting = () => {
       ],
       onFilter: (value, record) => record.type.indexOf(value as string) === 0,
     },
-    {
-      title: "Width",
-      dataIndex: "width",
-      editable: true,
-      sorter: (a, b) => a.width - b.width,
-    },
+    // {
+    //   title: "Width",
+    //   dataIndex: "width",
+    //   editable: true,
+    //   sorter: (a, b) => a.width - b.width,
+    // },
     {
       title: "Material",
       dataIndex: "material",
@@ -353,7 +353,7 @@ const RingSetting = () => {
     {
       title: "Edit",
       dataIndex: "edit",
-      className: "TextAlign",
+      className: "TextAlign SmallSize",
       render: (_: any, record: Item) => {
         const editable = isEditing(record);
         return editable ? (

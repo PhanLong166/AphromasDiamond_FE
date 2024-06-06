@@ -92,9 +92,9 @@ const columns: TableColumnsType<DataType> = [
   {
     title: "Invoice",
     key: "invoice",
-    className: "TextAlignCenter",
+    className: "TextAlign",
     render: (_) => (
-      <Space size="middle" className="TextAlign">
+      <Space size="middle" >
         <EyeOutlined />
       </Space>
     ),

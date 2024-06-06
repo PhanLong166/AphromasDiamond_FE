@@ -93,7 +93,7 @@ export const SearchArea = styled.div`
 export const AdminTable = styled.div`
   padding: 0px 40px 0px 40px;
 
-  .ant-table {
+  table {
     border-collapse: collapse;
     width: 100%;
   }
@@ -105,15 +105,12 @@ export const AdminTable = styled.div`
     color: ${theme.color.primary};
     border: none;
   }
-  th {
-    color: #783232;
-    font-size: 20px;
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
   }
   tr .TextAlign {
     text-align: center;
-  }
-  tr .TextAlign input {
-    width: 80px;
   }
   td img {
     width: 77px;
@@ -129,4 +126,3 @@ export const AdminTable = styled.div`
     border: none;
   }
 `;
-

@@ -6,7 +6,7 @@ export const ProductAdminArea = styled.section`
     display: inline-flex;
     background-color: #f1f1f1;
     font-family: "Poppins", sans-serif;
-    /* height: 100%; */
+     height: 100%; 
     width: 100%;
 
 `;
@@ -17,6 +17,13 @@ export const AdminPage = styled.div`
     width: 100%;
     height: 100%;
     padding-bottom: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+`;
+
+export const ContentPage = styled.div`
+
 `;
 
 export const TitlePage = styled.div `
@@ -114,7 +121,7 @@ export const AdminTable = styled.div`
 
     table {
         border-collapse: collapse;
-        width: 90%;
+        width: 100%;
     }
     th,
     td {
@@ -123,18 +130,16 @@ export const AdminTable = styled.div`
         font-size: 16px;
         color: ${theme.color.primary};
     }
-    th {
-        color: #783232;
-        font-size: 20px;
-    }
-    td {
-        width: fit-content;
-    }
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
+      }
     tr .TextAlign{
         text-align: center;
     }
-    tr .TextAlign input{
-        width: 80px;
+    .SmallSize {
+        font-size: 16px;
+        overflow-wrap: normal !important;
     }
     td img {
         width: 77px;
@@ -164,5 +169,10 @@ export const AdminTable = styled.div`
         cursor: pointer;
 
     }
+`;
+
+export const EndPage = styled.div`
+    height: 5px;
+    background-color: #f1f1f1;
 `;
 

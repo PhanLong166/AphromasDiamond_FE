@@ -104,18 +104,15 @@ td {
     font-size: 16px;
     color: ${theme.color.primary};
 }
-th {
-    color: #783232;
-    font-size: 16px;
-}
 td {
     width: fit-content;
 }
 tr .TextAlign{
     text-align: center;
 }
-tr .TextAlign input{
-    width: 80px;
+tr th {
+  font-size: 13px;
+  color: #92929D !important;
 }
 td img {
     width: 77px;

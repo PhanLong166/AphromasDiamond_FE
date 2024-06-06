@@ -89,9 +89,12 @@ export const Pending_Table = styled.div`
         color: #151542;
         
     }
-    th {
-        color: #783232;
-        font-size: 20px;
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
+    }
+    tr .TextAlign{
+        text-align: center;
     }
     
     td .anticon:hover {
@@ -118,55 +121,3 @@ export const Pending_Table = styled.div`
         background-color: #F8E7EE;
     }
 `;
-
-// export const OrderContent_Foot = styled.div`
-//   display: flex;
-//   align-items: center;
-//   justify-content: space-between;
-//   background-color: ${theme.color.third};
-//   padding: 12px 60px 12px 60px;
-//   border-radius: 16px;
-//   margin: 39px 40px 0px 40px;
-// `;
-
-// export const PageNum = styled.div`
-//   display: flex;
-
-//   p {
-//     margin: 0px 7px 0px 0px;
-//     color: #b19f8a;
-//     font-weight: 500;
-//   }
-
-//   .nowPage {
-//     color: ${theme.color.primary};
-//   }
-// `;
-
-// export const MovePage = styled.div`
-//   button {
-//     width: 40px;
-//     height: 40px;
-//     background-color: ${theme.color.fifth};
-//     border-radius: 12px;
-//     border: none;
-//     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-//     font-size: 20px;
-//     display: inline;
-//     align-items: center;
-//     text-align: center;
-//     margin-right: 5px;
-//     font-size: 15px;
-//   }
-//   button:hover {
-//     cursor: pointer;
-//   }
-//   .backArrow .anticon {
-//     color: #92929d;
-//   }
-//   .nextArrow .anticon {
-//     color: ${theme.color.primary};
-//   }
-// `;
-
-export const hehe = styled.div``;
