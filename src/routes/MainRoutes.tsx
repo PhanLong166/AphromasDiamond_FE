@@ -11,6 +11,12 @@ import Product from "@/pages/Home/Product/Product";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
 import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
 import NotiPage from "@/pages/Customer/Nofications/Nofications";
+import Reply from "@/pages/Home/Reply/Reply";
+import FeedbackSale from "@/pages/Home/SaleStaff/FeedbackSale";
+import FeedbackCompleted from "@/pages/Home/SaleStaff/FeedbackCompleted";
+import HomeV2 from "@/pages/Home/HomeV2";
+
+
 
 
 const MainRouter = () => {
@@ -24,9 +30,10 @@ const CustomerRouter = () => {
 const publicRoutes = {
     children: [
         { path: config.routes.public.home, element: <Home /> },
-        { path: config.routes.public.product, element: <ProductDetails /> },
+        { path: config.routes.public.product, element: <Product /> },
         { path: config.routes.public.productList, element: <Product /> },
         { path: config.routes.public.allProduct, element: <AllProduct /> }
+        
     ]
 }
 
