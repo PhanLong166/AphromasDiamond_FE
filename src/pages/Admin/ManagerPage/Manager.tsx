@@ -1,5 +1,6 @@
-import * as Styled from "./Customer.styled";
+import * as Styled from "./Manager.styled";
 import React, { useState } from "react";
+import { Link } from "react-router-dom";
 import {
   SearchOutlined,
 } from "@ant-design/icons";
@@ -12,6 +13,8 @@ import {
   Table,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+
+
 
 interface Item {
   key: React.Key;
@@ -128,7 +131,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-const Customer = () => {
+const Manager = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
   const [editingKey, setEditingKey] = useState<React.Key>("");
@@ -296,4 +299,4 @@ const Customer = () => {
   );
 };
 
-export default Customer;
+export default Manager;
