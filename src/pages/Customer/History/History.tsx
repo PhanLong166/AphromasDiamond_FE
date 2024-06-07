@@ -5,7 +5,6 @@ import { Input } from 'antd';
 import {  Space } from 'antd';
 import {  Table} from 'antd';
 import type { TableProps } from 'antd';
-import Footer from '@/components/Footer/Footer';
 import AccountCus from '@/components/AccountCus/AccountCus';
 
 
@@ -45,7 +44,7 @@ const data: DataType[] = [
     product: 'Diamond Necklaces',
     orderDate: '27 Jan 2024',
     price: '2000$',
-   status: 'Canceled  ',
+   status: 'Canceled',
   },
   {
     key: '4',
@@ -69,7 +68,7 @@ const data: DataType[] = [
     product: 'Diamond Round',
     orderDate: '27 Jan 2024',
     price: '5000$',
-   status: 'Delivered',
+   status: 'Pending',
   },
 ];
 const columns: TableProps<DataType>['columns'] = [
@@ -80,9 +79,9 @@ const columns: TableProps<DataType>['columns'] = [
     render: (text) => <a>{text}</a>,
   },
   {
-    title: 'Product',
-    dataIndex: 'product',
-    key: 'product',
+    title: 'Order Date',
+    dataIndex: 'orderDate',
+    key: 'orderDate',
   },
   {
     title: 'Product',
@@ -104,11 +103,13 @@ const columns: TableProps<DataType>['columns'] = [
     title: 'Action',
     key: 'action',
     render: () => (
-      <Space size="middle">
+      <Space style={{width: 134}} size="middle">
         <a>View</a>
-        {/* <a>Cancel</a> */}
+        <a>Cancel</a>
       </Space>
     ),
+    width:134,
+
   },
 ];
 
@@ -134,19 +135,15 @@ const History = () => {
   ];
 
   const menuItems4 = [
-    // { text: 'Pending', link: '#option1' },
     { text: 'Delivered', link: '#option2' },
-    // { text: 'Delivering', link: '#option3' },
     { text: 'Canceled', link: '#option4' },
   ];
 
   return (
     <main>
-
-      <div>
-        <AccountCus/>
+      <AccountCus />
       <Section>
-        <Title>History</Title>
+        <Title>All Orders</Title>
         <Filters>
           <CustomSelects>
             <Input placeholder="Search" />
@@ -174,11 +171,11 @@ const History = () => {
         <Table columns={columns} dataSource={data} />
         </TableContainer>
       </Section>
-      <Footer/>
-      </div>
     </main>
   );
 };
+
+
 
 const Section = styled.section`
   display: flex;
@@ -212,7 +209,7 @@ const Filters = styled.div`
   max-width: 1146px;
   gap: 20px;
   font-size: 16px;
-  justify-content: center;
+  justify-content: flex-start;
   align-items: center;
 
   @media (max-width: 991px) {
@@ -243,7 +240,8 @@ const CustomSelects = styled.div`
   justify-content: space-between;
   align-items: baseline;
   font-size: 18px;
-  width: 100%;
+  width: 96%;
+  padding-left: 3rem;
 `;
 
 
@@ -254,6 +252,7 @@ const TableContainer = styled.table`
   grid-gap: 15px;
   margin-top: 45px;
   padding-bottom: 11rem;
+  padding-left: 3rem;
 
   @media (max-width: 991px) {
     margin-top: 40px;
