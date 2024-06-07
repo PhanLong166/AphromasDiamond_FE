@@ -143,7 +143,7 @@ const History = () => {
     <main>
       <AccountCus />
       <Section>
-        <Title>All Orders</Title>
+        <Title>History</Title>
         <Filters>
           <CustomSelects>
             <Input placeholder="Search" />
