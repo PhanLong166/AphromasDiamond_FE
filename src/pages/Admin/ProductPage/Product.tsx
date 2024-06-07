@@ -1,6 +1,7 @@
 import * as Styled from "../ProductPage/Product.styled";
 import { useState } from "react";
-import { Space, Table} from "antd";
+import { Link } from "react-router-dom";
+import { Space, Table, Input } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
@@ -9,7 +10,7 @@ import {
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
-import { Link } from "react-router-dom";
+
 
 interface DataType {
   key: React.Key;
@@ -26,14 +27,14 @@ const columns: TableColumnsType<DataType> = [
     title: "Diamond ID",
     dataIndex: "diamondID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.diamondID - b.diamondID,
+    sorter: (a, b) => parseInt(a.diamondID) - parseInt(b.diamondID),
   },
   {
     title: "Image",
     key: "diamondImg",
     className: "TextAlign",
-    render: (_, record) => (
-      <a href='#' target="_blank" rel="noopener noreferrer">
+    render: (_, record: DataType) => (
+      <a href="#" target="_blank" rel="noopener noreferrer">
         <img
           src={record.diamondImg}
           alt={record.diamondName}
@@ -46,10 +47,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Diamond Name",
     dataIndex: "diamondName",
     showSorterTooltip: { target: "full-header" },
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value, record) =>
-      record.diamondName.indexOf(value as string) === 0,
+    onFilter: (value, record) => record.diamondName.indexOf(value as string) === 0,
     sorter: (a, b) => a.diamondName.length - b.diamondName.length,
     sortDirections: ["descend"],
   },
@@ -100,7 +98,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Detail",
     key: "detail",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <EyeOutlined />
       </Space>
@@ -108,7 +106,7 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const data = [
+const data: DataType[] = [
   {
     key: "1",
     diamondID: "12345121",
@@ -223,12 +221,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const Product = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -245,8 +243,7 @@ const Product = () => {
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -254,14 +251,17 @@ const Product = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
-              <Link to="">
-                <button>
-                  <PlusCircleOutlined />
-                  Add New Diamond
-                </button>
-              </Link>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>

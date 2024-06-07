@@ -67,7 +67,7 @@ export const AdPageContent_HeadTop = styled.div`
 
     button {
         background-color: ${theme.color.primary};
-        color: ${theme.color.secondary};
+        color: ${theme.color.forth};
         width: 210px;
         height: 55px;
         border-radius: 16px;
@@ -203,7 +203,7 @@ export const AdminTable = styled.div`
         padding: 7px 17px 7px 17px;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
         /* font-size: 12px; */
-        color: ${theme.color.secondary};
+        color: ${theme.color.fifth};
         border: none;
     }
     .confirmBtn:hover {
