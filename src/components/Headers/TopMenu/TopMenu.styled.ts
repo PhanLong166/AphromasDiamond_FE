@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../themes";
 
 export const TopMenuContainer = styled.section`
-    background: ${theme.color.third};
+    background: ${theme.color.white};
     display: flex;
     justify-content: center;
     align-item: center;
@@ -10,7 +10,6 @@ export const TopMenuContainer = styled.section`
 
     font-family: "Poppins", san-serif;
     font-size: 16px;
-    border-bottom: 1px solid gray;
 `;
 
 export const TopMenuFlexbox = styled.div`
@@ -23,6 +22,7 @@ export const TopMenuFlexbox = styled.div`
 export const Contact = styled.div`
     display: flex;
     gap: 20px;
+    font-size: 13px;
 `;
 
 export const Phone = styled.div`

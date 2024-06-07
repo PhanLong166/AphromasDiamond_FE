@@ -1,6 +1,6 @@
 import * as Styled from './StaffMenu.styled';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
     
 const StaffMenu = () => {
     const location = useLocation();

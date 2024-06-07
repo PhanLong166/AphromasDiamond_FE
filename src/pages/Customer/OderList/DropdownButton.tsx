@@ -2,10 +2,10 @@
 import { Dropdown, Button, Space, Menu } from 'antd';
 import { DownOutlined } from '@ant-design/icons';
 
-const DropdownButton = ({ buttonText, menuItems }) => {
+const DropdownButton = (buttonText: any, menuItems: any ) => {
   const menu = (
     <Menu>
-      {menuItems.map((item, index) => (
+      {menuItems.map((item: any, index: any) => (
         <Menu.Item key={index}>
           <a href={item.link}>{item.text}</a>
         </Menu.Item>

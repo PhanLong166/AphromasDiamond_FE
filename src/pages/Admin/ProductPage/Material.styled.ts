@@ -4,11 +4,10 @@ import { theme } from "../../../themes";
 
 export const ProductAdminArea = styled.section`
     display: inline-flex;
-    background-color: #EEEBE6;
+    background-color: #f1f1f1;
     font-family: "Poppins", sans-serif;
-    // height: 100%; 
+    /* height: 100%; */
     width: 100%;
-    padding-bottom: 20px;
 `;
 
 export const AdminPage = styled.div`
@@ -16,7 +15,7 @@ export const AdminPage = styled.div`
     margin-right: 70px;
     width: 100%;
     height: 100%;
-    padding-bottom: 30px;
+    padding-bottom: 55px;
 `;
 
 
@@ -25,30 +24,21 @@ export const AdminPage = styled.div`
 
 export const AdPageContent = styled.div`
     width: 100%;
-    background-color: ${theme.color.fifth};
+    background-color: #ffffff;
     border-radius: 16px;
+    margin-top: 28px;
+    padding-top: 25px;
     padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
-    margin: 39px 40px 30px 40px;
-
-    h2 {
-        margin: 0px 0px 0px 0px;
-        padding: 39px 0px 27px;
-        font-size: 24px;
-        color: ${theme.color.primary};
-    }
-`;
-
-export const AdPageContent_HeadTop = styled.div`
+    margin: 0px 40px 30px 40px;
     display: flex;
     justify-content: space-between;
-    align-items: center;
 
     button {
         background-color: ${theme.color.primary};
-        color: ${theme.color.forth};
+        color: #ffffff;
         width: 210px;
         height: 55px;
         border-radius: 16px;
@@ -56,7 +46,7 @@ export const AdPageContent_HeadTop = styled.div`
         border: none;
     }
 
-    button:hover{
+    button:hover {
         cursor: pointer;
     }
 
@@ -65,63 +55,41 @@ export const AdPageContent_HeadTop = styled.div`
     }
 `;
 
-export const AdPageContent_HeadBenefit = styled.div`
-    display: flex;
-    justify-content: space-between;
-    background-color: ${theme.color.third};
-    padding: 20px 60px 20px 60px;
-    border-radius: 16px;
-
-    button {
-        height: 55px;
-        width: 139px;
-        background-color: ${theme.color.fifth};
-        border-radius: 16px;
-        border: none;
-        display: flex;
-        justify-content: space-evenly;
-        align-items: center;
-        font-size: 16px;
-        color: ${theme.color.primary};
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-    }
-
-    button:hover {
-        cursor: pointer;
-    }
-
-    button .anticon {
-        font-size: 18px;
-    }
-`;
-
 export const SearchArea = styled.div`
-    width: 70%;
-    display: inline-flex;
-    align-items: center; 
+    width: 30%;
+    height: 45px;
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(203, 210, 220, 0.5);
+    border-radius: 16px;
+    color: #151542;
+    background-color: #f8f9fb;
 
+    .searchInputContainer {
+        display: flex;
+        align-items: center;
+        border-radius: 4px;
+        padding: 4px 8px;
+        width: calc(100% - 46px); // Adjust width to fit the layout
+    }
+    .searchIcon {
+        margin: 0px 10px 0px 10px;
+    }
     .searchInput {
-        width: 90%;
+        border: none;
+        outline: none;
+        flex-grow: 1;
+        // font-size: 16px;
+        background-color: #f8f9fb;
+        padding: 0px;
+    }
+    .filterIcon {
         font-size: 20px;
-        padding-left: 10px;
-        background-color: ${theme.color.fifth};
-        height: 55px;
-        border:none;
-        border-radius: 16px 0px 0px 16px;
-        padding-right: 20px;
-        color:${theme.color.primary};
-    }
-    .anticon {
-        font-size: 23px;
-        color: ${theme.color.primary};
-        background-color: ${theme.color.fifth};
-        height: 55px;
-        border: 1px solid ${theme.color.fifth};
-        padding: 0px 20px 0px 20px;
-        border-radius: 0px 16px 16px 0px;
-    }
-    .anticon:hover {
+        margin-left: 10px;
+        background: none;
+        border: none;
         cursor: pointer;
+        text-align: center;
     }
 `;
 
@@ -143,14 +111,16 @@ export const Pending_Table = styled.div`
         color: #783232;
         font-size: 20px;
     }
-    tr {
-        // border-bottom: 1px solid ${theme.color.primary};
-    }
     tr .TextAlign{
         text-align: center;
     }
-    tr .TextAlign input{
-        width: 80px;
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
+    }
+    .SmallSize {
+        font-size: 16px;
+        overflow-wrap: normal !important;
     }
     td img {
         width: 77px;
@@ -207,52 +177,3 @@ export const Pending_Table = styled.div`
     
 `;
 
-export const AdPageContent_Foot = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: ${theme.color.third};
-    padding: 12px 60px 12px 60px;
-    border-radius: 16px;
-    margin: 39px 40px 0px 40px;
-`;
-
-export const PageNum = styled.div`
-    display: flex;
-
-    p {
-        margin: 0px 7px 0px 0px;
-        color: #B19F8A;
-        font-weight: 500;
-    }
-
-    .nowPage {
-        color:${theme.color.primary};
-    }
-`;
-
-export const MovePage = styled.div`
-    button {
-        width:40px;
-        height: 40px;
-        background-color: ${theme.color.fifth};
-        border-radius: 12px;
-        border: none;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-        font-size: 20px;
-        display: inline;
-        align-items: center;
-        text-align: center;
-        margin-right: 5px;
-        font-size: 15px;
-    }
-    button:hover {
-        cursor: pointer;
-    }
-    .backArrow .anticon {
-        color: #92929D;
-    }
-    .nextArrow .anticon {
-        color:${theme.color.primary};
-    }
-`;

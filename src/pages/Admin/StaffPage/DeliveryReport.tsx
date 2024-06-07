@@ -1,10 +1,12 @@
-import * as Styled from './Promotion.styled';
-import { Link } from 'react-router-dom';
+import * as Styled from '../StaffPage/DeliveryStaff.styled';
+import React from 'react';
+// import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
-    ArrowLeftOutlined, ArrowRightOutlined, DeleteOutlined} from '@ant-design/icons';
+    ArrowLeftOutlined, ArrowRightOutlined, DeleteOutlined, EyeOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
+// import SalesStaffMenu from '../../../components/Admin/SalesStaffMenu/SalesStaffMenu';
 
 const items: MenuProps['items'] = [
     {
@@ -19,43 +21,32 @@ const items: MenuProps['items'] = [
     //   type: 'divider',
     // },
     {
-      label: <a href="/">Start Soonest</a>,
+      label: <a href="/">Low to High</a>,
       key: '2',
     },
     {
-        label: <a href="/">Start Latest</a>,
+        label: <a href="/">High to Low</a>,
         key: '3',
-    },
-    {
-        label: <a href="/">End Soonest</a>,
-        key: '4',
-    },
-    {
-        label: <a href="/">End Latest</a>,
-        key: '5',
     }
   ];
   
     
-    const Promotion = () => {
+    const DeliveryReport = () => {
         return(
             <>
                 <Styled.ProductAdminArea>
                         <Sidebar/>
                         
                         <Styled.AdminPage>
-                            <Styled.TitlePage>
-                                    <h1>Marketing Management</h1>
-                                    <p>View and manage Promotion</p>
-                            </Styled.TitlePage>
+                            {/* <SalesStaffMenu/> */}
 
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>
                                     <Styled.AdPageContent_HeadTop>
-                                        <h2>Promotion List</h2>
+                                        <h2>Delivery Staff</h2>
                                         <button>
                                             <PlusCircleOutlined />
-                                            Add New Promotion
+                                            Add New Delivery Staff
                                         </button>
                                     </Styled.AdPageContent_HeadTop>
                                     <Styled.AdPageContent_HeadBenefit>
@@ -85,76 +76,76 @@ const items: MenuProps['items'] = [
                                     <table>
                                         <tr>
                                             <th>No</th>
-                                            <th>Promotion ID</th>
-                                            <th>% discount</th>
-                                            <th>Start Date</th>
-                                            <th>End Date</th>
-                                            <th className='TextAlign'>Edit</th>
-                                            <th className='TextAlign'>Delete</th>
+                                            <th>Staff ID</th>
+                                            <th>Staff Name</th>
+                                            <th>Email</th>
+                                            <th>Password</th>
+                                            <th className='TextAlign'>Order received</th>
+                                            <th className='TextAlign'>Ban</th>
                                         </tr>
                                         <tr>
                                             <td>01</td>
                                             <td>#12345123</td>
-                                            <td>10%</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>2 Jan 2024</td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
-                                                <button className="confirmBtn">Save</button>
+                                                <EyeOutlined />
                                             </td>
                                             <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>02</td>
                                             <td>#12345123</td>
-                                            <td>15%</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>2 Jan 2024</td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
-                                                <button className="confirmBtn">Save</button>
+                                                <EyeOutlined />
                                             </td>
                                             <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>03</td>
                                             <td>#12345123</td>
-                                            <td>10%</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>2 Jan 2024</td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
-                                                <button className="confirmBtn">Save</button>
+                                                <EyeOutlined />
                                             </td>
                                             <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>04</td>
                                             <td>#12345123</td>
-                                            <td>15%</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>2 Jan 2024</td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
-                                                <button className="confirmBtn">Save</button>
+                                                <EyeOutlined />
                                             </td>
                                             <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>05</td>
                                             <td>#12345123</td>
-                                            <td>10%</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>2 Jan 2024</td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
-                                                <button className="confirmBtn">Save</button>
+                                                <EyeOutlined />
                                             </td>
                                             <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
                                         <tr>
                                             <td>06</td>
                                             <td>#12345123</td>
-                                            <td>30%</td>
-                                            <td>2 Jan 2023</td>
-                                            <td>2 Jan 2024</td>
+                                            <td>Ajmal Abdul Rahiman</td>
+                                            <td>nguyenvana@gmail.com</td>
+                                            <td>***</td>
                                             <td className='TextAlign'>
-                                                <button className="confirmBtn">Save</button>
+                                                <EyeOutlined />
                                             </td>
                                             <td className='TextAlign'><DeleteOutlined className='deleBtn'/></td>
                                         </tr>
@@ -183,4 +174,4 @@ const items: MenuProps['items'] = [
     )
 };
 
-export default Promotion; 
+export default DeliveryReport; 
