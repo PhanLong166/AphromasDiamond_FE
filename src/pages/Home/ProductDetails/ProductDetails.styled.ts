@@ -121,7 +121,7 @@ export const Title = styled.h1`
   margin: 0;
   color: ${theme.color.primary};;
   font-size: 24px;
-  font-family: "Playfair Display", serif;
+  font-family: "Poppins", sans-serif;;
   padding-bottom: 8px;
 `;
 
@@ -139,7 +139,7 @@ export const ProductMetal = styled.div`
 
   span {
     color: ${theme.color.primary};;
-    font-family: "Crimson Text", serif;
+     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 14px;
    
@@ -183,7 +183,7 @@ button:hover:not(.selected) {
 export const ProductInfo = styled.div`
 span {
   color: ${theme.color.primary};;
-  font-family: "Crimson Text", serif;
+   font-family: "Poppins", sans-serif;
   font-weight: 600;
   font-size: 14px;
  
@@ -250,7 +250,7 @@ export const SelectionTitle = styled.h5`
   margin: 0;
   font-size: 14px;
   text-align: left;
-  font-family: "Playfair Display", sans-serif;
+  font-family: "Poppins", sans-serif;
   color: ${theme.color.primary};;
 `;
 
@@ -311,7 +311,7 @@ export const ShippingItem = styled.li`
   align-items: center;
   span {
     color: ${theme.color.primary};;
-    font-family: "Crimson Text", sans-serif;
+    font-family: "Poppins", sans-serif;;
     font-size: 14px;
     font-weight: bold;
     padding-left: 8px;
@@ -355,7 +355,7 @@ margin-bottom: 15px;
 
 export const CurrentPrice = styled.span`
   font-size: 25px;
-  font-family: "Inika", serif;
+  font-family: "Poppins", sans-serif;;
   font-weight: bold;
   color: ${theme.color.primary};;
 `;
@@ -363,12 +363,12 @@ export const CurrentPrice = styled.span`
 export const BeforePrice = styled.span`
   color: #d9d9d9;
   text-decoration: line-through;
-  font-family: "Inika", serif;
+  font-family: "Poppins", sans-serif;
 `;
 
 export const Discount = styled.span`
   display: inline-block;
-  width: 50px;
+  width: 58px;
   font-size: 18px;
   padding: 8px;
   background-color: ${theme.color.primary};;
@@ -377,7 +377,7 @@ export const Discount = styled.span`
   text-align: center;
   border-radius: 5px;
   line-height: 1;
-  font-family: "Inika", serif;
+  font-family: "Poppins", sans-serif;
 `;
 
 
@@ -422,7 +422,7 @@ export const Tabbed = styled.div`
         white-space: nowrap;
         color: ${theme.color.primary};;
         text-decoration: none;
-        font-family: "Playfair Display", sans-serif;
+        font-family: "Poppins", sans-serif;
     }
     
     nav ul :is(li.active a,
@@ -443,13 +443,13 @@ export const ProductAbout = styled.div`
 
     h3 {
       font-size: 18px;
-      font-family: "Playfair Display", sans-serif;
+      font-family: "Poppins", sans-serif;
       color: ${theme.color.primary};;
   }
 
   h4 {
     font-weight: 700;
-    font-family: "Crimson Text", sans-serif;
+    font-family: "Poppins", sans-serif;
     color: ${theme.color.primary};;
     font-size: 16px;
 }
@@ -477,7 +477,7 @@ export const TextBlock = styled.div`
     margin-top: 25px;
     p {
         color: #45413E;
-        font-family: "Crimson Text", sans-serif;
+        font-family: "Poppins", sans-serif;
         font-size: 15px;
         line-height: 1.4;
         padding-left: 3px;
@@ -495,7 +495,7 @@ export const DotGrid = styled.div`
 export const ListBlock = styled.div`
         li {
             color: #45413E;
-            font-family: "Crimson Text", sans-serif;
+            font-family: "Poppins", sans-serif;
             font-size: 15px;
         }
   
@@ -532,7 +532,7 @@ export const Review = styled.div`
 
         strong {
             font-size: 40px;
-            font-family: "Playfair Display", sans-serif;
+            font-family: "Poppins", sans-serif;
             color: ${theme.color.primary};;
         }
 
@@ -540,7 +540,7 @@ export const Review = styled.div`
             position: relative;
             padding-left: 20px;
             color: ${theme.color.primary};;
-            font-family: "Playfair Display", sans-serif;
+            font-family: "Poppins", sans-serif;
             font-size: 14px;
 
             &::before {
@@ -599,7 +599,7 @@ export const Review = styled.div`
                     .reply strong {
                         font-weight: bold;
                         color: ${theme.color.primary};;
-                        font-family: "Crimson Text", sans-serif;
+                        font-family: "Poppins", sans-serif;
                         font-size: 15px;
                     }
 
@@ -608,7 +608,7 @@ export const Review = styled.div`
                     .date {
                         font-size: 10px;
                         margin-top: 5px;
-                        font-family: "Inika", sans-serif;
+                        font-family: "Poppins", sans-serif;
                         color: #45413E;
                     }
                 
@@ -616,7 +616,7 @@ export const Review = styled.div`
 
             .comment {
                 padding-left: 92px;
-                font-family: "Crimson Text", sans-serif;
+                font-family: "Poppins", sans-serif;
                 color: #45413E;
                
 
@@ -628,13 +628,13 @@ export const Review = styled.div`
                 strong {
                     color: ${theme.color.primary};;
                     font-size: 15px;
-                    font-family: "Playfair Display", sans-serif;
+                    font-family: "Poppins", sans-serif;
                 }
             }
 
             .reply {
                 margin-left: 92px;
-                background-color: ${theme.color.secondary};;
+                background-color: #f1f1f1;
                 width: fit-content;
                 padding: 10px;
                 border-radius: 10px;
@@ -644,7 +644,7 @@ export const Review = styled.div`
                     margin-top: 5px;
                     font-size: 15px;
                     color: #45413E;
-                    font-family: "Crimson Text", sans-serif;
+                    font-family: "Poppins", sans-serif;
                 }
 
             }
@@ -663,7 +663,7 @@ export const ProductSection = styled.section`
 export const HeadingTitle = styled.h2`
   color: ${theme.color.primary};;
   font-size: 22px;
-  font-family: "Playfair Display", sans-serif;
+  font-family: "Poppins", sans-serif;
 `;
 export const ListProduct = styled.div`
 display: grid;
@@ -716,7 +716,7 @@ export const ProductItem = styled.div`
     font-weight: 700;
     font-size: 18px;
     margin: 10px;
-    font-family: "Crimson Text", serif;
+     font-family: "Poppins", sans-serif;
     color: ${theme.color.primary};;
 }
 `;
@@ -732,12 +732,12 @@ export const ItemName = styled.p`
   color: ${theme.color.primary};;
   font-size: 17px;
   font-weight: 600;
-  font-family: "Crimson Text", serif;
+   font-family: "Poppins", sans-serif;
 `;
 
 export const Price = styled.p`
     font-size: small;
-    font-family: "Inika", serif;
+    font-family: "Poppins", sans-serif;
     color: #45413E;
     font-weight: 600;
     font-size: 16px;
