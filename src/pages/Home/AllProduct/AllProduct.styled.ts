@@ -1,9 +1,9 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { theme } from "../../../themes";
 
 export const Section = styled.div`
   margin: 0 auto;
-  background-color: ${theme.color.white};;
+  background-color: ${theme.color.white};
 `;
 
 export const Container = styled.div`
@@ -18,7 +18,7 @@ export const Heading = styled.div`
     text-align: center;
     margin: 30px auto;
     font-family: "Playfair Display", serif;
-    color: ${theme.color.primary};;
+    color: ${theme.color.primary};
     font-weight: 700;
     margin-bottom: 50px;
   }
@@ -41,8 +41,8 @@ export const SidebarContent = styled.div`
 
 export const SidebarTitle = styled.div`
   font-size: 24px;
-  font-family: "Crimson Text", serif;
-  color: ${theme.color.primary};;
+  font-family: "Gantari", sans-serif;
+  color: ${theme.color.primary};
   font-weight: 600;
   margin-bottom: 20px;
 `;
@@ -61,8 +61,8 @@ export const Summary = styled.div`
 
     span {
       font-weight: 600;
-      font-family: "Crimson Text", serif;
-      color: ${theme.color.primary};;
+      font-family: "Gantari", sans-serif;
+      color: ${theme.color.primary};
       font-size: 18px;
     }
 
@@ -78,7 +78,7 @@ export const Summary = styled.div`
   }
 
   .bx-chevron-down {
-    color: ${theme.color.primary};;
+    color: ${theme.color.primary};
   }
 `;
 
@@ -108,12 +108,12 @@ export const Wapper = styled.ul`
   li {
     list-style: none;
     text-decoration: none;
-    color: ${theme.color.primary};;
+    color: ${theme.color.primary};
     cursor: pointer;
     font-size: 17px;
 
     a {
-      font-family: "Crimson Text", serif;
+      font-family: "Gantari", sans-serif;
       opacity: 0.8;
       text-decoration: none;
       color: inherit;
@@ -139,43 +139,42 @@ export const Sorter = styled.div`
 
 export const Left = styled.div`
   font-size: 16px;
-  font-family: "Crimson Text", serif;
-
+  font-family: "Gantari", sans-serif;
 `;
 
 export const ProductSection = styled.section``;
 
 export const ListProduct = styled.div`
-display: grid;
-grid-template-columns: repeat(3, 1fr);
-gap: 20px;
-align-items: center;
-text-align: center;
-justify-content: center;
-padding: 35px;
-padding-left: 20px;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  align-items: center;
+  text-align: center;
+  justify-content: center;
+  padding: 35px;
+  padding-left: 20px;
 `;
 
 export const ProductItem = styled.div`
-    background-color: transparent;
-    padding: 10px;
-    border-radius: 8px;
-    width: 300px;
-    height: 350px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    align-items: center;
+  background-color: transparent;
+  padding: 10px;
+  border-radius: 8px;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
 
   &:hover {
-    transform: translateY(-5px);
     cursor: pointer;
-        transition: all .45s ease;
+    transform: translateY(-5px);
+    transition: all 0.45s ease;
   }
 
   img {
     width: 200px;
-    height: 200px;
+    height: 250px;
   }
 
   a {
@@ -195,77 +194,76 @@ export const ProductItem = styled.div`
     font-weight: 700;
     font-size: 18px;
     margin: 10px;
-    font-family: "Crimson Text", serif;
-    color: ${theme.color.primary};;
-}
+    font-family: "Gantari", sans-serif;
+    color: ${theme.color.primary};
+  }
 `;
 
 export const ProductImage = styled.img`
-    width: 80%;
-    height: auto;
-    filter: drop-shadow(0 10px 15px #0009);
-    padding-bottom: 10px;
+  width: 80%;
+  height: auto;
+  filter: drop-shadow(0 10px 15px #0009);
+  padding-bottom: 10px;
 `;
 
 export const ItemName = styled.p`
-  color: ${theme.color.primary};;
-  font-size: 17px;
-  font-weight: 600;
-  font-family: "Crimson Text", serif;
+  color: ${theme.color.primary};
+  font-size: 14px;
+  font-family: "Gantari", sans-serif;
+  text-align: left;
+  padding: 0 25px;
 `;
 
 export const Price = styled.p`
-    font-family: "Poppins", serif;
-    color: #45413E;
-    font-weight: 600;
-    font-size: 16px;
-    margin-top: 10px
+  font-family: "Gantari", sans-serif;
+  color: ${theme.color.primary};
+  font-weight: 600;
+  font-size: 14px;
+  margin-top: 10px;
+  text-align: left;
+  padding: 0 25px;
 `;
 
 export const AddCartButton = styled.button`
-    background-color: ${theme.color.primary};;
-    color: ${theme.color.white};;
-    padding: 12px 10px;
-    border-radius: 8px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-    width: 100%;
-    box-sizing: border-box;
-   
-    
-    
-    &:hover {
-        font-size: 14px;
-        transition: all .45s ease;
-    }   
+  background-color: ${theme.color.primary};
+  color: ${theme.color.white};
+  padding: 12px 10px;
+  border-radius: 8px;
+  border: none;
+  cursor: pointer;
+  margin-top: 10px;
+  width: 100%;
+  box-sizing: border-box;
 
+  &:hover {
+    font-size: 14px;
+    transition: all 0.45s ease;
+  }
 `;
 
 export const AddLink = styled.a`
-    text-decoration: none;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
+  text-decoration: none;
+  font-family: "Gantari", sans-serif;
+  font-weight: 600;
 `;
 
 export const MoreButton = styled.button`
-    border-width: 0;
-   
-    margin: 60px 0 100px;
-    text-align: center;
+  border-width: 0;
 
-   a {
+  margin: 60px 0 100px;
+  text-align: center;
+
+  a {
     text-decoration: none;
-    color: ${theme.color.white};;
+    color: ${theme.color.white};
     font-weight: 600;
     font-size: 14px;
     cursor: pointer;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     padding: 15px 20px;
-    background-color: ${theme.color.primary};;
-    border-radius:8px;
-   }
-        
+    background-color: ${theme.color.primary};
+    border-radius: 8px;
+  }
 `;
 
 export const ButtonContainer = styled.div`
@@ -279,26 +277,24 @@ export const LoadMoreButton = styled.button`
   background: none;
   padding: 0;
   border: none;
-  
 `;
 
 export const MoreLink = styled.a`
   padding: 15px 20px;
-  background-color: ${theme.color.primary};;
+  background-color: ${theme.color.primary};
   border-radius: 8px;
   text-decoration: none;
-  color: ${theme.color.white};;
+  color: ${theme.color.white};
   font-weight: 600;
   font-size: 14px;
   cursor: pointer;
-  font-family: "Poppins", sans-serif;
-
+  font-family: "Gantari", sans-serif;
 `;
 
 export const PageLink = styled.a`
   margin: 0 5px;
   padding: 5px 10px;
-  color: ${theme.color.primary};;
+  color: ${theme.color.primary};
   cursor: pointer;
   text-decoration: none;
   &:hover {
@@ -308,10 +304,6 @@ export const PageLink = styled.a`
 `;
 
 export const Paging = styled.div`
-margin-left: 430px;
-margin-bottom: 40px;
+  margin-left: 430px;
+  margin-bottom: 40px;
 `;
-
-
-
-

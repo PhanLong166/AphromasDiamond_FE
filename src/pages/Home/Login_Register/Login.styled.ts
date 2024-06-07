@@ -8,10 +8,6 @@ export const GlobalStyle = createGlobalStyle`
   
   :root {
       --text-01: #45413E;
-      --brand-01: ${theme.color.forth};;
-      --brand-02: ${theme.color.third};;
-      --brand-03: ${theme.color.secondary};;
-      --brand-04: ${theme.color.primary};;
       --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
       --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
       --hover-timing: all 0.2s ease;
@@ -258,7 +254,7 @@ export const FormContent = styled.div`
     }
 
     .button {
-        color: ${theme.color.third};;
+        color: ${theme.color.primary};
         margin-top: 15px;
      
       

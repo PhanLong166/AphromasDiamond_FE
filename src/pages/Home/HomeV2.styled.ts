@@ -58,36 +58,29 @@ export const Heading = styled.div`
 
 export const Contain = styled.div`
   margin: 40px auto;
-  max-width: 1400px;
-  margin-left: 110px;
-  justify-content: center;
+  max-width: 1320px;
+
 `;
 
 export const DotGrid = styled.div``;
 
-export const Wrapper = styled.div`
-  display: grid;
-  --grid-col: 150px;
-  grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
-  gap: 20px;
-`;
 
 export const Cate = styled.div`
-  text-align: center;
-  box-sizing: border-box;
-  display: grid;
-  justify-content: center;
-  
 
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+ 
+  
 `;
 
 export const CateImage = styled.div`
   img {
-    max-width: 180px;
+    max-width: 240px;
     height: auto;
     background-color: ${theme.color.secondary};
     padding: 5px;
-    border-radius: 100px;
+    border-radius: 50%;
     cursor: pointer;
     box-shadow: 0px 8px 10px rgba(0, 0, 0, 0.2);
   }
@@ -102,8 +95,7 @@ export const CateTitle = styled.p`
   font-size: 15px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
-  text-align: start;
-  margin-left: 60px;
+  text-align: center;
   margin-top: 15px;
   
 `;

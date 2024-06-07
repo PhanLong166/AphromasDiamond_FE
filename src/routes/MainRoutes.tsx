@@ -30,7 +30,7 @@ const CustomerRouter = () => {
 const publicRoutes = {
     children: [
         { path: config.routes.public.home, element: <Home /> },
-        { path: config.routes.public.product, element: <Product /> },
+        { path: config.routes.public.product, element: <ProductDetails /> },
         { path: config.routes.public.productList, element: <Product /> },
         { path: config.routes.public.allProduct, element: <AllProduct /> }
         

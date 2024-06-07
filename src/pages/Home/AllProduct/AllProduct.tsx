@@ -1,9 +1,11 @@
-import React, { useState } from 'react';
-import { createRoot } from 'react-dom/client';
-import { Pagination } from 'antd';
-import styled from 'styled-components';
-import {  Breadcrumb  } from 'antd';
-
+import React, { useState } from "react";
+import { createRoot } from "react-dom/client";
+import { Pagination } from "antd";
+import styled from "styled-components";
+import { Breadcrumb } from "antd";
+import  { Menu }  from "antd";
+import { AppstoreOutlined, MailOutlined, SettingOutlined} from '@ant-design/icons';
+import { theme } from "../../../themes";
 import {
   Section,
   Container,
@@ -31,16 +33,142 @@ import {
   AddCartButton,
   AddLink,
   PageLink,
-  Paging
-
-} from './AllProduct.styled';
-import { CaretDownOutlined} from '@ant-design/icons';
-import { Link } from 'react-router-dom';
+  Paging,
+} from "./AllProduct.styled";
+import { CaretDownOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
 const CustomBreadcrumb = styled(Breadcrumb)`
-margin-left: 175px;
-padding-top: 20px;
+  margin-left: 175px;
+  padding-top: 20px;
 `;
 
+const SidebarMenu = styled(Menu)`
+ .ant-menu-title-content {
+ color: ${theme.color.primary};
+ font-size: 15px;
+ 
+ }
+`;
+
+
+const items = [
+  {
+    key: "sub1",
+    label: "Shape",
+    children: [
+      {
+        key: "1",
+        label: "Round",
+      },
+      {
+        key: "2",
+        label: "Princess",
+      },
+      {
+        key: "3",
+        label: "Cushion",
+      },
+      {
+        key: "4",
+        label: "Oval",
+      },
+      {
+        key: "5",
+        label: "Emerald",
+      },
+      {
+        key: "6",
+        label: "Pear",
+      },
+      {
+        key: "7",
+        label: "Asscher",
+      },
+      {
+        key: "8",
+        label: "Heart",
+      },
+      {
+        key: "9",
+        label: "Radiant",
+      },
+      {
+        key: "10",
+        label: "Marquise",
+      },
+    ],
+  },
+  {
+    type: "divider",
+  },
+
+  {
+    key: "sub2",
+    label: "Jewelry",
+    // icon: <AppstoreOutlined />,
+    children: [
+      {
+        key: "11",
+        label: "Rings",
+      },
+      {
+        key: "12",
+        label: "Necklaces",
+      },
+      {
+        key: "13",
+        label: "Earrings",
+      },
+      {
+        key: "14",
+        label: "Bracelets",
+      },
+      {
+        key: "15",
+        label: "Anklets",
+      },
+      {
+        key: "16",
+        label: "Bangles",
+      },
+      {
+        key: "17",
+        label: "Pendants",
+      },
+      
+    ],
+  },
+  {
+    type: "divider",
+  },
+  {
+    key: "sub4",
+    label: "Metals",
+    // icon: <SettingOutlined />,
+    children: [
+      {
+        key: "18",
+        label: "White Gold",
+      },
+      {
+        key: "19",
+        label: "Yellow Gold",
+      },
+      {
+        key: "20",
+        label: "Rose Gold",
+      },
+      {
+        key: "21",
+        label: "Platinum",
+      },
+    ],
+  },
+ 
+];
+const onClick = (e) => {
+  console.log("click ", e);
+};
 
 const AllProduct: React.FC = () => {
   const [current, setCurrent] = useState(1);
@@ -48,37 +176,35 @@ const AllProduct: React.FC = () => {
   const onChange = (page: number) => {
     console.log(page);
     setCurrent(page);
-    window.history.pushState({}, '', `/page-${page}`); // Cập nhật URL bằng JavaScript
+    window.history.pushState({}, "", `/page-${page}`); 
   };
   return (
-    
     <Section>
       <div>
-      <CustomBreadcrumb
-        separator=">"
-        items={[
-          {
-            title: 'Home',
-            href: '/',
-          },
-          {
-            title: 'Round Ring',
-            href: '/product',
-          },
-          {
-            title: 'All Product',
-          },
-          
-        ]}
-      />
-    </div>
+        <CustomBreadcrumb
+          separator=">"
+          items={[
+            {
+              title: "Home",
+              href: "/",
+            },
+            {
+              title: "Round Ring",
+              href: "/product",
+            },
+            {
+              title: "All Product",
+            },
+          ]}
+        />
+      </div>
       <Container className="wide">
         <Wrap>
           <Heading>
             <h2>ALL PRODUCTS PAGE</h2>
           </Heading>
           <Content>
-            <Sidebar id="sidebar-filter">
+            {/* <Sidebar id="sidebar-filter">
               <SidebarWrap>
                 <SidebarContent>
                   <SidebarTitle>Filter</SidebarTitle>
@@ -138,10 +264,23 @@ const AllProduct: React.FC = () => {
                   </Widget>
                 </SidebarContent>
               </SidebarWrap>
-            </Sidebar>
+            </Sidebar> */}
+            
+            <SidebarMenu
+              onClick={onClick}
+              style={{
+                width: 256,
+              }}
+              defaultSelectedKeys={[""]}
+              defaultOpenKeys={[""]}
+              mode="inline"
+              items={items}
+            />
             <CategoryContent>
               <Sorter>
-                <a href="" className="menu-trigger"><i></i> </a>
+                <a href="" className="menu-trigger">
+                  <i></i>{" "}
+                </a>
                 <Left>
                   <span className="grey-color">Showing 9 of 35 results</span>
                 </Left>
@@ -149,46 +288,102 @@ const AllProduct: React.FC = () => {
               <ProductSection id="products">
                 <ListProduct>
                   {[
-                    { href: '/details', name: 'Petite Pavé Leaf Halo Diamond Engagement Ring', price: '$13.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102' },
-                    { href: '#', name: 'Shank Double Pavé Diamond Engagement Ring', price: '$16.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct13.png?alt=media&token=f76015c8-b828-438c-b99a-57f0938e3aaf' },
-                    { href: '#', name: 'Shank Triple Pavé Diamond Engagement Ring', price: '$19.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct3.png?alt=media&token=29b58243-7981-4e8d-a6b3-2c964de6ab7d' },
-                    { href: '#', name: 'Graduated Milgrain Diamond Engagement Ring', price: '$11.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct4.png?alt=media&token=ed7b509a-55f7-4b14-a6c6-c46107d25acb' },
-                    { href: '#', name: 'Six-Prong Hand-Engraved Diamond Engagement Ring', price: '$13.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct5.png?alt=media&token=fcedf915-c5f5-4215-9226-7f8088c4102e' },
-                    { href: '#', name: 'Tapered Baguette Diamond Engagement Ring', price: '$15.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct1.png?alt=media&token=8c409126-be7d-4d54-8475-3e3539ad9743' },
-                    { href: '#', name: 'Shank Double Lave Diamond Engagement Ring', price: '$17.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct7.png?alt=media&token=6da53894-3b1f-47f6-8c95-e073e76c0dc7' },
-                    { href: '#', name: 'Stone Trapezoid Sidestone Diamond Ring', price: '$23.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543' },
-                    { href: '#', name: 'Six-Prong Hand-Engraved Diamond Engagement Ring', price: '$13.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct9.png?alt=media&token=55c3fb6a-569b-41cf-b994-b6d657424695' }
-                  ].map(product => (
+                    {
+                      href: "/details",
+                      name: "Petite Pavé Leaf Halo Diamond Engagement Ring",
+                      price: "$13.99",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102",
+                    },
+                    {
+                      href: "#",
+                      name: "Shank Double Pavé Diamond Engagement Ring",
+                      price: "$16.99",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct13.png?alt=media&token=f76015c8-b828-438c-b99a-57f0938e3aaf",
+                    },
+                    {
+                      href: "#",
+                      name: "Shank Triple Pavé Diamond Engagement Ring",
+                      price: "$19.99",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct3.png?alt=media&token=29b58243-7981-4e8d-a6b3-2c964de6ab7d",
+                    },
+                    {
+                      href: "#",
+                      name: "Graduated Milgrain Diamond Engagement Ring",
+                      price: "$11.00",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct4.png?alt=media&token=ed7b509a-55f7-4b14-a6c6-c46107d25acb",
+                    },
+                    {
+                      href: "#",
+                      name: "Six-Prong Hand-Engraved Diamond Engagement Ring",
+                      price: "$13.00",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct5.png?alt=media&token=fcedf915-c5f5-4215-9226-7f8088c4102e",
+                    },
+                    {
+                      href: "#",
+                      name: "Tapered Baguette Diamond Engagement Ring",
+                      price: "$15.00",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct1.png?alt=media&token=8c409126-be7d-4d54-8475-3e3539ad9743",
+                    },
+                    {
+                      href: "#",
+                      name: "Shank Double Lave Diamond Engagement Ring",
+                      price: "$17.00",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct7.png?alt=media&token=6da53894-3b1f-47f6-8c95-e073e76c0dc7",
+                    },
+                    {
+                      href: "#",
+                      name: "Stone Trapezoid Sidestone Diamond Ring",
+                      price: "$23.00",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543",
+                    },
+                    {
+                      href: "#",
+                      name: "Six-Prong Hand-Engraved Diamond Engagement Ring",
+                      price: "$13.00",
+                      imgSrc:
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct9.png?alt=media&token=55c3fb6a-569b-41cf-b994-b6d657424695",
+                    },
+                  ].map((product) => (
                     <ProductItem key={product.name}>
-                       <Link to={product.href}>
+                      <Link to={product.href}>
                         <ProductImage src={product.imgSrc} alt={product.name} />
                         <ItemName>{product.name}</ItemName>
                         <Price>{product.price}</Price>
-                        </Link>
-                      <AddCartButton>
+                      </Link>
+                      {/* <AddCartButton>
                       <AddLink href="#">Add To Cart</AddLink>
-                      </AddCartButton>
+                      </AddCartButton> */}
                     </ProductItem>
                   ))}
                 </ListProduct>
               </ProductSection>
               <Paging>
                 <Pagination
-                    current={current}
-                    onChange={onChange}
-                    total={50}
-                    itemRender={(page, type, originalElement) => {
-                    if (type === 'page') {
-                    if (page === 1) {
-                       return originalElement;
-                    } else {
-                        return <PageLink href={`/page-${page}`}>{page}</PageLink>;
-                   }
+                  current={current}
+                  onChange={onChange}
+                  total={50}
+                  itemRender={(page, type, originalElement) => {
+                    if (type === "page") {
+                      if (page === 1) {
+                        return originalElement;
+                      } else {
+                        return (
+                          <PageLink href={`/page-${page}`}>{page}</PageLink>
+                        );
+                      }
                     }
-                  return originalElement;
-                   }}
-      />
-    </Paging>
+                    return originalElement;
+                  }}
+                />
+              </Paging>
             </CategoryContent>
           </Content>
         </Wrap>

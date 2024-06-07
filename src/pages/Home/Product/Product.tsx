@@ -10,8 +10,8 @@ import {
   ProductImage,
   ItemName,
   Price,
-  AddCartButton,
-  AddLink,
+  // AddCartButton,
+  // AddLink,
   CustomCard,
   CustomCardContent,
   CustomCardTitle,
@@ -25,7 +25,9 @@ import {
 import { CaretDownOutlined} from '@ant-design/icons';
 import styled from 'styled-components';
 import {  Breadcrumb  } from 'antd';
+import {  Collapse   } from 'antd';
 import { Link } from 'react-router-dom';
+// import { HeartOutlined } from '@ant-design/icons';
 const CustomBreadcrumb = styled(Breadcrumb)`
 margin-left: 175px;
 padding-top: 10px;
@@ -38,6 +40,45 @@ const Product: React.FC = () => {
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+
+  const texts = [
+    `
+     Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.
+    `,
+    `
+      Yes, diamond rings make perfect weddings rings and engagement rings.
+    `,
+    `
+      Women’s diamond wedding rings are available in platinum along with yellow, white and rose gold. 
+    `,
+  ];
+  
+  const labels = [
+    'What is the average cost of a womens diamond wedding ring?',
+    'Can weddings rings be diamond rings?',
+    'What metals are best for diamond wedding bands?',
+  ];
+  
+  const items = texts.map((text, index) => ({
+    key: (index + 1).toString(),
+    label: labels[index],
+    children: <p>{text}</p>,
+  }));
+const onChange = (key) => {
+  console.log(key);
+};
+
+// const HeartIcon = styled(HeartOutlined)`
+//   position: absolute;
+//   top: 10px;
+//   right: 10px;
+//   font-size: 24px;
+//   color: ${props => props.theme.color.primary};
+
+//   &:hover {
+//     color: ${props => props.theme.color.secondary};
+//   }
+// `;
 
   return (
 
@@ -64,7 +105,7 @@ const Product: React.FC = () => {
             Get heirloom-quality beauty with our captivating selection of vintage-style engagement rings. Hand-engraved details, beaded-edge milgrain and pavé accent diamonds are featured throughout this intricately crafted collection. Pair these
             settings with a traditional round diamond, or make them even more unique with fancy-cut diamonds. Choose the vintage engagement ring that matches timeless styles such as Art Deco, mid-century and other 20th century fashions.
           </div>
-          <button className="consult-button">Contact us for consultation</button>
+          <button className="consult-button button_slide slide_right"><span>CONTACT US FOR CONSULTATION</span></button>
         </LeftSection>
         <RightSection>
           <img src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproductmain1.png?alt=media&token=ebecd04a-3bec-45e1-bbf6-767f4c94f890" alt="Product Image" />
@@ -80,29 +121,30 @@ const Product: React.FC = () => {
           { href: '#', name: 'Six-Prong Hand-Engraved Diamond Engagement Ring', price: '$13.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct5.png?alt=media&token=fcedf915-c5f5-4215-9226-7f8088c4102e' },
           { href: '#', name: 'Tapered Baguette Diamond Engagement Ring', price: '$15.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102' },
           { href: '#', name: 'Shank Double Lave Diamond Engagement Ring', price: '$17.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct7.png?alt=media&token=6da53894-3b1f-47f6-8c95-e073e76c0dc7' },
-          { href: '#', name: 'Stone Trapezoid Sidestone Diamond Ring', price: '$23.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543' },
+          { href: '#', name: 'Stone Trapezoid Sidestone Diamond Engagement Ring', price: '$23.00', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543' },
           { href: '#', name: 'Petite Pavé Leaf Halo Diamond Engagement Ring', price: '$13.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct9.png?alt=media&token=55c3fb6a-569b-41cf-b994-b6d657424695' },
           { href: '#', name: 'Shank Double Pavé Diamond Engagement Ring', price: '$16.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct10.png?alt=media&token=e2150433-8343-47fc-b009-9f13d9d77349' },
           { href: '#', name: 'Shank Triple Pavé Diamond Engagement Ring', price: '$19.99', imgSrc: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct11.png?alt=media&token=e8d6c46c-fc91-4547-bfda-6aa6ded17c7f' },
                    
           ].map(product => (
             <ProductItem key={product.name}>
+            {/* <HeartIcon /> */}
             <Link to={product.href}>
               <ProductImage src={product.imgSrc} alt={product.name} />
               <ItemName>{product.name}</ItemName>
               <Price>{product.price}</Price>
             </Link>
-            <AddCartButton>
+            {/* <AddCartButton>
                 <AddLink href="#">Add To Cart</AddLink>
-            </AddCartButton>
+            </AddCartButton> */}
             </ProductItem>
           ))}
         <CustomCard>
           <CustomCardContent>
             <CustomCardTitle>Don't see what you're looking for? <br /> Browse our full catalog</CustomCardTitle>
             <CustomButton>
-            <Link to={'/all'} className="link-add">
-              Show All
+            <Link to={'/all'} className="link-add button_slide slide_right">
+              SHOW ALL
             </Link>
              
             </CustomButton>
@@ -114,7 +156,7 @@ const Product: React.FC = () => {
         <LeftFAQ>
           <h2>FAQs ABOUT PRODUCT</h2>
         </LeftFAQ>
-        <Wrapper>
+        {/* <Wrapper>
         {['Is rose gold a popular choice for engagement rings?', 'What gives rose gold its pink color?', 'Is rose gold more expensive than yellow gold?', 'Are rose gold engagement rings more durable than yellow gold rings?'].map((question, index) => (
   <div className={`faq ${activeIndex === index ? 'active' : ''}`} key={index}>
     <Accordion onClick={() => toggleAccordion(index)} >
@@ -126,7 +168,8 @@ const Product: React.FC = () => {
     </Panel>
   </div>
 ))}
-        </Wrapper>
+        </Wrapper> */}
+        <Collapse items={items} defaultActiveKey={['1']} onChange={onChange} />
       </FAQs>
     </Container>
  
