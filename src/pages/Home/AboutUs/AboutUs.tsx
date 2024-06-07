@@ -27,7 +27,7 @@ import {
      Box, 
      Stars, 
      CustomerImage, 
-     StarIcon
+    //  StarIcon
 } from './AboutUs.styled';
 import styled from 'styled-components';
 import { Row, Col, Typography} from 'antd';

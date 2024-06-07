@@ -1,9 +1,14 @@
 import React from "react";
 import VoucherCard from "./CartVoucher"; // Đường dẫn tới file chứa component VoucherCard
 import styled from "styled-components";
+import Footer from '@/components/Footer/Footer';
+import AccountCus from '@/components/AccountCus/AccountCus';
 
 const Voucher = () => {
   return (
+    <div>
+      
+      <AccountCus/>
     <Main>
       <Title>Voucher</Title>
     <VoucherCardContainer>
@@ -53,6 +58,8 @@ const Voucher = () => {
       />
       </VoucherCardContainer>
       </Main>
+      <Footer/>
+      </div>
   );
 };
 

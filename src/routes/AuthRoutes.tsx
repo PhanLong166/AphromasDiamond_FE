@@ -10,6 +10,7 @@ const AuthRoutes = {
     element: <AuthRouter/>,
     children: [
         {path: config.routes.public.login, element: <Login/>},
+        
     ]
 }
 

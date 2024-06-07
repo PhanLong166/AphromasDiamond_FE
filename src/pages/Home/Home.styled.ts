@@ -1,6 +1,11 @@
-
 import styled from 'styled-components';
 import { theme } from "../../themes";
+import { createGlobalStyle } from 'styled-components';
+const GlobalStyle = createGlobalStyle`
+@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+`;
+
+export default GlobalStyle;
 
 export const Body = styled.div`
     background-color: ${theme.color.white};
@@ -33,14 +38,14 @@ export const Heading = styled.div`
     text-align: center;
     .title-cate {
         font-size: 32px;
-        font-family: "Playfair Display", serif;
+        font-family: "Poppins", sans-serif;
         color: ${theme.color.primary};
     }
 
     .title {
         font-size: 32px;
         margin-bottom: 20px;
-        font-family: "Playfair Display", serif;
+        font-family: "Poppins", sans-serif;
         color: ${theme.color.white};
          
     }
@@ -90,7 +95,7 @@ export const CateImage = styled.div`
 export const CateTitle = styled.p`
   color: ${theme.color.primary};;
   font-size: 18px;
-  font-family: "Crimson Text", serif;
+  font-family: "Poppins", sans-serif;
   cursor: pointer;
   text-align: start;
   margin-left: 60px;
@@ -185,7 +190,7 @@ export const DotTitle = styled.div`
 margin: 10px 20px 0 0;   
     font-size: 15px;
     color: ${theme.color.white};
-    font-family: "Playfair Display", serif;
+     font-family: "Poppins", sans-serif;
 
 `;
 
@@ -230,12 +235,12 @@ export const Banner2Container = styled.div`
     color: ${theme.color.primary};;
     text-align: center;
     margin-top: 0;
-    font-family: "Playfair Display", serif;
+     font-family: "Poppins", sans-serif;
     font-weight: 600;
     font-size: 24px;
     h6 {
         font-size: 16px;
-        font-family: "Crimson Text", serif;
+         font-family: "Poppins", sans-serif;
         color: ${theme.color.primary};;
         font-weight: bold;
         padding-top: 60px;
@@ -318,7 +323,7 @@ export const Feature = styled.section`
     .title-best {
         font-size: 34px;
         margin-bottom: 20px;
-        font-family: "Playfair Display", serif;
+         font-family: "Poppins", sans-serif;
         color: ${theme.color.primary};;
         text-align: center;
         font-weight: bolder;
@@ -363,17 +368,18 @@ export const Row = styled.div`
 export const RowText = styled.div`
     margin-bottom: 20px;
     h6 {
+        font-family: "Poppins", serif;
         font-size: 12px;
-            font-weight: 300;
-            color: #fff;
-            margin-bottom: 1.5rem;
-            font-family: "Poppins", serif;
+        font-weight: 300;
+        color: #fff;
+        margin-bottom: 1.5rem;
+            
     }
     h3 {
         font-size: 20px;
         font-weight: 600;
         margin-bottom: 10px;
-        font-family: "Playfair Display", serif;
+         font-family: "Poppins", sans-serif;
         color: #fff;
     }
     h5 {
@@ -381,7 +387,7 @@ export const RowText = styled.div`
             font-weight: 600;
             color: #fff;
             margin-bottom: 2rem;
-            font-family: "Inika", serif;
+            font-family: "Poppins", sans-serif;
     }
     .row-btn {
         display: inline-block;
@@ -424,7 +430,8 @@ export const About = styled.section`
 `;
 
 export const AboutImg = styled.div`
-    background: ${theme.color.secondary};;
+
+    background: ${theme.color.white};;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -441,7 +448,7 @@ export const AboutImg = styled.div`
 `;
 
 export const AboutText = styled.div`
-    background: ${theme.color.secondary};;
+    background: ${theme.color.white};;
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -453,7 +460,7 @@ export const AboutText = styled.div`
     h2 {
         font-size: 32px;
         text-transform: uppercase;
-        font-family: "Playfair Display", serif;
+         font-family: "Poppins", sans-serif;
         color: ${theme.color.primary};;
         font-weight: bolder;
     }
@@ -463,14 +470,14 @@ export const AboutText = styled.div`
             margin-bottom: 20px;
             width: 80%;
             text-align: center;
-            font-family: "Crimson Text", serif;
+             font-family: "Poppins", sans-serif;
             color: #45413E;
             font-size: 16px;
     }
     .row-btn {
         padding: 10px 15px;
         font-size: 12px;
-        color: ${theme.color.secondary};;
+        color: ${theme.color.white};;
         outline: none;
         border: none;
         border-radius: 10px;
@@ -498,7 +505,7 @@ export const Banner3Container = styled.div`
     padding-top: 80px;
     h6 {
         font-size: 16px;
-        font-family: "Crimson Text", serif;
+         font-family: "Poppins", sans-serif;
         color: ${theme.color.primary};;
         font-weight: bold;
     }
@@ -506,7 +513,7 @@ export const Banner3Container = styled.div`
         font-size: 32px;
         text-align: left;
         margin-top: 40px;
-        font-family: "Playfair Display", serif;
+         font-family: "Poppins", sans-serif;
         color: ${theme.color.primary};;
         font-weight: 700;
     }

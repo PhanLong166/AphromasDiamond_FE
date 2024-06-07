@@ -6,7 +6,7 @@ import { SearchOutlined, FilterOutlined, DownOutlined, PlusCircleOutlined,
 import type { MenuProps } from 'antd';
 import { Dropdown, Space } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
-import SalesStaffMenu from '../../../components/Admin/SalesStaffMenu/SalesStaffMenu';
+// import SalesStaffMenu from '../../../components/Admin/SalesStaffMenu/SalesStaffMenu';
 
 const items: MenuProps['items'] = [
     {
@@ -38,7 +38,7 @@ const items: MenuProps['items'] = [
                         <Sidebar/>
                         
                         <Styled.AdminPage>
-                            <SalesStaffMenu/>
+                            {/* <SalesStaffMenu/> */}
 
                             <Styled.AdPageContent>
                                 <Styled.AdPageContent_Head>

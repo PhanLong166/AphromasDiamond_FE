@@ -4,18 +4,10 @@ import { theme } from "../../../themes";
 
 export const ProductAdminArea = styled.section`
     display: inline-flex;
-    background-color: #EEEBE6;
+    background-color: #f1f1f1;
     font-family: "Poppins", sans-serif;
-    /* height: 100%; */
+    height: 100%; 
     width: 100%;
-    padding-bottom: 70px;
-
-
-    .custom-dropdown .ant-dropdown-menu {
-        background-color: red; /* Màu nền */
-        border: 1px solid #ccc; /* Viền */
-      }
-
 `;
 
 export const AdminPage = styled.div`
@@ -23,7 +15,10 @@ export const AdminPage = styled.div`
     margin-right: 70px;
     width: 100%;
     height: 100%;
-    // padding-bottom: 30px;
+    padding-bottom: 55px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
 `;
 
 export const TitlePage = styled.div `
@@ -47,13 +42,15 @@ export const TitlePage = styled.div `
 
 export const AdPageContent = styled.div`
     width: 100%;
-    background-color: #FFF7E8;
+    background-color: #ffffff;
     border-radius: 16px;
+    margin-top: 28px;   
+    padding-top: 25px;
     padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
-    margin: 28px 40px 30px 40px;
+    margin: 0px 40px 30px 40px;
 
     h2 {
         margin: 0px 0px 0px 0px;
@@ -123,36 +120,44 @@ export const AdPageContent_HeadBenefit = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 70%;
-    display: inline-flex;
-    align-items: center; 
+width: 30%;
+height: 45px;
+display: flex;
+align-items: center;
+border: 1px solid rgba(203, 210, 220, 0.5);
+border-radius: 16px;
+color: #151542;
+background-color: #f8f9fb;
 
-    .searchInput {
-        width: 90%;
-        font-size: 20px;
-        padding-left: 10px;
-        background-color: #FFF7E8;
-        height: 55px;
-        border:none;
-        border-radius: 16px 0px 0px 16px;
-        padding-right: 20px;
-        color:#102C57;
-    }
-    .anticon {
-        font-size: 23px;
-        color: #102C57;
-        background-color: #FFF7E8;
-        height: 55px;
-        border: 1px solid #FFF7E8;
-        padding: 0px 20px 0px 20px;
-        border-radius: 0px 16px 16px 0px;
-    }
-    .anticon:hover {
-        cursor: pointer;
-    }
+.searchInputContainer {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    width: calc(100% - 46px); // Adjust width to fit the layout
+}
+.searchIcon {
+    margin: 0px 10px 0px 10px;
+}
+.searchInput {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    // font-size: 16px;
+    background-color: #f8f9fb;
+    padding: 0px;
+}
+.filterIcon {
+    font-size: 20px;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
+}
 `;
 
-export const Pending_Table = styled.div`
+export const AdminTable = styled.div`
     padding: 0px 50px 0px 50px;
 
     table {
@@ -167,13 +172,10 @@ export const Pending_Table = styled.div`
         font-size: 16px;
         color: ${theme.color.primary};
     }
-    th {
-        color: #783232;
-        font-size: 20px;
-    }
-    tr {
-        
-    }
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
+      }
     tr .TextAlign{
         text-align: center;
     }
@@ -206,56 +208,6 @@ export const Pending_Table = styled.div`
     }
     .confirmBtn:hover {
         cursor: pointer;
-    }
-`;
-
-export const AdPageContent_Foot = styled.div`
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    background-color: #EADBC8;
-    padding: 12px 60px 12px 60px;
-    border-radius: 16px;
-    margin: 39px 40px 0px 40px;
-`;
-
-export const PageNum = styled.section`
-    display: flex;
-
-    p {
-        margin: 0px 7px 0px 0px;
-        color: #B19F8A;
-        font-weight: 500;
-    }
-
-    .nowPage {
-        color:#102C57;
-    }
-`;
-
-export const MovePage = styled.div`
-    button {
-        width:40px;
-        height: 40px;
-        background-color: #FFF7E8;
-        border-radius: 12px;
-        border: none;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-        font-size: 20px;
-        display: inline;
-        align-items: center;
-        text-align: center;
-        margin-right: 5px;
-        font-size: 15px;
-    }
-    button:hover {
-        cursor: pointer;
-    }
-    .backArrow .anticon {
-        color: #92929D;
-    }
-    .nextArrow .anticon {
-        color:#102C57;
     }
 `;
 

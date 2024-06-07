@@ -58,7 +58,7 @@ export const SBMenu = styled.div `
             margin-left: 0px;
         }
         p {
-            color: ${theme.color.forth};
+            color: ${theme.color.secondary};
             color: #151542;
         }
     }

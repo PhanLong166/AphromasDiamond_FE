@@ -1,5 +1,4 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
 
 
 export const OrderAdminArea = styled.section`
@@ -37,7 +36,7 @@ export const OrderContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-    width: 301px;
+    width: 30%;
     height: 45px;
     display: flex;
     align-items: center;
@@ -98,6 +97,10 @@ export const Pending_Table = styled.div`
     }
     td .anticon:hover {
         cursor: pointer;
+    }
+    tr th {
+        font-size: 13px;
+        color: #92929D !important;
     }
     
     .transferBtn {

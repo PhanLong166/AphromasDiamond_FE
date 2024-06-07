@@ -1,6 +1,6 @@
 import * as Styled from './ClientCaringMenu.styled';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
     
 const ClientCaringMenu = () => {
     const location = useLocation();
@@ -36,6 +36,7 @@ const ClientCaringMenu = () => {
       }, 1000);
     }
   };
+  sendMessage;
 
 
         return(

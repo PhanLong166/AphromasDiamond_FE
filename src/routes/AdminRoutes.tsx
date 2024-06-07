@@ -12,12 +12,14 @@ import RingProduct from "@/pages/Admin/ProductPage/Ring"
 import JewelryProduct from "@/pages/Admin/ProductPage/Jewelry"
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType"
 import MaterialProduct from "@/pages/Admin/ProductPage/Material"
-import Marketing from "@/pages/Admin/MarketingPage/Promotion"
+import Marketing from "@/pages/Admin/MarketingPage/Marketing"
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
 import Feedback from "@/pages/Admin/ClientCaringPage/Feedback"
 import Customer from "@/pages/Admin/CustomerPage/Customer"
 import SalesStaff from "@/pages/Admin/StaffPage/SalesStaff"
 import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff"
+import Manager from "@/pages/Admin/ManagerPage/Manager"
+
 // import Manager from "@/pages/Admin/"
 // import Theme from "@/pages/Admin/"
 
@@ -55,7 +57,7 @@ const AdminRoutes = {
         {path: config.routes.admin.salesStaff, element: <SalesStaff/>},
         {path: config.routes.admin.deliveryStaff, element: <DeliveryStaff/>},
 
-        // {path: config.routes.admin.manager, element: <Manager/>},
+        {path: config.routes.admin.manager, element: <Manager/>},
         // {path: config.routes.admin.theme, element: <Theme/>},
     ]
 
