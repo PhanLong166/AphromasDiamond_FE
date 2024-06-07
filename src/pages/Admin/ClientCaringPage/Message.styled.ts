@@ -27,7 +27,7 @@ export const AdPageContent = styled.div`
 `;
 
 export const MessageContent = styled.div`
-  padding: 25px 30px 30px 25px;
+  padding: 0px 30px 30px 25px;
   display: flex;
   height: 430px;
 `;
@@ -37,6 +37,7 @@ export const ChatSidebar = styled.div`
   //   border-right: 1px solid #ccc;
   padding: 10px;
   box-sizing: border-box;
+  overflow-y: auto;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -51,37 +52,46 @@ export const AdPageContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-  display: inline-flex;
-  align-items: center;
+width: 100%;
+height: 45px;
+display: flex;
+align-items: center;
+border: 1px solid rgba(203, 210, 220, 0.5);
+border-radius: 16px;
+color: #151542;
+background-color: #f8f9fb;
 
-  .searchInput {
-    width: 90%;
-    font-size: 20px;
-    padding-left: 10px;
-    background-color: ${theme.color.primary};
-    height: 55px;
-    border: none;
-    border-radius: 16px 0px 0px 16px;
-    padding-right: 20px;
-    color: ${theme.color.fifth};
-  }
-  .anticon {
-    font-size: 23px;
-    color: ${theme.color.fifth};
-    background-color: ${theme.color.primary};
-    height: 55px;
-    border: 1px solid ${theme.color.primary};
-    padding: 0px 20px 0px 20px;
-    border-radius: 0px 16px 16px 0px;
-  }
-  .anticon:hover {
-    cursor: pointer;
-  }
+.searchInputContainer {
+  display: flex;
+  align-items: center;
+  border-radius: 4px;
+  padding: 4px 8px;
+  width: calc(100% - 46px); // Adjust width to fit the layout
+}
+.searchIcon {
+  margin: 0px 10px 0px 10px;
+}
+.searchInput {
+  border: none;
+  outline: none;
+  flex-grow: 1;
+  // font-size: 16px;
+  background-color: #f8f9fb;
+  padding: 0px;
+}
+.filterIcon {
+  font-size: 20px;
+  margin-left: 10px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: center;
+}
 `;
 
 export const ChatList = styled.div`
   list-style: none;
-  padding: 30px 0px 0px 0px;
+  padding: 20px 0px 0px 0px;
   overflow-y: auto;
 
   ul {
@@ -89,11 +99,6 @@ export const ChatList = styled.div`
     padding: 0;
   }
 `;
-
-// export const ChatList = styled.ul`
-//   list-style: none;
-//   padding: 0;
-// `;
 
 export const ChatListItem = styled.li`
   padding: 10px;
@@ -177,6 +182,11 @@ export const InputContainer = styled.div`
   display: flex;
   .anticon {
     font-size: 17px;
+    color: #92929D;
+    cursor: pointer;
+  }
+  .anticon:hover {
+    color: ${theme.color.primary};
   }
 `;
 
@@ -196,7 +206,6 @@ export const SendButton = styled.button`
   background-color: #d9d9d9;
   color: ${theme.color.primary};
   border: none;
-  border-radius: 50px;
   cursor: pointer;
   font-size: 15px;
   &:hover {
