@@ -4,14 +4,14 @@ import { Space, Table, Select } from "antd";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  FilterOutlined,
-  DownOutlined,
+  // FilterOutlined,
+  // DownOutlined,
   PlusCircleOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
+  // ArrowLeftOutlined,
+  // ArrowRightOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType, TableProps } from "antd";
+import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
@@ -37,16 +37,18 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
+onChange;
+
 const Jewelry = () => {
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -87,7 +89,7 @@ const Jewelry = () => {
       key: "jewelryImg",
       className: "TextAlign",
       render: (_, record) => (
-        <a href={record.link} target="_blank" rel="noopener noreferrer">
+        <a href='#' target="_blank" rel="noopener noreferrer">
           <img
             src={record.jewelryImg}
             alt={record.jewelryName}
@@ -337,6 +339,8 @@ const Jewelry = () => {
     </Space>
   );
 
+  shelltype;
+
   return (
     <>
       <Styled.ProductAdminArea>
@@ -352,7 +356,7 @@ const Jewelry = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}

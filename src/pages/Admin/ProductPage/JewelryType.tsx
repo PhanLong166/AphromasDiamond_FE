@@ -3,17 +3,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  FilterOutlined,
-  DownOutlined,
+  // FilterOutlined,
+  // DownOutlined,
   PlusCircleOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  EditOutlined,
-  DeleteOutlined,
+  // ArrowLeftOutlined,
+  // ArrowRightOutlined,
+  // EditOutlined,
+  // DeleteOutlined,
 } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType, TableProps } from "antd";
+import type { TableColumnsType } from "antd";
 import {
-  Select,
+  // Select,
   Form,
   Input,
   InputNumber,
@@ -184,13 +184,13 @@ const JewelryType = () => {
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.jewelryTypeName.length - b.jewelryTypeName.length,
     },
     {
@@ -238,29 +238,30 @@ const JewelryType = () => {
   ];
 
   const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
+    if (!col.fixed) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === "price" ? "number" : "text",
-        dataIndex: col.dataIndex,
+        inputType: "price" === "price" ? "number" : "text",
+        dataIndex: 12,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
+  mergedColumns;
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -281,7 +282,7 @@ const JewelryType = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -394,7 +395,7 @@ const JewelryType = () => {
                   }}
                   bordered
                   dataSource={data}
-                  columns={mergedColumns}
+                  // columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,

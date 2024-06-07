@@ -3,16 +3,16 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  FilterOutlined,
-  DownOutlined,
+  // FilterOutlined,
+  // DownOutlined,
   PlusCircleOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  DeleteOutlined,
+  // ArrowLeftOutlined,
+  // ArrowRightOutlined,
+  // DeleteOutlined,
 } from "@ant-design/icons";
-import type { TableColumnsType, TableProps } from "antd";
+import type { TableColumnsType} from "antd";
 import {
-  Select,
+  // Select,
   Form,
   Input,
   InputNumber,
@@ -203,26 +203,26 @@ const Promotion = () => {
     {
       title: "ID",
       dataIndex: "promotionID",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.promotionID.localeCompare(b.promotionID),
     },
     {
       title: "% discount",
       dataIndex: "discountPercent",
       defaultSortOrder: "descend",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.discountPercent - b.discountPercent,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.startDate.length - b.startDate.length,
     },
     {
       title: "End Date",
       dataIndex: "endDate",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.endDate.length - b.endDate.length,
     },
     {
@@ -270,15 +270,15 @@ const Promotion = () => {
   ];
 
   const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
+    if (!col.fixed) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === "discountPercent" ? "number" : "text",
-        dataIndex: col.dataIndex,
+        inputType: "discountPercent" === "discountPercent" ? "number" : "text",
+        dataIndex: 12,
         title: col.title,
         editing: isEditing(record),
       }),
@@ -287,16 +287,19 @@ const Promotion = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
   };
+
+  mergedColumns;
+  
 
   return (
     <>
@@ -317,7 +320,7 @@ const Promotion = () => {
                   <input
                     className="searchInput"
                     type="text"
-                    size="large"
+                    // size="large"
                     placeholder="Search here..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
@@ -342,7 +345,7 @@ const Promotion = () => {
                     }}
                     bordered
                     dataSource={data}
-                    columns={mergedColumns}
+                    // columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
                       onChange: cancel,

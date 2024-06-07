@@ -3,17 +3,17 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  FilterOutlined,
-  DownOutlined,
+  // FilterOutlined,
+  // DownOutlined,
   PlusCircleOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  EditOutlined,
-  DeleteOutlined,
+  // ArrowLeftOutlined,
+  // ArrowRightOutlined,
+  // EditOutlined,
+  // DeleteOutlined,
 } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType } from "antd";
+import type { TableColumnsType } from "antd";
 import {
-  Select,
+  // Select,
   Form,
   Input,
   InputNumber,
@@ -157,25 +157,25 @@ const Material = () => {
     {
       title: "Material ID",
       dataIndex: "materialID",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.materialID.localeCompare(b.materialID),
     },
     {
       title: "Material Name",
       dataIndex: "materialName",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.materialName.length - b.materialName.length,
     },
     {
       title: "Buying Price per Gram",
       dataIndex: "buyingPrice",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.buyingPrice - b.buyingPrice,
     },
     {
       title: "Selling Price per Gram",
       dataIndex: "sellingPrice",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.sellingPrice - b.sellingPrice,
     },
     {
@@ -223,29 +223,30 @@ const Material = () => {
   ];
 
   const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
+    if (!col.fixed) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
-        dataIndex: col.dataIndex,
+        inputType: "buyingPrice" === "buyingPrice" ? "number" : "text",
+        dataIndex: 1,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
+  mergedColumns;
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -266,7 +267,7 @@ const Material = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -418,7 +419,7 @@ const Material = () => {
                   }}
                   bordered
                   dataSource={data}
-                  columns={mergedColumns}
+                  // columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,

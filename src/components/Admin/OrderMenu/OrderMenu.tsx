@@ -1,6 +1,6 @@
 import * as Styled from './OrderMenu.styled';
 import { Link, useLocation } from 'react-router-dom';
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
     
 const OrderMenu = () => {
     const location = useLocation();

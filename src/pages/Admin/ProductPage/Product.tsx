@@ -26,14 +26,14 @@ const columns: TableColumnsType<DataType> = [
     title: "Diamond ID",
     dataIndex: "diamondID",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.diamondID - b.diamondID,
+    sorter: (a: any, b: any) => a.diamondID - b.diamondID,
   },
   {
     title: "Image",
     key: "diamondImg",
     className: "TextAlign",
     render: (_, record) => (
-      <a href={record.link} target="_blank" rel="noopener noreferrer">
+      <a href='#' target="_blank" rel="noopener noreferrer">
         <img
           src={record.diamondImg}
           alt={record.diamondName}
@@ -223,12 +223,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const Product = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -249,7 +249,7 @@ const Product = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}

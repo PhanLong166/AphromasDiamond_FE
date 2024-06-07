@@ -1,23 +1,15 @@
 import * as Styled from "../ClientCaringPage/Feedback.styled";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  StarFilled,
-  StarOutlined,
-  DeleteOutlined,
 } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType } from "antd";
+import type { TableColumnsType } from "antd";
 import {
-  Select,
   Form,
   Input,
   InputNumber,
   Popconfirm,
   Table,
-  Typography,
-  Dropdown,
-  Space,
   Rate
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
@@ -221,30 +213,30 @@ const Feedback = () => {
     {
       title: "ID",
       dataIndex: "feedbackID",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.feedbackID.localeCompare(b.feedbackID),
     },
     {
       title: "Product Name",
       dataIndex: "productName",
-      editable: true,
+      // editable: true,
       // sorter: (a, b) => a.productName.length - b.productName.length,
     },
     {
       title: "Customer Name",
       dataIndex: "customer",
-      editable: true,
+      // editable: true,
       // sorter: (a, b) => a.customer.length - b.customer.length,
     },
     {
       title: "Description",
       dataIndex: "description",
-      editable: true,
+      // editable: true,
     },
     {
       title: "Star",
       dataIndex: "star",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.star - b.star,
       render: (_, record) => <Rate disabled defaultValue={record.star} />
     },
@@ -266,29 +258,33 @@ const Feedback = () => {
   ];
 
   const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
+    if (!col.fixed) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === "price" ? "number" : "text",
-        dataIndex: col.dataIndex,
+        inputType: "price" === "price" ? "number" : "text",
+        dataIndex: 12,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
 
+  mergedColumns.at(1);
+  edit;
+  save;
+
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -309,7 +305,7 @@ const Feedback = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -533,7 +529,7 @@ const Feedback = () => {
                   }}
                   bordered
                   dataSource={data}
-                  columns={mergedColumns}
+                  // columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,

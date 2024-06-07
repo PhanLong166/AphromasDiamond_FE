@@ -1,5 +1,4 @@
 import * as Styled from "../StaffPage/SalesStaff.styled";
-import { Link } from "react-router-dom";
 import {
   SearchOutlined,
   FilterOutlined,

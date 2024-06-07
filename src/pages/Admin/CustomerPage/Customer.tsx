@@ -1,5 +1,4 @@
 import * as Styled from './Customer.styled';
-import { Link } from 'react-router-dom';
 import { SearchOutlined, FilterOutlined, DownOutlined,
     ArrowLeftOutlined, ArrowRightOutlined, EyeOutlined} from '@ant-design/icons';
 import type { MenuProps } from 'antd';

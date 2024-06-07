@@ -1,8 +1,8 @@
 import * as Styled from './Message.styled';
-import { InputField, SendButton } from './Message.styled';
-import React, { useState } from 'react';
+import { InputField } from './Message.styled';
+import { useState } from 'react';
 import { SearchOutlined, SendOutlined} from '@ant-design/icons';
-import type { MenuProps } from 'antd';
+// import type { MenuProps } from 'antd';
 import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
 import ClientCaringMenu from '../../../components/Admin/ClientCaringMenu/ClientCaringMenu';
 
@@ -38,24 +38,24 @@ const initialChats: Chat[] = [
 ];
 
     const Messages = () => {
-        const items: MenuProps['items'] = [
-            {
-              label: <a href="/" style={{  }}>Soonest</a>,
-              key: '0',
-            },
-            {
-              label: <a href="/">Latest</a>,
-              key: '1',
-            },
-            {
-              label: <a href="/">Low to High</a>,
-              key: '2',
-            },
-            {
-                label: <a href="/">High to Low</a>,
-                key: '3',
-            }
-        ];
+        // const items: MenuProps['items'] = [
+        //     {
+        //       label: <a href="/" style={{  }}>Soonest</a>,
+        //       key: '0',
+        //     },
+        //     {
+        //       label: <a href="/">Latest</a>,
+        //       key: '1',
+        //     },
+        //     {
+        //       label: <a href="/">Low to High</a>,
+        //       key: '2',
+        //     },
+        //     {
+        //         label: <a href="/">High to Low</a>,
+        //         key: '3',
+        //     }
+        // ];
 
         const [chats, setChats] = useState<Chat[]>(initialChats);
         const [activeChatId, setActiveChatId] = useState<number | null>(null);
@@ -125,7 +125,7 @@ const initialChats: Chat[] = [
                                             style={{ backgroundColor: activeChatId === chat.id ? '#DDE2E8' : 'transparent' }}
                                             >
                                                 <Styled.ChatListItem_Text>
-                                                <img src={chat.img} alt={chat.id} />
+                                                <img src={chat.img} alt={chat.name} />
                                                     <div>{chat.name}</div>
                                                     
                                                 </Styled.ChatListItem_Text>
