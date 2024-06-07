@@ -1,11 +1,10 @@
-import * as Styled from "./Message.styled";
-import { InputField, SendButton } from "./Message.styled";
-import React, { useState } from "react";
-import { SearchOutlined, SendOutlined, AudioOutlined } from "@ant-design/icons";
-import { Input, Space } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import ClientCaringMenu from "../../../components/Admin/ClientCaringMenu/ClientCaringMenu";
-import { SearchProps } from "antd/es/input";
+import * as Styled from './Message.styled';
+import { InputField } from './Message.styled';
+import { useState } from 'react';
+import { SearchOutlined, SendOutlined} from '@ant-design/icons';
+// import type { MenuProps } from 'antd';
+import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
+import ClientCaringMenu from '../../../components/Admin/ClientCaringMenu/ClientCaringMenu';
 
 interface Message {
   sender: string;
@@ -107,12 +106,12 @@ const Messages = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -134,52 +133,36 @@ const Messages = () => {
         <Styled.AdminPage>
           <ClientCaringMenu />
 
-          <Styled.AdPageContent>
-            <Styled.MessageContent>
-              <Styled.ChatSidebar>
-                <Styled.AdPageContent_Head>
-                  <h2>Message</h2>
-                </Styled.AdPageContent_Head>
-                <Styled.SearchArea>
-                  <SearchOutlined className="searchIcon" />
-                  <input
-                    className="searchInput"
-                    type="text"
-                    size="large"
-                    placeholder="Search here..."
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                  />
-                </Styled.SearchArea>
-                <Styled.ChatList>
-                  {chats.map((chat) => (
-                    <Styled.ChatListItem
-                      key={chat.id}
-                      onClick={() => setActiveChatId(chat.id)}
-                      style={{
-                        backgroundColor:
-                          activeChatId === chat.id ? "#DDE2E8" : "transparent",
-                      }}
-                    >
-                      <Styled.ChatListItem_Text>
-                        <img src={chat.img} alt={chat.id} />
-                        <div>{chat.name}</div>
-                      </Styled.ChatListItem_Text>
-                      <div>
-                        <p>
-                          {chat.messages.length > 0
-                            ? formatTimestamp(
-                                chat.messages[chat.messages.length - 1]
-                                  .timestamp
-                              )
-                            : ""}
-                        </p>
-                      </div>
-                    </Styled.ChatListItem>
-                  ))}
-                </Styled.ChatList>
-              </Styled.ChatSidebar>
+                            <Styled.AdPageContent>
+                                <Styled.MessageContent>
+                                    <Styled.ChatSidebar>
+                                        <Styled.AdPageContent_Head>
+                                            <h2>Message</h2>
+                                        </Styled.AdPageContent_Head>
+                                        <Styled.SearchArea>
+                                            <input className="searchInput" type="text" />
+                                            <SearchOutlined />
+                                        </Styled.SearchArea>
+                                        <Styled.ChatList>
+                                        {chats.map(chat => (
+                                            <Styled.ChatListItem 
+                                            key={chat.id} 
+                                            onClick={() =>  setActiveChatId(chat.id)}
+                                            style={{ backgroundColor: activeChatId === chat.id ? '#DDE2E8' : 'transparent' }}
+                                            >
+                                                <Styled.ChatListItem_Text>
+                                                <img src={chat.img} alt={chat.name} />
+                                                    <div>{chat.name}</div>
+                                                    
+                                                </Styled.ChatListItem_Text>
+                                                <div>
+                                                <p>{chat.messages.length > 0 ? formatTimestamp(chat.messages[chat.messages.length - 1].timestamp) : ''}</p>
+                                                </div>
+                                            
+                                            </Styled.ChatListItem>
+                                        ))}
+                                        </Styled.ChatList>
+                                    </Styled.ChatSidebar>
 
               <Styled.ChatContainer>
                 <Styled.CustomerName>
@@ -236,5 +219,4 @@ const Messages = () => {
     </>
   );
 };
-
 export default Messages;

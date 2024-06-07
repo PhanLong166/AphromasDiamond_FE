@@ -7,7 +7,7 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import { Dropdown, Space, Table } from "antd";
+import { Space, Table } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
@@ -25,14 +25,14 @@ const columns: TableColumnsType<DataType> = [
     title: "Ring ID",
     dataIndex: "ringID",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.ringID - b.ringID,
+    sorter: (a: any, b: any) => a.ringID - b.ringID,
   },
   {
     title: "Image",
     key: "ringImg",
     className: "TextAlign",
     render: (_, record) => (
-      <a href={record.link} target="_blank" rel="noopener noreferrer">
+      <a href='#' target="_blank" rel="noopener noreferrer">
         <img
           src={record.ringImg}
           alt={record.ringName}
@@ -167,12 +167,12 @@ const Ring = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -193,7 +193,7 @@ const Ring = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}

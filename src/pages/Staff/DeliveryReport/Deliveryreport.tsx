@@ -1,7 +1,7 @@
 import * as Styled from "./DelveryReport.styled";
 import { useState } from "react";
 import { Button, Space, Table, Tag } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { SearchOutlined} from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/SidebarStaff/Sidebar";
 import StatusSection from "./Section";
@@ -9,7 +9,7 @@ import StatusSection from "./Section";
 interface DataType {
   key: React.Key;
   orderID: string;
-  date: Date;
+  date: string;
   cusName: string;
   deliName: string;
   product: string;
@@ -21,13 +21,13 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.orderID - b.orderID,
+    sorter: (a: any, b: any) => a.orderID - b.orderID,
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.date - b.date,
+    sorter: (a: any, b: any) => a.date - b.date,
   },
   {
     title: " Delivery Staff",
@@ -131,7 +131,7 @@ const columns: TableColumnsType<DataType> = [
   // },
 ];
 
-const data = [
+const data: DataType[] = [
   {
     key: "1",
     orderID: "12345124",
@@ -236,12 +236,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const DeliveryReport = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -265,7 +265,7 @@ const DeliveryReport = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}

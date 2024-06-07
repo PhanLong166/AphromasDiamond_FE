@@ -1,29 +1,11 @@
-import * as Styled from "./SalesStaff.styled";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  SearchOutlined,
-  FilterOutlined,
-  DownOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  EyeOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
-import type { MenuProps, TableColumnsType } from "antd";
-import {
-    Select,
-    Form,
-    Input,
-    InputNumber,
-    Popconfirm,
-    Table,
-    Typography,
-    Dropdown,
-    Space
-  } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
+import * as Styled from '../StaffPage/DeliveryStaff.styled';
+import { SearchOutlined, PlusCircleOutlined,
+    EyeOutlined} from '@ant-design/icons';
+import type { TableColumnsType } from 'antd';
+import { Space } from 'antd';
+import Sidebar from '../../../components/Admin/Sidebar/Sidebar';
+import { Link } from 'react-router-dom';
+import { useState } from 'react';
 
 
 
@@ -178,9 +160,10 @@ const DeliveryStaff = () => {
         console.log("Validate Failed:", errInfo);
       }
     };
+    save;
 
     const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
+    const newData = data.filter((item: any) => item.key !== key);
     setData(newData);
   };
   
@@ -189,20 +172,20 @@ const DeliveryStaff = () => {
         title: "Staff ID",
         dataIndex: "staffID",
         editable: true,
-        sorter: (a, b) => a.staffID.localeCompare(b.staffID),
+        sorter: (a: any, b: any) => a.staffID.localeCompare(b.staffID),
       },
       {
         title: "Staff Name",
         dataIndex: "staffName",
         defaultSortOrder: "descend",
         editable: true,
-        sorter: (a, b) => a.staffName.length - b.staffName.length,
+        sorter: (a: any, b: any) => a.staffName.length - b.staffName.length,
       },
       {
         title: "Email",
         dataIndex: "email",
         editable: true,
-        sorter: (a, b) => a.email.length - b.email.length,
+        sorter: (a: any, b: any) => a.email.length - b.email.length,
       },
       {
         title: "Detail",
@@ -248,12 +231,12 @@ const DeliveryStaff = () => {
   
     const [searchText, setSearchText] = useState("");
   
-    const onSearch = (value) => {
+    const onSearch = (value: any) => {
       console.log("Search:", value);
       // Thực hiện logic tìm kiếm ở đây
     };
   
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: any) => {
       if (e.key === "Enter") {
         onSearch(searchText);
       }
@@ -274,7 +257,7 @@ const DeliveryStaff = () => {
                   <input
                     className="searchInput"
                     type="text"
-                    size="large"
+                    size={12}
                     placeholder="Search here..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
@@ -388,7 +371,6 @@ const DeliveryStaff = () => {
     </>
   );
 };
-
 export default DeliveryStaff;
 
 

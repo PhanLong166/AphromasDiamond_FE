@@ -283,7 +283,7 @@ const RingSetting = () => {
     {
       title: "ID",
       dataIndex: "ringSettingID",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.ringSettingID.localeCompare(b.ringSettingID),
     },
     {
@@ -301,20 +301,20 @@ const RingSetting = () => {
     {
       title: "Name",
       dataIndex: "ringSettingName",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.ringSettingName.length - b.ringSettingName.length,
     },
     {
       title: "Price",
       dataIndex: "price",
-      editable: true,
+      // editable: true,
       sorter: (a, b) => a.price - b.price,
     },
     {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      editable: true,
+      // editable: true,
       filters: [
         { text: "Ring", value: "Ring" },
         { text: "Necklace", value: "Necklace" },
@@ -337,7 +337,7 @@ const RingSetting = () => {
       title: "Material",
       dataIndex: "material",
       key: "material",
-      editable: true,
+      // editable: true,
       filters: [
         { text: "14K White Gold", value: "14KWhiteGold" },
         { text: "14K Yellow Gold", value: "14KYellowGold" },
@@ -395,29 +395,30 @@ const RingSetting = () => {
   ];
 
   const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
+    if (!col.fixed) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === "price" ? "number" : "text",
-        dataIndex: col.dataIndex,
+        inputType: "price" === "price" ? "number" : "text",
+        dataIndex: 1,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
+  mergedColumns;
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -438,7 +439,7 @@ const RingSetting = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -463,7 +464,7 @@ const RingSetting = () => {
                   }}
                   bordered
                   dataSource={data}
-                  columns={mergedColumns}
+                  // columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,

@@ -1,30 +1,29 @@
-
-import * as Styled from "./SalesStaff.styled";
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import * as Styled from "../StaffPage/SalesStaff.styled";
 import {
   SearchOutlined,
-  FilterOutlined,
-  DownOutlined,
-  ArrowLeftOutlined,
-  ArrowRightOutlined,
-  EyeOutlined,
+  // FilterOutlined,
+  // DownOutlined,
+  // ArrowLeftOutlined,
+  // ArrowRightOutlined,
+  // EyeOutlined,
   PlusCircleOutlined,
 } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType } from "antd";
+import type { TableColumnsType } from "antd";
 import {
-    Select,
+    // Select,
     Form,
     Input,
     InputNumber,
     Popconfirm,
     Table,
-    Typography,
-    Dropdown,
-    Space
+    // Typography,
+    // Dropdown,
+    // Space
   } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
+import { useState } from "react";
+import { Link } from "react-router-dom";
 
 
 
@@ -184,25 +183,26 @@ const SalesStaff = () => {
     const newData = data.filter((item) => item.key !== key);
     setData(newData);
   };
+  save;
   
     const columns: TableColumnsType<Item> = [
       {
         title: "Staff ID",
         dataIndex: "staffID",
-        editable: true,
+        // editable: true,
         sorter: (a, b) => a.staffID.localeCompare(b.staffID),
       },
       {
         title: "Staff Name",
         dataIndex: "staffName",
         defaultSortOrder: "descend",
-        editable: true,
+        // editable: true,
         sorter: (a, b) => a.staffName.length - b.staffName.length,
       },
       {
         title: "Email",
         dataIndex: "email",
-        editable: true,
+        // editable: true,
         sorter: (a, b) => a.email.length - b.email.length,
       },
       {
@@ -222,29 +222,30 @@ const SalesStaff = () => {
     ];
   
     const mergedColumns = columns.map((col) => {
-      if (!col.editable) {
+      if (!col.fixed) {
         return col;
       }
       return {
         ...col,
         onCell: (record: Item) => ({
           record,
-          inputType: col.dataIndex === "discountPercent" ? "number" : "text",
-          dataIndex: col.dataIndex,
+          inputType: "discountPercent" === "discountPercent" ? "number" : "text",
+          dataIndex: 1,
           title: col.title,
           editing: isEditing(record),
         }),
       };
     });
+    mergedColumns;
   
     const [searchText, setSearchText] = useState("");
   
-    const onSearch = (value) => {
+    const onSearch = (value: any) => {
       console.log("Search:", value);
       // Thực hiện logic tìm kiếm ở đây
     };
   
-    const handleKeyPress = (e) => {
+    const handleKeyPress = (e: any) => {
       if (e.key === "Enter") {
         onSearch(searchText);
       }
@@ -265,7 +266,7 @@ const SalesStaff = () => {
                   <input
                     className="searchInput"
                     type="text"
-                    size="large"
+                    size={12}
                     placeholder="Search here..."
                     value={searchText}
                     onChange={(e) => setSearchText(e.target.value)}
@@ -362,7 +363,7 @@ const SalesStaff = () => {
                     }}
                     bordered
                     dataSource={data}
-                    columns={mergedColumns}
+                    // columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
                       onChange: cancel,

@@ -246,7 +246,7 @@ const Product = () => {
                 <Input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}

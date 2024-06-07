@@ -1,12 +1,11 @@
 
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import {
     Body,
     Categories,
     Container,
     Contain,
     DotGrid,
-
     Heading,
     Cate,
     CateImage,
@@ -36,7 +35,7 @@ import {
     Banner3Container
 } from './Home.styled';
 
-import { RightOutlined, LeftOutlined, ArrowRightOutlined, ArrowLeftOutlined } from '@ant-design/icons';
+import { RightOutlined, LeftOutlined } from '@ant-design/icons';
 import { Link } from 'react-router-dom';
 import { Carousel } from 'antd';
 
