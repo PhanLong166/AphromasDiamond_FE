@@ -1,7 +1,7 @@
 import * as Styled from "./DelveryReport.styled";
 import { useState } from "react";
 import { Button, Space, Table, Tag } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/SidebarStaff/Sidebar";
 import StatusSection from "./Section";
