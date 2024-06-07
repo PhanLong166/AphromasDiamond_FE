@@ -36,6 +36,11 @@ export const Categories = styled.div`
 
 export const Heading = styled.div`
     text-align: center;
+    h5 {
+        padding-bottom: 10px;
+        font-weight: 300;
+        font-size: 14px;
+    }
     .title-cate {
         font-size: 32px;
         font-family: "Poppins", sans-serif;
@@ -46,7 +51,7 @@ export const Heading = styled.div`
         font-size: 32px;
         margin-bottom: 20px;
         font-family: "Poppins", sans-serif;
-        color: ${theme.color.white};
+        color: ${theme.color.primary};
          
     }
 `;
@@ -94,7 +99,7 @@ export const CateImage = styled.div`
 
 export const CateTitle = styled.p`
   color: ${theme.color.primary};;
-  font-size: 18px;
+  font-size: 15px;
   font-family: "Poppins", sans-serif;
   cursor: pointer;
   text-align: start;
@@ -105,14 +110,14 @@ export const CateTitle = styled.p`
 
 export const LeftButtonWrapper = styled.div`
   position: absolute;
-  top: 114.5%;
+  top: 117.5%;
   transform: translateY(-50%);
   z-index: 1;
 `;
 
 export const RightButtonWrapper = styled.div`
   position: absolute;
-  top: 114.5%;
+  top: 117.5%;
   right: 107px; 
   transform: translateY(-50%);
   z-index: 1;
@@ -134,92 +139,146 @@ export const Button = styled.button`
 `;
 
 
-export const WrapperShape = styled.div`
-    display: grid;
-    --grid-col: 140px;
-    grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
+// export const WrapperShape = styled.div`
+//     display: grid;
+//     --grid-col: 140px;
+//     grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
   
-`;
+// `;
 
 export const ContainShape = styled.div`
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1320px;
   justify-content: center;
 `;
 
 export const Shape = styled.section`
     padding: 50px 0;
-    background-color: ${theme.color.primary};;
+   
 `;
 
-export const ShapeWrapper = styled.div`
-    display: flex;
-    justify-content: center;
-    .shapebox .wrapper {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: center;
-    }
-`;
+// export const ShapeWrapper = styled.div`
+//     display: flex;
+//     justify-content: center;
+//     .shapebox .wrapper {
+//         display: flex;
+//         flex-wrap: wrap;
+//         justify-content: center;
+//     }
+// `;
+
+// export const ShapeItem = styled.div`
+//     margin: 10px;
+//     text-align: center;
+
+// `;
+
+// export const DotImage = styled.div`
+//     img {
+//     max-width: 100px;
+//     height: auto;
+//     background-color: #fff;
+//     padding: 40px 20px;
+//     border-radius: 10px;
+//     &:hover {
+//         transform: translateY(-5px);
+//         cursor: pointer;
+//     }
+// }
+// `;
+
+// export const DotInfo = styled.div`
+    
+// `;
+
+// export const DotTitle = styled.div`
+// margin: 10px 20px 0 0;   
+//     font-size: 15px;
+//     color: ${theme.color.white};
+//      font-family: "Poppins", sans-serif;
+
+// `;
+
+// export const ButtonShape = styled.button`
+// padding: 10px;
+// cursor: pointer;
+// border-radius: 50%;
+// background-color: ${theme.color.primary};;
+// border: solid 2px ${theme.color.white};;
+    
+    
+//     &:hover {
+//         transform: translateY(-5px);
+//         transition: all .45s ease;
+//     }
+// `;
+// export const RightButtonShape = styled.div`
+// position: absolute;
+//     top: 82%;
+//     transform: translateY(-50%);
+//     right: 10px;
+  
+// `;
+
+// export const LeftButtonShape = styled.div`
+// position: absolute;
+//     top: 82%;
+//     transform: translateY(-50%);
+  
+// `;
 
 export const ShapeItem = styled.div`
-    margin: 10px;
-    text-align: center;
-
+ position: relative;
+  width: 100%;
+  padding: 10px;
 `;
 
 export const DotImage = styled.div`
-    img {
-    max-width: 100px;
-    height: auto;
-    background-color: #fff;
-    padding: 40px 20px;
-    border-radius: 10px;
-    &:hover {
-        transform: translateY(-5px);
-        cursor: pointer;
-    }
-}
+ position: relative;
+  width: 100%;
+  padding-bottom: 100%; /* Makes the container square */
+  overflow: hidden;
+
+  img {
+  position: absolute;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    transition: opacity 0.3s; 
+  }
+  &::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.4); 
+    transition: opacity 0.3s; 
+  }
+
+  &:hover::after {
+    opacity: 0; /* Removes the overlay on hover */
+  }
 `;
 
 export const DotInfo = styled.div`
-    
-`;
-
-export const DotTitle = styled.div`
-margin: 10px 20px 0 0;   
-    font-size: 15px;
-    color: ${theme.color.white};
-     font-family: "Poppins", sans-serif;
 
 `;
 
-export const ButtonShape = styled.button`
-padding: 10px;
-cursor: pointer;
-border-radius: 50%;
-background-color: ${theme.color.primary};;
-border: solid 2px ${theme.color.white};;
-    
-    
-    &:hover {
-        transform: translateY(-5px);
-        transition: all .45s ease;
-    }
-`;
-export const RightButtonShape = styled.div`
-position: absolute;
-    top: 82%;
-    transform: translateY(-50%);
-    right: 10px;
-  
-`;
-
-export const LeftButtonShape = styled.div`
-position: absolute;
-    top: 82%;
-    transform: translateY(-50%);
-  
+export const DotTitle = styled.h3`
+ position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  margin: 0;
+  padding: 10px;
+  color: white;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1; /* Ensures the title is above the image */
 `;
 
 
@@ -430,7 +489,6 @@ export const About = styled.section`
 `;
 
 export const AboutImg = styled.div`
-
     background: ${theme.color.white};;
     display: flex;
     flex-direction: column;

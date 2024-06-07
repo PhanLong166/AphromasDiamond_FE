@@ -6,7 +6,6 @@ import {
     Container,
     Contain,
     DotGrid,
-
     Heading,
     Cate,
     CateImage,
