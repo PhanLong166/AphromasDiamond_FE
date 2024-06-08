@@ -32,17 +32,14 @@ export const AdPageContent_Head = styled.div`
   margin: 0px 40px 30px 40px;
   display: flex;
   justify-content: space-between;
-
-  
-  
 `;
 
 export const SearchArea = styled.div`
   width: 30%;
-  
+
   display: flex;
   align-items: center;
-  // 
+  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -72,9 +69,7 @@ export const SearchArea = styled.div`
   }
 
   .searchInput:focus {
-
   }
-
 `;
 
 export const AddButton = styled.div`
@@ -109,32 +104,31 @@ export const AdminTable = styled.div`
   table {
     border-collapse: collapse;
     width: 100%;
-}
-th,
-td {
+  }
+  th,
+  td {
     padding: 8px 0px 8px 0px;
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
-}
-td {
+  }
+  td {
     width: fit-content;
-}
-tr .TextAlign{
+  }
+  tr .TextAlign {
     text-align: center;
-}
-tr th {
-  font-size: 13px;
-  color: #92929D !important;
-}
-td img {
+  }
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
+  }
+  td img {
     width: 77px;
-}
-td .anticon {
+  }
+  td .anticon {
     font-size: 23px;
-}
-td .anticon:hover {
+  }
+  td .anticon:hover {
     cursor: pointer;
-}
+  }
 `;
-

@@ -3,17 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  // FilterOutlined,
-  // DownOutlined,
   PlusCircleOutlined,
-  // ArrowLeftOutlined,
-  // ArrowRightOutlined,
-  // EditOutlined,
-  // DeleteOutlined,
 } from "@ant-design/icons";
-import type { TableColumnsType } from "antd";
+import type { TableProps } from "antd";
 import {
-  // Select,
   Form,
   Input,
   InputNumber,
@@ -37,7 +30,7 @@ const calculateSellingPrice = (buyingPrice: number) => {
   return buyingPrice + 0.0197 * buyingPrice;
 };
 
-const createInitialData = (): Item[] => {
+const originData = (): Item[] => {
   const data: Item[] = [
     { key: "1", materialID: "12345121", materialName: "14K White Gold", buyingPrice: 4.08, sellingPrice: 1 },
     { key: "2", materialID: "12345122", materialName: "14K Yellow Gold", buyingPrice: 5.08, sellingPrice: 1 },
@@ -53,26 +46,25 @@ const createInitialData = (): Item[] => {
   }));
 };
 
-const originData = createInitialData();
+// const originData = createInitialData();
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableCellProps {
   editing: boolean;
-  dataIndex: string;
-  title: any;
+  dataIndex: keyof Item;
+  title: React.ReactNode;
   inputType: "number" | "text";
   record: Item;
   index: number;
-
-  children: React.ReactNode;
+  // children: React.ReactNode;
 }
 
-const EditableCell: React.FC<EditableCellProps> = ({
+const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   editing,
   dataIndex,
   title,
   inputType,
-  record,
-  index,
+  // record,
+  // index,
   children,
   ...restProps
 }) => {
@@ -100,36 +92,32 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-
 const Material = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-
   const isEditing = (record: Item) => record.key === editingKey;
-
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({
       materialID: "",
       materialName: "",
       buyingPrice: "",
       sellingPrice: "",
-      ...record,
+      ...record
     });
     setEditingKey(record.key);
   };
-
   const cancel = () => {
     setEditingKey("");
   };
-
   const save = async (key: React.Key) => {
     try {
       const row = (await form.validateFields()) as Item;
-      row.sellingPrice = calculateSellingPrice(row.buyingPrice);
-
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
+
+      row.sellingPrice = calculateSellingPrice(row.buyingPrice);
+      
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -153,36 +141,36 @@ const Material = () => {
     setData(newData);
   };
 
-  const columns: TableColumnsType<Item> = [
+  const columns = [
     {
       title: "Material ID",
       dataIndex: "materialID",
-      // editable: true,
-      sorter: (a, b) => a.materialID.localeCompare(b.materialID),
+      editable: true,
+      sorter: (a: Item, b: Item) => a.materialID.localeCompare(b.materialID),
     },
     {
       title: "Material Name",
       dataIndex: "materialName",
-      // editable: true,
-      sorter: (a, b) => a.materialName.length - b.materialName.length,
+      editable: true,
+      sorter: (a: Item, b: Item) => a.materialName.length - b.materialName.length,
     },
     {
       title: "Buying Price per Gram",
       dataIndex: "buyingPrice",
-      // editable: true,
-      sorter: (a, b) => a.buyingPrice - b.buyingPrice,
+      editable: true,
+      sorter: (a: Item, b: Item) => a.buyingPrice - b.buyingPrice,
     },
     {
       title: "Selling Price per Gram",
       dataIndex: "sellingPrice",
-      // editable: true,
-      sorter: (a, b) => a.sellingPrice - b.sellingPrice,
+      editable: true,
+      sorter: (a: Item, b: Item) => a.sellingPrice - b.sellingPrice,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: any, record: Item) => {
+      render: (_: unknown, record: Item) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -210,8 +198,8 @@ const Material = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_, record) =>
-        originData.length >= 1 ? (
+      render: (_:unknown, record: Item) =>
+        data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.key)}
@@ -222,31 +210,31 @@ const Material = () => {
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.fixed) {
+  const mergedColumns: TableProps['columns'] = columns.map((col) => {
+    if (!col.editable) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: "buyingPrice" === "buyingPrice" ? "number" : "text",
-        dataIndex: 1,
+        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
+        dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
-  mergedColumns;
+  
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -263,8 +251,7 @@ const Material = () => {
           <Styled.AdPageContent>
           <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -272,144 +259,20 @@ const Material = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
-              <Link to="">
-                <button>
-                  <PlusCircleOutlined />
-                  Add New Diamond
-                </button>
-              </Link>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.Pending_Table>
-              {/* <table>
-                <tr>
-                  <th>No</th>
-                  <th>Material ID</th>
-                  <th>Material Name</th>
-                  <th>Price per Gram</th>
-                  <th className="TextAlign">Edit</th>
-                  <th className="TextAlign">Delete</th>
-                </tr>
-                <tr>
-                  <td>01</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="MaterialName"
-                      value="14K White Gold"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" name="PriceGram" value="$43.91 USD" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="MaterialName"
-                      value="14K Yellow Gold"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" name="PriceGram" value="$43.91 USD" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="MaterialName"
-                      value="14K Rose Gold"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" name="PriceGram" value="$43.91 USD" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>04</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="MaterialName" value="Platinum" />
-                  </td>
-                  <td>
-                    <input type="text" name="PriceGram" value="$33.32 USD" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>05</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="MaterialName"
-                      value="18K White Gold"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" name="PriceGram" value="$33.32 USD" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>06</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      name="MaterialName"
-                      value="18K White Gold"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" name="PriceGram" value="$33.32 USD" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-              </table> */}
-
               <Form form={form} component={false}>
                 <Table
                   components={{
@@ -419,7 +282,7 @@ const Material = () => {
                   }}
                   bordered
                   dataSource={data}
-                  // columns={mergedColumns}
+                  columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,

@@ -3,17 +3,10 @@ import React, { useState } from "react";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  // FilterOutlined,
-  // DownOutlined,
   PlusCircleOutlined,
-  // ArrowLeftOutlined,
-  // ArrowRightOutlined,
-  // EditOutlined,
-  // DeleteOutlined,
 } from "@ant-design/icons";
-import type { TableColumnsType } from "antd";
+import type { TableProps } from "antd";
 import {
-  // Select,
   Form,
   Input,
   InputNumber,
@@ -84,30 +77,26 @@ const originData: Item[] = [
   },
 ];
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableCellProps{
   editing: boolean;
-  dataIndex: string;
-  title: any;
+  dataIndex: keyof Item;
+  title: React.ReactNode;
   inputType: "number" | "text";
   record: Item;
   index: number;
-
-  children: React.ReactNode;
+  // children: React.ReactNode;
 }
 
-const EditableCell: React.FC<EditableCellProps> = ({
+const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   editing,
   dataIndex,
   title,
   inputType,
-  record,
-  index,
   children,
   ...restProps
 }) => {
   const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
   
-
   return (
     <td {...restProps}>
       {editing ? (
@@ -135,9 +124,7 @@ const JewelryType = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-
   const isEditing = (record: Item) => record.key === editingKey;
-
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({
       jewelryTypeID: "",
@@ -146,15 +133,12 @@ const JewelryType = () => {
     });
     setEditingKey(record.key);
   };
-
   const cancel = () => {
     setEditingKey("");
   };
-
   const save = async (key: React.Key) => {
     try {
       const row = (await form.validateFields()) as Item;
-
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
       if (index > -1) {
@@ -180,24 +164,24 @@ const JewelryType = () => {
     setData(newData);
   };
 
-  const columns: TableColumnsType<Item> = [
+  const columns = [
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
-      // editable: true,
-      sorter: (a, b) => a.jewelryTypeID.localeCompare(b.jewelryTypeID),
+      editable: true,
+      sorter: (a: Item, b: Item) => a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
-      // editable: true,
-      sorter: (a, b) => a.jewelryTypeName.length - b.jewelryTypeName.length,
+      editable: true,
+      sorter: (a: Item, b: Item) => a.jewelryTypeName.length - b.jewelryTypeName.length,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign",
-      render: (_: any, record: Item) => {
+      render: (_: unknown, record: Item) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -225,7 +209,7 @@ const JewelryType = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_, record) =>
+      render: (_: unknown, record: Item) =>
         originData.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -237,16 +221,16 @@ const JewelryType = () => {
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.fixed) {
+  const mergedColumns: TableProps['columns'] = columns.map((col) => {
+    if (!col.editable) {
       return col;
     }
     return {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: "price" === "price" ? "number" : "text",
-        dataIndex: 12,
+        inputType: col.dataIndex === "price" ? "number" : "text",
+        dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
@@ -256,12 +240,12 @@ const JewelryType = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -278,8 +262,7 @@ const JewelryType = () => {
           <Styled.AdPageContent>
           <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -287,14 +270,17 @@ const JewelryType = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
-              <Link to="">
-                <button>
-                  <PlusCircleOutlined />
-                  Add New Jewelry Type
-                </button>
-              </Link>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -395,7 +381,7 @@ const JewelryType = () => {
                   }}
                   bordered
                   dataSource={data}
-                  // columns={mergedColumns}
+                  columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
                     onChange: cancel,
