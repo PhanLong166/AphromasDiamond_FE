@@ -14,7 +14,7 @@ const Account = () => {
             <Column>
               <InfoItem>
                 <InfoTitle>Address Delivery</InfoTitle>
-                <SubTitle>STREET ADDRESS</SubTitle>
+                <Label>STREET ADDRESS</Label>
                 <Description>191-103 Integer Rd.</Description>
                 <DetailGroup>
                   <Label>CITY</Label>
@@ -139,6 +139,7 @@ const InfoItem = styled.div`
 
 const InfoTitle = styled.h4`
   font-family: 'Poppins', sans-serif;
+  font-size: 22px;
 `;
 
 const SubTitle = styled.h5`
