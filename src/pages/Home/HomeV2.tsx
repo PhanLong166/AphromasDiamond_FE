@@ -170,14 +170,6 @@ const shapes = [
 const HomeV2: React.FC = () => {
   type Carousel = /*unresolved*/ any;
   const carouselRef = React.useRef<Carousel | null>(null);
-
-  const handlePrev = () => {
-    carouselRef.current?.prev();
-  };
-
-  const handleNext = () => {
-    carouselRef.current?.next();
-  };
   const StyledCarousel = styled(Carousel)`
     .slick-slide {
       display: flex;
@@ -185,7 +177,7 @@ const HomeV2: React.FC = () => {
     }
 
     .slick-dots {
-      bottom: -10px; 
+      bottom: -10px;
     }
 
     .slick-dots li {
@@ -196,17 +188,32 @@ const HomeV2: React.FC = () => {
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: ${theme.color.primary}; 
-       justify-content: center;
+      background: ${theme.color.primary};
+      justify-content: center;
     }
 
     .slick-dots li.slick-active button {
-      background:${theme.color.primary}; 
+      background: ${theme.color.primary};
       justify-content: center;
     }
   `;
+  const StyledLink = styled(Link)`
+    text-decoration: none;
 
-  
+    &:hover {
+      text-decoration: none;
+    }
+  `;
+
+  // const StyledCarousel = styled(Carousel)`
+  //   .slick-dots li button {
+  //     background-color: ${theme.color.primary}; /* Adjust according to your theme */
+  //   }
+
+  //   .slick-dots li.slick-active button {
+  //     background-color: ${theme.color.primary}; /* Adjust according to your theme */
+  //   }
+  // `;
 
   return (
     <Body>
@@ -229,44 +236,40 @@ const HomeV2: React.FC = () => {
           </Heading>
           <Contain>
             <DotGrid>
-              <LeftButtonWrapper>
+              {/* <LeftButtonWrapper>
                 <Button className="left-button" onClick={handlePrev}>
                   <LeftOutlined
                     style={{ color: "#102c57", fontSize: "14px" }}
                   />
                 </Button>
-              </LeftButtonWrapper>
+              </LeftButtonWrapper> */}
 
-              <Carousel
-                ref={carouselRef}
+              <StyledCarousel
                 slidesToShow={5}
                 slidesToScroll={3}
-                dots={false}
+                dots={true}
                 infinite={false}
               >
                 {categories.map((category, index) => (
                   <Cate key={index}>
-                    <CateImage>
-                      <Link to={category.href}>
+                    <StyledLink to={category.href}>
+                      <CateImage>
                         <img src={category.imgSrc} alt={category.title} />
-                      </Link>
-                    </CateImage>
-                    <div>
-                      <Link to={category.href}>
-                        <CateTitle>{category.title}</CateTitle>
-                      </Link>
-                    </div>
+                      </CateImage>
+
+                      <CateTitle>{category.title}</CateTitle>
+                    </StyledLink>
                   </Cate>
                 ))}
-              </Carousel>
+              </StyledCarousel>
 
-              <RightButtonWrapper>
+              {/* <RightButtonWrapper>
                 <Button className="right-button" onClick={handleNext}>
                   <RightOutlined
                     style={{ color: "#102c57", fontSize: "14px" }}
                   />
                 </Button>
-              </RightButtonWrapper>
+              </RightButtonWrapper> */}
             </DotGrid>
           </Contain>
         </Categories>
