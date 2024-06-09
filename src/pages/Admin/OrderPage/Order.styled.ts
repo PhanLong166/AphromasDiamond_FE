@@ -30,19 +30,19 @@ export const OrderContent = styled.div`
     padding-bottom: 30px;
 `;
 
-export const OrderContent_Head = styled.div`
-    margin: 0px 40px 30px 40px;
+export const AdPageContent_Head = styled.div`
+  margin: 0px 40px 30px 40px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const SearchArea = styled.div`
-    width: 30%;
-    height: 45px;
-    display: flex;
-    align-items: center;
-    border: 1px solid rgba(203, 210, 220, 0.5);
-    border-radius: 16px;
-    color: #151542;
-    background-color: #F8F9FB;
+  width: 30%;
+
+  display: flex;
+  align-items: center;
+  //
+  border-radius: 16px;
 
   .searchInputContainer {
     display: flex;
@@ -53,28 +53,28 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
+    color: #151542;
   }
   .searchInput {
     border: none;
     outline: none;
     flex-grow: 1;
     // font-size: 16px;
-    background-color: #F8F9FB;
+    background-color: #f8f9fb;
     padding: 0px;
+    border-radius: 10px;
+    padding: 4px 8px;
+    border: 1px solid rgba(203, 210, 220, 0.5);
+    color: #151542;
+    background-color: #f8f9fb;
+    height: 45px;
   }
-  .filterIcon {
-    font-size: 20px;
-    margin-left: 10px;
-    background: none;
-    border: none;
-    cursor: pointer;
-    text-align: center;
-  }
-    
 
+  .searchInput:focus {
+  }
 `;
 
-export const Pending_Table = styled.div`
+export const AdminTable = styled.div`
     padding: 0px 50px 0px 50px;
     color: #151542;
 

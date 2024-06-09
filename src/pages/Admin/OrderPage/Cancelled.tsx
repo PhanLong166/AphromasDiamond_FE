@@ -1,11 +1,10 @@
 import * as Styled from "./Cancelled.styled";
 import { useState } from "react";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-
 
 interface DataType {
   key: React.Key;
@@ -21,13 +20,13 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.orderID - b.orderID,
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.date - b.date,
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   },
   {
     title: "Customer",
@@ -83,7 +82,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Detail",
     key: "detail",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <EyeOutlined />
       </Space>
@@ -183,21 +182,19 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-
 const CancelledOrder = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
   };
-
 
   return (
     <>
@@ -208,11 +205,9 @@ const CancelledOrder = () => {
           <OrderMenu />
 
           <Styled.OrderContent>
-          <Styled.OrderContent_Head>
+            <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                {/* <div className="searchInputContainer"> */}
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -220,87 +215,12 @@ const CancelledOrder = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
-                {/* </div> */}
-                {/* <button className="filterIcon">
-                  <FilterOutlined />
-                </button> */}
-                {/* <Button className="filterIcon" icon={<FilterOutlined />} size="large" /> */}
               </Styled.SearchArea>
-            </Styled.OrderContent_Head>
+            </Styled.AdPageContent_Head>
 
             <Styled.Pending_Table>
-              {/* <table>
-                <tr>
-                  <th>No</th>
-                  <th>Order ID</th>
-                  <th>Date</th>
-                  <th>Customer</th>
-                  <th>Total</th>
-                  <th className="TextAlign">Status</th>
-                </tr>
-                <tr>
-                  <td>01</td>
-                  <td>#12345123</td>
-                  <td>2 Jan 2023</td>
-                  <td>Esther Eden</td>
-                  <td>$701</td>
-                  <td className="TextAlign">
-                    <button className="pendStatus">Confirmed</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>#12345124</td>
-                  <td>3 Jan 2023</td>
-                  <td>Esther Eden</td>
-                  <td>$701</td>
-                  <td className="TextAlign">
-                    <button className="pendStatus">Confirmed</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>#12345125</td>
-                  <td>4 Jan 2023</td>
-                  <td>Ajmal Abdul Rahiman</td>
-                  <td>$701</td>
-                  <td className="TextAlign">
-                    <button className="pendStatus">Confirmed</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>04</td>
-                  <td>#12345126</td>
-                  <td>5 Jan 2023</td>
-                  <td>Ajmal Abdul Rahiman</td>
-                  <td>$701</td>
-                  <td className="TextAlign">
-                    <button className="pendStatus">Confirmed</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>05</td>
-                  <td>#12345127</td>
-                  <td>6 Jan 2023</td>
-                  <td>Ajmal Abdul Rahiman</td>
-                  <td>$701</td>
-                  <td className="TextAlign">
-                    <button className="pendStatus">Confirmed</button>
-                  </td>
-                </tr>
-                <tr>
-                  <td>06</td>
-                  <td>#12345128</td>
-                  <td>7 Jan 2023</td>
-                  <td>Ajmal Abdul Rahiman</td>
-                  <td>$701</td>
-                  <td className="TextAlign">
-                    <button className="pendStatus">Confirmed</button>
-                  </td>
-                </tr>
-              </table> */}
-
               <Table
                 className="table"
                 columns={columns}
@@ -310,8 +230,6 @@ const CancelledOrder = () => {
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
             </Styled.Pending_Table>
-
-            
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>

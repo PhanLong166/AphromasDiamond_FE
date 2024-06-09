@@ -284,94 +284,6 @@ const JewelryType = () => {
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              {/* <table>
-                <tr>
-                  <th>No</th>
-                  <th>Jewelry Type ID</th>
-                  <th>Jewelry Type Name</th>
-                  <th className="TextAlign">Edit</th>
-                  <th className="TextAlign">Delete</th>
-                </tr>
-                <tr>
-                  <td>01</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="JewelryType" value="Ring" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="JewelryType" value="Necklace" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="JewelryType" value="Earring" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>04</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="JewelryType" value="Bracelet" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>05</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="JewelryType" value="Anklet" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>06</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input type="text" name="JewelryType" value="Bangle" />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Save</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-              </table> */}
-
               <Form form={form} component={false}>
                 <Table
                   components={{
@@ -390,7 +302,6 @@ const JewelryType = () => {
                 />
               </Form>
             </Styled.AdminTable>
-
           </Styled.AdPageContent>
         </Styled.AdminPage>
       </Styled.ProductAdminArea>
