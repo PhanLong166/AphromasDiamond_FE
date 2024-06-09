@@ -495,7 +495,7 @@ const HomeV4: React.FC = () => {
         </Feature>
         <Banner4>
           <Banner4Container>
-            <h6>HAPPY</h6>
+            <h5>HAPPY</h5>
             <h2>VALENTINE'S DAY!</h2>
             <h6>
               Celebrate Valentine's Day with our exclusive diamond jewelry sale!
@@ -509,7 +509,7 @@ const HomeV4: React.FC = () => {
         </Banner4>
         <Banner3>
           <Banner3Container>
-            <h6>BST</h6>
+            <h5>BST</h5>
             <h2>
               GET READY!
               <br /> AUTUMN IS COMING...
@@ -549,9 +549,9 @@ const HomeV4: React.FC = () => {
           <Row gutter={[0, 0]}>
             <Col xs={24} md={12}>
               <AboutContent>
-                <Title level={2} className="about" style={{}}>
-                  ABOUT OUR COMPANY
-                </Title>
+                <Heading>
+                  <h2 className="title"> ABOUT OUR COMPANY</h2>
+                </Heading>
                 <AboutText>
                   Welcome to Aphromas Diamond, where the beauty and elegance of
                   diamonds are celebrated in every piece of jewelry. With years

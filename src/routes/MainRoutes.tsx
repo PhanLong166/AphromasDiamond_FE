@@ -15,8 +15,9 @@ import NotiPage from "@/pages/Customer/Nofications/Nofications";
 import Reply from "@/pages/Home/Reply/Reply";
 import FeedbackSale from "@/pages/Home/SaleStaff/FeedbackSale";
 import FeedbackCompleted from "@/pages/Home/SaleStaff/FeedbackCompleted";
-import HomeV2 from "@/pages/Home/HomeV2";
+import HomeV4 from "@/pages/Home/HomeV4";
 import History from "@/pages/Customer/History/History";
+
 
 
 

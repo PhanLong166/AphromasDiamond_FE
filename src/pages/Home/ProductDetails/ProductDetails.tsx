@@ -239,8 +239,8 @@ const ProductDetails = () => {
                     </ShippingItem>
                     <ShippingItem>
                       {/* <HomeFilled/> */}
-                      <span>Estimate delivery:</span>
-                      <span className="delivery">01 - 07 Jan, 2024</span>
+                      <span>Estimate delivery: </span>
+                      <span className="delivery"> 01 - 07 Jan, 2024</span>
                     </ShippingItem>
                   </ShippingList>
                 </Shipping>

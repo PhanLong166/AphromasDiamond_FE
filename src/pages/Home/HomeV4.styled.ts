@@ -338,9 +338,8 @@ export const StyledContent = styled.div`
   padding: 50px;
 
   .super {
-    color: ${theme.color.primary};
+    font-weight: 400;
     font-size: 14px;
-    font-weight: 500;
   }
   .upTo {
     font-size: 40px;
@@ -408,7 +407,7 @@ export const Feature = styled.section`
   }
   .little {
     padding-bottom: 10px;
-    font-weight: 300;
+    font-weight: 400;
     font-size: 14px;
   }
   .best {
@@ -445,12 +444,12 @@ export const Feature = styled.section`
     text-align: center;
     background: rgba(0, 0, 0, 0.2);
     h2 {
-    font-weight: 200;
-    font-family: "Montserrat", sans-serif;
-    font-size: 26px;
+      font-weight: 200;
+      font-family: "Montserrat", sans-serif;
+      font-size: 26px;
+    }
   }
-  }
-  
+
   .overlay .ant-typography {
     color: white;
   }
@@ -672,11 +671,11 @@ export const Banner3Container = styled.div`
   flex-direction: column;
   justify-content: center;
 
-  h6 {
-    font-size: 18px;
+  h5 {
+    font-size: 14px;
     font-family: "Poppins", sans-serif;
     color: ${theme.color.primary};
-    font-weight: 500;
+    font-weight: 400;
   }
   h2 {
     font-size: 32px;
@@ -724,7 +723,12 @@ export const Banner4Container = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-
+  h5 {
+    font-weight: 400;
+    font-size: 14px;
+    font-family: "Poppins", sans-serif;
+    color: ${theme.color.white};
+  }
   h6 {
     font-size: 18px;
     font-family: "Poppins", sans-serif;

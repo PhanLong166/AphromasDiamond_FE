@@ -64,14 +64,13 @@ export const Item = styled.div`
   overflow: hidden;
   cursor: pointer;
   img {
-    width: 80%;
-    height: 60%;
+    width: 100%;
+    height: 100%;
     object-fit: cover;
+    border: solid 2px #f1f1f1;
   }
   &.selected {
-    background-color: ${theme.color.secondary};
-    border-radius: 8px;
-    border: solid 2px ${theme.color.secondary};
+    background-color: #f1f1f1;
   }
 `;
 
