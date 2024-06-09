@@ -4,13 +4,10 @@ export const GlobalStyle = createGlobalStyle`
     
   :root {
       --text-01: #45413E;
-<<<<<<< HEAD
-=======
       --brand-01: ${theme.color.primary};;
       --brand-02: ${theme.color.secondary};;
       --brand-03: ${theme.color.secondary};;
       --brand-04: ${theme.color.primary};;
->>>>>>> 235efc5502849a1607426b422ccedabac4745bfb
       --card-hover: 0px 4px 24px rgba(0, 0, 0, 0.15);
       --card-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
       --hover-timing: all 0.2s ease;
