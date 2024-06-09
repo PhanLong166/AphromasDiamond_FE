@@ -43,9 +43,12 @@ const routes = {
         manager: '/admin/manager',
         theme: '/admin/theme'
     },
-    staff: {
-        dashboard: '/staff',
-        deliveryReport: '/staff/delivery-report'
+    salesStaff: {
+        dashboard: '/salesstaff',
+    },
+    deliStaff: {
+        // dashboard: '/delistaff',
+        deliveryReport: '/delistaff/delivery-report'
     },
     api: {
         loginGoogle: '/auth/signin'
