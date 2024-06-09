@@ -1,7 +1,7 @@
-
 import * as Styled from "./Manager.styled";
 import React, { useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
+import { Link } from "react-router-dom";
+import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
@@ -182,8 +182,7 @@ const Customer = () => {
       dataIndex: "managerName",
       defaultSortOrder: "descend",
       editable: true,
-      sorter: (a: Item, b: Item) =>
-        a.managerName.length - b.managerName.length,
+      sorter: (a: Item, b: Item) => a.managerName.length - b.managerName.length,
     },
     {
       title: "Email",
@@ -235,7 +234,7 @@ const Customer = () => {
     },
   ];
 
-  const mergedColumns: TableProps['columns'] = columns.map((col) => {
+  const mergedColumns: TableProps["columns"] = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -289,6 +288,14 @@ const Customer = () => {
                   prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
