@@ -46,11 +46,24 @@ const routes = {
         theme: '/admin/theme'
     },
     salesStaff: {
-        dashboard: '/salesstaff',
+        dashboard: '/sales-staff',
+        order: '/sales-staff/order',
+        confirmedOrder: '/sales-staff/order/confirmed',
+        deliveringOrder: '/sales-staff/order/delivering',
+        completedOrder: '/sales-staff/order/completed',
+        cancelledOrder: '/sales-staff/order/cancelled',
+        product: '/sales-staff/product',
+        diamond: '/sales-staff/product/diamond',
+        ringSettingProduct: '/sales-staff/product/ring-setting',
+        ringProduct: '/sales-staff/product/ring',
+        jewelryTypeProduct: '/sales-staff/product/product-type',
+        materialProduct: '/sales-staff/product/material',
+        clientCaring: '/sales-staff/client-caring',
+        feedback: '/sales-staff/client-caring/feedback',
     },
     deliStaff: {
         // dashboard: '/delistaff',
-        deliveryReport: '/delistaff/delivery-report'
+        deliveryReport: '/delivery-staff/delivery-report'
     },
     api: {
         loginGoogle: '/auth/signin'

@@ -15,19 +15,19 @@ const Sidebar = () => {
   const [active, setActive] = useState<string>("");
   useEffect(() => {
     switch (location.pathname) {
-      case "/staff":
+      case "/sales-staff":
         setActive("Dashboard");
         break;
-      case "/admin/order":
+      case "/sales-staff/order":
         setActive("Order");
         break;
-      case "/admin/product":
+      case "/sales-staff/product":
         setActive("Product");
         break;
       // case "/admin/marketing":
       //   setActive("Marketing");
       //   break;
-      case "/admin/client-caring":
+      case "/sales-staff/client-caring":
         setActive("ClientCaring");
         break;
       default:
@@ -55,7 +55,7 @@ const Sidebar = () => {
               <div className={active === "Dashboard" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <ProductOutlined />
-                  <Link to="/staff">
+                  <Link to="/sales-staff">
                     <p>Dashboard</p>
                   </Link>
                 </Styled.MenuElement>
@@ -70,7 +70,7 @@ const Sidebar = () => {
               <div className={active === "Order" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <ShoppingCartOutlined />
-                  <Link to="/admin/order">
+                  <Link to="/sales-staff/order">
                     <p>Order</p>
                   </Link>
                 </Styled.MenuElement>
@@ -85,7 +85,7 @@ const Sidebar = () => {
               <div className={active === "Product" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <SketchOutlined />
-                  <Link to="/admin/product">
+                  <Link to="/sales-staff/product">
                     <p>Product</p>
                   </Link>
                 </Styled.MenuElement>
@@ -117,7 +117,7 @@ const Sidebar = () => {
               <div className={active === "ClientCaring" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <CommentOutlined />
-                  <Link to="/admin/client-caring">
+                  <Link to="/sales-staff/client-caring">
                     <p>Client Caring</p>
                   </Link>
                 </Styled.MenuElement>
