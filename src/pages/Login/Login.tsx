@@ -37,7 +37,7 @@ const Login = () => {
     }
 
     const redirect = {
-        description: 'Dont have account?',
+        description: "Don't have account?",
         title: 'Register now',
         url: config.routes.public.register,
     };

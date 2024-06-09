@@ -1,7 +1,7 @@
-import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 import { Input } from "antd";
 import { Rule } from "antd/es/form";
 import { NamePath } from "antd/es/form/interface";
+import { EyeInvisibleOutlinedIcon, EyeOutlinedIcon } from "./AuthFrom.styled";
 
 export type FieldType = {
     key: number;
@@ -23,7 +23,7 @@ export type FieldType = {
 export const LoginFields: FieldType[] = [
     {
         key: 1,
-        label: 'Username/Email',
+        label: 'Email',
         name: 'username',
         rules: [
             {
@@ -52,7 +52,7 @@ export const LoginFields: FieldType[] = [
         ],
         children: (
             <Input.Password
-                iconRender={(visible) => visible ? <EyeOutlined/> : <EyeInvisibleOutlined/>}
+                iconRender={(visible) => visible ? <EyeOutlinedIcon/> : <EyeInvisibleOutlinedIcon/>}
                 placeholder=""
             />
         )

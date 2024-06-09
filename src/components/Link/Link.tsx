@@ -45,7 +45,7 @@ const Link = ({
             style={style}
             {...rest}
         >
-            [children]
+            {children}
         </Component>
     )
 }

@@ -2,6 +2,8 @@ import { theme } from "@/themes";
 import { Button, Carousel, Form, Image, Row, Typography } from "antd";
 import styled from "styled-components";
 import Link from "../Link";
+import { css } from "styled-components";
+import { EyeInvisibleOutlined, EyeOutlined } from "@ant-design/icons";
 
 const { Title, Text } = Typography;
 
@@ -20,7 +22,8 @@ export const FormRow = styled(Row)`
     height: 700px;
     padding: 24px;
     border-radius: 30px;
-    background: ${theme.color.white}
+    background: ${theme.color.white};
+    box-shadow: 0 4px 24px 0 ${theme.color.shadowForm};
 
     ${({ theme }) => theme.breakpoints.down('lg')} {
         width: auto;
@@ -53,7 +56,7 @@ export const FormTitle = styled(Title)`
     &.ant-typography {
         margin-bottom: 24px;
         color: ${theme.color.primary};
-        font-size: 3.6rem;
+        font-size: 3rem;
         font-weight: 700;
         text-align: center; 
     }
@@ -73,7 +76,7 @@ export const FormItem = styled(Form.Item)`
     &.ant-form-item:last-child {
         margin-top: 10px;
 
-        ${({theme}) => theme.breakpoints.down('xs')} {
+        ${({ theme }) => theme.breakpoints.down('xs')} {
             margin-top: 28px;
         }
     }
@@ -82,7 +85,7 @@ export const FormItem = styled(Form.Item)`
         position: relative;
 
         &:has(.ant-form-item-explain-error:not(:empty)) .ant-form-item-label label {
-            color: red;
+            color: ${theme.color.error};
         }
 
         &:has(input:-webkit-autofill),
@@ -90,7 +93,7 @@ export const FormItem = styled(Form.Item)`
         &:has(input:-webkit-autofill:focus),
         &:has(input:not(:placeholder-shown)),
         &:has(input:focus) {
-            &. ant-form-item-label {
+            & .ant-form-item-label {
                 top: -2px;
                 left: 10px;
                 padding: 0 10px;
@@ -112,11 +115,11 @@ export const FormItem = styled(Form.Item)`
         padding: 0;
         user-select: none;
         pointer-events: none;
-        transition: ${theme.color.primary};
+        transition: ${theme.transition.primary};
 
         & label {
-            color: ${theme.color.primary};
-            font-size: 1.6rem;
+            color: ${theme.color.textSecondary};
+            font-size: 1.2rem;
             font-weight: 400;
 
             &::after {
@@ -139,9 +142,9 @@ export const FormItem = styled(Form.Item)`
     & .ant-input-number-input,
     & .ant-input-password {
         padding: 12px 20px;
-        font-size: 1.6rem;
+        font-size: 1.2rem;
         border-radius: 6px;
-        border-color: ${theme.color.primary};
+        border-color: ${theme.color.border};
 
         &:hover,
         &:focus {
@@ -151,11 +154,30 @@ export const FormItem = styled(Form.Item)`
 
     & .ant-form-item-explain-error {
         margin-top: 2px;
-        color: red;
-        font-size: 1.4rem;
+        color: ${theme.color.error};
+        font-size: 0.8rem;
         font-weight: 400;
         line-height: 1.6;
     }
+`;
+
+export const FormIcon = css`
+    & svg {
+        font-size: 2rem;
+        transition: ${theme.transition.primary}
+    }
+
+    &:hover svg {
+        color: ${theme.color.primary}
+    }
+`;
+
+export const EyeOutlinedIcon = styled(EyeOutlined)`
+    ${FormIcon}
+`;
+
+export const EyeInvisibleOutlinedIcon = styled(EyeInvisibleOutlined)`
+    ${FormIcon}
 `;
 
 export const FormButton = styled(Button)`
@@ -167,8 +189,8 @@ export const FormButton = styled(Button)`
     border-radius: 6px;
 
     & span {
-        color: ${theme.color.white}
-        font-size: 1.8rem;
+        color: ${theme.color.white};
+        font-size: 1.2rem;
         font-weight: 600;
         letter-spacing: 0.18px;
     }
@@ -197,16 +219,16 @@ export const FormGoogleButton = styled(Link)`
 
     & span {
         color: grey;
-        font-size: 1.6rem;
+        font-size: 1.2rem;
         transition: ${theme.transition.primary};
     }
 
     & svg {
-        font-size: 2.4rem;
+        font-size: 2rem;
     }
 
     &:hover {
-        border-color: ${theme.color.primary};
+        border-color: ${theme.color.border};
 
         & span {
             color: ${theme.color.primary};
@@ -222,13 +244,13 @@ export const FormRedirect = styled(Text)`
     column-gap: 8px;
     margin-top: 36px;
     color: ${theme.color.textPrimary};
-    font-size: 1.8rem;
+    font-size: 1.2rem;
 `;
 
 export const FormForgotPassword = styled(Link)`
     display: block;
     margin: 12px auto;
-    font-size: 1.7rem;
+    font-size: 1rem;
     color: ${theme.color.textSecondary};
 
     &:hover {
