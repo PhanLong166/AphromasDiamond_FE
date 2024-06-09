@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import {
   GlobalStyle,
   CornerButton,
@@ -18,27 +18,28 @@ import { UserOutlined, LockOutlined, MailOutlined, EyeOutlined, HomeFilled } fro
 import { Button } from '../Home.styled';
 import { LOGIN_GOOGLE_URL } from '@/config/constants';
 import { useDocumentTitle } from '@/hooks';
+import { message } from 'antd';
 // import { message } from 'antd';
 
 
 const Login: React.FC = () => {
   useDocumentTitle('Login');
 
-  // const [isSubmitting, setIsSubmitting] = useState(false);
-  // const navigate = useNavigate();
+  const [isSubmitting, setIsSubmitting] = useState(false);
+  const navigate = useNavigate();
 
-  // const [messageApi, contextHolder] = message.useMessage();
+  const [messageApi, contextHolder] = message.useMessage();
 
-  // const onFinish = async (values: any) => {
-  //   try {
-  //     setIsSubmitting(true);
-  //   } catch (error: any) {
-  //     if(error.response) messageApi.error(error.response.data);
-  //     else messageApi.error(error.message);
-  //   } finally {
-  //     setIsSubmitting(false);
-  //   }
-  // };
+  const onFinish = async (values: any) => {
+    try {
+      setIsSubmitting(true);
+    } catch (error: any) {
+      if(error.response) messageApi.error(error.response.data);
+      else messageApi.error(error.message);
+    } finally {
+      setIsSubmitting(false);
+    }
+  };
 
   const [selectedGender, setSelectedGender] = useState<string>('male');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
