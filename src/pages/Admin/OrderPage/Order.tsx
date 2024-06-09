@@ -15,18 +15,18 @@ interface DataType {
   statuses: string[];
 }
 
-const columns: TableColumnsType<DataType> = [
+const columns = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.orderID - b.orderID,
+    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.date - b.date,
+    sorter: (a: DataType, b: DataType) =>  a.date.localeCompare(b.date),
   },
   {
     title: "Customer",
@@ -40,15 +40,15 @@ const columns: TableColumnsType<DataType> = [
     ],
     // specify the condition of filtering result
     // here is that finding the name started with `value`
-    onFilter: (value, record) => record.cusName.indexOf(value as string) === 0,
-    sorter: (a, b) => a.cusName.length - b.cusName.length,
+    onFilter: (value: string, record: DataType) => record.cusName.indexOf(value as string) === 0,
+    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.total - b.total,
+    sorter: (a: DataType, b: DataType) => a.total - b.total,
   },
   {
     title: "Status",
@@ -81,7 +81,7 @@ const columns: TableColumnsType<DataType> = [
   {
     title: "Action",
     key: "action",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <Button className="confirmBtn">Confirm</Button>
       </Space>
@@ -91,7 +91,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Detail",
     key: "detail",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <EyeOutlined />
       </Space>
@@ -194,12 +194,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const Order = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }

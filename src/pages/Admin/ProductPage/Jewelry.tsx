@@ -1,14 +1,10 @@
 import * as Styled from "../ProductPage/Jewelry.styled";
 import { useState } from "react";
-import { Space, Table, Select } from "antd";
+import { Space, Table, Select, Input } from "antd";
 import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  // FilterOutlined,
-  // DownOutlined,
   PlusCircleOutlined,
-  // ArrowLeftOutlined,
-  // ArrowRightOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
@@ -43,12 +39,12 @@ const Jewelry = () => {
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -168,7 +164,7 @@ const Jewelry = () => {
       title: "Detail",
       key: "detail",
       className: "TextAlign",
-      render: (_) => (
+      render: () => (
         <Space size="middle">
           <EyeOutlined />
         </Space>
@@ -351,9 +347,8 @@ const Jewelry = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-              <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+            <Styled.SearchArea>
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -361,6 +356,7 @@ const Jewelry = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
 
@@ -374,12 +370,14 @@ const Jewelry = () => {
                 ]}
               />
 
-              <Link to="">
-                <button>
-                  <PlusCircleOutlined />
-                  Add New Product
-                </button>
-              </Link>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>

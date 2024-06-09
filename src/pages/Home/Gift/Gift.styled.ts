@@ -1,4 +1,4 @@
-import styled from 'styled-components';
+import styled from "styled-components";
 import { theme } from "../../../themes";
 
 const GlobalStyle = `
@@ -21,14 +21,13 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.section`
-  background-color: ${theme.color.secondary};
+  background-color: #f1f1f1;
   display: flex;
   justify-content: space-between;
   align-items: center;
 `;
 
 export const LeftSection = styled.div`
-
   width: 50%;
   padding: 10px;
   align-items: center;
@@ -37,235 +36,229 @@ export const LeftSection = styled.div`
   h2 {
     font-size: 50px;
     margin-bottom: 10px;
-    text-align: center;
-    font-family: 'Great Vibes';
+    text-align: left;
+    font-family: "Great Vibes";
     font-weight: 500;
-    color: ${theme.color.primary};;
+    color: ${theme.color.primary};
   }
 
   .subheading {
     font-size: 15px;
     margin-bottom: 10px;
     line-height: 1.5;
-    text-align: center;
-    font-family: "Crimson Text", sans-serif;
+    text-align: left;
+    font-family: "Gantari", sans-serif;
     color: #45413e;
   }
-
 `;
 
 export const RightSection = styled.div`
   img {
-    width: 50%;
+    width: 65%;
     height: auto;
     border-radius: 10px;
-    margin-left: 100px;
+    margin-left: 50px;
   }
 `;
 
 export const InfoSection = styled.div`
-max-width: 1000px;
-margin: 50px auto;
-background-image: url('https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Gift%2Finfo.jpg?alt=media&token=0bd5e0f0-db99-4ca2-aa67-697b851e0bc1'); 
-background-size: cover;
-background-position: center;
-position: relative;
-padding: 20px;
-height: 300px; 
-display: flex;
-align-items: center;
-justify-content: center;
+  max-width: 1000px;
+  margin: 50px auto;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Gift%2Finfo.jpg?alt=media&token=0bd5e0f0-db99-4ca2-aa67-697b851e0bc1");
+  background-size: cover;
+  background-position: center;
+  position: relative;
+  padding: 20px;
+  height: 300px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 `;
 export const Overlay = styled.div`
-color: #fff;
-padding: 40px;
-text-align: left;
-h2 {
-    font-family: 'Great Vibes';
+  color: #fff;
+  padding: 40px;
+  text-align: left;
+  h2 {
+    font-family: "Great Vibes";
     margin: 0 0 10px;
     font-size: 2rem;
-    color: ${theme.color.primary};;
-}
-p {
+    color: ${theme.color.primary};
+  }
+  p {
     margin: 0;
     font-size: 17px;
-    font-family: "Crimson Text", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: #45413e;
-}
+  }
 `;
 export const GiftSection = styled.div`
-.gift-item1 {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
-align-items: center;
-max-width: 1200px;
-margin: 30px auto;
-}
-.gift-img1 {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+  .gift-item1 {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
+    align-items: center;
+    max-width: 1200px;
+    margin: 30px auto;
+  }
+  .gift-img1 {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
     img {
       width: 600px;
-      height: 300px
+      height: 300px;
     }
   }
 
   .gift-text1 {
     padding: 50px;
-background: #fff;
-display: flex;
-flex-direction: column;
-text-align: left;
-align-items: start;
-box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
-transition: all 0.2s ease;
-h2 {
-    font-family: 'Great Vibes';
-    font-size: 2.5rem;
-    margin-top: 20px;
-    color: ${theme.color.primary};;
-}
-p {
-    font-size: 16px;
-    font-family: "Crimson Text", sans-serif;
-    color: #45413e;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    width: 80%;
+    background: #fff;
+    display: flex;
+    flex-direction: column;
     text-align: left;
-}
+    align-items: start;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    h2 {
+      font-family: "Great Vibes";
+      font-size: 2.5rem;
+      margin-top: 20px;
+      color: ${theme.color.primary};
+    }
+    p {
+      font-size: 16px;
+      font-family: "Gantari", sans-serif;
+      color: #45413e;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      width: 80%;
+      text-align: left;
+    }
   }
 
   .gift-button1 {
     text-decoration: none;
-padding: 10px 30px;
-color: ${theme.color.white};;
-background-color: ${theme.color.primary};;
-border-radius: 8px;
-font-size: 10px;
-font-family: "Poppins", sans-serif;
-border-color: transparent;
+    padding: 15px 30px;
+    color: ${theme.color.primary};
+    background-color: ${theme.color.white};
+    font-size: 10px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid;
+    cursor: pointer;
 
+    a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+      text-align: center;
+    }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 600;
-  text-align: center;
-}
-
-&:hover {
-  transform: translateY(-5px);
-  transition: all 0.45s ease;
-}
+    &:hover {
+      transition: all 0.45s ease;
+      background-color: ${theme.color.primary};
+      color: ${theme.color.white};
+    }
   }
 
   .gift-item {
-display: grid;
-grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
-align-items: center;
-max-width: 1200px;
-margin: 30px auto;
-}
-.gift-img {
-  background: #fff;
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-  align-items: center;
-  box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
-  transition: all 0.2s ease;
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(17rem, auto));
+    align-items: center;
+    max-width: 1200px;
+    margin: 30px auto;
+  }
+  .gift-img {
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
     img {
       width: 600px;
-      height: 300px
+      height: 300px;
     }
   }
 
   .gift-text {
     padding: 50px;
-background: #fff;
-display: flex;
-flex-direction: column;
-text-align: right;
-align-items: end;
-box-shadow:  0px 4px 16px rgba(0, 0, 0, 0.1);
-transition: all 0.2s ease;
-h2 {
-    font-family: 'Great Vibes';
-    font-size: 2.5rem;
-    margin-top: 20px;
-    color: ${theme.color.primary};;
-}
-p {
-    font-size: 16px;
-    font-family: "Crimson Text", sans-serif;
-    color: #45413e;
-    line-height: 1.5;
-    margin-bottom: 10px;
-    width: 80%;
-    text-align: left;
-}
+    background: #fff;
+    display: flex;
+    flex-direction: column;
+    text-align: right;
+    align-items: end;
+    box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+    transition: all 0.2s ease;
+    h2 {
+      font-family: "Great Vibes";
+      font-size: 2.5rem;
+      margin-top: 20px;
+      color: ${theme.color.primary};
+    }
+    p {
+      font-size: 16px;
+      font-family: "Gantari", sans-serif;
+      color: #45413e;
+      line-height: 1.5;
+      margin-bottom: 10px;
+      width: 80%;
+      text-align: left;
+    }
   }
 
   .gift-button {
     text-decoration: none;
-padding: 10px 30px;
-color: ${theme.color.white};;
-background-color: ${theme.color.primary};;
-border-radius: 8px;
-font-size: 10px;
-font-family: "Poppins", sans-serif;
-border-color: transparent;
+    padding: 15px 30px;
+    color: ${theme.color.primary};
+    background-color: ${theme.color.white};
+    font-size: 10px;
+    font-family: "Poppins", sans-serif;
+    border: 1px solid;
+    cursor: pointer;
 
+    a {
+      text-decoration: none;
+      color: inherit;
+      font-weight: 600;
+    }
 
-a {
-  text-decoration: none;
-  color: inherit;
-  font-weight: 600;
-}
-
-&:hover {
-  transform: translateY(-5px);
-  transition: all 0.45s ease;
-}
+    &:hover {
+      transition: all 0.45s ease;
+      background-color: ${theme.color.primary};
+      color: ${theme.color.white};
+    }
   }
-
 `;
 export const FAQs = styled.section`
   display: flex;
- margin: 50px auto;
- max-width: 1200px;
- justify-content: space-between;
-
+  margin: 50px auto;
+  max-width: 1200px;
+  justify-content: space-between;
 `;
-
 
 export const LeftFAQ = styled.div`
   width: 50%;
   padding-right: 20px;
   padding-top: 20px;
-  h2{
+  h2 {
     font-size: 30px;
     font-family: "Playfair Display", sans-serif;
-    color: ${theme.color.primary};;
+    color: ${theme.color.primary};
   }
 `;
 
 export const Wrapper = styled.div`
   max-width: 50%;
   margin-left: 0;
-
-  
 `;
 
 export const Accordion = styled.button`
-  background-color: ${theme.color.secondary};;
-  color: ${theme.color.primary};;
+  background-color: ${theme.color.secondary};
+  color: ${theme.color.primary};
   cursor: pointer;
   font-size: 16px;
   width: 100%;
@@ -276,21 +269,18 @@ export const Accordion = styled.button`
   display: flex;
   justify-content: space-between;
   align-items: center;
-  font-family: "Crimson Text", sans-serif;
+  font-family: "Gantari", sans-serif;
   font-weight: 600;
-
-
 
   i {
     font-size: 1.6rem;
   }
-
 `;
 
 export const Panel = styled.div`
   padding: 0 18px;
   color: #45413e;
-  background-color: ${theme.color.secondary};;
+  background-color: ${theme.color.secondary};
   padding: 0 2rem 2.5rem 2rem;
   overflow: hidden;
   max-height: 0;
@@ -298,7 +288,7 @@ export const Panel = styled.div`
   visibility: hidden;
 
   &.active {
-    max-height: 500px; 
+    max-height: 500px;
     visibility: visible;
   }
 
@@ -312,11 +302,9 @@ export const Panel = styled.div`
 
 export const FAQ = styled.div`
   margin: 10px 80px;
-  
 
   &.active {
     border: none;
     width: 50%;
   }
 `;
-

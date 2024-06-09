@@ -90,9 +90,9 @@ const columns: TableColumnsType<DataType> = [
           if (status === "On Hold") {
             color = "volcano";
           }
-          //  else if (status === "Confirmed") {
-          //   color = "yellow";
-          // }
+           else if (status === "Pending") {
+            color = "yellow";
+          }
           else if (status === "Delivering") {
             color = "geekblue";
           } else if (status === "Completed") {

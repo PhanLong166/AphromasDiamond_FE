@@ -246,7 +246,11 @@ export const FormContent = styled.div`
     }
 
     .button {
+<<<<<<< HEAD
+        color: ${theme.color.primary};
+=======
         color: ${theme.color.secondary};;
+>>>>>>> 235efc5502849a1607426b422ccedabac4745bfb
         margin-top: 15px;
      
       

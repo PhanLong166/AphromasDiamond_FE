@@ -9,7 +9,9 @@ const routes = {
         notFound: '/404',
         product: '/product',
         productList: '/list',
-        allProduct: '/all'
+        allProduct: '/all',
+        homev2: '/homev2',
+        learn: '/learn'
     },
     customer: {
         account: '/account',

@@ -15,8 +15,6 @@ import {
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ClientCaringMenu from "../../../components/Admin/ClientCaringMenu/ClientCaringMenu";
 
-
-
 interface Item {
   key: React.Key;
   feedbackID: string;
@@ -109,14 +107,13 @@ const originData: Item[] = [
   },
 ];
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableCellProps {
   editing: boolean;
   dataIndex: string;
-  title: any;
+  title: React.ReactNode;
   inputType: "number" | "text";
   record: Item;
   index: number;
-
   children: React.ReactNode;
 }
 
@@ -125,8 +122,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
   dataIndex,
   title,
   inputType,
-  record,
-  index,
   children,
   ...restProps
 }) => {
@@ -160,49 +155,49 @@ const Feedback = () => {
     
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
+  // const [editingKey, setEditingKey] = useState<React.Key>("");
 
-  const isEditing = (record: Item) => record.key === editingKey;
+  // const isEditing = (record: Item) => record.key === editingKey;
 
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
-    form.setFieldsValue({
-      feedbackID: "",
-      productName: "",
-      customer: "",
-      description: "",
-      star: "",
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
+  // const edit = (record: Partial<Item> & { key: React.Key }) => {
+  //   form.setFieldsValue({
+  //     feedbackID: "",
+  //     productName: "",
+  //     customer: "",
+  //     description: "",
+  //     star: "",
+  //     ...record,
+  //   });
+  //   setEditingKey(record.key);
+  // };
 
-  const cancel = () => {
-    setEditingKey("");
-  };
+  // const cancel = () => {
+  //   setEditingKey("");
+  // };
 
-  const save = async (key: React.Key) => {
-    try {
-      const row = (await form.validateFields()) as Item;
+  // const save = async (key: React.Key) => {
+  //   try {
+  //     const row = (await form.validateFields()) as Item;
 
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey("");
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey("");
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+  //     const newData = [...data];
+  //     const index = newData.findIndex((item) => key === item.key);
+  //     if (index > -1) {
+  //       const item = newData[index];
+  //       newData.splice(index, 1, {
+  //         ...item,
+  //         ...row,
+  //       });
+  //       setData(newData);
+  //       setEditingKey("");
+  //     } else {
+  //       newData.push(row);
+  //       setData(newData);
+  //       setEditingKey("");
+  //     }
+  //   } catch (errInfo) {
+  //     console.log("Validate Failed:", errInfo);
+  //   }
+  // };
 
   const handleDelete = (key: React.Key) => {
     const newData = data.filter((item) => item.key !== key);
@@ -257,34 +252,34 @@ const Feedback = () => {
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.fixed) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: Item) => ({
-        record,
-        inputType: "price" === "price" ? "number" : "text",
-        dataIndex: 12,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  // const mergedColumns: TableProps['columns'] = columns.map((col) => {
+  //   if (!col.fixed) {
+  //     return col;
+  //   }
+  //   return {
+  //     ...col,
+  //     onCell: (record: Item) => ({
+  //       record,
+  //       inputType: col.dataIndex === "price" ? "number" : "text",
+  //       dataIndex: 12,
+  //       title: col.title,
+  //       editing: isEditing(record),
+  //     }),
+  //   };
+  // });
 
-  mergedColumns.at(1);
-  edit;
-  save;
+  // mergedColumns.at(1);
+  // edit;
+  // save;
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -299,10 +294,9 @@ const Feedback = () => {
           <ClientCaringMenu />
 
           <Styled.AdPageContent>
-            <Styled.AdPageContent_Head>
+          <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -310,6 +304,7 @@ const Feedback = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
             </Styled.AdPageContent_Head>
@@ -529,10 +524,10 @@ const Feedback = () => {
                   }}
                   bordered
                   dataSource={data}
-                  // columns={mergedColumns}
+                  columns={columns}
                   rowClassName="editable-row"
                   pagination={{
-                    onChange: cancel,
+                    // onChange: cancel,
                     pageSize: 6,
                   }}
                 />

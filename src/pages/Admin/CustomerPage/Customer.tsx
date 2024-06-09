@@ -83,10 +83,10 @@ const originData: Item[] = [
   },
 ];
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableCellProps {
   editing: boolean;
   dataIndex: string;
-  title: any;
+  title: React.ReactNode;
   inputType: "number" | "text";
   record: Item;
   index: number;
@@ -99,8 +99,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
   dataIndex,
   title,
   inputType,
-  record,
-  index,
   children,
   ...restProps
 }) => {
@@ -131,47 +129,47 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const Customer = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
+  // const [editingKey, setEditingKey] = useState<React.Key>("");
 
-  const isEditing = (record: Item) => record.key === editingKey;
+  // const isEditing = (record: Item) => record.key === editingKey;
 
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
-    form.setFieldsValue({
-      customerID: "",
-      customerName: "",
-      email: "",
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
+  // const edit = (record: Partial<Item> & { key: React.Key }) => {
+  //   form.setFieldsValue({
+  //     customerID: "",
+  //     customerName: "",
+  //     email: "",
+  //     ...record,
+  //   });
+  //   setEditingKey(record.key);
+  // };
 
-  const cancel = () => {
-    setEditingKey("");
-  };
+  // const cancel = () => {
+  //   setEditingKey("");
+  // };
 
-  const save = async (key: React.Key) => {
-    try {
-      const row = (await form.validateFields()) as Item;
+  // const save = async (key: React.Key) => {
+  //   try {
+  //     const row = (await form.validateFields()) as Item;
 
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey("");
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey("");
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+  //     const newData = [...data];
+  //     const index = newData.findIndex((item) => key === item.key);
+  //     if (index > -1) {
+  //       const item = newData[index];
+  //       newData.splice(index, 1, {
+  //         ...item,
+  //         ...row,
+  //       });
+  //       setData(newData);
+  //       setEditingKey("");
+  //     } else {
+  //       newData.push(row);
+  //       setData(newData);
+  //       setEditingKey("");
+  //     }
+  //   } catch (errInfo) {
+  //     console.log("Validate Failed:", errInfo);
+  //   }
+  // };
 
   const handleDelete = (key: React.Key) => {
     const newData = data.filter((item) => item.key !== key);
@@ -182,27 +180,27 @@ const Customer = () => {
     {
       title: "Customer ID",
       dataIndex: "customerID",
-      editable: true,
-      sorter: (a, b) => a.customerName.localeCompare(b.customerName),
+      // editable: true,
+      sorter: (a: Item, b: Item) => a.customerName.localeCompare(b.customerName),
     },
     {
       title: "Customer Name",
       dataIndex: "customerName",
       defaultSortOrder: "descend",
-      editable: true,
-      sorter: (a, b) => a.customerName.length - b.customerName.length,
+      // editable: true,
+      sorter: (a: Item, b: Item) => a.customerName.length - b.customerName.length,
     },
     {
       title: "Email",
       dataIndex: "email",
-      editable: true,
-      sorter: (a, b) => a.email.length - b.email.length,
+      // editable: true,
+      sorter: (a: Item, b: Item) => a.email.length - b.email.length,
     },
     {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_, record) =>
+      render: (_: unknown, record: Item) =>
         originData.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -214,30 +212,30 @@ const Customer = () => {
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: Item) => ({
-        record,
-        inputType: col.dataIndex === "discountPercent" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  // const mergedColumns: TableProps['columns'] = columns.map((col) => {
+  //   if (!col.editable) {
+  //     return col;
+  //   }
+  //   return {
+  //     ...col,
+  //     onCell: (record: Item) => ({
+  //       record,
+  //       inputType: col.dataIndex === "discountPercent" ? "number" : "text",
+  //       dataIndex: col.dataIndex,
+  //       title: col.title,
+  //       editing: isEditing(record),
+  //     }),
+  //   };
+  // });
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -255,17 +253,17 @@ const Customer = () => {
           </Styled.TitlePage>
 
           <Styled.AdPageContent>
-            <Styled.AdPageContent_Head>
+          <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
             </Styled.AdPageContent_Head>
@@ -280,10 +278,10 @@ const Customer = () => {
                   }}
                   bordered
                   dataSource={data}
-                  columns={mergedColumns}
+                  columns={columns}
                   rowClassName="editable-row"
                   pagination={{
-                    onChange: cancel,
+                    // onChange: cancel,
                     pageSize: 6,
                   }}
                 />
