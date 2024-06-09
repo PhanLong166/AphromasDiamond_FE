@@ -52,41 +52,40 @@ export const AdPageContent_Head = styled.div`
 `;
 
 export const SearchArea = styled.div`
-width: 100%;
-height: 45px;
-display: flex;
-align-items: center;
-border: 1px solid rgba(203, 210, 220, 0.5);
-border-radius: 16px;
-color: #151542;
-background-color: #f8f9fb;
-
-.searchInputContainer {
+  width: 100%;
   display: flex;
   align-items: center;
-  border-radius: 4px;
-  padding: 4px 8px;
-  width: calc(100% - 46px); // Adjust width to fit the layout
-}
-.searchIcon {
-  margin: 0px 10px 0px 10px;
-}
-.searchInput {
-  border: none;
-  outline: none;
-  flex-grow: 1;
-  // font-size: 16px;
-  background-color: #f8f9fb;
-  padding: 0px;
-}
-.filterIcon {
-  font-size: 20px;
-  margin-left: 10px;
-  background: none;
-  border: none;
-  cursor: pointer;
-  text-align: center;
-}
+  //
+  border-radius: 16px;
+
+  .searchInputContainer {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    width: calc(100% - 46px); // Adjust width to fit the layout
+  }
+  .searchIcon {
+    margin: 0px 10px 0px 10px;
+    color: #151542;
+  }
+  .searchInput {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    // font-size: 16px;
+    background-color: #f8f9fb;
+    padding: 0px;
+    border-radius: 10px;
+    padding: 4px 8px;
+    border: 1px solid rgba(203, 210, 220, 0.5);
+    color: #151542;
+    background-color: #f8f9fb;
+    height: 45px;
+  }
+
+  .searchInput:focus {
+  }
 `;
 
 export const ChatList = styled.div`
@@ -145,7 +144,7 @@ export const ChatContainer = styled.div`
 `;
 
 export const CustomerName = styled.div`
-  background-color: #F9F8F9;
+  background-color: #f9f8f9;
   border-radius: 16px 16px 0px 0px;
   height: 80px;
   width: 100%;
@@ -182,7 +181,7 @@ export const InputContainer = styled.div`
   display: flex;
   .anticon {
     font-size: 17px;
-    color: #92929D;
+    color: #92929d;
     cursor: pointer;
   }
   .anticon:hover {
@@ -194,9 +193,9 @@ export const InputField = styled.input`
   flex: 1;
   padding: 10px;
   margin-right: 10px;
-  border: 1px solid #E0E5EA;
+  border: 1px solid #e0e5ea;
   border-radius: 16px;
-  background-color: #F6F7FA;
+  background-color: #f6f7fa;
   color: ${theme.color.primary};
   font-size: 16px;
 `;
@@ -210,7 +209,7 @@ export const SendButton = styled.button`
   font-size: 15px;
   &:hover {
     background-color: ${theme.color.primary};
-    color: ${theme.color.fifth};
+    color: #ffffff;
   }
 `;
 

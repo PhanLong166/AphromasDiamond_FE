@@ -7,7 +7,7 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import { Space, Table } from "antd";
+import { Space, Table, Input } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
@@ -25,13 +25,13 @@ const columns: TableColumnsType<DataType> = [
     title: "Ring ID",
     dataIndex: "ringID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.ringID - b.ringID,
+    sorter: (a, b) => a.ringID.localeCompare(b.ringID),
   },
   {
     title: "Image",
     key: "ringImg",
     className: "TextAlign",
-    render: (_, record) => (
+    render: (_: unknown, record: DataType) => (
       <a href='#' target="_blank" rel="noopener noreferrer">
         <img
           src={record.ringImg}
@@ -45,8 +45,6 @@ const columns: TableColumnsType<DataType> = [
     title: "Ring Name",
     dataIndex: "ringName",
     showSorterTooltip: { target: "full-header" },
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
     onFilter: (value, record) =>
       record.ringName.indexOf(value as string) === 0,
     sorter: (a, b) => a.ringName.length - b.ringName.length,
@@ -62,7 +60,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Detail",
     key: "detail",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <EyeOutlined />
       </Space>
@@ -70,7 +68,7 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const data = [
+const data: DataType[] = [
   {
     key: "1",
     ringID: "12345121",
@@ -167,12 +165,12 @@ const Ring = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -189,8 +187,7 @@ const Ring = () => {
           <Styled.AdPageContent>
           <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -198,148 +195,20 @@ const Ring = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
-              <Link to="">
-                <button>
-                  <PlusCircleOutlined />
-                  Add New Ring
-                </button>
-              </Link>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              {/* <table>
-                <tr>
-                  <th>No</th>
-                  <th>Ring ID</th>
-                  <th>Image</th>
-                  <th>Ring Name</th>
-                  <th className="TextAlign">Total Price</th>
-                  <th className="TextAlign">Detail</th>
-                </tr>
-                <tr>
-                  <td>01</td>
-                  <td>#12345123</td>
-                  <td>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89"
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Double Row ring Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
-                  </td>
-                  <td className="TextAlign">
-                    <input type="text" name="ShellPrice" value="$4,080" />
-                  </td>
-                  <td className="TextAlign">
-                    <EyeOutlined />
-                  </td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>#12345123</td>
-                  <td>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89"
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
-                  </td>
-                  <td className="TextAlign">
-                    <input type="text" name="ShellPrice" value="$4,080" />
-                  </td>
-                  <td className="TextAlign">
-                    <EyeOutlined />
-                  </td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>#12345123</td>
-                  <td>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89"
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
-                  </td>
-                  <td className="TextAlign">
-                    <input type="text" name="ShellPrice" value="$4,080" />
-                  </td>
-                  <td className="TextAlign">
-                    <EyeOutlined />
-                  </td>
-                </tr>
-                <tr>
-                  <td>04</td>
-                  <td>#12345123</td>
-                  <td>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89"
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
-                  </td>
-                  <td className="TextAlign">
-                    <input type="text" name="ShellPrice" value="$4,080" />
-                  </td>
-                  <td className="TextAlign">
-                    <EyeOutlined />
-                  </td>
-                </tr>
-                <tr>
-                  <td>05</td>
-                  <td>#12345123</td>
-                  <td>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89"
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
-                  </td>
-                  <td className="TextAlign">
-                    <input type="text" name="ShellPrice" value="$4,080" />
-                  </td>
-                  <td className="TextAlign">
-                    <EyeOutlined />
-                  </td>
-                </tr>
-                <tr>
-                  <td>06</td>
-                  <td>#12345123</td>
-                  <td>
-                    <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89"
-                      alt=""
-                    />
-                  </td>
-                  <td>
-                    Double Row Diamond Chevron Engagement Ring In 14k 1.37 Carat
-                    H-VS2 Marquise Cut Diamond
-                  </td>
-                  <td className="TextAlign">
-                    <input type="text" name="ShellPrice" value="$4,080" />
-                  </td>
-                  <td className="TextAlign">
-                    <EyeOutlined />
-                  </td>
-                </tr>
-              </table> */}
-
               <Table
                 className="table"
                 columns={columns}
