@@ -1,16 +1,16 @@
 import config from "@/config"
-import Login from "@/pages/Home/Login_Register/Login"
+import Login from "@/pages/Login"
 import { Outlet } from "react-router-dom"
 
 const AuthRouter = () => {
-    return <Outlet/>
+    return <Outlet />
 }
 
 const AuthRoutes = {
-    element: <AuthRouter/>,
+    element: <AuthRouter />,
     children: [
-        {path: config.routes.public.login, element: <Login/>},
-        
+        { path: config.routes.public.login, element: <Login /> },
+
     ]
 }
 
