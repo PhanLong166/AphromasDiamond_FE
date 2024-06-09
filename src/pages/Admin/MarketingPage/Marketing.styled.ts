@@ -55,65 +55,75 @@ export const AdPageContent = styled.div`
 `;
 
 export const AdPageContent_Head = styled.div`
-    margin: 0px 40px 30px 40px;
-    display: flex;
-    justify-content: space-between;
-
-    button {
-    background-color: ${theme.color.primary};
-    color: #ffffff;
-    width: 210px;
-    height: 55px;
-    border-radius: 16px;
-    font-size: 16px;
-    border: none;
-    }
-
-    button:hover {
-    cursor: pointer;
-    }
-
-    button .anticon {
-    margin-right: 7px;
-    }
+  margin: 0px 40px 30px 40px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const SearchArea = styled.div`
-    width: 30%;
-    height: 45px;
+  width: 30%;
+  
+  display: flex;
+  align-items: center;
+  // 
+  border-radius: 16px;
+
+  .searchInputContainer {
     display: flex;
     align-items: center;
+    border-radius: 4px;
+    padding: 4px 8px;
+    width: calc(100% - 46px); // Adjust width to fit the layout
+  }
+  .searchIcon {
+    margin: 0px 10px 0px 10px;
+    color: #151542;
+  }
+  .searchInput {
+    border: none;
+    outline: none;
+    flex-grow: 1;
+    // font-size: 16px;
+    background-color: #f8f9fb;
+    padding: 0px;
+    border-radius: 10px;
+    padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    border-radius: 16px;
     color: #151542;
     background-color: #f8f9fb;
+    height: 45px;
+  }
 
-    .searchInputContainer {
-        display: flex;
-        align-items: center;
-        border-radius: 4px;
-        padding: 4px 8px;
-        width: calc(100% - 46px); // Adjust width to fit the layout
-    }
-    .searchIcon {
-        margin: 0px 10px 0px 10px;
-    }
-    .searchInput {
-        border: none;
-        outline: none;
-        flex-grow: 1;
-        // font-size: 16px;
-        background-color: #f8f9fb;
-        padding: 0px;
-    }
-    .filterIcon {
-        font-size: 20px;
-        margin-left: 10px;
-        background: none;
-        border: none;
-        cursor: pointer;
-        text-align: center;
-    }
+  .searchInput:focus {
+
+  }
+
+`;
+
+export const AddButton = styled.div`
+  button {
+    background-color: ${theme.color.primary};
+    color: #ffffff;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 12px;
+    border: 1px solid ${theme.color.primary};
+    padding: 10px 15px 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  button:hover {
+    transition: all 0.4s;
+    background-color: #ffffff;
+    color: ${theme.color.primary};
+    border: 1px solid ${theme.color.primary};
+  }
+
+  button .anticon {
+    margin-right: 7px;
+  }
 `;
 
 export const AdminTable = styled.div`
