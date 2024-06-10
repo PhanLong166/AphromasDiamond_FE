@@ -10,8 +10,8 @@ const routes = {
         product: '/product',
         productList: '/list',
         allProduct: '/all',
-        homev2: '/homev2',
-        learn: '/learn'
+        about: '/about',
+        learn: '/learn',
     },
     customer: {
         account: '/account',

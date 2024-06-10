@@ -3,8 +3,12 @@ import { createRoot } from "react-dom/client";
 import { Pagination } from "antd";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
-import  { Menu }  from "antd";
-import { AppstoreOutlined, MailOutlined, SettingOutlined} from '@ant-design/icons';
+import { Menu } from "antd";
+import {
+  AppstoreOutlined,
+  MailOutlined,
+  SettingOutlined,
+} from "@ant-design/icons";
 import { theme } from "../../../themes";
 import {
   Section,
@@ -34,6 +38,7 @@ import {
   AddLink,
   PageLink,
   Paging,
+  FilterBar,
 } from "./AllProduct.styled";
 import { CaretDownOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
@@ -43,13 +48,11 @@ const CustomBreadcrumb = styled(Breadcrumb)`
 `;
 
 const SidebarMenu = styled(Menu)`
- .ant-menu-title-content {
- color: ${theme.color.primary};
- font-size: 15px;
- 
- }
+  .ant-menu-title-content {
+    color: ${theme.color.primary};
+    font-size: 15px;
+  }
 `;
-
 
 const items = [
   {
@@ -135,7 +138,6 @@ const items = [
         key: "17",
         label: "Pendants",
       },
-      
     ],
   },
   {
@@ -164,11 +166,33 @@ const items = [
       },
     ],
   },
- 
 ];
 const onClick = (e) => {
   console.log("click ", e);
 };
+
+import { Select, Checkbox, Slider, Button, InputNumber } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
+
+const { Option } = Select;
+
+const ShapeOptions = [
+  { value: "circle", label: "Circle" },
+  { value: "square", label: "Square" },
+  { value: "triangle", label: "Triangle" },
+];
+
+const CategoriesOptions = [
+  { value: "category1", label: "Category 1" },
+  { value: "category2", label: "Category 2" },
+  { value: "category3", label: "Category 3" },
+];
+
+const MetalOptions = [
+  { value: "metal1", label: "Metal 1" },
+  { value: "metal2", label: "Metal 2" },
+  { value: "metal3", label: "Metal 3" },
+];
 
 const AllProduct: React.FC = () => {
   const [current, setCurrent] = useState(1);
@@ -176,7 +200,37 @@ const AllProduct: React.FC = () => {
   const onChange = (page: number) => {
     console.log(page);
     setCurrent(page);
-    window.history.pushState({}, "", `/page-${page}`); 
+    window.history.pushState({}, "", `/page-${page}`);
+  };
+
+  const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
+  const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
+
+  const handleResetFilters = () => {
+    setSelectedFilters([]);
+    setPriceRange([0, 200000]);
+  };
+
+  const handleSelectChange = (value: string) => {
+    setSelectedFilters([...selectedFilters, value]);
+  };
+
+  const handleRemoveFilter = (value: string) => {
+    setSelectedFilters(selectedFilters.filter((filter) => filter !== value));
+  };
+
+  const handleMinPriceChange = (value: string | number | undefined) => {
+    const minPrice = typeof value === "number" ? value : priceRange[0];
+    setPriceRange([minPrice, priceRange[1]]);
+  };
+
+  const handleMaxPriceChange = (value: string | number | undefined) => {
+    const maxPrice = typeof value === "number" ? value : priceRange[1];
+    setPriceRange([priceRange[0], maxPrice]);
+  };
+
+  const handleSliderChange = (value: [number, number]) => {
+    setPriceRange(value);
   };
   return (
     <Section>
@@ -203,68 +257,102 @@ const AllProduct: React.FC = () => {
           <Heading>
             <h2>ALL PRODUCTS PAGE</h2>
           </Heading>
-          <Content>
-            {/* <Sidebar id="sidebar-filter">
-              <SidebarWrap>
-                <SidebarContent>
-                  <SidebarTitle>Filter</SidebarTitle>
-                  <Widget>
-                    <Summary>
-                      <input type="checkbox" name="cats" id="aaa" defaultChecked />
-                      <label htmlFor="aaa">
-                        <span>Shapes</span>
-                        <CaretDownOutlined/>
-                      </label>
-                      <Accord className="list-block scrollto">
-                        <Wapper className="initial">
-                          {['Round', 'Princess', 'Cushion', 'Oval', 'Emerald', 'Pear', 'Asscher', 'Heart', 'Radiant', 'Marquise'].map(shape => (
-                            <ListItem key={shape}>
-                              <a href="">{shape}</a>
-                            </ListItem>
-                          ))}
-                        </Wapper>
-                      </Accord>
-                    </Summary>
-                  </Widget>
-                  <Widget>
-                    <Summary>
-                      <input type="checkbox" name="cats" id="aac" defaultChecked />
-                      <label htmlFor="aac">
-                        <span>Classification</span>
-                        <CaretDownOutlined/>
-                      </label>
-                      <Accord className="list-block scrollto">
-                        <Wapper className="initial">
-                          {['Rings', 'Necklaces', 'Earrings', 'Bracelets', 'Anklets', 'Bangles', 'Pendants'].map(classification => (
-                            <ListItem key={classification}>
-                              <a href="">{classification}</a>
-                            </ListItem>
-                          ))}
-                        </Wapper>
-                      </Accord>
-                    </Summary>
-                  </Widget>
-                  <Widget>
-                    <Summary>
-                      <input type="checkbox" name="cats" id="aad" defaultChecked />
-                      <label htmlFor="aad">
-                        <span>Metals</span>
-                        <CaretDownOutlined/>
-                      </label>
-                      <Accord className="list-block scrollto">
-                        <Wapper className="initial">
-                          {['White Gold', 'Yellow Gold', 'Rose Gold', 'Platinum'].map(metal => (
-                            <ListItem key={metal}>
-                              <a href="">{metal}</a>
-                            </ListItem>
-                          ))}
-                        </Wapper>
-                      </Accord>
-                    </Summary>
-                  </Widget>
-                </SidebarContent>
-              </SidebarWrap>
-            </Sidebar> */}
+          <FilterBar>
+            <div style={{ display: "flex", gap: "16px", marginBottom: "16px" }}>
+              <Select
+                style={{ width: 120 }}
+                onChange={handleSelectChange}
+                placeholder="Shape"
+              >
+                {ShapeOptions.map((option) => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))}
+              </Select>
+              <Select
+                mode="multiple"
+                style={{ flexGrow: 1 }}
+                onChange={handleSelectChange}
+                placeholder="Categories"
+              >
+                {CategoriesOptions.map((option) => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))}
+              </Select>
+              <Select
+                mode="multiple"
+                style={{ flexGrow: 1 }}
+                onChange={handleSelectChange}
+                placeholder="Metal"
+              >
+                {MetalOptions.map((option) => (
+                  <Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Option>
+                ))}
+              </Select>
+            </div>
+            <div
+              style={{
+                display: "flex",
+                alignItems: "center",
+                marginBottom: "16px",
+              }}
+            >
+              <span>Price</span>
+              <InputNumber
+                style={{ margin: "0 8px" }}
+                min={0}
+                max={priceRange[1]}
+                value={priceRange[0]}
+                onChange={handleMinPriceChange}
+              />
+              <Slider
+                range
+                min={0}
+                max={200000}
+                step={10}
+                value={priceRange}
+                onChange={handleSliderChange}
+                style={{ flexGrow: 1 }}
+              />
+              <InputNumber
+                style={{ margin: "0 8px" }}
+                min={priceRange[0]}
+                max={200000}
+                value={priceRange[1]}
+                onChange={handleMaxPriceChange}
+              />
+            </div>
+            <div style={{ marginBottom: "16px" }}>
+              <Button onClick={handleResetFilters}>Reset Filters</Button>
+            </div>
+            <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
+              {selectedFilters.map((filter) => (
+                <div
+                  key={filter}
+                  style={{ display: "flex", alignItems: "center" }}
+                >
+                  {filter}
+                  <CloseOutlined onClick={() => handleRemoveFilter(filter)} />
+                </div>
+              ))}
+            </div>
+            <div>
+              <Select style={{ width: 120 }} placeholder="Sort by">
+                <Option value="newest">Newest</Option>
+                <Option value="oldest">Oldest</Option>
+              </Select>
+              <Select style={{ width: 120 }} placeholder="Sort by">
+                <Option value="a-z">A-Z</Option>
+                <Option value="z-a">Z-A</Option>
+              </Select>
+            </div>
+          </FilterBar>
+          {/* <Content>
             
             <SidebarMenu
               onClick={onClick}
@@ -358,9 +446,6 @@ const AllProduct: React.FC = () => {
                         <ItemName>{product.name}</ItemName>
                         <Price>{product.price}</Price>
                       </Link>
-                      {/* <AddCartButton>
-                      <AddLink href="#">Add To Cart</AddLink>
-                      </AddCartButton> */}
                     </ProductItem>
                   ))}
                 </ListProduct>
@@ -385,7 +470,7 @@ const AllProduct: React.FC = () => {
                 />
               </Paging>
             </CategoryContent>
-          </Content>
+          </Content> */}
         </Wrap>
       </Container>
     </Section>

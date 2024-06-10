@@ -307,3 +307,8 @@ export const Paging = styled.div`
   margin-left: 430px;
   margin-bottom: 40px;
 `;
+
+export const FilterBar= styled.div`
+ margin: 0 auto;
+ max-width: 1320px;
+`;

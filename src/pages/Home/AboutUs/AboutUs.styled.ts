@@ -191,10 +191,13 @@ export const ImageService = styled.div`
 
 //SERVICE
 export const Service = styled.div`
-  background-color: #f4ebe8;
   padding: 50px;
-  margin: 0 auto;
   margin-top: 10px;
+  background-color: #f4f2ee;
+  .serviceSession {
+    max-width: 1320px;
+    margin: 0 auto;
+  }
   .service-title {
     margin-bottom: 40px;
     color: ${theme.color.primary};
@@ -221,7 +224,7 @@ export const ServiceButton = styled.div`
   button {
     font-size: 12px;
     padding: 10px 20px;
-    background-color: #f4ebe8;
+    background-color: #f4f2ee;
     color: ${theme.color.primary};
     border: none;
     border: 1px solid ${theme.color.primary};

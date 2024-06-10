@@ -372,7 +372,7 @@ const About = () => {
         </div>
       </Mission>
       <Service>
-        <div>
+        <div className="serviceSession">
           <Row gutter={[16, 16]} justify="center" align="middle">
             <Col lg={12}>
               <div className="service-content">

@@ -87,43 +87,6 @@ export const CateTitle = styled.p`
   margin-top: 15px;
 `;
 
-export const LeftButtonWrapper = styled.div`
-  position: absolute;
-  top: 117.5%;
-  transform: translateY(-50%);
-  z-index: 1;
-`;
-
-export const RightButtonWrapper = styled.div`
-  position: absolute;
-  top: 117.5%;
-  right: 107px;
-  transform: translateY(-50%);
-  z-index: 1;
-`;
-
-export const Button = styled.button`
-  padding: 10px;
-  cursor: pointer;
-  border-radius: 50%;
-  background-color: #696969;
-  border: none;
-  opacity: 0.5;
-
-  &:hover {
-    opacity: 0.8;
-    background-color: #fff;
-    transition: all 0.45s ease;
-  }
-`;
-
-// export const WrapperShape = styled.div`
-//     display: grid;
-//     --grid-col: 140px;
-//     grid-template-columns: repeat(auto-fit, minmax(min(var(--grid-col), 100%), 1fr));
-
-// `;
-
 export const ContainShape = styled.div`
   margin: 0 auto;
   max-width: 1320px;
@@ -133,75 +96,6 @@ export const ContainShape = styled.div`
 export const Shape = styled.section`
   padding: 20px 0;
 `;
-
-// export const ShapeWrapper = styled.div`
-//     display: flex;
-//     justify-content: center;
-//     .shapebox .wrapper {
-//         display: flex;
-//         flex-wrap: wrap;
-//         justify-content: center;
-//     }
-// `;
-
-// export const ShapeItem = styled.div`
-//     margin: 10px;
-//     text-align: center;
-
-// `;
-
-// export const DotImage = styled.div`
-//     img {
-//     max-width: 100px;
-//     height: auto;
-//     background-color: #fff;
-//     padding: 40px 20px;
-//     border-radius: 10px;
-//     &:hover {
-//         transform: translateY(-5px);
-//         cursor: pointer;
-//     }
-// }
-// `;
-
-// export const DotInfo = styled.div`
-
-// `;
-
-// export const DotTitle = styled.div`
-// margin: 10px 20px 0 0;
-//     font-size: 15px;
-//     color: ${theme.color.white};
-//      font-family: "Poppins", sans-serif;
-
-// `;
-
-// export const ButtonShape = styled.button`
-// padding: 10px;
-// cursor: pointer;
-// border-radius: 50%;
-// background-color: ${theme.color.primary};;
-// border: solid 2px ${theme.color.white};;
-
-//     &:hover {
-//         transform: translateY(-5px);
-//         transition: all .45s ease;
-//     }
-// `;
-// export const RightButtonShape = styled.div`
-// position: absolute;
-//     top: 82%;
-//     transform: translateY(-50%);
-//     right: 10px;
-
-// `;
-
-// export const LeftButtonShape = styled.div`
-// position: absolute;
-//     top: 82%;
-//     transform: translateY(-50%);
-
-// `;
 
 export const ShapeItem = styled.div`
   position: relative;
@@ -238,8 +132,6 @@ export const DotImage = styled.div`
   }
 `;
 
-export const DotInfo = styled.div``;
-
 export const DotTitle = styled.h3`
   position: absolute;
   top: 50%;
@@ -260,69 +152,6 @@ export const Banner2 = styled.section`
   margin: 60px auto;
 `;
 
-export const Banner2Container = styled.div`
-  color: ${theme.color.primary};
-  text-align: center;
-  margin-top: 0;
-  font-family: "Poppins", sans-serif;
-  font-weight: 600;
-  font-size: 24px;
-  h6 {
-    font-size: 16px;
-    font-family: "Poppins", sans-serif;
-    color: ${theme.color.primary};
-    font-weight: bold;
-    padding-top: 60px;
-  }
-
-  h2 {
-    font-size: 50px;
-    font-weight: 700;
-    font-family: "Poppins", sans-serif;
-    padding-top: 10px;
-    color: ${theme.color.primary};
-  }
-  button {
-    padding: 1rem 2rem;
-    font-size: 1rem;
-    color: ${theme.color.white};
-    outline: none;
-    border: none;
-    border-radius: 8px;
-    background-color: ${theme.color.primary};
-    cursor: pointer;
-    margin-top: 15px;
-    font-family: "Poppins", sans-serif;
-    font-weight: 600;
-    transition: all 0.45s ease;
-    margin-bottom: 60px;
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-`;
-
-export const Countdown = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 1rem;
-  margin: 2rem 0;
-`;
-
-export const Square = styled.div`
-  width: 70px;
-  height: 70px;
-  background-color: ${theme.color.white};
-  display: grid;
-  place-content: center;
-  border-radius: 12px;
-  span {
-    font-family: "Poppins", sans-serif;
-    font-size: 14px;
-  }
-`;
-
 export const StyledImage = styled.img`
   width: 100%;
   height: 550px;
@@ -333,7 +162,7 @@ export const StyledContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  height: 100%;
+  height: 99.4%;
   background-color: #dbdad6;
   padding: 50px;
 
@@ -537,82 +366,12 @@ export const FeatureContent = styled.div`
   margin-top: 5px;
 `;
 
-export const Row = styled.div`
-  padding: 30px 30px;
-  background-color: ${theme.color.primary};
-  border-radius: 10px;
-  transition: all 0.45s ease;
-
-  .main-row {
-    display: flex;
-    align-items: center;
-    justify-content: space-around;
-    gap: 2rem;
-  }
-
-  &:hover {
-    transform: translateY(-5px);
-    cursor: pointer;
-  }
-`;
-
-export const RowText = styled.div`
-  margin-bottom: 20px;
-  h6 {
-    font-family: "Poppins", serif;
-    font-size: 12px;
-    font-weight: 300;
-    color: #fff;
-    margin-bottom: 1.5rem;
-  }
-  h3 {
-    font-size: 20px;
-    font-weight: 600;
-    margin-bottom: 10px;
-    font-family: "Poppins", sans-serif;
-    color: #fff;
-  }
-  h5 {
-    font-size: 13px;
-    font-weight: 600;
-    color: #fff;
-    margin-bottom: 2rem;
-    font-family: "Poppins", sans-serif;
-  }
-  .row-btn {
-    display: inline-block;
-    padding: 10px 20px;
-    background-color: ${theme.color.secondary};
-    color: ${theme.color.primary};
-    font-size: 12px;
-    border-radius: 8px;
-    transition: all 0.45s ease;
-    text-decoration: none;
-    font-family: "Poppins", serif;
-    font-weight: 600;
-    &:hover {
-      transform: translateY(-5px);
-    }
-  }
-`;
-
-export const RowImg = styled.div`
-  width: 200px;
-  img {
-    width: 200px;
-    height: auto;
-    max-width: 100%;
-  }
-`;
-
-export const RowButton = styled.a``;
-
 export const AboutContent = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 100%;
+  height: 99.4%;
   background-color: #f8f5ee;
   padding: 50px;
   .about {

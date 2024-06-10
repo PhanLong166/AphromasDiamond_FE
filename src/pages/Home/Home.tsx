@@ -40,7 +40,7 @@ import {
   ContainBrand,
   Brand,
   BrandItem,
-} from "./HomeV4.styled";
+} from "./Home.styled";
 
 import { Link } from "react-router-dom";
 import { Carousel } from "antd";
@@ -255,7 +255,7 @@ const products = [
   },
 ];
 
-const HomeV4: React.FC = () => {
+const Home: React.FC = () => {
   type Carousel = /*unresolved*/ any;
   const carouselRef = React.useRef<Carousel | null>(null);
   const StyledCarousel = styled(Carousel)`
@@ -583,4 +583,4 @@ const HomeV4: React.FC = () => {
   );
 };
 
-export default HomeV4;
+export default Home;
