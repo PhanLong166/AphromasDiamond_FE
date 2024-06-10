@@ -31,12 +31,13 @@ const MainContainer = styled.div``;
 
 const Header = styled.header`
   background: #fff;
-  width: 100%;
-  padding: 16px 60px;
-  color: #818594;
-  font: 15px/150% 'Crimson Text', sans-serif;
-  border-bottom: 1px solid #000;
-  border-top: 1px solid #000;
+    width: 100%;
+    color: #818594;
+    font: 14px / 150% 'Crimson Text', sans-serif;
+    border-bottom: 1px solid #e4e4e4;
+    border-top: 1px solid #e4e4e4;
+    padding: 4px 0;
+    margin-left: 9.5rem;
 
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
