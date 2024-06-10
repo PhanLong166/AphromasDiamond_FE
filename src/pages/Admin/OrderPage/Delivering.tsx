@@ -1,6 +1,6 @@
 import * as Styled from "./Delivering.styled";
 import { useState } from "react";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
@@ -20,13 +20,13 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.orderID - b.orderID,
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.date - b.date,
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
@@ -93,7 +93,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Invoice",
     key: "invoice",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <EyeOutlined />
       </Space>
@@ -105,7 +105,7 @@ const data: DataType[] = [
   {
     key: "1",
     orderID: "12345124",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Joe Black",
     deliveryStaff: "Ajmal Abdul Rahiman",
     statuses: ["Delivering"],
@@ -113,7 +113,7 @@ const data: DataType[] = [
   {
     key: "2",
     orderID: "12345122",
-    date: "2 Jan 2023",
+    date: "2023-01-03",
     cusName: "Jim Green",
     deliveryStaff: "Joe Black",
     statuses: ["Delivering"],
@@ -121,7 +121,7 @@ const data: DataType[] = [
   {
     key: "3",
     orderID: "12345121",
-    date: "3 Jan 2023",
+    date: "2023-01-02",
     cusName: "Joe Black",
     deliveryStaff: "Esther Eden",
     statuses: ["Delivering"],
@@ -129,7 +129,7 @@ const data: DataType[] = [
   {
     key: "4",
     orderID: "12345123",
-    date: "4 Jan 2023",
+    date: "2023-01-05",
     cusName: "Jim Red",
     deliveryStaff: "Esther Eden",
     statuses: ["Delivering"],
@@ -137,7 +137,7 @@ const data: DataType[] = [
   {
     key: "5",
     orderID: "12345121",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Esther Eden",
     deliveryStaff: "Ajmal Abdul Rahiman",
     statuses: ["Delivering"],
@@ -145,7 +145,7 @@ const data: DataType[] = [
   {
     key: "6",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     deliveryStaff: "Jim Red",
     statuses: ["Delivering"],
@@ -153,7 +153,7 @@ const data: DataType[] = [
   {
     key: "7",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Jim Red",
     deliveryStaff: "Joe Black",
     statuses: ["Delivering"],
@@ -161,7 +161,7 @@ const data: DataType[] = [
   {
     key: "8",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-04",
     cusName: "Ajmal Abdul Rahiman",
     deliveryStaff: "Joe Black",
     statuses: ["Delivering"],
@@ -169,7 +169,7 @@ const data: DataType[] = [
   {
     key: "9",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-04",
     cusName: "Joe Black",
     deliveryStaff: "Jim Red",
     statuses: ["Delivering"],
@@ -177,7 +177,7 @@ const data: DataType[] = [
   {
     key: "10",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Jim Green",
     deliveryStaff: "Esther Eden",
     statuses: ["Delivering"],
@@ -196,12 +196,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const DeliveringOrder = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -216,11 +216,9 @@ const DeliveringOrder = () => {
           <OrderMenu />
 
           <Styled.OrderContent>
-            <Styled.OrderContent_Head>
-              <Styled.SearchArea>
-                {/* <div className="searchInputContainer"> */}
-                <SearchOutlined className="searchIcon" />
-                <input
+            <Styled.AdPageContent_Head>
+            <Styled.SearchArea>
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -228,16 +226,12 @@ const DeliveringOrder = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
-                {/* </div> */}
-                {/* <button className="filterIcon">
-                                        <FilterOutlined />
-                                        </button> */}
-                {/* <Button className="filterIcon" icon={<FilterOutlined />} size="large" /> */}
               </Styled.SearchArea>
-            </Styled.OrderContent_Head>
+            </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
+            <Styled.AdminTable>
               <Table
                 className="table"
                 columns={columns}
@@ -246,7 +240,7 @@ const DeliveringOrder = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
-            </Styled.Pending_Table>
+            </Styled.AdminTable>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>

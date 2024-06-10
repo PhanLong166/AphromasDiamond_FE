@@ -1,16 +1,8 @@
 import * as Styled from "./Customer.styled";
 import React, { useState } from "react";
-import {
-  SearchOutlined,
-} from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Popconfirm,
-  Table,
-} from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 
 interface Item {
@@ -181,14 +173,16 @@ const Customer = () => {
       title: "Customer ID",
       dataIndex: "customerID",
       // editable: true,
-      sorter: (a: Item, b: Item) => a.customerName.localeCompare(b.customerName),
+      sorter: (a: Item, b: Item) =>
+        a.customerName.localeCompare(b.customerName),
     },
     {
       title: "Customer Name",
       dataIndex: "customerName",
       defaultSortOrder: "descend",
       // editable: true,
-      sorter: (a: Item, b: Item) => a.customerName.length - b.customerName.length,
+      sorter: (a: Item, b: Item) =>
+        a.customerName.length - b.customerName.length,
     },
     {
       title: "Email",
@@ -243,7 +237,7 @@ const Customer = () => {
 
   return (
     <>
-      <Styled.ProductAdminArea>
+      <Styled.AdminArea>
         <Sidebar />
 
         <Styled.AdminPage>
@@ -253,7 +247,7 @@ const Customer = () => {
           </Styled.TitlePage>
 
           <Styled.AdPageContent>
-          <Styled.AdPageContent_Head>
+            <Styled.AdPageContent_Head>
               <Styled.SearchArea>
                 <Input
                   className="searchInput"
@@ -289,7 +283,7 @@ const Customer = () => {
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
-      </Styled.ProductAdminArea>
+      </Styled.AdminArea>
     </>
   );
 };

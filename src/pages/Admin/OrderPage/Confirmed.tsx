@@ -1,6 +1,6 @@
 import * as Styled from "./Confirmed.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
@@ -20,13 +20,13 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.orderID - b.orderID,
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.date - b.date,
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
@@ -81,7 +81,7 @@ const columns: TableColumnsType<DataType> = [
   {
     title: "Action",
     key: "action",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <Button className="transferBtn">Transfer</Button>
       </Space>
@@ -91,7 +91,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Detail",
     key: "detail",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle">
         <EyeOutlined />
       </Space>
@@ -103,7 +103,7 @@ const data: DataType[] = [
   {
     key: "1",
     orderID: "12345124",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Joe Black",
     total: 701,
     statuses: ["Confirmed"],
@@ -111,7 +111,7 @@ const data: DataType[] = [
   {
     key: "2",
     orderID: "12345122",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Jim Green",
     total: 890,
     statuses: ["Confirmed"],
@@ -119,7 +119,7 @@ const data: DataType[] = [
   {
     key: "3",
     orderID: "12345121",
-    date: "3 Jan 2023",
+    date: "2023-01-03",
     cusName: "Joe Black",
     total: 560,
     statuses: ["Confirmed"],
@@ -127,7 +127,7 @@ const data: DataType[] = [
   {
     key: "4",
     orderID: "12345123",
-    date: "4 Jan 2023",
+    date: "2023-01-04",
     cusName: "Jim Red",
     total: 700,
     statuses: ["Confirmed"],
@@ -135,7 +135,7 @@ const data: DataType[] = [
   {
     key: "5",
     orderID: "12345121",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Esther Eden",
     total: 430,
     statuses: ["Confirmed"],
@@ -143,7 +143,7 @@ const data: DataType[] = [
   {
     key: "6",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Confirmed"],
@@ -151,7 +151,7 @@ const data: DataType[] = [
   {
     key: "7",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Confirmed"],
@@ -159,7 +159,7 @@ const data: DataType[] = [
   {
     key: "8",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Confirmed"],
@@ -167,7 +167,7 @@ const data: DataType[] = [
   {
     key: "9",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Confirmed"],
@@ -175,7 +175,7 @@ const data: DataType[] = [
   {
     key: "10",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Confirmed"],
@@ -194,12 +194,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const ConfirmedOrder = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -214,11 +214,9 @@ const ConfirmedOrder = () => {
           <OrderMenu />
 
           <Styled.OrderContent>
-          <Styled.OrderContent_Head>
+            <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                {/* <div className="searchInputContainer"> */}
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -226,25 +224,21 @@ const ConfirmedOrder = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
-                {/* </div> */}
-                {/* <button className="filterIcon">
-                  <FilterOutlined />
-                </button> */}
-                {/* <Button className="filterIcon" icon={<FilterOutlined />} size="large" /> */}
               </Styled.SearchArea>
-            </Styled.OrderContent_Head>
+            </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
-                <Table
-                    className="table"
-                    columns={columns}
-                    dataSource={data}
-                    pagination={{ pageSize: 6 }} // Add pagination here
-                    onChange={onChange}
-                    showSorterTooltip={{ target: "sorter-icon" }}
-                />
-            </Styled.Pending_Table>
+            <Styled.AdminTable>
+              <Table
+                className="table"
+                columns={columns}
+                dataSource={data}
+                pagination={{ pageSize: 6 }} // Add pagination here
+                onChange={onChange}
+                showSorterTooltip={{ target: "sorter-icon" }}
+              />
+            </Styled.AdminTable>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>

@@ -1,6 +1,6 @@
 import * as Styled from "./Completed.styled";
 import { useState } from "react";
-import { Space, Table, Tag } from "antd";
+import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
@@ -20,13 +20,13 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.orderID - b.orderID,
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: any, b: any) => a.date - b.date,
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
@@ -93,7 +93,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Invoice",
     key: "invoice",
     className: "TextAlign",
-    render: (_) => (
+    render: () => (
       <Space size="middle" >
         <EyeOutlined />
       </Space>
@@ -196,12 +196,12 @@ const onChange: TableProps<DataType>["onChange"] = (
 const CompletedOrder = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value: any) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e: any) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -216,11 +216,9 @@ const CompletedOrder = () => {
           <OrderMenu />
 
           <Styled.OrderContent>
-            <Styled.OrderContent_Head>
-              <Styled.SearchArea>
-                {/* <div className="searchInputContainer"> */}
-                <SearchOutlined className="searchIcon" />
-                <input
+            <Styled.AdPageContent_Head>
+            <Styled.SearchArea>
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -228,16 +226,12 @@ const CompletedOrder = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
-                {/* </div> */}
-                {/* <button className="filterIcon">
-                  <FilterOutlined />
-                </button> */}
-                {/* <Button className="filterIcon" icon={<FilterOutlined />} size="large" /> */}
               </Styled.SearchArea>
-            </Styled.OrderContent_Head>
+            </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
+            <Styled.AdminTable>
               <Table
                 className="table"
                 columns={columns}
@@ -246,7 +240,7 @@ const CompletedOrder = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
-            </Styled.Pending_Table>
+            </Styled.AdminTable>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>
