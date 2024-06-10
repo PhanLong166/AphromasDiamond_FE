@@ -1,6 +1,6 @@
 import * as Styled from "./Order.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag } from "antd";
+import { Button, Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
@@ -15,7 +15,7 @@ interface DataType {
   statuses: string[];
 }
 
-const columns = [
+const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
@@ -26,7 +26,7 @@ const columns = [
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) =>  a.date.localeCompare(b.date),
+    sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
   },
   {
     title: "Customer",
@@ -40,7 +40,7 @@ const columns = [
     ],
     // specify the condition of filtering result
     // here is that finding the name started with `value`
-    onFilter: (value: string, record: DataType) => record.cusName.indexOf(value as string) === 0,
+    onFilter: (value, record) => record.cusName.indexOf(value as string) === 0,
     sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
@@ -214,11 +214,9 @@ const Order = () => {
           <OrderMenu />
 
           <Styled.OrderContent>
-            <Styled.OrderContent_Head>
+            <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                {/* <div className="searchInputContainer"> */}
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
                   // size="large"
@@ -226,16 +224,12 @@ const Order = () => {
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
-                {/* </div> */}
-                {/* <button className="filterIcon">
-                  <FilterOutlined />
-                </button> */}
-                {/* <Button className="filterIcon" icon={<FilterOutlined />} size="large" /> */}
               </Styled.SearchArea>
-            </Styled.OrderContent_Head>
+            </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
+            <Styled.AdminTable>
               <Table
                 className="table"
                 columns={columns}
@@ -244,7 +238,7 @@ const Order = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
-            </Styled.Pending_Table>
+            </Styled.AdminTable>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>

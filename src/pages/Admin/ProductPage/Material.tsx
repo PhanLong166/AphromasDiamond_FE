@@ -242,7 +242,7 @@ const Material = () => {
 
   return (
     <>
-      <Styled.ProductAdminArea>
+      <Styled.AdminArea>
         <Sidebar />
 
         <Styled.AdminPage>
@@ -272,7 +272,7 @@ const Material = () => {
               </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
+            <Styled.AdminTable>
               <Form form={form} component={false}>
                 <Table
                   components={{
@@ -290,12 +290,12 @@ const Material = () => {
                   }}
                 />
               </Form>
-            </Styled.Pending_Table>
+            </Styled.AdminTable>
 
             
           </Styled.AdPageContent>
         </Styled.AdminPage>
-      </Styled.ProductAdminArea>
+      </Styled.AdminArea>
     </>
   );
 };

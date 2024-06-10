@@ -112,13 +112,14 @@ export const AdminTable = styled.div`
     border: none;
   }
   .confirmBtn {
-    background-color: #cd486b;
-    border-radius: 100px;
-    padding: 7px 17px 7px 17px;
+    background-color: #151542;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    /* font-size: 12px; */
-    color: #f8e7ee;
+    color: #ffffff;
     border: none;
     cursor: pointer;
-  }
+}
+.confirmBtn:hover {
+    color: #CD486B;
+    background-color: #F8E7EE;
+}
 `;

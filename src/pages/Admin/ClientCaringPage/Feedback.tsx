@@ -10,7 +10,9 @@ import {
   InputNumber,
   Popconfirm,
   Table,
-  Rate
+  Rate,
+  Space,
+  Button
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ClientCaringMenu from "../../../components/Admin/ClientCaringMenu/ClientCaringMenu";
@@ -155,49 +157,6 @@ const Feedback = () => {
     
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
-  // const [editingKey, setEditingKey] = useState<React.Key>("");
-
-  // const isEditing = (record: Item) => record.key === editingKey;
-
-  // const edit = (record: Partial<Item> & { key: React.Key }) => {
-  //   form.setFieldsValue({
-  //     feedbackID: "",
-  //     productName: "",
-  //     customer: "",
-  //     description: "",
-  //     star: "",
-  //     ...record,
-  //   });
-  //   setEditingKey(record.key);
-  // };
-
-  // const cancel = () => {
-  //   setEditingKey("");
-  // };
-
-  // const save = async (key: React.Key) => {
-  //   try {
-  //     const row = (await form.validateFields()) as Item;
-
-  //     const newData = [...data];
-  //     const index = newData.findIndex((item) => key === item.key);
-  //     if (index > -1) {
-  //       const item = newData[index];
-  //       newData.splice(index, 1, {
-  //         ...item,
-  //         ...row,
-  //       });
-  //       setData(newData);
-  //       setEditingKey("");
-  //     } else {
-  //       newData.push(row);
-  //       setData(newData);
-  //       setEditingKey("");
-  //     }
-  //   } catch (errInfo) {
-  //     console.log("Validate Failed:", errInfo);
-  //   }
-  // };
 
   const handleDelete = (key: React.Key) => {
     const newData = data.filter((item) => item.key !== key);
@@ -235,7 +194,15 @@ const Feedback = () => {
       sorter: (a, b) => a.star - b.star,
       render: (_, record) => <Rate disabled defaultValue={record.star} />
     },
-    
+    {
+      title: "Action",
+      key: "action",
+      render: () => (
+        <Space size="middle">
+          <Button className="confirmBtn">View</Button>
+        </Space>
+      ),
+    },
     {
       title: "Delete",
       dataIndex: "delete",
@@ -252,31 +219,10 @@ const Feedback = () => {
     },
   ];
 
-  // const mergedColumns: TableProps['columns'] = columns.map((col) => {
-  //   if (!col.fixed) {
-  //     return col;
-  //   }
-  //   return {
-  //     ...col,
-  //     onCell: (record: Item) => ({
-  //       record,
-  //       inputType: col.dataIndex === "price" ? "number" : "text",
-  //       dataIndex: 12,
-  //       title: col.title,
-  //       editing: isEditing(record),
-  //     }),
-  //   };
-  // });
-
-  // mergedColumns.at(1);
-  // edit;
-  // save;
-
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -310,210 +256,6 @@ const Feedback = () => {
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              {/* <table>
-                <tr>
-                  <th>No</th>
-                  <th>Feedback ID</th>
-                  <th>Product Name</th>
-                  <th>Customer</th>
-                  <th>Description</th>
-                  <th className="TextAlign">Star</th>
-                  <th className="TextAlign">Reply</th>
-                  <th className="TextAlign">Delete</th>
-                </tr>
-                <tr>
-                  <td>01</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      value="1.00 Carat H-VS2 Emerald Cut Diamond"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" value="Ajmal Abdul Rahiman" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value="Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!"
-                    />
-                  </td>
-                  <td className="TextAlign">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarOutlined />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Reply</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>02</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      value="1.00 Carat H-VS2 Emerald Cut Diamond"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" value="Ajmal Abdul Rahiman" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value="Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!"
-                    />
-                  </td>
-                  <td className="TextAlign">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarOutlined />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Reply</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>03</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      value="1.00 Carat H-VS2 Emerald Cut Diamond"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" value="Ajmal Abdul Rahiman" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value="Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!"
-                    />
-                  </td>
-                  <td className="TextAlign">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarOutlined />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Reply</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>04</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      value="1.00 Carat H-VS2 Emerald Cut Diamond"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" value="Ajmal Abdul Rahiman" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value="Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!"
-                    />
-                  </td>
-                  <td className="TextAlign">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarOutlined />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Reply</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>05</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      value="1.00 Carat H-VS2 Emerald Cut Diamond"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" value="Ajmal Abdul Rahiman" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value="Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!"
-                    />
-                  </td>
-                  <td className="TextAlign">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarOutlined />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Reply</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-                <tr>
-                  <td>06</td>
-                  <td>#12345123</td>
-                  <td>
-                    <input
-                      type="text"
-                      value="1.00 Carat H-VS2 Emerald Cut Diamond"
-                    />
-                  </td>
-                  <td>
-                    <input type="text" value="Ajmal Abdul Rahiman" />
-                  </td>
-                  <td>
-                    <input
-                      type="text"
-                      value="Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!"
-                    />
-                  </td>
-                  <td className="TextAlign">
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarOutlined />
-                  </td>
-                  <td className="TextAlign">
-                    <button className="confirmBtn">Reply</button>
-                  </td>
-                  <td className="TextAlign">
-                    <DeleteOutlined className="deleBtn" />
-                  </td>
-                </tr>
-              </table> */}
 
               <Form form={form} component={false}>
                 <Table

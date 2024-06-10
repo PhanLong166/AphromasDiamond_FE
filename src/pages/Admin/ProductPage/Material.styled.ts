@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../themes";
 
 
-export const ProductAdminArea = styled.section`
+export const AdminArea = styled.section`
     display: inline-flex;
     background-color: #f1f1f1;
     font-family: "Poppins", sans-serif;
@@ -103,7 +103,7 @@ export const AddButton = styled.div`
   }
 `;
 
-export const Pending_Table = styled.div`
+export const AdminTable = styled.div`
     padding: 0px 50px 0px 50px;
 
     table {
@@ -137,10 +137,10 @@ export const Pending_Table = styled.div`
     }
     td input {
         font-size: 16px;
-        background-color: ${theme.color.fifth};
+        background-color: #FFFFFF;
         color: ${theme.color.primary};
         padding: 5px;
-        border: 1px solid ${theme.color.fifth};
+        border: 1px solid #FFFFFF;
         border-radius: 5px;
         height: 100%;
         // width: fit-content;
@@ -158,17 +158,17 @@ export const Pending_Table = styled.div`
         color: red;
     }
     .custom-select .ant-select-selector {
-        background-color: ${theme.color.fifth} !important;
+        background-color: #FFFFFF !important;
         color: ${theme.color.primary} !important;
     }
     
     .custom-select .ant-select-dropdown {
-        background-color: ${theme.color.fifth} !important;
+        background-color: #FFFFFF !important;
         color: ${theme.color.primary} !important;
     }
     
     .custom-select .ant-select-item-option-selected {
-        background-color: ${theme.color.fifth} !important;
+        background-color: #FFFFFF !important;
         color: ${theme.color.primary} !important;
     }
 
@@ -178,7 +178,7 @@ export const Pending_Table = styled.div`
         padding: 7px 17px 7px 17px;
         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
         /* font-size: 12px; */
-        color: ${theme.color.fifth};
+        color: #FFFFFF;
         border: none;
     }
     .confirmBtn:hover {

@@ -1,95 +1,85 @@
 import * as Styled from "./Manager.styled";
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import {
-  SearchOutlined,
-} from "@ant-design/icons";
-import type { TableColumnsType } from "antd";
-import {
-  Form,
-  Input,
-  InputNumber,
-  Popconfirm,
-  Table,
-} from "antd";
+import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import type { TableProps } from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-
-
 
 interface Item {
   key: React.Key;
-  customerID: string;
-  customerName: string;
+  managerID: string;
+  managerName: string;
   email: string;
 }
 
 const originData: Item[] = [
   {
     key: "1",
-    customerID: "12345121",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345121",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "2",
-    customerID: "12345122",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345122",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "3",
-    customerID: "12345123",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345123",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "4",
-    customerID: "12345124",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345124",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "5",
-    customerID: "12345125",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345125",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "6",
-    customerID: "12345126",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345126",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "7",
-    customerID: "12345127",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345127",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "8",
-    customerID: "12345128",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345128",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "9",
-    customerID: "12345129",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345129",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
   {
     key: "10",
-    customerID: "12345130",
-    customerName: "Ajmal Abdul Rahiman",
+    managerID: "12345130",
+    managerName: "Ajmal Abdul Rahiman",
     email: "xinchao@gmail.com",
   },
 ];
 
-interface EditableCellProps extends React.HTMLAttributes<HTMLElement> {
+interface EditableCellProps {
   editing: boolean;
   dataIndex: string;
-  title: any;
+  title: React.ReactNode;
   inputType: "number" | "text";
   record: Item;
   index: number;
@@ -102,8 +92,6 @@ const EditableCell: React.FC<EditableCellProps> = ({
   dataIndex,
   title,
   inputType,
-  record,
-  index,
   children,
   ...restProps
 }) => {
@@ -131,7 +119,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-const Manager = () => {
+const Customer = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
   const [editingKey, setEditingKey] = useState<React.Key>("");
@@ -140,8 +128,8 @@ const Manager = () => {
 
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({
-      customerID: "",
-      customerName: "",
+      managerID: "",
+      managerName: "",
       email: "",
       ...record,
     });
@@ -181,31 +169,60 @@ const Manager = () => {
     setData(newData);
   };
 
-  const columns: TableColumnsType<Item> = [
+  const columns = [
     {
-      title: "Customer ID",
-      dataIndex: "customerID",
+      title: "Manager ID",
+      dataIndex: "managerID",
       editable: true,
-      sorter: (a, b) => a.customerName.localeCompare(b.customerName),
+      sorter: (a: Item, b: Item) =>
+        parseInt(a.managerID) - parseInt(b.managerID),
     },
     {
-      title: "Customer Name",
-      dataIndex: "customerName",
+      title: "Manager Name",
+      dataIndex: "managerName",
       defaultSortOrder: "descend",
       editable: true,
-      sorter: (a, b) => a.customerName.length - b.customerName.length,
+      sorter: (a: Item, b: Item) => a.managerName.length - b.managerName.length,
     },
     {
       title: "Email",
       dataIndex: "email",
       editable: true,
-      sorter: (a, b) => a.email.length - b.email.length,
+      // sorter: (a: Item, b: Item) => a.email.length - b.email.length,
+    },
+    {
+      title: "Edit",
+      dataIndex: "edit",
+      className: "TextAlign SmallSize",
+      render: (_: unknown, record: Item) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{ marginRight: 8 }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
+        );
+      },
     },
     {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_, record) =>
+      render: (_: unknown, record: Item) =>
         originData.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -217,7 +234,7 @@ const Manager = () => {
     },
   ];
 
-  const mergedColumns = columns.map((col) => {
+  const mergedColumns: TableProps["columns"] = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -225,7 +242,7 @@ const Manager = () => {
       ...col,
       onCell: (record: Item) => ({
         record,
-        inputType: col.dataIndex === "discountPercent" ? "number" : "text",
+        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -235,12 +252,12 @@ const Manager = () => {
 
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -248,29 +265,37 @@ const Manager = () => {
 
   return (
     <>
-      <Styled.ProductAdminArea>
+      <Styled.AdminArea>
         <Sidebar />
 
         <Styled.AdminPage>
           <Styled.TitlePage>
-            <h1>Customer Management</h1>
-            <p>View and manage Customer</p>
+            <h1>Manager Management</h1>
+            <p>View and manage Manager</p>
           </Styled.TitlePage>
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
               <Styled.SearchArea>
-                <SearchOutlined className="searchIcon" />
-                <input
+                <Input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
                   onKeyPress={handleKeyPress}
+                  prefix={<SearchOutlined className="searchIcon" />}
                 />
               </Styled.SearchArea>
+              <Styled.AddButton>
+                <Link to="">
+                  <button>
+                    <PlusCircleOutlined />
+                    Add New Diamond
+                  </button>
+                </Link>
+              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -294,9 +319,8 @@ const Manager = () => {
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
-      </Styled.ProductAdminArea>
+      </Styled.AdminArea>
     </>
   );
 };
-
-export default Manager;
+export default Customer;
