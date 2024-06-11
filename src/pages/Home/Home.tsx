@@ -2,8 +2,10 @@ import React, { useState } from "react";
 import styled from "styled-components";
 import { theme } from "../../themes";
 import { Row, Col, Typography, Pagination } from "antd";
+import { Card } from "antd";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+const { Title, Text } = Typography;
 
-const { Title } = Typography;
 import {
   Body,
   Categories,
@@ -40,6 +42,9 @@ import {
   ContainBrand,
   Brand,
   BrandItem,
+  Button,
+  BannerContent,
+  Banner,
 } from "./Home.styled";
 
 import { Link } from "react-router-dom";
@@ -105,7 +110,7 @@ const categories = [
 
 const shapes = [
   {
-    href: "#",
+    href: "/list",
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Froundshape.jpg?alt=media&token=7b5a2b64-dd48-4820-b629-95ca68b70d42",
     title: "Round",
@@ -196,62 +201,93 @@ const brand = [
   // Add more shapes as needed
 ];
 
-const products = [
+interface Product {
+  id: number;
+  name: string;
+  price: number;
+  salePrice?: number;
+  image: string;
+  hoverImage: string;
+}
+
+const products: Product[] = [
   {
-    href: "/details",
-    name: "Petite Pavé Leaf Halo Diamond Engagement Ring",
-    price: "$13.99",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102",
+    id: 1,
+    name: "SOFIA TWO FINGER RING",
+    price: 100,
+    salePrice: 98,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_2.webp?alt=media&token=e043514e-f66c-4397-987e-27a44ea87578",
   },
   {
-    href: "#",
-    name: "Shank Double Pavé Diamond Engagement Ring",
-    price: "$16.99",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct2.png?alt=media&token=fa0d4535-33eb-4fcc-8a67-5ed310fd3f7f",
+    id: 2,
+    name: "RAIN SOLITARY RING",
+    price: 59,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_1.webp?alt=media&token=8d8f6760-e2ac-45eb-8c6b-880ff64e95bc",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_2.webp?alt=media&token=bc0adf15-7ad9-4507-8d17-e8a27d624417",
+  },
+
+  {
+    id: 3,
+    name: "GALA STAMP RING",
+    price: 100,
+    salePrice: 90,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_1.webp?alt=media&token=7dd02d2a-24f9-4b31-a809-bccfa25cefde",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_2.webp?alt=media&token=330beb5e-ee10-429c-8b8b-1df54073a294",
   },
   {
-    href: "#",
-    name: "Shank Triple Pavé Diamond Engagement Ring",
-    price: "$19.99",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct3.png?alt=media&token=29b58243-7981-4e8d-a6b3-2c964de6ab7d",
+    id: 4,
+    name: "THE ROCKS RING SET",
+    price: 185,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_1.webp?alt=media&token=bdc15cce-29cd-401c-bf79-105b6bc66592",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_2.webp?alt=media&token=90ee67f1-59c9-42b4-b851-ddc2104a96a4",
   },
   {
-    href: "#",
-    name: "Graduated Milgrain Diamond Engagement Ring",
-    price: "$11.00",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct4.png?alt=media&token=ed7b509a-55f7-4b14-a6c6-c46107d25acb",
+    id: 5,
+    name: "DIAMONDS AND GOLD BALANCE RING",
+    price: 520,
+    salePrice: 445,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp5_1.webp?alt=media&token=e29bfcd0-9170-4bd9-ba64-c58326decdaa",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp5_2.webp?alt=media&token=9867ffe1-d125-4ff7-906f-0fc95e993761",
   },
   {
-    href: "#",
-    name: "Six-Prong Hand-Engraved Diamond Engagement Ring",
-    price: "$13.00",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct5.png?alt=media&token=fcedf915-c5f5-4215-9226-7f8088c4102e",
+    id: 6,
+    name: "DIAMONDS AND GOLD NORA RING",
+    price: 585,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp6_1.webp?alt=media&token=1239447c-a395-4239-8bde-1e6f7f7730ed",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp6_2.webp?alt=media&token=775559ab-5d42-4b24-9e0b-d95b173c07c6",
+  },
+
+  {
+    id: 7,
+    name: "DIAMONDS ETERNITY MINI RING",
+    price: 900,
+    salePrice: 845,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp7_1.webp?alt=media&token=146832c4-dd52-4901-aae7-49853ac469eb",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp7_2.webp?alt=media&token=932b6133-fe30-46c5-861a-4efed29340fc",
   },
   {
-    href: "#",
-    name: "Tapered Baguette Diamond Engagement Ring",
-    price: "$15.00",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct6.png?alt=media&token=36f7203c-a296-48b0-8ad2-4bfb3105d102",
-  },
-  {
-    href: "#",
-    name: "Shank Double Lave Diamond Engagement Ring",
-    price: "$17.00",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct7.png?alt=media&token=6da53894-3b1f-47f6-8c95-e073e76c0dc7",
-  },
-  {
-    href: "#",
-    name: "Stone Trapezoid Sidestone Diamond Engagement Ring",
-    price: "$23.00",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543",
+    id: 8,
+    name: "DIAMONDS AND GOLD LOOP RING",
+    price: 585,
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp8_1.webp?alt=media&token=0b64e6fb-9eed-4acb-b2b5-1fbaa4434458",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp8_2.webp?alt=media&token=2011db85-85f2-4c8c-a18b-1ebfabe24965",
   },
 ];
 
@@ -292,6 +328,65 @@ const Home: React.FC = () => {
       text-decoration: none;
     }
   `;
+
+  const StyledCard = styled(Card)`
+    .product-image {
+      width: 100%;
+      height: 328px;
+      transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng mượt mà */
+    }
+
+    .sale-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 4px 8px;
+      font-size: 14px;
+      font-weight: 500;
+      background-color: #ede0b8;
+      color: ${theme.color.primary};
+      width: auto;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .product-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 13px;
+      color: ${theme.color.primary};
+    }
+
+    .wishlist-icon {
+      margin-left: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #db7f67;
+    }
+
+    .price-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .product-price {
+      font-size: 14px;
+      color: ${theme.color.primary};
+    }
+
+    .product-sale-price {
+      font-size: 12px;
+      color: #888;
+      text-decoration: line-through;
+    }
+  `;
   const pageSize = 4;
   const [current, setCurrent] = useState(1);
 
@@ -303,11 +398,20 @@ const Home: React.FC = () => {
     (current - 1) * pageSize,
     current * pageSize
   );
+  const [wishList, setWishList] = useState<number[]>([]);
+
+  const toggleWishList = (productId: number) => {
+    setWishList((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
 
   return (
     <Body>
       <Container>
-        <Carousel arrows infinite={false}>
+        {/* <Carousel arrows infinite={false}>
           {images.map((image, index) => (
             <div key={index}>
               <img
@@ -317,7 +421,24 @@ const Home: React.FC = () => {
               />
             </div>
           ))}
-        </Carousel>
+        </Carousel> */}
+        <Banner>
+          <BannerContent>
+            <h2>To Love and Cherish</h2>
+            <p>
+              Discover timeless elegance with our exquisite diamond jewelry,
+              crafted to celebrate your most cherished moments. Each piece is
+              designed to embody the essence of love and sophistication, making
+              it perfect for commemorating special occasions. Indulge in our
+              luxurious collection and let our jewelry be a symbol of your
+              everlasting memories.
+            </p>
+            <Button>
+              <button className="shopAll">SHOP ALL</button>
+              <button className="shopSale">SHOP SALE JEWELRY</button>
+            </Button>
+          </BannerContent>
+        </Banner>
         <Categories>
           <Heading>
             <h5>JEWELRY</h5>
@@ -391,9 +512,9 @@ const Home: React.FC = () => {
                 >
                   SUPER SALE
                 </Title>
-                <Title level={2} className="upTo" style={{}}>
-                  UP TO 50%
-                </Title>
+                <Heading>
+                  <h2 className="title">UP TO 50%</h2>
+                </Heading>
                 <StyledText>
                   Don't miss out on our Dazzling Deals! For a limited time,
                   enjoy an incredible 50% off on a wide range of products.
@@ -409,7 +530,7 @@ const Home: React.FC = () => {
           </Row>
         </Banner2>
         <Feature>
-          <Row gutter={[16, 25]} style={{ height: "100%" }}>
+          <Row gutter={[16, 16]} style={{ height: "100%" }}>
             <Col span={24}>
               <Title
                 level={5}
@@ -435,18 +556,69 @@ const Home: React.FC = () => {
               }}
             >
               {paginatedProducts.slice(0, 2).map((product, index) => (
-                <ProductItem
-                  key={product.name}
+                <div
+                  key={product.id}
+                  className="card-wrapper"
                   style={{ marginBottom: index === 0 ? "16px" : "0" }}
                 >
-                  <Link to={product.href}>
-                    <ProductImage src={product.imgSrc} alt={product.name} />
-                    <ItemName>{product.name}</ItemName>
-                    <Price>{product.price}</Price>
-                  </Link>
-                </ProductItem>
+                  <StyledCard
+                    style={{ borderRadius: "0", height: "100%" }}
+                    hoverable
+                    className="product-card"
+                    cover={
+                      <>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={product.image}
+                          alt={product.name}
+                          className="product-image"
+                          onMouseOver={(e) =>
+                            (e.currentTarget.src = product.hoverImage)
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src = product.image)
+                          }
+                        />
+                        {product.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
+                    }
+                  >
+                    <div className="product-info">
+                      <Title level={4} className="product-name">
+                        {product.name}
+                        {wishList.includes(product.id) ? (
+                          <HeartFilled
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        ) : (
+                          <HeartOutlined
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        )}
+                      </Title>
+                      <div className="price-container">
+                        <Text className="product-price">
+                          $
+                          {product.salePrice
+                            ? product.salePrice
+                            : product.price}
+                        </Text>
+                        {product.salePrice && (
+                          <Text delete className="product-sale-price">
+                            ${product.price}
+                          </Text>
+                        )}
+                      </div>
+                    </div>
+                  </StyledCard>
+                </div>
               ))}
             </Col>
+
             <Col
               span={8}
               style={{
@@ -456,16 +628,66 @@ const Home: React.FC = () => {
               }}
             >
               {paginatedProducts.slice(2, 4).map((product, index) => (
-                <ProductItem
-                  key={product.name}
+                <div
+                  key={product.id}
+                  className="card-wrapper"
                   style={{ marginBottom: index === 0 ? "16px" : "0" }}
                 >
-                  <Link to={product.href}>
-                    <ProductImage src={product.imgSrc} alt={product.name} />
-                    <ItemName>{product.name}</ItemName>
-                    <Price>{product.price}</Price>
-                  </Link>
-                </ProductItem>
+                  <StyledCard
+                    style={{ borderRadius: "0", height: "100%" }}
+                    hoverable
+                    className="product-card"
+                    cover={
+                      <>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={product.image}
+                          alt={product.name}
+                          className="product-image"
+                          onMouseOver={(e) =>
+                            (e.currentTarget.src = product.hoverImage)
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src = product.image)
+                          }
+                        />
+                        {product.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
+                    }
+                  >
+                    <div className="product-info">
+                      <Title level={4} className="product-name">
+                        {product.name}
+                        {wishList.includes(product.id) ? (
+                          <HeartFilled
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        ) : (
+                          <HeartOutlined
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        )}
+                      </Title>
+                      <div className="price-container">
+                        <Text className="product-price">
+                          $
+                          {product.salePrice
+                            ? product.salePrice
+                            : product.price}
+                        </Text>
+                        {product.salePrice && (
+                          <Text delete className="product-sale-price">
+                            ${product.price}
+                          </Text>
+                        )}
+                      </div>
+                    </div>
+                  </StyledCard>
+                </div>
               ))}
             </Col>
             <Col span={8} style={{ paddingLeft: "16px" }}>
@@ -473,6 +695,7 @@ const Home: React.FC = () => {
                 <img
                   alt="example"
                   src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FEAR_x2.png?alt=media&token=1325ae2e-f30b-4c1f-9886-fb4bb49a8783"
+                  style={{ height: "1030px" }}
                 />
                 <div className="overlay">
                   <Title level={2} style={{ color: "white" }}>
@@ -493,6 +716,7 @@ const Home: React.FC = () => {
             </Col>
           </Row>
         </Feature>
+
         <Banner4>
           <Banner4Container>
             <h5>HAPPY</h5>
@@ -561,9 +785,7 @@ const Home: React.FC = () => {
                   use the finest materials and craftsmanship to ensure every
                   product is perfect. Our dedicated team is always ready to help
                   you find the perfect piece, whether it's a special gift, an
-                  engagement ring, or a set for a memorable occasion. Thank you
-                  for choosing Aphromas Diamond, where we strive to exceed your
-                  expectations with every diamond jewelry creation.
+                  engagement ring, or a set for a memorable occasion.
                 </AboutText>
                 <ButtonAbout>
                   <button>SHOP NOW</button>

@@ -11,7 +11,7 @@ const routes = {
         productList: '/list',
         allProduct: '/all',
         about: '/about',
-        learn: '/learn',
+        gift: '/gift',
     },
     customer: {
         account: '/account',

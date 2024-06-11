@@ -1,7 +1,6 @@
 import React, { useState } from "react";
 import {
   Container,
-  RightSection,
   LeftSection,
   Banner,
   InfoSection,
@@ -9,16 +8,14 @@ import {
   GiftSection,
   FAQs,
   LeftFAQ,
-  Wrapper,
-  Accordion,
-  Panel,
 } from "./Gift.styled";
 import { CaretDownOutlined } from "@ant-design/icons";
 // const { Title, Text } = Typography;
 import {} from "@ant-design/icons";
-import {  Collapse   } from 'antd';
+import { Collapse } from "antd";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
+import { theme } from "../../../themes";
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
   padding-top: 10px;
@@ -38,9 +35,9 @@ const texts = [
 ];
 
 const labels = [
-  'What is the average cost of a womens diamond wedding ring?',
-  'Can weddings rings be diamond rings?',
-  'What metals are best for diamond wedding bands?',
+  "What is the average cost of a womens diamond wedding ring?",
+  "Can weddings rings be diamond rings?",
+  "What metals are best for diamond wedding bands?",
 ];
 
 const items = texts.map((text, index) => ({
@@ -49,7 +46,7 @@ const items = texts.map((text, index) => ({
   children: <p>{text}</p>,
 }));
 const onChange = (key) => {
-console.log(key);
+  console.log(key);
 };
 
 const giftData = [
@@ -131,6 +128,27 @@ const Gift = () => {
   const toggleAccordion = (index: number) => {
     setActiveIndex(activeIndex === index ? null : index);
   };
+  const StyledCollapse = styled(Collapse)`
+    .ant-collapse-item {
+      background-color: #ffffff;
+       
+    }
+       .ant-collapse-header-text {
+       color: ${theme.color.primary};
+       }
+      .ant-collapse-content {
+      background-color: #F5F2ED;
+      color: #45413e;
+      }
+      .ant-collapse-expand-icon {
+       color: ${theme.color.primary};
+      }
+       .ant-collapse-header {
+       border-radius: 8px;
+     
+       }
+  `;
+
   return (
     <>
       <Container>
@@ -149,9 +167,10 @@ const Gift = () => {
           />
         </div>
         <Banner>
-          <LeftSection>
-            <h2>Top Ten Rings</h2>
-            <div className="subheading">
+          <div className="bannerContent">
+            <LeftSection>
+              <h2>Top Ten Rings</h2>
+              <div className="subheading">
               Get heirloom-quality beauty with our captivating selection of
               vintage-style engagement rings. Hand-engraved details, beaded-edge
               milgrain and pavé accent diamonds are featured throughout this
@@ -160,14 +179,9 @@ const Gift = () => {
               fancy-cut diamonds. Choose the vintage engagement ring that
               matches timeless styles such as Art Deco, mid-century and other
               20th century fashions.
-            </div>
-          </LeftSection>
-          <RightSection>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproductmain1.png?alt=media&token=ebecd04a-3bec-45e1-bbf6-767f4c94f890"
-              alt="Product Image"
-            />
-          </RightSection>
+              </div>
+            </LeftSection>
+          </div>
         </Banner>
         <InfoSection>
           <Overlay>
@@ -219,15 +233,15 @@ const Gift = () => {
           </div>
         </GiftSection>
         <FAQs>
-          <LeftFAQ>
-            <h2>FAQs ABOUT PRODUCT</h2>
-          </LeftFAQ>
-          <Collapse
-            items={items}
-            defaultActiveKey={["1"]}
-            onChange={onChange}
-          />
-        </FAQs>
+        <LeftFAQ>
+          <h2>FAQs ABOUT PRODUCT</h2>
+        </LeftFAQ>
+        <StyledCollapse
+          items={items}
+          defaultActiveKey={["1"]}
+          onChange={onChange}
+        />
+      </FAQs>
       </Container>
     </>
   );

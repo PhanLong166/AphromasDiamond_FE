@@ -29,7 +29,7 @@ export const Banner = styled.section`
 export const LeftSection = styled.div`
   width: 50%;
   max-width: 1600px;
-  margin: 100px 50px;
+  margin: 100px 60px;
 
   h2 {
     font-size: 50px;
@@ -101,15 +101,15 @@ export const LeftFAQ = styled.div`
     color: ${theme.color.primary};
   }
   .ant-collapse {
-  border-radius: 5px; /* Độ cong viền */
+  border-radius: 5px; 
 }
 
 .ant-collapse-item {
-  background-color: #f4f2ee; /* Màu nền */
+  background-color: #f4f2ee;
 }
 
 .ant-collapse-header {
-  border-radius: 5px; /* Độ cong viền */
+  border-radius: 5px; 
 }
 `;
 

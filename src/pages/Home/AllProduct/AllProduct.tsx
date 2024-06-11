@@ -193,7 +193,6 @@ const MetalOptions = [
   { value: "metal2", label: "Metal 2" },
   { value: "metal3", label: "Metal 3" },
 ];
-
 const AllProduct: React.FC = () => {
   const [current, setCurrent] = useState(1);
 
@@ -232,6 +231,10 @@ const AllProduct: React.FC = () => {
   const handleSliderChange = (value: [number, number]) => {
     setPriceRange(value);
   };
+  const togglePriceDropdown = () => {
+    setPriceDropdownOpen(!priceDropdownOpen);
+  };
+  
   return (
     <Section>
       <div>
@@ -271,8 +274,7 @@ const AllProduct: React.FC = () => {
                 ))}
               </Select>
               <Select
-                mode="multiple"
-                style={{ flexGrow: 1 }}
+                 style={{ width: 120 }}
                 onChange={handleSelectChange}
                 placeholder="Categories"
               >
@@ -283,8 +285,7 @@ const AllProduct: React.FC = () => {
                 ))}
               </Select>
               <Select
-                mode="multiple"
-                style={{ flexGrow: 1 }}
+                style={{ width: 120 }}
                 onChange={handleSelectChange}
                 placeholder="Metal"
               >
@@ -294,17 +295,19 @@ const AllProduct: React.FC = () => {
                   </Option>
                 ))}
               </Select>
-            </div>
+              <span style={{fontSize: "14px"}}>Price</span>
             <div
               style={{
                 display: "flex",
                 alignItems: "center",
                 marginBottom: "16px",
+                flexGrow: "1",
+                width: "500px"
               }}
             >
-              <span>Price</span>
+              
               <InputNumber
-                style={{ margin: "0 8px" }}
+                style={{ marginRight: "8px" }}
                 min={0}
                 max={priceRange[1]}
                 value={priceRange[0]}
@@ -327,21 +330,24 @@ const AllProduct: React.FC = () => {
                 onChange={handleMaxPriceChange}
               />
             </div>
-            <div style={{ marginBottom: "16px" }}>
-              <Button onClick={handleResetFilters}>Reset Filters</Button>
             </div>
+           
+            <div style={{  display: "flex", marginBottom: "16px" }}>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
               {selectedFilters.map((filter) => (
                 <div
                   key={filter}
-                  style={{ display: "flex", alignItems: "center" }}
+                  style={{ display: "flex", alignItems: "center", fontSize:"14px",  }}
                 >
                   {filter}
-                  <CloseOutlined onClick={() => handleRemoveFilter(filter)} />
+                  <CloseOutlined  style={{ fontSize:"10px"}} onClick={() => handleRemoveFilter(filter)} />
                 </div>
               ))}
             </div>
-            <div>
+              <Button onClick={handleResetFilters}>Reset Filters</Button>
+            </div>
+            
+            <div style={{ display: "flex", gap: "16px"}}>
               <Select style={{ width: 120 }} placeholder="Sort by">
                 <Option value="newest">Newest</Option>
                 <Option value="oldest">Oldest</Option>
