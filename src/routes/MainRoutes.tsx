@@ -12,13 +12,13 @@ import AllProduct from "@/pages/Home/AllProduct/AllProduct";
 import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
 import NotiPage from "@/pages/Customer/Nofications/Nofications";
 
-import Reply from "@/pages/Home/Reply/Reply";
-import FeedbackSale from "@/pages/Home/SaleStaff/FeedbackSale";
-import FeedbackCompleted from "@/pages/Home/SaleStaff/FeedbackCompleted";
+// import Reply from "@/pages/Home/Reply/Reply";
+// import FeedbackSale from "@/pages/Home/SaleStaff/FeedbackSale";
+// import FeedbackCompleted from "@/pages/Home/SaleStaff/FeedbackCompleted";
 import History from "@/pages/Customer/History/History";
 import Home from "@/pages/Home/Home";
 import About from "@/pages/Home/AboutUs/AboutUs";
-import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
+// import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
 
 

@@ -80,7 +80,6 @@ const NotiPage = () => {
       <AccountCus/>
       <Section>
         <Title>Nofications</Title>
-        
         <TableContainer>
         <Table columns={columns} dataSource={data} />
         </TableContainer>

@@ -284,7 +284,7 @@ const RingSetting = () => {
         { text: "Choker", value: "Choker" },
         { text: "Pendant", value: "Pendant" },
       ],
-      onFilter: (value: string, record: Item) =>
+      onFilter: (value: boolean | React.Key, record: Item) =>
         record.type.indexOf(value as string) === 0,
     },
     {
@@ -307,7 +307,7 @@ const RingSetting = () => {
         { text: "18K Rose Gold", value: "18KRoseGold" },
         { text: "Platinum", value: "Platinum" },
       ],
-      onFilter: (value: string, record: Item) =>
+      onFilter: (value: boolean | React.Key, record: Item) =>
         record.material.indexOf(value as string) === 0,
     },
     {

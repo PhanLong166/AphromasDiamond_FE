@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+// import { useState } from "react";
 import {
   Container,
   LeftSection,
@@ -9,7 +9,7 @@ import {
   FAQs,
   LeftFAQ,
 } from "./Gift.styled";
-import { CaretDownOutlined } from "@ant-design/icons";
+// import { CaretDownOutlined } from "@ant-design/icons";
 // const { Title, Text } = Typography;
 import {} from "@ant-design/icons";
 import { Collapse } from "antd";
@@ -45,7 +45,7 @@ const items = texts.map((text, index) => ({
   label: labels[index],
   children: <p>{text}</p>,
 }));
-const onChange = (key) => {
+const onChange = (key: any) => {
   console.log(key);
 };
 
@@ -123,11 +123,11 @@ const giftData = [
 ];
 
 const Gift = () => {
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  // const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const toggleAccordion = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+  // const toggleAccordion = (index: number) => {
+  //   setActiveIndex(activeIndex === index ? null : index);
+  // };
   const StyledCollapse = styled(Collapse)`
     .ant-collapse-item {
       background-color: #ffffff;

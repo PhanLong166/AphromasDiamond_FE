@@ -3,7 +3,6 @@ import {
   Container,
   Banner,
   LeftSection,
-  RightSection,
   FAQs,
   LeftFAQ,
   List,
@@ -11,7 +10,6 @@ import {
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { Collapse } from "antd";
-import { Link } from "react-router-dom";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
@@ -152,11 +150,11 @@ const Product: React.FC = () => {
     );
   };
 
-  const [activeIndex, setActiveIndex] = useState<number | null>(null);
+  // const [activeIndex, setActiveIndex] = useState<number | null>(null);
 
-  const toggleAccordion = (index: number) => {
-    setActiveIndex(activeIndex === index ? null : index);
-  };
+  // const toggleAccordion = (index: number) => {
+  //   setActiveIndex(activeIndex === index ? null : index);
+  // };
 
   const texts = [
     `
@@ -193,7 +191,7 @@ const Product: React.FC = () => {
     label: labels[index],
     children: <p>{text}</p>,
   }));
-  const onChange = (key) => {
+  const onChange = (key: any) => {
     console.log(key);
   };
   const StyledCollapse = styled(Collapse)`

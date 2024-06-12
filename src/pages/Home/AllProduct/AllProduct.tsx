@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
+
 import { Menu } from "antd";
 import { Dropdown, Select, Slider, Button, InputNumber } from "antd";
 import { CloseOutlined, DownOutlined } from "@ant-design/icons";
+
 import {
   Section,
   Container,
@@ -11,10 +13,12 @@ import {
   FilterBar,
   List,
 } from "./AllProduct.styled";
+
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
 const { Title, Text } = Typography;
+
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
   padding-top: 20px;
@@ -54,7 +58,6 @@ const products: Product[] = [
     hoverImage:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_2.webp?alt=media&token=bc0adf15-7ad9-4507-8d17-e8a27d624417",
   },
-
   {
     id: 3,
     shape: "cushion",
@@ -232,6 +235,7 @@ const products: Product[] = [
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp21_2.webp?alt=media&token=88531754-dc93-4a1a-ba29-fb459ab9367a",
   },
 
+
   {
     id: 18,
     shape: "heart",
@@ -311,13 +315,13 @@ const MetalOptions = [
   { value: "platinum", label: "Platinum" },
 ];
 const AllProduct: React.FC = () => {
-  const [current, setCurrent] = useState(1);
+  // const [current, setCurrent] = useState(1);
 
-  const onChange = (page: number) => {
-    console.log(page);
-    setCurrent(page);
-    window.history.pushState({}, "", `/page-${page}`);
-  };
+  // const onChange = (page: number) => {
+  //   console.log(page);
+  //   setCurrent(page);
+  //   window.history.pushState({}, "", `/page-${page}`);
+  // };
 
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
@@ -451,6 +455,7 @@ const AllProduct: React.FC = () => {
               marginTop: "20px",
             }}
           >
+
             <div
               style={{
                 display: "flex",
@@ -465,7 +470,7 @@ const AllProduct: React.FC = () => {
                 min={0}
                 max={priceRange[1]}
                 value={priceRange[0]}
-                onChange={handleMinPriceChange}
+                // onChange={handleMinPriceChange}
               />
             </div>
             <div style={{ flexGrow: 2, margin: "0 8px", width: "250px" }}>
@@ -493,7 +498,7 @@ const AllProduct: React.FC = () => {
                 min={priceRange[0]}
                 max={200000}
                 value={priceRange[1]}
-                onChange={handleMaxPriceChange}
+                // onChange={handleMaxPriceChange}
               />
             </div>
           </div>

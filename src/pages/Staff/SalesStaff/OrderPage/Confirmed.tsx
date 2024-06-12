@@ -1,6 +1,6 @@
 import * as Styled from "./Confirmed.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag } from "antd";
+import { Space, Table, Tag } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";

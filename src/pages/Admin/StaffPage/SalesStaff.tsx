@@ -14,6 +14,7 @@ import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
 import { useState } from "react";
 import { Link } from "react-router-dom";
+import { SortOrder } from "antd/es/table/interface";
 
 interface Item {
   key: React.Key;
@@ -186,7 +187,7 @@ const SalesStaff = () => {
     {
       title: "Staff Name",
       dataIndex: "staffName",
-      defaultSortOrder: "descend",
+      defaultSortOrder: "descend" as SortOrder,
       editable: true,
       sorter: (a: Item, b: Item) => a.staffName.length - b.staffName.length,
     },

@@ -3,15 +3,23 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Flex } from 'antd';
 
+
 const Cart = () => {
   return (
     <>
+
+
+
       <Container>
+
         <InnerContainer>
-          <TitlePage>Cart</TitlePage>
+          <Header>Shopping Cart</Header>
+          {/* <TitlePage>Cart</TitlePage> */}
+          <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span><Link to={"/all"}>Continue Shopping</Link></ContinueShopping>
+          <CountCart>MY CART 4 ITEMS</CountCart>
           <MainSection>
+
             <Column>
-              <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span><Link to={"/all"}>Continue Shopping</Link></ContinueShopping>
               <ItemContainer>
                 <ActionText>
                   <Flex gap="small" wrap>
@@ -21,22 +29,25 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-                    <ItemType>Diamond (Loose)</ItemType>
+                    {/* <ItemType>Diamond (Loose)</ItemType> */}
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/77e18e78db1048a2ef9289b66a8b623840e01a792002a180a5674237669d080a?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
                     <ProductDescription>
+                      <ItemType>Diamond (Loose)</ItemType>
                       1.52 Carat F-VS1 Princess Cut Diamond <br />
                       SKU&nbsp;18633320
                     </ProductDescription>
                     <AddOptions>
-                      <AddOption> <Flex gap="small" wrap>
-                        <Button type="text">+Add a Ring</Button>
-                      </Flex>
+                      <AddOption>
+                        <Flex gap="small" wrap>
+                          <Button type="text">+Add a Ring</Button>
+                        </Flex>
                       </AddOption>
-                      <AddOption> <Flex gap="small" wrap>
-                        <Button type="text">+Add a Pendant</Button>
-                      </Flex>
+                      <AddOption>
+                        <Flex gap="small" wrap>
+                          <Button type="text">+Add a Pendant</Button>
+                        </Flex>
                       </AddOption>
                     </AddOptions>
                   </ItemDescription>
@@ -50,22 +61,25 @@ const Cart = () => {
                 </Flex></ActionText>
                 <ItemDetails>
                   <ItemInfo>
-                    <ItemType>Diamond (Loose)</ItemType>
+
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d390c8fca96fc694888a2d3a9cf3c75e05dab916440fcab452b4b3fd6c33b09d?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
                     <ProductDescription>
+                      <ItemType>Diamond (Loose)</ItemType>
                       Lab Grown Diamond Low Dome Eternity <br />
                       SKU&nbsp;18633320
                     </ProductDescription>
                     <AddOptions>
-                      <AddOption> <Flex gap="small" wrap>
-                        <Button type="text">+Add a Ring</Button>
-                      </Flex>
+                      <AddOption>
+                        <Flex gap="small" wrap>
+                          <Button type="text">+Add a Ring</Button>
+                        </Flex>
                       </AddOption>
-                      <AddOption> <Flex gap="small" wrap>
-                        <Button type="text">+Add a Pendant</Button>
-                      </Flex>
+                      <AddOption>
+                        <Flex gap="small" wrap>
+                          <Button type="text">+Add a Pendant</Button>
+                        </Flex>
                       </AddOption>
                     </AddOptions>
                   </ItemDescription>
@@ -80,11 +94,12 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-                    <ItemType>Diamond (Loose)</ItemType>
+
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
                     <ProductDescription>
+                      <ItemType>Diamond (Loose)</ItemType>
                       1.52 Carat F-VS1 Princess Cut Diamond <br />
                       SKU&nbsp;18633320
                     </ProductDescription>
@@ -124,11 +139,12 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-                    <ItemType>Diamond (Loose)</ItemType>
+
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
                     <ProductDescription>
+                      <ItemType>Diamond (Loose)</ItemType>
                       1.52 Carat F-VS1 Princess Cut Diamond <br />
                       SKU&nbsp;18633320
                     </ProductDescription>
@@ -181,9 +197,7 @@ const Cart = () => {
                     <TotalValue>$10,000</TotalValue>
                   </SummaryTotal>
                 </SummaryDetails>
-                <Link to='/checkout'>
-                  <CheckoutButton>CHECKOUT</CheckoutButton>
-                </Link>
+                <Link to='/checkout'><CheckoutButton>CHECKOUT</CheckoutButton></Link>
                 <OrDivider>OR</OrDivider>
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/4762099b96e0d9911e6dbbff51ed4164d0ebf441a4af10ca789ca321f8ea0dbb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/33c97bbfdfd1027e752ab9f974297feaabc0fea312ba85eead4c91a971711218?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
@@ -200,18 +214,35 @@ const Cart = () => {
           </ShippingSection>
         </InnerContainer>
       </Container>
+
     </>
   );
 };
 
 export default Cart;
 
+const Header = styled.header`
+  background: #fff;
+  width: 100%;
+  color: #818594;
+  font: 14px/150% 'Crimson Text', sans-serif;
+  border-bottom: 1px solid #e4e4e4;
+  border-top: 1px solid #e4e4e4;
+  padding: 4px 0;
+   margin-bottom: 11rem;
+  @media (max-width: 991px) {
+    padding: 0 20px 0 30px;
+    margin-top: 40px;
+  }
+`;
+
 const Container = styled.section`
  background-color: #fff;
  display: flex;
+ box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
  align-items: center;
  justify-content: center;
- padding: 70px 60px;
+ padding-bottom: 50px;
  @media (max-width: 991px) {
    padding: 0 20px;
  }
@@ -219,7 +250,7 @@ const Container = styled.section`
 
 const InnerContainer = styled.div`
  width: 100%;
- max-width: 953px;
+ max-width: 1175px;
  display: flex;
  flex-direction: column;
  @media (max-width: 991px) {
@@ -227,15 +258,16 @@ const InnerContainer = styled.div`
  }
 `;
 
-const TitlePage = styled.h1`
- color: #000;
- letter-spacing: 4.9px;
- align-self: center;
- font: 600 35px/150% Poppins, sans-serif;
-`;
+// const TitlePage = styled.h1`
+//  color: #000;
+//  letter-spacing: 4.9px;
+//  align-self: center;
+//  font: 600 35px/150% Poppins, sans-serif;
+//  padding-bottom: 6rem;
+// `;
 
 const MainSection = styled.main`
- margin-top: 50px;
+//  margin-top: 50px;
  display: flex;
  gap: 20px;
  @media (max-width: 991px) {
@@ -271,18 +303,30 @@ const ContinueShopping = styled.a`
  letter-spacing: 1.54px;
  text-decoration: underline;
  font: 250 11px/150% Poppins, sans-serif;
+//  padding-bottom: 1.5rem;
+`;
+
+const CountCart = styled.div`
+color: rgb(0, 0, 0);
+    font-size: 18px;
+    font-weight: 700;
+    text-transform: uppercase;
+    margin: 25px 0px 0px;
 `;
 
 const ItemContainer = styled.article`
  background-color: #fff;
-//  border-radius: 20px;
  box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
- border: 1px solid rgba(0, 0, 0, 1);
+//  border: 1px solid rgba(0, 0, 0, 1);
+border: 1px solid rgb(232 226 226);
+ border-radius: 8px;
+ background-color: rgb(255, 255, 255);
  display: flex;
  flex-direction: column;
  color: #000;
- padding: 16px 39px;
+//  padding: 16px 39px;
  margin-top: 20px;
+ height: 210px;
  @media (max-width: 991px) {
    padding: 0 20px;
  }
@@ -295,37 +339,41 @@ const ActionText = styled.p`
 `;
 
 const ItemDetails = styled.div`
- display: flex;
- flex-direction: row;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: flex-end;
 `;
 
 const ItemInfo = styled.div`
  
  align-items: center;
- margin-bottom: 20px;
+//  margin-bottom: 20px;
 `;
 
 const ItemType = styled.h2`
  font: 600 15px/150% Poppins, sans-serif;
- margin-left: 13px;
+ padding-bottom: 10px;
+//  margin-left: 13px;
  @media (max-width: 991px) {
    margin-left: 10px;
  }
 `;
 
 const ItemImage = styled.img`
- width: 142px;
+ width: 192px;
+ height: 153px;
  aspect-ratio: 1.43;
  object-fit: contain;
- margin-top: 32px;
  align-self: center;
 `;
 
 const ItemDescription = styled.div`
  display: flex;
  flex-direction: column;
- margin-top: 57px;
- margin-left: 20px;
+ gap: 46px;
+//  margin-top: 57px;
+//  margin-left: 20px;
  @media (max-width: 991px) {
    margin-top: 40px;
  }
@@ -333,37 +381,52 @@ const ItemDescription = styled.div`
 
 const ProductDescription = styled.p`
  letter-spacing: 0.15px;
- font: 400 15px/ Poppins, sans-serif;
+ font: 400 15px/1.5 Poppins, sans-serif;
+ 
 `;
 
 const AddOptions = styled.div`
  display: flex;
  gap: 20px;
- margin-top: 35px;
+//  margin-top: 35px;
 `;
 
-const AddOption = styled.div`
+const AddOption = styled.button`
  font: 300 10px/150% Poppins, sans-serif;
  border-radius: 53px;
  border: 1px dashed rgba(0, 0, 0, 1);
- color: #fff;
- padding: 9px 0px;
+  padding: 0px 15px;
+
+   &:hover {
+    color: #fff;
+     background-color: #102c57;
+  }
+
+  &.active {
+    font-weight: 600;
+    color: #fff;
+    background-color: #102c57;
+  }
  @media (max-width: 991px) {
    padding: 0 20px;
  }
+  
 `;
+
+
 
 const RingPrice = styled.div`
 letter-spacing: 0.6px;
     font: 400 15px / 150% Poppins, sans-serif;
-    margin-top: 196px;
+    // margin-top: 196px;
     margin-left: 106px;
+
 `;
 
 const ItemPrice = styled.p`
  letter-spacing: 0.6px;
  font: 400 15px/150% Poppins, sans-serif;
- margin-top: 196px;
+//  margin-top: 196px;
  margin-left: 106px;
  @media (max-width: 991px) {
    margin-top: 40px;
@@ -371,20 +434,24 @@ const ItemPrice = styled.p`
 `;
 const AddOp = styled.p`
  font: 15px/150% Poppins, sans-serif;
- padding-top: 34px;
+//  padding-top: 34px;
 `;
 
 const SummaryContainer = styled.div`
- background-color: #fff;
- border: 1px solid rgba(0, 0, 0, 1);
- box-shadow: rgba(51, 59, 69, 0.15) 0px 0px 40px;
+//  background-color: #fff;
+//  border: 1px solid rgba(0, 0, 0, 1);
+//  box-shadow: rgba(51, 59, 69, 0.15) 0px 0px 40px;
+box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
+    border: 1px solid rgb(232 226 226);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
  display: flex;
  flex-direction: column;
  align-items: center;
  font: 300 10px/150% Poppins, sans-serif;
  width: 100%;
  padding: 30px 0 80px;
- margin-top: 31px;
+ margin-top: 20px;
  @media (max-width: 991px) {
    margin-top: 40px;
  }
@@ -463,19 +530,19 @@ const TotalValue = styled.p`
 `;
 
 const CheckoutButton = styled.button`
- background-color: #102c57;
+ background-color: #000;
  color: #fff;
  border: 1px solid rgba(0, 0, 0, 1);
  stroke-width: 1;
  stroke: #000;
  white-space: nowrap;
  letter-spacing: 1.82px;
- padding: 22px 27px;
+ padding: 20px 27px;
  font: 500 13px Poppins, sans-serif;
  margin-top: 30px;
 &:hover {
   color: #fff;
-   background-color: #000;
+   background-color: #102c57;
 }
 
 &.active {
