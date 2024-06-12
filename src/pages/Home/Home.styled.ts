@@ -12,13 +12,77 @@ export const Body = styled.div`
 `;
 
 export const Banner = styled.div`
-  position: relative;
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FWeddingSale0624_Desktop.6ca83.jpg?alt=media&token=aa38703e-113f-45d5-94da-d71102bee885");
+  background-size: cover;
+  background-position: center;
   width: 100%;
   height: 500px;
-  background: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f")
-    no-repeat center center;
-  background-size: cover;
-  margin-bottom: 70px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  position: relative;
+  color: white;
+  text-align: left;
+
+  &:before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0;
+  }
+`;
+
+export const BannerContent = styled.div`
+  position: relative;
+  z-index: 1;
+  max-width: 1320px;
+  width: 100%;
+
+  h2 {
+    font-size: 32px;
+    margin-bottom: 0.5em;
+    font-weight: 600;
+    font-family: "Gantari", sans-serif;
+    color: ${theme.color.primary};
+    margin-bottom: 36px;
+  }
+
+  p {
+    font-size: 16px;
+    margin-bottom: 1em;
+    max-width: 660px;
+    font-family: "Gantari", sans-serif;
+    color: ${theme.color.primary};
+  }
+`;
+
+export const Button = styled.div`
+  display: flex;
+  gap: 1em;
+
+  button {
+    font-size: 12px;
+    padding: 10px 20px;
+    background-color: #ddd5ca;
+    color: ${theme.color.primary};
+    border: none;
+    border: 1px solid ${theme.color.primary};
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Gantari", sans-serif;
+    font-weight: 600;
+    transition: all 0.45s ease;
+    align-self: flex-start;
+    margin-top: 20px;
+    &:hover {
+      background-color: ${theme.color.primary};
+      color: #ddd5ca;
+      transition: all 0.45s ease;
+    }
+  }
 `;
 
 export const Container = styled.div``;
@@ -37,14 +101,14 @@ export const Heading = styled.div`
   }
   .title-cate {
     font-size: 32px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
   }
 
   .title {
     font-size: 32px;
     margin-bottom: 20px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
   }
 `;
@@ -81,7 +145,7 @@ export const CateImage = styled.div`
 export const CateTitle = styled.p`
   color: ${theme.color.primary};
   font-size: 15px;
-  font-family: "Poppins", sans-serif;
+  font-family: "Gantari", sans-serif;
   cursor: pointer;
   text-align: center;
   margin-top: 15px;
@@ -148,7 +212,6 @@ export const DotTitle = styled.h3`
 `;
 
 export const Banner2 = styled.section`
-  max-width: 1300px;
   margin: 60px auto;
 `;
 
@@ -162,19 +225,17 @@ export const StyledContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  height: 99.4%;
+  height: 99.35%;
   background-color: #dbdad6;
-  padding: 50px;
+  padding: 114px;
 
   .super {
     font-weight: 400;
     font-size: 14px;
+    margin-bottom: 27px;
   }
-  .upTo {
-    font-size: 40px;
-    font-weight: 600;
-    font-family: "Gantari", sans-serif;
-    color: ${theme.color.primary};
+  .title {
+    margin-top: 13px;
   }
 `;
 
@@ -202,11 +263,11 @@ export const ButtonSale = styled.div`
     border: 1px solid ${theme.color.primary};
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Poppins", serif;
+    font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
     align-self: flex-start;
-    margin-top: 55px;
+    margin-top: 40px;
     &:hover {
       background-color: ${theme.color.primary};
       color: ${theme.color.white};
@@ -241,8 +302,9 @@ export const Feature = styled.section`
   }
   .best {
     font-size: 32px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
+    font-weight: 700;
   }
 
   .custom-cover {
@@ -293,7 +355,7 @@ export const Feature = styled.section`
     border: 1px solid ${theme.color.primary};
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Poppins", serif;
+    font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
     &:hover {
@@ -327,7 +389,7 @@ export const ProductItem = styled.div`
 
   h4 {
     font-weight: 700;
-    font-size: 18px;
+    font-size: 16px;
     margin: 10px;
     font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
@@ -371,9 +433,9 @@ export const AboutContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-start;
-  height: 99.4%;
+  height: 99.3%;
   background-color: #f8f5ee;
-  padding: 50px;
+  padding: 40px 114px;
   .about {
     font-size: 32px;
     font-weight: 600;
@@ -381,7 +443,7 @@ export const AboutContent = styled.div`
   }
 `;
 export const About = styled.section`
-  max-width: 1300px;
+  // max-width: 1300px;
   margin: 0 auto;
   margin-bottom: 70px;
 `;
@@ -396,7 +458,7 @@ export const ButtonAbout = styled.div`
     border: 1px solid ${theme.color.primary};
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Poppins", serif;
+    font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
     align-self: flex-start;
@@ -432,7 +494,7 @@ export const Banner3Container = styled.div`
 
   h5 {
     font-size: 14px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
     font-weight: 400;
   }
@@ -440,7 +502,7 @@ export const Banner3Container = styled.div`
     font-size: 32px;
     text-align: left;
     margin-top: 40px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
     font-weight: 700;
   }
@@ -453,7 +515,7 @@ export const Banner3Container = styled.div`
     border: 1px solid ${theme.color.primary};
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Poppins", serif;
+    font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
     align-self: flex-start;
@@ -485,12 +547,12 @@ export const Banner4Container = styled.div`
   h5 {
     font-weight: 400;
     font-size: 14px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.white};
   }
   h6 {
-    font-size: 18px;
-    font-family: "Poppins", sans-serif;
+    font-size: 16px;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.white};
     font-weight: 500;
     text-align: right;
@@ -500,7 +562,7 @@ export const Banner4Container = styled.div`
     font-size: 32px;
     text-align: right;
     margin-top: 40px;
-    font-family: "Poppins", sans-serif;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.white};
     font-weight: 700;
     margin-bottom: 10px;
@@ -514,7 +576,7 @@ export const Banner4Container = styled.div`
     border: 1px solid ${theme.color.white};
     cursor: pointer;
     transition: background-color 0.3s ease;
-    font-family: "Poppins", serif;
+    font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
     align-self: flex-end;

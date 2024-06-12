@@ -19,6 +19,7 @@ import History from "@/pages/Customer/History/History";
 import Home from "@/pages/Home/Home";
 import About from "@/pages/Home/AboutUs/AboutUs";
 import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
+import Gift from "@/pages/Home/Gift/Gift";
 
 
 
@@ -39,7 +40,7 @@ const publicRoutes = {
         { path: config.routes.public.productList, element: <Product /> },
         { path: config.routes.public.allProduct, element: <AllProduct /> },
         { path: config.routes.public.about, element: <About /> },
-        { path: config.routes.public.learn, element: <LearnAbout /> }
+        { path: config.routes.public.gift, element: <Gift /> }
         
     ]
 }
