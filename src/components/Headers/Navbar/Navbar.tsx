@@ -63,7 +63,7 @@ const Navbar = () => {
                             <a onClick={(e) => e.preventDefault()}>
                                 <Space style={{ color: "gray" }}>
                                     Diamond
-                                    <DownOutlined style={{ fontSize: "16px" }} />
+                                    <DownOutlined style={{ fontSize: "13px" }} />
                                 </Space>
                             </a>
                         </Dropdown>
@@ -71,7 +71,7 @@ const Navbar = () => {
                             <a onClick={(e) => e.preventDefault()}>
                                 <Space style={{ color: "gray" }}>
                                     Diamond Ring
-                                    <DownOutlined style={{ fontSize: "16px" }} />
+                                    <DownOutlined style={{ fontSize: "13px" }} />
                                 </Space>
                             </a>
                         </Dropdown>
@@ -79,7 +79,7 @@ const Navbar = () => {
                             <a onClick={(e) => e.preventDefault()}>
                                 <Space style={{ color: "gray" }}>
                                     Jewelry
-                                    <DownOutlined style={{ fontSize: "16px" }} />
+                                    <DownOutlined style={{ fontSize: "13px" }} />
                                 </Space>
                             </a>
                         </Dropdown>

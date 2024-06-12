@@ -38,7 +38,7 @@ export const Banner = styled.div`
 export const BannerContent = styled.div`
   position: relative;
   z-index: 1;
-  max-width: 1320px;
+  max-width: 1400px;
   width: 100%;
 
   h2 {

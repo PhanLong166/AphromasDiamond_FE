@@ -5,7 +5,7 @@ export const TopMenuContainer = styled.section`
     background: ${theme.color.white};
     display: flex;
     justify-content: center;
-    align-item: center;
+    align-items: center;
     padding: 10px;
 
     font-family: "Poppins", san-serif;
@@ -13,7 +13,7 @@ export const TopMenuContainer = styled.section`
 `;
 
 export const TopMenuFlexbox = styled.div`
-    width: 1170px;
+    width: 1400px;
     display: flex;
     justify-content: space-between;
     color: ${theme.color.primary};
@@ -22,7 +22,7 @@ export const TopMenuFlexbox = styled.div`
 export const Contact = styled.div`
     display: flex;
     gap: 20px;
-    font-size: 13px;
+    font-size: 12px;
 `;
 
 export const Phone = styled.div`

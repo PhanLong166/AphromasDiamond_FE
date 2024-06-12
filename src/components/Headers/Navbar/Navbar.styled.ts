@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { Dropdown } from "antd";
 
 export const NavbarContainer = styled.nav`
     display: flex;
@@ -11,7 +12,7 @@ export const NavbarContainer = styled.nav`
 `;
 
 export const NavbarFlexbox = styled.div`
-    width: 1170px;
+    width: 1400px;
     display: flex;
     align-items: center;
     gap: 50px;
@@ -19,14 +20,18 @@ export const NavbarFlexbox = styled.div`
 `;
 
 export const Logo = styled.div`
-    font-family: "Playfair Display", serif;
-    font-weight: 600;
-    font-size: 30px;
+    font-family: "Playfair", serif;
+    font-weight: 700;
+    font-size: 36px;
 `;
 
 export const DropdownFrame = styled.div`
     display: flex;
     align-items: center;
-    font-size: 16px;
+    font-size: 14px;
     gap: 50px;
+`;
+
+export const DrowdownComponent = styled(Dropdown)`
+
 `;
