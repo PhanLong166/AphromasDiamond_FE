@@ -126,17 +126,17 @@ const Dashboard = () => {
                 <StatistiBox
                   value={data.customers}
                   label="Total Customers"
-                  total={(data.customers * 100) / data.customers_Total}
+                  total={(data.customers * 100 / data.customers_Total).toFixed(2)}
                 />
                 <StatistiBox
                   value={data.orders}
                   label="Total Orders"
-                  total={(data.orders * 100) / data.orders_Total}
+                  total={(data.orders * 100 / data.orders_Total).toFixed(2)}
                 />
                 <StatistiBox
                   value={data.cancel_Orders}
                   label="Cancel Orders"
-                  total={(data.cancel_Orders * 100) / data.orders}
+                  total={(data.cancel_Orders * 100 / data.orders).toFixed(2)}
                 />
                 <Styled.TopMonth>
                   <p className="topMonth_title">Top month</p>
