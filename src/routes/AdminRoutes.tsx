@@ -6,10 +6,10 @@ import ConfirmedOrder from "@/pages/Admin/OrderPage/Confirmed"
 import DeliveringOrder from "@/pages/Admin/OrderPage/Delivering"
 import CompletedOrder from "@/pages/Admin/OrderPage/Completed"
 import CancelledOrder from "@/pages/Admin/OrderPage/Cancelled"
-import Product from "@/pages/Admin/ProductPage/Product"
+import Diamond from "@/pages/Admin/ProductPage/Diamond"
 import RingSettingProduct from "@/pages/Admin/ProductPage/RingSetting"
 import RingProduct from "@/pages/Admin/ProductPage/Ring"
-import JewelryProduct from "@/pages/Admin/ProductPage/Jewelry"
+import Product from "@/pages/Admin/ProductPage/Product"
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType"
 import MaterialProduct from "@/pages/Admin/ProductPage/Material"
 import Marketing from "@/pages/Admin/MarketingPage/Marketing"
@@ -41,9 +41,9 @@ const AdminRoutes = {
         {path: config.routes.admin.cancelledOrder, element: <CancelledOrder/>},
 
         {path: config.routes.admin.product, element: <Product/>},
+        {path: config.routes.admin.diamondProduct, element: <Diamond/>},
         {path: config.routes.admin.ringSettingProduct, element: <RingSettingProduct/>},
         {path: config.routes.admin.ringProduct, element: <RingProduct/>},
-        {path: config.routes.admin.jewelryProduct, element: <JewelryProduct/>},
         {path: config.routes.admin.jewelryTypeProduct, element: <JewelryTypeProduct/>},
         {path: config.routes.admin.materialProduct, element: <MaterialProduct/>},
 

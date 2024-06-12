@@ -9,9 +9,13 @@ export const ProductAdminArea = styled.section`
   width: 100%;
 `;
 
+// export const SidebarArea = styled.div`
+// width: 28%;
+// `;
+
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
+  margin-left: 270px;
+  margin-right: 35px;
   width: 100%;
   height: 100%;
   padding-bottom: 55px;
@@ -39,7 +43,6 @@ export const SearchArea = styled.div`
 
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -98,8 +101,9 @@ export const AddButton = styled.div`
   }
 `;
 
+
 export const AdminTable = styled.div`
-  padding: 0px 50px 0px 50px;
+  padding: 0px 40px 0px 40px;
 
   table {
     border-collapse: collapse;
@@ -129,6 +133,24 @@ export const AdminTable = styled.div`
     font-size: 23px;
   }
   td .anticon:hover {
+    cursor: pointer;
+  }
+  .pendStatus {
+    background-color: #f8e7ee;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: #cd486b;
+    border: none;
+  }
+  .confirmBtn {
+    background-color: #cd486b;
+    border-radius: 100px;
+    padding: 7px 17px 7px 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #f8e7ee;
+    border: none;
     cursor: pointer;
   }
 `;

@@ -1,52 +1,50 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
 
-
 export const AdminArea = styled.section`
-    display: inline-flex;
-    background-color: #f1f1f1;
-    font-family: "Poppins", sans-serif;
-    height: 100%; 
-    width: 100%;
+  display: inline-flex;
+  background-color: #f1f1f1;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
 `;
 
 export const AdminPage = styled.div`
-    margin-left: 320px;
-    margin-right: 70px;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 55px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  margin-left: 270px;
+  margin-right: 35px;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-export const TitlePage = styled.div `
-    h1 {
-        font-size: 25px;
-        font-weight: 36px;
-        color: #151542;
-        margin: 30px 0px 0px 0px;
-        padding-bottom: 7px;
-    }
+export const TitlePage = styled.div`
+  h1 {
+    font-size: 25px;
+    font-weight: 36px;
+    color: #151542;
+    margin: 30px 0px 0px 0px;
+    padding-bottom: 7px;
+  }
 
-    p {
-        color: #92929D;
-        font-size: 13px;
-        margin: 0px 0px 0px 0px;
-    }
+  p {
+    color: #92929d;
+    font-size: 13px;
+    margin: 0px 0px 0px 0px;
+  }
 `;
-
 
 // /* -------------------- ORDER CONTENT =============== */
 
 export const AdPageContent = styled.div`
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 16px;
-    margin-top: 28px;   
-    padding-top: 25px;
-    padding-bottom: 30px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding-top: 25px;
+  padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -120,56 +118,55 @@ export const AddButton = styled.div`
 `;
 
 export const AdminTable = styled.div`
-    padding: 0px 50px 0px 50px;
+  padding: 0px 50px 0px 50px;
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th,
-    td {
-        padding: 15px 0px 10px 0px;
-        // padding: 8px;
-        text-align: left;
-        font-size: 16px;
-        color: ${theme.color.primary};
-    }
-    tr th {
-        font-size: 13px;
-        color: #92929D !important;
-      }
-    tr .TextAlign{
-        text-align: center;
-    }
-    td .anticon {
-        font-size: 23px;
-    }
-    td .anticon:hover {
-        cursor: pointer;
-    }
-    .deleBtn {
-        color: red;
-    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th,
+  td {
+    padding: 15px 0px 10px 0px;
+    // padding: 8px;
+    text-align: left;
+    font-size: 16px;
+    color: ${theme.color.primary};
+  }
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
+  }
+  tr .TextAlign {
+    text-align: center;
+  }
+  td .anticon {
+    font-size: 23px;
+  }
+  td .anticon:hover {
+    cursor: pointer;
+  }
+  .deleBtn {
+    color: red;
+  }
 
-    .pendStatus {
-        background-color: #F8E7EE;
-        border-radius: 100px;
-        padding: 5px 10px 5px 10px;
-        font-size: 12px;
-        color: #CD486B;
-        border: none;
-    }
-    .confirmBtn {
-        background-color: ${theme.color.primary};
-        border-radius: 100px;
-        padding: 7px 17px 7px 17px;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-        /* font-size: 12px; */
-        color: #FFFFFF;
-        border: none;
-    }
-    .confirmBtn:hover {
-        cursor: pointer;
-    }
+  .pendStatus {
+    background-color: #f8e7ee;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: #cd486b;
+    border: none;
+  }
+  .confirmBtn {
+    background-color: ${theme.color.primary};
+    border-radius: 100px;
+    padding: 7px 17px 7px 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #ffffff;
+    border: none;
+  }
+  .confirmBtn:hover {
+    cursor: pointer;
+  }
 `;
-

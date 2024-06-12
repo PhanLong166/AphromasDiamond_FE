@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
+import { Col, Row } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 
@@ -207,41 +208,40 @@ const Order = () => {
 
   return (
     <>
-      <Styled.OrderAdminArea>
-        <Sidebar />
+          <Styled.OrderAdminArea>
+                <Sidebar />
+                <Styled.AdminPage>
+                    <OrderMenu />
+                  
+                  <Styled.OrderContent>
+                    <Styled.AdPageContent_Head>
+                      <Styled.SearchArea>
+                        <Input
+                          className="searchInput"
+                          type="text"
+                          // size="large"
+                          placeholder="Search here..."
+                          value={searchText}
+                          onChange={(e) => setSearchText(e.target.value)}
+                          onKeyPress={handleKeyPress}
+                          prefix={<SearchOutlined className="searchIcon" />}
+                        />
+                      </Styled.SearchArea>
+                    </Styled.AdPageContent_Head>
 
-        <Styled.AdminPage>
-          <OrderMenu />
-
-          <Styled.OrderContent>
-            <Styled.AdPageContent_Head>
-              <Styled.SearchArea>
-                <Input
-                  className="searchInput"
-                  type="text"
-                  // size="large"
-                  placeholder="Search here..."
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  prefix={<SearchOutlined className="searchIcon" />}
-                />
-              </Styled.SearchArea>
-            </Styled.AdPageContent_Head>
-
-            <Styled.AdminTable>
-              <Table
-                className="table"
-                columns={columns}
-                dataSource={data}
-                pagination={{ pageSize: 6 }} // Add pagination here
-                onChange={onChange}
-                showSorterTooltip={{ target: "sorter-icon" }}
-              />
-            </Styled.AdminTable>
-          </Styled.OrderContent>
-        </Styled.AdminPage>
-      </Styled.OrderAdminArea>
+                    <Styled.AdminTable>
+                      <Table
+                        className="table"
+                        columns={columns}
+                        dataSource={data}
+                        pagination={{ pageSize: 6 }} // Add pagination here
+                        onChange={onChange}
+                        showSorterTooltip={{ target: "sorter-icon" }}
+                      />
+                    </Styled.AdminTable>
+                  </Styled.OrderContent>
+                </Styled.AdminPage>
+          </Styled.OrderAdminArea>
     </>
   );
 };

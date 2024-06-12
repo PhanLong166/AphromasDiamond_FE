@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { theme } from "../../../themes";
 
 export const SidebarContainer = styled.div`
-    width: 17%;
+    // width: auto;
     background-color: #151542;
     color: #FFFFFF;
     top: 0px;
@@ -76,7 +76,7 @@ export const SBContent = styled.div `
 export const MenuElement = styled.div `
     display: flex;
     align-items: center;
-    margin: 0px 35px 0px 30px;
+    margin: 0px 70px 0px 30px;
 
     padding: 13px 0px;
     width: 100%;

@@ -10,8 +10,8 @@ export const ProductAdminArea = styled.section`
 `;
 
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
+  margin-left: 270px;
+  margin-right: 35px;
   width: 100%;
   height: 100%;
   padding-bottom: 55px;
@@ -36,10 +36,10 @@ export const AdPageContent_Head = styled.div`
 
 export const SearchArea = styled.div`
   width: 30%;
-  
+
   display: flex;
   align-items: center;
-  // 
+  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -69,9 +69,7 @@ export const SearchArea = styled.div`
   }
 
   .searchInput:focus {
-
   }
-
 `;
 
 export const AddButton = styled.div`

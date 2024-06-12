@@ -1,57 +1,52 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
 
-
 export const ProductAdminArea = styled.section`
-    display: inline-flex;
-    background-color: #f1f1f1;
-    font-family: "Poppins", sans-serif;
-     height: 100%; 
-    width: 100%;
-
+  display: inline-flex;
+  background-color: #f1f1f1;
+  font-family: "Poppins", sans-serif;
+  height: 100%;
+  width: 100%;
 `;
 
 export const AdminPage = styled.div`
-    margin-left: 320px;
-    margin-right: 70px;
-    width: 100%;
-    height: 100%;
-    padding-bottom: 55px;
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
+  margin-left: 270px;
+  margin-right: 35px;
+  width: 100%;
+  height: 100%;
+  padding-bottom: 55px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
-export const ContentPage = styled.div`
+export const ContentPage = styled.div``;
 
+export const TitlePage = styled.div`
+  h1 {
+    font-size: 25px;
+    font-weight: 36px;
+    color: ${theme.color.primary};
+    margin: 30px 0px 0px 0px;
+    padding-bottom: 7px;
+  }
+
+  p {
+    color: #92929d;
+    font-size: 13px;
+    margin: 0px 0px 0px 0px;
+  }
 `;
-
-export const TitlePage = styled.div `
-    h1 {
-        font-size: 25px;
-        font-weight: 36px;
-        color: #151542;
-        margin: 30px 0px 0px 0px;
-        padding-bottom: 7px;
-    }
-
-    p {
-        color: #92929D;
-        font-size: 13px;
-        margin: 0px 0px 0px 0px;
-    }
-`;
-
 
 // /* -------------------- ORDER CONTENT =============== */
 
 export const AdPageContent = styled.div`
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 16px;
-    margin-top: 28px;
-    padding-top: 25px;
-    padding-bottom: 30px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding-top: 25px;
+  padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -62,10 +57,10 @@ export const AdPageContent_Head = styled.div`
 
 export const SearchArea = styled.div`
   width: 30%;
-  
+
   display: flex;
   align-items: center;
-  // 
+  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -77,7 +72,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -89,15 +84,13 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
 
   .searchInput:focus {
-
   }
-
 `;
 
 export const AddButton = styled.div`
@@ -127,62 +120,60 @@ export const AddButton = styled.div`
 `;
 
 export const AdminTable = styled.div`
-    padding: 0px 50px 0px 50px;
+  padding: 0px 50px 0px 50px;
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th,
-    td {
-        padding: 8px 0px 8px 0px;
-        text-align: left;
-        font-size: 16px;
-        color: ${theme.color.primary};
-    }
-    tr th {
-        font-size: 13px;
-        color: #92929D !important;
-      }
-    tr .TextAlign{
-        text-align: center;
-    }
-    .SmallSize {
-        font-size: 16px;
-        overflow-wrap: normal !important;
-    }
-    td img {
-        width: 77px;
-    }
-    td .anticon {
-        font-size: 23px;
-    }
-    td .anticon:hover {
-        cursor: pointer;
-    }
-    .pendStatus {
-        background-color: #f8e7ee;
-        border-radius: 100px;
-        padding: 5px 10px 5px 10px;
-        font-size: 12px;
-        color: #cd486b;
-        border: none;
-    }
-    .confirmBtn {
-        background-color: #cd486b;
-        border-radius: 100px;
-        padding: 7px 17px 7px 17px;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-        /* font-size: 12px; */
-        color: #f8e7ee;
-        border: none;
-        cursor: pointer;
-
-    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th,
+  td {
+    padding: 8px 0px 8px 0px;
+    text-align: left;
+    font-size: 16px;
+    color: ${theme.color.primary};
+  }
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
+  }
+  tr .TextAlign {
+    text-align: center;
+  }
+  .SmallSize {
+    font-size: 16px;
+    overflow-wrap: normal !important;
+  }
+  td img {
+    width: 77px;
+  }
+  td .anticon {
+    font-size: 23px;
+  }
+  td .anticon:hover {
+    cursor: pointer;
+  }
+  .pendStatus {
+    background-color: #f8e7ee;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: #cd486b;
+    border: none;
+  }
+  .confirmBtn {
+    background-color: #cd486b;
+    border-radius: 100px;
+    padding: 7px 17px 7px 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #f8e7ee;
+    border: none;
+    cursor: pointer;
+  }
 `;
 
 export const EndPage = styled.div`
-    height: 5px;
-    background-color: #f1f1f1;
+  height: 5px;
+  background-color: #f1f1f1;
 `;
-
