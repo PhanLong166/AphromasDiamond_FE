@@ -38,6 +38,7 @@ const Header = styled.header`
     border-top: 1px solid #e4e4e4;
     padding: 4px 0;
     margin-left: 9.5rem;
+    width: 158vh;
 
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
@@ -65,7 +66,7 @@ const AccountActions = styled.div`
   display: flex;
   margin-top: 75px;
   width: 100%;
-  max-width: 1219px;
+  max-width: 159.5vh;
   gap: 20px;
   font-size: 13px;
   color: #000;
@@ -126,6 +127,7 @@ const ProfileImage = styled.img`
   width: 100%;
   object-fit: cover;
   object-position: center;
+  max-width: 162vh;
 `;
 
 const UserName = styled.h2`
