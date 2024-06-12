@@ -22,7 +22,7 @@ export const AdminPage = styled.div`
 
 export const TitlePage = styled.div`
   h1 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 36px;
     color: #151542;
     margin: 30px 0px 0px 0px;

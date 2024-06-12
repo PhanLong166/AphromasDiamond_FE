@@ -305,12 +305,12 @@ const Product = () => {
     },
   ];
 
-  const handleAddNewDiamond = () => {
+  // Add New
+  const handleAddNew = () => {
     setIsAdding(true);
   };
 
   const handleSave = () => {
-    // Logic để lưu dữ liệu mới
     setIsAdding(false);
   };
 
@@ -324,7 +324,6 @@ const Product = () => {
         {/* <Styled.SidebarArea> */}
         <Sidebar />
         {/* </Styled.SidebarArea> */}
-        
 
         <Styled.AdminPage>
           <ProductMenu />
@@ -333,32 +332,35 @@ const Product = () => {
             <Styled.AdPageContent_Head>
               {!isAdding && (
                 <>
-                  <Styled.SearchArea>
-                    <Input
-                      className="searchInput"
-                      type="text"
-                      placeholder="Search here..."
-                      value={searchText}
-                      onChange={(e) => setSearchText(e.target.value)}
-                      onKeyPress={handleKeyPress}
-                      prefix={<SearchOutlined className="searchIcon" />}
-                    />
-                  </Styled.SearchArea>
+                  <Styled.AdPageContent_HeadLeft>
+                    <Styled.SearchArea>
+                      <Input
+                        className="searchInput"
+                        type="text"
+                        // size="large"
+                        placeholder="Search here..."
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        prefix={<SearchOutlined className="searchIcon" />}
+                      />
+                    </Styled.SearchArea>
 
-                  <Select
-                    defaultValue="USD"
-                    style={{ width: 120 }}
-                    onChange={handleCurrencyChange}
-                    options={[
-                      { value: "USD", label: "USD" },
-                      { value: "VND", label: "VND" },
-                    ]}
-                  />
+                    <Select
+                      defaultValue="USD"
+                      style={{ width: 120, height: "45px" }}
+                      onChange={handleCurrencyChange}
+                      options={[
+                        { value: "USD", label: "USD" },
+                        { value: "VND", label: "VND" },
+                      ]}
+                    />
+                  </Styled.AdPageContent_HeadLeft>
 
                   <Styled.AddButton>
-                    <button onClick={handleAddNewDiamond}>
+                    <button onClick={handleAddNew}>
                       <PlusCircleOutlined />
-                      Add New Diamond
+                      Add New Product
                     </button>
                   </Styled.AddButton>
                 </>
@@ -367,63 +369,63 @@ const Product = () => {
 
             <Styled.AdminTable>
               {isAdding ? (
-                  <Form layout="vertical">
-                    <Form.Item label="Jewelry ID">
-                      <Input />
-                    </Form.Item>
-                    <Form.Item label="Jewelry Name">
-                      <Input />
-                    </Form.Item>
-                    <Form.Item label="Price">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Markup Percentage">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Quantity">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Exchange Rate">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Currency Type">
-                      <Select
-                        defaultValue="USD"
-                        onChange={handleCurrencyChange}
-                        options={[
-                          { value: "USD", label: "USD" },
-                          { value: "VND", label: "VND" },
-                        ]}
-                      />
-                    </Form.Item>
-                    <Form.Item label="Type">
-                      <Select
-                        defaultValue="ring"
-                        onChange={handleChange}
-                        options={[
-                          { value: "ring", label: "Ring" },
-                          { value: "necklace", label: "Necklace" },
-                          { value: "earring", label: "Earring" },
-                          { value: "bracelet", label: "Bracelet" },
-                          { value: "anklet", label: "Anklet" },
-                          { value: "bangle", label: "Bangle" },
-                          { value: "choker", label: "Choker" },
-                          { value: "pendant", label: "Pendant" },
-                        ]}
-                      />
-                    </Form.Item>
-                    <Form.Item>
-                      <Button type="primary" onClick={handleSave}>
-                        Save
-                      </Button>
-                      <Button
-                        onClick={handleCancel}
-                        style={{ marginLeft: "10px" }}
-                      >
-                        Cancel
-                      </Button>
-                    </Form.Item>
-                  </Form>
+                <Form layout="vertical">
+                  <Form.Item label="Jewelry ID">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Jewelry Name">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Price">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Markup Percentage">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Quantity">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Exchange Rate">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Currency Type">
+                    <Select
+                      defaultValue="USD"
+                      onChange={handleCurrencyChange}
+                      options={[
+                        { value: "USD", label: "USD" },
+                        { value: "VND", label: "VND" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item label="Type">
+                    <Select
+                      defaultValue="ring"
+                      onChange={handleChange}
+                      options={[
+                        { value: "ring", label: "Ring" },
+                        { value: "necklace", label: "Necklace" },
+                        { value: "earring", label: "Earring" },
+                        { value: "bracelet", label: "Bracelet" },
+                        { value: "anklet", label: "Anklet" },
+                        { value: "bangle", label: "Bangle" },
+                        { value: "choker", label: "Choker" },
+                        { value: "pendant", label: "Pendant" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" onClick={handleSave}>
+                      Save
+                    </Button>
+                    <Button
+                      onClick={handleCancel}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Cancel
+                    </Button>
+                  </Form.Item>
+                </Form>
               ) : (
                 <Table
                   className="table"

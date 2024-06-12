@@ -34,13 +34,17 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
+export const AdPageContent_HeadLeft = styled.div`
+  display: flex;
+  width: 80%;
+`;
+
 export const SearchArea = styled.div`
   width: 30%;
-
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
+  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -99,7 +103,7 @@ export const AddButton = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 50px 0px 50px;
+  padding: 0px 40px 0px 40px;
 
   table {
     border-collapse: collapse;

@@ -1,6 +1,6 @@
 import * as Styled from "../ProductPage/Material.styled";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import {
   SearchOutlined,
   PlusCircleOutlined,
@@ -13,6 +13,8 @@ import {
   Popconfirm,
   Table,
   Typography,
+  Button,
+  Select
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
@@ -95,6 +97,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 const Material = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
+  const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
   const isEditing = (record: Item) => record.key === editingKey;
   const edit = (record: Partial<Item> & { key: React.Key }) => {
@@ -240,6 +243,23 @@ const Material = () => {
     }
   };
 
+  // Add New
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const handleAddNew = () => {
+    setIsAdding(true);
+  };
+
+  const handleSave = () => {
+    setIsAdding(false);
+  };
+
+  const handleCancel = () => {
+    setIsAdding(false);
+  };
+
   return (
     <>
       <Styled.AdminArea>
@@ -250,6 +270,8 @@ const Material = () => {
 
           <Styled.AdPageContent>
           <Styled.AdPageContent_Head>
+          {!isAdding && (
+                <>
               <Styled.SearchArea>
                 <Input
                   className="searchInput"
@@ -263,16 +285,65 @@ const Material = () => {
                 />
               </Styled.SearchArea>
               <Styled.AddButton>
-                <Link to="">
-                  <button>
+                  <button onClick={handleAddNew}>
                     <PlusCircleOutlined />
-                    Add New Diamond
+                    Add New Material
                   </button>
-                </Link>
               </Styled.AddButton>
+              </>
+              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
+            {isAdding ? (
+                <Form layout="vertical">
+                  <Form.Item label="Jewelry ID">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Jewelry Name">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Price">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Markup Percentage">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Quantity">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Exchange Rate">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Type">
+                    <Select
+                      defaultValue="ring"
+                      onChange={handleChange}
+                      options={[
+                        { value: "ring", label: "Ring" },
+                        { value: "necklace", label: "Necklace" },
+                        { value: "earring", label: "Earring" },
+                        { value: "bracelet", label: "Bracelet" },
+                        { value: "anklet", label: "Anklet" },
+                        { value: "bangle", label: "Bangle" },
+                        { value: "choker", label: "Choker" },
+                        { value: "pendant", label: "Pendant" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" onClick={handleSave}>
+                      Save
+                    </Button>
+                    <Button
+                      onClick={handleCancel}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Cancel
+                    </Button>
+                  </Form.Item>
+                </Form>
+              ) : (
               <Form form={form} component={false}>
                 <Table
                   components={{
@@ -290,9 +361,8 @@ const Material = () => {
                   }}
                 />
               </Form>
+              )}
             </Styled.AdminTable>
-
-            
           </Styled.AdPageContent>
         </Styled.AdminPage>
       </Styled.AdminArea>

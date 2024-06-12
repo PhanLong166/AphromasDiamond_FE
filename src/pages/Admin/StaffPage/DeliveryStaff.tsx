@@ -1,6 +1,6 @@
 import * as Styled from "../StaffPage/DeliveryStaff.styled";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import type { TableColumnsType } from "antd";
 import {
   SearchOutlined,
@@ -14,6 +14,8 @@ import {
   Input,
   Form,
   Table,
+  Button,
+  Select,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
@@ -133,44 +135,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const DeliveryStaff = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
-  // const [editingKey, setEditingKey] = useState<React.Key>("");
-  // const isEditing = (record: Item) => record.key === editingKey;
-  // const edit = (record: Partial<Item> & { key: React.Key }) => {
-  //   form.setFieldsValue({
-  //     materialID: "",
-  //     materialName: "",
-  //     buyingPrice: "",
-  //     sellingPrice: "",
-  //     ...record
-  //   });
-  //   setEditingKey(record.key);
-  // };
-  // const cancel = () => {
-  //   setEditingKey("");
-  // };
-  // const save = async (key: React.Key) => {
-  //   try {
-  //     const row = (await form.validateFields()) as Item;
-  //     const newData = [...data];
-  //     const index = newData.findIndex((item) => key === item.key);
-  //     if (index > -1) {
-  //       const item = newData[index];
-  //       newData.splice(index, 1, {
-  //         ...item,
-  //         ...row,
-  //       });
-  //       setData(newData);
-  //       setEditingKey("");
-  //     } else {
-  //       newData.push(row);
-  //       setData(newData);
-  //       setEditingKey("");
-  //     }
-  //   } catch (errInfo) {
-  //     console.log("Validate Failed:", errInfo);
-  //   }
-  // };
-  // save;
+  const [isAdding, setIsAdding] = useState(false);
 
   const handleDelete = (key: React.Key) => {
     const newData = data.filter((item) => item.key !== key);
@@ -223,22 +188,6 @@ const DeliveryStaff = () => {
     },
   ];
 
-  // const mergedColumns = columns.map((col) => {
-  //   if (!col.editable) {
-  //     return col;
-  //   }
-  //   return {
-  //     ...col,
-  //     onCell: (record: Item) => ({
-  //       record,
-  //       inputType: col.dataIndex === "discountPercent" ? "number" : "text",
-  //       dataIndex: col.dataIndex,
-  //       title: col.title,
-  //       editing: isEditing(record),
-  //     }),
-  //   };
-  // });
-
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -252,6 +201,24 @@ const DeliveryStaff = () => {
     }
   };
 
+  // Add New
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const handleAddNew = () => {
+    setIsAdding(true);
+  };
+
+  const handleSave = () => {
+    // Logic để lưu dữ liệu mới
+    setIsAdding(false);
+  };
+
+  const handleCancel = () => {
+    setIsAdding(false);
+  };
+
   return (
     <>
       <Styled.AdminArea>
@@ -262,6 +229,8 @@ const DeliveryStaff = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
+            {!isAdding && (
+                <>
               <Styled.SearchArea>
                 <Input
                   className="searchInput"
@@ -275,16 +244,65 @@ const DeliveryStaff = () => {
                 />
               </Styled.SearchArea>
               <Styled.AddButton>
-                <Link to="">
-                  <button>
+                  <button onClick={handleAddNew}>
                     <PlusCircleOutlined />
                     Add New Staff
                   </button>
-                </Link>
               </Styled.AddButton>
+              </>
+              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
+            {isAdding ? (
+                  <Form layout="vertical">
+                    <Form.Item label="Jewelry ID">
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Jewelry Name">
+                      <Input />
+                    </Form.Item>
+                    <Form.Item label="Price">
+                      <InputNumber />
+                    </Form.Item>
+                    <Form.Item label="Markup Percentage">
+                      <InputNumber />
+                    </Form.Item>
+                    <Form.Item label="Quantity">
+                      <InputNumber />
+                    </Form.Item>
+                    <Form.Item label="Exchange Rate">
+                      <InputNumber />
+                    </Form.Item>
+                    <Form.Item label="Type">
+                      <Select
+                        defaultValue="ring"
+                        onChange={handleChange}
+                        options={[
+                          { value: "ring", label: "Ring" },
+                          { value: "necklace", label: "Necklace" },
+                          { value: "earring", label: "Earring" },
+                          { value: "bracelet", label: "Bracelet" },
+                          { value: "anklet", label: "Anklet" },
+                          { value: "bangle", label: "Bangle" },
+                          { value: "choker", label: "Choker" },
+                          { value: "pendant", label: "Pendant" },
+                        ]}
+                      />
+                    </Form.Item>
+                    <Form.Item>
+                      <Button type="primary" onClick={handleSave}>
+                        Save
+                      </Button>
+                      <Button
+                        onClick={handleCancel}
+                        style={{ marginLeft: "10px" }}
+                      >
+                        Cancel
+                      </Button>
+                    </Form.Item>
+                  </Form>
+              ) : (
               <Form form={form} component={false}>
                 <Table
                   components={{
@@ -302,6 +320,7 @@ const DeliveryStaff = () => {
                   }}
                 />
               </Form>
+              )}
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>

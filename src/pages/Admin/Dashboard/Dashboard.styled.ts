@@ -1,12 +1,29 @@
 import { theme } from "@/themes";
 import styled from "styled-components";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
+
 
 export const AdminContainer = styled.section`
   display: inline-flex;
   background-color:  #f1f1f1;
   font-family: "Poppins", sans-serif;
   width: 100%;
+  height: 100%;
   margin-top: 0px;
+`;
+
+export const TopPage = styled.div`
+flex-grow: 1; 
 `;
 
 // /* =============== DASHBOARD ================= */
@@ -17,6 +34,9 @@ export const AdminPage = styled.div`
   width: 100%;
   height: 100%;
   padding: 0px 0px 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
 `;
 
 export const TitlePage = styled.div`
@@ -244,8 +264,8 @@ export const RecentOrders_List = styled.div`
     .order_elePrice {
       background-color: ${theme.color.primary};
       color: #FFFFFF;
-      padding: 3px 5px;
-      font-size: 14px;
+      padding: 5px 10px;
+      font-size: 13px;
       align-content: center;
       margin: 0px;
       border-radius: 5px;
@@ -365,7 +385,7 @@ flex-direction: column;
     color: ${theme.color.primary};
     background-color: ${theme.color.secondary};
     border: 1px solid ${theme.color.primary};
-    border-radius: 16px;
+    border-radius: 5px;
     padding: 5px 15px;
   }
   .shell_eleButton:hover {
@@ -383,4 +403,11 @@ export const Ele_TableTitle = styled.div`
   color: #92929d;
   font-weight: 500;
   font-size: 12px;
+`;
+
+
+
+export const EndPage = styled.div`
+background-color:  #f1f1f1;
+flex-shrink: 0;
 `;
