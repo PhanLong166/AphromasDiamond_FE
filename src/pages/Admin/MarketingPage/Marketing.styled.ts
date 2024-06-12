@@ -35,7 +35,7 @@ export const ContentPage = styled.div``;
 
 export const TitlePage = styled.div`
   h1 {
-    font-size: 25px;
+    font-size: 22px;
     font-weight: 36px;
     color: ${theme.color.primary};
     margin: 30px 0px 0px 0px;

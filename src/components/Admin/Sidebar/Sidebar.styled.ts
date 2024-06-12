@@ -22,7 +22,7 @@ export const SidebarContainer = styled.div`
 export const SidebarTop = styled.div``;
 
 export const Logo = styled.div `
-    padding: 10px 0px 20px;
+    padding: 12px 0px 28px;
     text-align: center;
 
     h2 {
