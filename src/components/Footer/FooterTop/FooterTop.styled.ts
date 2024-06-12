@@ -6,13 +6,14 @@ export const TopContainer = styled.div`
     justify-content: center;
     align-items: center;
 
-    background-color: ${theme.color.white};
+    background-color: ${theme.color.overlayImage};
+    font-weight: 300;
 `;
 
 export const TopFlexbox = styled.div`
     display: flex;
     justify-content: space-between;
-    width: 1600px;
+    width: 1440px;
     padding: 20px;
 `;
 
