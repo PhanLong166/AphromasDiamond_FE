@@ -1,4 +1,16 @@
 import styled from "styled-components";
+import { theme } from "@/themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const OrderAdminArea = styled.section`
   display: inline-flex;
@@ -35,10 +47,8 @@ export const AdPageContent_Head = styled.div`
 
 export const SearchArea = styled.div`
   width: 30%;
-
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -50,7 +60,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -62,7 +72,7 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
@@ -73,13 +83,13 @@ export const SearchArea = styled.div`
 
 export const AdminTable = styled.div`
   padding: 0px 50px 0px 50px;
-  color: #151542;
+  color: ${theme.color.primary};
 
   td {
     padding: 8px;
     text-align: left;
     font-size: 16px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   th {
     color: #783232;

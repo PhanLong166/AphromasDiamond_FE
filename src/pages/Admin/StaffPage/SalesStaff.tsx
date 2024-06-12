@@ -292,6 +292,7 @@ const SalesStaff = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.AdminArea>
         <Sidebar />
 

@@ -221,6 +221,7 @@ const DeliveryStaff = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.AdminArea>
         <Sidebar />
 

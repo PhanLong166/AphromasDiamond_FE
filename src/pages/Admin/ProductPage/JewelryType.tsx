@@ -271,6 +271,7 @@ const JewelryType = () => {
 
   return (
     <>
+      <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
 

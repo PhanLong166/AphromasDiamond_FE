@@ -198,6 +198,7 @@ const CancelledOrder = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
 

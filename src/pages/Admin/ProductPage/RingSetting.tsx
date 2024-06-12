@@ -483,6 +483,7 @@ const RingSetting = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.ProductAdminArea>
         <Sidebar />
 

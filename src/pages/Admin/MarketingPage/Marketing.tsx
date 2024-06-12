@@ -307,6 +307,7 @@ const Marketing = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.ProductAdminArea>
          <Sidebar />
 

@@ -341,6 +341,7 @@ const Diamond = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.ProductAdminArea>
         <Sidebar />
 

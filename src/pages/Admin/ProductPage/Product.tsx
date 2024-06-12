@@ -320,10 +320,9 @@ const Product = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.ProductAdminArea>
-        {/* <Styled.SidebarArea> */}
         <Sidebar />
-        {/* </Styled.SidebarArea> */}
 
         <Styled.AdminPage>
           <ProductMenu />

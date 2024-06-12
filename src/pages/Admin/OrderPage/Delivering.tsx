@@ -209,6 +209,7 @@ const DeliveringOrder = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
 

@@ -1,5 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const ClientCaringAdminArea = styled.section`
   display: inline-flex;
