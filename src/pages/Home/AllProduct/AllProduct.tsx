@@ -1,177 +1,145 @@
 import React, { useState } from "react";
-import { createRoot } from "react-dom/client";
-import { Pagination } from "antd";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
-import { Menu } from "antd";
-import {
-  AppstoreOutlined,
-  MailOutlined,
-  SettingOutlined,
-} from "@ant-design/icons";
-import { theme } from "../../../themes";
+// import { Menu } from "antd";
+// import { theme } from "../../../themes";
 import {
   Section,
   Container,
   Wrap,
   Heading,
-  Content,
-  Sidebar,
-  SidebarWrap,
-  SidebarContent,
-  SidebarTitle,
-  Widget,
-  Summary,
-  Accord,
-  Wapper,
-  ListItem,
-  CategoryContent,
-  Sorter,
-  Left,
-  ProductSection,
-  ListProduct,
-  ProductItem,
-  ProductImage,
-  ItemName,
-  Price,
-  AddCartButton,
-  AddLink,
-  PageLink,
-  Paging,
   FilterBar,
 } from "./AllProduct.styled";
-import { CaretDownOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
   padding-top: 20px;
 `;
 
-const SidebarMenu = styled(Menu)`
-  .ant-menu-title-content {
-    color: ${theme.color.primary};
-    font-size: 15px;
-  }
-`;
+// const SidebarMenu = styled(Menu)`
+//   .ant-menu-title-content {
+//     color: ${theme.color.primary};
+//     font-size: 15px;
+//   }
+// `;
 
-const items = [
-  {
-    key: "sub1",
-    label: "Shape",
-    children: [
-      {
-        key: "1",
-        label: "Round",
-      },
-      {
-        key: "2",
-        label: "Princess",
-      },
-      {
-        key: "3",
-        label: "Cushion",
-      },
-      {
-        key: "4",
-        label: "Oval",
-      },
-      {
-        key: "5",
-        label: "Emerald",
-      },
-      {
-        key: "6",
-        label: "Pear",
-      },
-      {
-        key: "7",
-        label: "Asscher",
-      },
-      {
-        key: "8",
-        label: "Heart",
-      },
-      {
-        key: "9",
-        label: "Radiant",
-      },
-      {
-        key: "10",
-        label: "Marquise",
-      },
-    ],
-  },
-  {
-    type: "divider",
-  },
+// const items = [
+//   {
+//     key: "sub1",
+//     label: "Shape",
+//     children: [
+//       {
+//         key: "1",
+//         label: "Round",
+//       },
+//       {
+//         key: "2",
+//         label: "Princess",
+//       },
+//       {
+//         key: "3",
+//         label: "Cushion",
+//       },
+//       {
+//         key: "4",
+//         label: "Oval",
+//       },
+//       {
+//         key: "5",
+//         label: "Emerald",
+//       },
+//       {
+//         key: "6",
+//         label: "Pear",
+//       },
+//       {
+//         key: "7",
+//         label: "Asscher",
+//       },
+//       {
+//         key: "8",
+//         label: "Heart",
+//       },
+//       {
+//         key: "9",
+//         label: "Radiant",
+//       },
+//       {
+//         key: "10",
+//         label: "Marquise",
+//       },
+//     ],
+//   },
+//   {
+//     type: "divider",
+//   },
 
-  {
-    key: "sub2",
-    label: "Jewelry",
-    // icon: <AppstoreOutlined />,
-    children: [
-      {
-        key: "11",
-        label: "Rings",
-      },
-      {
-        key: "12",
-        label: "Necklaces",
-      },
-      {
-        key: "13",
-        label: "Earrings",
-      },
-      {
-        key: "14",
-        label: "Bracelets",
-      },
-      {
-        key: "15",
-        label: "Anklets",
-      },
-      {
-        key: "16",
-        label: "Bangles",
-      },
-      {
-        key: "17",
-        label: "Pendants",
-      },
-    ],
-  },
-  {
-    type: "divider",
-  },
-  {
-    key: "sub4",
-    label: "Metals",
-    // icon: <SettingOutlined />,
-    children: [
-      {
-        key: "18",
-        label: "White Gold",
-      },
-      {
-        key: "19",
-        label: "Yellow Gold",
-      },
-      {
-        key: "20",
-        label: "Rose Gold",
-      },
-      {
-        key: "21",
-        label: "Platinum",
-      },
-    ],
-  },
-];
-const onClick = (e) => {
-  console.log("click ", e);
-};
+//   {
+//     key: "sub2",
+//     label: "Jewelry",
+//     // icon: <AppstoreOutlined />,
+//     children: [
+//       {
+//         key: "11",
+//         label: "Rings",
+//       },
+//       {
+//         key: "12",
+//         label: "Necklaces",
+//       },
+//       {
+//         key: "13",
+//         label: "Earrings",
+//       },
+//       {
+//         key: "14",
+//         label: "Bracelets",
+//       },
+//       {
+//         key: "15",
+//         label: "Anklets",
+//       },
+//       {
+//         key: "16",
+//         label: "Bangles",
+//       },
+//       {
+//         key: "17",
+//         label: "Pendants",
+//       },
+//     ],
+//   },
+//   {
+//     type: "divider",
+//   },
+//   {
+//     key: "sub4",
+//     label: "Metals",
+//     // icon: <SettingOutlined />,
+//     children: [
+//       {
+//         key: "18",
+//         label: "White Gold",
+//       },
+//       {
+//         key: "19",
+//         label: "Yellow Gold",
+//       },
+//       {
+//         key: "20",
+//         label: "Rose Gold",
+//       },
+//       {
+//         key: "21",
+//         label: "Platinum",
+//       },
+//     ],
+//   },
+// ];
+// const onClick = (e: any) => {
+//   console.log("click ", e);
+// };
 
-import { Select, Checkbox, Slider, Button, InputNumber } from "antd";
+import { Select, Slider, Button, InputNumber } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 
 const { Option } = Select;
@@ -194,13 +162,13 @@ const MetalOptions = [
   { value: "metal3", label: "Metal 3" },
 ];
 const AllProduct: React.FC = () => {
-  const [current, setCurrent] = useState(1);
+  // const [current, setCurrent] = useState(1);
 
-  const onChange = (page: number) => {
-    console.log(page);
-    setCurrent(page);
-    window.history.pushState({}, "", `/page-${page}`);
-  };
+  // const onChange = (page: number) => {
+  //   console.log(page);
+  //   setCurrent(page);
+  //   window.history.pushState({}, "", `/page-${page}`);
+  // };
 
   const [selectedFilters, setSelectedFilters] = useState<string[]>([]);
   const [priceRange, setPriceRange] = useState<[number, number]>([0, 200000]);
@@ -218,22 +186,22 @@ const AllProduct: React.FC = () => {
     setSelectedFilters(selectedFilters.filter((filter) => filter !== value));
   };
 
-  const handleMinPriceChange = (value: string | number | undefined) => {
-    const minPrice = typeof value === "number" ? value : priceRange[0];
-    setPriceRange([minPrice, priceRange[1]]);
-  };
+  // const handleMinPriceChange = (value: string | number | undefined) => {
+  //   const minPrice = typeof value === "number" ? value : priceRange[0];
+  //   setPriceRange([minPrice, priceRange[1]]);
+  // };
 
-  const handleMaxPriceChange = (value: string | number | undefined) => {
-    const maxPrice = typeof value === "number" ? value : priceRange[1];
-    setPriceRange([priceRange[0], maxPrice]);
-  };
+  // const handleMaxPriceChange = (value: string | number | undefined) => {
+  //   const maxPrice = typeof value === "number" ? value : priceRange[1];
+  //   setPriceRange([priceRange[0], maxPrice]);
+  // };
 
-  const handleSliderChange = (value: [number, number]) => {
-    setPriceRange(value);
-  };
-  const togglePriceDropdown = () => {
-    setPriceDropdownOpen(!priceDropdownOpen);
-  };
+  // const handleSliderChange = (value: [number, number]) => {
+  //   setPriceRange(value);
+  // };
+  // const togglePriceDropdown = () => {
+  //   setPriceDropdownOpen(!priceDropdownOpen);
+  // };
   
   return (
     <Section>
@@ -311,7 +279,7 @@ const AllProduct: React.FC = () => {
                 min={0}
                 max={priceRange[1]}
                 value={priceRange[0]}
-                onChange={handleMinPriceChange}
+                // onChange={handleMinPriceChange}
               />
               <Slider
                 range
@@ -319,7 +287,7 @@ const AllProduct: React.FC = () => {
                 max={200000}
                 step={10}
                 value={priceRange}
-                onChange={handleSliderChange}
+                // onChange={handleSliderChange}
                 style={{ flexGrow: 1 }}
               />
               <InputNumber
@@ -327,7 +295,7 @@ const AllProduct: React.FC = () => {
                 min={priceRange[0]}
                 max={200000}
                 value={priceRange[1]}
-                onChange={handleMaxPriceChange}
+                // onChange={handleMaxPriceChange}
               />
             </div>
             </div>

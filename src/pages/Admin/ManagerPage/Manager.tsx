@@ -5,6 +5,7 @@ import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import { SortOrder } from "antd/es/table/interface";
 
 interface Item {
   key: React.Key;
@@ -180,7 +181,7 @@ const Customer = () => {
     {
       title: "Manager Name",
       dataIndex: "managerName",
-      defaultSortOrder: "descend",
+      defaultSortOrder: "descend" as SortOrder,
       editable: true,
       sorter: (a: Item, b: Item) => a.managerName.length - b.managerName.length,
     },

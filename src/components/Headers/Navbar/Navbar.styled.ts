@@ -4,7 +4,7 @@ import { theme } from "../../../themes";
 export const NavbarContainer = styled.nav`
     display: flex;
     justify-content: center;
-    background-color: ${theme.color.third};
+    background-color: ${theme.color.secondary};
     padding: 10px;
 
     font-family: "Poppins", san-serif;

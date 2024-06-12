@@ -838,6 +838,7 @@ import type { TableProps } from "antd";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+import { SortOrder } from "antd/es/table/interface";
 
 interface Item {
   key: React.Key;
@@ -1104,6 +1105,7 @@ const RingSetting = () => {
       dataIndex: "type",
       key: "type",
       editable: true,
+      defaultSortOrder: "ascend" as SortOrder,
       filters: [
         { text: "Ring", value: "Ring" },
         { text: "Necklace", value: "Necklace" },
@@ -1114,7 +1116,7 @@ const RingSetting = () => {
         { text: "Choker", value: "Choker" },
         { text: "Pendant", value: "Pendant" },
       ],
-      onFilter: (value: string, record: Item) =>
+      onFilter: (value: boolean | React.Key, record: Item) =>
         record.type.indexOf(value as string) === 0,
     },
     {
@@ -1128,6 +1130,7 @@ const RingSetting = () => {
       dataIndex: "material",
       key: "material",
       editable: true,
+      defaultSortOrder: "ascend" as SortOrder,
       filters: [
         { text: "14K White Gold", value: "14KWhiteGold" },
         { text: "14K Yellow Gold", value: "14KYellowGold" },
@@ -1137,7 +1140,7 @@ const RingSetting = () => {
         { text: "18K Rose Gold", value: "18KRoseGold" },
         { text: "Platinum", value: "Platinum" },
       ],
-      onFilter: (value: string, record: Item) =>
+      onFilter: (value: boolean | React.Key, record: Item) =>
         record.material.indexOf(value as string) === 0,
     },
     {

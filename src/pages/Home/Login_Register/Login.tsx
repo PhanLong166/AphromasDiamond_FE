@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import {
   GlobalStyle,
   CornerButton,
@@ -15,31 +15,13 @@ import {
 } from './Login.styled';
 
 import { UserOutlined, LockOutlined, MailOutlined, EyeOutlined, HomeFilled } from '@ant-design/icons';
-import { Button } from '../Home.styled';
 import { LOGIN_GOOGLE_URL } from '@/config/constants';
 import { useDocumentTitle } from '@/hooks';
-import { message } from 'antd';
-// import { message } from 'antd';
+
 
 
 const Login: React.FC = () => {
   useDocumentTitle('Login');
-
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const navigate = useNavigate();
-
-  const [messageApi, contextHolder] = message.useMessage();
-
-  const onFinish = async (values: any) => {
-    try {
-      setIsSubmitting(true);
-    } catch (error: any) {
-      if(error.response) messageApi.error(error.response.data);
-      else messageApi.error(error.message);
-    } finally {
-      setIsSubmitting(false);
-    }
-  };
 
   const [selectedGender, setSelectedGender] = useState<string>('male');
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -83,9 +65,7 @@ const Login: React.FC = () => {
                 </div>
                 <div className="google-button">
                   <Link to={LOGIN_GOOGLE_URL}>
-                    <Button type="button" className="login-with-google-btn">
-                      Sign in with Google
-                    </Button>
+                    
                   </Link>
                 </div>
                 <div className="sign-up-text">

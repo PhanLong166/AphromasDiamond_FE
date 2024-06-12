@@ -1,6 +1,4 @@
 // About.tsx
-import React from "react";
-import { Carousel } from "antd";
 import {
   Body,
   ContainerBanner,
@@ -40,9 +38,7 @@ import {
   LikeOutlined,
   FieldTimeOutlined,
   SettingOutlined,
-  ZoomInOutlined,
   BulbOutlined,
-  HeartOutlined,
   StarFilled,
 } from "@ant-design/icons";
 const CustomBreadcrumb = styled(Breadcrumb)`

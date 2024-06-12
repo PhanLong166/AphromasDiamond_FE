@@ -28,10 +28,6 @@ import {
   Banner4Container,
   Banner3,
   Banner3Container,
-  ProductItem,
-  ProductImage,
-  ItemName,
-  Price,
   StyledImage,
   StyledContent,
   StyledText,
@@ -50,12 +46,12 @@ import {
 import { Link } from "react-router-dom";
 import { Carousel } from "antd";
 
-const images = [
-  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f",
-  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_4.png?alt=media&token=a6e6aabe-a969-4b02-8660-e44118da1b04",
-  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_2.png?alt=media&token=4cedc076-d124-41fd-9ca2-d6fe32bf8f26",
-  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_6.png?alt=media&token=f47c7382-21cb-4e21-95b0-e76f2581d19b",
-];
+// const images = [
+//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f",
+//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_4.png?alt=media&token=a6e6aabe-a969-4b02-8660-e44118da1b04",
+//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_2.png?alt=media&token=4cedc076-d124-41fd-9ca2-d6fe32bf8f26",
+//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_6.png?alt=media&token=f47c7382-21cb-4e21-95b0-e76f2581d19b",
+// ];
 
 const categories = [
   {
@@ -292,8 +288,8 @@ const products: Product[] = [
 ];
 
 const Home: React.FC = () => {
-  type Carousel = /*unresolved*/ any;
-  const carouselRef = React.useRef<Carousel | null>(null);
+  // type Carousel = /*unresolved*/ any;
+  // const carouselRef = React.useRef<Carousel | null>(null);
   const StyledCarousel = styled(Carousel)`
     .slick-slide {
       display: flex;
@@ -390,7 +386,7 @@ const Home: React.FC = () => {
   const pageSize = 4;
   const [current, setCurrent] = useState(1);
 
-  const handlePageChange = (page) => {
+  const handlePageChange = (page: any) => {
     setCurrent(page);
   };
 
