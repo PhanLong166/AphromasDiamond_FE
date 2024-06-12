@@ -6,309 +6,124 @@ export const Section = styled.div`
   background-color: ${theme.color.white};
 `;
 
-export const Container = styled.div`
-  padding-top: 30px;
-`;
-
-export const Wrap = styled.div``;
+export const Container = styled.div``;
 
 export const Heading = styled.div`
   h2 {
     font-size: 32px;
     text-align: center;
-    margin: 30px auto;
-    font-family: "Playfair Display", serif;
+    margin: 50px auto;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
-    font-weight: 700;
-    margin-bottom: 50px;
+    font-weight: 600;
   }
 `;
 
-export const Content = styled.div`
-  display: grid;
-  grid-template-columns: 1fr 6fr;
-  gap: 60px;
-  margin-left: 20px;
+export const FilterBar = styled.div`
+  margin: 0 auto;
+  max-width: 1400px;
 `;
 
-export const Sidebar = styled.div``;
+export const List = styled.div`
+  max-width: 1400px;
+  margin: 0 auto;
 
-export const SidebarWrap = styled.div``;
-
-export const SidebarContent = styled.div`
-  margin-left: 30px;
-`;
-
-export const SidebarTitle = styled.div`
-  font-size: 24px;
-  font-family: "Gantari", sans-serif;
-  color: ${theme.color.primary};
-  font-weight: 600;
-  margin-bottom: 20px;
-`;
-
-export const Widget = styled.div``;
-
-export const Summary = styled.div`
-  input[type="checkbox"] {
-    display: none;
+  .product-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng mượt mà */
   }
 
-  label {
+  .sale-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #ede0b8;
+    color: ${theme.color.primary};
+    width: auto;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-name {
     display: flex;
     justify-content: space-between;
-    cursor: pointer;
-
-    span {
-      font-weight: 600;
-      font-family: "Gantari", sans-serif;
-      color: ${theme.color.primary};
-      font-size: 18px;
-    }
-
-    i {
-      font-size: 20px;
-      width: 30px;
-      height: 30px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: all 0.045s ease;
-    }
-  }
-
-  .bx-chevron-down {
-    color: ${theme.color.primary};
-  }
-`;
-
-export const Accord = styled.div`
-  padding: 10px;
-  max-height: 0;
-  opacity: 0;
-  visibility: hidden;
-  transition: all 0.45s ease;
-
-  input:checked ~ & {
-    max-height: 1000px;
-    opacity: 1;
-    visibility: visible;
-  }
-
-  input:checked ~ label i {
-    transform: rotate(180deg);
-  }
-`;
-
-export const Wapper = styled.ul`
-  padding-left: 15px;
-  margin-top: 20px;
-  height: 230px;
-
-  li {
-    list-style: none;
-    text-decoration: none;
-    color: ${theme.color.primary};
-    cursor: pointer;
-    font-size: 17px;
-
-    a {
-      font-family: "Gantari", sans-serif;
-      opacity: 0.8;
-      text-decoration: none;
-      color: inherit;
-    }
-  }
-`;
-
-export const ListItem = styled.li``;
-
-export const CategoryContent = styled.div``;
-
-export const Sorter = styled.div`
-  .menu-trigger {
-    i {
-      display: block;
-    }
-  }
-
-  .grey-color {
-    color: #696969;
-  }
-`;
-
-export const Left = styled.div`
-  font-size: 16px;
-  font-family: "Gantari", sans-serif;
-`;
-
-export const ProductSection = styled.section``;
-
-export const ListProduct = styled.div`
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
-  align-items: center;
-  text-align: center;
-  justify-content: center;
-  padding: 35px;
-  padding-left: 20px;
-`;
-
-export const ProductItem = styled.div`
-  background-color: transparent;
-  padding: 10px;
-  border-radius: 8px;
-  width: 100%;
-  height: 100%;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-
-  &:hover {
-    cursor: pointer;
-    transform: translateY(-5px);
-    transition: all 0.45s ease;
-  }
-
-  img {
-    width: 200px;
-    height: 250px;
-  }
-
-  a {
-    text-decoration: none;
-    color: inherit;
-    display: block;
+    align-items: center;
     width: 100%;
-    height: 100%;
-    box-sizing: border-box;
-  }
-
-  .link-add:hover {
-    text-decoration: underline;
-  }
-
-  h4 {
-    font-weight: 700;
-    font-size: 18px;
-    margin: 10px;
-    font-family: "Gantari", sans-serif;
+    font-size: 13px;
     color: ${theme.color.primary};
   }
-`;
 
-export const ProductImage = styled.img`
-  width: 80%;
-  height: auto;
-  filter: drop-shadow(0 10px 15px #0009);
-  padding-bottom: 10px;
-`;
-
-export const ItemName = styled.p`
-  color: ${theme.color.primary};
-  font-size: 14px;
-  font-family: "Gantari", sans-serif;
-  text-align: left;
-  padding: 0 25px;
-`;
-
-export const Price = styled.p`
-  font-family: "Gantari", sans-serif;
-  color: ${theme.color.primary};
-  font-weight: 600;
-  font-size: 14px;
-  margin-top: 10px;
-  text-align: left;
-  padding: 0 25px;
-`;
-
-export const AddCartButton = styled.button`
-  background-color: ${theme.color.primary};
-  color: ${theme.color.white};
-  padding: 12px 10px;
-  border-radius: 8px;
-  border: none;
-  cursor: pointer;
-  margin-top: 10px;
-  width: 100%;
-  box-sizing: border-box;
-
-  &:hover {
-    font-size: 14px;
-    transition: all 0.45s ease;
+  .wishlist-icon {
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #db7f67;
   }
-`;
 
-export const AddLink = styled.a`
-  text-decoration: none;
-  font-family: "Gantari", sans-serif;
-  font-weight: 600;
-`;
+  .price-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
 
-export const MoreButton = styled.button`
-  border-width: 0;
+  .product-price {
+    font-size: 14px;
+    color: ${theme.color.primary};
+  }
 
-  margin: 60px 0 100px;
-  text-align: center;
+  .product-sale-price {
+    font-size: 12px;
+    color: #888;
+    text-decoration: line-through;
+  }
 
-  a {
-    text-decoration: none;
-    color: ${theme.color.white};
-    font-weight: 600;
+  .show-all-card {
+    width: 338px;
+    height: 518px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    border: 1px solid #f0f0f0;
+    border-radius: 0;
+    background-color: #f4f2ee;
+  }
+
+  .show-all-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+  }
+
+  .show-all-text {
+    font-size: 16px;
+    margin-bottom: 16px;
+    color: #45413e;
+  }
+
+  .show-all-button {
+    background-color: #f4f2ee;
+    color: ${theme.color.primary};
+    border: none;
+    padding: 10px 15px;
     font-size: 14px;
     cursor: pointer;
-    font-family: "Gantari", sans-serif;
-    padding: 15px 20px;
+    transition: background-color 0.3s ease;
+    border: 1px solid;
+  }
+
+  .show-all-button:hover {
     background-color: ${theme.color.primary};
-    border-radius: 8px;
+    color: #f4f2ee;
   }
-`;
-
-export const ButtonContainer = styled.div`
-  button {
-    border-width: 0;
-    margin: 30px auto;
-  }
-`;
-
-export const LoadMoreButton = styled.button`
-  background: none;
-  padding: 0;
-  border: none;
-`;
-
-export const MoreLink = styled.a`
-  padding: 15px 20px;
-  background-color: ${theme.color.primary};
-  border-radius: 8px;
-  text-decoration: none;
-  color: ${theme.color.white};
-  font-weight: 600;
-  font-size: 14px;
-  cursor: pointer;
-  font-family: "Gantari", sans-serif;
-`;
-
-export const PageLink = styled.a`
-  margin: 0 5px;
-  padding: 5px 10px;
-  color: ${theme.color.primary};
-  cursor: pointer;
-  text-decoration: none;
-  &:hover {
-    text-decoration: underline;
-    color: #101010;
-  }
-`;
-
-export const Paging = styled.div`
-  margin-left: 430px;
-  margin-bottom: 40px;
-`;
-
-export const FilterBar= styled.div`
- margin: 0 auto;
- max-width: 1320px;
 `;
