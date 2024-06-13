@@ -182,7 +182,7 @@ const Customer = () => {
     {
       title: "Manager Name",
       dataIndex: "managerName",
-      defaultSortOrder: "descend",
+      defaultSortOrder: "descend" as SortOrder,
       editable: true,
       sorter: (a: Item, b: Item) => a.managerName.length - b.managerName.length,
     },

@@ -21,17 +21,16 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.section`
-  background-color: #f1f1f1;
+  background: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2F5_loose_diamonds_in_varying_cuts_and_1_round_engagement_ring.jpeg?alt=media&token=600d983a-07f8-4eb9-ad9d-8eb496e6bdd0")
+    no-repeat center center;
+  background-size: cover;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
 `;
 
 export const LeftSection = styled.div`
   width: 50%;
-  padding: 10px;
-  align-items: center;
-  margin: 50px 150px;
+  max-width: 1600px;
+  margin: 130px 160px;
 
   h2 {
     font-size: 50px;
@@ -50,21 +49,13 @@ export const LeftSection = styled.div`
     font-family: "Gantari", sans-serif;
     color: #45413e;
   }
-`;
 
-export const RightSection = styled.div`
-  img {
-    width: 65%;
-    height: auto;
-    border-radius: 10px;
-    margin-left: 50px;
-  }
 `;
 
 export const InfoSection = styled.div`
   max-width: 1000px;
   margin: 50px auto;
-  background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Gift%2Finfo.jpg?alt=media&token=0bd5e0f0-db99-4ca2-aa67-697b851e0bc1");
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Gift%2Flab_diamonds_sale_banner.6a518.jpg?alt=media&token=36d7c2cb-6117-4c20-a755-8cb3aabae7bd");
   background-size: cover;
   background-position: center;
   position: relative;
@@ -81,12 +72,12 @@ export const Overlay = styled.div`
   h2 {
     font-family: "Great Vibes";
     margin: 0 0 10px;
-    font-size: 2rem;
+    font-size: 32px;
     color: ${theme.color.primary};
   }
   p {
     margin: 0;
-    font-size: 17px;
+    font-size: 15px;
     font-family: "Gantari", sans-serif;
     color: #45413e;
   }
@@ -114,7 +105,7 @@ export const GiftSection = styled.div`
   }
 
   .gift-text1 {
-    padding: 50px;
+    padding: 45px;
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -134,7 +125,7 @@ export const GiftSection = styled.div`
       color: #45413e;
       line-height: 1.5;
       margin-bottom: 10px;
-      width: 80%;
+      width: 95%;
       text-align: left;
     }
   }
@@ -185,7 +176,7 @@ export const GiftSection = styled.div`
   }
 
   .gift-text {
-    padding: 50px;
+    padding: 45px;
     background: #fff;
     display: flex;
     flex-direction: column;
@@ -205,8 +196,8 @@ export const GiftSection = styled.div`
       color: #45413e;
       line-height: 1.5;
       margin-bottom: 10px;
-      width: 80%;
-      text-align: left;
+      width: 95%;
+      text-align: right;
     }
   }
 
@@ -243,68 +234,22 @@ export const FAQs = styled.section`
 export const LeftFAQ = styled.div`
   width: 50%;
   padding-right: 20px;
-  padding-top: 20px;
+
   h2 {
-    font-size: 30px;
-    font-family: "Playfair Display", sans-serif;
+    font-size: 32px;
+    font-weightL 600;
+    font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
   }
-`;
+  .ant-collapse {
+  border-radius: 5px; 
+}
 
-export const Wrapper = styled.div`
-  max-width: 50%;
-  margin-left: 0;
-`;
+.ant-collapse-item {
+  background-color: #f4f2ee;
+}
 
-export const Accordion = styled.button`
-  background-color: ${theme.color.secondary};
-  color: ${theme.color.primary};
-  cursor: pointer;
-  font-size: 16px;
-  width: 100%;
-  padding: 20px 30px;
-  border: none;
-  outline: none;
-  transition: 0.4s;
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  font-family: "Gantari", sans-serif;
-  font-weight: 600;
-
-  i {
-    font-size: 1.6rem;
-  }
-`;
-
-export const Panel = styled.div`
-  padding: 0 18px;
-  color: #45413e;
-  background-color: ${theme.color.secondary};
-  padding: 0 2rem 2.5rem 2rem;
-  overflow: hidden;
-  max-height: 0;
-  transition: max-height 0.4s ease-out, visibility 0.4s ease-out;
-  visibility: hidden;
-
-  &.active {
-    max-height: 500px;
-    visibility: visible;
-  }
-
-  p {
-    color: rgba(0, 0, 0, 0.7);
-    font-size: 16px;
-    line-height: 1.4;
-    font-family: "Crimson Text", sans-serif;
-  }
-`;
-
-export const FAQ = styled.div`
-  margin: 10px 80px;
-
-  &.active {
-    border: none;
-    width: 50%;
-  }
+.ant-collapse-header {
+  border-radius: 5px; 
+}
 `;

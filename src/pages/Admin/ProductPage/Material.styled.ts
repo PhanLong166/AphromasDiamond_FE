@@ -7,6 +7,9 @@ export const GlobalStyle = createGlobalStyle`
     height: 100%;
     margin: 0;
     padding: 0;
+
+export const AdminArea = styled.section`
+    display: inline-flex;
     background-color: #f1f1f1;
     font-family: 'Poppins', sans-serif;
   }

@@ -46,12 +46,10 @@ export const AdPageContent_Head = styled.div`
 
 export const SearchArea = styled.div`
   width: 30%;
-
   display: flex;
   align-items: center;
   //
   border-radius: 16px;
-
   .searchInputContainer {
     display: flex;
     align-items: center;

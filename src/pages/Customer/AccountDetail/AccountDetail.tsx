@@ -1,83 +1,108 @@
 import styled from 'styled-components';
-import AccountCus from '@/components/AccountCus/AccountCus';
+import AccountCus from '@/components/Customer/Account Details/AccountCus';
 
 const Account = () => {
   return (
     <div>
-      <AccountCus/>
-    <MainContainer>
-      
-      <Section>
-        <ProfileTitle>My Account</ProfileTitle>
-        <InfoSection>
-          <InfoContainer>
-            <Column>
-              <InfoItem>
-                <InfoTitle>Address Delivery</InfoTitle>
-                <Label>STREET ADDRESS</Label>
-                <Description>191-103 Integer Rd.</Description>
-                <DetailGroup>
-                  <Label>CITY</Label>
-                  <Detail>Forrest Ray</Detail>
-                  <Label>PHONE </Label>
-                  <Detail>(404) 960-3807</Detail>
-                </DetailGroup>
-              </InfoItem>
-            </Column>
-            <Column>
-              <InfoItem>
-                <EditButton>Edit</EditButton>
-                <Label>COUNTRY</Label>
-                <Detail>Mexico</Detail>
-              </InfoItem>
-            </Column>
-            <Column>
-              <InfoItem>
-                <InfoTitle>Account Details</InfoTitle>
-                <DetailGroup>
-                  <Label>First Name</Label>
-                  <Detail>Le Phuoc</Detail>
-                  <Label>Last Name</Label>
-                  <Detail>Loc</Detail>
-                  <Label>Phone</Label>
-                  <Detail>(404) 960-3807</Detail>
-                </DetailGroup>
-              </InfoItem>
-            </Column>
-            <Column>
-              <InfoItem>
-                <EditButton>Edit</EditButton>
-                <Label>Email</Label>
-                <Detail>loclpse171201@gmail.com</Detail>
-                <Label>Current Password</Label>
-                <Detail>*************</Detail>
-              </InfoItem>
-            </Column>
-          </InfoContainer>
-        </InfoSection>
-      </Section>
-    </MainContainer>
+      <AccountCus />
+      <MainContainer>
+        <Section>
+          <ProfileTitle>My Account</ProfileTitle>
+          <InfoSection>
+            <InfoContainer>
+              <Column>
+                <Row>
+                  <InfoTitle>Address Delivery</InfoTitle>
+                  <EditButton>Edit</EditButton>
+                </Row>
+                <Row>
+                  <Column>
+                    <DetailGroup>
+                      <Label>STREET ADDRESS</Label>
+                      <Description>191-103 Integer Rd.</Description>
+                    </DetailGroup>
+                    <DetailGroup>
+                      <Label>CITY</Label>
+                      <Detail>Forrest Ray</Detail>
+                    </DetailGroup>
+                    <DetailGroup>
+                      <Label>PHONE</Label>
+                      <Detail>(404) 960-3807</Detail>
+                    </DetailGroup>
+                  </Column>
+                  <Column>
+
+                    <DetailGroup>
+                      <Label>COUNTRY</Label>
+                      <Detail>Mexico</Detail>
+                    </DetailGroup>
+                  </Column>
+                </Row>
+              </Column>
+              <Column>
+                <Row>
+                  <InfoTitle>Account Details</InfoTitle>
+                  <EditButton>Edit</EditButton>
+                </Row>
+                <Row>
+                  <Column>
+                    <DetailGroup>
+                      <Label>FIRST NAME</Label>
+                      <Detail>Le Phuoc</Detail>
+                    </DetailGroup>
+                    <DetailGroup>
+                      <Label>PHONE</Label>
+                      <Detail>(404) 960-3807</Detail>
+                    </DetailGroup>
+                    <DetailGroup>
+                      <Label>EMAIL</Label>
+                      <Detail>loclpse171201@gmail.com</Detail>
+                    </DetailGroup>
+                  </Column>
+                  <Column>
+                    <DetailGroup>
+                      <Label>LAST NAME</Label>
+                      <Detail>Loc</Detail>
+                    </DetailGroup>
+
+                    <DetailGroup>
+                      <Label>CURRENT PASSWORD</Label>
+                      <Detail>*************</Detail>
+                    </DetailGroup>
+
+                  </Column>
+                </Row>
+              </Column>
+            </InfoContainer>
+          </InfoSection>
+        </Section>
+      </MainContainer>
     </div>
   );
 };
+
+const Row = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 50px;
+`;
 
 const MainContainer = styled.div`
   background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  
 `;
 
 const Section = styled.section`
-border-color: rgba(0, 0, 0, 1);
-background-color: #fff;
-color: #000;
-justify-content: center;
-margin: 0 auto;
-font: 400 15px / 150% 'Crimson Text', sans-serif;
-margin-bottom: 150px;
-width: 150vh;
+  border-color: rgba(0, 0, 0, 1);
+  background-color: #fff;
+  color: #000;
+  justify-content: center;
+  margin: 0 auto;
+  font: 400 15px / 150% 'Crimson Text', sans-serif;
+  margin-bottom: 150px;
+  width: 160vh;
   @media (max-width: 991px) {
     max-width: 100%;
     padding: 0 20px 0 30px;
@@ -120,37 +145,26 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   line-height: normal;
-  width: 25%;
+  width: 50%;
   @media (max-width: 991px) {
     width: 100%;
   }
 `;
 
-const InfoItem = styled.div`
-  display: flex;
-  flex-direction: column;
-  font-size: 15px;
-  color: #000;
-  font-weight: 400;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-  }
-`;
+// const InfoItem = styled.div`
+//   display: flex;
+//   flex-direction: column;
+//   font-size: 15px;
+//   color: #000;
+//   font-weight: 400;
+//   @media (max-width: 991px) {
+//     margin-top: 40px;
+//   }
+// `;
 
 const InfoTitle = styled.h4`
   font-family: 'Poppins', sans-serif;
   font-size: 22px;
-`;
-
-const SubTitle = styled.h5`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 250;
-  align-self: start;
-  margin-top: 48px;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    margin-left: 10px;
-  }
 `;
 
 const Description = styled.p`

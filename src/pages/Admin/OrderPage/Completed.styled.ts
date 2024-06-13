@@ -49,6 +49,9 @@ export const SearchArea = styled.div`
   width: 30%;
   display: flex;
   align-items: center;
+
+  display: flex;
+  align-items: center;
   border-radius: 16px;
 
   .searchInputContainer {

@@ -26,10 +26,6 @@ import {
   RingSizeSelect,
   RingSizeHelp,
   ProductPrice,
-  SelectButton,
-  SelectionTitle,
-  SelectName,
-  ArrowIcon,
   ButtonContainer,
   Button,
   Shipping,
@@ -51,18 +47,12 @@ import {
   ProductImage,
   ItemName,
   Price,
-  AddCartButton,
-  AddLink,
   HeadingTitle,
   ButtonAdd,
-  RingSizeSelectGrid,
   // PageLink
 } from "./ProductDetails.styled";
 import {
   StarFilled,
-  RightOutlined,
-  GiftFilled,
-  HomeFilled,
 } from "@ant-design/icons";
 
 const CustomBreadcrumb = styled(Breadcrumb)`
@@ -86,11 +76,11 @@ const ProductDetails = () => {
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
   };
-  const [selectedSize, setSelectedSize] = useState(null);
+  // const [selectedSize, setSelectedSize] = useState(null);
 
-  const handleSelect = (size) => {
-    setSelectedSize(size);
-  };
+  // const handleSelect = (size) => {
+  //   setSelectedSize(size);
+  // };
 
   return (
     <Body>
@@ -239,8 +229,8 @@ const ProductDetails = () => {
                     </ShippingItem>
                     <ShippingItem>
                       {/* <HomeFilled/> */}
-                      <span>Estimate delivery:</span>
-                      <span className="delivery">01 - 07 Jan, 2024</span>
+                      <span>Estimate delivery: </span>
+                      <span className="delivery"> 01 - 07 Jan, 2024</span>
                     </ShippingItem>
                   </ShippingList>
                 </Shipping>

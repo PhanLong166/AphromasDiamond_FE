@@ -1,9 +1,9 @@
 import * as Styled from "./FeedbackSale.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag } from "antd";
+import { Table } from "antd";
 import { StarFilled } from '@ant-design/icons';
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
-import type { MenuProps, TableColumnsType, TableProps } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
+import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 
@@ -163,11 +163,11 @@ const onChange: TableProps<DataType>["onChange"] = (
 const FeedbackSale = () => {
   const [searchText, setSearchText] = useState("");
 
-  const onSearch = (value) => {
+  const onSearch = (value: any) => {
     console.log("Search:", value);
   };
 
-  const handleKeyPress = (e) => {
+  const handleKeyPress = (e: any) => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
@@ -188,7 +188,7 @@ const FeedbackSale = () => {
                 <input
                   className="searchInput"
                   type="text"
-                  size="large"
+                  size={12}
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
