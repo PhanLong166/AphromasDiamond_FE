@@ -6,7 +6,7 @@ import Checkout from "../pages/Customer/Checkout/Checkout";
 import OrderList from "../pages/Customer/OderList/OderList";
 import Voucher from "../pages/Customer/Voucher/Voucher";
 ;
-import { Outlet } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import Product from "@/pages/Home/Product/Product";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
 import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
@@ -20,17 +20,16 @@ import Home from "@/pages/Home/Home";
 import About from "@/pages/Home/AboutUs/AboutUs";
 // import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
-
-
-
-
+import useAuth from "@/hooks/useAuth";
+import { Role } from "@/utils/enum";
 
 const MainRouter = () => {
     return <MainLayout />
 }
 
 const CustomerRouter = () => {
-    return <Outlet />;
+    const { role } = useAuth();
+    return role === Role.CUSTOMER ? <Outlet /> : <Navigate to={config.routes.public.login}/>;
 }
 
 const publicRoutes = {
