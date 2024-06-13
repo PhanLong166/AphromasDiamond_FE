@@ -15,8 +15,8 @@ import {
 } from "./AllProduct.styled";
 
 import { Card, Col, Row, Typography } from "antd";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../themes";
+// import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+// import { theme } from "../../../themes";
 const { Title, Text } = Typography;
 
 const CustomBreadcrumb = styled(Breadcrumb)`
@@ -396,41 +396,41 @@ const AllProduct: React.FC = () => {
     setPriceRange([0, 200000]);
   };
 
-  const handleMinPriceChange = (value: number | null) => {
-    if (value !== null) {
-      const newRange: [number, number] = [value, priceRange[1]];
-      setPriceRange(newRange);
-      updatePriceFilter(newRange);
-    }
-  };
+  // const handleMinPriceChange = (value: number | null) => {
+  //   if (value !== null) {
+  //     const newRange: [number, number] = [value, priceRange[1]];
+  //     setPriceRange(newRange);
+  //     updatePriceFilter(newRange);
+  //   }
+  // };
 
-  const handleMaxPriceChange = (value: number | null) => {
-    if (value !== null) {
-      const newRange: [number, number] = [priceRange[0], value];
-      setPriceRange(newRange);
-      updatePriceFilter(newRange);
-    }
-  };
+  // const handleMaxPriceChange = (value: number | null) => {
+  //   if (value !== null) {
+  //     const newRange: [number, number] = [priceRange[0], value];
+  //     setPriceRange(newRange);
+  //     updatePriceFilter(newRange);
+  //   }
+  // };
 
-  const handleSliderChange = (value: [number, number]) => {
-    setPriceRange(value);
-    updatePriceFilter(value);
-  };
-  const updatePriceFilter = (range: [number, number]) => {
-    const filtered = products.filter((product) => {
-      const productPrice =
-        product.salePrice !== undefined ? product.salePrice : product.price;
-      return productPrice >= range[0] && productPrice <= range[1];
-    });
+  // const handleSliderChange = (value: [number, number]) => {
+  //   setPriceRange(value);
+  //   updatePriceFilter(value);
+  // };
+  // const updatePriceFilter = (range: [number, number]) => {
+  //   const filtered = products.filter((product) => {
+  //     const productPrice =
+  //       product.salePrice !== undefined ? product.salePrice : product.price;
+  //     return productPrice >= range[0] && productPrice <= range[1];
+  //   });
 
-    setFilteredProducts(filtered);
+  //   setFilteredProducts(filtered);
 
-    const formattedRange = `$${range[0]} - $${range[1]}`;
-    setSelectedFilters((filters) => {
-      const otherFilters = filters.filter((f) => !f.startsWith("$"));
-      return [...otherFilters, formattedRange];
-    });
-  };
+  //   const formattedRange = `$${range[0]} - $${range[1]}`;
+  //   setSelectedFilters((filters) => {
+  //     const otherFilters = filters.filter((f) => !f.startsWith("$"));
+  //     return [...otherFilters, formattedRange];
+  //   });
+  // };
   const handleDropdownVisibleChange = (visible: boolean) => {
     setDropdownVisible(visible);
   };
@@ -481,7 +481,7 @@ const AllProduct: React.FC = () => {
                 max={200000}
                 step={10}
                 value={priceRange}
-                onChange={handleSliderChange}
+                // onChange={handleSliderChange}
               />
             </div>
             <div
@@ -518,15 +518,15 @@ const AllProduct: React.FC = () => {
     </Menu>
   );
 
-  const [wishList, setWishList] = useState<number[]>([]);
+  // const [wishList, setWishList] = useState<number[]>([]);
 
-  const toggleWishList = (productId: number) => {
-    setWishList((prev) =>
-      prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
-    );
-  };
+  // const toggleWishList = (productId: number) => {
+  //   setWishList((prev) =>
+  //     prev.includes(productId)
+  //       ? prev.filter((id) => id !== productId)
+  //       : [...prev, productId]
+  //   );
+  // };
   return (
     <Section>
       <div>

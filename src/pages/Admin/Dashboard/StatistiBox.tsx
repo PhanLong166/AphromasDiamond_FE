@@ -1,8 +1,8 @@
-import React from "react";
+// import React from "react";
 import * as Styled from "./Dashboard.styled";
 import { Progress } from "antd";
 
-const StatistiBox = ({ value, label, total }) => (
+const StatistiBox = ({ value, label, total }: any) => (
   <Styled.StatistiBox>
     <Styled.StatistiBox_Text>
       <p className="statistics">{value}</p>

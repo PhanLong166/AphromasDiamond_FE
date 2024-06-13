@@ -11,13 +11,6 @@ export const GlobalStyle = createGlobalStyle`
  `;
 
 export const AdminArea = styled.section`
-    display: inline-flex;
-    background-color: #f1f1f1;
-    font-family: 'Poppins', sans-serif;
-  }
-`;
-
-export const AdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;

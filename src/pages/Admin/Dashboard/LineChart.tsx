@@ -1,16 +1,16 @@
-import React from "react";
+// import React from "react";
 import { ResponsiveLine } from "@nivo/line";
-import * as Styled from "./Dashboard.styled";
+// import * as Styled from "./Dashboard.styled";
 import { mockLineData } from "./data";
 
-const addNewMonthData = (lineData) => {
+const addNewMonthData = (lineData: any) => {
     const currentDate = new Date();
     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
     const currentMonth = monthNames[currentDate.getMonth()];
     const currentYear = currentDate.getFullYear();
     const newMonthLabel = `${currentMonth} ${currentYear}`;
 
-    lineData.forEach((line) => {
+    lineData.forEach((line: any) => {
         const lastEntry = line.data[line.data.length - 1];
         const lastMonthLabel = lastEntry.x;
 

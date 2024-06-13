@@ -1,4 +1,4 @@
-import React from 'react';
+// import React from 'react';
 import styled from 'styled-components';
 // import 'font-awesome/css/font-awesome.min.css';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';

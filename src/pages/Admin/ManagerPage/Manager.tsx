@@ -5,6 +5,7 @@ import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import { SortOrder } from "antd/es/table/interface";
 
 interface Item {
   key: React.Key;
