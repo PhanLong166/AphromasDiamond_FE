@@ -105,7 +105,7 @@ const NavSection = styled.nav`
   border-bottom: solid;
   display: flex;
   width: 100%;
-  max-width: 1219px;
+  max-width: 1185px;
   align-items: start;
   gap: 20px;
   font-size: 13px;
@@ -113,7 +113,7 @@ const NavSection = styled.nav`
   font-weight: 275;
   line-height: 150%;
   padding: 33px 20px 6px;
-
+  margin-right: 1rem;
   @media (max-width: 991px) {
     max-width: 100%;
     flex-wrap: wrap;
@@ -128,12 +128,14 @@ const ProfileImage = styled.img`
   object-fit: cover;
   object-position: center;
   max-width: 162vh;
+  padding: 10px;
 `;
 
 const UserName = styled.h2`
   position: relative;
   margin-top: 152px;
-  font: italic 400 32px 'Crimson Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font: italic 400 25px 'Crimson Text', -apple-system, Roboto, Helvetica, sans-serif;
+  padding-left: 15px;
   @media (max-width: 991px) {
     margin-top: 40px;
   }
@@ -161,7 +163,8 @@ const ProfileSection = styled.section`
 const ProfileTitle = styled.h3`
   position: relative;
   margin: 15px 0 87px;
-  font: 600 25px 'Crimson Text', sans-serif;
+  font: 600 21px 'Crimson Text', sans-serif;
+  padding-left: 15px;
   @media (max-width: 991px) {
     margin-bottom: 40px;
   }

@@ -207,6 +207,7 @@ const ConfirmedOrder = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
 

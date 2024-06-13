@@ -3,7 +3,7 @@ import styled from 'styled-components';
 // import {  Space } from 'antd';
 import {  Table} from 'antd';
 import type { TableProps } from 'antd';
-import AccountCus from '@/components/AccountCus/AccountCus';
+import AccountCus from '@/components/Customer/Account Details/AccountCus';
 
 
 

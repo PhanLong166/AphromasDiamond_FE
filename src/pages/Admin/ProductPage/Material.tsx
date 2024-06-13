@@ -1,10 +1,7 @@
 import * as Styled from "../ProductPage/Material.styled";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  SearchOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+// import { Link } from "react-router-dom";
+import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import {
   Form,
@@ -13,10 +10,11 @@ import {
   Popconfirm,
   Table,
   Typography,
+  Button,
+  Select,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
-
 
 interface Item {
   key: React.Key;
@@ -32,17 +30,59 @@ const calculateSellingPrice = (buyingPrice: number) => {
 
 const originData = (): Item[] => {
   const data: Item[] = [
-    { key: "1", materialID: "12345121", materialName: "14K White Gold", buyingPrice: 4.08, sellingPrice: 1 },
-    { key: "2", materialID: "12345122", materialName: "14K Yellow Gold", buyingPrice: 5.08, sellingPrice: 1 },
-    { key: "3", materialID: "12345123", materialName: "14K Rose Gold", buyingPrice: 7.08, sellingPrice: 1 },
-    { key: "4", materialID: "12345124", materialName: "18K White Gold", buyingPrice: 6.08, sellingPrice: 1 },
-    { key: "5", materialID: "12345125", materialName: "18K Yellow Gold", buyingPrice: 3.08, sellingPrice: 1 },
-    { key: "6", materialID: "12345126", materialName: "18K Rose Gold", buyingPrice: 9.08, sellingPrice: 1 },
-    { key: "7", materialID: "12345127", materialName: "Platinum", buyingPrice: 2.04, sellingPrice: 1 },
+    {
+      key: "1",
+      materialID: "12345121",
+      materialName: "14K White Gold",
+      buyingPrice: 4.08,
+      sellingPrice: 1,
+    },
+    {
+      key: "2",
+      materialID: "12345122",
+      materialName: "14K Yellow Gold",
+      buyingPrice: 5.08,
+      sellingPrice: 1,
+    },
+    {
+      key: "3",
+      materialID: "12345123",
+      materialName: "14K Rose Gold",
+      buyingPrice: 7.08,
+      sellingPrice: 1,
+    },
+    {
+      key: "4",
+      materialID: "12345124",
+      materialName: "18K White Gold",
+      buyingPrice: 6.08,
+      sellingPrice: 1,
+    },
+    {
+      key: "5",
+      materialID: "12345125",
+      materialName: "18K Yellow Gold",
+      buyingPrice: 3.08,
+      sellingPrice: 1,
+    },
+    {
+      key: "6",
+      materialID: "12345126",
+      materialName: "18K Rose Gold",
+      buyingPrice: 9.08,
+      sellingPrice: 1,
+    },
+    {
+      key: "7",
+      materialID: "12345127",
+      materialName: "Platinum",
+      buyingPrice: 2.04,
+      sellingPrice: 1,
+    },
   ];
-  return data.map(item => ({
+  return data.map((item) => ({
     ...item,
-    sellingPrice: calculateSellingPrice(item.buyingPrice)
+    sellingPrice: calculateSellingPrice(item.buyingPrice),
   }));
 };
 
@@ -95,6 +135,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 const Material = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
+  const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
   const isEditing = (record: Item) => record.key === editingKey;
   const edit = (record: Partial<Item> & { key: React.Key }) => {
@@ -103,7 +144,7 @@ const Material = () => {
       materialName: "",
       buyingPrice: "",
       sellingPrice: "",
-      ...record
+      ...record,
     });
     setEditingKey(record.key);
   };
@@ -117,7 +158,7 @@ const Material = () => {
       const index = newData.findIndex((item) => key === item.key);
 
       row.sellingPrice = calculateSellingPrice(row.buyingPrice);
-      
+
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -152,7 +193,8 @@ const Material = () => {
       title: "Material Name",
       dataIndex: "materialName",
       editable: true,
-      sorter: (a: Item, b: Item) => a.materialName.length - b.materialName.length,
+      sorter: (a: Item, b: Item) =>
+        a.materialName.length - b.materialName.length,
     },
     {
       title: "Buying Price per Gram",
@@ -198,7 +240,7 @@ const Material = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_:unknown, record: Item) =>
+      render: (_: unknown, record: Item) =>
         data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -210,7 +252,7 @@ const Material = () => {
     },
   ];
 
-  const mergedColumns: TableProps['columns'] = columns.map((col) => {
+  const mergedColumns: TableProps["columns"] = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -225,7 +267,6 @@ const Material = () => {
       }),
     };
   });
-  
 
   const [searchText, setSearchText] = useState("");
 
@@ -240,8 +281,26 @@ const Material = () => {
     }
   };
 
+  // Add New
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
+
+  const handleAddNew = () => {
+    setIsAdding(true);
+  };
+
+  const handleSave = () => {
+    setIsAdding(false);
+  };
+
+  const handleCancel = () => {
+    setIsAdding(false);
+  };
+
   return (
     <>
+      <Styled.GlobalStyle />
       <Styled.AdminArea>
         <Sidebar />
 
@@ -249,50 +308,100 @@ const Material = () => {
           <ProductMenu />
 
           <Styled.AdPageContent>
-          <Styled.AdPageContent_Head>
-              <Styled.SearchArea>
-                <Input
-                  className="searchInput"
-                  type="text"
-                  // size="large"
-                  placeholder="Search here..."
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  prefix={<SearchOutlined className="searchIcon" />}
-                />
-              </Styled.SearchArea>
-              <Styled.AddButton>
-                <Link to="">
-                  <button>
-                    <PlusCircleOutlined />
-                    Add New Diamond
-                  </button>
-                </Link>
-              </Styled.AddButton>
+            <Styled.AdPageContent_Head>
+              {!isAdding && (
+                <>
+                  <Styled.SearchArea>
+                    <Input
+                      className="searchInput"
+                      type="text"
+                      // size="large"
+                      placeholder="Search here..."
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      prefix={<SearchOutlined className="searchIcon" />}
+                    />
+                  </Styled.SearchArea>
+                  <Styled.AddButton>
+                    <button onClick={handleAddNew}>
+                      <PlusCircleOutlined />
+                      Add New Material
+                    </button>
+                  </Styled.AddButton>
+                </>
+              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              <Form form={form} component={false}>
-                <Table
-                  components={{
-                    body: {
-                      cell: EditableCell,
-                    },
-                  }}
-                  bordered
-                  dataSource={data}
-                  columns={mergedColumns}
-                  rowClassName="editable-row"
-                  pagination={{
-                    onChange: cancel,
-                    pageSize: 6,
-                  }}
-                />
-              </Form>
+              {isAdding ? (
+                <Form layout="vertical">
+                  <Form.Item label="Jewelry ID">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Jewelry Name">
+                    <Input />
+                  </Form.Item>
+                  <Form.Item label="Price">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Markup Percentage">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Quantity">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Exchange Rate">
+                    <InputNumber />
+                  </Form.Item>
+                  <Form.Item label="Type">
+                    <Select
+                      defaultValue="ring"
+                      onChange={handleChange}
+                      options={[
+                        { value: "ring", label: "Ring" },
+                        { value: "necklace", label: "Necklace" },
+                        { value: "earring", label: "Earring" },
+                        { value: "bracelet", label: "Bracelet" },
+                        { value: "anklet", label: "Anklet" },
+                        { value: "bangle", label: "Bangle" },
+                        { value: "choker", label: "Choker" },
+                        { value: "pendant", label: "Pendant" },
+                      ]}
+                    />
+                  </Form.Item>
+                  <Form.Item>
+                    <Button type="primary" onClick={handleSave}>
+                      Save
+                    </Button>
+                    <Button
+                      onClick={handleCancel}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Cancel
+                    </Button>
+                  </Form.Item>
+                </Form>
+              ) : (
+                <Form form={form} component={false}>
+                  <Table
+                    components={{
+                      body: {
+                        cell: EditableCell,
+                      },
+                    }}
+                    bordered
+                    dataSource={data}
+                    columns={mergedColumns}
+                    rowClassName="editable-row"
+                    pagination={{
+                      onChange: cancel,
+                      pageSize: 6,
+                    }}
+                  />
+                </Form>
+              )}
             </Styled.AdminTable>
-
-            
           </Styled.AdPageContent>
         </Styled.AdminPage>
       </Styled.AdminArea>

@@ -24,21 +24,31 @@ const Sidebar = () => {
         setActive("Dashboard");
         break;
       case "/admin/order":
+      case "/admin/order/confirmed":
+      case "/admin/order/delivering":
+      case "/admin/order/completed":
+      case "/admin/order/cancelled":
         setActive("Order");
         break;
       case "/admin/product":
+      case "/admin/product/diamond":
+      case "/admin/product/ring-setting":
+      case "/admin/product/jewelry-type":
+      case "/admin/product/material":
         setActive("Product");
         break;
       case "/admin/marketing":
         setActive("Marketing");
         break;
       case "/admin/client-caring":
+      case "/admin/client-caring/feedback":
         setActive("ClientCaring");
         break;
       case "/admin/customer":
         setActive("Customer");
         break;
       case "/admin/sales-staff":
+      case "/admin/staff/delivery-staff":
         setActive("Staff");
         break;
       case "/admin/manager":

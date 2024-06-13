@@ -209,6 +209,7 @@ const CompletedOrder = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
 

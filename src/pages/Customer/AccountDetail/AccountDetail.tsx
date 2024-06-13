@@ -1,5 +1,5 @@
 import styled from 'styled-components';
-import AccountCus from '@/components/AccountCus/AccountCus';
+import AccountCus from '@/components/Customer/Account Details/AccountCus';
 
 const Account = () => {
   return (
