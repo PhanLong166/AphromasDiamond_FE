@@ -3,6 +3,7 @@ import { useState } from "react";
 import { Button, Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
+// import { Col, Row } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 
@@ -207,9 +208,9 @@ const Order = () => {
 
   return (
     <>
+      <Styled.GlobalStyle />
       <Styled.OrderAdminArea>
         <Sidebar />
-
         <Styled.AdminPage>
           <OrderMenu />
 

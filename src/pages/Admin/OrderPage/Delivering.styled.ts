@@ -1,31 +1,42 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const OrderAdminArea = styled.section`
-    display: inline-flex;
-    background-color: #f1f1f1;
-    font-family: "Poppins", sans-serif;
-    /* height: 100%; */
-    width: 100%;
+  display: inline-flex;
+  background-color: #f1f1f1;
+  font-family: "Poppins", sans-serif;
+  /* height: 100%; */
+  width: 100%;
 `;
 
 export const AdminPage = styled.div`
-    margin-left: 320px;
-    margin-right: 70px;
-    width: 90%;
-    height: 100%;
-    padding-bottom: 55px;
+  margin-left: 270px;
+  margin-right: 35px;
+  width: 90%;
+  height: 100%;
+  padding-bottom: 55px;
 `;
 
 // /* -------------------- CONTENT =============== */
 
 export const OrderContent = styled.div`
-    width: 100%;
-    background-color: #ffffff;
-    border-radius: 16px;
-    margin-top: 28px;
-    padding-top: 25px;
-    padding-bottom: 30px;
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding-top: 25px;
+  padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -73,53 +84,52 @@ export const SearchArea = styled.div`
 `;
 
 export const AdminTable = styled.div`
-    padding: 0px 50px 0px 50px;
-    color: #151542;
-    // .TextAlign {
-    //     text-align: center;
-    // }
+  padding: 0px 50px 0px 50px;
+  color: #151542;
+  // .TextAlign {
+  //     text-align: center;
+  // }
 
-    table {
-        border-collapse: collapse;
-        width: 100%;
-    }
-    th,
-    td {
-        padding: 8px;
-        text-align: left;
-        font-size: 16px;
-        color: #151542;
-        
-    }
-    tr th {
-        font-size: 13px;
-        color: #92929D !important;
-    }
-    tr .TextAlign{
-        text-align: center;
-    }
-    
-    td .anticon:hover {
-        cursor: pointer;
-    }
-    .pendStatus {
-        background-color: #d2eeff;
-        border-radius: 100px;
-        padding: 5px 10px 5px 10px;
-        font-size: 12px;
-        color: ${theme.color.primary};
-        border: none;
-    }
-    .confirmBtn {
-        background-color: #CD486B;
-        box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-        /* font-size: 12px; */
-        color: #F8E7EE;
-        border: none;
-        cursor: pointer;
-    }
-    .confirmBtn:hover {
-        color: #CD486B;
-        background-color: #F8E7EE;
-    }
+  table {
+    border-collapse: collapse;
+    width: 100%;
+  }
+  th,
+  td {
+    padding: 8px;
+    text-align: left;
+    font-size: 16px;
+    color: #151542;
+  }
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
+  }
+  tr .TextAlign {
+    text-align: center;
+  }
+
+  td .anticon:hover {
+    cursor: pointer;
+  }
+  .pendStatus {
+    background-color: #d2eeff;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: ${theme.color.primary};
+    border: none;
+  }
+  .confirmBtn {
+    background-color: #cd486b;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #f8e7ee;
+    border: none;
+    cursor: pointer;
+  }
+  .confirmBtn:hover {
+    color: #cd486b;
+    background-color: #f8e7ee;
+  }
 `;

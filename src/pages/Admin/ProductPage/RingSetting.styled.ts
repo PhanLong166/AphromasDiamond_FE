@@ -1,5 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const ProductAdminArea = styled.section`
   display: inline-flex;
@@ -10,8 +21,8 @@ export const ProductAdminArea = styled.section`
 `;
 
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
+  margin-left: 270px;
+  margin-right: 35px;
   width: 100%;
   height: 100%;
   padding-bottom: 55px;
@@ -34,13 +45,17 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
+export const AdPageContent_HeadLeft = styled.div`
+  display: flex;
+  width: 80%;
+`;
+
 export const SearchArea = styled.div`
   width: 30%;
-  
   display: flex;
   align-items: center;
-  // 
   border-radius: 16px;
+  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -69,9 +84,7 @@ export const SearchArea = styled.div`
   }
 
   .searchInput:focus {
-
   }
-
 `;
 
 export const AddButton = styled.div`
@@ -124,7 +137,7 @@ export const AdminTable = styled.div`
   }
   tr th {
     font-size: 13px;
-    color: #92929D !important;
+    color: #92929d !important;
   }
   .SmallSize {
     font-size: 16px;

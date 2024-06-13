@@ -233,6 +233,7 @@ const Feedback = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.FeedbackAdminArea>
         <Sidebar />
 

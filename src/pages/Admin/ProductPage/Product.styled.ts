@@ -1,5 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const ProductAdminArea = styled.section`
   display: inline-flex;
@@ -10,8 +21,8 @@ export const ProductAdminArea = styled.section`
 `;
 
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
+  margin-left: 270px;
+  margin-right: 35px;
   width: 100%;
   height: 100%;
   padding-bottom: 55px;
@@ -34,13 +45,17 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
+export const AdPageContent_HeadLeft = styled.div`
+  display: flex;
+  width: 80%;
+`;
+
 export const SearchArea = styled.div`
   width: 30%;
-
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
+  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -98,8 +113,9 @@ export const AddButton = styled.div`
   }
 `;
 
+
 export const AdminTable = styled.div`
-  padding: 0px 50px 0px 50px;
+  padding: 0px 40px 0px 40px;
 
   table {
     border-collapse: collapse;
@@ -129,6 +145,24 @@ export const AdminTable = styled.div`
     font-size: 23px;
   }
   td .anticon:hover {
+    cursor: pointer;
+  }
+  .pendStatus {
+    background-color: #f8e7ee;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: #cd486b;
+    border: none;
+  }
+  .confirmBtn {
+    background-color: #cd486b;
+    border-radius: 100px;
+    padding: 7px 17px 7px 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #f8e7ee;
+    border: none;
     cursor: pointer;
   }
 `;
