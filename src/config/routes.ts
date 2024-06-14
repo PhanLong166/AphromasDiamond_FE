@@ -12,6 +12,7 @@ const routes = {
         allProduct: '/all',
         about: '/about',
         gift: '/gift',
+        diamond: '/diamond'
     },
     customer: {
         account: '/account',

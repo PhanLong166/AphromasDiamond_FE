@@ -15,7 +15,7 @@ export const Heading = styled.div`
     margin: 50px auto;
     font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
-    font-weight: 600;
+    font-weight: 700;
   }
 `;
 

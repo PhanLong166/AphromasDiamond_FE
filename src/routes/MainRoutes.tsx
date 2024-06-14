@@ -20,8 +20,10 @@ import Home from "@/pages/Home/Home";
 import About from "@/pages/Home/AboutUs/AboutUs";
 // import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
+import AllDiamond from "@/pages/Home/AllDiamond/AllDiamond";
 import useAuth from "@/hooks/useAuth";
 import { Role } from "@/utils/enum";
+
 
 const MainRouter = () => {
     return <MainLayout />
@@ -39,7 +41,8 @@ const publicRoutes = {
         { path: config.routes.public.productList, element: <Product /> },
         { path: config.routes.public.allProduct, element: <AllProduct /> },
         { path: config.routes.public.about, element: <About /> },
-        { path: config.routes.public.gift, element: <Gift /> }
+        { path: config.routes.public.gift, element: <Gift /> },
+        { path: config.routes.public.diamond, element: <AllDiamond /> }
         
     ]
 }
