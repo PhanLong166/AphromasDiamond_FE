@@ -8,10 +8,10 @@ const ClientCaringMenu = () => {
 
   useEffect(() => {
     switch (location.pathname) {
-      case "/sales-staff/client-caring":
+      case "/admin/client-caring":
         setActive("Message");
         break;
-      case "/sales-staff/client-caring/feedback":
+      case "/admin/client-caring/feedback":
         setActive("Feedback");
         break;
       default:
@@ -59,7 +59,7 @@ const ClientCaringMenu = () => {
             } `}
             onClick={() => handleSetActive("Message")}
           ></div>
-          <Link to="/sales-staff/client-caring">
+          <Link to="/admin/client-caring">
             <h3>Message</h3>
           </Link>
         </Styled.OrderCatalog_Ele>
@@ -72,7 +72,7 @@ const ClientCaringMenu = () => {
             }`}
             onClick={() => handleSetActive("Feedback")}
           ></div>
-          <Link to="/sales-staff/client-caring/feedback">
+          <Link to="/admin/client-caring/feedback">
             <h3>Feedback</h3>
           </Link>
         </Styled.OrderCatalog_Ele>

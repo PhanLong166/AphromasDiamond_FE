@@ -1,7 +1,7 @@
 import * as Styled from "../ProductPage/Material.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import {
   Form,
@@ -11,7 +11,6 @@ import {
   Table,
   Typography,
   Button,
-  Select,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
@@ -282,9 +281,9 @@ const Material = () => {
   };
 
   // Add New
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   const handleAddNew = () => {
     setIsAdding(true);
@@ -309,7 +308,7 @@ const Material = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-              {!isAdding && (
+              {(!isAdding && (
                 <>
                   <Styled.SearchArea>
                     <Input
@@ -330,58 +329,52 @@ const Material = () => {
                     </button>
                   </Styled.AddButton>
                 </>
+              )) || (
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Material</p>
+                  </Styled.AddContent_Title>
+                </>
               )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
               {isAdding ? (
-                <Form layout="vertical">
-                  <Form.Item label="Jewelry ID">
-                    <Input />
+                <>
+                <Form layout="vertical" className="AdPageContent_Content">
+                  <Styled.FormItem>
+                    <Form.Item label="Jewelry Type ID">
+                      <Input className="formItem" placeholder="D1234" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item label="Jewelry Type Name">
+                      <Input className="formItem" placeholder="Filled" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                  <Form.Item label="Selling Price per Gram">
+                    <InputNumber className="formItem" placeholder="4,080" />
                   </Form.Item>
-                  <Form.Item label="Jewelry Name">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Price">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Markup Percentage">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Quantity">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Exchange Rate">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Type">
-                    <Select
-                      defaultValue="ring"
-                      onChange={handleChange}
-                      options={[
-                        { value: "ring", label: "Ring" },
-                        { value: "necklace", label: "Necklace" },
-                        { value: "earring", label: "Earring" },
-                        { value: "bracelet", label: "Bracelet" },
-                        { value: "anklet", label: "Anklet" },
-                        { value: "bangle", label: "Bangle" },
-                        { value: "choker", label: "Choker" },
-                        { value: "pendant", label: "Pendant" },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" onClick={handleSave}>
-                      Save
-                    </Button>
-                    <Button
-                      onClick={handleCancel}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Cancel
-                    </Button>
-                  </Form.Item>
+                </Styled.FormItem>
                 </Form>
+                <Styled.ActionBtn>
+                  <Button
+                    type="primary"
+                    onClick={handleSave}
+                    className="MainBtn"
+                  >
+                    <SaveOutlined />
+                    Save
+                  </Button>
+                  <Button
+                    onClick={handleCancel}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Cancel
+                  </Button>
+                </Styled.ActionBtn>
+              </>
               ) : (
                 <Form form={form} component={false}>
                   <Table

@@ -166,3 +166,108 @@ export const AdminTable = styled.div`
     cursor: pointer;
   }
 `;
+
+
+// ----------------------------------------------------------
+
+export const AdPageArea = styled.div`
+padding-top: 32px;
+
+`;
+
+export const AdPageArea_Title = styled.div`
+h1 {
+  font-size: 22px;
+  font-weight: 36px;
+  color: #151542;
+  padding-bottom: 7px;
+  margin: 0px;
+}
+
+p {
+  color: #92929D;
+  font-size: 13px;
+  margin: 0px 0px 0px 0px;
+}
+`;
+
+export const AdPageContent_Title = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  color: ${theme.color.primary};
+  padding: 0px 0px 25px 0px;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+export const AdPageContent_Product = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding: 30px 40px 10px 40px;
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+      // font-size: 16px;
+      font-weight: 500;
+    }
+  }
+`;
+
+export const AdPageContent_Jewel = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding: 25px 40px 20px 40px;
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+    }
+  }
+`;
+
+export const FormItem = styled.div`
+  width: 30%;
+  height: 57px;
+  margin-bottom: 30px;
+  
+
+  .formItem {
+    width: 100%;
+  }
+`;
+
+export const FormDescript = styled.div`
+  width: 100%;
+  textarea {
+    height: 149px;
+  }
+`;
+
+export const UploadFile = styled.div`
+  width: 48%;
+`;
+
+export const ActionBtn = styled.div`
+  margin-top: 25px;
+
+  button {
+    border: 1px solid ${theme.color.primary};
+  }
+
+  .MainBtn {
+    background-color: ${theme.color.primary};
+    border: 0px;
+  }
+
+`;

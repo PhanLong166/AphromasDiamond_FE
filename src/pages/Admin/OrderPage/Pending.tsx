@@ -1,8 +1,9 @@
-import * as Styled from "./Cancelled.styled";
+import * as Styled from "./Pending.styled";
 import { useState } from "react";
-import { Space, Table, Tag, Input } from "antd";
+import { Button, Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
+// import { Col, Row } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 
@@ -11,6 +12,7 @@ interface DataType {
   orderID: string;
   date: string;
   cusName: string;
+  // deliveryStaff: string;
   total: number;
   statuses: string[];
 }
@@ -20,7 +22,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
+    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
   },
   {
     title: "Date",
@@ -41,14 +43,14 @@ const columns: TableColumnsType<DataType> = [
     // specify the condition of filtering result
     // here is that finding the name started with `value`
     onFilter: (value, record) => record.cusName.indexOf(value as string) === 0,
-    sorter: (a, b) => a.cusName.length - b.cusName.length,
+    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.total - b.total,
+    sorter: (a: DataType, b: DataType) => a.total - b.total,
   },
   {
     title: "Status",
@@ -79,6 +81,15 @@ const columns: TableColumnsType<DataType> = [
     ),
   },
   {
+    title: "Action",
+    key: "action",
+    render: () => (
+      <Space size="middle">
+        <Button className="confirmBtn">Confirm</Button>
+      </Space>
+    ),
+  },
+  {
     title: "Detail",
     key: "detail",
     className: "TextAlign",
@@ -97,7 +108,7 @@ const data: DataType[] = [
     date: "2023-01-06",
     cusName: "Joe Black",
     total: 701,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "2",
@@ -105,7 +116,7 @@ const data: DataType[] = [
     date: "2023-01-02",
     cusName: "Jim Green",
     total: 890,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "3",
@@ -113,7 +124,7 @@ const data: DataType[] = [
     date: "2023-01-03",
     cusName: "Joe Black",
     total: 560,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "4",
@@ -121,7 +132,7 @@ const data: DataType[] = [
     date: "2023-01-04",
     cusName: "Jim Red",
     total: 700,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "5",
@@ -129,7 +140,7 @@ const data: DataType[] = [
     date: "2023-01-02",
     cusName: "Esther Eden",
     total: 430,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "6",
@@ -137,7 +148,7 @@ const data: DataType[] = [
     date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "7",
@@ -145,7 +156,7 @@ const data: DataType[] = [
     date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "8",
@@ -153,7 +164,7 @@ const data: DataType[] = [
     date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "9",
@@ -161,7 +172,7 @@ const data: DataType[] = [
     date: "2023-01-07",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
   {
     key: "10",
@@ -169,7 +180,7 @@ const data: DataType[] = [
     date: "2023-01-07",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
-    statuses: ["Cancelled"],
+    statuses: ["Pending"],
   },
 ];
 
@@ -182,7 +193,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const CancelledOrder = () => {
+const Pending = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -198,10 +209,9 @@ const CancelledOrder = () => {
 
   return (
     <>
-    <Styled.GlobalStyle/>
+      <Styled.GlobalStyle />
       <Styled.OrderAdminArea>
         <Sidebar />
-
         <Styled.AdminPage>
           <OrderMenu />
 
@@ -221,7 +231,7 @@ const CancelledOrder = () => {
               </Styled.SearchArea>
             </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
+            <Styled.AdminTable>
               <Table
                 className="table"
                 columns={columns}
@@ -230,7 +240,7 @@ const CancelledOrder = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
-            </Styled.Pending_Table>
+            </Styled.AdminTable>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>
@@ -238,4 +248,4 @@ const CancelledOrder = () => {
   );
 };
 
-export default CancelledOrder;
+export default Pending;
