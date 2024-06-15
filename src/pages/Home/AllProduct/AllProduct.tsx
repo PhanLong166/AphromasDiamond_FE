@@ -4,7 +4,7 @@ import { Breadcrumb } from "antd";
 
 import { Menu } from "antd";
 import { Dropdown, Select, Slider, Button, InputNumber } from "antd";
-import { CloseOutlined, DownOutlined } from "@ant-design/icons";
+import { CloseOutlined, DownOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
 
 import {
   Section,
@@ -15,6 +15,7 @@ import {
 } from "./AllProduct.styled";
 
 import { Card, Col, Row, Typography } from "antd";
+import { theme } from "@/themes";
 // import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 // import { theme } from "../../../themes";
 const { Title, Text } = Typography;
@@ -552,15 +553,15 @@ const AllProduct: React.FC = () => {
     </Menu>
   );
 
-  // const [wishList, setWishList] = useState<number[]>([]);
+  const [wishList, setWishList] = useState<number[]>([]);
 
-  // const toggleWishList = (productId: number) => {
-  //   setWishList((prev) =>
-  //     prev.includes(productId)
-  //       ? prev.filter((id) => id !== productId)
-  //       : [...prev, productId]
-  //   );
-  // };
+  const toggleWishList = (productId: number) => {
+    setWishList((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
   return (
     <Section>
       <div>
