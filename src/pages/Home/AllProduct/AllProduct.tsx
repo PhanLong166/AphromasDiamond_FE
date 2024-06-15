@@ -16,6 +16,7 @@ import {
 
 import { Card, Col, Row, Typography } from "antd";
 import { theme } from "@/themes";
+import { BaseOptionType, DefaultOptionType } from "antd/es/select";
 // import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 // import { theme } from "../../../themes";
 const { Title, Text } = Typography;
@@ -363,9 +364,10 @@ const AllProduct: React.FC = () => {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const handleSelectChange = (value: string) => {
+  const handleSelectChange = (input: unknown, _: DefaultOptionType | BaseOptionType| (DefaultOptionType | BaseOptionType)[]) => {
     // const newSelectedFilters = [value];
     // setSelectedFilters(newSelectedFilters);
+    const value = input as string;
 
     const filtered = products.filter((product) => {
       setSelectedFilters((prevFilters) => {
@@ -505,7 +507,7 @@ const AllProduct: React.FC = () => {
                 min={0}
                 max={priceRange[1]}
                 value={priceRange[0]}
-                // onChange={handleMinPriceChange}
+              // onChange={handleMinPriceChange}
               />
             </div>
             <div style={{ flexGrow: 2, margin: "0 8px", width: "250px" }}>
@@ -516,7 +518,7 @@ const AllProduct: React.FC = () => {
                 max={200000}
                 step={10}
                 value={priceRange}
-                // onChange={handleSliderChange}
+              // onChange={handleSliderChange}
               />
             </div>
             <div
@@ -533,7 +535,7 @@ const AllProduct: React.FC = () => {
                 min={priceRange[0]}
                 max={200000}
                 value={priceRange[1]}
-                // onChange={handleMaxPriceChange}
+              // onChange={handleMaxPriceChange}
               />
             </div>
           </div>
@@ -730,7 +732,7 @@ const AllProduct: React.FC = () => {
             </div>
           </div>
         </FilterBar>
-        <hr style={{ maxWidth: "1400px", margin: "32px auto",  border: "1px solid rgba(21, 21, 66, 0.3)", }} />
+        <hr style={{ maxWidth: "1400px", margin: "32px auto", border: "1px solid rgba(21, 21, 66, 0.3)", }} />
         <List>
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
@@ -760,31 +762,31 @@ const AllProduct: React.FC = () => {
                   }
                 >
                   <div className="product-info">
-                  <Title level={4} className="product-name">
-                    {product.name}
-                    {wishList.includes(product.id) ? (
-                      <HeartFilled
-                        className="wishlist-icon"
-                        onClick={() => toggleWishList(product.id)}
-                      />
-                    ) : (
-                      <HeartOutlined
-                        className="wishlist-icon"
-                        onClick={() => toggleWishList(product.id)}
-                      />
-                    )}
-                  </Title>
-                  <div className="price-container">
-                    <Text className="product-price">
-                      ${product.salePrice ? product.salePrice : product.price}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.price}
+                    <Title level={4} className="product-name">
+                      {product.name}
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.salePrice ? product.salePrice : product.price}
                       </Text>
-                    )}
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.price}
+                        </Text>
+                      )}
+                    </div>
                   </div>
-                </div>
                 </Card>
               </Col>
             ))}
