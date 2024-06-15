@@ -12,6 +12,7 @@ const routes = {
         allProduct: '/all',
         about: '/about',
         gift: '/gift',
+        ringGuide: '/ring-guide',
         diamond: '/diamond'
     },
     customer: {
@@ -27,14 +28,17 @@ const routes = {
     admin: {
         dashboard: '/admin',
         order: '/admin/order',
+        pendingOrder: '/admin/order/pending',
         confirmedOrder: '/admin/order/confirmed',
         deliveringOrder: '/admin/order/delivering',
         completedOrder: '/admin/order/completed',
         cancelledOrder: '/admin/order/cancelled',
         product: '/admin/product',
+        addProduct: '/admin/product/add/product',
+        addJewelry: '/admin/product/add/jewelry',
+        diamondProduct: '/admin/product/diamond',
         ringSettingProduct: '/admin/product/ring-setting',
         ringProduct: '/admin/product/ring',
-        jewelryProduct: '/admin/product/jewelry',
         jewelryTypeProduct: '/admin/product/jewelry-type',
         materialProduct: '/admin/product/material',
         marketing: '/admin/marketing',

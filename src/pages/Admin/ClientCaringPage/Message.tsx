@@ -128,6 +128,7 @@ const Messages = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.ClientCaringAdminArea>
         <Sidebar />
 

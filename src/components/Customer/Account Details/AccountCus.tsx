@@ -30,15 +30,16 @@ const AccountCus = () => {
 const MainContainer = styled.div``;
 
 const Header = styled.header`
-  background: #fff;
-    width: 100%;
+      align-items: center;
+    background: #fff;
+    width: 1400px;
     color: #818594;
     font: 14px / 150% 'Crimson Text', sans-serif;
     border-bottom: 1px solid #e4e4e4;
     border-top: 1px solid #e4e4e4;
-    padding: 4px 0;
-    margin-left: 9.5rem;
-    width: 158vh;
+    padding: 10px;
+    display: flex;
+    margin: 0 35px 0 35px;
 
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
@@ -66,7 +67,7 @@ const AccountActions = styled.div`
   display: flex;
   margin-top: 75px;
   width: 100%;
-  max-width: 159.5vh;
+  max-width: 163.5vh;
   gap: 20px;
   font-size: 13px;
   color: #000;
@@ -113,7 +114,7 @@ const NavSection = styled.nav`
   font-weight: 275;
   line-height: 150%;
   padding: 33px 20px 6px;
-
+  
   @media (max-width: 991px) {
     max-width: 100%;
     flex-wrap: wrap;
@@ -127,13 +128,15 @@ const ProfileImage = styled.img`
   width: 100%;
   object-fit: cover;
   object-position: center;
-  max-width: 162vh;
+  /* max-width: 162vh;
+  padding: 0 10px 0 10px; */
 `;
 
 const UserName = styled.h2`
   position: relative;
   margin-top: 152px;
-  font: italic 400 32px 'Crimson Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font: italic 400 25px 'Crimson Text', -apple-system, Roboto, Helvetica, sans-serif;
+  padding-left: 15px;
   @media (max-width: 991px) {
     margin-top: 40px;
   }
@@ -161,7 +164,8 @@ const ProfileSection = styled.section`
 const ProfileTitle = styled.h3`
   position: relative;
   margin: 15px 0 87px;
-  font: 600 25px 'Crimson Text', sans-serif;
+  font: 600 21px 'Crimson Text', sans-serif;
+  padding-left: 15px;
   @media (max-width: 991px) {
     margin-bottom: 40px;
   }

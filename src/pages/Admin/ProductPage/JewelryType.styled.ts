@@ -1,5 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const ProductAdminArea = styled.section`
   display: inline-flex;
@@ -10,8 +21,8 @@ export const ProductAdminArea = styled.section`
 `;
 
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
+  margin-left: 270px;
+  margin-right: 35px;
   width: 100%;
   height: 100%;
   padding-bottom: 55px;
@@ -36,10 +47,10 @@ export const AdPageContent_Head = styled.div`
 
 export const SearchArea = styled.div`
   width: 30%;
-  
+
   display: flex;
   align-items: center;
-  // 
+  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -69,9 +80,7 @@ export const SearchArea = styled.div`
   }
 
   .searchInput:focus {
-
   }
-
 `;
 
 export const AddButton = styled.div`
@@ -135,4 +144,68 @@ export const AdminTable = styled.div`
   td input:active {
     border: none;
   }
+  
+
+  // --------------------------
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+      // font-size: 16px;
+      font-weight: 500;
+    }
+  }
+`;
+
+
+
+// ------------------------- ADD AREA
+
+export const AddContent_Title = styled.div`
+width: 100%;
+  background-color: #ffffff;
+  color: ${theme.color.primary};
+  padding: 0px 0px 0px 0px;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+export const FormItem = styled.div`
+  width: 100%;
+  height: 57px;
+  margin-bottom: 30px;
+  
+
+  .formItem {
+    width: 100%;
+  }
+`;
+
+export const FormDescript = styled.div`
+  width: 100%;
+  textarea {
+    height: 149px;
+  }
+`;
+
+export const UploadFile = styled.div`
+width: 48%;
+`;
+
+
+export const ActionBtn = styled.div`
+  margin-top: 25px;
+
+  button {
+    border: 1px solid ${theme.color.primary};
+  }
+
+  .MainBtn {
+    background-color: ${theme.color.primary};
+    border: 0px;
+  }
+
 `;

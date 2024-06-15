@@ -24,7 +24,7 @@ export const LoginFields: FieldType[] = [
     {
         key: 1,
         label: 'Email',
-        name: 'username',
+        name: 'Email',
         rules: [
             {
                 required: true,
@@ -41,7 +41,65 @@ export const LoginFields: FieldType[] = [
     {
         key: 2,
         label: 'Password',
+        name: 'Password',
+        rules: [
+            {
+                required: true,
+                max: 16, 
+                pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
+                message: 'Must be between 8 and 16 characters, including a number, one uppercase letter and one lowercase letter.',
+            }
+        ],
+        children: (
+            <Input.Password
+                iconRender={(visible) => visible ? <EyeOutlinedIcon/> : <EyeInvisibleOutlinedIcon/>}
+                placeholder=""
+            />
+        )
+    }
+];
+
+export const RegisterFields: FieldType[] = [
+    {
+        key: 1,
+        label: 'Email',
+        name: 'email',
+        rules: [
+            {
+                required: true,
+                type: 'email',
+                message: 'Please enter exactly email format'
+            },
+            {
+                max: 50,
+                message: 'Email do not exceed 50 characters'
+            }
+        ],
+        children: <Input placeholder="" />
+    },
+    {
+        key: 2,
+        label: 'Password',
         name: 'password',
+        rules: [
+            {
+                required: true,
+                max: 16, 
+                pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
+                message: 'Must be between 8 and 16 characters, including a number, one uppercase letter and one lowercase letter.',
+            }
+        ],
+        children: (
+            <Input.Password
+                iconRender={(visible) => visible ? <EyeOutlinedIcon/> : <EyeInvisibleOutlinedIcon/>}
+                placeholder=""
+            />
+        )
+    },
+    {
+        key: 3,
+        label: 'Confirm Password',
+        name: 'confirmPassword',
         rules: [
             {
                 required: true,

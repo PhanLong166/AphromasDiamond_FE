@@ -1,5 +1,16 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { createGlobalStyle } from 'styled-components';
+
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
 
 export const FeedbackAdminArea = styled.section`
   display: inline-flex;
@@ -10,8 +21,8 @@ export const FeedbackAdminArea = styled.section`
 `;
 
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
+  margin-left: 270px;
+  margin-right: 35px;
   width: 100%;
   height: 100%;
   padding-bottom: 55px;
@@ -117,9 +128,9 @@ export const AdminTable = styled.div`
     color: #ffffff;
     border: none;
     cursor: pointer;
-}
-.confirmBtn:hover {
-    color: #CD486B;
-    background-color: #F8E7EE;
-}
+  }
+  .confirmBtn:hover {
+    color: #cd486b;
+    background-color: #f8e7ee;
+  }
 `;

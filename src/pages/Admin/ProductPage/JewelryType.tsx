@@ -1,10 +1,7 @@
 import * as Styled from "../ProductPage/JewelryType.styled";
 import React, { useState } from "react";
-import { Link } from "react-router-dom";
-import {
-  SearchOutlined,
-  PlusCircleOutlined,
-} from "@ant-design/icons";
+// import { Link } from "react-router-dom";
+import { SearchOutlined, PlusCircleOutlined, SaveOutlined, } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import {
   Form,
@@ -13,10 +10,10 @@ import {
   Popconfirm,
   Table,
   Typography,
+  Button,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
-
 
 interface Item {
   key: React.Key;
@@ -77,7 +74,7 @@ const originData: Item[] = [
   },
 ];
 
-interface EditableCellProps{
+interface EditableCellProps {
   editing: boolean;
   dataIndex: keyof Item;
   title: React.ReactNode;
@@ -96,7 +93,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   ...restProps
 }) => {
   const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-  
+
   return (
     <td {...restProps}>
       {editing ? (
@@ -119,10 +116,36 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
+// UPLOAD IMAGES
+
+// const { Dragger } = Upload;
+
+// const props: UploadProps = {
+//   name: "file",
+//   multiple: true,
+//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+//   onChange(info) {
+//     const { status } = info.file;
+//     if (status !== "uploading") {
+//       console.log(info.file, info.fileList);
+//     }
+//     if (status === "done") {
+//       message.success(`${info.file.name} file uploaded successfully.`);
+//     } else if (status === "error") {
+//       message.error(`${info.file.name} file upload failed.`);
+//     }
+//   },
+//   onDrop(e) {
+//     console.log("Dropped files", e.dataTransfer.files);
+//   },
+// };
+
+
 
 const JewelryType = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
+  const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
   const isEditing = (record: Item) => record.key === editingKey;
   const edit = (record: Partial<Item> & { key: React.Key }) => {
@@ -169,13 +192,15 @@ const JewelryType = () => {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
       editable: true,
-      sorter: (a: Item, b: Item) => a.jewelryTypeID.localeCompare(b.jewelryTypeID),
+      sorter: (a: Item, b: Item) =>
+        a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
       editable: true,
-      sorter: (a: Item, b: Item) => a.jewelryTypeName.length - b.jewelryTypeName.length,
+      sorter: (a: Item, b: Item) =>
+        a.jewelryTypeName.length - b.jewelryTypeName.length,
     },
     {
       title: "Edit",
@@ -221,7 +246,7 @@ const JewelryType = () => {
     },
   ];
 
-  const mergedColumns: TableProps['columns'] = columns.map((col) => {
+  const mergedColumns: TableProps["columns"] = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -251,8 +276,33 @@ const JewelryType = () => {
     }
   };
 
+  // Add New
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  // };
+
+  const handleAddNew = () => {
+    setIsAdding(true);
+  };
+
+  const handleSave = () => {
+    // Logic để lưu dữ liệu mới
+    setIsAdding(false);
+  };
+
+  const handleCancel = () => {
+    setIsAdding(false);
+  };
+
+  // const onChangeAdd = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   console.log(e);
+  // };
+
   return (
     <>
+      <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
 
@@ -260,47 +310,88 @@ const JewelryType = () => {
           <ProductMenu />
 
           <Styled.AdPageContent>
-          <Styled.AdPageContent_Head>
-              <Styled.SearchArea>
-                <Input
-                  className="searchInput"
-                  type="text"
-                  // size="large"
-                  placeholder="Search here..."
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  prefix={<SearchOutlined className="searchIcon" />}
-                />
-              </Styled.SearchArea>
-              <Styled.AddButton>
-                <Link to="">
-                  <button>
-                    <PlusCircleOutlined />
-                    Add New Diamond
-                  </button>
-                </Link>
-              </Styled.AddButton>
+            <Styled.AdPageContent_Head>
+              {(!isAdding && (
+                <>
+                  <Styled.SearchArea>
+                    <Input
+                      className="searchInput"
+                      type="text"
+                      // size="large"
+                      placeholder="Search here..."
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      prefix={<SearchOutlined className="searchIcon" />}
+                    />
+                  </Styled.SearchArea>
+                  <Styled.AddButton>
+                    <button onClick={handleAddNew}>
+                      <PlusCircleOutlined />
+                      Add New Jewelry Type
+                    </button>
+                  </Styled.AddButton>
+                </>
+              )) || (
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Jewelry Type</p>
+                  </Styled.AddContent_Title>
+                </>
+              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              <Form form={form} component={false}>
-                <Table
-                  components={{
-                    body: {
-                      cell: EditableCell,
-                    },
-                  }}
-                  bordered
-                  dataSource={data}
-                  columns={mergedColumns}
-                  rowClassName="editable-row"
-                  pagination={{
-                    onChange: cancel,
-                    pageSize: 6,
-                  }}
-                />
-              </Form>
+              {isAdding ? (
+                <>
+                <Form layout="vertical" className="AdPageContent_Content">
+                  <Styled.FormItem>
+                    <Form.Item label="Jewelry Type ID">
+                      <Input className="formItem" placeholder="D1234" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item label="Jewelry Type Name">
+                      <Input className="formItem" placeholder="Filled" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                </Form>
+                <Styled.ActionBtn>
+                  <Button
+                    type="primary"
+                    onClick={handleSave}
+                    className="MainBtn"
+                  >
+                    <SaveOutlined />
+                    Save
+                  </Button>
+                  <Button
+                    onClick={handleCancel}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Cancel
+                  </Button>
+                </Styled.ActionBtn>
+              </>
+              ) : (
+                <Form form={form} component={false}>
+                  <Table
+                    components={{
+                      body: {
+                        cell: EditableCell,
+                      },
+                    }}
+                    bordered
+                    dataSource={data}
+                    columns={mergedColumns}
+                    rowClassName="editable-row"
+                    pagination={{
+                      onChange: cancel,
+                      pageSize: 6,
+                    }}
+                  />
+                </Form>
+              )}
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>

@@ -156,7 +156,7 @@ const AllDiamond: React.FC = () => {
   const [colorValue, setColorRange] = useState<[number, number]>([0, 7]);
   const [clarityValue, setClarityRange] = useState<[number, number]>([0, 7]);
 
-  const formatColorValue = (value: number) => {
+  const formatColorValue = (value: number): React.ReactNode => {
     const labels = ["D", "E", "F", "G", "H", "I", "J", "K"];
     return labels[value];
   };
@@ -664,7 +664,7 @@ const AllDiamond: React.FC = () => {
                   min={0}
                   max={priceRange[1]}
                   value={priceRange[0]}
-                  onChange={(value) => setPriceRange([value, priceRange[1]])}
+                  onChange={(value) => setPriceRange([value !== null ? value : 0, priceRange[1]])}
                   style={{ marginTop: "5px" }}
                 />
               </div>
@@ -684,7 +684,7 @@ const AllDiamond: React.FC = () => {
                   min={priceRange[0]}
                   max={200000}
                   value={priceRange[1]}
-                  onChange={(value) => setPriceRange([priceRange[0], value])}
+                  onChange={(value) => setPriceRange([priceRange[0], value !== null ? value : 0])}
                 />
               </div>
             </div>
@@ -728,7 +728,7 @@ const AllDiamond: React.FC = () => {
                   min={0}
                   max={caratRange[1]}
                   value={caratRange[0]}
-                  onChange={(value) => setCaratRange([value, caratRange[1]])}
+                  onChange={(value) => setCaratRange([value !== null ? value : 0, caratRange[1]])}
                 />
               </div>
               <div style={{ flexGrow: 2, width: "100%" }}></div>
@@ -747,7 +747,7 @@ const AllDiamond: React.FC = () => {
                   min={caratRange[0]}
                   max={30.0}
                   value={caratRange[1]}
-                  onChange={(value) => setCaratRange([caratRange[0], value])}
+                  onChange={(value) => setCaratRange([caratRange[0], value !== null ? value : 0])}
                 />
               </div>
             </div>
@@ -815,7 +815,7 @@ const AllDiamond: React.FC = () => {
           {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             {["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2"].map(
               (clarity, index) => (
-                <span key={clarity}>{clarity}</span>
+                <span key={index}>{clarity}</span>
               )
             )}
           </div> */}
@@ -840,7 +840,7 @@ const AllDiamond: React.FC = () => {
           />
           {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             {["Good", "Very Good", "Ideal", "Astor Ideal"].map((cut, index) => (
-              <span key={cut}>{cut}</span>
+              <span key={index}>{cut}</span>
             ))}
           </div> */}
         </Col>

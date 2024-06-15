@@ -237,6 +237,7 @@ const Customer = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.AdminArea>
         <Sidebar />
 

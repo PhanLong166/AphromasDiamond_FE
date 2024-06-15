@@ -12,6 +12,7 @@ interface DataType {
   date: string;
   cusName: string;
   deliveryStaff: string;
+  // total: number,
   statuses: string[];
 }
 
@@ -26,7 +27,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   },
   {
     title: "Customer",
@@ -105,7 +106,7 @@ const data: DataType[] = [
   {
     key: "1",
     orderID: "12345124",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Joe Black",
     deliveryStaff: "Ajmal Abdul Rahiman",
     statuses: ["Completed"],
@@ -113,7 +114,7 @@ const data: DataType[] = [
   {
     key: "2",
     orderID: "12345122",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Jim Green",
     deliveryStaff: "Joe Black",
     statuses: ["Completed"],
@@ -121,7 +122,7 @@ const data: DataType[] = [
   {
     key: "3",
     orderID: "12345121",
-    date: "3 Jan 2023",
+    date: "2023-01-03",
     cusName: "Joe Black",
     deliveryStaff: "Esther Eden",
     statuses: ["Completed"],
@@ -129,7 +130,7 @@ const data: DataType[] = [
   {
     key: "4",
     orderID: "12345123",
-    date: "4 Jan 2023",
+    date: "2023-01-04",
     cusName: "Jim Red",
     deliveryStaff: "Esther Eden",
     statuses: ["Completed"],
@@ -137,7 +138,7 @@ const data: DataType[] = [
   {
     key: "5",
     orderID: "12345121",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Esther Eden",
     deliveryStaff: "Ajmal Abdul Rahiman",
     statuses: ["Completed"],
@@ -145,7 +146,7 @@ const data: DataType[] = [
   {
     key: "6",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     deliveryStaff: "Jim Red",
     statuses: ["Completed"],
@@ -153,7 +154,7 @@ const data: DataType[] = [
   {
     key: "7",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Jim Red",
     deliveryStaff: "Joe Black",
     statuses: ["Completed"],
@@ -161,7 +162,7 @@ const data: DataType[] = [
   {
     key: "8",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     deliveryStaff: "Joe Black",
     statuses: ["Completed"],
@@ -169,7 +170,7 @@ const data: DataType[] = [
   {
     key: "9",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Joe Black",
     deliveryStaff: "Jim Red",
     statuses: ["Completed"],
@@ -177,7 +178,7 @@ const data: DataType[] = [
   {
     key: "10",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Jim Green",
     deliveryStaff: "Esther Eden",
     statuses: ["Completed"],
@@ -209,6 +210,7 @@ const CompletedOrder = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
 

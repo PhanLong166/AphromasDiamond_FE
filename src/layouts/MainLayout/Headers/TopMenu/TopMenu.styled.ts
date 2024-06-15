@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 
 export const TopMenuContainer = styled.section`
     background: ${theme.color.white};
