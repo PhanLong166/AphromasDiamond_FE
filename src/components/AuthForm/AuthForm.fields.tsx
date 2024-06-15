@@ -24,7 +24,7 @@ export const LoginFields: FieldType[] = [
     {
         key: 1,
         label: 'Email',
-        name: 'email',
+        name: 'Email',
         rules: [
             {
                 required: true,
@@ -41,7 +41,7 @@ export const LoginFields: FieldType[] = [
     {
         key: 2,
         label: 'Password',
-        name: 'password',
+        name: 'Password',
         rules: [
             {
                 required: true,
