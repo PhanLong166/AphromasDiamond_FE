@@ -586,6 +586,7 @@ const AllDiamond: React.FC = () => {
   return (
     <Section>
       <div>
+      <div>
         <CustomBreadcrumb
           separator=">"
           items={[
@@ -600,6 +601,8 @@ const AllDiamond: React.FC = () => {
         />
       </div>
       <Heading>
+        <h2>ALL DIAMONDS</h2>
+      </Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>
       <Row gutter={[16, 16]}>
@@ -639,6 +642,7 @@ const AllDiamond: React.FC = () => {
             style={{
               display: "flex",
               flexDirection: "column",
+
 
               width: "100%",
             }}
@@ -714,6 +718,7 @@ const AllDiamond: React.FC = () => {
               }}
             >
               <div>
+              <div>
                 <div
                   style={{
                     alignSelf: "flex-start",
@@ -743,6 +748,7 @@ const AllDiamond: React.FC = () => {
                   Max Carat
                 </div>
                 <InputNumber
+                  style={{ marginTop: "5px" }}
                   style={{ marginTop: "5px" }}
                   min={caratRange[0]}
                   max={30.0}
