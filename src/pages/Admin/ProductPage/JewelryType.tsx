@@ -1,7 +1,7 @@
 import * as Styled from "../ProductPage/JewelryType.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusCircleOutlined, SaveOutlined, } from "@ant-design/icons";
 import type { TableProps } from "antd";
 import {
   Form,
@@ -11,7 +11,6 @@ import {
   Table,
   Typography,
   Button,
-  Select,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
@@ -116,6 +115,32 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     </td>
   );
 };
+
+// UPLOAD IMAGES
+
+// const { Dragger } = Upload;
+
+// const props: UploadProps = {
+//   name: "file",
+//   multiple: true,
+//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+//   onChange(info) {
+//     const { status } = info.file;
+//     if (status !== "uploading") {
+//       console.log(info.file, info.fileList);
+//     }
+//     if (status === "done") {
+//       message.success(`${info.file.name} file uploaded successfully.`);
+//     } else if (status === "error") {
+//       message.error(`${info.file.name} file upload failed.`);
+//     }
+//   },
+//   onDrop(e) {
+//     console.log("Dropped files", e.dataTransfer.files);
+//   },
+// };
+
+
 
 const JewelryType = () => {
   const [form] = Form.useForm();
@@ -252,9 +277,9 @@ const JewelryType = () => {
   };
 
   // Add New
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   const handleAddNew = () => {
     setIsAdding(true);
@@ -269,6 +294,12 @@ const JewelryType = () => {
     setIsAdding(false);
   };
 
+  // const onChangeAdd = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   console.log(e);
+  // };
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -280,7 +311,7 @@ const JewelryType = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-              {!isAdding && (
+              {(!isAdding && (
                 <>
                   <Styled.SearchArea>
                     <Input
@@ -301,58 +332,47 @@ const JewelryType = () => {
                     </button>
                   </Styled.AddButton>
                 </>
+              )) || (
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Jewelry Type</p>
+                  </Styled.AddContent_Title>
+                </>
               )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
               {isAdding ? (
-                <Form layout="vertical">
-                  <Form.Item label="Jewelry ID">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Jewelry Name">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Price">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Markup Percentage">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Quantity">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Exchange Rate">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Type">
-                    <Select
-                      defaultValue="ring"
-                      onChange={handleChange}
-                      options={[
-                        { value: "ring", label: "Ring" },
-                        { value: "necklace", label: "Necklace" },
-                        { value: "earring", label: "Earring" },
-                        { value: "bracelet", label: "Bracelet" },
-                        { value: "anklet", label: "Anklet" },
-                        { value: "bangle", label: "Bangle" },
-                        { value: "choker", label: "Choker" },
-                        { value: "pendant", label: "Pendant" },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" onClick={handleSave}>
-                      Save
-                    </Button>
-                    <Button
-                      onClick={handleCancel}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Cancel
-                    </Button>
-                  </Form.Item>
+                <>
+                <Form layout="vertical" className="AdPageContent_Content">
+                  <Styled.FormItem>
+                    <Form.Item label="Jewelry Type ID">
+                      <Input className="formItem" placeholder="D1234" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item label="Jewelry Type Name">
+                      <Input className="formItem" placeholder="Filled" />
+                    </Form.Item>
+                  </Styled.FormItem>
                 </Form>
+                <Styled.ActionBtn>
+                  <Button
+                    type="primary"
+                    onClick={handleSave}
+                    className="MainBtn"
+                  >
+                    <SaveOutlined />
+                    Save
+                  </Button>
+                  <Button
+                    onClick={handleCancel}
+                    style={{ marginLeft: "10px" }}
+                  >
+                    Cancel
+                  </Button>
+                </Styled.ActionBtn>
+              </>
               ) : (
                 <Form form={form} component={false}>
                   <Table

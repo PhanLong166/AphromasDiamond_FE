@@ -9,6 +9,8 @@ const ProductMenu = () => {
   useEffect(() => {
     switch (location.pathname) {
       case "/admin/product":
+      case "/admin/product/add/product":
+      case "/admin/product/add/jewelry":
         setActive("Product");
         break;
       case "/admin/product/diamond":
