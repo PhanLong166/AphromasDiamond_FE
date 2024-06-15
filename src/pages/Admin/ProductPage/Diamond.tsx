@@ -1,15 +1,19 @@
 import * as Styled from "./Diamond.styled";
 import { useState } from "react";
 import { Link } from "react-router-dom";
-import { Space, Table, Input, Form, Button, InputNumber, Select } from "antd";
+import { Space, Table, Input, Form, Button, InputNumber, Select, Upload, message, } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
   PlusCircleOutlined,
+  InboxOutlined,
+  SaveOutlined,
 } from "@ant-design/icons";
-import type { TableColumnsType, TableProps } from "antd";
+import type { TableColumnsType, TableProps, UploadProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+import TextArea from "antd/es/input/TextArea";
+
 
 interface DataType {
   key: React.Key;
@@ -32,6 +36,32 @@ const onChange: TableProps<DataType>["onChange"] = (
 ) => {
   console.log("params", pagination, filters, sorter, extra);
 };
+
+// UPLOAD IMAGES
+
+const { Dragger } = Upload;
+
+const props: UploadProps = {
+  name: "file",
+  multiple: true,
+  action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+  onChange(info) {
+    const { status } = info.file;
+    if (status !== "uploading") {
+      console.log(info.file, info.fileList);
+    }
+    if (status === "done") {
+      message.success(`${info.file.name} file uploaded successfully.`);
+    } else if (status === "error") {
+      message.error(`${info.file.name} file upload failed.`);
+    }
+  },
+  onDrop(e) {
+    console.log("Dropped files", e.dataTransfer.files);
+  },
+};
+
+
 
 const Diamond = () => {
   const [searchText, setSearchText] = useState("");
@@ -339,6 +369,12 @@ const Diamond = () => {
     setIsAdding(false);
   };
 
+  const onChangeAdd = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    console.log(e);
+  };
+
   return (
     <>
     <Styled.GlobalStyle/>
@@ -350,7 +386,7 @@ const Diamond = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-              {!isAdding && (
+              {(!isAdding && (
                 <>
                   <Styled.AdPageContent_HeadLeft>
                     <Styled.SearchArea>
@@ -386,68 +422,199 @@ const Diamond = () => {
                     </Link>
                   </Styled.AddButton>
                 </>
+              )) || (
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Diamond</p>
+                  </Styled.AddContent_Title>
+                </>
               )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
               {isAdding ? (
-                <Form layout="vertical">
-                  <Form.Item label="Jewelry ID">
-                    <Input />
+                <>
+                <Form layout="vertical" className="AdPageContent_Content">
+                <Styled.FormItem>
+                  <Form.Item label="Diamond ID">
+                    <Input className="formItem" placeholder="D1234" />
                   </Form.Item>
-                  <Form.Item label="Jewelry Name">
-                    <Input />
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Diamond Name">
+                    <Input className="formItem" placeholder="Filled" />
                   </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Markup Percentage (%)">
+                    <InputNumber className="formItem" placeholder="150" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
                   <Form.Item label="Price">
-                    <InputNumber />
+                    <InputNumber className="formItem" placeholder="4,080" />
                   </Form.Item>
-                  <Form.Item label="Markup Percentage">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Quantity">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Exchange Rate">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Currency Type">
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Shape">
                     <Select
-                      defaultValue="USD"
-                      onChange={handleCurrencyChange}
-                      options={[
-                        { value: "USD", label: "USD" },
-                        { value: "VND", label: "VND" },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item label="Type">
-                    <Select
-                      defaultValue="ring"
+                      //   defaultValue="Select Shape"
+                      className="formItem"
+                      placeholder="Select Shape"
                       onChange={handleChange}
                       options={[
-                        { value: "ring", label: "Ring" },
-                        { value: "necklace", label: "Necklace" },
-                        { value: "earring", label: "Earring" },
-                        { value: "bracelet", label: "Bracelet" },
-                        { value: "anklet", label: "Anklet" },
-                        { value: "bangle", label: "Bangle" },
-                        { value: "choker", label: "Choker" },
-                        { value: "pendant", label: "Pendant" },
+                        { value: "Round", label: "Round" },
+                        { value: "Princess", label: "Princess" },
+                        { value: "Cushion", label: "Cushion" },
+                        { value: "Oval", label: "Oval" },
+                        { value: "Emerald", label: "Emerald" },
+                        { value: "Pear", label: "Pear" },
+                        { value: "Asscher", label: "Asscher" },
+                        { value: "Heart", label: "Heart" },
+                        { value: "Radiant", label: "Radiant" },
+                        { value: "Marquise", label: "Marquise" },
                       ]}
                     />
                   </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" onClick={handleSave}>
-                      Save
-                    </Button>
-                    <Button
-                      onClick={handleCancel}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Cancel
-                    </Button>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Color">
+                    <Select
+                      //   defaultValue="Select Color"
+                      className="formItem"
+                      placeholder="Select Color"
+                      onChange={handleChange}
+                      options={[
+                        { value: "K", label: "K" },
+                        { value: "J", label: "J" },
+                        { value: "I", label: "I" },
+                        { value: "H", label: "H" },
+                        { value: "G", label: "G" },
+                        { value: "F", label: "F" },
+                        { value: "E", label: "E" },
+                        { value: "D", label: "D" },
+                      ]}
+                    />
                   </Form.Item>
-                </Form>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Polish">
+                    <Input className="formItem" placeholder="Excellent" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Cut">
+                    <Input className="formItem" placeholder="Excellent" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Length/Width Ratio">
+                    <InputNumber className="formItem" placeholder="1,01" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Clarity">
+                    <Select
+                      //   defaultValue="Select Clarity"
+                      className="formItem"
+                      placeholder="Select Clarity"
+                      onChange={handleChange}
+                      options={[
+                        { value: "I3", label: "I3" },
+                        { value: "J", label: "I1-I2" },
+                        { value: "SI1S12", label: "SI1-S12" },
+                        { value: "VS1VS2", label: "VS1-VS2" },
+                        { value: "VVS1VVS2", label: "VVS1-VVS2" },
+                        { value: "Flawless", label: "FL-IF" },
+                      ]}
+                    />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Symmetry">
+                    <Input className="formItem" placeholder="Excellent" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Carat Weight">
+                    <InputNumber className="formItem" placeholder="1,01" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Table %">
+                    <InputNumber className="formItem" placeholder="56.0" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Depth %">
+                    <InputNumber className="formItem" placeholder="63.8" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormItem>
+                  <Form.Item label="Fluorescence">
+                    <Input className="formItem" placeholder="Strong" />
+                  </Form.Item>
+                </Styled.FormItem>
+                <Styled.FormDescript>
+                  <Form.Item label="Description">
+                    <TextArea
+                      placeholder="Description"
+                      allowClear
+                      onChange={onChangeAdd}
+                    />
+                  </Form.Item>
+                </Styled.FormDescript>
+                <Styled.UploadFile>
+                  <Form.Item label="Upload Images">
+                    <Dragger {...props}>
+                      <p className="ant-upload-drag-icon">
+                        <InboxOutlined />
+                      </p>
+                      <p className="ant-upload-text">
+                        Click or drag file to this area to upload
+                      </p>
+                      <p className="ant-upload-hint">
+                        Support for a single or bulk upload. Strictly prohibited
+                        from uploading company data or other banned files.
+                      </p>
+                    </Dragger>
+                  </Form.Item>
+                </Styled.UploadFile>
+
+                <Styled.UploadFile>
+                  <Form.Item label="Upload GIA">
+                    <Dragger {...props}>
+                      <p className="ant-upload-drag-icon">
+                        <InboxOutlined />
+                      </p>
+                      <p className="ant-upload-text">
+                        Click or drag file to this area to upload
+                      </p>
+                      <p className="ant-upload-hint">
+                        Support for a single or bulk upload. Strictly prohibited
+                        from uploading company data or other banned files.
+                      </p>
+                    </Dragger>
+                  </Form.Item>
+                </Styled.UploadFile>
+              </Form>
+              <Styled.ActionBtn>
+                <Button
+                  type="primary"
+                  onClick={handleSave}
+                  className="MainBtn"
+                >
+                  <SaveOutlined />
+                  Save
+                </Button>
+                <Button
+                  onClick={handleCancel}
+                  style={{ marginLeft: "10px" }}
+                >
+                  Cancel
+                </Button>
+              </Styled.ActionBtn>
+            </>
               ) : (
                 <Table
                   className="table"

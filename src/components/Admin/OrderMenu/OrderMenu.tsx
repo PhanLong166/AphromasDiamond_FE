@@ -9,6 +9,9 @@ const OrderMenu = () => {
     useEffect(() => {
         switch (location.pathname) {
             case '/admin/order':
+                setActive('All');
+                break;
+            case '/admin/order/pending':
                 setActive('Pending');
                 break;
             case '/admin/order/confirmed':
@@ -42,9 +45,15 @@ const OrderMenu = () => {
                             </Styled.TitlePage>
                             
                             <Styled.OrderCatalog>
+                            <Styled.OrderCatalog_Ele className={active === 'All' ? 'active' : ''}>
+                                    <div className={`btn ${active === 'All' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('All')} ></div>
+                                    <Link to="/admin/order">
+                                        <h3>All Orders</h3>
+                                    </Link>
+                                </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Pending' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Pending' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('Pending')} ></div>
-                                    <Link to="/admin/order">
+                                    <Link to="/admin/order/pending">
                                         <h3>Pending confirm</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>

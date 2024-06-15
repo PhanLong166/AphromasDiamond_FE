@@ -1,6 +1,6 @@
 import * as Styled from "./Product.styled";
 import { useState } from "react";
-import { Space, Table, Select, Input, Form, Button, InputNumber } from "antd";
+import { Space, Table, Select, Input, Button } from "antd";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
@@ -10,6 +10,9 @@ import {
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+// import { Link } from "react-router-dom";
+import { Modal } from "antd"; // Add this line
+import { useNavigate } from "react-router-dom"; 
 
 interface DataType {
   key: React.Key;
@@ -34,11 +37,14 @@ const onChange: TableProps<DataType>["onChange"] = (
 };
 
 onChange;
-
 const Product = () => {
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
-  const [isAdding, setIsAdding] = useState(false);
+  // const [isAdding, setIsAdding] = useState(false);
+  const [isModalVisible, setIsModalVisible] = useState(false); // Add this line
+  const navigate = useNavigate(); // Update this line
+  // Add this line
+
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -50,9 +56,9 @@ const Product = () => {
     }
   };
 
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   const handleCurrencyChange = (value: "VND" | "USD") => {
     setCurrency(value);
@@ -307,15 +313,21 @@ const Product = () => {
 
   // Add New
   const handleAddNew = () => {
-    setIsAdding(true);
+    setIsModalVisible(true);
   };
-
-  const handleSave = () => {
-    setIsAdding(false);
+  
+  const handleModalOkCancel = () => {
+    setIsModalVisible(false);
   };
-
-  const handleCancel = () => {
-    setIsAdding(false);
+  
+  const handleAddJewelry = () => {
+    setIsModalVisible(false);
+    navigate("/admin/product/add/jewelry"); // Update this line
+  };
+  
+  const handleAddCustomRing = () => {
+    setIsModalVisible(false);
+    navigate("/admin/product/add/product"); // Update this line
   };
 
   return (
@@ -329,14 +341,11 @@ const Product = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-              {!isAdding && (
-                <>
                   <Styled.AdPageContent_HeadLeft>
                     <Styled.SearchArea>
                       <Input
                         className="searchInput"
                         type="text"
-                        // size="large"
                         placeholder="Search here..."
                         value={searchText}
                         onChange={(e) => setSearchText(e.target.value)}
@@ -362,70 +371,9 @@ const Product = () => {
                       Add New Product
                     </button>
                   </Styled.AddButton>
-                </>
-              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              {isAdding ? (
-                <Form layout="vertical">
-                  <Form.Item label="Jewelry ID">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Jewelry Name">
-                    <Input />
-                  </Form.Item>
-                  <Form.Item label="Price">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Markup Percentage">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Quantity">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Exchange Rate">
-                    <InputNumber />
-                  </Form.Item>
-                  <Form.Item label="Currency Type">
-                    <Select
-                      defaultValue="USD"
-                      onChange={handleCurrencyChange}
-                      options={[
-                        { value: "USD", label: "USD" },
-                        { value: "VND", label: "VND" },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item label="Type">
-                    <Select
-                      defaultValue="ring"
-                      onChange={handleChange}
-                      options={[
-                        { value: "ring", label: "Ring" },
-                        { value: "necklace", label: "Necklace" },
-                        { value: "earring", label: "Earring" },
-                        { value: "bracelet", label: "Bracelet" },
-                        { value: "anklet", label: "Anklet" },
-                        { value: "bangle", label: "Bangle" },
-                        { value: "choker", label: "Choker" },
-                        { value: "pendant", label: "Pendant" },
-                      ]}
-                    />
-                  </Form.Item>
-                  <Form.Item>
-                    <Button type="primary" onClick={handleSave}>
-                      Save
-                    </Button>
-                    <Button
-                      onClick={handleCancel}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Cancel
-                    </Button>
-                  </Form.Item>
-                </Form>
-              ) : (
                 <Table
                   className="table"
                   columns={columns}
@@ -434,11 +382,29 @@ const Product = () => {
                   onChange={onChange}
                   showSorterTooltip={{ target: "sorter-icon" }}
                 />
-              )}
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
       </Styled.ProductAdminArea>
+
+      <Modal
+        title="Select an Option"
+        visible={isModalVisible}
+        onOk={handleModalOkCancel}
+        onCancel={handleModalOkCancel}
+        footer={[
+          <Button key="cancel" onClick={handleModalOkCancel}>
+            Cancel
+          </Button>,
+        ]}
+      >
+        <Button type="primary" onClick={handleAddJewelry} style={{ marginRight: '10px' }}>
+          Add Existing Jewelry
+        </Button>
+        <Button type="primary" onClick={handleAddCustomRing}>
+          Add Custom Ring
+        </Button>
+      </Modal>
     </>
   );
 };

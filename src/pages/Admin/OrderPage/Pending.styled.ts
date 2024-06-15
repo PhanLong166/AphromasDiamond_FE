@@ -1,5 +1,5 @@
+import { theme } from "@/themes";
 import styled from "styled-components";
-import { theme } from "../../../themes";
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const ProductAdminArea = styled.section`
+export const OrderAdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
@@ -30,7 +30,7 @@ export const AdminPage = styled.div`
 
 // /* -------------------- CONTENT =============== */
 
-export const AdPageContent = styled.div`
+export const OrderContent = styled.div`
   width: 100%;
   background-color: #ffffff;
   border-radius: 16px;
@@ -45,17 +45,13 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
-export const AdPageContent_HeadLeft = styled.div`
-  display: flex;
-  width: 80%;
-`;
-
 export const SearchArea = styled.div`
   width: 30%;
+
   display: flex;
   align-items: center;
+  //
   border-radius: 16px;
-  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -66,7 +62,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -78,38 +74,12 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
 
   .searchInput:focus {
-  }
-`;
-
-export const AddButton = styled.div`
-  button {
-    background-color: ${theme.color.primary};
-    color: #ffffff;
-    width: 100%;
-    height: 40px;
-    border-radius: 10px;
-    font-size: 12px;
-    border: 1px solid ${theme.color.primary};
-    padding: 10px 15px 10px 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-  }
-
-  button:hover {
-    transition: all 0.4s;
-    background-color: #ffffff;
-    color: ${theme.color.primary};
-    border: 1px solid ${theme.color.primary};
-  }
-
-  button .anticon {
-    margin-right: 7px;
   }
 `;
 
@@ -122,7 +92,7 @@ export const AdminTable = styled.div`
   }
   th,
   td {
-    padding: 8px 0px 8px 0px;
+    padding: 8px;
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
@@ -134,79 +104,76 @@ export const AdminTable = styled.div`
     text-align: center;
   }
   tr th {
-    font-size: 13px;
+    font-size: 15px;
     color: #92929d !important;
   }
-  td img {
-    width: 77px;
+  tr .TextAlign {
+    text-align: center;
   }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
     cursor: pointer;
   }
-
-  // --------------------------
-
-  .AdPageContent_Content {
-    display: flex;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    label {
-      color: #727272;
-      // font-size: 16px;
-      font-weight: 500;
-    }
+  .confirmBtn {
+    background-color: #cd486b;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    color: #f8e7ee;
+    border: none;
+    cursor: pointer;
+  }
+  .confirmBtn:hover {
+    color: #cd486b;
+    background-color: #f8e7ee;
   }
 `;
 
+// export const OrderContent_Foot = styled.div`
+//     display: flex;
+//     align-items: center;
+//     justify-content: space-between;
+//     background-color: #EADBC8;
+//     padding: 12px 60px 12px 60px;
+//     border-radius: 16px;
+//     margin: 39px 40px 0px 40px;
+// `;
 
+// export const PageNum = styled.div`
+//     display: flex;
 
-// ------------------------- ADD AREA
+//     p {
+//         margin: 0px 7px 0px 0px;
+//         color: #B19F8A;
+//         font-weight: 500;
+//     }
 
-export const AddContent_Title = styled.div`
-width: 100%;
-  background-color: #ffffff;
-  color: ${theme.color.primary};
-  padding: 0px 0px 0px 0px;
-  font-weight: 600;
-  font-size: 18px;
-`;
+//     .nowPage {
+//         color:#102C57;
+//     }
+// `;
 
-export const FormItem = styled.div`
-  width: 30%;
-  height: 57px;
-  margin-bottom: 30px;
-  
+// export const MovePage = styled.div`
+//     button {
+//         width:40px;
+//         height: 40px;
+//         background-color: ${theme.color.fifth};
+//         border-radius: 12px;
+//         border: none;
+//         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
+//         font-size: 20px;
+//         display: inline;
+//         align-items: center;
+//         text-align: center;
+//         margin-right: 5px;
+//         font-size: 15px;
+//     }
+//     button:hover {
+//         cursor: pointer;
+//     }
+//     .backArrow .anticon {
+//         color: #92929D;
+//     }
+//     .nextArrow .anticon {
+//         color:#102C57;
+//     }
+// `;
 
-  .formItem {
-    width: 100%;
-  }
-`;
-
-export const FormDescript = styled.div`
-  width: 100%;
-  textarea {
-    height: 149px;
-  }
-`;
-
-export const UploadFile = styled.div`
-width: 48%;
-`;
-
-
-export const ActionBtn = styled.div`
-  margin-top: 25px;
-
-  button {
-    border: 1px solid ${theme.color.primary};
-  }
-
-  .MainBtn {
-    background-color: ${theme.color.primary};
-    border: 0px;
-  }
-
-`;
+export const hehe = styled.div``;

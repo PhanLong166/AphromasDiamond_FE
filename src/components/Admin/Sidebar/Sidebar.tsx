@@ -24,6 +24,7 @@ const Sidebar = () => {
         setActive("Dashboard");
         break;
       case "/admin/order":
+      case "/admin/order/pending":
       case "/admin/order/confirmed":
       case "/admin/order/delivering":
       case "/admin/order/completed":
@@ -31,6 +32,8 @@ const Sidebar = () => {
         setActive("Order");
         break;
       case "/admin/product":
+      case "/admin/product/add/product":
+      case "/admin/product/add/jewelry":
       case "/admin/product/diamond":
       case "/admin/product/ring-setting":
       case "/admin/product/jewelry-type":
