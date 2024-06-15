@@ -2,7 +2,7 @@ import * as Styled from "../ProductPage/JewelryType.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined, } from "@ant-design/icons";
-import type { TableProps } from "antd";
+import type { FormInstance, TableProps } from "antd";
 import {
   Form,
   Input,
@@ -116,29 +116,35 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-// UPLOAD IMAGES
 
-// const { Dragger } = Upload;
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
 
-// const props: UploadProps = {
-//   name: "file",
-//   multiple: true,
-//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== "uploading") {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === "done") {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === "error") {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log("Dropped files", e.dataTransfer.files);
-//   },
-// };
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
+
 
 
 
@@ -285,10 +291,10 @@ const JewelryType = () => {
     setIsAdding(true);
   };
 
-  const handleSave = () => {
-    // Logic để lưu dữ liệu mới
-    setIsAdding(false);
-  };
+  // const handleSave = () => {
+  //   // Logic để lưu dữ liệu mới
+  //   setIsAdding(false);
+  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -346,25 +352,21 @@ const JewelryType = () => {
                 <>
                 <Form layout="vertical" className="AdPageContent_Content">
                   <Styled.FormItem>
-                    <Form.Item label="Jewelry Type ID">
+                    <Form.Item label="Jewelry Type ID"  name="Jewelry Type ID" rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="D1234" />
                     </Form.Item>
                   </Styled.FormItem>
                   <Styled.FormItem>
-                    <Form.Item label="Jewelry Type Name">
+                    <Form.Item label="Jewelry Type Name" name="Jewelry Type Name" rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="Filled" />
                     </Form.Item>
                   </Styled.FormItem>
                 </Form>
                 <Styled.ActionBtn>
-                  <Button
-                    type="primary"
-                    onClick={handleSave}
-                    className="MainBtn"
-                  >
-                    <SaveOutlined />
-                    Save
-                  </Button>
+                <SubmitButton form={form}>
+                      <SaveOutlined />
+                      Save
+                    </SubmitButton>
                   <Button
                     onClick={handleCancel}
                     style={{ marginLeft: "10px" }}

@@ -10,7 +10,7 @@ import {
   TeamOutlined,
   CustomerServiceOutlined,
   KeyOutlined,
-  LayoutOutlined,
+  // LayoutOutlined,
   SmileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
@@ -57,9 +57,9 @@ const Sidebar = () => {
       case "/admin/manager":
         setActive("Manager");
         break;
-      case "/admin/theme":
-        setActive("Theme");
-        break;
+      // case "/admin/theme":
+      //   setActive("Theme");
+      //   break;
       default:
         setActive("");
     }
@@ -199,7 +199,7 @@ const Sidebar = () => {
               </div>
             </Styled.SBContent>
 
-            <Styled.SBContent>
+            {/* <Styled.SBContent>
               <div
                 className={`btn ${active === "Theme" ? "active-line" : ""}`}
                 onClick={() => handleSetActive("Theme")}
@@ -212,7 +212,7 @@ const Sidebar = () => {
                   </Link>
                 </Styled.MenuElement>
               </div>
-            </Styled.SBContent>
+            </Styled.SBContent> */}
           </Styled.SBMenu>
         </Styled.SidebarTop>
         <Styled.AccOut>

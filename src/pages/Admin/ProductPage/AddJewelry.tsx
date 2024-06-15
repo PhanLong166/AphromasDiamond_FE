@@ -1,3 +1,4 @@
+import React from "react";
 import * as Styled from "./Product.styled";
 // import { useState } from "react";
 import {
@@ -10,15 +11,14 @@ import {
   Upload,
 } from "antd";
 // import { Link } from "react-router-dom";
-import {
-  InboxOutlined,
-  SaveOutlined,
-} from "@ant-design/icons";
-import type { UploadProps } from "antd";
+import { InboxOutlined, SaveOutlined } from "@ant-design/icons";
+import type { UploadProps, FormInstance } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 import { Link } from "react-router-dom";
 import TextArea from "antd/es/input/TextArea";
+
+// DESCRIPTION INPUT
 
 const { Dragger } = Upload;
 
@@ -42,17 +42,45 @@ const props: UploadProps = {
   },
 };
 
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
+
 const AddJewelry = () => {
+  const [form] = Form.useForm();
 
-    const handleChange = (value: string) => {
-        console.log(`selected ${value}`);
-    };
+  const handleChange = (value: string) => {
+    console.log(`selected ${value}`);
+  };
 
-    const onChange = (
-        e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-    ) => {
-        console.log(e);
-    };
+  const onChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  ) => {
+    console.log(e);
+  };
 
   return (
     <>
@@ -71,22 +99,29 @@ const AddJewelry = () => {
             <Styled.AdPageContent_Jewel>
               <Form layout="vertical" className="AdPageContent_Content">
                 <Styled.FormItem>
-                  <Form.Item label="Product Setting ID">
+                  <Form.Item
+                    label="Product Setting ID"
+                    name="Setting ID"
+                    rules={[{ required: true }]}
+                  >
                     <Input className="formItem" placeholder="D1234" />
                   </Form.Item>
                 </Styled.FormItem>
                 <Styled.FormItem>
-                  <Form.Item label="Product Setting Name">
+                  <Form.Item label="Product Setting Name" name="Setting Name"
+                    rules={[{ required: true }]}>
                     <Input className="formItem" placeholder="Filled" />
                   </Form.Item>
                 </Styled.FormItem>
                 <Styled.FormItem>
-                  <Form.Item label="Markup Percentage (%)">
+                  <Form.Item label="Markup Percentage (%)" name="Markup Percentage"
+                    rules={[{ required: true }]}>
                     <InputNumber className="formItem" placeholder="150" />
                   </Form.Item>
                 </Styled.FormItem>
                 <Styled.FormItem>
-                  <Form.Item label="Cost Price">
+                  <Form.Item label="Cost Price" name="Cost Price"
+                    rules={[{ required: true }]}>
                     <InputNumber className="formItem" placeholder="4,080" />
                   </Form.Item>
                 </Styled.FormItem>
@@ -111,7 +146,8 @@ const AddJewelry = () => {
                   </Form.Item>
                 </Styled.FormItem>
                 <Styled.FormItem>
-                  <Form.Item label="Width">
+                  <Form.Item label="Width" name="Width"
+                    rules={[{ required: true }]}>
                     <InputNumber className="formItem" placeholder="1,01" />
                   </Form.Item>
                 </Styled.FormItem>
@@ -135,7 +171,8 @@ const AddJewelry = () => {
                   </Form.Item>
                 </Styled.FormItem>
                 <Styled.FormDescript>
-                  <Form.Item label="Description">
+                  <Form.Item label="Description" name="Description"
+                    rules={[{ required: true }]}>
                     <TextArea
                       placeholder="Description"
                       allowClear
@@ -163,10 +200,10 @@ const AddJewelry = () => {
             </Styled.AdPageContent_Jewel>
             <Styled.ActionBtn>
               <Link to="/admin/product">
-                <Button type="primary" /*onClick={}*/ className="MainBtn">
+                  <SubmitButton form={form}>
                     <SaveOutlined />
-                    Save
-                </Button>
+                      Save
+                  </SubmitButton>
               </Link>
 
               <Link to="/admin/product">

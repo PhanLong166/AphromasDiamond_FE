@@ -165,6 +165,20 @@ export const AdminTable = styled.div`
     border: none;
     cursor: pointer;
   }
+
+  
+  // --------------------------
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+      // font-size: 16px;
+      font-weight: 500;
+    }
+  }
 `;
 
 
