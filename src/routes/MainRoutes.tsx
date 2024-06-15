@@ -55,7 +55,7 @@ const customerRoutes = {
         { path: config.routes.customer.account, element: <Account /> },
         { path: config.routes.customer.orderList, element: <OrderList /> },
         { path: config.routes.customer.history, element: <History /> },
-        { path:config.routes.customer.voucher, element:<Voucher />},
+        // { path:config.routes.customer.voucher, element:<Voucher />},
         {path: config.routes.customer.notification, element: <NotiPage />}
     ]
 }

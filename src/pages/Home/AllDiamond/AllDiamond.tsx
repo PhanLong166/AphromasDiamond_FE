@@ -1,20 +1,21 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import { Row, Col, Button, Menu, InputNumber, Slider, Typography, Select} from "antd";
+import { Button, InputNumber, Slider, Select } from "antd";
 import { Breadcrumb } from "antd";
-const { Title } = Typography;
 const { Option } = Select;
-import {
-    Section, 
-    Heading,
-} from "./AllDiamond.styled";
-
+import { Section, Heading, List, FAQs, LeftFAQ } from "./AllDiamond.styled";
+import { Card, Col, Row, Typography, Pagination } from "antd";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { Collapse } from "antd";
 import { theme } from "../../../themes";
-
+const { Title, Text } = Typography;
 const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1400px;
   margin: 0 auto;
   padding-top: 20px;
+`;
+const CustomTitle = styled(Title)`
+  color: ${theme.color.primary} !important;
 `;
 
 const CustomSelect = styled(Select)`
@@ -32,6 +33,120 @@ const CustomSelect = styled(Select)`
   }
 `;
 
+const CustomSlider = styled(Slider)`
+  .ant-slider-track {
+    background-color: ${theme.color.primary} !important;
+  }
+  .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px ${theme.color.primary} !important;
+  }
+  .ant-slider-dot {
+    border-color: white !important;
+    width: 2px;
+    height: 2px;
+    margin-top: 1px;
+  }
+
+  .ant-slider-dot-active {
+    border-color: white;
+  }
+  .ant-slider-mark {
+    top: 21px;
+  }
+  .ant-slider-dot:hover {
+    border-color: white;
+  }
+
+  &.cut-slider {
+    .ant-slider-mark-text {
+      transform: translateX(-50%);
+    }
+
+    .ant-slider-mark-text:nth-child(1) {
+      left: 3% !important;
+    }
+
+    .ant-slider-mark-text:nth-child(4) {
+      left: 94% !important;
+      width: 100px;
+    }
+  }
+`;
+
+const CustomButton = styled(Button)`
+  &:hover {
+    color: ${theme.color.primary} !important;
+    border: 1px solid ${theme.color.primary} !important;
+  }
+`;
+
+const ResetButton = styled(Button)`
+  &:hover {
+    color: ${theme.color.primary} !important;
+    border: 1px solid ${theme.color.primary} !important;
+  }
+
+  border: 1px solid rgba(21, 21, 66, 0.3) !important;
+  color: ${theme.color.primary} !important;
+  border-radius: 4px !important;
+`;
+
+const texts = [
+  `
+   Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.
+  `,
+  `
+    Yes, diamond rings make perfect weddings rings and engagement rings.
+  `,
+  `
+    Women’s diamond wedding rings are available in platinum along with yellow, white and rose gold. 
+  `,
+  `
+   Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.
+  `,
+  `
+    Yes, diamond rings make perfect weddings rings and engagement rings.
+  `,
+  `
+    Women’s diamond wedding rings are available in platinum along with yellow, white and rose gold. 
+  `,
+];
+
+const labels = [
+  "What is the average cost of a womens diamond wedding ring?",
+  "Can weddings rings be diamond rings?",
+  "What metals are best for diamond wedding bands?",
+  "What is the average cost of a womens diamond wedding ring?",
+  "Can weddings rings be diamond rings?",
+  "What metals are best for diamond wedding bands?",
+];
+
+const items = texts.map((text, index) => ({
+  key: (index + 1).toString(),
+  label: labels[index],
+  children: <p>{text}</p>,
+}));
+const onChange = (key: any) => {
+  console.log(key);
+};
+const StyledCollapse = styled(Collapse)`
+  .ant-collapse-item {
+    background-color: #ffffff;
+  }
+  .ant-collapse-header-text {
+    color: ${theme.color.primary};
+  }
+  .ant-collapse-content {
+    background-color: #f4f2ee;
+    color: #45413e;
+  }
+  .ant-collapse-expand-icon {
+    color: ${theme.color.primary};
+  }
+  .ant-collapse-header {
+    border-radius: 8px;
+  }
+`;
 
 const AllDiamond: React.FC = () => {
   const [shapeSelected, setShapeSelected] = useState<string | null>(null);
@@ -52,15 +167,15 @@ const AllDiamond: React.FC = () => {
   };
 
   const formatCutValue = (value: number) => {
-    const labels = ["Good", "Very Good", "Ideal", "Astor Ideal",];
+    const labels = ["Good", "Very Good", "Ideal", "Astor Ideal"];
     return labels[value];
   };
 
   const handleShapeSelect = (shape: string) => {
     if (shape === shapeSelected) {
-      setShapeSelected(null); 
+      setShapeSelected(null);
     } else {
-      setShapeSelected(shape); 
+      setShapeSelected(shape);
     }
   };
 
@@ -280,10 +395,197 @@ const AllDiamond: React.FC = () => {
       ),
     },
   ];
+  interface Diamond {
+    id: number;
+    name: string;
+    price: number;
+    salePrice?: number;
+    shape: string;
+    carat: number;
+    color: string;
+    clarity: string;
+    cut: string;
+    image: string;
+  }
+  const diamonds: Diamond[] = [
+    {
+      id: 1,
+      name: "1.00 Carat H-VS2 Round Diamond",
+      price: 10,
+      salePrice: 7,
+      shape: "round",
+      carat: 1.0,
+      color: "H",
+      clarity: "VS2",
+      cut: "Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FRound_3.png?alt=media&token=0016da8b-994c-47d5-9fe7-f48f77aafa88",
+    },
+    {
+      id: 2,
+      name: "1.01 Carat H-VS2 Good Oval Diamond",
+      price: 10,
+      salePrice: 7,
+      shape: "oval",
+      carat: 1.0,
+      color: "H",
+      clarity: "VS2",
+      cut: "Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FOval_1.png?alt=media&token=2017cc15-0207-4ca5-93cf-183d2b9c5153",
+    },
+    {
+      id: 3,
+      name: "1.01 Carat G-VS2 Very Good Oval Diamond",
+      price: 10,
+      salePrice: 7,
+      shape: "oval",
+      carat: 1.0,
+      color: "G",
+      clarity: "VS2",
+      cut: "Very Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FOval_3.png?alt=media&token=62377c86-e3a9-4930-a1a9-08036904932c",
+    },
+    {
+      id: 4,
+      name: "1.00 Carat F-SI2 Very Good Pear Diamond",
+      price: 12,
+      shape: "pear",
+      carat: 1.0,
+      color: "F",
+      clarity: "SI2",
+      cut: "Very Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FPear_2.png?alt=media&token=6fb5f288-3ca4-4b16-aa0c-d754923940c3",
+    },
+    {
+      id: 5,
+      name: "1.01 Carat J-IF Ideal Heart Diamond",
+      price: 10,
+      salePrice: 5,
+      shape: "heart",
+      carat: 1.01,
+      color: "J",
+      clarity: "IF",
+      cut: "Ideal",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FHeart_4.png?alt=media&token=6aa5ca36-a89a-4477-b9e0-bc3cdf49e7b0",
+    },
+    {
+      id: 6,
+      name: "2.00 Carat I-VS1 Good Princess Diamond",
+      price: 30,
+      shape: "princess",
+      carat: 2.0,
+      color: "I",
+      clarity: "VS1",
+      cut: "Very Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FPrincess_1.png?alt=media&token=0298c307-525b-418b-9f9e-ba4a2cfb2985",
+    },
+
+    {
+      id: 7,
+      name: "2.02 Carat G-FL Good Asscher Diamond",
+      price: 14,
+      salePrice: 10,
+      shape: "asscher",
+      carat: 2.02,
+      color: "G",
+      clarity: "FL",
+      cut: "Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FAsscher_2.png?alt=media&token=bbb6047a-bdc6-40ab-877c-9cbeafb44d27",
+    },
+    {
+      id: 8,
+      name: "2.02 Carat K-VVS2 Good Radiant Diamond",
+      price: 16,
+      shape: "radiant",
+      carat: 2.02,
+      color: "K",
+      clarity: "VVS2",
+      cut: "Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FRadiant_1.png?alt=media&token=e91ff909-5384-4e0f-8ee9-f5b4c4a7ce3e",
+    },
+    {
+      id: 9,
+      name: "1.01 Carat G-VS2 Ideal Cushion Diamond",
+      price: 10,
+      shape: "cushion",
+      carat: 1.01,
+      color: "G",
+      clarity: "VS2",
+      cut: "Very Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FCushion_1.png?alt=media&token=4335ff8a-e124-489a-9983-9bf768b82114",
+    },
+
+    {
+      id: 10,
+      name: "1.00 Carat J-VVS1 Ideal Emerald Diamond",
+      price: 10,
+      salePrice: 9,
+      shape: "emerald",
+      carat: 1.0,
+      color: "J",
+      clarity: "VVS1",
+      cut: "Ideal",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FEmerald_4.png?alt=media&token=d1f80af7-3532-4036-b903-0e4faa8757e5",
+    },
+    {
+      id: 11,
+      name: "1.04 Carat I-IF Good Marquise Diamond",
+      price: 10,
+      shape: "marquise",
+      carat: 1.04,
+      color: "I",
+      clarity: "IF",
+      cut: "Good",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FMarquise_1.png?alt=media&token=a1861949-240f-415b-a948-7f3674050c09",
+    },
+    {
+      id: 12,
+      name: "1.00 Carat F-FL Astor Ideal Heart Diamond",
+      price: 12,
+      shape: "heart",
+      carat: 1.0,
+      color: "F",
+      clarity: "FL",
+      cut: "Astor Ideal",
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Diamond%2FHeart_4.png?alt=media&token=6aa5ca36-a89a-4477-b9e0-bc3cdf49e7b0",
+    },
+  ];
+  const [filteredDiamonds, setFilteredDiamonds] = useState(diamonds);
+  const [wishList, setWishList] = useState<number[]>([]);
+
+  const toggleWishList = (productId: number) => {
+    setWishList((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8;
+
+  const handleChangePage = (page: any) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedDiamonds = filteredDiamonds.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
     <Section>
-        <div>
+      <div>
         <CustomBreadcrumb
           separator=">"
           items={[
@@ -298,14 +600,14 @@ const AllDiamond: React.FC = () => {
         />
       </div>
       <Heading>
-          <h2>ALL DIAMONDS</h2>
-        </Heading>
+        <h2>ALL DIAMONDS</h2>
+      </Heading>
       <Row gutter={[16, 16]}>
         <Col span={8}>
-          <Title level={5}>Shape</Title>
+          <CustomTitle level={5}>Shape</CustomTitle>
           <div style={{ display: "flex", flexWrap: "wrap", gap: "14px" }}>
             {shapeButtons.map(({ shape, svg }) => (
-              <Button
+              <CustomButton
                 key={shape}
                 className={`bn_comp_selectionWrapper_ad0360 ${
                   shapeSelected === shape ? "bn_comp_selected_ad0360" : ""
@@ -319,7 +621,7 @@ const AllDiamond: React.FC = () => {
                   justifyContent: "center",
                   border:
                     shapeSelected === shape
-                      ? "1px solid rgb(21, 21, 66)"
+                      ? "2px solid rgb(21, 21, 66)"
                       : " 1px solid rgba(21, 21, 66, 0.3)",
                 }}
                 title={shape}
@@ -327,17 +629,17 @@ const AllDiamond: React.FC = () => {
               >
                 <div className="bn_comp_iconWrapper_ad0360">{svg}</div>
                 <div className="bn_comp_btnText_ad0360">{shape}</div>
-              </Button>
+              </CustomButton>
             ))}
           </div>
         </Col>
         <Col span={8}>
-        <Title level={5}>Price</Title>
+          <CustomTitle level={5}>Price</CustomTitle>
           <div
             style={{
               display: "flex",
               flexDirection: "column",
-         
+
               width: "100%",
             }}
           >
@@ -386,18 +688,18 @@ const AllDiamond: React.FC = () => {
                 />
               </div>
             </div>
-            <Slider
-            range
-            min={0}
-            max={200000}
-            step={10}
-            value={priceRange}
-            onChange={(value) => setPriceRange(value as [number, number])}
+            <CustomSlider
+              range
+              min={0}
+              max={200000}
+              step={10}
+              value={priceRange}
+              onChange={(value) => setPriceRange(value as [number, number])}
             />
           </div>
         </Col>
         <Col span={8}>
-          <Title level={5}>Carat</Title>
+          <CustomTitle level={5}>Carat</CustomTitle>
           <div
             style={{
               display: "flex",
@@ -411,7 +713,7 @@ const AllDiamond: React.FC = () => {
                 width: "100%",
               }}
             >
-              <div >
+              <div>
                 <div
                   style={{
                     alignSelf: "flex-start",
@@ -441,7 +743,7 @@ const AllDiamond: React.FC = () => {
                   Max Carat
                 </div>
                 <InputNumber
-                  style={{ marginTop: "5px"}}
+                  style={{ marginTop: "5px" }}
                   min={caratRange[0]}
                   max={30.0}
                   value={caratRange[1]}
@@ -449,7 +751,7 @@ const AllDiamond: React.FC = () => {
                 />
               </div>
             </div>
-            <Slider
+            <CustomSlider
               range
               min={0.05}
               max={30.0}
@@ -463,101 +765,204 @@ const AllDiamond: React.FC = () => {
       <div style={{ marginTop: "20px" }}></div>
       <Row gutter={[16, 16]}>
         <Col span={8}>
-          <Title level={5}>Color</Title>
-          <Slider
+          <CustomTitle level={5}>Color</CustomTitle>
+          <CustomSlider
             range
             min={0}
             max={7}
             value={colorValue}
             onChange={(value) => setColorRange(value as [number, number])}
-            tipFormatter={formatColorValue} 
+            tipFormatter={formatColorValue}
+            marks={{
+              0: "D",
+              1: "E",
+              2: "F",
+              3: "G",
+              4: "H",
+              5: "I",
+              6: "J",
+              7: "K",
+            }}
+            step={null}
           />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
-            {["D", "E", "F", "G", "H", "I", "J", "K"].map((color, index) => (
-              <span key={color}>{color}</span>
-            ))}
-          </div>
+          {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
+        {["D", "E", "F", "G", "H", "I", "J", "K"].map((color, index) => (
+          <span key={color}>{color}</span>
+        ))}
+      </div> */}
         </Col>
         <Col span={8}>
-          <Title level={5}>Clarity</Title>
-          <Slider
+          <CustomTitle level={5}>Clarity</CustomTitle>
+          <CustomSlider
             range
             min={0}
             max={7}
             value={clarityValue}
             onChange={(value) => setClarityRange(value as [number, number])}
-            tipFormatter={formatClarityValue} 
+            tipFormatter={formatClarityValue}
+            marks={{
+              0: "FL",
+              1: "IF",
+              2: "VVS1",
+              3: "VVS2",
+              4: "VS1",
+              5: "VS2",
+              6: "SI1",
+              7: "SI2",
+            }}
+            step={null}
           />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             {["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2"].map(
               (clarity, index) => (
                 <span key={clarity}>{clarity}</span>
               )
             )}
-          </div>
+          </div> */}
         </Col>
         <Col span={8}>
-          <Title level={5}>Cut</Title>
-          <Slider
+          <CustomTitle level={5}>Cut</CustomTitle>
+          <CustomSlider
+            className="cut-slider"
             range
             min={0}
             max={3}
-            step={1}
             value={cutRange}
             onChange={(value) => setCutRange(value as [number, number])}
-            tipFormatter={formatCutValue} 
+            tipFormatter={formatCutValue}
+            marks={{
+              0: "Good",
+              1: "Very Good",
+              2: "Ideal",
+              3: "Astor Ideal",
+            }}
+            step={null}
           />
-          <div style={{ display: "flex", justifyContent: "space-between" }}>
+          {/* <div style={{ display: "flex", justifyContent: "space-between" }}>
             {["Good", "Very Good", "Ideal", "Astor Ideal"].map((cut, index) => (
               <span key={cut}>{cut}</span>
             ))}
-          </div>
+          </div> */}
         </Col>
       </Row>
-      <Button
-        type="primary"
-        onClick={handleReset}
-        style={{ margin: "20px 0" }}
-      >
+      <ResetButton onClick={handleReset} style={{ margin: "20px 0" }}>
         Reset Filter
-      </Button>
+      </ResetButton>
       <div
-            style={{
-              display: "flex",
-              justifyContent: "space-between",
-              alignItems: "center",
-            }}
-          >
-            <div style={{ display: "flex", gap: "16px" }}>
-              <div>
-                <span style={{ fontSize: "14px", marginRight: "5px" }}>
-                  Sort By
-                </span>
-                <CustomSelect
-                  style={{ width: 120, height: 40 }}
-                  placeholder="Any Date"
-                >
-                  <Option value="all">All</Option>
-                  <Option value="newest">Newest</Option>
-                  <Option value="oldest">Oldest</Option>
-                </CustomSelect>
-              </div>
-              <div>
-                <span style={{ fontSize: "14px", marginRight: "5px" }}>
-                  Sort By
-                </span>
-                <CustomSelect
-                  style={{ width: 120, height: 40 }}
-                  placeholder="Alphabetical"
-                >
-                  <Option value="all">All</Option>
-                  <Option value="a-z">A-Z</Option>
-                  <Option value="z-a">Z-A</Option>
-                </CustomSelect>
-              </div>
-            </div>
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          alignItems: "center",
+        }}
+      >
+        <div style={{ display: "flex", gap: "16px" }}>
+          <div>
+            <span style={{ fontSize: "14px", marginRight: "5px" }}>
+              Sort By
+            </span>
+            <CustomSelect
+              style={{ width: 120, height: 40 }}
+              placeholder="Any Date"
+            >
+              <Option value="all">All</Option>
+              <Option value="newest">Newest</Option>
+              <Option value="oldest">Oldest</Option>
+            </CustomSelect>
           </div>
-      <hr style={{ marginTop: "20px" }}></hr>
+          <div>
+            <span style={{ fontSize: "14px", marginRight: "5px" }}>
+              Sort By
+            </span>
+            <CustomSelect
+              style={{ width: 120, height: 40 }}
+              placeholder="Alphabetical"
+            >
+              <Option value="all">All</Option>
+              <Option value="a-z">A-Z</Option>
+              <Option value="z-a">Z-A</Option>
+            </CustomSelect>
+          </div>
+        </div>
+      </div>
+      <hr
+        style={{
+          maxWidth: "1400px",
+          margin: "20px auto",
+          border: "1px solid rgba(21, 21, 66, 0.3)",
+        }}
+      />
+      <List>
+        <Row gutter={[16, 16]}>
+          {filteredDiamonds.map((diamond) => (
+            <Col key={diamond.id} span={6}>
+              <Card
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <img
+                      style={{ borderRadius: "0" }}
+                      src={diamond.image}
+                      alt={diamond.name}
+                      className="product-image"
+                      onMouseOut={(e) => (e.currentTarget.src = diamond.image)}
+                    />
+                    {diamond.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    {diamond.name}
+                    {wishList.includes(diamond.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(diamond.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(diamond.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${diamond.salePrice ? diamond.salePrice : diamond.price}
+                    </Text>
+                    {diamond.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${diamond.price}
+                      </Text>
+                    )}
+                  </div>
+                </div>
+              </Card>
+            </Col>
+          ))}
+        </Row>
+      </List>
+      <div style={{ textAlign: "center", margin: "20px auto" }}>
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={filteredDiamonds.length}
+          onChange={handleChangePage}
+        />
+      </div>
+      <FAQs>
+        <LeftFAQ>
+          <h2>FAQs ABOUT PRODUCT</h2>
+        </LeftFAQ>
+        <StyledCollapse
+          items={items}
+          defaultActiveKey={["1"]}
+          onChange={onChange}
+        />
+      </FAQs>
     </Section>
   );
 };

@@ -14,7 +14,7 @@ import {
   List,
 } from "./AllProduct.styled";
 
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Pagination} from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
 const { Title, Text } = Typography;
@@ -561,6 +561,18 @@ const AllProduct: React.FC = () => {
         : [...prev, productId]
     );
   };
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 12;
+
+  const handleChangePage = (page) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
   return (
     <Section>
       <div>
@@ -789,6 +801,14 @@ const AllProduct: React.FC = () => {
             ))}
           </Row>
         </List>
+        <div style={{ textAlign: 'center', margin: '20px auto' }}>
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={products.length}
+          onChange={handleChangePage}
+        />
+      </div>
       </Container>
     </Section>
   );

@@ -17,7 +17,7 @@ export const Section = styled.div`
 
 export const Container = styled.div`
   display: flex;
-  max-width: 1200px;
+  max-width: 1320px;
   justify-content: center;
 `;
 
@@ -67,10 +67,9 @@ export const Item = styled.div`
     width: 100%;
     height: 100%;
     object-fit: cover;
-    border: solid 2px #f1f1f1;
   }
-  &.selected {
-    background-color: #f1f1f1;
+  img:hover {
+    border: solid 1px #B1B1B1;
   }
 `;
 
@@ -83,23 +82,17 @@ export const OuterMain = styled.div`
 
 export const MainImage = styled.div`
   width: 100%;
-  height: 500px;
   overflow: hidden;
-  background-color: ${theme.color.secondary};
-  border-radius: 8px;
   img {
-    width: 90%;
-    height: 500px;
+    width: 100%;
   }
 `;
 
 export const ProductDetail = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   width: 50%;
   padding: 20px;
-  border-radius: 8px;
   padding-top: 0;
 `;
 
@@ -107,6 +100,43 @@ export const Entry = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
+
+  .main-title {
+    margin: 0;
+    color: ${theme.color.primary};
+    font-size: 30px;
+    font-family: "Gantari", sans-serif;
+    padding-bottom: 5px;
+    font-weight: 400;
+    letter-spacing: 1px;
+  }
+  .button-container {
+    display: flex;
+    gap: 10px;
+  }
+  .button-container {
+    margin-top: 10px;
+  }
+  .size-button {
+    width: 100px;
+    height: 40px;
+    border: 1px solid #b1b1b1;
+    color: ${theme.color.primary};
+    background-color: white;
+    font-size: 12px;
+    font-weight: 200;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .size-button:hover {
+    border-color: ${theme.color.primary};
+  }
+
+  .size-button.selected {
+    border-color: ${theme.color.primary};
+    background-color: #f4f2ee;
+  }
 `;
 
 export const Heading = styled.div`
@@ -118,10 +148,11 @@ export const Heading = styled.div`
 export const Title = styled.h1`
   margin: 0;
   color: ${theme.color.primary};
-  font-size: 28px;
-   font-family: "Cormorant", serif;
+  font-size: 30px;
+  font-family: "Gantari", sans-serif;
   padding-bottom: 8px;
   font-weight: 400;
+  letter-spacing: 1px;
 `;
 
 export const ProductRating = styled.span`
@@ -135,7 +166,8 @@ export const ProductMetal = styled.div`
     gap: 10px; /* Khoảng cách giữa các nút */
   }
   .fill {
-    font-weight: 500;
+    font-weight: 400;
+    font-size: 14px;
   }
   span {
     color: ${theme.color.primary};
@@ -210,20 +242,47 @@ export const RingSizeContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 20px;
+  justify-content: space-between;
 `;
 
-export const RingSizeSelect = styled.select`
-  padding: 8px 20px 8px 5px;
-  font-size: 12px;
-  color: ${theme.color.primary};
-  opacity: 0.7;
+export const RingChoose = styled.select`
+  .button-container {
+    display: flex;
+    gap: 10px;
+  }
+
+  .size-button {
+    width: 50px;
+    height: 50px;
+    border: 2px solid gray;
+    color: red;
+    background-color: white;
+    font-size: 16px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+  }
+
+  .size-button:hover {
+    border-color: red;
+  }
+
+  .size-button.selected {
+    border-color: red;
+    background-color: #ffe5e5;
+  }
 `;
 
 export const RingSizeHelp = styled.a`
-  text-decoration: none;
+  text-decoration: underline;
   color: ${theme.color.primary};
-  font-size: 12px;
-  font-weight: bold;
+  font-weight: 400;
+  font-size: 14px;
+`;
+
+export const RingSize = styled.div`
+  color: ${theme.color.primary};
+  font-weight: 400;
+  font-size: 14px;
 `;
 
 // export const SelectButton = styled.div`
@@ -318,13 +377,12 @@ export const ButtonAdd = styled.button`
   padding-top: 15px;
   padding-bottom: 15px;
   text-align: center;
-   border: none;
+  border: none;
   cursor: pointer;
   background-color: ${theme.color.primary};
   color: ${theme.color.white};
   letter-spacing: 2px;
   border: 1px solid ${theme.color.primary};
- 
 `;
 export const Button = styled.button`
   padding-top: 15px;
@@ -343,7 +401,7 @@ export const Button = styled.button`
   transition: color 0.4s ease-out; /* Transition for text color */
 
   &.button_slide {
-    letter-spacing: 1px;
+    letter-spacing: 2px;
   }
 
   &.slide_right::before {
@@ -392,8 +450,8 @@ export const ShippingItem = styled.li`
     color: ${theme.color.primary};
     font-family: "Gantari", sans-serif;
     font-size: 14px;
-    font-weight: bold;
-
+    font-weight: 600;
+    letter-spacing: 1px;
   }
   .delivery {
     font-weight: 500;
@@ -434,7 +492,7 @@ export const ProductPrice = styled.span`
 export const CurrentPrice = styled.span`
   font-size: 25px;
   font-family: "Gantari", sans-serif;
-  font-weight: 600;
+  font-weight: 500;
   font-style: italic;
   color: ${theme.color.primary};
 `;
@@ -443,7 +501,7 @@ export const BeforePrice = styled.span`
   color: #d9d9d9;
   text-decoration: line-through;
   font-family: "Gantari", sans-serif;
-    font-style: italic;
+  font-style: italic;
 `;
 
 export const Discount = styled.span`
@@ -455,7 +513,7 @@ export const Discount = styled.span`
   color: ${theme.color.white};
   margin-left: -10px;
   text-align: center;
-    font-style: italic;
+  font-style: italic;
 
   line-height: 1;
   font-family: "Gantari", sans-serif;
@@ -465,7 +523,7 @@ export const Discount = styled.span`
 
 export const Contain = styled.div`
   margin: 0 auto;
-  max-width: 1200px;
+  max-width: 1400px;
 `;
 
 export const Tabbed = styled.div`
@@ -727,14 +785,20 @@ export const Review = styled.div`
 // SAME + RECENTLY
 export const ProductSection = styled.section`
   margin: 60px auto;
-  max-width: 1200px;
+  max-width: 1400px;
   margin-bottom: 0;
+`;
+export const ProductSectionViewed = styled.section`
+  margin: 60px auto;
+  max-width: 1400px;
+  margin-bottom: 60px;
 `;
 
 export const HeadingTitle = styled.h2`
   color: ${theme.color.primary};
   font-size: 22px;
   font-family: "Gantari", sans-serif;
+  font-weight: 400;
 `;
 export const ListProduct = styled.div`
   display: grid;
@@ -744,7 +808,6 @@ export const ListProduct = styled.div`
   text-align: center;
   justify-content: center;
   padding: 35px 10px;
-  
 `;
 
 export const ProductItem = styled.div`
@@ -768,7 +831,7 @@ export const ProductItem = styled.div`
     width: 200px;
     height: 250px;
     align-items: center;
-     justify-content: center;
+    justify-content: center;
   }
 
   a {
@@ -798,7 +861,6 @@ export const ProductImage = styled.img`
   height: auto;
   filter: drop-shadow(0 10px 15px #0009);
   padding-bottom: 10px;
-
 `;
 
 export const ItemName = styled.p`
@@ -843,3 +905,76 @@ export const AddLink = styled.a`
 `;
 
 export const PageLink = styled.a``;
+export const Space = styled.div`
+  span {
+    font-size: 18px;
+    color: ${theme.color.primary};
+  }
+  .inscription {
+    text-decoration: underline;
+    color: ${theme.color.primary};
+  }
+`;
+
+export const List = styled.div`
+  max-width: 1400px;
+  margin: 0px auto;
+  margin-top: 20px;
+
+  .product-image {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease-in-out;
+  }
+
+  .sale-badge {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    padding: 4px 8px;
+    font-size: 14px;
+    font-weight: 500;
+    background-color: #ede0b8;
+    color: ${theme.color.primary};
+    width: auto;
+  }
+
+  .product-info {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .product-name {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    font-size: 13px;
+    color: ${theme.color.primary};
+  }
+
+  .wishlist-icon {
+    margin-left: 8px;
+    cursor: pointer;
+    font-size: 16px;
+    color: #db7f67;
+  }
+
+  .price-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+  }
+
+  .product-price {
+    font-size: 14px;
+    color: ${theme.color.primary};
+  }
+
+  .product-sale-price {
+    font-size: 12px;
+    color: #888;
+    text-decoration: line-through;
+  }
+`;
