@@ -14,7 +14,7 @@ const App = () => {
       time: "15:20Pm & 11:00Am",
       location: "North, South, United State, Amre",
       locationDetails: "Party Number 16,20",
-      buttonLabel: "Voucher",
+      buttonLabel: "Discount",
       buttonLabeles: "Claim Now"
     },
     {
@@ -38,7 +38,7 @@ const App = () => {
         time: "15:20Pm & 11:00Am",
         location: "North, South, United State, Amre",
         locationDetails: "Party Number 16,20",
-        buttonLabel: "Voucher",
+        buttonLabel: "Discount",
         buttonLabeles: "Claim Now"
       },
       {
@@ -157,22 +157,22 @@ const Character = styled.p`
 `;
 
 const UpBorder = styled.span`
-  padding: 14px 15px;
+  padding: 10px 20px;
   background-color: #ddd;
   border-radius: 50%;
-  position: absolute;
-  top: -95px;
+  position: relative;
+  top: -150px;
   left: 100%;
   transform: translateX(-50%);
 `;
 
 const DownBorder = styled.span`
-  padding: 14px 15px;
+  padding: 10px 20px;
   background-color: #ddd;
   border-radius: 50%;
-  position: absolute;
-  bottom: -95px;
-  left: 100%;
+  position: relative;
+  bottom: -90px;
+  left: 50%;
   transform: translateX(-50%);
 `;
 

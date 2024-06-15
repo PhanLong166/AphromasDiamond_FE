@@ -12,6 +12,8 @@ const routes = {
         allProduct: '/all',
         about: '/about',
         gift: '/gift',
+        ringGuide: '/ring-guide',
+        diamond: '/diamond'
     },
     customer: {
         account: '/account',
