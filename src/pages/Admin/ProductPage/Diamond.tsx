@@ -19,28 +19,19 @@ import {
   EyeOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
-import type { FormInstance, TableColumnsType, TableProps, UploadProps, } from "antd";
+import type {
+  FormInstance,
+  TableColumnsType,
+  TableProps,
+  UploadProps,
+} from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 // import Dragger from "antd/es/upload/Dragger";
 import TextArea from "antd/es/input/TextArea";
+import { diamondData, DiamondDataType } from "./ProductData"; // Import data here
 
-
-
-interface DataType {
-  key: React.Key;
-  diamondID: string;
-  diamondImg: string;
-  diamondName: string;
-  price: number;
-  markupPercentage: number;
-  color: string;
-  shape: string;
-  exchangeRate: number;
-  currencyType: string;
-}
-
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<DiamondDataType>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -48,31 +39,6 @@ const onChange: TableProps<DataType>["onChange"] = (
 ) => {
   console.log("params", pagination, filters, sorter, extra);
 };
-
-// // DESCRIPTION INPUT
-
-// const { Dragger } = Upload;
-
-// const props: UploadProps = {
-//   name: "file",
-//   multiple: true,
-//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== "uploading") {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === "done") {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === "error") {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log("Dropped files", e.dataTransfer.files);
-//   },
-// };
-
 
 // DESCRIPTION INPUT
 
@@ -97,9 +63,6 @@ const props: UploadProps = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
-
-
-
 
 // SUBMIT FORM
 interface SubmitButtonProps {
@@ -137,7 +100,6 @@ const Diamond = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -171,7 +133,7 @@ const Diamond = () => {
     return price * (1 + markupPercentage / 100);
   };
 
-  const columns: TableColumnsType<DataType> = [
+  const columns: TableColumnsType<DiamondDataType> = [
     {
       title: "Diamond ID",
       dataIndex: "diamondID",
@@ -182,7 +144,7 @@ const Diamond = () => {
       title: "Image",
       key: "diamondImg",
       className: "TextAlign",
-      render: (_, record: DataType) => (
+      render: (_, record: DiamondDataType) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
             src={record.diamondImg}
@@ -284,143 +246,8 @@ const Diamond = () => {
     },
   ];
 
-  const data: DataType[] = [
-    {
-      key: "1",
-      diamondID: "12345121",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 4.08,
-      markupPercentage: 100,
-      color: "H",
-      shape: "Marquise",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "2",
-      diamondID: "12345122",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 5.08,
-      markupPercentage: 100,
-      color: "G",
-      shape: "Princess",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "3",
-      diamondID: "12345123",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 7.08,
-      markupPercentage: 100,
-      color: "H",
-      shape: "Asscher",
-
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "4",
-      diamondID: "12345124",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 6.08,
-      markupPercentage: 100,
-      color: "J",
-      shape: "Radiant",
-
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "5",
-      diamondID: "12345125",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 3.08,
-      markupPercentage: 100,
-      color: "I",
-      shape: "Oval",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "6",
-      diamondID: "12345126",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 9.08,
-      markupPercentage: 100,
-      color: "I",
-      shape: "Princess",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "7",
-      diamondID: "12345127",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 2.04,
-      markupPercentage: 100,
-      color: "G",
-      shape: "Heart",
-
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "8",
-      diamondID: "12345128",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 7.03,
-      markupPercentage: 100,
-      color: "K",
-      shape: "Emerald",
-
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "9",
-      diamondID: "12345129",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 5.07,
-      markupPercentage: 100,
-      color: "J",
-      shape: "Cushion",
-
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "10",
-      diamondID: "12345130",
-      diamondImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 4.2,
-      markupPercentage: 100,
-      color: "I",
-      shape: "Marquise",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-  ];
+  // const data: DiamondDataType[] = [
+  // ];
   // --------------------------
 
   // Add New
@@ -481,10 +308,10 @@ const Diamond = () => {
                   </Styled.AdPageContent_HeadLeft>
 
                   <Styled.AddButton>
-                      <button onClick={handleAddNew}>
-                        <PlusCircleOutlined />
-                        Add New Diamond
-                      </button>
+                    <button onClick={handleAddNew}>
+                      <PlusCircleOutlined />
+                      Add New Diamond
+                    </button>
                   </Styled.AddButton>
                 </>
               )) || (
@@ -718,7 +545,7 @@ const Diamond = () => {
                     </Styled.UploadFile>
                   </Form>
                   <Styled.ActionBtn>
-                  <SubmitButton form={form}>
+                    <SubmitButton form={form}>
                       <SaveOutlined />
                       Save
                     </SubmitButton>
@@ -734,7 +561,7 @@ const Diamond = () => {
                 <Table
                   className="table"
                   columns={columns}
-                  dataSource={data}
+                  dataSource={diamondData}
                   pagination={{ pageSize: 6 }} // Add pagination here
                   onChange={onChange}
                   showSorterTooltip={{ target: "sorter-icon" }}
@@ -749,361 +576,3 @@ const Diamond = () => {
 };
 
 export default Diamond;
-
-
-// const onFinish = (values: string) => {
-//   console.log('Success:', values);
-//   // Thêm logic xử lý lưu trữ hoặc gửi dữ liệu tại đây
-// };
-
-// const onFinishFailed = (errorInfo: any) => {
-//   console.log('Failed:', errorInfo);
-// };
-
-// interface SubmitButtonProps {
-//   form: FormInstance;
-// }
-
-// // Component SubmitButton
-// const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-//   form,
-//   children,
-// }) => {
-//   const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-//   // Watch all values
-//   const values = Form.useWatch([], form);
-
-//   React.useEffect(() => {
-//     form
-//       .validateFields({ validateOnly: true })
-//       .then(() => setSubmittable(true))
-//       .catch(() => setSubmittable(false));
-//   }, [form, values]);
-
-//   return (
-//     <Button
-//       type="primary"
-//       disabled={!submittable}
-//       onClick={() => form.submit()} // Gọi form.submit() khi click
-//     >
-//       {children}
-//     </Button>
-//   );
-// };
-
-// // Component Diamond
-// const Diamond = () => {
-//   const [form] = Form.useForm();
-//   const [searchText, setSearchText] = useState("");
-//   // const [currency, setCurrency] = useState<"VND" | "USD">("USD");
-//   const [isAdding, setIsAdding] = useState(false);
-
-//   const onSearch = (value: string) => {
-//     console.log("Search:", value);
-//     // Thực hiện logic tìm kiếm ở đây
-//   };
-
-//   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-//     if (e.key === "Enter") {
-//       onSearch(searchText);
-//     }
-//   };
-
-//   // Change Currency
-//   const handleChange = (value: string) => {
-//     console.log(`selected ${value}`);
-//   };
-
-//   const handleCurrencyChange = (value: "VND" | "USD") => {
-//     setCurrency(value);
-//   };
-
-//   // const sellingPrice = (price: number, markupPercentage: number) => {
-//   //   return price * (1 + markupPercentage / 100);
-//   // };
-
-//   const columns: TableColumnsType<DataType> = [
-//     // Columns definition here...
-//   ];
-
-//   const data: DataType[] = [
-//     // Data definition here...
-//   ];
-
-//   const handleAddNew = () => {
-//     setIsAdding(true);
-//   };
-
-//   const handleCancel = () => {
-//     setIsAdding(false);
-//   };
-
-//   // const onChangeAdd = (
-//   //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-//   // ) => {
-//   //   console.log(e);
-//   // };
-
-//   return (
-//     <>
-//       <Styled.GlobalStyle />
-//       <Styled.ProductAdminArea>
-//         <Sidebar />
-
-//         <Styled.AdminPage>
-//           <ProductMenu />
-
-//           <Styled.AdPageContent>
-//             <Styled.AdPageContent_Head>
-//               {(!isAdding && (
-//                 <>
-//                   <Styled.AdPageContent_HeadLeft>
-//                     <Styled.SearchArea>
-//                       <Input
-//                         className="searchInput"
-//                         type="text"
-//                         placeholder="Search here..."
-//                         value={searchText}
-//                         onChange={(e) => setSearchText(e.target.value)}
-//                         onKeyPress={handleKeyPress}
-//                         prefix={<SearchOutlined className="searchIcon" />}
-//                       />
-//                     </Styled.SearchArea>
-
-//                     <Select
-//                       defaultValue="USD"
-//                       style={{ width: 120, height: "45px" }}
-//                       onChange={handleCurrencyChange}
-//                       options={[
-//                         { value: "USD", label: "USD" },
-//                         { value: "VND", label: "VND" },
-//                       ]}
-//                     />
-//                   </Styled.AdPageContent_HeadLeft>
-
-//                   <Styled.AddButton>
-//                     <button onClick={handleAddNew}>
-//                       <PlusCircleOutlined />
-//                       Add New Diamond
-//                     </button>
-//                   </Styled.AddButton>
-//                 </>
-//               )) || (
-//                 <>
-//                   <Styled.AddContent_Title>
-//                     <p>Add Diamond</p>
-//                   </Styled.AddContent_Title>
-//                 </>
-//               )}
-//             </Styled.AdPageContent_Head>
-
-//             <Styled.AdminTable>
-//               {isAdding ? (
-//                 <>
-//                   <Form
-//                     form={form}
-//                     layout="vertical"
-//                     className="AdPageContent_Content"
-//                     onFinish={onFinish}
-//                     onFinishFailed={onFinishFailed}
-//                   >
-//                     <Styled.FormItem>
-//                       <Form.Item
-//                         label="Diamond ID"
-//                         name="Diamond ID"
-//                         rules={[{ required: true }]}
-//                       >
-//                         <Input className="formItem" placeholder="D1234" />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item
-//                         label="Diamond Name"
-//                         name="Diamond Name"
-//                         rules={[{ required: true }]}
-//                       >
-//                         <Input className="formItem" placeholder="Filled" />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item
-//                         label="Markup Percentage (%)"
-//                         name="Markup Percentage"
-//                         rules={[{ required: true }]}
-//                       >
-//                         <InputNumber className="formItem" placeholder="150" />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item
-//                         label="Price"
-//                         name="Price"
-//                         rules={[{ required: true }]}
-//                       >
-//                         <InputNumber className="formItem" placeholder="4,080" />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Shape">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Shape"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "Round", label: "Round" },
-//                             { value: "Princess", label: "Princess" },
-//                             { value: "Cushion", label: "Cushion" },
-//                             { value: "Oval", label: "Oval" },
-//                             { value: "Emerald", label: "Emerald" },
-//                             { value: "Pear", label: "Pear" },
-//                             { value: "Asscher", label: "Asscher" },
-//                             { value: "Heart", label: "Heart" },
-//                             { value: "Radiant", label: "Radiant" },
-//                             { value: "Marquise", label: "Marquise" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Color">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Color"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "D", label: "D" },
-//                             { value: "E", label: "E" },
-//                             { value: "F", label: "F" },
-//                             { value: "G", label: "G" },
-//                             { value: "H", label: "H" },
-//                             { value: "I", label: "I" },
-//                             { value: "J", label: "J" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Clarity">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Clarity"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "FL", label: "FL" },
-//                             { value: "IF", label: "IF" },
-//                             { value: "VVS1", label: "VVS1" },
-//                             { value: "VVS2", label: "VVS2" },
-//                             { value: "VS1", label: "VS1" },
-//                             { value: "VS2", label: "VS2" },
-//                             { value: "SI1", label: "SI1" },
-//                             { value: "SI2", label: "SI2" },
-//                             { value: "I1", label: "I1" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Cut">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Cut"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "Excellent", label: "Excellent" },
-//                             { value: "Very Good", label: "Very Good" },
-//                             { value: "Good", label: "Good" },
-//                             { value: "Fair", label: "Fair" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Polish">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Polish"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "Excellent", label: "Excellent" },
-//                             { value: "Very Good", label: "Very Good" },
-//                             { value: "Good", label: "Good" },
-//                             { value: "Fair", label: "Fair" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Symmetry">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Symmetry"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "Excellent", label: "Excellent" },
-//                             { value: "Very Good", label: "Very Good" },
-//                             { value: "Good", label: "Good" },
-//                             { value: "Fair", label: "Fair" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Fluorescence">
-//                         <Select
-//                           className="formItem"
-//                           placeholder="Select Fluorescence"
-//                           onChange={handleChange}
-//                           options={[
-//                             { value: "None", label: "None" },
-//                             { value: "Faint", label: "Faint" },
-//                             { value: "Medium", label: "Medium" },
-//                             { value: "Strong", label: "Strong" },
-//                           ]}
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Certificate">
-//                         <Input className="formItem" placeholder="GIA12345678" />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     <Styled.FormItem>
-//                       <Form.Item label="Description">
-//                         <Input.TextArea
-//                           className="formItem"
-//                           rows={4}
-//                           placeholder="Description of the diamond"
-//                         />
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                     {/* <Styled.FormItem>
-//                       <Form.Item>
-//                         <SubmitButton form={form}>Submit</SubmitButton>
-//                         <Button onClick={handleCancel} style={{ marginLeft: 8 }}>
-//                           Cancel
-//                         </Button>
-//                       </Form.Item>
-//                     </Styled.FormItem> */}
-//                   </Form>
-//                   <Styled.FormItem>
-//                       <Form.Item>
-//                         <SubmitButton form={form}>Submit</SubmitButton>
-//                         <Button onClick={handleCancel} style={{ marginLeft: 8 }}>
-//                           Cancel
-//                         </Button>
-//                       </Form.Item>
-//                     </Styled.FormItem>
-//                 </>
-//               ) : (
-//                 <Table columns={columns} dataSource={data} />
-//               )}
-//             </Styled.AdminTable>
-//           </Styled.AdPageContent>
-//         </Styled.AdminPage>
-//       </Styled.ProductAdminArea>
-//     </>
-//   );
-// };
-
-// export default Diamond;
