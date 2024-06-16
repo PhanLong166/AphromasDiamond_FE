@@ -26,7 +26,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
@@ -94,7 +94,7 @@ const data: DataType[] = [
   {
     key: "1",
     orderID: "12345124",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Joe Black",
     total: 701,
     statuses: ["Cancelled"],
@@ -102,7 +102,7 @@ const data: DataType[] = [
   {
     key: "2",
     orderID: "12345122",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Jim Green",
     total: 890,
     statuses: ["Cancelled"],
@@ -110,7 +110,7 @@ const data: DataType[] = [
   {
     key: "3",
     orderID: "12345121",
-    date: "3 Jan 2023",
+    date: "2023-01-03",
     cusName: "Joe Black",
     total: 560,
     statuses: ["Cancelled"],
@@ -118,7 +118,7 @@ const data: DataType[] = [
   {
     key: "4",
     orderID: "12345123",
-    date: "4 Jan 2023",
+    date: "2023-01-04",
     cusName: "Jim Red",
     total: 700,
     statuses: ["Cancelled"],
@@ -126,7 +126,7 @@ const data: DataType[] = [
   {
     key: "5",
     orderID: "12345121",
-    date: "2 Jan 2023",
+    date: "2023-01-02",
     cusName: "Esther Eden",
     total: 430,
     statuses: ["Cancelled"],
@@ -134,7 +134,7 @@ const data: DataType[] = [
   {
     key: "6",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Cancelled"],
@@ -142,7 +142,7 @@ const data: DataType[] = [
   {
     key: "7",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Cancelled"],
@@ -150,7 +150,7 @@ const data: DataType[] = [
   {
     key: "8",
     orderID: "12345127",
-    date: "6 Jan 2023",
+    date: "2023-01-06",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Cancelled"],
@@ -158,7 +158,7 @@ const data: DataType[] = [
   {
     key: "9",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Cancelled"],
@@ -166,7 +166,7 @@ const data: DataType[] = [
   {
     key: "10",
     orderID: "12345125",
-    date: "6 Jan 2023",
+    date: "2023-01-07",
     cusName: "Ajmal Abdul Rahiman",
     total: 502,
     statuses: ["Cancelled"],

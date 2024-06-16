@@ -1,10 +1,13 @@
 import config from "@/config"
+import useAuth from "@/hooks/useAuth"
 import Login from "@/pages/Login"
 import Register from "@/pages/Register"
-import { Outlet } from "react-router-dom"
+import { Navigate, Outlet } from "react-router-dom"
 
 const AuthRouter = () => {
-    return <Outlet />
+    const { role } = useAuth();
+    return !role ? <Outlet/> : <Navigate to='/' />;
+    
 }
 
 const AuthRoutes = {
@@ -12,7 +15,6 @@ const AuthRoutes = {
     children: [
         { path: config.routes.public.login, element: <Login /> },
         { path: config.routes.public.register, element: <Register /> }
-
     ]
 }
 

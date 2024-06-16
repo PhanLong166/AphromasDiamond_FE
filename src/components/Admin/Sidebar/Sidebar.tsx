@@ -10,10 +10,12 @@ import {
   TeamOutlined,
   CustomerServiceOutlined,
   KeyOutlined,
-  LayoutOutlined,
+  // LayoutOutlined,
   SmileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import config from "@/config";
+import cookieUtils from "@/services/cookieUtils";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -24,6 +26,7 @@ const Sidebar = () => {
         setActive("Dashboard");
         break;
       case "/admin/order":
+      case "/admin/order/pending":
       case "/admin/order/confirmed":
       case "/admin/order/delivering":
       case "/admin/order/completed":
@@ -31,6 +34,8 @@ const Sidebar = () => {
         setActive("Order");
         break;
       case "/admin/product":
+      case "/admin/product/add/product":
+      case "/admin/product/add/jewelry":
       case "/admin/product/diamond":
       case "/admin/product/ring-setting":
       case "/admin/product/jewelry-type":
@@ -54,9 +59,9 @@ const Sidebar = () => {
       case "/admin/manager":
         setActive("Manager");
         break;
-      case "/admin/theme":
-        setActive("Theme");
-        break;
+      // case "/admin/theme":
+      //   setActive("Theme");
+      //   break;
       default:
         setActive("");
     }
@@ -196,7 +201,7 @@ const Sidebar = () => {
               </div>
             </Styled.SBContent>
 
-            <Styled.SBContent>
+            {/* <Styled.SBContent>
               <div
                 className={`btn ${active === "Theme" ? "active-line" : ""}`}
                 onClick={() => handleSetActive("Theme")}
@@ -209,7 +214,7 @@ const Sidebar = () => {
                   </Link>
                 </Styled.MenuElement>
               </div>
-            </Styled.SBContent>
+            </Styled.SBContent> */}
           </Styled.SBMenu>
         </Styled.SidebarTop>
         <Styled.AccOut>
@@ -220,8 +225,8 @@ const Sidebar = () => {
               <p className="accOut_role">Admin</p>
             </Styled.AccInfor>
           </Styled.Account>
-          <Link to="/login">
-            <LogoutOutlined />
+          <Link to={config.routes.public.login} onClick={() => cookieUtils.clear()}>
+            <LogoutOutlined className="outLogo"/>
           </Link>
         </Styled.AccOut>
       </Styled.SidebarContainer>

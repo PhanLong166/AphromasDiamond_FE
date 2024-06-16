@@ -10,7 +10,7 @@ import {
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { Collapse } from "antd";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Pagination} from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
 const { Title, Text } = Typography;
@@ -150,11 +150,7 @@ const Product: React.FC = () => {
     );
   };
 
-  // const [activeIndex, setActiveIndex] = useState<number | null>(null);
-
-  // const toggleAccordion = (index: number) => {
-  //   setActiveIndex(activeIndex === index ? null : index);
-  // };
+  
 
   const texts = [
     `
@@ -214,6 +210,17 @@ const Product: React.FC = () => {
      
        }
   `;
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 8;
+
+  const handleChangePage = (page: any) => {
+    setCurrentPage(page);
+  };
+
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
     <Container>
@@ -319,6 +326,14 @@ const Product: React.FC = () => {
           </Col>
         </Row>
       </List>
+      <div style={{ textAlign: 'center', margin: '20px auto' }}>
+        <Pagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={products.length}
+          onChange={handleChangePage}
+        />
+      </div>
 
       <FAQs>
         <LeftFAQ>
