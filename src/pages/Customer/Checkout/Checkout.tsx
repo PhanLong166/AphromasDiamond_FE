@@ -1,12 +1,17 @@
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
-import { Checkbox } from 'antd';
-import type { CheckboxProps } from 'antd';
+import { useState } from "react";
+import PromoCodeSection from "./PromoCode";
 
 interface ContactInfoProps {
   email: string;
-  onEdit: () => void;
+  onEdit: (newEmail: string) => void;
+}
+
+interface ContactInfoProps {
+  email: string;
+  onEdit: (newEmail: string) => void;
 }
 
 interface AddressDetailsProps {
@@ -26,28 +31,52 @@ interface SummaryProps {
   subtotal: string;
 }
 
-const onChange: CheckboxProps['onChange'] = (e) => {
-  console.log(`checked = ${e.target.checked}`);
-};
+const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
+  const [ IsEditing, setIsEditing ] =  useState(false);
+  const [ currentEmail, setCurrenEmail] = useState(email);
+  
+  const handEditClick = () => {
+    setIsEditing(true);
+  };
 
-const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => (
+  const handleSaveClick = () => {
+    setIsEditing(false);
+    onEdit(currentEmail);
+  };
+
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setCurrenEmail(e.target.value);
+  };
+  return (
   <Section>
    
     <TextContact>
       <h2>Contact Information</h2>
-      <Buttons onClick={onEdit}><button style={{ backgroundColor: "white", border: "none", fontSize: 13, paddingTop: 23 }}>EDIT</button> </Buttons>
+      {!IsEditing && (
+
+      <Buttons onClick={handEditClick}>
+        <button style={{ backgroundColor: "white", border: "none", fontSize: 13, paddingTop: 23 }}>EDIT</button>
+         </Buttons>
+         )} 
        </TextContact>
     <p>Email address</p>
-    <p>{email}</p>
+    {IsEditing ? (
+      <div>
+        <StyledInputt type ="email" value={currentEmail} onChange={handleEmailChange} />
+        <SaveButton onClick={handleSaveClick}>SAVE</SaveButton>
+      </div>
+    ) : (
+          <p>{currentEmail}</p>
+    
+    )}
+    {/* <p>{email}</p> */}
 
 
   </Section>
-);
+  
+)};
 
-const AddressDetails: React.FC<AddressDetailsProps> = ({
-
-  country,
-}) => (
+const AddressDetails: React.FC<AddressDetailsProps> = () => (
   <Section>
     <h2>Shipping & Billing</h2>
     <EditPTag><p>Address Delivery<span><hr></hr></span></p></EditPTag>
@@ -55,7 +84,6 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
       <InputGroup>
         <StyledLabel htmlFor="firstName">First Name</StyledLabel>
         {/* <Input  placeholder="Basic usage" /> */}
-
         <StyledInputt type="text" id="firstName" />
       </InputGroup>
       <InputGroup>
@@ -64,18 +92,18 @@ const AddressDetails: React.FC<AddressDetailsProps> = ({
         <StyledInputt type="text" id="lastName" />
       </InputGroup>
     </InputRow>
-    <label style={{marginBottom: -15}} htmlFor="country">Country</label>
-    <Country>
+    {/* <label style={{marginBottom: -15}} htmlFor="country">Country</label> */}
+    {/* <Country>
       <img
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b114f2edfa3b31c61ea104edda326263461457a90784dc66d09c3575872d199?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
         alt="Country Flag"
       />
       <span>{country}</span>
-    </Country>
+    </Country> */}
     <label style={{marginBottom: -15}} htmlFor="address">Address Details</label>
     <StyledInputt type="text" id="phoneNumber" />
      
-    <Button><Checkbox onChange={onChange}>Fill auto</Checkbox></Button>
+    {/* <Button><Checkbox onChange={onChange}>Fill auto</Checkbox></Button> */}
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
@@ -94,14 +122,19 @@ const PaymentMethod: React.FC = () => (
   <PaymentSection>
     <h2>Payment Method</h2>
     <ImagesContainer>
+      <Link to="/thanks-page">
       <PaymentImage
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf80dd34693b8ee36689f6cdbf9c8af4d9dd7c2416ceab835ab7d256a0a98cc2?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
         alt="Credit Card"
       />
+      </Link>
+      <Link to="/thanks-page">
       <PaymentImage
+      
         src="https://cdn.builder.io/api/v1/image/assets/TEMP/d7dfd775276b304c961268c7106f9586aecbb972a877c1150bdab755dcaa79a2?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
         alt="PayPal"
       />
+      </Link>
     </ImagesContainer>
   </PaymentSection>
 );
@@ -118,11 +151,13 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 );
 
 const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
+  
   <SummarySection>
     <ItemNumner>
     <NumberItem>6 ITEMS</NumberItem>
-    <a style={{ textAlign: "end", fontSize: 13, marginTop: 4 }} href="#">EDIT CART</a>
-    
+    <Link to="/cart">
+    <p style={{ textAlign: "end", fontSize: 13, marginTop: 4, fontFamily: "Arial" }} >EDIT CART</p>
+    </Link>
     </ItemNumner>
    
     {items.map((item, index) => (
@@ -134,15 +169,22 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
         price={item.price}
 
       />
+      
     ))}
 
     <EditTotal><p>Subtotal: {subtotal}</p></EditTotal>
     <EditTotal> <p>Shipping: Free</p> </EditTotal>
 
-    <PromoCoder>
+    {/* <PromoCoder>
       <PromoIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/6f0f0a858913ade2024229e06f2a2b2de3377d9aca01b958e1d53f25d9c31bad?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Promo code icon" />
-      <PromoText>Promo Code</PromoText>
-    </PromoCoder>
+      <PromoText>
+        
+     
+          <DropdownButton  buttonText="Promo Code " menuItems={menuItems1} />
+        
+        </PromoText>
+    </PromoCoder> */}
+    <PromoCodeSection/>
     <EditTotal1><p>Total: {subtotal}</p></EditTotal1>
   </SummarySection>
 );
@@ -150,8 +192,9 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
 const Checkout: React.FC = () => {
   const handleEdit = () => {
     console.log("Edit Contact Info");
-  };
 
+    
+  };
   return (
     <Wrapper>
       <Title>CHECKOUT</Title>
@@ -183,7 +226,7 @@ const Checkout: React.FC = () => {
             {
               name: "Diamond (Loose)",
               image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/25fc74bc844fbce966b335394ee3713204e0c7d90b75340447243583e32033ec?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+                "https://cdn.builder.io/api/v1/image/assets/TEMP/96a1be60136e9f026ded141f492c74752cb83069bdf72ad95a9fabb5b8f35a41?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
               sku: "SKU 18633320",
               price: "$8,000",
             },
@@ -231,8 +274,6 @@ justify-content: space-between;
 `;
 
 const  NumberItem = styled.div`
-// font-size: 14px;
-//  font-weight: 400;
 `; 
 const TextContact = styled.div`
 display: flex;
@@ -287,61 +328,32 @@ const Form = styled.form`
   
 `;
 const Section = styled.section`
-  background-color: #fff;
+   box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
+    border: 1px solid rgb(232 226 226);
+    border-radius: 8px;
+    background-color: rgb(255, 255, 255);
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 48px 40px;
   font-weight: 400;
   font-size: 16px;
-  box-shadow: 0px 4px 18px #999797;
+  /* box-shadow: 0px 4px 18px #999797; */
   @media (max-width: 991px) {
     padding: 0 20px;
+  }
+  &:hover{
+   box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
+    border: 3px solid rgb(232 226 226);
   }
 `;
 
 const SummarySection = styled(Section)`
   flex: 1;
   line-height:40px;
+  
 `;
 
-const PromoCoder = styled.div`
- display: flex;
- align-items: center;
- gap: 4px;
- padding: 18px 0;
- border-top: 1px solid rgba(0, 0, 0, 1);
- border-bottom: 1px solid rgba(0, 0, 0, 1);
- background-color: #fff;
- margin: 56px 0 62px;
- @media (max-width: 991px) {
-   margin: 40px 0;
- }
-`;
-
-const PromoIcon = styled.img`
- width: 15px;
- aspect-ratio: 0.5;
- object-fit: contain;
-`;
-
-const PromoText = styled.p`
- font-family: Poppins, sans-serif;
- flex-grow: 1;
- width: 315px;
-`;
-
-
-const Button = styled.button`
-  font-family: Poppins, sans-serif;
-  color: #000;
-  background-color: #fff;
-  border: none;
-  gap: 10px;
-  align-self: flex-start;
-  margin-top: -2px;
-  font-size: 13px;
-`;
 
 const Buttons = styled.button`
   font-family: Poppins, sans-serif;
@@ -353,17 +365,14 @@ const Buttons = styled.button`
   
 `;
 
-const Country = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-  border: 1px solid;
-  adding-left: 15px;
-    border-radius: 10px;
-    height: 40px;
-    padding-left: 15px;
+const SaveButton = styled.div`
+  font-family: Poppins, sans-serif;
+  color: #000;
+  border: none;
+  background-color: #fff;
+  margin-top: 1.5rem;
+  font-size: 15px;
 `;
-
 
 const PaymentImage = styled.img`
 width: 178px;
@@ -372,7 +381,6 @@ margin-top: 15px;
 max-width: 100%;
 @media (max-width: 991px) {
   margin-top: 40px;
-  display
 }
 `;
 
@@ -433,15 +441,12 @@ const StyledInputt = styled.input`
   border: 1px solid;
    transition: border-color 0.3s, background-color 0.3s;
   &:hover {
-            border-color: #1677ff;
-          //  background-color: #1677ff;
+            border-color: #1677ff;  
         }
-
-        /* Optional: Add focus effect to make it consistent */
         &:focus {
             border-color: #1677ff;
             outline: none;
-            
+          }         
 `;
 
 const PaymentSection = styled.div`
@@ -455,6 +460,7 @@ const CartItemContainer = styled.div`
   gap: 33px;
   padding-top: 18px;
   margin-top: 10px;
+  border-bottom: 2px solid rgb(232 226 226);
   img {
     max-width: 100px;
   }
