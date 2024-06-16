@@ -7,7 +7,7 @@ import {
   InboxOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
-import type { TableProps, UploadProps } from "antd";
+import type { FormInstance, TableProps, UploadProps } from "antd";
 import {
   Form,
   Input,
@@ -234,7 +234,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 };
 
 
-// UPLOAD IMAGES
+// DESCRIPTION INPUT
 
 const { Dragger } = Upload;
 
@@ -257,6 +257,36 @@ const props: UploadProps = {
     console.log("Dropped files", e.dataTransfer.files);
   },
 };
+
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
+
+
 
 const RingSetting = () => {
   const [form] = Form.useForm();
@@ -517,10 +547,10 @@ const RingSetting = () => {
     setIsAdding(true);
   };
 
-  const handleSave = () => {
-    // Logic để lưu dữ liệu mới
-    setIsAdding(false);
-  };
+  // const handleSave = () => {
+  //   // Logic để lưu dữ liệu mới
+  //   setIsAdding(false);
+  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -591,7 +621,7 @@ const RingSetting = () => {
                 <>
                   <Form layout="vertical" className="AdPageContent_Content">
                     <Styled.FormItem>
-                      <Form.Item label="Diamond ID">
+                      <Form.Item label="Diamond ID" name="Diamond ID" rules={[{ required: true }]}>
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
                     </Styled.FormItem>
@@ -618,22 +648,22 @@ const RingSetting = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Ring Setting ID">
+                      <Form.Item label="Ring Setting ID" name="Ring Setting ID" rules={[{ required: true }]}>
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Ring Setting Name">
+                      <Form.Item label="Ring Setting Name" name="Ring Setting Name" rules={[{ required: true }]}>
                         <Input className="formItem" placeholder="Filled" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Markup Percentage (%)">
+                      <Form.Item label="Markup Percentage (%)" name="Markup Percentage" rules={[{ required: true }]}>
                         <InputNumber className="formItem" placeholder="150" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Cost Price">
+                      <Form.Item label="Cost Price" name="Cost Price" rules={[{ required: true }]}>
                         <InputNumber className="formItem" placeholder="4,080" />
                       </Form.Item>
                     </Styled.FormItem>
@@ -659,7 +689,7 @@ const RingSetting = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Width">
+                      <Form.Item label="Width" name="Width" rules={[{ required: true }]}>
                         <InputNumber className="formItem" placeholder="1,01" />
                       </Form.Item>
                     </Styled.FormItem>
@@ -689,7 +719,7 @@ const RingSetting = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
-                      <Form.Item label="Description">
+                      <Form.Item label="Description" name="Description" rules={[{ required: true }]}>
                         <TextArea
                           placeholder="Description"
                           allowClear
@@ -716,14 +746,10 @@ const RingSetting = () => {
                     </Styled.UploadFile>
                   </Form>
                   <Styled.ActionBtn>
-                    <Button
-                      type="primary"
-                      onClick={handleSave}
-                      className="MainBtn"
-                    >
+                    <SubmitButton form={form}>
                       <SaveOutlined />
                       Save
-                    </Button>
+                    </SubmitButton>
                     <Button
                       onClick={handleCancel}
                       style={{ marginLeft: "10px" }}

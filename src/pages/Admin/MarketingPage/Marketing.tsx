@@ -2,8 +2,18 @@ import * as Styled from "../MarketingPage/Marketing.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import type { TableProps } from "antd";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Select } from "antd";
+import type { TableProps, FormInstance } from "antd";
+import {
+  Form,
+  Input,
+  InputNumber,
+  Popconfirm,
+  Table,
+  Typography,
+  Button,
+  Space,
+  DatePicker,
+} from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 
 interface Item {
@@ -137,6 +147,38 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     </td>
   );
 };
+
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
+
+// DATE PICK
+
+const { RangePicker } = DatePicker;
 
 const Marketing = () => {
   const [form] = Form.useForm();
@@ -286,20 +328,19 @@ const Marketing = () => {
     }
   };
 
-
-// Add New
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  // Add New
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   const handleAddNew = () => {
     setIsAdding(true);
   };
 
-  const handleSave = () => {
-    // Logic để lưu dữ liệu mới
-    setIsAdding(false);
-  };
+  // const handleSave = () => {
+  //   // Logic để lưu dữ liệu mới
+  //   setIsAdding(false);
+  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -307,109 +348,112 @@ const Marketing = () => {
 
   return (
     <>
-    <Styled.GlobalStyle/>
+      <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
-         <Sidebar />
+        <Sidebar />
 
-         <Styled.AdminPage>
-             <Styled.TitlePage>
-               <h1>Marketing Management</h1>
-               <p>View and manage Promotion</p>
-             </Styled.TitlePage>
+        <Styled.AdminPage>
+          <Styled.TitlePage>
+            <h1>Marketing Management</h1>
+            <p>View and manage Promotion</p>
+          </Styled.TitlePage>
 
           <Styled.AdPageContent>
-          <Styled.AdPageContent_Head>
-          {!isAdding && (
+            <Styled.AdPageContent_Head>
+              {(!isAdding && (
                 <>
-              <Styled.SearchArea>
-                <Input
-                  className="searchInput"
-                  type="text"
-                  // size="large"
-                  placeholder="Search here..."
-                  value={searchText}
-                  onChange={(e) => setSearchText(e.target.value)}
-                  onKeyPress={handleKeyPress}
-                  prefix={<SearchOutlined className="searchIcon" />}
-                />
-              </Styled.SearchArea>
-              <Styled.AddButton>
-                  <button onClick={handleAddNew}>
-                    <PlusCircleOutlined />
-                    Add New Promotion
-                  </button>
-              </Styled.AddButton>
-              </>
+                  <Styled.SearchArea>
+                    <Input
+                      className="searchInput"
+                      type="text"
+                      // size="large"
+                      placeholder="Search here..."
+                      value={searchText}
+                      onChange={(e) => setSearchText(e.target.value)}
+                      onKeyPress={handleKeyPress}
+                      prefix={<SearchOutlined className="searchIcon" />}
+                    />
+                  </Styled.SearchArea>
+                  <Styled.AddButton>
+                    <button onClick={handleAddNew}>
+                      <PlusCircleOutlined />
+                      Add New Promotion
+                    </button>
+                  </Styled.AddButton>
+                </>
+              )) || (
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Promotion</p>
+                  </Styled.AddContent_Title>
+                </>
               )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-            {isAdding ? (
-                  <Form layout="vertical">
-                    <Form.Item label="Jewelry ID">
-                      <Input />
-                    </Form.Item>
-                    <Form.Item label="Jewelry Name">
-                      <Input />
-                    </Form.Item>
-                    <Form.Item label="Price">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Markup Percentage">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Quantity">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Exchange Rate">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Type">
-                      <Select
-                        defaultValue="ring"
-                        onChange={handleChange}
-                        options={[
-                          { value: "ring", label: "Ring" },
-                          { value: "necklace", label: "Necklace" },
-                          { value: "earring", label: "Earring" },
-                          { value: "bracelet", label: "Bracelet" },
-                          { value: "anklet", label: "Anklet" },
-                          { value: "bangle", label: "Bangle" },
-                          { value: "choker", label: "Choker" },
-                          { value: "pendant", label: "Pendant" },
-                        ]}
-                      />
-                    </Form.Item>
-                    <Form.Item>
-                      <Button type="primary" onClick={handleSave}>
-                        Save
-                      </Button>
-                      <Button
-                        onClick={handleCancel}
-                        style={{ marginLeft: "10px" }}
-                      >
-                        Cancel
-                      </Button>
-                    </Form.Item>
+              {isAdding ? (
+                <>
+                  <Form
+                    className="AdPageContent_Content"
+                    form={form}
+                    name="validateOnly"
+                    layout="vertical"
+                    autoComplete="off"
+                  >
+                    <Styled.FormItem>
+                      <Form.Item label="Promotion ID" name="promotionID" rules={[{ required: true }]}>
+                        <Input className="formItem" placeholder="D1234" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item label="% discount" name="sale" rules={[{ required: true }]}>
+                        <InputNumber className="formItem" placeholder="15" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item label="Start Time" name="startTime" rules={[{ required: true }]}>
+                        <RangePicker showTime />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item label="End Time" name="endTime" rules={[{ required: true }]}>
+                        <RangePicker showTime />
+                      </Form.Item>
+                    </Styled.FormItem>
                   </Form>
+
+                  <Styled.ActionBtn>
+                    <Form.Item>
+                      <Space>
+                        <SubmitButton form={form}>Save</SubmitButton>
+                        <Button
+                          onClick={handleCancel}
+                          style={{ marginLeft: "10px" }}
+                        >
+                          Cancel
+                        </Button>
+                      </Space>
+                    </Form.Item>
+                  </Styled.ActionBtn>
+                </>
               ) : (
-              <Form form={form} component={false}>
-                <Table
-                  components={{
-                    body: {
-                      cell: EditableCell,
-                    },
-                  }}
-                  bordered
-                  dataSource={data}
-                  columns={mergedColumns}
-                  rowClassName="editable-row"
-                  pagination={{
-                    onChange: cancel,
-                    pageSize: 6,
-                  }}
-                />
-              </Form>
+                <Form form={form} component={false}>
+                  <Table
+                    components={{
+                      body: {
+                        cell: EditableCell,
+                      },
+                    }}
+                    bordered
+                    dataSource={data}
+                    columns={mergedColumns}
+                    rowClassName="editable-row"
+                    pagination={{
+                      onChange: cancel,
+                      pageSize: 6,
+                    }}
+                  />
+                </Form>
               )}
             </Styled.AdminTable>
           </Styled.AdPageContent>

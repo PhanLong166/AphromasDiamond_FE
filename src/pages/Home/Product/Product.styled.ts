@@ -115,7 +115,8 @@ export const LeftFAQ = styled.div`
 
 export const List = styled.div`
   max-width: 1400px;
-  margin: 60px auto;
+  margin: 0px auto;
+  margin-top: 60px;
 
   .product-image {
     width: 100%;

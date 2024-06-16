@@ -36,7 +36,7 @@ export const AdPageContent = styled.div`
   border-radius: 16px;
   margin-top: 28px;
   padding-top: 25px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -165,4 +165,70 @@ export const AdminTable = styled.div`
   .confirmBtn:hover {
     cursor: pointer;
   }
+
+  
+  // --------------------------
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+      // font-size: 16px;
+      font-weight: 500;
+    }
+  }
+`;
+
+
+
+
+// ------------------------- ADD AREA
+
+export const AddContent_Title = styled.div`
+width: 100%;
+  background-color: #ffffff;
+  color: ${theme.color.primary};
+  padding: 0px 0px 0px 0px;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+export const FormItem = styled.div`
+  width: 100%;
+  height: 57px;
+  margin-bottom: 30px;
+  
+
+  .formItem {
+    width: 100%;
+  }
+`;
+
+export const FormDescript = styled.div`
+  width: 100%;
+  textarea {
+    height: 149px;
+  }
+`;
+
+export const UploadFile = styled.div`
+width: 48%;
+`;
+
+
+export const ActionBtn = styled.div`
+  margin-top: 25px;
+
+  button {
+    border: 1px solid ${theme.color.primary};
+  }
+
+  .ant-btn-primary {
+    background-color: ${theme.color.primary};
+    color: #92929d;
+    border: 0px;
+  }
+
 `;

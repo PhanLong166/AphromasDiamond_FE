@@ -36,7 +36,7 @@ export const AdPageContent = styled.div`
   border-radius: 16px;
   margin-top: 28px;
   padding-top: 25px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -214,8 +214,9 @@ export const ActionBtn = styled.div`
     border: 1px solid ${theme.color.primary};
   }
 
-  .MainBtn {
+  .ant-btn-primary {
     background-color: ${theme.color.primary};
+    color: #92929d;
     border: 0px;
   }
 
