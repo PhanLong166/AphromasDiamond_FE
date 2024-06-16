@@ -12,9 +12,9 @@ const Toolbar = ({
             <Styled.ToolbarAvatarWrapper>
                 <Dropdown menu={{ items: menu}} arrow placement="bottomRight" trigger={['click']}>
                     {avatar ? (
-                        <Avatar size={20} src={avatar} alt="avatar"/>
+                        <Avatar size={30} src={avatar} alt="avatar"/>
                     ) : (
-                        <Avatar size={20} icon={<UserOutlined/>} />
+                        <Avatar size={30} icon={<UserOutlined/>} />
                     )}
                 </Dropdown>
             </Styled.ToolbarAvatarWrapper>

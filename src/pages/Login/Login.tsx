@@ -25,7 +25,6 @@ const Login = () => {
             setIsSubmitting(true);
 
             const { data } = await login(values);
-            console.log(data);
 
             if (!data.data) throw data;
             else {

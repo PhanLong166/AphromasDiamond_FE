@@ -26,17 +26,9 @@ import useAuth from "@/hooks/useAuth"
 import { Role } from "@/utils/enum"
 import { Navigate } from "react-router-dom"
 
-
-
-
-// import Manager from "@/pages/Admin/"
-// import Theme from "@/pages/Admin/"
-
-
 const AdminRouter = () => {
     const { role } = useAuth();
-    console.log(role);
-    return role?.includes(Role.ADMIN) ? <AdminLayout /> : <Navigate to='/' />
+    return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
 }
 
 const AdminRoutes = {

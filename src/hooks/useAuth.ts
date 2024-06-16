@@ -1,5 +1,4 @@
 import cookieUtils from "@/services/cookieUtils";
-import { Role } from "@/utils/enum";
 import { useCallback, useEffect, useState } from "react";
 
 // type PayloadType = {
@@ -28,7 +27,7 @@ const getRole = () => {
     const decoded = cookieUtils.decodeJwt() as JwtType;
     if (!decoded || !decoded.Role) return null;
 
-    return Role[decoded.Role];
+    return decoded.Role;
 }
 
 const useAuth = () => {
@@ -62,6 +61,7 @@ const useAuth = () => {
             setLoading(true);
 
             setRole(getRole());
+            console.log(getRole());
 
             // const getInfo = async () => {
             //     const { data } = await getInfoCurrentUser();
