@@ -534,7 +534,6 @@ const RingSetting = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -548,7 +547,6 @@ const RingSetting = () => {
   };
 
   // const handleSave = () => {
-  //   // Logic để lưu dữ liệu mới
   //   setIsAdding(false);
   // };
 

@@ -29,6 +29,7 @@ const Sidebar = () => {
       case "/admin/order/delivering":
       case "/admin/order/completed":
       case "/admin/order/cancelled":
+      case "/admin/order/detail/:id":
         setActive("Order");
         break;
       case "/admin/product":

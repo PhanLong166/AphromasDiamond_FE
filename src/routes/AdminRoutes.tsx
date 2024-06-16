@@ -7,6 +7,8 @@ import ConfirmedOrder from "@/pages/Admin/OrderPage/Confirmed"
 import DeliveringOrder from "@/pages/Admin/OrderPage/Delivering"
 import CompletedOrder from "@/pages/Admin/OrderPage/Completed"
 import CancelledOrder from "@/pages/Admin/OrderPage/Cancelled"
+import OrderDetail from "@/pages/Admin/OrderPage/OrderDetail"
+
 import Product from "@/pages/Admin/ProductPage/Product"
 import AddProduct from "@/pages/Admin/ProductPage/AddProduct"
 import AddJewelry from "@/pages/Admin/ProductPage/AddJewelry"
@@ -16,12 +18,14 @@ import RingProduct from "@/pages/Admin/ProductPage/Ring"
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType"
 import MaterialProduct from "@/pages/Admin/ProductPage/Material"
 import Marketing from "@/pages/Admin/MarketingPage/Marketing"
+
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
 import Feedback from "@/pages/Admin/ClientCaringPage/Feedback"
 import Customer from "@/pages/Admin/CustomerPage/Customer"
 import SalesStaff from "@/pages/Admin/StaffPage/SalesStaff"
 import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff"
 import Manager from "@/pages/Admin/ManagerPage/Manager"
+
 
 
 
@@ -46,6 +50,7 @@ const AdminRoutes = {
         {path: config.routes.admin.deliveringOrder, element: <DeliveringOrder/>},
         {path: config.routes.admin.completedOrder, element: <CompletedOrder/>},
         {path: config.routes.admin.cancelledOrder, element: <CancelledOrder/>},
+        {path: config.routes.admin.orderDetail, element: <OrderDetail/>},
 
         {path: config.routes.admin.product, element: <Product/>},
         {path: config.routes.admin.addProduct, element: <AddProduct/>},
