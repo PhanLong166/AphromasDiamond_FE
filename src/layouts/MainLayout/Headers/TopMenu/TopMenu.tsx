@@ -1,9 +1,36 @@
-import { MailFilled, PhoneFilled, ShoppingCartOutlined, SmileOutlined } from '@ant-design/icons';
+import { MailFilled, PhoneFilled, ShoppingCartOutlined } from '@ant-design/icons';
 import * as Styled from './TopMenu.styled';
 import Search from 'antd/es/input/Search';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import config from '@/config';
+import { HeaderProps } from './TopMenu.type';
+import Toolbar from '@/components/Toolbar';
+import { MenuProps } from 'antd';
+import cookieUtils from '@/services/cookieUtils';
 
-const TopMenu = () => {
+const items: MenuProps['items'] = [
+    {
+        label: <Link to={config.routes.customer.account}>Profile</Link>,
+        key: config.routes.customer.account
+    },
+    {
+        type: 'divider'
+    },
+    {
+        label: (
+            <Link to={config.routes.public.login} onClick={() => cookieUtils.clear()}>
+                Logout
+            </Link>
+        ),
+        key: config.routes.public.login
+    }
+];
+
+const TopMenu = ({
+    role
+}: HeaderProps) => {
+    const navigate = useNavigate();
+    
     return (
         <>
             <Styled.TopMenuContainer>
@@ -23,12 +50,20 @@ const TopMenu = () => {
                             placeholder='Search'
                             allowClear
                         />
-                        <Link to='/cart'>
+                        <Link to={config.routes.customer.cart}>
                             <ShoppingCartOutlined />
                         </Link>
-                        <Link to="/login">
-                            <SmileOutlined />
-                        </Link>
+                        {role ? (
+                            <Toolbar
+                                menu={items}
+                            />
+                        ) : (
+                            <Styled.TopMenuButton
+                                onClick={() => navigate(config.routes.public.login)}
+                            >
+                                Login
+                            </Styled.TopMenuButton>
+                        )}
                     </Styled.Feature>
                 </Styled.TopMenuFlexbox>
             </Styled.TopMenuContainer>

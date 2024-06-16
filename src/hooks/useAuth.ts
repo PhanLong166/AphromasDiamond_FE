@@ -1,18 +1,19 @@
-import { getInfoCurrentUser } from "@/services/accountApi";
 import cookieUtils from "@/services/cookieUtils";
-import { Role } from "@/utils/enum";
 import { useCallback, useEffect, useState } from "react";
 
-type PayloadType = {
-    id: number;
-    role: string;
-    fullname: string;
-    email: string;
-}
+// type PayloadType = {
+//     id: number;
+//     role: string;
+//     fullname: string;
+//     email: string;
+// }
 
 type JwtType = {
+    AccountID: number;
+    Email: string;
+    Role: string;
     exp: number;
-    payload: PayloadType;
+    iat: number;
 }
 
 export type UserType = {
@@ -24,16 +25,15 @@ export type UserType = {
 
 const getRole = () => {
     const decoded = cookieUtils.decodeJwt() as JwtType;
+    if (!decoded || !decoded.Role) return null;
 
-    if (!decoded || !decoded.payload || !decoded.payload.role) return null;
-
-    return Role[decoded.payload.role];
+    return decoded.Role;
 }
 
 const useAuth = () => {
     const [role, setRole] = useState<string | null>(getRole());
     const [loading, setLoading] = useState(false);
-    const [user, setUser] = useState<UserType>();
+    // const [user, setUser] = useState<UserType>();
 
     const token = cookieUtils.getToken();
 
@@ -61,13 +61,14 @@ const useAuth = () => {
             setLoading(true);
 
             setRole(getRole());
+            console.log(getRole());
 
-            const getInfo = async () => {
-                const { data } = await getInfoCurrentUser();
-                setUser(data);
-            };
+            // const getInfo = async () => {
+            //     const { data } = await getInfoCurrentUser();
+            //     setUser(data);
+            // };
 
-            getInfo();
+            // getInfo();
         } finally {
             setLoading(false);
         }
@@ -77,7 +78,7 @@ const useAuth = () => {
         return () => clearInterval(intervalId);
     }, [checkTokenExpiration]);
 
-    return {loading, role, user};
+    return {loading, role};
 };
 
 export default useAuth;

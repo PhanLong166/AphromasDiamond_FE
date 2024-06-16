@@ -134,7 +134,7 @@ const FooterTop = () => {
                                 <Styled.TitleCategory>{items.title}</Styled.TitleCategory>
                                 <Styled.FooterElement>
                                     {items.subCategory.map((subItems) => (
-                                        <Styled.NavElement>
+                                        <Styled.NavElement key={subItems.id}>
                                             {subItems.icon} {subItems.subTitle}
                                             </Styled.NavElement>
                                         

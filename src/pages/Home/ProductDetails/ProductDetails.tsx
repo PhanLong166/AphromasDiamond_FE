@@ -1,7 +1,13 @@
 import { useState } from "react";
 // import { Pagination } from 'antd';
 import { Breadcrumb } from "antd";
+import { CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
+import { Card, Col, Row, Typography, Pagination, Carousel } from "antd";
+import { HeartOutlined, HeartFilled } from "@ant-design/icons";
+import { theme } from "../../../themes";
+const { Title, Text } = Typography;
+import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
 import {
   Body,
   Section,
@@ -18,12 +24,12 @@ import {
   ProductDetail,
   Entry,
   Heading,
-  Title,
+  // Title,
   ProductRating,
   ProductMetal,
   ProductInfo,
   RingSizeContainer,
-  RingSizeSelect,
+  RingSize,
   RingSizeHelp,
   ProductPrice,
   ButtonContainer,
@@ -42,27 +48,31 @@ import {
   ListBlock,
   Review,
   ProductSection,
-  ListProduct,
-  ProductItem,
-  ProductImage,
-  ItemName,
-  Price,
   HeadingTitle,
   ButtonAdd,
+  Space,
+  List,
+  ProductSectionViewed,
   // PageLink
 } from "./ProductDetails.styled";
-import {
-  StarFilled,
-} from "@ant-design/icons";
+import { StarFilled } from "@ant-design/icons";
 
 const CustomBreadcrumb = styled(Breadcrumb)`
-  margin-left: 175px;
+  max-width: 1320px;
+  margin: 0 auto;
   padding-top: 20px;
+`;
+
+const CustomCarousel = styled(Carousel)`
+  .slick-dots li button {
+    background-color: ${theme.color.primary} !important;
+    bottom: -30px;
+  }
 `;
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState(
-    "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Fdetails1.png?alt=media&token=c27d4467-63b4-4eec-9d09-6cb865e6d7d9"
+    "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a"
   );
   const [selectedThumb, setSelectedThumb] = useState(0);
 
@@ -76,12 +86,135 @@ const ProductDetails = () => {
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
   };
-  // const [selectedSize, setSelectedSize] = useState(null);
+  const sizes = [8, 10, 12, 14, 16, 18];
 
-  // const handleSelect = (size) => {
-  //   setSelectedSize(size);
-  // };
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
+  const handleClick = (size: number) => {
+    setSelectedSize(size);
+  };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [inscription, setInscription] = useState<string>("");
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleSave = (text: string) => {
+    setInscription(text);
+    setIsModalVisible(false);
+  };
+
+  const handleDelete = () => {
+    setInscription("");
+  };
+
+  const handleClose = () => {
+    setIsModalVisible(false);
+  };
+
+  interface Product {
+    id: number;
+    name: string;
+    price: number;
+    salePrice?: number;
+    image: string;
+    hoverImage: string;
+  }
+
+  const products: Product[] = [
+    {
+      id: 1,
+      name: "SOFIA TWO FINGER RING",
+      price: 100,
+      salePrice: 98,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_2.webp?alt=media&token=e043514e-f66c-4397-987e-27a44ea87578",
+    },
+    {
+      id: 2,
+      name: "RAIN SOLITARY RING",
+      price: 59,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_1.webp?alt=media&token=8d8f6760-e2ac-45eb-8c6b-880ff64e95bc",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_2.webp?alt=media&token=bc0adf15-7ad9-4507-8d17-e8a27d624417",
+    },
+
+    {
+      id: 3,
+      name: "GALA STAMP RING",
+      price: 100,
+      salePrice: 90,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_1.webp?alt=media&token=7dd02d2a-24f9-4b31-a809-bccfa25cefde",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_2.webp?alt=media&token=330beb5e-ee10-429c-8b8b-1df54073a294",
+    },
+    {
+      id: 4,
+      name: "THE ROCKS RING SET",
+      price: 185,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_1.webp?alt=media&token=bdc15cce-29cd-401c-bf79-105b6bc66592",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_2.webp?alt=media&token=90ee67f1-59c9-42b4-b851-ddc2104a96a4",
+    },
+  ];
+
+  const vieweds: Product[] = [
+    {
+      id: 1,
+      name: "SOFIA TWO FINGER RING",
+      price: 100,
+      salePrice: 98,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_2.webp?alt=media&token=e043514e-f66c-4397-987e-27a44ea87578",
+    },
+    {
+      id: 2,
+      name: "RAIN SOLITARY RING",
+      price: 59,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_1.webp?alt=media&token=8d8f6760-e2ac-45eb-8c6b-880ff64e95bc",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_2.webp?alt=media&token=bc0adf15-7ad9-4507-8d17-e8a27d624417",
+    },
+
+    {
+      id: 3,
+      name: "GALA STAMP RING",
+      price: 100,
+      salePrice: 90,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_1.webp?alt=media&token=7dd02d2a-24f9-4b31-a809-bccfa25cefde",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_2.webp?alt=media&token=330beb5e-ee10-429c-8b8b-1df54073a294",
+    },
+    {
+      id: 4,
+      name: "THE ROCKS RING SET",
+      price: 185,
+      image:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_1.webp?alt=media&token=bdc15cce-29cd-401c-bf79-105b6bc66592",
+      hoverImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_2.webp?alt=media&token=90ee67f1-59c9-42b4-b851-ddc2104a96a4",
+    },
+  ];
+
+  const [wishList, setWishList] = useState<number[]>([]);
+
+  const toggleWishList = (productId: number) => {
+    setWishList((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
   return (
     <Body>
       <div>
@@ -115,10 +248,10 @@ const ProductDetails = () => {
                   <OuterThumb>
                     <ThumbnailImage>
                       {[
-                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Fdetails1.png?alt=media&token=c27d4467-63b4-4eec-9d09-6cb865e6d7d9",
-                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Fdetails2.png?alt=media&token=b8c3861d-0fa9-45b5-8c8c-9ceeaaa88b23",
-                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Fdetails3.png?alt=media&token=e11a918d-ff23-4bc3-9516-055451a556af",
-                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Fdetails4.png?alt=media&token=6f35fa24-ea42-4fba-9840-8e693322788c",
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a",
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_4.webp?alt=media&token=c964ce76-26c7-404d-8fc7-e173ef7a79c3",
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_5.webp?alt=media&token=6428b184-9347-499e-bfd8-2d7f9666cdde",
+                        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_3.webp?alt=media&token=a776dc16-0595-453d-8d59-75692d3527ce",
                       ].map((src, index) => (
                         <Item
                           key={index}
@@ -141,7 +274,7 @@ const ProductDetails = () => {
             <ProductDetail>
               <Entry>
                 <Heading>
-                  <Title>Three-Stone Trapezoid Sidestone Diamond Ring</Title>
+                  <Title className="main-title">SOFIA TWO FINGER RING</Title>
                   <ProductRating>
                     <StarFilled />
                     <StarFilled />
@@ -160,10 +293,10 @@ const ProductDetails = () => {
                 <ProductMetal>
                   <span className="fill">Metal Type:</span>
                   <div className="wrap">
-                    <button className="metal-button white selected">
+                    <button className="metal-button white ">
                       <span>14k</span>
                     </button>
-                    <button className="metal-button yellow">
+                    <button className="metal-button yellow selected">
                       <span>14k</span>
                     </button>
                     <button className="metal-button rose">
@@ -174,26 +307,57 @@ const ProductDetails = () => {
                     </button>
                   </div>
                 </ProductMetal>
-
-                <RingSizeContainer>
-                  <RingSizeSelect name="ring-size" id="ring-size">
-                    <option value="" disabled selected>
-                      Ring Size
-                    </option>
-                    {[...Array(13).keys()].map((_, i) => (
-                      <option key={i + 8} value={i + 8}>
-                        {i + 8}
-                      </option>
+                <div>
+                  <RingSizeContainer>
+                    <RingSize>Select size</RingSize>
+                    <RingSizeHelp href="#">Ring size help</RingSizeHelp>
+                  </RingSizeContainer>
+                  <div className="button-container">
+                    {sizes.map((size) => (
+                      <button
+                        key={size}
+                        className={`size-button ${
+                          selectedSize === size ? "selected" : ""
+                        }`}
+                        onClick={() => handleClick(size)}
+                      >
+                        {size}
+                      </button>
                     ))}
-                  </RingSizeSelect>
-                  <RingSizeHelp href="#">Ring size help</RingSizeHelp>
-                </RingSizeContainer>
+                  </div>
+                </div>
+                <div className="inscription-container">
+                  {inscription ? (
+                    <Space>
+                      <span className="inscription">Your inscription</span>:{" "}
+                      <span>{inscription}</span>
+                      <CloseOutlined
+                        style={{
+                          fontSize: "12px",
+                          marginLeft: "3px",
+                          cursor: "pointer",
+                          backgroundColor: "#eee",
+                          borderRadius: "50%",
+                          color: "#DB7F67",
+                        }}
+                        onClick={handleDelete}
+                      />
+                    </Space>
+                  ) : (
+                    <Button onClick={showModal}>+ Add free inscription</Button>
+                  )}
+                  <InscriptionModal
+                    visible={isModalVisible}
+                    onClose={handleClose}
+                    onSave={handleSave}
+                  />
+                </div>
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>$37.50</CurrentPrice>
+                      <CurrentPrice>$75,0</CurrentPrice>
                       <div className="wrap">
-                        <BeforePrice>$50.00</BeforePrice>
+                        <BeforePrice>$100,00</BeforePrice>
                         <Discount>-25%</Discount>
                       </div>
                     </div>
@@ -201,20 +365,6 @@ const ProductDetails = () => {
                 </ProductPrice>
               </Entry>
               <div className="outlet">
-                {/* <SelectButton>
-                <div>
-                  <SelectionTitle>Select Voucher</SelectionTitle>
-                  <SelectName>Anniversary Gifts 30% </SelectName>
-                </div>
-                <ArrowIcon><RightOutlined/></ArrowIcon>
-              </SelectButton>
-              <SelectButton>
-                <div>
-                  <SelectionTitle>Select Payment Method</SelectionTitle>
-                  <SelectName>Payment via MoMo e-wallet</SelectName>
-                </div>
-                <ArrowIcon><RightOutlined/></ArrowIcon>
-              </SelectButton> */}
                 <ButtonContainer>
                   <ButtonAdd className="add">ADD TO CART</ButtonAdd>
                   <Button className="checkout button_slide slide_right">
@@ -227,9 +377,10 @@ const ProductDetails = () => {
                       {/* <GiftFilled/> */}
                       <span>Free shipping & return</span>
                     </ShippingItem>
+
                     <ShippingItem>
                       {/* <HomeFilled/> */}
-                      <span>Estimate delivery: </span>
+                      <span>Estimate delivery: &#160;</span>
                       <span className="delivery"> 01 - 07 Jan, 2024</span>
                     </ShippingItem>
                   </ShippingList>
@@ -329,20 +480,6 @@ const ProductDetails = () => {
                   <span>3 reviews</span>
                 </div>
                 <button className="view-all-button">All</button>
-                {/* <Pagination
-                    current={current}
-                    onChange={onChange}
-                    total={50}
-                    itemRender={(page, type, originalElement) => {
-                    if (type === 'page') {
-                    if (page === 1) {
-                       return originalElement;
-                    } else {
-                        return <PageLink href={`/page-${page}`}>{page}</PageLink>;
-                   }
-                    }
-                  return originalElement;
-                   }}/> */}
               </div>
               <div className="body-review">
                 <div className="profile">
@@ -497,77 +634,133 @@ const ProductDetails = () => {
         </div>
       </Contain>
       <ProductSection>
-        <HeadingTitle>
+        <Title >
           <h2>SAME BRAND</h2>
-        </HeadingTitle>
-        <ListProduct>
-          {[
-            {
-              name: "Petite Pavé Leaf Halo Diamond Engagement Ring",
-              price: "$13.99",
-              imgSrc:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct1.png?alt=media&token=8c409126-be7d-4d54-8475-3e3539ad9743",
-            },
-            {
-              name: "Shank Double Pavé Diamond Engagement Ring",
-              price: "$16.99",
-              imgSrc:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct2.png?alt=media&token=fa0d4535-33eb-4fcc-8a67-5ed310fd3f7f",
-            },
-            {
-              name: "Shank Triple Pavé Diamond Engagement Ring",
-              price: "$19.99",
-              imgSrc:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct3.png?alt=media&token=29b58243-7981-4e8d-a6b3-2c964de6ab7d",
-            },
-          ].map((product) => (
-            <ProductItem key={product.name}>
-              <ProductImage src={product.imgSrc} alt={product.name} />
-              <ItemName>{product.name}</ItemName>
-              <Price>{product.price}</Price>
-              {/* <AddCartButton>
-                      <AddLink href="#">Add To Cart</AddLink>
-                      </AddCartButton> */}
-            </ProductItem>
-          ))}
-        </ListProduct>
+        </Title>
+        <List>
+          <Row gutter={[16, 16]}>
+            {products.map((product) => (
+              <Col key={product.id} span={6}>
+                <Card
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
+                      <img
+                        style={{ borderRadius: "0" }}
+                        src={product.image}
+                        alt={product.name}
+                        className="product-image"
+                        onMouseOver={(e) =>
+                          (e.currentTarget.src = product.hoverImage)
+                        }
+                        onMouseOut={(e) =>
+                          (e.currentTarget.src = product.image)
+                        }
+                      />
+                      {product.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      {product.name}
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.salePrice ? product.salePrice : product.price}
+                      </Text>
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.price}
+                        </Text>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </List>
       </ProductSection>
-      <ProductSection>
-        <HeadingTitle>
+      <ProductSectionViewed>
+        <Title>
           <h2>RECENTLY VIEWED</h2>
-        </HeadingTitle>
-        <ListProduct>
-          {[
-            {
-              name: "Shank Double Lave Diamond Engagement Ring",
-              price: "$17.00",
-              imgSrc:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct7.png?alt=media&token=6da53894-3b1f-47f6-8c95-e073e76c0dc7",
-            },
-            {
-              name: "Stone Trapezoid Sidestone Diamond Ring",
-              price: "$23.00",
-              imgSrc:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct8.png?alt=media&token=50ddd742-2448-4e09-9294-d27c6d986543",
-            },
-            {
-              name: "Six-Prong Hand-Engraved Diamond Engagement Ring",
-              price: "$13.00",
-              imgSrc:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Product%2Fproduct9.png?alt=media&token=55c3fb6a-569b-41cf-b994-b6d657424695",
-            },
-          ].map((product) => (
-            <ProductItem key={product.name}>
-              <ProductImage src={product.imgSrc} alt={product.name} />
-              <ItemName>{product.name}</ItemName>
-              <Price>{product.price}</Price>
-              {/* <AddCartButton>
-                      <AddLink href="#">Add To Cart</AddLink>
-                      </AddCartButton> */}
-            </ProductItem>
-          ))}
-        </ListProduct>
-      </ProductSection>
+        </Title>
+        <List>
+          <Row gutter={[16, 16]}>
+            {vieweds.map((product) => (
+              <Col key={product.id} span={6}>
+                <Card
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
+                      <img
+                        style={{ borderRadius: "0" }}
+                        src={product.image}
+                        alt={product.name}
+                        className="product-image"
+                        onMouseOver={(e) =>
+                          (e.currentTarget.src = product.hoverImage)
+                        }
+                        onMouseOut={(e) =>
+                          (e.currentTarget.src = product.image)
+                        }
+                      />
+                      {product.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      {product.name}
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.salePrice ? product.salePrice : product.price}
+                      </Text>
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.price}
+                        </Text>
+                      )}
+                    </div>
+                  </div>
+                </Card>
+              </Col>
+            ))}
+          </Row>
+        </List>
+      </ProductSectionViewed>
     </Body>
   );
 };

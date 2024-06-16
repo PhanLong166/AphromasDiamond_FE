@@ -14,6 +14,8 @@ import {
   SmileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import config from "@/config";
+import cookieUtils from "@/services/cookieUtils";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -224,7 +226,7 @@ const Sidebar = () => {
               <p className="accOut_role">Admin</p>
             </Styled.AccInfor>
           </Styled.Account>
-          <Link to="/login">
+          <Link to={config.routes.public.login} onClick={() => cookieUtils.clear()}>
             <LogoutOutlined className="outLogo"/>
           </Link>
         </Styled.AccOut>
