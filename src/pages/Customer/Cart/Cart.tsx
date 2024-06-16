@@ -2,23 +2,21 @@
 import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Flex } from 'antd';
-
+import Dropdown from './Dropdown';
 
 const Cart = () => {
   return (
     <>
-
-
-
+    <main>
+    <Header>Shopping Cart</Header>
+    
       <Container>
-
         <InnerContainer>
-          <Header>Shopping Cart</Header>
+          
           {/* <TitlePage>Cart</TitlePage> */}
           <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span><Link to={"/all"}>Continue Shopping</Link></ContinueShopping>
           <CountCart>MY CART 4 ITEMS</CountCart>
           <MainSection>
-
             <Column>
               <ItemContainer>
                 <ActionText>
@@ -29,7 +27,6 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-                    {/* <ItemType>Diamond (Loose)</ItemType> */}
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/77e18e78db1048a2ef9289b66a8b623840e01a792002a180a5674237669d080a?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
@@ -103,7 +100,7 @@ const Cart = () => {
                       1.52 Carat F-VS1 Princess Cut Diamond <br />
                       SKU&nbsp;18633320
                     </ProductDescription>
-                    <AddOptions>
+                    {/* <AddOptions>
                       <AddOp>
                         <label>Ring size</label>
                         <select id="ringSize">
@@ -126,7 +123,8 @@ const Cart = () => {
                           <option value="12">12</option>
                         </select>
                       </AddOp>
-                    </AddOptions>
+                    </AddOptions> */}
+                   <Dropdown/>
                   </ItemDescription>
                   <RingPrice>$8,000</RingPrice>
                 </ItemDetails>
@@ -148,7 +146,7 @@ const Cart = () => {
                       1.52 Carat F-VS1 Princess Cut Diamond <br />
                       SKU&nbsp;18633320
                     </ProductDescription>
-                    <AddOptions>
+                    {/* <AddOptions>
                       <AddOp>
                         <label>Ring size</label>
                         <select id="ringSize">
@@ -171,7 +169,8 @@ const Cart = () => {
                           <option value="12">12</option>
                         </select>
                       </AddOp>
-                    </AddOptions>
+                    </AddOptions> */}
+                    <Dropdown/> 
                   </ItemDescription>
                   <RingPrice>$8,000</RingPrice>
                 </ItemDetails>
@@ -214,7 +213,7 @@ const Cart = () => {
           </ShippingSection>
         </InnerContainer>
       </Container>
-
+      </main>
     </>
   );
 };
@@ -222,14 +221,17 @@ const Cart = () => {
 export default Cart;
 
 const Header = styled.header`
-  background: #fff;
-  width: 100%;
-  color: #818594;
-  font: 14px/150% 'Crimson Text', sans-serif;
-  border-bottom: 1px solid #e4e4e4;
-  border-top: 1px solid #e4e4e4;
-  padding: 4px 0;
-   margin-bottom: 11rem;
+   align-items: center;
+    background: #fff;
+    width: 1400px;
+    color: #818594;
+    font: 14px / 150% 'Crimson Text', sans-serif;
+    border-bottom: 1px solid #e4e4e4;
+    border-top: 1px solid #e4e4e4;
+    padding: 10px;
+    display: flex;
+    margin: 0 35px 0 35px;
+    margin-bottom: 4rem;
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
     margin-top: 40px;
@@ -333,6 +335,8 @@ border: 1px solid rgb(232 226 226);
 `;
 
 const ActionText = styled.p`
+ margin-top: 10px;
+ margin-right: 10px;
  letter-spacing: 1.95px;
  align-self: flex-end;
  font: 300 13px/150% Poppins, sans-serif;
@@ -431,10 +435,6 @@ const ItemPrice = styled.p`
  @media (max-width: 991px) {
    margin-top: 40px;
  }
-`;
-const AddOp = styled.p`
- font: 15px/150% Poppins, sans-serif;
-//  padding-top: 34px;
 `;
 
 const SummaryContainer = styled.div`

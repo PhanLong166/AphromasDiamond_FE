@@ -22,7 +22,8 @@ const routes = {
         orderSuccess: '/confirm',
         history: '/history',
         voucher: '/voucher',
-        notification: '/noti'
+        notification: '/noti',
+        orderDetails:'/order-Details'
     },
     admin: {
         dashboard: '/admin',

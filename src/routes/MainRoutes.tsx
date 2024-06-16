@@ -21,7 +21,7 @@ import About from "@/pages/Home/AboutUs/AboutUs";
 // import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
 import RingGuide from "@/pages/Home/RingGuilde/RingGuide";
-
+import OrderDetails from "@/pages/Customer/OrderDetails/OrderDetails";
 
 
 
@@ -56,7 +56,8 @@ const customerRoutes = {
         { path: config.routes.customer.orderList, element: <OrderList /> },
         { path: config.routes.customer.history, element: <History /> },
         { path:config.routes.customer.voucher, element:<Voucher />},
-        {path: config.routes.customer.notification, element: <NotiPage />}
+        {path: config.routes.customer.notification, element: <NotiPage />},
+        {path: config.routes.customer.orderDetails, element: <OrderDetails />}
     ]
 }
 
