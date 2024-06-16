@@ -224,7 +224,7 @@ const Sidebar = () => {
             </Styled.AccInfor>
           </Styled.Account>
           <Link to="/login">
-            <LogoutOutlined />
+            <LogoutOutlined className="outLogo"/>
           </Link>
         </Styled.AccOut>
       </Styled.SidebarContainer>
