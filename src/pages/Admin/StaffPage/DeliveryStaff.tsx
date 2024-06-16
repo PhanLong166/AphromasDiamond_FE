@@ -1,11 +1,12 @@
 import * as Styled from "../StaffPage/DeliveryStaff.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import type { TableColumnsType } from "antd";
+import type { TableColumnsType, FormInstance } from "antd";
 import {
   SearchOutlined,
   PlusCircleOutlined,
   EyeOutlined,
+  SaveOutlined
 } from "@ant-design/icons";
 import {
   Space,
@@ -15,7 +16,7 @@ import {
   Form,
   Table,
   Button,
-  Select,
+  Radio,
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
@@ -132,6 +133,36 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
+
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
+
+
 const DeliveryStaff = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
@@ -202,18 +233,15 @@ const DeliveryStaff = () => {
   };
 
   // Add New
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
 
   const handleAddNew = () => {
     setIsAdding(true);
   };
 
-  const handleSave = () => {
-    // Logic để lưu dữ liệu mới
-    setIsAdding(false);
-  };
+  // const handleSave = () => {
+  //   // Logic để lưu dữ liệu mới
+  //   setIsAdding(false);
+  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -256,53 +284,81 @@ const DeliveryStaff = () => {
 
             <Styled.AdminTable>
             {isAdding ? (
-                  <Form layout="vertical">
-                    <Form.Item label="Jewelry ID">
+                  <>
+                  <Form
+                    className="AdPageContent_Content"
+                    form={form}
+                    name="register"
+                    layout="vertical"
+                    autoComplete="off"
+                    // onFinish={onFinish}
+                    // scrollToFirstError
+                  >
+                    
+                    <Styled.FormItem>
+                      <Form.Item name="radio-group" label="Staff Type">
+                        <Radio.Group>
+                          <Radio value="sales">Sales Staff</Radio>
+                          <Radio value="delivery">Delivery Staff</Radio>
+                        </Radio.Group>
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item name="Staff ID" label="Staff ID" rules={[{ required: true }]}>
+                        <Input placeholder="D1234" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item name="Staff Name" label="Staff Name" rules={[{ required: true }]}>
+                        <Input placeholder="trang.staff" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                    <Form.Item
+                      name="email"
+                      label="E-mail"
+                      rules={[
+                        {
+                          type: 'email',
+                          message: 'The input is not valid E-mail!',
+                        },
+                        {
+                          required: true,
+                          message: 'Please input your E-mail!',
+                        },
+                      ]}
+                    >
                       <Input />
                     </Form.Item>
-                    <Form.Item label="Jewelry Name">
-                      <Input />
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                    <Form.Item
+                      label="Password"
+                      name="password"
+                      rules={[{ required: true, message: 'Please input your password!' }]}
+                    >
+                      <Input.Password />
                     </Form.Item>
-                    <Form.Item label="Price">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Markup Percentage">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Quantity">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Exchange Rate">
-                      <InputNumber />
-                    </Form.Item>
-                    <Form.Item label="Type">
-                      <Select
-                        defaultValue="ring"
-                        onChange={handleChange}
-                        options={[
-                          { value: "ring", label: "Ring" },
-                          { value: "necklace", label: "Necklace" },
-                          { value: "earring", label: "Earring" },
-                          { value: "bracelet", label: "Bracelet" },
-                          { value: "anklet", label: "Anklet" },
-                          { value: "bangle", label: "Bangle" },
-                          { value: "choker", label: "Choker" },
-                          { value: "pendant", label: "Pendant" },
-                        ]}
-                      />
-                    </Form.Item>
-                    <Form.Item>
-                      <Button type="primary" onClick={handleSave}>
-                        Save
-                      </Button>
-                      <Button
-                        onClick={handleCancel}
-                        style={{ marginLeft: "10px" }}
-                      >
-                        Cancel
-                      </Button>
-                    </Form.Item>
+                    </Styled.FormItem>
                   </Form>
+
+                  <Styled.ActionBtn>
+                    <Form.Item>
+                      <Space>
+                        <SubmitButton form={form}>
+                          <SaveOutlined />
+                          Save
+                          </SubmitButton>
+                        <Button
+                          onClick={handleCancel}
+                          style={{ marginLeft: "10px" }}
+                        >
+                          Cancel
+                        </Button>
+                      </Space>
+                    </Form.Item>
+                  </Styled.ActionBtn>
+                </>
               ) : (
               <Form form={form} component={false}>
                 <Table

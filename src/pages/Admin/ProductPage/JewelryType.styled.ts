@@ -203,7 +203,7 @@ export const ActionBtn = styled.div`
     border: 1px solid ${theme.color.primary};
   }
 
-  .MainBtn {
+  .ant-btn-primary {
     background-color: ${theme.color.primary};
     border: 0px;
   }

@@ -2,7 +2,7 @@ import * as Styled from "../ProductPage/Material.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
-import type { TableProps } from "antd";
+import type { FormInstance, TableProps } from "antd";
 import {
   Form,
   Input,
@@ -130,6 +130,36 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     </td>
   );
 };
+
+
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [form, values]);
+
+  return (
+    <Button type="primary" htmlType="submit" disabled={!submittable}>
+      {children}
+    </Button>
+  );
+};
+
 
 const Material = () => {
   const [form] = Form.useForm();
@@ -289,9 +319,9 @@ const Material = () => {
     setIsAdding(true);
   };
 
-  const handleSave = () => {
-    setIsAdding(false);
-  };
+  // const handleSave = () => {
+  //   setIsAdding(false);
+  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -343,30 +373,29 @@ const Material = () => {
                 <>
                 <Form layout="vertical" className="AdPageContent_Content">
                   <Styled.FormItem>
-                    <Form.Item label="Jewelry Type ID">
+                    <Form.Item label="Jewelry Type ID" name="Jewelry Type ID"
+                        rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="D1234" />
                     </Form.Item>
                   </Styled.FormItem>
                   <Styled.FormItem>
-                    <Form.Item label="Jewelry Type Name">
+                    <Form.Item label="Jewelry Type Name" name="Jewelry Type Name"
+                        rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="Filled" />
                     </Form.Item>
                   </Styled.FormItem>
                   <Styled.FormItem>
-                  <Form.Item label="Selling Price per Gram">
+                  <Form.Item label="Selling Price per Gram" name="1/6 sales"
+                        rules={[{ required: true }]}>
                     <InputNumber className="formItem" placeholder="4,080" />
                   </Form.Item>
                 </Styled.FormItem>
                 </Form>
                 <Styled.ActionBtn>
-                  <Button
-                    type="primary"
-                    onClick={handleSave}
-                    className="MainBtn"
-                  >
-                    <SaveOutlined />
-                    Save
-                  </Button>
+                <SubmitButton form={form}>
+                      <SaveOutlined />
+                      Save
+                    </SubmitButton>
                   <Button
                     onClick={handleCancel}
                     style={{ marginLeft: "10px" }}
