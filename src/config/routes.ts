@@ -33,6 +33,7 @@ const routes = {
         deliveringOrder: '/admin/order/delivering',
         completedOrder: '/admin/order/completed',
         cancelledOrder: '/admin/order/cancelled',
+        orderDetail: '/admin/order/detail/:id',
         product: '/admin/product',
         addProduct: '/admin/product/add/product',
         addJewelry: '/admin/product/add/jewelry',
