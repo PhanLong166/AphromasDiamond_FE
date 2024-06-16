@@ -27,12 +27,18 @@ import { Role } from "@/utils/enum";
 
 
 const MainRouter = () => {
+    const { role } = useAuth();
+    if (role?.includes(Role.ADMIN)) return <Navigate to={config.routes.admin.dashboard} />
+    if (role?.includes(Role.SALESSTAFF)) return <Navigate to={config.routes.salesStaff.dashboard} />
+    if (role?.includes(Role.DELI_STAFF)) return <Navigate to={config.routes.deliStaff.deliveryReport} />
+
     return <MainLayout />
 }
 
 const CustomerRouter = () => {
     const { role } = useAuth();
-    return role === Role.CUSTOMER ? <Outlet /> : <Navigate to={config.routes.public.login}/>;
+    return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
+
 }
 
 const publicRoutes = {
@@ -43,22 +49,22 @@ const publicRoutes = {
         { path: config.routes.public.allProduct, element: <AllProduct /> },
         { path: config.routes.public.about, element: <About /> },
         { path: config.routes.public.gift, element: <Gift /> },
-        { path: config.routes.public.ringGuide, element: <RingGuide />},
+        { path: config.routes.public.ringGuide, element: <RingGuide /> },
         { path: config.routes.public.diamond, element: <AllDiamond /> }
-        
+
     ]
 }
 
 const customerRoutes = {
     element: <CustomerRouter />,
     children: [
-        { path: config.routes.customer.cart, element:  <Cart /> },
+        { path: config.routes.customer.cart, element: <Cart /> },
         { path: config.routes.customer.checkout, element: <Checkout /> },
         { path: config.routes.customer.account, element: <Account /> },
         { path: config.routes.customer.orderList, element: <OrderList /> },
         { path: config.routes.customer.history, element: <History /> },
-        { path:config.routes.customer.voucher, element:<Voucher />},
-        {path: config.routes.customer.notification, element: <NotiPage />}
+        { path: config.routes.customer.voucher, element: <Voucher /> },
+        { path: config.routes.customer.notification, element: <NotiPage /> }
     ]
 }
 
