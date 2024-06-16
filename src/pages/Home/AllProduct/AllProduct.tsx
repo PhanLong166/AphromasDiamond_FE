@@ -4,7 +4,7 @@ import { Breadcrumb } from "antd";
 
 import { Menu } from "antd";
 import { Dropdown, Select, Slider, Button, InputNumber } from "antd";
-import { CloseOutlined, DownOutlined } from "@ant-design/icons";
+import { CloseOutlined, DownOutlined, HeartFilled, HeartOutlined } from "@ant-design/icons";
 
 import {
   Section,
@@ -15,14 +15,52 @@ import {
 } from "./AllProduct.styled";
 
 import { Card, Col, Row, Typography } from "antd";
+import { theme } from "@/themes";
+import { BaseOptionType, DefaultOptionType } from "antd/es/select";
 // import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 // import { theme } from "../../../themes";
 const { Title, Text } = Typography;
 
 const CustomBreadcrumb = styled(Breadcrumb)`
-  margin-left: 175px;
+  max-width: 1400px;
+  margin: 0 auto;
   padding-top: 20px;
 `;
+
+const CustomSelect = styled(Select)`
+  .ant-select-selector {
+    color: ${theme.color.primary} !important;
+    border: 1px solid rgba(21, 21, 66, 0.3) !important;
+    border-radius: 4px !important;
+  }
+  .ant-select-selector:hover {
+    border: 1px solid ${theme.color.primary} !important;
+  }
+  .ant-select-selection-placeholder,
+  .ant-select-arrow {
+    color: ${theme.color.primary} !important;
+  }
+`;
+
+const CustomButton = styled(Button)`
+  &:hover {
+    color: ${theme.color.primary} !important;
+    border: 1px solid ${theme.color.primary} !important;
+  }
+
+  border: 1px solid rgba(21, 21, 66, 0.3) !important;
+  color: ${theme.color.primary} !important;
+  border-radius: 4px !important;
+`;
+const CustomSlider = styled(Slider)`
+  .ant-slider-track {
+    background-color: ${theme.color.primary} !important;
+  }
+  .ant-slider-handle::after {
+    box-shadow: 0 0 0 2px ${theme.color.primary} !important;
+  }
+`;
+
 const { Option } = Select;
 interface Product {
   id: number;
@@ -234,8 +272,6 @@ const products: Product[] = [
     hoverImage:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp21_2.webp?alt=media&token=88531754-dc93-4a1a-ba29-fb459ab9367a",
   },
-
-
   {
     id: 18,
     shape: "heart",
@@ -328,17 +364,18 @@ const AllProduct: React.FC = () => {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const handleSelectChange = (value: string) => {
-    const newSelectedFilters = [value];
-    setSelectedFilters(newSelectedFilters);
+  const handleSelectChange = (input: unknown, _: DefaultOptionType | BaseOptionType| (DefaultOptionType | BaseOptionType)[]) => {
+    // const newSelectedFilters = [value];
+    // setSelectedFilters(newSelectedFilters);
+    const value = input as string;
 
     const filtered = products.filter((product) => {
-      // setSelectedFilters((prevFilters) => {
-      //   if (!prevFilters.includes(value)) {
-      //     return [...prevFilters, value];
-      //   }
-      //   return prevFilters;
-      // });
+      setSelectedFilters((prevFilters) => {
+        if (!prevFilters.includes(value)) {
+          return [...prevFilters, value];
+        }
+        return prevFilters;
+      });
       const lowerCaseFilter = value.toLowerCase();
       const lowerCaseProductName = product.name.toLowerCase();
       const lowerCaseShape = product.shape.toLowerCase();
@@ -460,7 +497,7 @@ const AllProduct: React.FC = () => {
               style={{
                 display: "flex",
                 flexDirection: "column",
-                paddingLeft: "8px",
+
                 flexGrow: 1,
               }}
             >
@@ -470,18 +507,18 @@ const AllProduct: React.FC = () => {
                 min={0}
                 max={priceRange[1]}
                 value={priceRange[0]}
-                // onChange={handleMinPriceChange}
+              // onChange={handleMinPriceChange}
               />
             </div>
             <div style={{ flexGrow: 2, margin: "0 8px", width: "250px" }}>
-              <Slider
+              <CustomSlider
                 style={{ marginTop: "30px" }}
                 range
                 min={0}
                 max={200000}
                 step={10}
                 value={priceRange}
-                // onChange={handleSliderChange}
+              // onChange={handleSliderChange}
               />
             </div>
             <div
@@ -498,7 +535,7 @@ const AllProduct: React.FC = () => {
                 min={priceRange[0]}
                 max={200000}
                 value={priceRange[1]}
-                // onChange={handleMaxPriceChange}
+              // onChange={handleMaxPriceChange}
               />
             </div>
           </div>
@@ -518,15 +555,15 @@ const AllProduct: React.FC = () => {
     </Menu>
   );
 
-  // const [wishList, setWishList] = useState<number[]>([]);
+  const [wishList, setWishList] = useState<number[]>([]);
 
-  // const toggleWishList = (productId: number) => {
-  //   setWishList((prev) =>
-  //     prev.includes(productId)
-  //       ? prev.filter((id) => id !== productId)
-  //       : [...prev, productId]
-  //   );
-  // };
+  const toggleWishList = (productId: number) => {
+    setWishList((prev) =>
+      prev.includes(productId)
+        ? prev.filter((id) => id !== productId)
+        : [...prev, productId]
+    );
+  };
   return (
     <Section>
       <div>
@@ -553,8 +590,8 @@ const AllProduct: React.FC = () => {
         </Heading>
         <FilterBar>
           <div style={{ display: "flex", gap: "16px", marginBottom: "16px" }}>
-            <Select
-              style={{ width: 120 }}
+            <CustomSelect
+              style={{ width: 120, height: 40 }}
               onChange={handleSelectChange}
               placeholder="Shape"
             >
@@ -563,9 +600,9 @@ const AllProduct: React.FC = () => {
                   {option.label}
                 </Option>
               ))}
-            </Select>
-            <Select
-              style={{ width: 120 }}
+            </CustomSelect>
+            <CustomSelect
+              style={{ width: 120, height: 40 }}
               onChange={handleSelectChange}
               placeholder="Categories"
             >
@@ -574,9 +611,9 @@ const AllProduct: React.FC = () => {
                   {option.label}
                 </Option>
               ))}
-            </Select>
-            <Select
-              style={{ width: 120 }}
+            </CustomSelect>
+            <CustomSelect
+              style={{ width: 120, height: 40 }}
               onChange={handleSelectChange}
               placeholder="Metal"
             >
@@ -585,7 +622,7 @@ const AllProduct: React.FC = () => {
                   {option.label}
                 </Option>
               ))}
-            </Select>
+            </CustomSelect>
             <div
               style={{
                 display: "flex",
@@ -599,9 +636,10 @@ const AllProduct: React.FC = () => {
                 onVisibleChange={handleDropdownVisibleChange}
                 trigger={["click"]}
               >
-                <Button
+                <CustomButton
                   style={{
                     width: "120px",
+                    height: "40px",
                     display: "flex",
                     justifyContent: "space-between",
                     alignItems: "center",
@@ -609,7 +647,7 @@ const AllProduct: React.FC = () => {
                 >
                   Price
                   <DownOutlined style={{ marginLeft: "8px" }} />
-                </Button>
+                </CustomButton>
               </Dropdown>
             </div>
           </div>
@@ -650,7 +688,9 @@ const AllProduct: React.FC = () => {
             </div>
             {selectedFilters.length > 0 && (
               <div>
-                <Button onClick={handleResetFilters}>Reset Filters</Button>
+                <CustomButton onClick={handleResetFilters}>
+                  Reset Filters
+                </CustomButton>
               </div>
             )}
           </div>
@@ -667,26 +707,32 @@ const AllProduct: React.FC = () => {
                 <span style={{ fontSize: "14px", marginRight: "5px" }}>
                   Sort By
                 </span>
-                <Select style={{ width: 120 }} placeholder="Any Date">
+                <CustomSelect
+                  style={{ width: 120, height: 40 }}
+                  placeholder="Any Date"
+                >
                   <Option value="all">All</Option>
                   <Option value="newest">Newest</Option>
                   <Option value="oldest">Oldest</Option>
-                </Select>
+                </CustomSelect>
               </div>
               <div>
                 <span style={{ fontSize: "14px", marginRight: "5px" }}>
                   Sort By
                 </span>
-                <Select style={{ width: 120 }} placeholder="Alphabetical">
+                <CustomSelect
+                  style={{ width: 120, height: 40 }}
+                  placeholder="Alphabetical"
+                >
                   <Option value="all">All</Option>
                   <Option value="a-z">A-Z</Option>
                   <Option value="z-a">Z-A</Option>
-                </Select>
+                </CustomSelect>
               </div>
             </div>
           </div>
         </FilterBar>
-        <hr style={{ maxWidth: "1400px", margin: "32px auto" }} />
+        <hr style={{ maxWidth: "1400px", margin: "32px auto", border: "1px solid rgba(21, 21, 66, 0.3)", }} />
         <List>
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
@@ -718,6 +764,17 @@ const AllProduct: React.FC = () => {
                   <div className="product-info">
                     <Title level={4} className="product-name">
                       {product.name}
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
                     </Title>
                     <div className="price-container">
                       <Text className="product-price">

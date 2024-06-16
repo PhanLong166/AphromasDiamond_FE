@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 import { Dropdown } from "antd";
 
 export const NavbarContainer = styled.nav`
