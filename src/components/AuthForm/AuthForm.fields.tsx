@@ -30,13 +30,13 @@ export const LoginFields: FieldType[] = [
                 required: true,
                 type: 'email',
                 message: 'Please enter exactly email format'
-            }, 
+            },
             {
                 max: 50,
                 message: 'Email do not exceed 50 characters'
             }
         ],
-        children: <Input placeholder=""/> ,
+        children: <Input placeholder="" />,
     },
     {
         key: 2,
@@ -45,14 +45,14 @@ export const LoginFields: FieldType[] = [
         rules: [
             {
                 required: true,
-                max: 16, 
+                max: 16,
                 pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
                 message: 'Must be between 8 and 16 characters, including a number, one uppercase letter and one lowercase letter.',
             }
         ],
         children: (
             <Input.Password
-                iconRender={(visible) => visible ? <EyeOutlinedIcon/> : <EyeInvisibleOutlinedIcon/>}
+                iconRender={(visible) => visible ? <EyeOutlinedIcon /> : <EyeInvisibleOutlinedIcon />}
                 placeholder=""
             />
         )
@@ -62,8 +62,34 @@ export const LoginFields: FieldType[] = [
 export const RegisterFields: FieldType[] = [
     {
         key: 1,
+        label: 'Fullname',
+        name: 'Name',
+        rules: [
+            {
+                max: 50,
+                message: 'Name do not exceed 50 characters'
+            }
+        ],
+        children: <Input placeholder="" />
+    },
+    {
+        key: 2,
+        label: 'Phone Number',
+        name: 'PhoneNumber',
+        rules: [
+            {
+                required: true,
+                max: 20,
+                pattern: /^(?=.*[0-9]).{8,20}$/,
+                message: 'Phone number must be between 8 to 20 numbers'
+            }
+        ],
+        children: <Input type="number" placeholder="" />
+    },
+    {
+        key: 3,
         label: 'Email',
-        name: 'email',
+        name: 'Email',
         rules: [
             {
                 required: true,
@@ -78,41 +104,22 @@ export const RegisterFields: FieldType[] = [
         children: <Input placeholder="" />
     },
     {
-        key: 2,
+        key: 4,
         label: 'Password',
-        name: 'password',
+        name: 'Password',
         rules: [
             {
                 required: true,
-                max: 16, 
+                max: 16,
                 pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
                 message: 'Must be between 8 and 16 characters, including a number, one uppercase letter and one lowercase letter.',
             }
         ],
         children: (
             <Input.Password
-                iconRender={(visible) => visible ? <EyeOutlinedIcon/> : <EyeInvisibleOutlinedIcon/>}
+                iconRender={(visible) => visible ? <EyeOutlinedIcon /> : <EyeInvisibleOutlinedIcon />}
                 placeholder=""
             />
         )
     },
-    {
-        key: 3,
-        label: 'Confirm Password',
-        name: 'confirmPassword',
-        rules: [
-            {
-                required: true,
-                max: 16, 
-                pattern: /^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z]).{8,16}$/,
-                message: 'Must be between 8 and 16 characters, including a number, one uppercase letter and one lowercase letter.',
-            }
-        ],
-        children: (
-            <Input.Password
-                iconRender={(visible) => visible ? <EyeOutlinedIcon/> : <EyeInvisibleOutlinedIcon/>}
-                placeholder=""
-            />
-        )
-    }
 ]
