@@ -15,8 +15,8 @@ import {
 } from "./AllProduct.styled";
 
 import { Card, Col, Row, Typography, Pagination} from "antd";
-import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
+import { BaseOptionType, DefaultOptionType } from "antd/es/select";
 const { Title, Text } = Typography;
 
 const CustomBreadcrumb = styled(Breadcrumb)`
@@ -362,7 +362,7 @@ const AllProduct: React.FC = () => {
   const [dropdownVisible, setDropdownVisible] = useState<boolean>(false);
   const [filteredProducts, setFilteredProducts] = useState(products);
 
-  const handleSelectChange = (input: unknown, _: DefaultOptionType | BaseOptionType| (DefaultOptionType | BaseOptionType)[]) => {
+  const handleSelectChange = (input: unknown, _: DefaultOptionType | BaseOptionType | (DefaultOptionType | BaseOptionType)[]) => {
     // const newSelectedFilters = [value];
     // setSelectedFilters(newSelectedFilters);
     const value = input as string;
@@ -566,14 +566,14 @@ const AllProduct: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
 
-  const handleChangePage = (page) => {
+  const handleChangePage = (page: any) => {
     setCurrentPage(page);
   };
 
-  const paginatedProducts = products.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  // const paginatedProducts = products.slice(
+  //   (currentPage - 1) * pageSize,
+  //   currentPage * pageSize
+  // );
   return (
     <Section>
       <div>

@@ -156,19 +156,19 @@ const AllDiamond: React.FC = () => {
   const [colorValue, setColorRange] = useState<[number, number]>([0, 7]);
   const [clarityValue, setClarityRange] = useState<[number, number]>([0, 7]);
 
-  const formatColorValue = (value: number): React.ReactNode => {
+  const formatColorValue = (value?: number): React.ReactNode => {
     const labels = ["D", "E", "F", "G", "H", "I", "J", "K"];
-    return labels[value];
+    return value ? labels[value] : null;
   };
 
-  const formatClarityValue = (value: number) => {
+  const formatClarityValue = (value?: number): React.ReactNode => {
     const labels = ["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2"];
-    return labels[value];
+    return value ? labels[value] : null;
   };
 
-  const formatCutValue = (value: number) => {
+  const formatCutValue = (value?: number): React.ReactNode => {
     const labels = ["Good", "Very Good", "Ideal", "Astor Ideal"];
-    return labels[value];
+    return value ? labels[value] : null;
   };
 
   const handleShapeSelect = (shape: string) => {
@@ -562,6 +562,7 @@ const AllDiamond: React.FC = () => {
     },
   ];
   const [filteredDiamonds, setFilteredDiamonds] = useState(diamonds);
+  console.log(setFilteredDiamonds);
   const [wishList, setWishList] = useState<number[]>([]);
 
   const toggleWishList = (productId: number) => {
@@ -578,14 +579,13 @@ const AllDiamond: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const paginatedDiamonds = filteredDiamonds.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  // const paginatedDiamonds = filteredDiamonds.slice(
+  //   (currentPage - 1) * pageSize,
+  //   currentPage * pageSize
+  // );
 
   return (
     <Section>
-      <div>
       <div>
         <CustomBreadcrumb
           separator=">"
@@ -603,8 +603,6 @@ const AllDiamond: React.FC = () => {
       <Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>
-        <h2>ALL DIAMONDS</h2>
-      </Heading>
       <Row gutter={[16, 16]}>
         <Col span={8}>
           <CustomTitle level={5}>Shape</CustomTitle>
@@ -612,9 +610,8 @@ const AllDiamond: React.FC = () => {
             {shapeButtons.map(({ shape, svg }) => (
               <CustomButton
                 key={shape}
-                className={`bn_comp_selectionWrapper_ad0360 ${
-                  shapeSelected === shape ? "bn_comp_selected_ad0360" : ""
-                }`}
+                className={`bn_comp_selectionWrapper_ad0360 ${shapeSelected === shape ? "bn_comp_selected_ad0360" : ""
+                  }`}
                 style={{
                   height: "80px",
                   width: "79px",
@@ -718,53 +715,53 @@ const AllDiamond: React.FC = () => {
               }}
             >
               <div>
-              <div>
-                <div
-                  style={{
-                    alignSelf: "flex-start",
-                    fontSize: "12px",
-                    color: "#949494",
-                  }}
-                >
-                  Min Carat
+                <div>
+                  <div
+                    style={{
+                      alignSelf: "flex-start",
+                      fontSize: "12px",
+                      color: "#949494",
+                    }}
+                  >
+                    Min Carat
+                  </div>
+                  <InputNumber
+                    style={{ marginTop: "5px" }}
+                    min={0}
+                    max={caratRange[1]}
+                    value={caratRange[0]}
+                    onChange={(value) => setCaratRange([value !== null ? value : 0, caratRange[1]])}
+                  />
                 </div>
-                <InputNumber
-                  style={{ marginTop: "5px" }}
-                  min={0}
-                  max={caratRange[1]}
-                  value={caratRange[0]}
-                  onChange={(value) => setCaratRange([value !== null ? value : 0, caratRange[1]])}
-                />
-              </div>
-              <div style={{ flexGrow: 2, width: "100%" }}></div>
-              <div style={{ flexGrow: 1 }}>
-                <div
-                  style={{
-                    textAlign: "right",
-                    fontSize: "12px",
-                    color: "#949494",
-                  }}
-                >
-                  Max Carat
+                <div style={{ flexGrow: 2, width: "100%" }}></div>
+                <div style={{ flexGrow: 1 }}>
+                  <div
+                    style={{
+                      textAlign: "right",
+                      fontSize: "12px",
+                      color: "#949494",
+                    }}
+                  >
+                    Max Carat
+                  </div>
+                  <InputNumber
+                    style={{ marginTop: "5px" }}
+                    min={caratRange[0]}
+                    max={30.0}
+                    value={caratRange[1]}
+                    onChange={(value) => setCaratRange([caratRange[0], value !== null ? value : 0])}
+                  />
                 </div>
-                <InputNumber
-                  style={{ marginTop: "5px" }}
-                  style={{ marginTop: "5px" }}
-                  min={caratRange[0]}
-                  max={30.0}
-                  value={caratRange[1]}
-                  onChange={(value) => setCaratRange([caratRange[0], value !== null ? value : 0])}
-                />
               </div>
+              <CustomSlider
+                range
+                min={0.05}
+                max={30.0}
+                step={0.01}
+                value={caratRange}
+                onChange={(value) => setCaratRange(value as [number, number])}
+              />
             </div>
-            <CustomSlider
-              range
-              min={0.05}
-              max={30.0}
-              step={0.01}
-              value={caratRange}
-              onChange={(value) => setCaratRange(value as [number, number])}
-            />
           </div>
         </Col>
       </Row>
