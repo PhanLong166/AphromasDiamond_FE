@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Button, Flex } from 'antd';
 import Dropdown from './Dropdown';
 
+
 const Cart = () => {
   return (
     <>
@@ -27,7 +28,7 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-                    <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/77e18e78db1048a2ef9289b66a8b623840e01a792002a180a5674237669d080a?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
+                    <ItemImage src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.png?alt=media&token=55aa167f-b20b-482c-b18b-56e5b372219e" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
                     <ProductDescription>
@@ -59,7 +60,7 @@ const Cart = () => {
                 <ItemDetails>
                   <ItemInfo>
 
-                    <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/d390c8fca96fc694888a2d3a9cf3c75e05dab916440fcab452b4b3fd6c33b09d?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
+                    <ItemImage src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
                     <ProductDescription>
@@ -198,8 +199,13 @@ const Cart = () => {
                 </SummaryDetails>
                 <Link to='/checkout'><CheckoutButton>CHECKOUT</CheckoutButton></Link>
                 <OrDivider>OR</OrDivider>
+                <Link to="/thanks-page">
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/4762099b96e0d9911e6dbbff51ed4164d0ebf441a4af10ca789ca321f8ea0dbb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
+                </Link>
+                <Link to="thanks-page">
+                
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/33c97bbfdfd1027e752ab9f974297feaabc0fea312ba85eead4c91a971711218?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
+                </Link>
               </SummaryContainer>
             </Sidebar>
           </MainSection>

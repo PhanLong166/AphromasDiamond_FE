@@ -24,7 +24,8 @@ const routes = {
         history: '/history',
         voucher: '/voucher',
         notification: '/noti',
-        orderDetails:'/order-Details'
+        // orderDetails:'/order-details'
+        orderDetails: '/order-details'
     },
     admin: {
         dashboard: '/admin',
