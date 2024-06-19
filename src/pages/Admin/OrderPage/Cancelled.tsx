@@ -5,171 +5,74 @@ import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
+import { data, DataType } from "./OrderData";
+import { Link } from "react-router-dom";
 
-interface DataType {
-  key: React.Key;
-  orderID: string;
-  date: string;
-  cusName: string;
-  total: number;
-  statuses: string[];
-}
+
+
+const filteredData = data.filter((item) => item.status === "Cancelled");
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
+    sorter: (a: DataType, b: DataType) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
+    sorter: (a: DataType, b: DataType) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    filters: [
-      { text: "Joe", value: "Joe" },
-      { text: "Jim", value: "Jim" },
-      { text: "Esther", value: "Esther" },
-      { text: "Ajmal", value: "Ajmal" },
-    ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value, record) => record.cusName.indexOf(value as string) === 0,
-    sorter: (a, b) => a.cusName.length - b.cusName.length,
+    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a, b) => a.total - b.total,
+    sorter: (a: DataType, b: DataType) => a.total - b.total,
   },
   {
     title: "Status",
-    key: "statuses",
-    dataIndex: "statuses",
-    render: (_, { statuses }) => (
-      <>
-        {statuses.map((status) => {
-          let color = status.length > 9 ? "geekblue" : "green";
-          if (status === "Pending") {
-            color = "volcano";
-          } else if (status === "Confirmed") {
-            color = "yellow";
-          } else if (status === "Delivering") {
-            color = "geekblue";
-          } else if (status === "Completed") {
-            color = "green";
-          } else if (status === "Cancelled") {
-            color = "grey";
-          }
-          return (
-            <Tag color={color} key={status}>
-              {status.toUpperCase()}
-            </Tag>
-          );
-        })}
-      </>
-    ),
+    key: "status",
+    dataIndex: "status",
+    render: (_, { status }) => {
+      let color = "green";
+      if (status === "Pending") {
+        color = "volcano";
+      } else if (status === "Confirmed") {
+        color = "yellow";
+      } else if (status === "Delivering") {
+        color = "geekblue";
+      } else if (status === "Completed") {
+        color = "green";
+      } else if (status === "Cancelled") {
+        color = "grey";
+      }
+      return (
+        <Tag color={color} key={status}>
+          {status.toUpperCase()}
+        </Tag>
+      );
+    },
   },
   {
     title: "Detail",
     key: "detail",
     className: "TextAlign",
-    render: () => (
+    render: (_, { orderID }) => (
       <Space size="middle">
-        <EyeOutlined />
+        <Link to={`/admin/order/detail/${orderID}`}>
+          <EyeOutlined />
+        </Link>
       </Space>
     ),
-  },
-];
-
-const data: DataType[] = [
-  {
-    key: "1",
-    orderID: "12345124",
-    date: "2023-01-06",
-    cusName: "Joe Black",
-    total: 701,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "2",
-    orderID: "12345122",
-    date: "2023-01-02",
-    cusName: "Jim Green",
-    total: 890,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "3",
-    orderID: "12345121",
-    date: "2023-01-03",
-    cusName: "Joe Black",
-    total: 560,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "4",
-    orderID: "12345123",
-    date: "2023-01-04",
-    cusName: "Jim Red",
-    total: 700,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "5",
-    orderID: "12345121",
-    date: "2023-01-02",
-    cusName: "Esther Eden",
-    total: 430,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "6",
-    orderID: "12345125",
-    date: "2023-01-06",
-    cusName: "Ajmal Abdul Rahiman",
-    total: 502,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "7",
-    orderID: "12345127",
-    date: "2023-01-06",
-    cusName: "Ajmal Abdul Rahiman",
-    total: 502,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "8",
-    orderID: "12345127",
-    date: "2023-01-06",
-    cusName: "Ajmal Abdul Rahiman",
-    total: 502,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "9",
-    orderID: "12345125",
-    date: "2023-01-07",
-    cusName: "Ajmal Abdul Rahiman",
-    total: 502,
-    statuses: ["Cancelled"],
-  },
-  {
-    key: "10",
-    orderID: "12345125",
-    date: "2023-01-07",
-    cusName: "Ajmal Abdul Rahiman",
-    total: 502,
-    statuses: ["Cancelled"],
   },
 ];
 
@@ -187,7 +90,6 @@ const CancelledOrder = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -225,7 +127,7 @@ const CancelledOrder = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
+                dataSource={filteredData}
                 pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}

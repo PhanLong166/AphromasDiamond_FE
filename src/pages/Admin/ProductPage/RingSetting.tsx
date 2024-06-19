@@ -24,177 +24,179 @@ import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 import { SortOrder } from "antd/es/table/interface";
 import TextArea from "antd/es/input/TextArea";
+import { ringData, RingDataType } from "./ProductData"; // Import data here
 
-interface Item {
-  key: React.Key;
-  ringSettingID: string;
-  ringSettingImg: string;
-  ringSettingName: string;
-  price: number;
-  markupPercentage: number;
-  type: string;
-  width: number;
-  material: string;
-  exchangeRate: number;
-  currencyType: string;
-}
-const originData = (): Item[] => {
-  const data: Item[] = [
-    {
-      key: "1",
-      ringSettingID: "12345121",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 4.08,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "2",
-      ringSettingID: "12345122",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 5.08,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "3",
-      ringSettingID: "12345123",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 7.08,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "4",
-      ringSettingID: "12345124",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 6.08,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "5",
-      ringSettingID: "12345125",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 3.08,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "6",
-      ringSettingID: "12345126",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 9.08,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "7",
-      ringSettingID: "12345127",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 2.04,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "8",
-      ringSettingID: "12345128",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 7.03,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "9",
-      ringSettingID: "12345129",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 5.07,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "10",
-      ringSettingID: "12345130",
-      ringSettingImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-      price: 4.2,
-      markupPercentage: 100,
-      type: "Ring",
-      width: 2.8,
-      material: "14K White Gold",
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-  ];
-  return data.map((item) => ({
-    ...item,
-    // sellingPrice: calculateSellingPrice(item.buyingPrice)
-  }));
-};
+
+// interface Item {
+//   key: React.Key;
+//   ringSettingID: string;
+//   ringSettingImg: string;
+//   ringSettingName: string;
+//   price: number;
+//   markupPercentage: number;
+//   type: string;
+//   width: number;
+//   material: string;
+//   exchangeRate: number;
+//   currencyType: string;
+// }
+
+// const originData = (): Item[] => {
+//   const data: Item[] = [
+//     {
+//       key: "1",
+//       ringSettingID: "12345121",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 4.08,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "2",
+//       ringSettingID: "12345122",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 5.08,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "3",
+//       ringSettingID: "12345123",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 7.08,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "4",
+//       ringSettingID: "12345124",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 6.08,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "5",
+//       ringSettingID: "12345125",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 3.08,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "6",
+//       ringSettingID: "12345126",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 9.08,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "7",
+//       ringSettingID: "12345127",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 2.04,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "8",
+//       ringSettingID: "12345128",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 7.03,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "9",
+//       ringSettingID: "12345129",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 5.07,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//     {
+//       key: "10",
+//       ringSettingID: "12345130",
+//       ringSettingImg:
+//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
+//       price: 4.2,
+//       markupPercentage: 100,
+//       type: "Ring",
+//       width: 2.8,
+//       material: "14K White Gold",
+//       exchangeRate: 23000,
+//       currencyType: "USD",
+//     },
+//   ];
+//   return data.map((item) => ({
+//     ...item,
+//   }));
+// };
 
 // const originData = createInitialData();
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof RingDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: RingDataType;
   index: number;
   // children: React.ReactNode;
 }
@@ -290,12 +292,12 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 const RingSetting = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [data, setData] = useState<RingDataType[]>(ringData);
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
   const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: Item) => record.key === editingKey;
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const isEditing = (record: RingDataType) => record.key === editingKey;
+  const edit = (record: Partial<RingDataType> & { key: React.Key }) => {
     form.setFieldsValue({
       ringSettingID: "",
       ringSettingImg: "",
@@ -313,8 +315,8 @@ const RingSetting = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
-      const newData = [...data];
+      const row = (await form.validateFields()) as RingDataType;
+      const newData = [...ringData];
       const index = newData.findIndex((item) => key === item.key);
 
       // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
@@ -371,14 +373,14 @@ const RingSetting = () => {
       title: "ID",
       dataIndex: "ringSettingID",
       editable: true,
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: RingDataType, b: RingDataType) =>
         a.ringSettingID.localeCompare(b.ringSettingID),
     },
     {
       title: "Image",
       key: "ringSettingImg",
       className: "TextAlign",
-      render: (_: unknown, record: Item) => (
+      render: (_: unknown, record: RingDataType) => (
         <img
           src={record.ringSettingImg}
           alt={record.ringSettingName}
@@ -390,16 +392,16 @@ const RingSetting = () => {
       title: "Name",
       dataIndex: "ringSettingName",
       editable: true,
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: RingDataType, b: RingDataType) =>
         a.ringSettingName.length - b.ringSettingName.length,
     },
     {
       title: `Cost Price (${currency})`,
       key: "price",
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: RingDataType, b: RingDataType) =>
         convertPrice(a.price, a.exchangeRate, currency) -
         convertPrice(b.price, b.exchangeRate, currency),
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: RingDataType) => {
         const convertedPrice = convertPrice(
           record.price,
           record.exchangeRate,
@@ -412,12 +414,12 @@ const RingSetting = () => {
       title: "Markup Percentage",
       dataIndex: "markupPercentage",
       key: "markupPercentage",
-      render: (_: unknown, record: Item) => `${record.markupPercentage}%`,
+      render: (_: unknown, record: RingDataType) => `${record.markupPercentage}%`,
     },
     {
       title: `Selling Price (${currency})`,
       key: "sellingPrice",
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: RingDataType) => {
         const convertedPrice = convertPrice(
           record.price,
           record.exchangeRate,
@@ -443,14 +445,14 @@ const RingSetting = () => {
         { text: "Choker", value: "Choker" },
         { text: "Pendant", value: "Pendant" },
       ],
-      onFilter: (value: boolean | React.Key, record: Item) =>
+      onFilter: (value: boolean | React.Key, record: RingDataType) =>
         record.type.indexOf(value as string) === 0,
     },
     {
       title: "Width",
       dataIndex: "width",
       editable: true,
-      sorter: (a: Item, b: Item) => a.width - b.width,
+      sorter: (a: RingDataType, b: RingDataType) => a.width - b.width,
     },
     {
       title: "Material",
@@ -467,14 +469,14 @@ const RingSetting = () => {
         { text: "18K Rose Gold", value: "18KRoseGold" },
         { text: "Platinum", value: "Platinum" },
       ],
-      onFilter: (value: boolean | React.Key, record: Item) =>
+      onFilter: (value: boolean | React.Key, record: RingDataType) =>
         record.material.indexOf(value as string) === 0,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: RingDataType) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -502,7 +504,7 @@ const RingSetting = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: Item) =>
+      render: (_: unknown, record: RingDataType) =>
         data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -520,7 +522,7 @@ const RingSetting = () => {
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: RingDataType) => ({
         record,
         inputType: col.dataIndex === "price" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -534,7 +536,6 @@ const RingSetting = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -548,7 +549,6 @@ const RingSetting = () => {
   };
 
   // const handleSave = () => {
-  //   // Logic để lưu dữ liệu mới
   //   setIsAdding(false);
   // };
 

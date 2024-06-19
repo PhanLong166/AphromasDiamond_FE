@@ -14,85 +14,15 @@ import {
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+import { materialData, MaterialDataType } from "./ProductData"; // Import data here
 
-interface Item {
-  key: React.Key;
-  materialID: string;
-  materialName: string;
-  buyingPrice: number;
-  sellingPrice: number;
-}
-
-const calculateSellingPrice = (buyingPrice: number) => {
-  return buyingPrice + 0.0197 * buyingPrice;
-};
-
-const originData = (): Item[] => {
-  const data: Item[] = [
-    {
-      key: "1",
-      materialID: "12345121",
-      materialName: "14K White Gold",
-      buyingPrice: 4.08,
-      sellingPrice: 1,
-    },
-    {
-      key: "2",
-      materialID: "12345122",
-      materialName: "14K Yellow Gold",
-      buyingPrice: 5.08,
-      sellingPrice: 1,
-    },
-    {
-      key: "3",
-      materialID: "12345123",
-      materialName: "14K Rose Gold",
-      buyingPrice: 7.08,
-      sellingPrice: 1,
-    },
-    {
-      key: "4",
-      materialID: "12345124",
-      materialName: "18K White Gold",
-      buyingPrice: 6.08,
-      sellingPrice: 1,
-    },
-    {
-      key: "5",
-      materialID: "12345125",
-      materialName: "18K Yellow Gold",
-      buyingPrice: 3.08,
-      sellingPrice: 1,
-    },
-    {
-      key: "6",
-      materialID: "12345126",
-      materialName: "18K Rose Gold",
-      buyingPrice: 9.08,
-      sellingPrice: 1,
-    },
-    {
-      key: "7",
-      materialID: "12345127",
-      materialName: "Platinum",
-      buyingPrice: 2.04,
-      sellingPrice: 1,
-    },
-  ];
-  return data.map((item) => ({
-    ...item,
-    sellingPrice: calculateSellingPrice(item.buyingPrice),
-  }));
-};
-
-// const originData = createInitialData();
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof MaterialDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: MaterialDataType;
   index: number;
   // children: React.ReactNode;
 }
@@ -163,11 +93,11 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 const Material = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [data, setData] = useState<MaterialDataType[]>(materialData);
   const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: Item) => record.key === editingKey;
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const isEditing = (record: MaterialDataType) => record.key === editingKey;
+  const edit = (record: Partial<MaterialDataType> & { key: React.Key }) => {
     form.setFieldsValue({
       materialID: "",
       materialName: "",
@@ -182,11 +112,11 @@ const Material = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
+      const row = (await form.validateFields()) as MaterialDataType;
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
 
-      row.sellingPrice = calculateSellingPrice(row.buyingPrice);
+      // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
 
       if (index > -1) {
         const item = newData[index];
@@ -216,32 +146,26 @@ const Material = () => {
       title: "Material ID",
       dataIndex: "materialID",
       editable: true,
-      sorter: (a: Item, b: Item) => a.materialID.localeCompare(b.materialID),
+      sorter: (a: MaterialDataType, b: MaterialDataType) => a.materialID.localeCompare(b.materialID),
     },
     {
       title: "Material Name",
       dataIndex: "materialName",
       editable: true,
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: MaterialDataType, b: MaterialDataType) =>
         a.materialName.length - b.materialName.length,
-    },
-    {
-      title: "Buying Price per Gram",
-      dataIndex: "buyingPrice",
-      editable: true,
-      sorter: (a: Item, b: Item) => a.buyingPrice - b.buyingPrice,
     },
     {
       title: "Selling Price per Gram",
       dataIndex: "sellingPrice",
       editable: true,
-      sorter: (a: Item, b: Item) => a.sellingPrice - b.sellingPrice,
+      sorter: (a: MaterialDataType, b: MaterialDataType) => a.sellingPrice - b.sellingPrice,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: MaterialDataType) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -269,7 +193,7 @@ const Material = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: Item) =>
+      render: (_: unknown, record: MaterialDataType) =>
         data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -287,7 +211,7 @@ const Material = () => {
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: MaterialDataType) => ({
         record,
         inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -301,7 +225,6 @@ const Material = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -413,7 +336,7 @@ const Material = () => {
                       },
                     }}
                     bordered
-                    dataSource={data}
+                    dataSource={materialData}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{

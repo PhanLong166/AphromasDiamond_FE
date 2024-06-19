@@ -14,72 +14,16 @@ import {
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+import { jewTypeData, JewTypeDataType } from "./ProductData"; // Import data here
 
-interface Item {
-  key: React.Key;
-  jewelryTypeID: string;
-  jewelryTypeName: string;
-}
 
-const originData: Item[] = [
-  {
-    key: "1",
-    jewelryTypeID: "12345121",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "2",
-    jewelryTypeID: "12345122",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "3",
-    jewelryTypeID: "12345123",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "4",
-    jewelryTypeID: "12345124",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "5",
-    jewelryTypeID: "12345125",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "6",
-    jewelryTypeID: "12345126",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "7",
-    jewelryTypeID: "12345127",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "8",
-    jewelryTypeID: "12345128",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "9",
-    jewelryTypeID: "12345129",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-  {
-    key: "10",
-    jewelryTypeID: "12345130",
-    jewelryTypeName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-  },
-];
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof JewTypeDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: JewTypeDataType;
   index: number;
   // children: React.ReactNode;
 }
@@ -150,11 +94,11 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 const JewelryType = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [data, setData] = useState<JewTypeDataType[]>(jewTypeData);
   const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: Item) => record.key === editingKey;
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const isEditing = (record: JewTypeDataType) => record.key === editingKey;
+  const edit = (record: Partial<JewTypeDataType> & { key: React.Key }) => {
     form.setFieldsValue({
       jewelryTypeID: "",
       jewelryTypeName: "",
@@ -167,7 +111,7 @@ const JewelryType = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
+      const row = (await form.validateFields()) as JewTypeDataType;
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
       if (index > -1) {
@@ -198,21 +142,21 @@ const JewelryType = () => {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
       editable: true,
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
         a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
       editable: true,
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
         a.jewelryTypeName.length - b.jewelryTypeName.length,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign",
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: JewTypeDataType) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -240,8 +184,8 @@ const JewelryType = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: Item) =>
-        originData.length >= 1 ? (
+      render: (_: unknown, record: JewTypeDataType) =>
+        jewTypeData.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.key)}
@@ -258,7 +202,7 @@ const JewelryType = () => {
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: JewTypeDataType) => ({
         record,
         inputType: col.dataIndex === "price" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -273,7 +217,6 @@ const JewelryType = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -292,7 +235,6 @@ const JewelryType = () => {
   };
 
   // const handleSave = () => {
-  //   // Logic để lưu dữ liệu mới
   //   setIsAdding(false);
   // };
 
@@ -384,7 +326,7 @@ const JewelryType = () => {
                       },
                     }}
                     bordered
-                    dataSource={data}
+                    dataSource={jewTypeData}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{

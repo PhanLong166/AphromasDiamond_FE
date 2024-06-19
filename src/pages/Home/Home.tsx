@@ -43,8 +43,9 @@ import {
   Banner,
 } from "./Home.styled";
 
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { Carousel } from "antd";
+import config from "@/config";
 
 // const images = [
 //   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f",
@@ -55,7 +56,7 @@ import { Carousel } from "antd";
 
 const categories = [
   {
-    href: "/product",
+    href: `${config.routes.public.productList}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578",
     title: "Rings",
@@ -404,6 +405,8 @@ const Home: React.FC = () => {
     );
   };
 
+  const navigate = useNavigate();
+
   return (
     <Body>
       <Container>
@@ -430,7 +433,12 @@ const Home: React.FC = () => {
               everlasting memories.
             </p>
             <Button>
-              <button className="shopAll">SHOP ALL</button>
+              <button 
+                className="shopAll"
+                onClick={() => navigate(config.routes.public.allProduct)}
+              >
+                SHOP ALL
+              </button>
               <button className="shopSale">SHOP SALE JEWELRY</button>
             </Button>
           </BannerContent>

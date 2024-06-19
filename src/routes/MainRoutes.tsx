@@ -26,9 +26,6 @@ import { Role } from "@/utils/enum";
 import AllDiamond from "@/pages/Home/AllDiamond";
 import Order from "@/pages/Admin/OrderPage/Order";
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
-// import { Role } from "@/utils/enum";
-
-
 
 
 const MainRouter = () => {
@@ -71,7 +68,6 @@ const customerRoutes = {
         { path:config.routes.customer.voucher, element:<Voucher />},
         {path: config.routes.customer.notification, element: <NotiPage />},
         {path: config.routes.customer.orderDetails, element: <OrderDetail />}
-        
     ]
 }
 

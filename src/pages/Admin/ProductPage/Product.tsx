@@ -12,22 +12,23 @@ import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 // import { Link } from "react-router-dom";
 import { Modal } from "antd"; // Add this line
-import { useNavigate } from "react-router-dom"; 
+import { Link, useNavigate } from "react-router-dom"; 
+import { productData, ProductDataType } from "./ProductData"; // Import data here
 
-interface DataType {
-  key: React.Key;
-  jewelryID: string;
-  jewelryImg: string;
-  jewelryName: string;
-  price: number;
-  markupPercentage: number;
-  type: string;
-  quantity: number;
-  exchangeRate: number;
-  currencyType: string;
-}
+// interface ProductDataType {
+//   key: React.Key;
+//   productID: string;
+//   productImg: string;
+//   productName: string;
+//   price: number;
+//   markupPercentage: number;
+//   type: string;
+//   quantity: number;
+//   exchangeRate: number;
+//   currencyType: string;
+// }
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<ProductDataType>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -40,10 +41,8 @@ onChange;
 const Product = () => {
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
-  // const [isAdding, setIsAdding] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false); // Add this line
   const navigate = useNavigate(); // Update this line
-  // Add this line
 
 
   const onSearch = (value: string) => {
@@ -79,22 +78,22 @@ const Product = () => {
     return price * (1 + markupPercentage / 100);
   };
 
-  const columns: TableColumnsType<DataType> = [
+  const columns: TableColumnsType<ProductDataType> = [
     {
       title: "Jewelry ID",
-      dataIndex: "jewelryID",
+      dataIndex: "productID",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.jewelryID.localeCompare(b.jewelryID),
+      sorter: (a, b) => a.productID.localeCompare(b.productID),
     },
     {
       title: "Image",
-      key: "jewelryImg",
+      key: "productImg",
       className: "TextAlign",
       render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.jewelryImg}
-            alt={record.jewelryName}
+            src={record.productImg}
+            alt={record.productName}
             style={{ width: "50px", height: "50px" }}
           />
         </a>
@@ -102,11 +101,11 @@ const Product = () => {
     },
     {
       title: "Jewelry Name",
-      dataIndex: "jewelryName",
+      dataIndex: "productName",
       showSorterTooltip: { target: "full-header" },
       onFilter: (value, record) =>
-        record.jewelryName.indexOf(value as string) === 0,
-      sorter: (a, b) => a.jewelryName.length - b.jewelryName.length,
+        record.productName.indexOf(value as string) === 0,
+      sorter: (a, b) => a.productName.length - b.productName.length,
       sortDirections: ["descend"],
     },
     {
@@ -170,146 +169,148 @@ const Product = () => {
       title: "Detail",
       key: "detail",
       className: "TextAlign",
-      render: () => (
+      render: (_, { productID }) => (
         <Space size="middle">
-          <EyeOutlined />
+          <Link to={`/admin/product/detail/${productID}`}>
+            <EyeOutlined />
+          </Link>
         </Space>
       ),
     },
   ];
 
-  const data = [
-    {
-      key: "1",
-      jewelryID: "12345121",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 5.08,
-      markupPercentage: 100,
-      type: "Necklace",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "2",
-      jewelryID: "12345122",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 5.08,
-      markupPercentage: 100,
-      type: "Earring",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "3",
-      jewelryID: "12345123",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 7.08,
-      markupPercentage: 100,
-      type: "Necklace",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "4",
-      jewelryID: "12345124",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 6.08,
-      markupPercentage: 150,
-      type: "Bracelet",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "5",
-      jewelryID: "12345125",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 3.08,
-      markupPercentage: 100,
-      type: "Bracelet",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "6",
-      jewelryID: "12345126",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 9.08,
-      markupPercentage: 150,
-      type: "Anklet",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "7",
-      jewelryID: "12345127",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 2.04,
-      markupPercentage: 100,
-      type: "Bangle",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "8",
-      jewelryID: "12345128",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 7.03,
-      markupPercentage: 100,
-      type: "Choker",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "9",
-      jewelryID: "12345129",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 5.07,
-      type: "Bangle",
-      markupPercentage: 100,
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-    {
-      key: "10",
-      jewelryID: "12345130",
-      jewelryImg:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-      jewelryName: "Petite Twist Diamond Engagement Ring",
-      price: 4.2,
-      markupPercentage: 150,
-      type: "Choker",
-      quantity: 51,
-      exchangeRate: 23000,
-      currencyType: "USD",
-    },
-  ];
+  // const data = [
+  //   {
+  //     key: "1",
+  //     productID: "12345121",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 5.08,
+  //     markupPercentage: 100,
+  //     type: "Necklace",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "2",
+  //     productID: "12345122",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 5.08,
+  //     markupPercentage: 100,
+  //     type: "Earring",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "3",
+  //     productID: "12345123",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 7.08,
+  //     markupPercentage: 100,
+  //     type: "Necklace",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "4",
+  //     productID: "12345124",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 6.08,
+  //     markupPercentage: 150,
+  //     type: "Bracelet",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "5",
+  //     productID: "12345125",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 3.08,
+  //     markupPercentage: 100,
+  //     type: "Bracelet",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "6",
+  //     productID: "12345126",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 9.08,
+  //     markupPercentage: 150,
+  //     type: "Anklet",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "7",
+  //     productID: "12345127",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 2.04,
+  //     markupPercentage: 100,
+  //     type: "Bangle",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "8",
+  //     productID: "12345128",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 7.03,
+  //     markupPercentage: 100,
+  //     type: "Choker",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "9",
+  //     productID: "12345129",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 5.07,
+  //     type: "Bangle",
+  //     markupPercentage: 100,
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  //   {
+  //     key: "10",
+  //     productID: "12345130",
+  //     productImg:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  //     productName: "Petite Twist Diamond Engagement Ring",
+  //     price: 4.2,
+  //     markupPercentage: 150,
+  //     type: "Choker",
+  //     quantity: 51,
+  //     exchangeRate: 23000,
+  //     currencyType: "USD",
+  //   },
+  // ];
 
   // Add New
   const handleAddNew = () => {
@@ -377,7 +378,7 @@ const Product = () => {
                 <Table
                   className="table"
                   columns={columns}
-                  dataSource={data}
+                  dataSource={productData}
                   pagination={{ pageSize: 6 }}
                   onChange={onChange}
                   showSorterTooltip={{ target: "sorter-icon" }}
