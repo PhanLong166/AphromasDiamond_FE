@@ -24,7 +24,7 @@ import RingGuide from "@/pages/Home/RingGuilde/RingGuide";
 import useAuth from "@/hooks/useAuth";
 import { Role } from "@/utils/enum";
 import AllDiamond from "@/pages/Home/AllDiamond";
-import Order from "@/pages/Admin/OrderPage/Order";
+// import Order from "@/pages/Admin/OrderPage/Order";
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 
 
@@ -37,11 +37,14 @@ const MainRouter = () => {
     return <MainLayout />
 }
 
-// const CustomerRouter = () => {
-//     const { role } = useAuth();
-//     return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
-
-// }
+const CustomerRouter = () => {
+    //Use when you have database
+    // const { role } = useAuth();
+    // return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
+    
+    //Use when you don't have database
+    return <Outlet/>;
+}
 
 const publicRoutes = {
     children: [
@@ -58,7 +61,7 @@ const publicRoutes = {
 }
 
 const customerRoutes = {
-    // element: <CustomerRouter />,
+    element: <CustomerRouter />,
     children: [
         { path: config.routes.customer.cart, element: <Cart /> },
         { path: config.routes.customer.checkout, element: <Checkout /> },
