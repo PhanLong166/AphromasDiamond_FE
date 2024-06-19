@@ -1,42 +1,42 @@
-import * as Styled from "./Cancelled.styled";
+import * as Styled from "./Delivered.styled";
 import { useState } from "react";
-import { Space, Table, Tag, Input } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { Button, Space, Table, Tag, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
+import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
+import Sidebar from "@/components/Admin/Sidebar/Sidebar";
+import OrderMenu from "@/components/Admin/OrderMenu/OrderMenu";
 
 
 
-const filteredData = data.filter((item) => item.status === "Cancelled");
+const filteredData = data.filter((item) => item.status === "Delivered");
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => parseInt(a.orderID) - parseInt(b.orderID),
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
+    sorter: (a, b) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    sorter: (a, b) => a.total - b.total,
   },
   {
     title: "Status",
@@ -46,10 +46,14 @@ const columns: TableColumnsType<DataType> = [
       let color = "green";
       if (status === "Pending") {
         color = "volcano";
-      } else if (status === "Confirmed") {
+      } else if (status === "Accepted") {
         color = "yellow";
+      } else if (status === "Assigned") {
+        color = "orange";
       } else if (status === "Delivering") {
-        color = "geekblue";
+        color = "blue";
+      } else if (status === "Delivered") {
+        color = "purple";
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
@@ -63,17 +67,28 @@ const columns: TableColumnsType<DataType> = [
     },
   },
   {
-    title: "Detail",
-    key: "detail",
-    className: "TextAlign",
+    title: "Action",
+    key: "action",
     render: (_, { orderID }) => (
       <Space size="middle">
         <Link to={`/admin/order/detail/${orderID}`}>
-          <EyeOutlined />
+        <Button className="transferBtn">Transfer</Button>
         </Link>
       </Space>
     ),
   },
+  // {
+  //   title: "Detail",
+  //   key: "detail",
+  //   className: "TextAlign",
+  //   render: (_, { orderID }) => (
+  //     <Space size="middle">
+  //       <Link to={`/admin/order/detail/${orderID}`}>
+  //         <EyeOutlined />
+  //       </Link>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -85,11 +100,12 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const CancelledOrder = () => {
+const DeliveredOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
+    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -123,7 +139,7 @@ const CancelledOrder = () => {
               </Styled.SearchArea>
             </Styled.AdPageContent_Head>
 
-            <Styled.Pending_Table>
+            <Styled.AdminTable>
               <Table
                 className="table"
                 columns={columns}
@@ -132,7 +148,7 @@ const CancelledOrder = () => {
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
-            </Styled.Pending_Table>
+            </Styled.AdminTable>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>
@@ -140,4 +156,4 @@ const CancelledOrder = () => {
   );
 };
 
-export default CancelledOrder;
+export default DeliveredOrder;

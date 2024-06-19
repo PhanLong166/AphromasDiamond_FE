@@ -1,16 +1,16 @@
-import * as Styled from "./Confirmed.styled";
+import * as Styled from "./Accepted.styled";
 import { useState } from "react";
 import { Button, Space, Table, Tag, Input } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
+import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
+import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
 
 
 
-const filteredData = data.filter((item) => item.status === "Confirmed");
+const filteredData = data.filter((item) => item.status === "Accepted");
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -46,10 +46,14 @@ const columns: TableColumnsType<DataType> = [
       let color = "green";
       if (status === "Pending") {
         color = "volcano";
-      } else if (status === "Confirmed") {
+      } else if (status === "Accepted") {
         color = "yellow";
+      } else if (status === "Assigned") {
+        color = "orange";
       } else if (status === "Delivering") {
-        color = "geekblue";
+        color = "blue";
+      } else if (status === "Delivered") {
+        color = "purple";
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
@@ -65,24 +69,26 @@ const columns: TableColumnsType<DataType> = [
   {
     title: "Action",
     key: "action",
-    render: () => (
-      <Space size="middle">
-        <Button className="transferBtn">Transfer</Button>
-      </Space>
-    ),
-  },
-  {
-    title: "Detail",
-    key: "detail",
-    className: "TextAlign",
     render: (_, { orderID }) => (
       <Space size="middle">
         <Link to={`/admin/order/detail/${orderID}`}>
-          <EyeOutlined />
+        <Button className="transferBtn">Confirm</Button>
         </Link>
       </Space>
     ),
   },
+  // {
+  //   title: "Detail",
+  //   key: "detail",
+  //   className: "TextAlign",
+  //   render: (_, { orderID }) => (
+  //     <Space size="middle">
+  //       <Link to={`/admin/order/detail/${orderID}`}>
+  //         <EyeOutlined />
+  //       </Link>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -94,7 +100,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const ConfirmedOrder = () => {
+const AcceptedOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -150,4 +156,4 @@ const ConfirmedOrder = () => {
   );
 };
 
-export default ConfirmedOrder;
+export default AcceptedOrder;
