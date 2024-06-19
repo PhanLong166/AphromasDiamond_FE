@@ -1,42 +1,52 @@
-import * as Styled from "./Order.styled";
+import * as Styled from "./Completed.styled";
 import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-// import { Col, Row } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
-
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
+import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
+import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
 
 
+const filteredData = data.filter((item) => item.status === "Completed");
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
   },
   {
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
+    sorter: (a, b) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
-    title: "Total",
-    dataIndex: "total",
-    defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    title: "Delivery Staff",
+    dataIndex: "deliveryStaff",
+    showSorterTooltip: { target: "full-header" },
+    filters: [
+      { text: "Joe", value: "Joe" },
+      { text: "Jim", value: "Jim" },
+      { text: "Esther", value: "Esther" },
+      { text: "Ajmal", value: "Ajmal" },
+    ],
+    // specify the condition of filtering result
+    // here is that finding the name started with `value`
+    onFilter: (value, record) =>
+      record.deliveryStaff.indexOf(value as string) === 0,
+    sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
+    sortDirections: ["descend"],
   },
   {
     title: "Status",
@@ -46,10 +56,14 @@ const columns: TableColumnsType<DataType> = [
       let color = "green";
       if (status === "Pending") {
         color = "volcano";
-      } else if (status === "Confirmed") {
+      } else if (status === "Accepted") {
         color = "yellow";
+      } else if (status === "Assigned") {
+        color = "orange";
       } else if (status === "Delivering") {
-        color = "geekblue";
+        color = "blue";
+      } else if (status === "Delivered") {
+        color = "purple";
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
@@ -61,24 +75,7 @@ const columns: TableColumnsType<DataType> = [
         </Tag>
       );
     },
-    filters: [
-      { text: "Pending", value: "Pending" },
-      { text: "Confirmed", value: "Confirmed" },
-      { text: "Delivering", value: "Delivering" },
-      { text: "Completed", value: "Completed" },
-      { text: "Cancelled", value: "Cancelled" },
-    ],
-    onFilter: (value, record) => record.status.indexOf(value as string) === 0,
   },
-  // {
-  //   title: "Action",
-  //   key: "action",
-  //   render: () => (
-  //     <Space size="middle">
-  //       <Button className="confirmBtn">Confirm</Button>
-  //     </Space>
-  //   ),
-  // },
   {
     title: "Detail",
     key: "detail",
@@ -102,11 +99,12 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const Order = () => {
+const CompletedOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
+    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -117,15 +115,16 @@ const Order = () => {
 
   return (
     <>
-      <Styled.GlobalStyle />
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
+
         <Styled.AdminPage>
           <OrderMenu />
 
           <Styled.OrderContent>
             <Styled.AdPageContent_Head>
-              <Styled.SearchArea>
+            <Styled.SearchArea>
                 <Input
                   className="searchInput"
                   type="text"
@@ -143,8 +142,8 @@ const Order = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
-                // pagination={{ pageSize: 6 }} // Add pagination here
+                dataSource={filteredData}
+                pagination={{ pageSize: 7 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
@@ -156,4 +155,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default CompletedOrder;

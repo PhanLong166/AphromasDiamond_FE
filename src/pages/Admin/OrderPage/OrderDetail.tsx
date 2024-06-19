@@ -6,17 +6,20 @@ import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { data } from "./OrderData";
 import { Link, useParams } from "react-router-dom";
 
-
 // const { Option } = Select;
 
 const getStatusTag = (status: string) => {
   let color = "green";
   if (status === "Pending") {
     color = "volcano";
-  } else if (status === "Confirmed") {
+  } else if (status === "Accepted") {
     color = "yellow";
+  } else if (status === "Assigned") {
+    color = "orange";
   } else if (status === "Delivering") {
-    color = "geekblue";
+    color = "blue";
+  } else if (status === "Delivered") {
+    color = "purple";
   } else if (status === "Completed") {
     color = "green";
   } else if (status === "Cancelled") {
@@ -33,6 +36,7 @@ interface OrderLine {
   lineID: number;
   lineImg: string;
   lineName: string;
+  size: string;
   quantity: number;
   price: number;
 }
@@ -44,6 +48,7 @@ const orderLineData: OrderLine[] = [
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     lineName:
       "Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond",
+    size: "8", //8, 10, 12, 14, 16
     quantity: 1,
     price: 5.03,
   },
@@ -52,6 +57,7 @@ const orderLineData: OrderLine[] = [
     lineImg:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     lineName: "Aquamarine Stud Earrings In 14k White Gold (7mm)",
+    size: "8",
     quantity: 2,
     price: 4.0,
   },
@@ -71,8 +77,8 @@ const OrderDetail = () => {
   const handleOk = () => {
     // Handle the submission logic here
     setIsModalVisible(false);
-    // Update the order status to Delivering (this would typically involve an API call)
-    setOrderStatus("Delivering"); 
+    // Update the order status to Assigned
+    setOrderStatus("Assigned"); 
   };
 
   const handleCancel = () => {
@@ -115,7 +121,7 @@ const OrderDetail = () => {
                       </Styled.OrderDate>
                       <Styled.OrderStatus>
                         <p>Status</p>
-                        <div>{getStatusTag(activeOrder.status)}</div>
+                        <div>{getStatusTag(orderStatus)}</div>
                       </Styled.OrderStatus>
                     </Styled.OrderInfor>
 
@@ -197,9 +203,9 @@ const OrderDetail = () => {
                 </Styled.PageContent_Bot>
                 <Styled.ActionBtn>
                   {orderStatus === "Pending" && (
-                    <Button className="MainBtn">Confirm</Button>
+                    <Button className="MainBtn" onClick={() => setOrderStatus("Accepted")}>Create Order</Button>
                   )}
-                  {orderStatus === "Confirmed" && (
+                  {orderStatus === "Accepted" && (
                     <>
                       <Button className="MainBtn" onClick={showModal}>
                         Transfer
@@ -221,7 +227,7 @@ const OrderDetail = () => {
                       </Modal>
                     </>
                   )}
-                  <Link to="/admin/order/pending">
+                  <Link to="/admin/order">
                     <Button style={{ marginLeft: "10px" }}>Back</Button>
                   </Link>
                 </Styled.ActionBtn>

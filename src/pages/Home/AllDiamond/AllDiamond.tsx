@@ -714,55 +714,57 @@ const AllDiamond: React.FC = () => {
             style={{
               display: "flex",
               flexDirection: "column",
+
+
               width: "100%",
             }}
           >
             <div
               style={{
                 display: "flex",
+
                 width: "100%",
               }}
             >
-              <div>
-                <div>
-                  <div
-                    style={{
-                      alignSelf: "flex-start",
-                      fontSize: "12px",
-                      color: "#949494",
-                    }}
-                  >
-                    Min Carat
-                  </div>
-                  <InputNumber
+              <div style={{ flexGrow: 1 }}>
+                <div
+                  style={{
+                    alignSelf: "flex-start",
+                    fontSize: "12px",
+                    color: "#949494",
+                  }}
+                >
+                  Min Carat
+                </div>
+                <InputNumber
                     style={{ marginTop: "5px" }}
                     min={0}
                     max={caratRange[1]}
                     value={caratRange[0]}
                     onChange={(value) => setCaratRange([value !== null ? value : 0, caratRange[1]])}
                   />
+              </div>
+              <div style={{ flexGrow: 2, width: "100%" }}></div>
+              <div style={{ flexGrow: 1 }}>
+                <div
+                  style={{
+                    textAlign: "right",
+                    fontSize: "12px",
+                    color: "#949494",
+                  }}
+                >
+                  Max Carat
                 </div>
-                <div style={{ flexGrow: 2, width: "100%" }}></div>
-                <div style={{ flexGrow: 1 }}>
-                  <div
-                    style={{
-                      textAlign: "right",
-                      fontSize: "12px",
-                      color: "#949494",
-                    }}
-                  >
-                    Max Carat
-                  </div>
-                  <InputNumber
+                <InputNumber
                     style={{ marginTop: "5px" }}
                     min={caratRange[0]}
                     max={30.0}
                     value={caratRange[1]}
                     onChange={(value) => setCaratRange([caratRange[0], value !== null ? value : 0])}
                   />
-                </div>
               </div>
-              <CustomSlider
+            </div>
+            <CustomSlider
                 range
                 min={0.05}
                 max={30.0}
@@ -770,9 +772,9 @@ const AllDiamond: React.FC = () => {
                 value={caratRange}
                 onChange={(value) => setCaratRange(value as [number, number])}
               />
-            </div>
           </div>
         </Col>
+        
       </Row>
       <div style={{ marginTop: "20px" }}></div>
       <Row gutter={[16, 16]}>

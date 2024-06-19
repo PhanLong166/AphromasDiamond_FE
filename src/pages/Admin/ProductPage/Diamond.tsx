@@ -30,6 +30,7 @@ import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 // import Dragger from "antd/es/upload/Dragger";
 import TextArea from "antd/es/input/TextArea";
 import { diamondData, DiamondDataType } from "./ProductData"; // Import data here
+import { Link } from "react-router-dom";
 
 const onChange: TableProps<DiamondDataType>["onChange"] = (
   pagination,
@@ -77,7 +78,6 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
   // Watch all values
   const values = Form.useWatch([], form);
-
   React.useEffect(() => {
     form
       .validateFields({ validateOnly: true })
@@ -238,9 +238,11 @@ const Diamond = () => {
       title: "Detail",
       key: "detail",
       className: "TextAlign",
-      render: () => (
+      render: (_, { diamondID }) => (
         <Space size="middle">
-          <EyeOutlined />
+          <Link to={`/admin/product/diamond/detail/${diamondID}`}>
+            <EyeOutlined />
+          </Link>
         </Space>
       ),
     },
@@ -326,7 +328,7 @@ const Diamond = () => {
             <Styled.AdminTable>
               {isAdding ? (
                 <>
-                  <Form layout="vertical" className="AdPageContent_Content">
+                  <Form form={form} layout="vertical" className="AdPageContent_Content">
                     <Styled.FormItem>
                       <Form.Item
                         label="Diamond ID"
@@ -509,7 +511,7 @@ const Diamond = () => {
                       </Form.Item>
                     </Styled.FormDescript>
                     <Styled.UploadFile>
-                      <Form.Item label="Upload Images">
+                      <Form.Item label="Upload Images" rules={[{ required: true }]}>
                         <Dragger {...props}>
                           <p className="ant-upload-drag-icon">
                             <InboxOutlined />
@@ -527,7 +529,7 @@ const Diamond = () => {
                     </Styled.UploadFile>
 
                     <Styled.UploadFile>
-                      <Form.Item label="Upload GIA">
+                      <Form.Item label="Upload GIA" rules={[{ required: true }]}>
                         <Dragger {...props}>
                           <p className="ant-upload-drag-icon">
                             <InboxOutlined />
@@ -551,6 +553,7 @@ const Diamond = () => {
                     </SubmitButton>
                     <Button
                       onClick={handleCancel}
+                      className="CancelBtn"
                       style={{ marginLeft: "10px" }}
                     >
                       Cancel

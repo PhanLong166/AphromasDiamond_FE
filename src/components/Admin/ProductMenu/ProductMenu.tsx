@@ -9,12 +9,14 @@ const ProductMenu = () => {
   useEffect(() => {
     switch (location.pathname) {
       case "/admin/product":
+      case "/admin/product/diamond/detail/:id":
+        setActive("Diamond");
+        break;
+      case "/admin/product/jewelry":
+      case "/admin/product/detail/:id":
       case "/admin/product/add/product":
       case "/admin/product/add/jewelry":
-        setActive("Product");
-        break;
-      case "/admin/product/diamond":
-        setActive("Diamond");
+        setActive("Jewelry");
         break;
       case "/admin/product/ring-setting":
         setActive("RingSetting");
@@ -43,20 +45,7 @@ const ProductMenu = () => {
       </Styled.TitlePage>
 
       <Styled.MiniCatalog>
-        <Styled.MiniCatalog_Ele
-          className={active === "Product" ? "active" : ""}
-        >
-          <div
-            className={`btn ${
-              active === "Product" ? "adMenu_active-line" : "adMenu_line"
-            }`}
-            onClick={() => handleSetActive("Product")}
-          ></div>
-          <Link to="/admin/product">
-            <h3>Product</h3>
-          </Link>
-        </Styled.MiniCatalog_Ele>
-        <Styled.MiniCatalog_Ele
+      <Styled.MiniCatalog_Ele
           className={active === "Diamond" ? "active" : ""}
         >
           <div
@@ -65,8 +54,21 @@ const ProductMenu = () => {
             } `}
             onClick={() => handleSetActive("Diamond")}
           ></div>
-          <Link to="/admin/product/diamond">
+          <Link to="/admin/product">
             <h3>Diamond</h3>
+          </Link>
+        </Styled.MiniCatalog_Ele>
+        <Styled.MiniCatalog_Ele
+          className={active === "Jewelry" ? "active" : ""}
+        >
+          <div
+            className={`btn ${
+              active === "Jewelry" ? "adMenu_active-line" : "adMenu_line"
+            }`}
+            onClick={() => handleSetActive("Jewelry")}
+          ></div>
+          <Link to="/admin/product/jewelry">
+            <h3>Jewelry</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
         <Styled.MiniCatalog_Ele
