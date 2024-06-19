@@ -21,15 +21,13 @@ import About from "@/pages/Home/AboutUs/AboutUs";
 // import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
 import RingGuide from "@/pages/Home/RingGuilde/RingGuide";
-<<<<<<< HEAD
 import OrderDetails from "@/pages/Customer/OrderDetails/OrderDetails";
-
-
-=======
 import AllDiamond from "@/pages/Home/AllDiamond/AllDiamond";
 import useAuth from "@/hooks/useAuth";
 import { Role } from "@/utils/enum";
->>>>>>> 38ab428470982b9f6a10d7ef323e70b6c0019dc4
+import AllCollection from "@/pages/Home/AllCollection/AllCollection";
+import CollectionInformation from "@/pages/Home/CollectionInformation/CollectionInfomation";
+
 
 
 const MainRouter = () => {
@@ -56,7 +54,9 @@ const publicRoutes = {
         { path: config.routes.public.about, element: <About /> },
         { path: config.routes.public.gift, element: <Gift /> },
         { path: config.routes.public.ringGuide, element: <RingGuide /> },
-        { path: config.routes.public.diamond, element: <AllDiamond /> }
+        { path: config.routes.public.diamond, element: <AllDiamond /> },
+        { path: config.routes.public.collection, element: <AllCollection /> },
+        { path: config.routes.public.collectionInfo, element: <CollectionInformation /> }
 
     ]
 }
@@ -69,14 +69,9 @@ const customerRoutes = {
         { path: config.routes.customer.account, element: <Account /> },
         { path: config.routes.customer.orderList, element: <OrderList /> },
         { path: config.routes.customer.history, element: <History /> },
-<<<<<<< HEAD
         { path:config.routes.customer.voucher, element:<Voucher />},
         {path: config.routes.customer.notification, element: <NotiPage />},
         {path: config.routes.customer.orderDetails, element: <OrderDetails />}
-=======
-        { path: config.routes.customer.voucher, element: <Voucher /> },
-        { path: config.routes.customer.notification, element: <NotiPage /> }
->>>>>>> 38ab428470982b9f6a10d7ef323e70b6c0019dc4
     ]
 }
 
