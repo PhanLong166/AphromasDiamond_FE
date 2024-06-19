@@ -61,14 +61,7 @@ const useAuth = () => {
             setLoading(true);
 
             setRole(getRole());
-            console.log(getRole());
 
-            // const getInfo = async () => {
-            //     const { data } = await getInfoCurrentUser();
-            //     setUser(data);
-            // };
-
-            // getInfo();
         } finally {
             setLoading(false);
         }

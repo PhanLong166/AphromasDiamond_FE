@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Button, InputNumber, Slider, Select } from "antd";
 import { Breadcrumb } from "antd";
@@ -8,6 +8,7 @@ import { Card, Col, Row, Typography, Pagination } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Collapse } from "antd";
 import { theme } from "../../../themes";
+import { showAllDiamond } from "@/services/diamondAPI";
 const { Title, Text } = Typography;
 const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1400px;
@@ -583,6 +584,14 @@ const AllDiamond: React.FC = () => {
   //   (currentPage - 1) * pageSize,
   //   currentPage * pageSize
   // );
+  const [diamond, setDiamond] = useState();
+  useEffect(() => {
+    (async () => {
+      const { data } = await showAllDiamond();
+      setDiamond(data.data);
+      console.log(diamond);
+    })
+  }, [])
 
   return (
     <Section>
