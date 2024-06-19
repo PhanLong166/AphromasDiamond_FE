@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
+import { CaretDownOutlined } from '@ant-design/icons'
 
 const Dropdown: React.FC = () => {
   const [isOpen, setIsOpen] = useState(false);
@@ -10,7 +11,7 @@ const Dropdown: React.FC = () => {
 
   return (
     <DropdownContainer>
-      <DropdownButton onClick={toggleDropdown}>Ring size</DropdownButton>
+      <DropdownButton onClick={toggleDropdown}>Ring size<span><CaretDownOutlined/></span></DropdownButton>
       <DropdownContent isOpen={isOpen}>
         <DropdownLink>4</DropdownLink>
         <DropdownLink>4.5</DropdownLink>
@@ -31,9 +32,7 @@ const DropdownContainer = styled.div`
 `;
 
 const DropdownButton = styled.button`
-  /* background-color: #4caf50; */
   color: #000;
-  /* padding: 12px; */
   font-size: 20px;
   border: none;
   cursor: pointer;

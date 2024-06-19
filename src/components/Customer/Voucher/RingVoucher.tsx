@@ -13,7 +13,7 @@ const App = () => {
       time: "15:20Pm & 11:00Am",
       location: "North, South, United State, Amre",
       locationDetails: "Party Number 16,20",
-      buttonLabel: "Discount",
+      buttonLabel: "VCWELCOME10",
       buttonLabeles: "Claim Now"
     },
     {
@@ -25,7 +25,7 @@ const App = () => {
       time: "10:00Am & 3:00Pm",
       location: "East, West, United State, Amre",
       locationDetails: "Party Number 30,40",
-      buttonLabel: "Discount",
+      buttonLabel: "VCBONUS5",
       buttonLabeles: "Claim Now"
     },
     {
@@ -37,7 +37,7 @@ const App = () => {
       time: "15:20Pm & 11:00Am",
       location: "North, South, United State, Amre",
       locationDetails: "Party Number 16,20",
-      buttonLabel: "Discount",
+      buttonLabel: "VCFIRSTORDER",
       buttonLabeles: "Claim Now"
     },
     {
@@ -49,7 +49,7 @@ const App = () => {
       time: "10:00Am & 3:00Pm",
       location: "East, West, United State, Amre",
       locationDetails: "Party Number 30,40",
-      buttonLabel: "Discount",
+      buttonLabel: "VCSPRINGSALE",
       buttonLabeles: "Claim Now"
     },
   ];

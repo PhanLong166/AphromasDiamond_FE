@@ -217,10 +217,10 @@ const Product: React.FC = () => {
     setCurrentPage(page);
   };
 
-  const paginatedProducts = products.slice(
-    (currentPage - 1) * pageSize,
-    currentPage * pageSize
-  );
+  // const paginatedProducts = products.slice(
+  //   (currentPage - 1) * pageSize,
+  //   currentPage * pageSize
+  // );
 
   return (
     <Container>

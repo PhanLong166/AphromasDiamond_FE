@@ -6,6 +6,7 @@ import {  Space } from 'antd';
 import {  Table} from 'antd';
 import type { TableProps } from 'antd';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
+import { Link } from 'react-router-dom';
 
 
 
@@ -104,8 +105,8 @@ const columns: TableProps<DataType>['columns'] = [
     key: 'action',
     render: () => (
       <Space style={{width: 134}} size="middle">
-        <a>View</a>
-        <a>Cancel</a>
+        <Link to="/order-details">View</Link>
+        <Link to="/#">Cancel</Link>
       </Space>
     ),
     width:134,

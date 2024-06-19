@@ -21,10 +21,11 @@ import About from "@/pages/Home/AboutUs/AboutUs";
 // import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
 import RingGuide from "@/pages/Home/RingGuilde/RingGuide";
-import OrderDetails from "@/pages/Customer/OrderDetails/OrderDetails";
-import AllDiamond from "@/pages/Home/AllDiamond/AllDiamond";
 import useAuth from "@/hooks/useAuth";
 import { Role } from "@/utils/enum";
+import AllDiamond from "@/pages/Home/AllDiamond";
+// import Order from "@/pages/Admin/OrderPage/Order";
+import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 
 
 const MainRouter = () => {
@@ -37,9 +38,12 @@ const MainRouter = () => {
 }
 
 const CustomerRouter = () => {
-    const { role } = useAuth();
-    return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
-
+    //Use when you have database
+    // const { role } = useAuth();
+    // return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
+    
+    //Use when you don't have database
+    return <Outlet/>;
 }
 
 const publicRoutes = {
@@ -66,7 +70,7 @@ const customerRoutes = {
         { path: config.routes.customer.history, element: <History /> },
         { path:config.routes.customer.voucher, element:<Voucher />},
         {path: config.routes.customer.notification, element: <NotiPage />},
-        {path: config.routes.customer.orderDetails, element: <OrderDetails />}
+        {path: config.routes.customer.orderDetails, element: <OrderDetail />}
     ]
 }
 

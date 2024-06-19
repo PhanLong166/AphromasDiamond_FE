@@ -29,14 +29,19 @@ import Customer from "@/pages/Admin/CustomerPage/Customer"
 import SalesStaff from "@/pages/Admin/StaffPage/SalesStaff"
 import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff"
 import Manager from "@/pages/Admin/ManagerPage/Manager"
+
+//Open it when you have database
 // import useAuth from "@/hooks/useAuth"
 // import { Role } from "@/utils/enum"
 // import { Navigate } from "react-router-dom"
 
 const AdminRouter = () => {
+    //Use database
     // const { role } = useAuth();
     // return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
-    return <AdminLayout />;
+
+    //No database
+    return <AdminLayout/>;
 }
 
 const AdminRoutes = {

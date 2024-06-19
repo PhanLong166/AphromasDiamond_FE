@@ -102,8 +102,6 @@ const AddressDetails: React.FC<AddressDetailsProps> = () => (
     </Country> */}
     <label style={{marginBottom: -15}} htmlFor="address">Address Details</label>
     <StyledInputt type="text" id="phoneNumber" />
-     
-    {/* <Button><Checkbox onChange={onChange}>Fill auto</Checkbox></Button> */}
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
@@ -124,15 +122,15 @@ const PaymentMethod: React.FC = () => (
     <ImagesContainer>
       <Link to="/thanks-page">
       <PaymentImage
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/cf80dd34693b8ee36689f6cdbf9c8af4d9dd7c2416ceab835ab7d256a0a98cc2?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
-        alt="Credit Card"
+        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fvnpay.png?alt=media&token=862bf826-5f9f-45d9-807b-a762a7e78506"
+        alt="VnPay"
       />
       </Link>
       <Link to="/thanks-page">
       <PaymentImage
       
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/d7dfd775276b304c961268c7106f9586aecbb972a877c1150bdab755dcaa79a2?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
-        alt="PayPal"
+        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fmomo.png?alt=media&token=5bbb0c32-e05b-4a02-8cd8-cee2af079413"
+        alt="Momo"
       />
       </Link>
     </ImagesContainer>
@@ -196,8 +194,11 @@ const Checkout: React.FC = () => {
     
   };
   return (
+    <Main>
+      <Header>Checkout</Header>
     <Wrapper>
-      <Title>CHECKOUT</Title>
+      
+      {/* <Title>CHECKOUT</Title> */}
       <StyledLink ><Link to="/CART">BACK TO CART</Link></StyledLink>
       <Content>
         <Form>
@@ -212,42 +213,42 @@ const Checkout: React.FC = () => {
             {
               name: "Diamond (Loose)",
               image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
               sku: "SKU 18633320",
               price: "$8,000",
             },
             {
               name: "Diamond (Loose)",
               image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/96a1be60136e9f026ded141f492c74752cb83069bdf72ad95a9fabb5b8f35a41?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
               sku: "SKU 18633320",
               price: "$8,000",
             },
             {
               name: "Diamond (Loose)",
               image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/96a1be60136e9f026ded141f492c74752cb83069bdf72ad95a9fabb5b8f35a41?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+              sku: "SKU 18633320",
+              price: "$8,000",
+            },
+            {
+              name: "Ring Diamond",
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
+              sku: "SKU 18633320",
+              price: "$8,000",
+            },
+            {
+              name: "Ring Diamond",
+              image:
+                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
               sku: "SKU 18633320",
               price: "$8,000",
             },
             {
               name: "Diamond (Loose)",
               image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Diamond (Loose)",
-              image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Diamond (Loose)",
-              image:
-                "https://cdn.builder.io/api/v1/image/assets/TEMP/84a10ded0026738374c5ce3ea45beb7c6a27b1c8b2102a1de3bad81e015677bf?apiKey=5672b1354002436f9bda9e8bc0a69a3b&",
+                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
               sku: "SKU 18633320",
               price: "$8,000",
             },
@@ -260,12 +261,33 @@ const Checkout: React.FC = () => {
       
       <Editbtn><a style={{ color: "white" }} href="#" >Continue</a> </Editbtn>
     </Wrapper>
-
+    </Main>
   );
 };
 
 
 export default Checkout;
+
+const Main = styled.div`
+`;
+
+const Header = styled.header`
+   align-items: center;
+    background: #fff;
+    width: 1400px;
+    color: #818594;
+    font: 14px / 150% 'Crimson Text', sans-serif;
+    border-bottom: 1px solid #e4e4e4;
+    border-top: 1px solid #e4e4e4;
+    padding: 10px;
+    display: flex;
+    margin: 0 35px 0 35px;
+    /* margin-bottom: 4rem; */
+  @media (max-width: 991px) {
+    padding: 0 20px 0 30px;
+    margin-top: 40px;
+  }
+`;
 
 
 const ItemNumner = styled.div`
@@ -285,16 +307,16 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 73px 60px;
+  /* padding: 73px 60px; */
   @media (max-width: 991px) {
     padding: 0 20px;
   }
 `;
 
-const Title = styled.h1`
-  color: #000;
-  font: 600 45px/150% Poppins, sans-serif;
-`;
+// const Title = styled.h1`
+//   color: #000;
+//   font: 600 45px/150% Poppins, sans-serif;
+// `;
 
 const StyledLink = styled.a`
   color: #000;
