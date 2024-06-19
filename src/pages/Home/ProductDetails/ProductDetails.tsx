@@ -3,9 +3,8 @@ import { useState } from "react";
 import { Breadcrumb } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
-import { Card, Col, Row, Typography, Pagination, Carousel } from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../themes";
 const { Title, Text } = Typography;
 import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
 import {
@@ -48,7 +47,6 @@ import {
   ListBlock,
   Review,
   ProductSection,
-  HeadingTitle,
   ButtonAdd,
   Space,
   List,
@@ -56,6 +54,8 @@ import {
   // PageLink
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
+import { useNavigate } from "react-router-dom";
+import config from "@/config";
 
 const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1320px;
@@ -63,12 +63,12 @@ const CustomBreadcrumb = styled(Breadcrumb)`
   padding-top: 20px;
 `;
 
-const CustomCarousel = styled(Carousel)`
-  .slick-dots li button {
-    background-color: ${theme.color.primary} !important;
-    bottom: -30px;
-  }
-`;
+// const CustomCarousel = styled(Carousel)`
+//   .slick-dots li button {
+//     background-color: ${theme.color.primary} !important;
+//     bottom: -30px;
+//   }
+// `;
 
 const ProductDetails = () => {
   const [mainImage, setMainImage] = useState(
@@ -206,6 +206,8 @@ const ProductDetails = () => {
     },
   ];
 
+  const navigate = useNavigate();
+
   const [wishList, setWishList] = useState<number[]>([]);
 
   const toggleWishList = (productId: number) => {
@@ -310,7 +312,7 @@ const ProductDetails = () => {
                 <div>
                   <RingSizeContainer>
                     <RingSize>Select size</RingSize>
-                    <RingSizeHelp href="#">Ring size help</RingSizeHelp>
+                    <RingSizeHelp href={config.routes.public.ringGuide}>Ring size help</RingSizeHelp>
                   </RingSizeContainer>
                   <div className="button-container">
                     {sizes.map((size) => (
@@ -366,7 +368,10 @@ const ProductDetails = () => {
               </Entry>
               <div className="outlet">
                 <ButtonContainer>
-                  <ButtonAdd className="add">ADD TO CART</ButtonAdd>
+                  <ButtonAdd 
+                  className="add"
+                  onClick={() => navigate(config.routes.customer.cart)}
+                  >ADD TO CART</ButtonAdd>
                   <Button className="checkout button_slide slide_right">
                     <span>CHECKOUT</span>
                   </Button>
