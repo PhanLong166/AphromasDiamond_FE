@@ -142,29 +142,9 @@ export const AdminTable = styled.div`
     width: 77px;
   }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
     cursor: pointer;
   }
-  .pendStatus {
-    background-color: #f8e7ee;
-    border-radius: 100px;
-    padding: 5px 10px 5px 10px;
-    font-size: 12px;
-    color: #cd486b;
-    border: none;
-  }
-  .confirmBtn {
-    background-color: #cd486b;
-    border-radius: 100px;
-    padding: 7px 17px 7px 17px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    /* font-size: 12px; */
-    color: #f8e7ee;
-    border: none;
-    cursor: pointer;
-  }
+
 
   
   // --------------------------
@@ -182,7 +162,7 @@ export const AdminTable = styled.div`
 `;
 
 
-// ----------------------------------------------------------
+// ---------------------------- ADD PRODUCT ------------------------------
 
 export const AdPageArea = styled.div`
 padding-top: 32px;

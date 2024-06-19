@@ -2,14 +2,17 @@ import config from "@/config"
 import AdminLayout from "@/layouts/AdminLayout/AdminLayout"
 import Dashboard from "@/pages/Admin/Dashboard/Dashboard"
 import Order from "@/pages/Admin/OrderPage/Order"
-import PendingOrder from "@/pages/Admin/OrderPage/Pending"
-import ConfirmedOrder from "@/pages/Admin/OrderPage/Confirmed"
-import DeliveringOrder from "@/pages/Admin/OrderPage/Delivering"
-import CompletedOrder from "@/pages/Admin/OrderPage/Completed"
-import CancelledOrder from "@/pages/Admin/OrderPage/Cancelled"
+import PendingOrder from "@/pages/Admin/OrderPage/Pending/Pending"
+import AcceptedOrder from "@/pages/Admin/OrderPage/Accepted/Accepted"
+import AssignedOrder from "@/pages/Admin/OrderPage/Assigned/Assigned"
+import DeliveringOrder from "@/pages/Admin/OrderPage/Delivering/Delivering"
+import DeliveredOrder from "@/pages/Admin/OrderPage/Delivered/Delivered"
+import CompletedOrder from "@/pages/Admin/OrderPage/Completed/Completed"
+import CancelledOrder from "@/pages/Admin/OrderPage/Cancelled/Cancelled"
 import OrderDetail from "@/pages/Admin/OrderPage/OrderDetail"
 
 import Product from "@/pages/Admin/ProductPage/Product"
+import ProductDetail from "@/pages/Admin/ProductPage/Detail/ProductDetail"
 import AddProduct from "@/pages/Admin/ProductPage/AddProduct"
 import AddJewelry from "@/pages/Admin/ProductPage/AddJewelry"
 import Diamond from "@/pages/Admin/ProductPage/Diamond"
@@ -25,13 +28,14 @@ import Customer from "@/pages/Admin/CustomerPage/Customer"
 import SalesStaff from "@/pages/Admin/StaffPage/SalesStaff"
 import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff"
 import Manager from "@/pages/Admin/ManagerPage/Manager"
-import useAuth from "@/hooks/useAuth"
-import { Role } from "@/utils/enum"
-import { Navigate } from "react-router-dom"
+// import useAuth from "@/hooks/useAuth"
+// import { Role } from "@/utils/enum"
+// import { Navigate } from "react-router-dom"
 
 const AdminRouter = () => {
-    const { role } = useAuth();
-    return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
+    // const { role } = useAuth();
+    // return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
+    return <AdminLayout />;
 }
 
 const AdminRoutes = {
@@ -42,13 +46,16 @@ const AdminRoutes = {
 
         {path: config.routes.admin.order, element: <Order/>},
         {path: config.routes.admin.pendingOrder, element: <PendingOrder/>},
-        {path: config.routes.admin.confirmedOrder, element: <ConfirmedOrder/>},
+        {path: config.routes.admin.acceptedOrder, element: <AcceptedOrder/>},
+        {path: config.routes.admin.assignedOrder, element: <AssignedOrder/>},
         {path: config.routes.admin.deliveringOrder, element: <DeliveringOrder/>},
+        {path: config.routes.admin.deliveredOrder, element: <DeliveredOrder/>},
         {path: config.routes.admin.completedOrder, element: <CompletedOrder/>},
         {path: config.routes.admin.cancelledOrder, element: <CancelledOrder/>},
         {path: config.routes.admin.orderDetail, element: <OrderDetail/>},
 
         { path: config.routes.admin.product, element: <Product /> },
+        { path: config.routes.admin.productDetail, element: <ProductDetail /> },
         { path: config.routes.admin.addProduct, element: <AddProduct /> },
         { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
         { path: config.routes.admin.diamondProduct, element: <Diamond /> },

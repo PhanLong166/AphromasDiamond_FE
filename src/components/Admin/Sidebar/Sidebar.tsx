@@ -27,8 +27,10 @@ const Sidebar = () => {
         break;
       case "/admin/order":
       case "/admin/order/pending":
-      case "/admin/order/confirmed":
+      case "/admin/order/accepted":
+      case "/admin/order/assigned":
       case "/admin/order/delivering":
+      case "/admin/order/delivered":
       case "/admin/order/completed":
       case "/admin/order/cancelled":
       case "/admin/order/detail/:id":

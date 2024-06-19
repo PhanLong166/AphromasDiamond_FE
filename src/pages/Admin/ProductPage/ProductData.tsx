@@ -11,6 +11,8 @@ export interface ProductDataType {
   quantity: number;
   exchangeRate: number;
   currencyType: string;
+  diamondID: string;
+  ringSettingID: string;
 }
 
 export const productData: ProductDataType[] = [
@@ -26,6 +28,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0003",
+    ringSettingID: "12345122",
   },
   {
     key: "2",
@@ -39,6 +43,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0007",
+    ringSettingID: "12345122",
   },
   {
     key: "3",
@@ -52,6 +58,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0005",
+    ringSettingID: "12345122",
   },
   {
     key: "4",
@@ -65,6 +73,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0003",
+    ringSettingID: "12345122",
   },
   {
     key: "5",
@@ -78,6 +88,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0007",
+    ringSettingID: "12345122",
   },
   {
     key: "6",
@@ -91,6 +103,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0002",
+    ringSettingID: "12345122",
   },
   {
     key: "7",
@@ -104,6 +118,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0003",
+    ringSettingID: "12345122",
   },
   {
     key: "8",
@@ -117,6 +133,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0006",
+    ringSettingID: "12345122",
   },
   {
     key: "9",
@@ -130,6 +148,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0008",
+    ringSettingID: "12345122",
   },
   {
     key: "10",
@@ -143,6 +163,8 @@ export const productData: ProductDataType[] = [
     quantity: 51,
     exchangeRate: 23000,
     currencyType: "USD",
+    diamondID: "D0001",
+    ringSettingID: "12345122",
   },
 ];
 
@@ -155,148 +177,245 @@ export interface DiamondDataType {
   diamondName: string;
   price: number;
   markupPercentage: number;
-  color: string;
   shape: string;
+  color: string;
+  polish: string;
+  cut: string;
+  lwRatio: number;
+  clarity: string;
+  symmetry: string;
+  caratWeight: number;
+  tablePercentage: number;
+  depthPercentage: number;
+  fluorescence: string;
+  description: string;
+  giaCerti: string;
   exchangeRate: number;
   currencyType: string;
 }
 
+
 export const diamondData: DiamondDataType[] = [
-  {
-    key: "1",
-    diamondID: "12345121",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 4.08,
-    markupPercentage: 100,
-    color: "H",
-    shape: "Marquise",
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "2",
-    diamondID: "12345122",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5.08,
-    markupPercentage: 100,
-    color: "G",
-    shape: "Princess",
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "3",
-    diamondID: "12345123",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 7.08,
-    markupPercentage: 100,
-    color: "H",
-    shape: "Asscher",
-
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "4",
-    diamondID: "12345124",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 6.08,
-    markupPercentage: 100,
-    color: "J",
-    shape: "Radiant",
-
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "5",
-    diamondID: "12345125",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 3.08,
-    markupPercentage: 100,
-    color: "I",
-    shape: "Oval",
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "6",
-    diamondID: "12345126",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 9.08,
-    markupPercentage: 100,
-    color: "I",
-    shape: "Princess",
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "7",
-    diamondID: "12345127",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 2.04,
-    markupPercentage: 100,
-    color: "G",
-    shape: "Heart",
-
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "8",
-    diamondID: "12345128",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 7.03,
-    markupPercentage: 100,
-    color: "K",
-    shape: "Emerald",
-
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "9",
-    diamondID: "12345129",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5.07,
-    markupPercentage: 100,
-    color: "J",
-    shape: "Cushion",
-
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
-  {
-    key: "10",
-    diamondID: "12345130",
-    diamondImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    diamondName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 4.2,
-    markupPercentage: 100,
-    color: "I",
-    shape: "Marquise",
-    exchangeRate: 23000,
-    currencyType: "USD",
-  },
+  { key: "1",
+  diamondID: "D0001",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Emerald Diamond",
+  price: 9455.54,
+  markupPercentage: 20,
+  shape: "Asscher",
+  color: "F",
+  polish: "Excellent",
+  cut: "Excellent",
+  lwRatio: 1.06,
+  clarity: "VVS2",
+  symmetry: "Very Good",
+  caratWeight: 0.87,
+  tablePercentage: 55.59,
+  depthPercentage: 61.29,
+  fluorescence: "Medium",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "2",
+  diamondID: "D0002",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Emerald Diamond",
+  price: 8270.44,
+  markupPercentage: 25,
+  shape: "Asscher",
+  color: "F",
+  polish: "Good",
+  cut: "Very Good",
+  lwRatio: 1.05,
+  clarity: "IF",
+  symmetry: "Good",
+  caratWeight: 0.76,
+  tablePercentage: 56.76,
+  depthPercentage: 60.9,
+  fluorescence: "None",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "3",
+  diamondID: "D0003",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Princess Diamond",
+  price: 7627.91,
+  markupPercentage: 25,
+  shape: "Emerald",
+  color: "G",
+  polish: "Very Good",
+  cut: "Excellent",
+  lwRatio: 1.01,
+  clarity: "VVS1",
+  symmetry: "Good",
+  caratWeight: 1.06,
+  tablePercentage: 55.78,
+  depthPercentage: 60.22,
+  fluorescence: "Medium",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "4",
+  diamondID: "D0004",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Princess Diamond",
+  price: 5459.23,
+  markupPercentage: 30,
+  shape: "Emerald",
+  color: "F",
+  polish: "Excellent",
+  cut: "Good",
+  lwRatio: 1.05,
+  clarity: "VS1",
+  symmetry: "Excellent",
+  caratWeight: 1.4,
+  tablePercentage: 54.85,
+  depthPercentage: 60.31,
+  fluorescence: "Faint",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "5",
+  diamondID: "D0005",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Marquise Diamond",
+  price: 9465.42,
+  markupPercentage: 20,
+  shape: "Marquise",
+  color: "F",
+  polish: "Excellent",
+  cut: "Good",
+  lwRatio: 1.03,
+  clarity: "IF",
+  symmetry: "Excellent",
+  caratWeight: 0.86,
+  tablePercentage: 55.53,
+  depthPercentage: 61.25,
+  fluorescence: "Medium",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "6",
+  diamondID: "D0006",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Princess Diamond",
+  price: 5230.42,
+  markupPercentage: 20,
+  shape: "Round",
+  color: "D",
+  polish: "Good",
+  cut: "Very Good",
+  lwRatio: 1.02,
+  clarity: "VS1",
+  symmetry: "Good",
+  caratWeight: 0.85,
+  tablePercentage: 55.03,
+  depthPercentage: 61.55,
+  fluorescence: "None",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "7",
+  diamondID: "D0007",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Round Diamond",
+  price: 5026.7,
+  markupPercentage: 20,
+  shape: "Round",
+  color: "H",
+  polish: "Very Good",
+  cut: "Good",
+  lwRatio: 1.06,
+  clarity: "IF",
+  symmetry: "Excellent",
+  caratWeight: 0.52,
+  tablePercentage: 54.94,
+  depthPercentage: 60.08,
+  fluorescence: "Strong",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "8",
+  diamondID: "D0008",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Emerald Diamond",
+  price: 8472.97,
+  markupPercentage: 25,
+  shape: "Marquise",
+  color: "F",
+  polish: "Good",
+  cut: "Good",
+  lwRatio: 1.04,
+  clarity: "VS1",
+  symmetry: "Good",
+  caratWeight: 0.98,
+  tablePercentage: 55.13,
+  depthPercentage: 61.77,
+  fluorescence: "Medium",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "9",
+  diamondID: "D0009",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Marquise Diamond",
+  price: 8732.8,
+  markupPercentage: 30,
+  shape: "Emerald",
+  color: "E",
+  polish: "Excellent",
+  cut: "Excellent",
+  lwRatio: 1.0,
+  clarity: "VVS2",
+  symmetry: "Good",
+  caratWeight: 0.69,
+  tablePercentage: 56.3,
+  depthPercentage: 61.57,
+  fluorescence: "Medium",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+},
+{ key: "10",
+  diamondID: "D0010",
+  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+  diamondName: "1.0 Carat Asscher Diamond",
+  price: 3587.14,
+  markupPercentage: 25,
+  shape: "Princess",
+  color: "H",
+  polish: "Good",
+  cut: "Excellent",
+  lwRatio: 1.09,
+  clarity: "IF",
+  symmetry: "Good",
+  caratWeight: 1.08,
+  tablePercentage: 56.02,
+  depthPercentage: 61.63,
+  fluorescence: "None",
+  description: "A high-quality diamond with excellent features.",
+  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+  exchangeRate: 23000,
+  currencyType: "USD"
+}
 ];
 
 // ---------------- RING SETTING DATA -------------------
@@ -465,7 +584,7 @@ export interface JewTypeDataType {
   jewelryTypeID: string;
   jewelryTypeName: string;
 }
-    export const jewTypeData: JewTypeDataType[] = [
+export const jewTypeData: JewTypeDataType[] = [
   {
     key: "1",
     jewelryTypeID: "12345121",
@@ -571,5 +690,3 @@ export const materialData: MaterialDataType[] = [
     sellingPrice: 2.04,
   },
 ];
-
-
