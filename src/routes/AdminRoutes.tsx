@@ -11,11 +11,12 @@ import CompletedOrder from "@/pages/Admin/OrderPage/Completed/Completed"
 import CancelledOrder from "@/pages/Admin/OrderPage/Cancelled/Cancelled"
 import OrderDetail from "@/pages/Admin/OrderPage/OrderDetail"
 
-import Product from "@/pages/Admin/ProductPage/Product"
-import ProductDetail from "@/pages/Admin/ProductPage/Detail/ProductDetail"
-import AddProduct from "@/pages/Admin/ProductPage/AddProduct"
-import AddJewelry from "@/pages/Admin/ProductPage/AddJewelry"
 import Diamond from "@/pages/Admin/ProductPage/Diamond"
+import DiamondDetail from "@/pages/Admin/ProductPage/Detail/DiamondDetail"
+import JewelryDetail from "@/pages/Admin/ProductPage/Detail/JewelryDetail"
+import Jewelry from "@/pages/Admin/ProductPage/Jewelry"
+import AddProduct from "@/pages/Admin/ProductPage/AddDiaJew"
+import AddJewelry from "@/pages/Admin/ProductPage/AddReguJew"
 import RingSettingProduct from "@/pages/Admin/ProductPage/RingSetting"
 import RingProduct from "@/pages/Admin/ProductPage/Ring"
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType"
@@ -54,11 +55,13 @@ const AdminRoutes = {
         {path: config.routes.admin.cancelledOrder, element: <CancelledOrder/>},
         {path: config.routes.admin.orderDetail, element: <OrderDetail/>},
 
-        { path: config.routes.admin.product, element: <Product /> },
-        { path: config.routes.admin.productDetail, element: <ProductDetail /> },
+        { path: config.routes.admin.product, element: <Diamond /> },
+        { path: config.routes.admin.diamondDetail, element: <DiamondDetail /> },
+        { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
+        { path: config.routes.admin.jewelryDetail, element: <JewelryDetail /> },
         { path: config.routes.admin.addProduct, element: <AddProduct /> },
         { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
-        { path: config.routes.admin.diamondProduct, element: <Diamond /> },
+        { path: config.routes.admin.jewelryProduct, element: <Jewelry /> },
         { path: config.routes.admin.ringSettingProduct, element: <RingSettingProduct /> },
         { path: config.routes.admin.ringProduct, element: <RingProduct /> },
         { path: config.routes.admin.jewelryTypeProduct, element: <JewelryTypeProduct /> },

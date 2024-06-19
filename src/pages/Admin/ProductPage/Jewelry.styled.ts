@@ -18,6 +18,12 @@ export const ProductAdminArea = styled.section`
   font-family: "Poppins", sans-serif;
   /* height: 100%; */
   width: 100%;
+
+  .AddJew {
+    background-color: ${theme.color.primary};
+    color: #ffffff;
+    marginRight: "10px"
+  }
 `;
 
 export const AdminPage = styled.div`
@@ -162,7 +168,7 @@ export const AdminTable = styled.div`
 `;
 
 
-// ---------------------------- ADD PRODUCT ------------------------------
+// ---------------------------- ADD JEWELRY ------------------------------
 
 export const AdPageArea = styled.div`
 padding-top: 32px;
@@ -170,6 +176,9 @@ padding-top: 32px;
 `;
 
 export const AdPageArea_Title = styled.div`
+display: flex;
+justify-content: space-between;
+
 h1 {
   font-size: 22px;
   font-weight: 36px;
@@ -183,6 +192,10 @@ p {
   font-size: 13px;
   margin: 0px 0px 0px 0px;
 }
+`;
+
+export const AdPage_HeadLeft = styled.div`
+
 `;
 
 export const AdPageContent_Title = styled.div`
@@ -231,7 +244,7 @@ export const AdPageContent_Jewel = styled.div`
 `;
 
 export const FormItem = styled.div`
-  width: 30%;
+  width: 48%;
   height: 57px;
   margin-bottom: 30px;
   
@@ -256,12 +269,12 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
 
   button {
-    border: 1px solid ${theme.color.primary};
+    background-color: ${theme.color.primary};
   }
 
-  .MainBtn {
-    background-color: ${theme.color.primary};
+  .CancelBtn {
+    border: 1px solid ${theme.color.primary};
+    background-color: #ffffff;
     border: 0px;
   }
-
 `;

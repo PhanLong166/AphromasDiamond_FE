@@ -117,6 +117,25 @@ export const ProductContent = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
+
+  .InforLine_Title {
+    // width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    label {
+    width: 700px;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+`;
+
+export const SignaInfor = styled.div`
+  border-bottom: 1px solid #dde2e8;
+  margin-bottom: 20px;
 `;
 
 export const InforLine = styled.div`
@@ -126,6 +145,15 @@ margin-bottom: 20px;
  .InforLine_Title {
     font-weight: 600;
  }
+`;
+
+export const InforLine_Descrip = styled.div`
+margin-bottom: 20px;
+ .InforLine_Title {
+    font-weight: 600;
+    margin-bottom: 10px;
+ }
+width: 100%;
 `;
 
 // /* -------------------- BOT DETAIL =============== */
