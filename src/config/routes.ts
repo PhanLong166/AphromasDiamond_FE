@@ -13,7 +13,9 @@ const routes = {
         about: '/about',
         gift: '/gift',
         ringGuide: '/ring-guide',
-        diamond: '/diamond'
+        diamond: '/diamond',
+         collection: '/collection',
+         collectionInfo: '/info',
     },
     customer: {
         account: '/account',
