@@ -207,11 +207,14 @@ const JewelryDetail = () => {
                                     </Form.Item>
                                     <Form.Item label="Selling Price" className="InforLine_Title">
                                       <Input
-                                        value={(activeProduct.price +
-                                          activeRingSetting.price +
-                                          activeRingSetting.processingFee) *
-                                          (1 +
-                                            activeProduct.markupPercentage / 100)}
+                                        value={activeProduct.price && activeProduct.markupPercentage ? 
+                                          (activeProduct.price +
+                                            activeRingSetting.price +
+                                            activeRingSetting.processingFee) *
+                                            (1 +
+                                              activeProduct.markupPercentage / 100)
+                                          : 0
+                                        }
                                         onChange={(e) =>
                                           handleFieldChange(
                                             "sellingPrice",
@@ -610,11 +613,13 @@ const JewelryDetail = () => {
                                       Selling Price
                                     </p>
                                     <p>
-                                      {(activeProduct.price +
-                                        activeRingSetting.price +
-                                        activeRingSetting.processingFee) *
-                                        (1 +
-                                          activeProduct.markupPercentage / 100)}
+                                      {activeProduct.price && activeProduct.markupPercentage ? 
+                                          (activeProduct.price +
+                                            activeRingSetting.price +
+                                            activeRingSetting.processingFee) *
+                                            (1 +
+                                              activeProduct.markupPercentage / 100)
+                                          : 0}
                                     </p>
                                   </Styled.InforLine>
                                 </Styled.ProductContent>

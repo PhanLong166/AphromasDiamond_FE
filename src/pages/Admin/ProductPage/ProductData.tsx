@@ -1,18 +1,18 @@
 // ---------------- PRODUCT DATA -------------------
 
 export interface ProductDataType {
-  key: React.Key;
-  jewelryID: string;
-  jewelryImg: string;
-  jewelryName: string;
-  price: number;
-  markupPercentage: number;
-  type: string;
-  quantity: number;
-  exchangeRate: number;
-  currencyType: string;
-  diamondID: string;
-  jewelrySettingID: string;
+  key?: React.Key;
+  jewelryID?: string;
+  jewelryImg?: string;
+  jewelryName?: string;
+  price?: number;
+  markupPercentage?: number;
+  type?: string;
+  quantity?: number;
+  exchangeRate?: number;
+  currencyType?: string;
+  diamondID?: string;
+  jewelrySettingID?: string;
 }
 
 export const productData: ProductDataType[] = [
@@ -171,7 +171,7 @@ export const productData: ProductDataType[] = [
 // ---------------- DIAMOND DATA -------------------
 
 export interface DiamondDataType {
-  key: React.Key;
+  key?: React.Key;
   diamondID: string;
   diamondImg: string;
   diamondName: string;
