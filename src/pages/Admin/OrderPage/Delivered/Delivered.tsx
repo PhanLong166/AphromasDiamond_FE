@@ -1,7 +1,7 @@
 import * as Styled from "./Delivered.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Space, Table, Tag, Input } from "antd";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
@@ -67,12 +67,13 @@ const columns: TableColumnsType<DataType> = [
     },
   },
   {
-    title: "Action",
-    key: "action",
+    title: "Detail",
+    key: "detail",
+    className: "TextAlign",
     render: (_, { orderID }) => (
       <Space size="middle">
         <Link to={`/admin/order/detail/${orderID}`}>
-        <Button className="transferBtn">Transfer</Button>
+          <EyeOutlined />
         </Link>
       </Space>
     ),
