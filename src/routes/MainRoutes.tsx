@@ -30,6 +30,7 @@ import AllCollection from "@/pages/Home/AllCollection/AllCollection";
 import CollectionInformation from "@/pages/Home/CollectionInformation/CollectionInfomation";
 // import useAuth from "@/hooks/useAuth";
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
+import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
 
 
 
@@ -62,7 +63,8 @@ const publicRoutes = {
         { path: config.routes.public.ringGuide, element: <RingGuide /> },
         { path: config.routes.public.diamond, element: <AllDiamond /> },
         { path: config.routes.public.collection, element: <AllCollection /> },
-        { path: config.routes.public.collectionInfo, element: <CollectionInformation /> }
+        { path: config.routes.public.collectionInfo, element: <CollectionInformation /> },
+        { path: config.routes.public.coming, element: <CollectionComing/> }
 
     ]
 }
