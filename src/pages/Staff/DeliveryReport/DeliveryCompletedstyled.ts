@@ -3,17 +3,24 @@ import styled from "styled-components";
 // import { theme } from "../../../themes";
 
 
-export const OrderAdminArea = styled.section`
+export const OrderAdminArea = styled.table`
     display: inline-flex;
-    background-color: #F1F1F1;
+    /* background-color: #F1F1F1; */
     font-family: "Poppins", sans-serif;
     /* height: 100%; */
     width: 100%;
+    
 
     .custom-dropdown .ant-dropdown-menu {
         background-color: red; /* Màu nền */
         border: 1px solid #ccc; /* Viền */
+        /* overflow-x: auto; */
+    /* border-collapse: collapse; */
+    ;
       }
+      /* @media (max-width: 991px) {
+        grid-template-rows: 3fr;
+    } */
 
 `;
 export const TitlePage = styled.div `
@@ -23,23 +30,36 @@ export const TitlePage = styled.div `
         color: #151542;
         margin: 30px 0px 0px 0px;
         padding-bottom: 7px;
+        /* @media (max-width: 991px){
+            display: flex;
+    justify-content: center;
+        } */
+        
     }
 
     p {
         color: #92929D;
         font-size: 13px;
         margin: 0px 0px 0px 0px;
+         /* @media (max-width: 991px){
+            display: flex;
+    justify-content: center;
+        } */
     }
+   
 `;
 
 
 
 export const AdminPage = styled.div`
-    margin-left: 320px;
+    margin-left: 70px;
     margin-right: 70px;
     width: 100%;
     height: 100%;
     padding-bottom: 55px;
+    @media (max-width: 991px) {
+        margin-left: 0;
+    }
 `;
 
 
@@ -48,10 +68,10 @@ export const AdminPage = styled.div`
 
 export const OrderContent = styled.div`
     width: 100%;
-    background-color: #e0dfdf;
+    /* background-color: #e0dfdf; */
     border-radius: 16px;
-    margin-top: 28px;
-    padding-top: 25px;
+    /* margin-top: 28px; */
+    padding-top: 3rem;
     padding-bottom: 5px;
 `;
 
@@ -74,6 +94,7 @@ export const SearchArea = styled.div`
     display: flex;
     align-items: center;
     border-radius: 4px;
+    margin-top: 1rem;
     padding: 4px 8px;
     width: calc(100% - 46px); // Adjust width to fit the layout
   }
@@ -96,12 +117,10 @@ export const SearchArea = styled.div`
     cursor: pointer;
     text-align: center;
   }
-    
-
 `;
 
 export const Pending_Table = styled.div`
-    padding: 0px 10px 0px 10px;
+    /* padding: 0px 10px 0px 10px; */
     color: #151542;
     table {
         border-collapse: collapse;
@@ -136,56 +155,6 @@ export const Pending_Table = styled.div`
         background-color: #F8E7EE;
     }
 `;
-
-// export const OrderContent_Foot = styled.div`
-//     display: flex;
-//     align-items: center;
-//     justify-content: space-between;
-//     background-color: #EADBC8;
-//     padding: 12px 60px 12px 60px;
-//     border-radius: 16px;
-//     margin: 39px 40px 0px 40px;
-// `;
-
-// export const PageNum = styled.div`
-//     display: flex;
-
-//     p {
-//         margin: 0px 7px 0px 0px;
-//         color: #B19F8A;
-//         font-weight: 500;
-//     }
-
-//     .nowPage {
-//         color:#102C57;
-//     }
-// `;
-
-// export const MovePage = styled.div`
-//     button {
-//         width:40px;
-//         height: 40px;
-//         background-color: ${theme.color.fifth};
-//         border-radius: 12px;
-//         border: none;
-//         box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.05);
-//         font-size: 20px;
-//         display: inline;
-//         align-items: center;
-//         text-align: center;
-//         margin-right: 5px;
-//         font-size: 15px;
-//     }
-//     button:hover {
-//         cursor: pointer;
-//     }
-//     .backArrow .anticon {
-//         color: #92929D;
-//     }
-//     .nextArrow .anticon {
-//         color:#102C57;
-//     }
-// `;
 
 
 export const hehe = styled.div`
