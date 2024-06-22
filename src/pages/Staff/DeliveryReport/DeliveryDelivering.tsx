@@ -103,7 +103,7 @@ const columns: TableColumnsType<DataType> = [
     key: "action",
     render: () => (
       <Space size="middle">
-        <Button className="confirmBtn">Next Step</Button>
+        <Button className="confirmBtn">Mark as Delivered</Button>
       </Space>
     ),
   },
