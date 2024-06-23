@@ -5,7 +5,6 @@ import Cart from "../pages/Customer/Cart/Cart";
 import Checkout from "../pages/Customer/Checkout/Checkout";
 import OrderList from "../pages/Customer/OderList/OderList";
 import Voucher from "../pages/Customer/Voucher/Voucher";
-;
 import { Navigate, Outlet } from "react-router-dom";
 import Product from "@/pages/Home/Product/Product";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
@@ -38,7 +37,7 @@ const MainRouter = () => {
     const { role } = useAuth();
     if (role?.includes(Role.ADMIN)) return <Navigate to={config.routes.admin.dashboard} />
     if (role?.includes(Role.SALES_STAFF)) return <Navigate to={config.routes.salesStaff.dashboard} />
-    if (role?.includes(Role.DELI_STAFF)) return <Navigate to={config.routes.deliStaff.deliveryReport} />
+    if (role?.includes(Role.DELI_STAFF)) return <Navigate to={config.routes.deliStaff.deliveryPending} />
 
     return <MainLayout />
 }
