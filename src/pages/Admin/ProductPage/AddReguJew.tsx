@@ -1,5 +1,5 @@
 import React from "react";
-import * as Styled from "./Product.styled";
+import * as Styled from "./Jewelry.styled";
 // import { useState } from "react";
 import {
   Select,
@@ -97,7 +97,7 @@ const AddJewelry = () => {
               <p>Add a new jewelry</p>
             </Styled.AdPageArea_Title>
             <Styled.AdPageContent_Jewel>
-              <Form layout="vertical" className="AdPageContent_Content">
+              <Form form={form} layout="vertical" className="AdPageContent_Content">
                 <Styled.FormItem>
                   <Form.Item
                     label="Product Setting ID"
@@ -207,7 +207,7 @@ const AddJewelry = () => {
               </Link>
 
               <Link to="/admin/product">
-                <Button /*onClick={}*/ style={{ marginLeft: "10px" }}>
+                <Button /*onClick={}*/  className="CancelBtn" style={{ marginLeft: "10px" }}>
                   Cancel
                 </Button>
               </Link>

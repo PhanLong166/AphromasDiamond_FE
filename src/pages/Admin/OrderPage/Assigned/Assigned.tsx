@@ -1,16 +1,16 @@
-import * as Styled from "./Delivering.styled";
+import * as Styled from "./Assigned.styled";
 import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
+import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
+import Sidebar from "@/components/Admin/Sidebar/Sidebar";
+import OrderMenu from "@/components/Admin/OrderMenu/OrderMenu";
 
 
 
-const filteredData = data.filter((item) => item.status === "Delivering");
+const filteredData = data.filter((item) => item.status === "Assigned");
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -33,21 +33,10 @@ const columns: TableColumnsType<DataType> = [
     sortDirections: ["descend"],
   },
   {
-    title: "Delivery Staff",
-    dataIndex: "deliveryStaff",
-    showSorterTooltip: { target: "full-header" },
-    filters: [
-      { text: "Joe", value: "Joe" },
-      { text: "Jim", value: "Jim" },
-      { text: "Esther", value: "Esther" },
-      { text: "Ajmal", value: "Ajmal" },
-    ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value, record) =>
-      record.deliveryStaff.indexOf(value as string) === 0,
-    sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
-    sortDirections: ["descend"],
+    title: "Total",
+    dataIndex: "total",
+    defaultSortOrder: "descend",
+    sorter: (a, b) => a.total - b.total,
   },
   {
     title: "Status",
@@ -57,10 +46,14 @@ const columns: TableColumnsType<DataType> = [
       let color = "green";
       if (status === "Pending") {
         color = "volcano";
-      } else if (status === "Confirmed") {
+      } else if (status === "Accepted") {
         color = "yellow";
+      } else if (status === "Assigned") {
+        color = "orange";
       } else if (status === "Delivering") {
-        color = "geekblue";
+        color = "blue";
+      } else if (status === "Delivered") {
+        color = "purple";
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
@@ -74,8 +67,8 @@ const columns: TableColumnsType<DataType> = [
     },
   },
   {
-    title: "Invoice",
-    key: "invoice",
+    title: "Detail",
+    key: "detail",
     className: "TextAlign",
     render: (_, { orderID }) => (
       <Space size="middle">
@@ -85,6 +78,18 @@ const columns: TableColumnsType<DataType> = [
       </Space>
     ),
   },
+  // {
+  //   title: "Detail",
+  //   key: "detail",
+  //   className: "TextAlign",
+  //   render: (_, { orderID }) => (
+  //     <Space size="middle">
+  //       <Link to={`/admin/order/detail/${orderID}`}>
+  //         <EyeOutlined />
+  //       </Link>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -96,7 +101,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const DeliveringOrder = () => {
+const AssignedOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -121,7 +126,7 @@ const DeliveringOrder = () => {
 
           <Styled.OrderContent>
             <Styled.AdPageContent_Head>
-            <Styled.SearchArea>
+              <Styled.SearchArea>
                 <Input
                   className="searchInput"
                   type="text"
@@ -140,7 +145,7 @@ const DeliveringOrder = () => {
                 className="table"
                 columns={columns}
                 dataSource={filteredData}
-                pagination={{ pageSize: 7 }} // Add pagination here
+                pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
@@ -152,4 +157,4 @@ const DeliveringOrder = () => {
   );
 };
 
-export default DeliveringOrder;
+export default AssignedOrder;
