@@ -236,9 +236,7 @@ const Account = () => {
                 />
               </label>
               <ModalActions>
-                <button type="button" onClick={closeModal}>
-                  Cancel
-                </button>
+                <button type="button" onClick={closeModal}>Cancel</button>
                 <button type="submit">Save</button>
               </ModalActions>
             </form>
@@ -359,14 +357,13 @@ const EditButton = styled.button`
   border-radius: 10px;
   border: 1px solid #000;
   background-color: #fff;
-  color: #000;
+  /* color: #000; */
   align-self: flex-end;
   width: 100px;
   font-weight: 400;
   line-height: 1.5;
   text-align: center;
-  padding-left: 30px;
-  padding-right: 30px;
+  padding: 6px;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 
@@ -432,14 +429,23 @@ const ModalContent = styled.div`
 
 
 const ModalActions = styled.div`
-  display: flex;
-  flex-direction: column; 
-  justify-content: flex-end;
-  gap: 10px;
-  margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    margin-top: 20px;
+    align-content: center;
+    flex-wrap: wrap;
   button {
-    grid-column: span 1; /* Chiếm 2 cột */
-    width: 100%;
+    cursor: pointer;
+    transition: background-color 0.3s ease, color 0.3s ease;
+    width: 65%;
+    border-radius: 10px;
+    padding: 6px;
+
+    &:hover {
+    background-color: #102c57;
+    color: #fff;
+  }
   }
 `;
 
