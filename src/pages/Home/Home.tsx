@@ -47,13 +47,6 @@ import { Link, useNavigate } from "react-router-dom";
 import { Carousel } from "antd";
 import config from "@/config";
 
-// const images = [
-//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner.png?alt=media&token=0394f1be-0bc6-47c3-9776-ec6edbb49a9f",
-//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_4.png?alt=media&token=a6e6aabe-a969-4b02-8660-e44118da1b04",
-//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_2.png?alt=media&token=4cedc076-d124-41fd-9ca2-d6fe32bf8f26",
-//   "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbanner_6.png?alt=media&token=f47c7382-21cb-4e21-95b0-e76f2581d19b",
-// ];
-
 const categories = [
   {
     href: `${config.routes.public.productList}`,
@@ -433,7 +426,7 @@ const Home: React.FC = () => {
               everlasting memories.
             </p>
             <Button>
-              <button 
+              <button
                 className="shopAll"
                 onClick={() => navigate(config.routes.public.allProduct)}
               >
@@ -732,7 +725,9 @@ const Home: React.FC = () => {
               rings, our collection is designed to make this Valentine's Day
               truly unforgettable.
             </h6>
-            <button>SHOPPING NOW!</button>
+            <Link to={"/info"}>
+              <button>SHOPPING NOW!</button>
+            </Link>
           </Banner4Container>
         </Banner4>
         <Banner3>
@@ -791,9 +786,11 @@ const Home: React.FC = () => {
                   you find the perfect piece, whether it's a special gift, an
                   engagement ring, or a set for a memorable occasion.
                 </AboutText>
-                <ButtonAbout>
-                  <button>SHOP NOW</button>
-                </ButtonAbout>
+                <Link to={"/about"}>
+                  <ButtonAbout>
+                    <button>LEARN ABOUT</button>
+                  </ButtonAbout>
+                </Link>
               </AboutContent>
             </Col>
             <Col xs={24} md={12}>

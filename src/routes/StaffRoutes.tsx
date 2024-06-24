@@ -1,7 +1,7 @@
 import config from "@/config"
 import { Outlet } from "react-router-dom";
 import StaffLayout from "@/layouts/StaffLayout"
-import DeliveryReport from "@/pages/Staff/DeliveryReport/Deliveryreport"
+import DeliveryReport from "@/pages/Staff/DeliveryReport/DeliveryPending";
 
 import Dashboard from "@/pages/Staff/SalesStaff/Dashboard/Dashboard"
 import Order from "@/pages/Staff/SalesStaff/OrderPage/Order";
@@ -16,6 +16,10 @@ import ProductType from "@/pages/Staff/SalesStaff/ProductPage/JewelryType";
 import Material from "@/pages/Staff/SalesStaff/ProductPage/Material";
 import Messages from "@/pages/Staff/SalesStaff/ClientCaringPage/Message";
 import Feedback from "@/pages/Staff/SalesStaff/ClientCaringPage/Feedback";
+import DeliveryDelivering from "@/pages/Staff/DeliveryReport/DeliveryDelivering";
+import DeliveryDelivered from "@/pages/Staff/DeliveryReport/DeliveryDelivered";
+import DeliveryReturn from "@/pages/Staff/DeliveryReport/DeliveryReturn";
+import DeliveryCompleted from "@/pages/Staff/DeliveryReport/DeliveryCompleted";
 
 
 const StaffRouter = () => {
@@ -26,9 +30,9 @@ const SalesStaffRoutes = () => {
     return <Outlet />;
 }
 
-const DeliStaffRoutes = () => {
-    return <Outlet />;
-}
+// const DeliStaffRoutes = () => {
+//     return <Outlet />;
+// }
 
 const salesStaffRoutes = {
     element: <SalesStaffRoutes/>,
@@ -53,9 +57,13 @@ const salesStaffRoutes = {
 }
 
 const deliStaffRoutes = {
-    element: <DeliStaffRoutes/>,
+    // element: <DeliStaffRoutes/>,
     children: [
-        {path: config.routes.deliStaff.deliveryReport, element: <DeliveryReport/>},
+        {path: config.routes.deliStaff.deliveryPending, element: <DeliveryReport />},
+        {path: config.routes.deliStaff.deliveryDelivering, element: <DeliveryDelivering />},
+        {path: config.routes.deliStaff.deliveredDelivered, element: <DeliveryDelivered />},
+        {path: config.routes.deliStaff.deliveredReturn, element: <DeliveryReturn />},
+        {path: config.routes.deliStaff.deliveredCompleted, element: <DeliveryCompleted />}
     ]
 }
 
