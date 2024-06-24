@@ -8,12 +8,12 @@ import {
   EyeOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
+import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
 // import { Link } from "react-router-dom";
 import { Modal } from "antd"; // Add this line
 import { Link, useNavigate } from "react-router-dom"; 
-import { productData, ProductDataType } from "./ProductData"; // Import data here
+import { productData, ProductDataType } from "../ProductData"; // Import data here
 
 // interface ProductDataType {
 //   key: React.Key;

@@ -1,18 +1,18 @@
 // ---------------- PRODUCT DATA -------------------
 
 export interface ProductDataType {
-  key?: React.Key;
-  jewelryID?: string;
-  jewelryImg?: string;
-  jewelryName?: string;
-  price?: number;
-  markupPercentage?: number;
-  type?: string;
-  quantity?: number;
-  exchangeRate?: number;
-  currencyType?: string;
-  diamondID?: string;
-  jewelrySettingID?: string;
+  key: React.Key;
+  jewelryID: string;
+  jewelryImg: string;
+  jewelryName: string;
+  price: number;
+  markupPercentage: number;
+  type: string;
+  quantity: number;
+  exchangeRate: number;
+  currencyType: string;
+  diamondID: string;
+  jewelrySettingID: string;
 }
 
 export const productData: ProductDataType[] = [
@@ -425,14 +425,15 @@ export interface RingDataType {
   jewelrySettingID: string;
   jewelrySettingImg: string;
   jewelrySettingName: string;
-  material: string;
+  // material: string;
   width: number;
   auxiliaryCost: number;
-  price: number;
+  // price: number;
   type: string;
   processingFee: number;
   exchangeRate: number;
   currencyType: string;
+  // weight: number; // new attribute
 }
 
 export const ringData: RingDataType[] = [
@@ -441,142 +442,153 @@ export const ringData: RingDataType[] = [
     jewelrySettingID: "12345121",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
-    auxiliaryCost: 50, // assuming a default value
-    processingFee: 10000000000000, // assuming a default value
+    // material: "14K White Gold",
+    auxiliaryCost: 50,
+    processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.0 // new attribute
   },
   {
     key: "2",
     jewelrySettingID: "12345122",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.2 // new attribute
   },
   {
     key: "3",
     jewelrySettingID: "12345123",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.3 // new attribute
   },
   {
     key: "4",
     jewelrySettingID: "12345124",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.1 // new attribute
   },
   {
     key: "5",
     jewelrySettingID: "12345125",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.0 // new attribute
   },
   {
     key: "6",
     jewelrySettingID: "12345126",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.3 // new attribute
   },
   {
     key: "7",
     jewelrySettingID: "12345127",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.2 // new attribute
   },
   {
     key: "8",
     jewelrySettingID: "12345128",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.1 // new attribute
   },
   {
     key: "9",
     jewelrySettingID: "12345129",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price: 5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.4 // new attribute
   },
   {
     key: "10",
     jewelrySettingID: "12345130",
     jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    price:5350000,
+    // price: 5350000,
     type: "Ring",
     width: 2.8,
-    material: "14K White Gold",
+    // material: "14K White Gold",
     auxiliaryCost: 50,
     processingFee: 10000000,
     exchangeRate: 23000,
-    currencyType: "USD"
+    currencyType: "USD",
+    // weight: 5.2 // new attribute
   }
 ];
+
 
 
 // ---------------- JEWELRY TYPE DATA -------------------
@@ -670,5 +682,159 @@ export const materialData: MaterialDataType[] = [
     materialID: "12345127",
     materialName: "Platinum",
     sellingPrice: 2.04,
+  },
+];
+
+// ---------------- JEWELRY SETTING MATERIAL DATA -------------------
+
+export interface RingMaterialDataType {
+  key: React.Key;
+  jewelrySettingID: string;
+  materialID: string;
+  weight: number;
+  price: number;
+}
+
+
+export const ringMaterialData: RingMaterialDataType[] = [
+  {
+    key: "1",
+    jewelrySettingID: "12345121",
+    materialID: "12345121",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "2",
+    jewelrySettingID: "12345121",
+    materialID: "12345122",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "3",
+    jewelrySettingID: "12345122",
+    materialID: "12345123",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "4",
+    jewelrySettingID: "12345122",
+    materialID: "12345124",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "5",
+    jewelrySettingID: "12345123",
+    materialID: "12345121",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "6",
+    jewelrySettingID: "12345123",
+    materialID: "12345125",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "7",
+    jewelrySettingID: "12345124",
+    materialID: "12345126",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "8",
+    jewelrySettingID: "12345124",
+    materialID: "12345127",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "9",
+    jewelrySettingID: "12345125",
+    materialID: "12345122",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "10",
+    jewelrySettingID: "12345125",
+    materialID: "12345123",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "11",
+    jewelrySettingID: "12345126",
+    materialID: "12345124",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "12",
+    jewelrySettingID: "12345126",
+    materialID: "12345125",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "13",
+    jewelrySettingID: "12345127",
+    materialID: "12345126",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "14",
+    jewelrySettingID: "12345127",
+    materialID: "12345121",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "15",
+    jewelrySettingID: "12345128",
+    materialID: "12345122",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "16",
+    jewelrySettingID: "12345128",
+    materialID: "12345123",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "17",
+    jewelrySettingID: "12345129",
+    materialID: "12345124",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "18",
+    jewelrySettingID: "12345129",
+    materialID: "12345125",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "19",
+    jewelrySettingID: "12345130",
+    materialID: "12345126",
+    weight: 5.3,
+    price: 5350000,
+  },
+  {
+    key: "20",
+    jewelrySettingID: "12345130",
+    materialID: "12345127",
+    weight: 5.3,
+    price: 5350000,
   },
 ];

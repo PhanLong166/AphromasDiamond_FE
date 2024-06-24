@@ -77,6 +77,10 @@ export const PageDetail_Infor = styled.div`
   justify-content: space-between;
 `;
 
+export const MaterialTable = styled.div`
+
+`;
+
 export const OrderInfor = styled.div`
   width: 30%;
   font-size: 14px;
