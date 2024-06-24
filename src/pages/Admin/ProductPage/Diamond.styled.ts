@@ -141,9 +141,6 @@ export const AdminTable = styled.div`
     width: 77px;
   }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
     cursor: pointer;
   }
 
@@ -201,12 +198,12 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
 
   button {
-    border: 1px solid ${theme.color.primary};
+    background-color: ${theme.color.primary};
   }
 
-  .ant-btn-primary {
-    background-color: ${theme.color.primary};
+  .CancelBtn {
+    border: 1px solid ${theme.color.primary};
+    background-color: #ffffff;
     border: 0px;
   }
-
 `;

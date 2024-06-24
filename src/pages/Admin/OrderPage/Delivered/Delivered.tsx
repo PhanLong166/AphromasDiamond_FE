@@ -1,23 +1,23 @@
-import * as Styled from "./Pending.styled";
+import * as Styled from "./Delivered.styled";
 import { useState } from "react";
-import { Button, Space, Table, Tag, Input } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { Space, Table, Tag, Input } from "antd";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
+import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
+import Sidebar from "@/components/Admin/Sidebar/Sidebar";
+import OrderMenu from "@/components/Admin/OrderMenu/OrderMenu";
 
 
 
-const filteredData = data.filter((item) => item.status === "Pending");
+const filteredData = data.filter((item) => item.status === "Delivered");
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
@@ -29,52 +29,15 @@ const columns: TableColumnsType<DataType> = [
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
+    sorter: (a, b) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    sorter: (a, b) => a.total - b.total,
   },
-  // {
-  //   title: "Status",
-  //   key: "statuses",
-  //   dataIndex: "statuses",
-  //   render: (_, { statuses }) => (
-  //     <>
-  //       {statuses.map((status) => {
-  //         let color = status.length > 9 ? "blue" : "green";
-  //         if (status === "Pending") {
-  //           color = "volcano";
-  //         } else if (status === "Confirmed") {
-  //           color = "yellow";
-  //         } else if (status === "Delivering") {
-  //           color = "blue";
-  //         } else if (status === "Completed") {
-  //           color = "green";
-  //         } else if (status === "Cancelled") {
-  //           color = "grey";
-  //         }
-  //         return (
-  //           <Tag color={color} key={status}>
-  //             {status.toUpperCase()}
-  //           </Tag>
-  //         );
-  //       })}
-  //     </>
-  //   ),
-  //   filters: [
-  //     { text: "Pending", value: "Pending" },
-  //     { text: "Confirmed", value: "Confirmed" },
-  //     { text: "Delivering", value: "Delivering" },
-  //     { text: "Completed", value: "Completed" },
-  //     { text: "Cancelled", value: "Cancelled" },
-  //   ],
-  //   onFilter: (value, record) => record.statuses.indexOf(value as string) === 0,
-  // },
-
   {
     title: "Status",
     key: "status",
@@ -83,10 +46,14 @@ const columns: TableColumnsType<DataType> = [
       let color = "green";
       if (status === "Pending") {
         color = "volcano";
-      } else if (status === "Confirmed") {
+      } else if (status === "Accepted") {
         color = "yellow";
+      } else if (status === "Assigned") {
+        color = "orange";
       } else if (status === "Delivering") {
         color = "blue";
+      } else if (status === "Delivered") {
+        color = "purple";
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
@@ -100,15 +67,6 @@ const columns: TableColumnsType<DataType> = [
     },
   },
   {
-    title: "Action",
-    key: "action",
-    render: () => (
-      <Space size="middle">
-        <Button className="confirmBtn">Confirm</Button>
-      </Space>
-    ),
-  },
-  {
     title: "Detail",
     key: "detail",
     className: "TextAlign",
@@ -120,6 +78,18 @@ const columns: TableColumnsType<DataType> = [
       </Space>
     ),
   },
+  // {
+  //   title: "Detail",
+  //   key: "detail",
+  //   className: "TextAlign",
+  //   render: (_, { orderID }) => (
+  //     <Space size="middle">
+  //       <Link to={`/admin/order/detail/${orderID}`}>
+  //         <EyeOutlined />
+  //       </Link>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -131,11 +101,12 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const Pending = () => {
+const DeliveredOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
+    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -146,9 +117,10 @@ const Pending = () => {
 
   return (
     <>
-      <Styled.GlobalStyle />
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
+
         <Styled.AdminPage>
           <OrderMenu />
 
@@ -185,4 +157,4 @@ const Pending = () => {
   );
 };
 
-export default Pending;
+export default DeliveredOrder;

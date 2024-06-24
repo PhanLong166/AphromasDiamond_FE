@@ -27,167 +27,6 @@ import TextArea from "antd/es/input/TextArea";
 import { ringData, RingDataType } from "./ProductData"; // Import data here
 
 
-// interface Item {
-//   key: React.Key;
-//   ringSettingID: string;
-//   ringSettingImg: string;
-//   ringSettingName: string;
-//   price: number;
-//   markupPercentage: number;
-//   type: string;
-//   width: number;
-//   material: string;
-//   exchangeRate: number;
-//   currencyType: string;
-// }
-
-// const originData = (): Item[] => {
-//   const data: Item[] = [
-//     {
-//       key: "1",
-//       ringSettingID: "12345121",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 4.08,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "2",
-//       ringSettingID: "12345122",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 5.08,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "3",
-//       ringSettingID: "12345123",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 7.08,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "4",
-//       ringSettingID: "12345124",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 6.08,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "5",
-//       ringSettingID: "12345125",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 3.08,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "6",
-//       ringSettingID: "12345126",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 9.08,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "7",
-//       ringSettingID: "12345127",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 2.04,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "8",
-//       ringSettingID: "12345128",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 7.03,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "9",
-//       ringSettingID: "12345129",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 5.07,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//     {
-//       key: "10",
-//       ringSettingID: "12345130",
-//       ringSettingImg:
-//         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-//       ringSettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-//       price: 4.2,
-//       markupPercentage: 100,
-//       type: "Ring",
-//       width: 2.8,
-//       material: "14K White Gold",
-//       exchangeRate: 23000,
-//       currencyType: "USD",
-//     },
-//   ];
-//   return data.map((item) => ({
-//     ...item,
-//   }));
-// };
 
 // const originData = createInitialData();
 
@@ -364,36 +203,36 @@ const RingSetting = () => {
     return price;
   };
 
-  const sellingPrice = (price: number, markupPercentage: number) => {
-    return price * (1 + markupPercentage / 100);
-  };
+  // const sellingPrice = (price: number, markupPercentage: number) => {
+  //   return price * (1 + markupPercentage / 100);
+  // };
 
   const columns = [
     {
       title: "ID",
-      dataIndex: "ringSettingID",
+      dataIndex: "jewelrySettingID",
       editable: true,
       sorter: (a: RingDataType, b: RingDataType) =>
-        a.ringSettingID.localeCompare(b.ringSettingID),
+        a.jewelrySettingID.localeCompare(b.jewelrySettingID),
     },
     {
       title: "Image",
-      key: "ringSettingImg",
+      key: "jewelrySettingImg",
       className: "TextAlign",
       render: (_: unknown, record: RingDataType) => (
         <img
-          src={record.ringSettingImg}
-          alt={record.ringSettingName}
+          src={record.jewelrySettingImg}
+          alt={record.jewelrySettingName}
           style={{ width: "50px", height: "50px" }}
         />
       ),
     },
     {
       title: "Name",
-      dataIndex: "ringSettingName",
+      dataIndex: "jewelrySettingName",
       editable: true,
       sorter: (a: RingDataType, b: RingDataType) =>
-        a.ringSettingName.length - b.ringSettingName.length,
+        a.jewelrySettingName.length - b.jewelrySettingName.length,
     },
     {
       title: `Cost Price (${currency})`,
@@ -410,25 +249,19 @@ const RingSetting = () => {
         return `${convertedPrice.toFixed(2)} ${currency}`;
       },
     },
-    {
-      title: "Markup Percentage",
-      dataIndex: "markupPercentage",
-      key: "markupPercentage",
-      render: (_: unknown, record: RingDataType) => `${record.markupPercentage}%`,
-    },
-    {
-      title: `Selling Price (${currency})`,
-      key: "sellingPrice",
-      render: (_: unknown, record: RingDataType) => {
-        const convertedPrice = convertPrice(
-          record.price,
-          record.exchangeRate,
-          currency
-        );
-        const price = sellingPrice(convertedPrice, record.markupPercentage);
-        return `${price.toFixed(2)} ${currency}`;
-      },
-    },
+    // {
+    //   title: `Selling Price (${currency})`,
+    //   key: "sellingPrice",
+    //   render: (_: unknown, record: RingDataType) => {
+    //     const convertedPrice = convertPrice(
+    //       record.price,
+    //       record.exchangeRate,
+    //       currency
+    //     );
+    //     const price = sellingPrice(convertedPrice, record.markupPercentage);
+    //     return `${price.toFixed(2)} ${currency}`;
+    //   },
+    // },
     {
       title: "Type",
       dataIndex: "type",

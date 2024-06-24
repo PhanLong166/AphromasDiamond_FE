@@ -586,10 +586,11 @@ const AllProduct: React.FC = () => {
             },
             {
               title: "Round Ring",
-              href: "/product",
+              href: "/list",
             },
             {
               title: "All Product",
+              href: "/all",
             },
           ]}
         />
