@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Table } from 'antd';
+// import { Button, ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import Table from 'antd/es/table';
 
 interface Product {
   id: string;
@@ -33,7 +34,10 @@ const Container = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 60px 43px;
+  /* padding: 80px 60px 43px; */
+  padding-top: 2rem;
+  width: 1400px;
+  padding-bottom: 3rem;
 
   @media (max-width: 768px) {
     padding: 20px;
@@ -187,6 +191,38 @@ const Column = styled.div`
   }
 `;
 
+const MainContainer = styled.div`
+display: flex;
+justify-content: space-around;
+`;
+
+const EditButton = styled.div`
+  font-family: 'Poppins', sans-serif;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+  /* color: #000; */
+  align-self: center;
+  width: 100px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  padding: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: #102c57;
+    color: #fff;
+  }
+
+  @media (max-width: 991px) {
+    padding: 6px 20px;
+    width: auto;
+  }
+`;
+
+
 const sampleOrder: OrderProps = {
   invoiceDate: '14 Dec 2022',
   dueDate: '14 Dec 2022',
@@ -274,6 +310,7 @@ const OrderDetail: React.FC = () => {
   ];
 
   return (
+    <MainContainer>
     <Container>
       <OrderWrapper>
         <OrderTitle>Order Detail</OrderTitle>
@@ -310,7 +347,9 @@ const OrderDetail: React.FC = () => {
           </InfoText>
         </Column>
       </OrderInfo>
+      <EditButton>Comfirm</EditButton>
     </Container>
+    </MainContainer>
   );
 };
 

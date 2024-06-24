@@ -3,17 +3,17 @@ import { Link } from 'react-router-dom';
 import styled from 'styled-components';
 import { Button, Flex } from 'antd';
 import Dropdown from './Dropdown';
-
+import PromoCodeSection from '../Checkout/PromoCode';
 
 const Cart = () => {
   return (
     <>
     <main>
+      <ContainerHeader>
     <Header>Shopping Cart</Header>
-    
+    </ContainerHeader>
       <Container>
         <InnerContainer>
-          
           {/* <TitlePage>Cart</TitlePage> */}
           <ContinueShopping><span><i className="fa-solid fa-chevron-up fa-rotate-270"></i></span><Link to={"/all"}>Continue Shopping</Link></ContinueShopping>
           <CountCart>MY CART 4 ITEMS</CountCart>
@@ -59,7 +59,6 @@ const Cart = () => {
                 </Flex></ActionText>
                 <ItemDetails>
                   <ItemInfo>
-
                     <ItemImage src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
@@ -92,7 +91,6 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
@@ -138,7 +136,6 @@ const Cart = () => {
                 </ActionText>
                 <ItemDetails>
                   <ItemInfo>
-
                     <ItemImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Diamond (Loose)" />
                   </ItemInfo>
                   <ItemDescription>
@@ -188,10 +185,11 @@ const Cart = () => {
                     <SummaryLabel>Shipping</SummaryLabel>
                     <SummaryValue>Free</SummaryValue>
                   </SummaryRow>
-                  <PromoCode>
+                  {/* <PromoCode>
                     <PromoIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/6f0f0a858913ade2024229e06f2a2b2de3377d9aca01b958e1d53f25d9c31bad?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Promo code icon" />
                     <PromoText>Promo Code</PromoText>
-                  </PromoCode>
+                  </PromoCode> */}
+                  <PromoCodeSection/>
                   <SummaryTotal>
                     <TotalLabel>Total</TotalLabel>
                     <TotalValue>$10,000</TotalValue>
@@ -203,7 +201,6 @@ const Cart = () => {
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/4762099b96e0d9911e6dbbff51ed4164d0ebf441a4af10ca789ca321f8ea0dbb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
                 </Link>
                 <Link to="thanks-page">
-                
                 <PaymentMethodImage src="https://cdn.builder.io/api/v1/image/assets/TEMP/33c97bbfdfd1027e752ab9f974297feaabc0fea312ba85eead4c91a971711218?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Credit card icons" />
                 </Link>
               </SummaryContainer>
@@ -226,6 +223,12 @@ const Cart = () => {
 
 export default Cart;
 
+const ContainerHeader = styled.div`
+display: flex;
+align-items: canter;
+justify-content: center;
+`;
+
 const Header = styled.header`
    align-items: center;
     background: #fff;
@@ -234,9 +237,9 @@ const Header = styled.header`
     font: 14px / 150% 'Crimson Text', sans-serif;
     border-bottom: 1px solid #e4e4e4;
     border-top: 1px solid #e4e4e4;
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
-    margin: 0 35px 0 35px;
+    /* margin: 0 35px 0 35px; */
     margin-bottom: 4rem;
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
@@ -258,7 +261,7 @@ const Container = styled.section`
 
 const InnerContainer = styled.div`
  width: 100%;
- max-width: 1175px;
+ max-width: 1400px;
  display: flex;
  flex-direction: column;
  @media (max-width: 991px) {
@@ -454,7 +457,7 @@ box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
  display: flex;
  flex-direction: column;
  align-items: center;
- font: 300 10px/150% Poppins, sans-serif;
+ font: 300 14px/150% Poppins, sans-serif;
  width: 100%;
  padding: 30px 0 80px;
  margin-top: 20px;
@@ -475,12 +478,14 @@ const SummaryRow = styled.div`
  gap: 20px;
  justify-content: space-between;
  white-space: nowrap;
+
  &:not(:last-child) {
    margin-bottom: 30px;
  }
  @media (max-width: 991px) {
    white-space: normal;
  }
+
 `;
 
 const SummaryLabel = styled.p`
@@ -491,34 +496,8 @@ const SummaryValue = styled.p`
 font: 400 15px / 150% Poppins, sans-serif;
 `;
 
-const PromoCode = styled.div`
- display: flex;
- align-items: center;
- gap: 4px;
- font: 400 15px / 150% Poppins, sans-serif;
- padding: 18px 0;
- border-top: 1px solid rgba(0, 0, 0, 1);
- border-bottom: 1px solid rgba(0, 0, 0, 1);
- background-color: #fff;
- margin: 56px 0 62px;
- @media (max-width: 991px) {
-   margin: 40px 0;
- }
-`;
-
-const PromoIcon = styled.img`
- width: 8px;
- aspect-ratio: 0.5;
- object-fit: contain;
-`;
-
-const PromoText = styled.p`
- font-family: Poppins, sans-serif;
- flex-grow: 1;
-`;
-
 const SummaryTotal = styled.div`
- margin-top: -28px;
+ margin-top: 1rem;
  display: flex;
  font: 400 15px / 150% Poppins, sans-serif;
  justify-content: space-between;

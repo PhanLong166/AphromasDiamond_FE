@@ -181,7 +181,7 @@ export const EyeInvisibleOutlinedIcon = styled(EyeInvisibleOutlined)`
 `;
 
 export const FormButton = styled(Button)`
-    displat: flex;
+    display: flex;
     align-items: center;
     justify-content: center;
 
@@ -258,7 +258,7 @@ export const FormForgotPassword = styled(Link)`
     }
 `;
 
-export const FormCarousel = styled(Carousel)`\
+export const FormCarousel = styled(Carousel)`
     width: 100%;
     height: 652px;
     border-radius: 6px;
