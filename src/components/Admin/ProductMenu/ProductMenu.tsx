@@ -81,7 +81,7 @@ const ProductMenu = () => {
             onClick={() => handleSetActive("RingSetting")}
           ></div>
           <Link to="/admin/product/ring-setting">
-            <h3>Ring Setting</h3>
+            <h3>Jewelry Setting</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
         <Styled.MiniCatalog_Ele
