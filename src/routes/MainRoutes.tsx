@@ -18,7 +18,7 @@ import NotiPage from "@/pages/Customer/Nofications/Nofications";
 import History from "@/pages/Customer/History/History";
 import Home from "@/pages/Home/Home";
 import About from "@/pages/Home/AboutUs/AboutUs";
-// import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
+import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
 import Gift from "@/pages/Home/Gift/Gift";
 import RingGuide from "@/pages/Home/RingGuilde/RingGuide";
 
@@ -31,6 +31,8 @@ import CollectionInformation from "@/pages/Home/CollectionInformation/Collection
 // import useAuth from "@/hooks/useAuth";
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
+import FindSize from "@/pages/Home/FindSize/FindSize";
+import WishListPage from "@/pages/Home/WishList/WishListPage";
 
 
 
@@ -64,7 +66,10 @@ const publicRoutes = {
         { path: config.routes.public.diamond, element: <AllDiamond /> },
         { path: config.routes.public.collection, element: <AllCollection /> },
         { path: config.routes.public.collectionInfo, element: <CollectionInformation /> },
-        { path: config.routes.public.coming, element: <CollectionComing/> }
+        { path: config.routes.public.coming, element: <CollectionComing/> },
+        { path: config.routes.public.learn, element: <LearnAbout/> },
+        { path: config.routes.public.size, element: <FindSize/> },
+        { path: config.routes.public.wish, element: <WishListPage /> }
 
     ]
 }
