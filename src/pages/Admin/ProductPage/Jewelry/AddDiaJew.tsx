@@ -13,10 +13,10 @@ import {
 // import { Link } from "react-router-dom";
 import { InboxOutlined, PlusCircleOutlined } from "@ant-design/icons";
 import type { FormInstance, UploadProps } from "antd";
-import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
-import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
 import { Link } from "react-router-dom";
 import TextArea from "antd/es/input/TextArea";
+import Sidebar from "@/components/Admin/Sidebar/Sidebar";
+import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 // import { ringData, materialData } from "./ProductData";
 
 // DESCRIPTION INPUT

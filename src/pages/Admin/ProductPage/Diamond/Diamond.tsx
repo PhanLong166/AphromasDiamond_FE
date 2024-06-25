@@ -25,12 +25,14 @@ import type {
   TableProps,
   UploadProps,
 } from "antd";
-import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
-import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
 // import Dragger from "antd/es/upload/Dragger";
 import TextArea from "antd/es/input/TextArea";
 import { diamondData, DiamondDataType } from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
+import Sidebar from "@/components/Admin/Sidebar/Sidebar";
+import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
+
+
 
 const onChange: TableProps<DiamondDataType>["onChange"] = (
   pagination,
