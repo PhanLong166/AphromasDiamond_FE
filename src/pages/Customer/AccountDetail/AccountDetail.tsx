@@ -21,11 +21,16 @@ const Account = () => {
     password: '*************',
   });
 
+  const [tempAddress, setTempAddress] = useState({ ...address });
+  const [tempAccount, setTempAccount] = useState({ ...account });
+
   const handleAddressEdit = () => {
+    setTempAddress({ ...address });
     setAddressModalOpen(true);
   };
 
   const handleAccountEdit = () => {
+    setTempAccount({ ...account });
     setAccountModalOpen(true);
   };
 
@@ -36,7 +41,7 @@ const Account = () => {
 
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAddress((prevAddress) => ({
+    setTempAddress((prevAddress) => ({
       ...prevAddress,
       [name]: value,
     }));
@@ -44,7 +49,7 @@ const Account = () => {
 
   const handleAccountChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setAccount((prevAccount) => ({
+    setTempAccount((prevAccount) => ({
       ...prevAccount,
       [name]: value,
     }));
@@ -52,11 +57,13 @@ const Account = () => {
 
   const handleAddressSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setAddress(tempAddress);
     closeModal();
   };
 
   const handleAccountSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    setAccount(tempAccount);
     closeModal();
   };
 
@@ -143,7 +150,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="street"
-                  value={address.street}
+                  value={tempAddress.street}
                   onChange={handleAddressChange}
                 />
               </label>
@@ -152,7 +159,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="city"
-                  value={address.city}
+                  value={tempAddress.city}
                   onChange={handleAddressChange}
                 />
               </label>
@@ -161,7 +168,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="phone"
-                  value={address.phone}
+                  value={tempAddress.phone}
                   onChange={handleAddressChange}
                 />
               </label>
@@ -170,15 +177,13 @@ const Account = () => {
                 <input
                   type="text"
                   name="country"
-                  value={address.country}
+                  value={tempAddress.country}
                   onChange={handleAddressChange}
                 />
               </label>
               <ModalActions>
-                <button type="button" onClick={closeModal}>
-                  Cancel
-                </button>
                 <button type="submit">Save</button>
+                <button type="button" onClick={closeModal}>Cancel</button>
               </ModalActions>
             </form>
           </ModalContent>
@@ -195,7 +200,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="firstName"
-                  value={account.firstName}
+                  value={tempAccount.firstName}
                   onChange={handleAccountChange}
                 />
               </label>
@@ -204,7 +209,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="lastName"
-                  value={account.lastName}
+                  value={tempAccount.lastName}
                   onChange={handleAccountChange}
                 />
               </label>
@@ -213,7 +218,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="phone"
-                  value={account.phone}
+                  value={tempAccount.phone}
                   onChange={handleAccountChange}
                 />
               </label>
@@ -222,7 +227,7 @@ const Account = () => {
                 <input
                   type="text"
                   name="email"
-                  value={account.email}
+                  value={tempAccount.email}
                   onChange={handleAccountChange}
                 />
               </label>
@@ -231,13 +236,13 @@ const Account = () => {
                 <input
                   type="password"
                   name="password"
-                  value={account.password}
+                  value={tempAccount.password}
                   onChange={handleAccountChange}
                 />
               </label>
               <ModalActions>
-                <button type="button" onClick={closeModal}>Cancel</button>
                 <button type="submit">Save</button>
+                <button type="button" onClick={closeModal}>Cancel</button>
               </ModalActions>
             </form>
           </ModalContent>
@@ -314,35 +319,34 @@ const Column = styled.div`
   width: 50%;
   @media (max-width: 991px) {
     width: 100%;
+    &:not(:last-child) {
+      margin-bottom: 40px;
+    }
   }
 `;
 
-const InfoTitle = styled.h4`
-  font-family: 'Poppins', sans-serif;
-  font-size: 22px;
-`;
-
-const Description = styled.p`
-  font-family: 'Poppins', sans-serif;
-  letter-spacing: 3.75px;
-  margin-top: 12px;
+const InfoTitle = styled.div`
+  font-family: 'Crimson Text', sans-serif;
+  font-size: 18px;
+  font-weight: 600;
+  margin: 0 0 25px;
 `;
 
 const DetailGroup = styled.div`
   display: flex;
   flex-direction: column;
-  margin-top: -2px;
-  align-items: start;
-  font-weight: 250;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-    padding: 0 20px;
-  }
+  margin-bottom: 35px;
 `;
 
-const Label = styled.label`
+const Description = styled.span`
   font-family: 'Poppins', sans-serif;
-  padding-top: 22px;
+  font-weight: 400;
+  letter-spacing: 0.75px;
+  margin-top: 6px;
+  font-size: 15px;
+  @media (max-width: 991px) {
+    margin-top: 10px;
+  }
 `;
 
 const Detail = styled.span`
@@ -352,24 +356,32 @@ const Detail = styled.span`
   margin-top: 6px;
 `;
 
-const EditButton = styled.button`
+const Label = styled.label`
   font-family: 'Poppins', sans-serif;
-  border-radius: 10px;
-  border: 1px solid #000;
-  background-color: #fff;
-  /* color: #000; */
+  padding-top: 22px;
+  font-size: 17px;
+`;
+
+const EditButton = styled.button`
+  font-size: 12px;
+  padding: 10px 20px;
+  background-color: #fff9f7;
+  color: #151542;
+  border: none;
+  border: 1px solid #151542;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Gantari", sans-serif;
+  font-weight: 600;
   align-self: flex-end;
-  width: 100px;
-  font-weight: 400;
-  line-height: 1.5;
-  text-align: center;
-  padding: 6px;
+  transition: all 0.45s ease;
   cursor: pointer;
   transition: background-color 0.3s ease, color 0.3s ease;
 
   &:hover {
     background-color: #102c57;
     color: #fff;
+    transition: all 0.45s ease;
   }
 
   @media (max-width: 991px) {
@@ -427,7 +439,6 @@ const ModalContent = styled.div`
   }
 `;
 
-
 const ModalActions = styled.div`
     display: flex;
     flex-direction: column;
@@ -435,17 +446,26 @@ const ModalActions = styled.div`
     margin-top: 20px;
     align-content: center;
     flex-wrap: wrap;
+
   button {
+    font-size: 12px;
+    padding: 10px 20px;
+    background-color: #fff9f7;
+    color: #151542;
+    border: none;
+    border: 1px solid #151542;
     cursor: pointer;
-    transition: background-color 0.3s ease, color 0.3s ease;
-    width: 65%;
-    border-radius: 10px;
-    padding: 6px;
+    transition: background-color 0.3s ease;
+    font-family: "Gantari", sans-serif;
+    font-weight: 600;
+    transition: all 0.45s ease;
+    width: 100%;
 
     &:hover {
-    background-color: #102c57;
-    color: #fff;
-  }
+      background-color: #102c57;
+      color: #fff;
+      transition: all 0.45s ease;
+    }
   }
 `;
 

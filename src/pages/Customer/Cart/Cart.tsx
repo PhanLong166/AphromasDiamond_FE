@@ -515,7 +515,7 @@ const TotalValue = styled.p`
 `;
 
 const CheckoutButton = styled.button`
- background-color: #000;
+ /* background-color: #000;
  color: #fff;
  border: 1px solid rgba(0, 0, 0, 1);
  stroke-width: 1;
@@ -523,11 +523,23 @@ const CheckoutButton = styled.button`
  white-space: nowrap;
  letter-spacing: 1.82px;
  padding: 20px 27px;
- font: 500 13px Poppins, sans-serif;
+ font: 500 13px Poppins, sans-serif; */
+  font-size: 15px;
+    padding: 20px 27px;
+    background-color: #fff9f7;
+    color: #151542;
+    border: 1px solid #151542;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Gantari", sans-serif;
+    font-weight: 600;
+    transition: all 0.45s ease;
+
  margin-top: 30px;
 &:hover {
   color: #fff;
    background-color: #102c57;
+   transition: all 0.45s ease;
 }
 
 &.active {

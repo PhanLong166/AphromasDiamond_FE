@@ -226,14 +226,32 @@ const Row = styled.div`
   justify-content: space-between;
 `;
 
-const Button = styled.button`
-  color: #fff;
+const Button = styled.div`
+  /* color: #fff;
   padding: 5px 11px;
   font-size: 14px;
   border: none;
   cursor: pointer;
   background-color: #102c57;
-  margin-right: 5px;
+  margin-right: 5px; */
+  font-size: 12px;
+    padding: 10px 20px;
+    background-color: #fff9f7;
+    color: #151542;
+    border: none;
+    border: 1px solid #151542;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Gantari", sans-serif;
+    font-weight: 600;
+    transition: all 0.45s ease;
+
+     &:hover {
+    background-color: #151542;
+    color: #fff;
+    transition: all 0.45s ease;
+     }
+
 `;
 
 export default App;
