@@ -187,6 +187,7 @@ const Product: React.FC = () => {
     label: labels[index],
     children: <p>{text}</p>,
   }));
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const onChange = (key: any) => {
     console.log(key);
   };
@@ -213,14 +214,16 @@ const Product: React.FC = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 8;
 
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const handleChangePage = (page: any) => {
     setCurrentPage(page);
   };
 
-  // const paginatedProducts = products.slice(
-  //   (currentPage - 1) * pageSize,
-  //   currentPage * pageSize
-  // );
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const paginatedProducts = products.slice(
+    (currentPage - 1) * pageSize,
+    currentPage * pageSize
+  );
 
   return (
     <Container>
