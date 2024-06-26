@@ -1,5 +1,5 @@
-import { theme } from "@/themes";
 import styled from "styled-components";
+import { theme } from "@/themes";
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -23,7 +23,7 @@ export const OrderAdminArea = styled.section`
 export const AdminPage = styled.div`
   margin-left: 270px;
   margin-right: 35px;
-  width: 100%;
+  width: 90%;
   height: 100%;
   padding-bottom: 55px;
 `;
@@ -47,10 +47,11 @@ export const AdPageContent_Head = styled.div`
 
 export const SearchArea = styled.div`
   width: 30%;
+  display: flex;
+  align-items: center;
 
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
 
   .searchInputContainer {
@@ -84,45 +85,28 @@ export const SearchArea = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 40px 0px 40px;
+  padding: 0px 50px 0px 50px;
+  color: ${theme.color.primary};
 
-  table {
-    border-collapse: collapse;
-    width: 100%;
-  }
-  th,
   td {
-    padding: 8px 0px 8px 0px;
+    padding: 8px;
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
   }
-  td {
-    width: fit-content;
-  }
-  tr .TextAlign {
-    text-align: center;
+  th {
+    color: #783232;
+    font-size: 20px;
   }
   tr th {
     font-size: 13px;
     color: #92929d !important;
   }
+  td .anticon:hover {
+    cursor: pointer;
+  }
   tr .TextAlign {
     text-align: center;
-  }
-  td .anticon {
-    cursor: pointer;
-  }
-  .confirmBtn {
-    background-color: #cd486b;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    color: #f8e7ee;
-    border: none;
-    cursor: pointer;
-  }
-  .confirmBtn:hover {
-    color: #cd486b;
-    background-color: #f8e7ee;
   }
 `;
 

@@ -1,29 +1,29 @@
-import * as Styled from "./Order.styled";
+import * as Styled from "./Cancelled.styled";
 import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
+import { data, DataType } from "../OrderData";
+import { Link } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
-import { Link } from "react-router-dom";
-// import { Col, Row } from "antd";
 
 
 
+const filteredData = data.filter((item) => item.status === "Cancelled");
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a: DataType, b: DataType) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
+    sorter: (a: DataType, b: DataType) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
@@ -65,16 +65,6 @@ const columns: TableColumnsType<DataType> = [
         </Tag>
       );
     },
-    filters: [
-      { text: "Pending", value: "Pending" },
-      { text: "Accepted", value: "Accepted" },
-      { text: "Assigned", value: "Assigned" },
-      { text: "Delivering", value: "Delivering" },
-      { text: "Delivered", value: "Delivered" },
-      { text: "Completed", value: "Completed" },
-      { text: "Cancelled", value: "Cancelled" },
-    ],
-    onFilter: (value, record) => record.status.indexOf(value as string) === 0,
   },
   {
     title: "Detail",
@@ -99,7 +89,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const Order = () => {
+const CancelledOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -114,9 +104,10 @@ const Order = () => {
 
   return (
     <>
-      <Styled.GlobalStyle />
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
+
         <Styled.AdminPage>
           <OrderMenu />
 
@@ -136,16 +127,16 @@ const Order = () => {
               </Styled.SearchArea>
             </Styled.AdPageContent_Head>
 
-            <Styled.AdminTable>
+            <Styled.Pending_Table>
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
-                // pagination={{ pageSize: 6 }} // Add pagination here
+                dataSource={filteredData}
+                pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
-            </Styled.AdminTable>
+            </Styled.Pending_Table>
           </Styled.OrderContent>
         </Styled.AdminPage>
       </Styled.OrderAdminArea>
@@ -153,4 +144,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default CancelledOrder;

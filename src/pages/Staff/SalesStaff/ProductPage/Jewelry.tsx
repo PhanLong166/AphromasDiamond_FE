@@ -1,32 +1,19 @@
 import * as Styled from "./Jewelry.styled";
 import { useState } from "react";
-import { Space, Table, Select, Input, Button } from "antd";
+import { Space, Table, Select, Input } from "antd";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
-  PlusCircleOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 // import { Link } from "react-router-dom";
-import { Modal } from "antd"; // Add this line
-import { Link, useNavigate } from "react-router-dom"; 
+import { Link } from "react-router-dom"; 
 import { productData, ProductDataType } from "./ProductData"; // Import data here
+import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
+import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
 
-// interface ProductDataType {
-//   key: React.Key;
-//   productID: string;
-//   productImg: string;
-//   productName: string;
-//   price: number;
-//   markupPercentage: number;
-//   type: string;
-//   quantity: number;
-//   exchangeRate: number;
-//   currencyType: string;
-// }
+
 
 const onChange: TableProps<ProductDataType>["onChange"] = (
   pagination,
@@ -41,9 +28,6 @@ onChange;
 const Jewelry = () => {
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
-  const [isModalVisible, setIsModalVisible] = useState(false); // Add this line
-  const navigate = useNavigate(); // Update this line
-
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -103,8 +87,6 @@ const Jewelry = () => {
       title: "Jewelry Name",
       dataIndex: "jewelryName",
       showSorterTooltip: { target: "full-header" },
-      onFilter: (value, record) =>
-        record.jewelryName.indexOf(value as string) === 0,
       sorter: (a, b) => a.jewelryName.length - b.jewelryName.length,
       sortDirections: ["descend"],
     },
@@ -171,32 +153,13 @@ const Jewelry = () => {
       className: "TextAlign",
       render: (_, { jewelryID }) => (
         <Space size="middle">
-          <Link to={`/admin/product/detail/${jewelryID}`}>
+          <Link to={`/sales-staff/product/jewelry/detail/${jewelryID}`}>
             <EyeOutlined />
           </Link>
         </Space>
       ),
     },
   ];
-
-  // Add New
-  const handleAddNew = () => {
-    setIsModalVisible(true);
-  };
-  
-  const handleModalOkCancel = () => {
-    setIsModalVisible(false);
-  };
-  
-  const handleAddJewelry = () => {
-    setIsModalVisible(false);
-    navigate("/admin/product/add/jewelry"); // Update this line
-  };
-  
-  const handleAddCustomRing = () => {
-    setIsModalVisible(false);
-    navigate("/admin/product/add/product"); // Update this line
-  };
 
   return (
     <>
@@ -232,13 +195,6 @@ const Jewelry = () => {
                   ]}
                 />
               </Styled.AdPageContent_HeadLeft>
-
-              <Styled.AddButton>
-                <button onClick={handleAddNew}>
-                  <PlusCircleOutlined />
-                  Add New Product
-                </button>
-              </Styled.AddButton>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -253,34 +209,6 @@ const Jewelry = () => {
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
-
-        <Modal
-          title="Select an Option"
-          visible={isModalVisible}
-          onOk={handleModalOkCancel}
-          onCancel={handleModalOkCancel}
-          style={{ width: "100%" }}
-          footer={[
-            <Button key="cancel" onClick={handleModalOkCancel}>
-              Cancel
-            </Button>,
-          ]}
-        >
-          <Button
-            type="primary"
-            onClick={handleAddJewelry}
-            style={{ marginRight: "10px", backgroundColor: "#151542" }}
-          >
-            Add Regular Jewelry
-          </Button>
-          <Button
-            type="primary"
-            style={{ backgroundColor: "#151542" }}
-            onClick={handleAddCustomRing}
-          >
-            Add Diamond Jewelry
-          </Button>
-        </Modal>
       </Styled.ProductAdminArea>
     </>
   );

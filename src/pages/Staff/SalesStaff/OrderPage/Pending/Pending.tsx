@@ -1,16 +1,16 @@
-import * as Styled from "./Order.styled";
+import * as Styled from "./Pending.styled";
 import { useState } from "react";
-import { Space, Table, Tag, Input } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { Button, Space, Table, Tag, Input } from "antd";
+import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
+import { data, DataType } from "../OrderData";
+import { Link } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
-import { Link } from "react-router-dom";
-// import { Col, Row } from "antd";
 
 
 
+const filteredData = data.filter((item) => item.status === "Pending");
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -23,7 +23,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
@@ -65,25 +65,14 @@ const columns: TableColumnsType<DataType> = [
         </Tag>
       );
     },
-    filters: [
-      { text: "Pending", value: "Pending" },
-      { text: "Accepted", value: "Accepted" },
-      { text: "Assigned", value: "Assigned" },
-      { text: "Delivering", value: "Delivering" },
-      { text: "Delivered", value: "Delivered" },
-      { text: "Completed", value: "Completed" },
-      { text: "Cancelled", value: "Cancelled" },
-    ],
-    onFilter: (value, record) => record.status.indexOf(value as string) === 0,
   },
   {
-    title: "Detail",
-    key: "detail",
-    className: "TextAlign",
+    title: "Action",
+    key: "action",
     render: (_, { orderID }) => (
       <Space size="middle">
         <Link to={`/sales-staff/order/detail/${orderID}`}>
-          <EyeOutlined />
+        <Button className="confirmBtn">Accept</Button>
         </Link>
       </Space>
     ),
@@ -99,7 +88,7 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const Order = () => {
+const Pending = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -140,8 +129,8 @@ const Order = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
-                // pagination={{ pageSize: 6 }} // Add pagination here
+                dataSource={filteredData}
+                pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
@@ -153,4 +142,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default Pending;

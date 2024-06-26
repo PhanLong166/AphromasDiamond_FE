@@ -1,42 +1,42 @@
-import * as Styled from "./Order.styled";
+import * as Styled from "./Assigned.styled";
 import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
-import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
+import { data, DataType } from "../OrderData";
 import { Link } from "react-router-dom";
-// import { Col, Row } from "antd";
+import Sidebar from "@/components/Admin/Sidebar/Sidebar";
+import OrderMenu from "@/components/Admin/OrderMenu/OrderMenu";
 
 
 
+const filteredData = data.filter((item) => item.status === "Assigned");
 
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
   },
   {
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
+    sorter: (a, b) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    sorter: (a, b) => a.total - b.total,
   },
   {
     title: "Status",
@@ -65,16 +65,6 @@ const columns: TableColumnsType<DataType> = [
         </Tag>
       );
     },
-    filters: [
-      { text: "Pending", value: "Pending" },
-      { text: "Accepted", value: "Accepted" },
-      { text: "Assigned", value: "Assigned" },
-      { text: "Delivering", value: "Delivering" },
-      { text: "Delivered", value: "Delivered" },
-      { text: "Completed", value: "Completed" },
-      { text: "Cancelled", value: "Cancelled" },
-    ],
-    onFilter: (value, record) => record.status.indexOf(value as string) === 0,
   },
   {
     title: "Detail",
@@ -88,6 +78,18 @@ const columns: TableColumnsType<DataType> = [
       </Space>
     ),
   },
+  // {
+  //   title: "Detail",
+  //   key: "detail",
+  //   className: "TextAlign",
+  //   render: (_, { orderID }) => (
+  //     <Space size="middle">
+  //       <Link to={`/admin/order/detail/${orderID}`}>
+  //         <EyeOutlined />
+  //       </Link>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -99,11 +101,12 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const Order = () => {
+const AssignedOrder = () => {
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
+    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -114,9 +117,10 @@ const Order = () => {
 
   return (
     <>
-      <Styled.GlobalStyle />
+    <Styled.GlobalStyle/>
       <Styled.OrderAdminArea>
         <Sidebar />
+
         <Styled.AdminPage>
           <OrderMenu />
 
@@ -140,8 +144,8 @@ const Order = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
-                // pagination={{ pageSize: 6 }} // Add pagination here
+                dataSource={filteredData}
+                pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
@@ -153,4 +157,4 @@ const Order = () => {
   );
 };
 
-export default Order;
+export default AssignedOrder;
