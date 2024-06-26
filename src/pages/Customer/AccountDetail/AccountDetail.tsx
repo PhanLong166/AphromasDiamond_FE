@@ -2,18 +2,34 @@ import styled from 'styled-components';
 import { ChangeEvent, FormEvent, useState } from 'react';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
 
+
+interface Address {
+  street: string;
+  city: string;
+  phone: string;
+  country: string;
+}
+
+interface Account {
+  firstName: string;
+  lastName: string;
+  phone: string;
+  email: string;
+  password: string;
+}
+
 const Account = () => {
   const [isAddressModalOpen, setAddressModalOpen] = useState(false);
   const [isAccountModalOpen, setAccountModalOpen] = useState(false);
 
-  const [address, setAddress] = useState({
+  const [address, setAddress] = useState<Address>({
     street: '191-103 Integer Rd.',
     city: 'Forrest Ray',
     phone: '(404) 960-3807',
     country: 'Mexico',
   });
 
-  const [account, setAccount] = useState({
+  const [account, setAccount] = useState<Account>({
     firstName: 'Le Phuoc',
     lastName: 'Loc',
     phone: '(404) 960-3807',
@@ -21,8 +37,30 @@ const Account = () => {
     password: '*************',
   });
 
-  const [tempAddress, setTempAddress] = useState({ ...address });
-  const [tempAccount, setTempAccount] = useState({ ...account });
+  const [tempAddress, setTempAddress] = useState<Address>({ ...address });
+  const [tempAccount, setTempAccount] = useState<Account>({ ...account });
+
+  const [addressErrors, setAddressErrors] = useState<Partial<Address>>({});
+  const [accountErrors, setAccountErrors] = useState<Partial<Account>>({});
+
+  const validateAddress = (address: Address) => {
+    const errors: Partial<Address> = {};
+    if (!address.street) errors.street = 'Street address is required';
+    if (!address.city) errors.city = 'City is required';
+    if (!address.phone) errors.phone = 'Phone number is required';
+    if (!address.country) errors.country = 'Country is required';
+    return errors;
+  };
+
+  const validateAccount = (account: Account) => {
+    const errors: Partial<Account> = {};
+    if (!account.firstName) errors.firstName = 'First name is required';
+    if (!account.lastName) errors.lastName = 'Last name is required';
+    if (!account.phone) errors.phone = 'Phone number is required';
+    if (!account.email) errors.email = 'Email is required';
+    if (!account.password) errors.password = 'Password is required';
+    return errors;
+  };
 
   const handleAddressEdit = () => {
     setTempAddress({ ...address });
@@ -57,14 +95,24 @@ const Account = () => {
 
   const handleAddressSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setAddress(tempAddress);
-    closeModal();
+    const errors = validateAddress(tempAddress);
+    if (Object.keys(errors).length === 0) {
+      setAddress(tempAddress);
+      closeModal();
+    } else {
+      setAddressErrors(errors);
+    }
   };
 
   const handleAccountSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setAccount(tempAccount);
-    closeModal();
+    const errors = validateAccount(tempAccount);
+    if (Object.keys(errors).length === 0) {
+      setAccount(tempAccount);
+      closeModal();
+    } else {
+      setAccountErrors(errors);
+    }
   };
 
   return (
@@ -153,6 +201,7 @@ const Account = () => {
                   value={tempAddress.street}
                   onChange={handleAddressChange}
                 />
+                {addressErrors.street && <Error>{addressErrors.street}</Error>}
               </label>
               <label>
                 City:
@@ -162,6 +211,7 @@ const Account = () => {
                   value={tempAddress.city}
                   onChange={handleAddressChange}
                 />
+                {addressErrors.city && <Error>{addressErrors.city}</Error>}
               </label>
               <label>
                 Phone:
@@ -171,6 +221,7 @@ const Account = () => {
                   value={tempAddress.phone}
                   onChange={handleAddressChange}
                 />
+                {addressErrors.phone && <Error>{addressErrors.phone}</Error>}
               </label>
               <label>
                 Country:
@@ -180,6 +231,7 @@ const Account = () => {
                   value={tempAddress.country}
                   onChange={handleAddressChange}
                 />
+                {addressErrors.country && <Error>{addressErrors.country}</Error>}
               </label>
               <ModalActions>
                 <button type="submit">Save</button>
@@ -203,6 +255,7 @@ const Account = () => {
                   value={tempAccount.firstName}
                   onChange={handleAccountChange}
                 />
+                {accountErrors.firstName && <Error>{accountErrors.firstName}</Error>}
               </label>
               <label>
                 Last Name:
@@ -212,6 +265,7 @@ const Account = () => {
                   value={tempAccount.lastName}
                   onChange={handleAccountChange}
                 />
+                {accountErrors.lastName && <Error>{accountErrors.lastName}</Error>}
               </label>
               <label>
                 Phone:
@@ -221,6 +275,7 @@ const Account = () => {
                   value={tempAccount.phone}
                   onChange={handleAccountChange}
                 />
+                {accountErrors.phone && <Error>{accountErrors.phone}</Error>}
               </label>
               <label>
                 Email:
@@ -230,6 +285,7 @@ const Account = () => {
                   value={tempAccount.email}
                   onChange={handleAccountChange}
                 />
+                {accountErrors.email && <Error>{accountErrors.email}</Error>}
               </label>
               <label>
                 Current Password:
@@ -239,6 +295,7 @@ const Account = () => {
                   value={tempAccount.password}
                   onChange={handleAccountChange}
                 />
+                {accountErrors.password && <Error>{accountErrors.password}</Error>}
               </label>
               <ModalActions>
                 <button type="submit">Save</button>
@@ -467,6 +524,13 @@ const ModalActions = styled.div`
       transition: all 0.45s ease;
     }
   }
+`;
+
+const Error = styled.span`
+  color: red;
+  font-size: 12px;
+  margin-top: 5px;
+  display: block;
 `;
 
 export default Account;

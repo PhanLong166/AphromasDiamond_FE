@@ -3,6 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "./PromoCode";
+import { Breadcrumb as AntBreadcrumb } from "antd";
 
 interface ContactInfoProps {
   email: string;
@@ -49,14 +50,20 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
         <h2>Contact Information</h2>
         {!isEditing && (
           <Buttons>
-            <button style={{border: "none"}} onClick={handEditClick}>EDIT</button>
+            <button style={{ border: "none" }} onClick={handEditClick}>
+              EDIT
+            </button>
           </Buttons>
         )}
       </TextContact>
       <p>Email address</p>
       {isEditing ? (
         <div>
-          <StyledInput type="email" value={currentEmail} onChange={handleEmailChange} />
+          <StyledInput
+            type="email"
+            value={currentEmail}
+            onChange={handleEmailChange}
+          />
           <SaveButton onClick={handleSaveClick}>SAVE</SaveButton>
         </div>
       ) : (
@@ -71,7 +78,10 @@ const AddressDetails: React.FC<AddressDetailsProps> = () => (
     <h2>Shipping & Billing</h2>
     <EditPTag>
       <p>
-        Address Delivery<span><hr></hr></span>
+        Address Delivery
+        <span>
+          <hr></hr>
+        </span>
       </p>
     </EditPTag>
     <InputRow>
@@ -84,20 +94,30 @@ const AddressDetails: React.FC<AddressDetailsProps> = () => (
         <StyledInput type="text" id="lastName" />
       </InputGroup>
     </InputRow>
-    <label style={{ marginBottom: -15 }} htmlFor="address">
-      Address Details
-    </label>
-    <StyledInput type="text" id="phoneNumber" />
+    <InputRow>
+      <InputGroup>
+        <StyledLabel htmlFor="district">District</StyledLabel>
+        <StyledInput type="text" id="phoneNumber" />
+      </InputGroup>
+      <InputGroup>
+        <StyledLabel htmlFor="address">Address Details</StyledLabel>
+        <StyledInput type="text" id="address" />
+      </InputGroup>
+    </InputRow>
+
+    {/* <label style={{ marginBottom: -15 }} htmlFor="address">Address Details</label> */}
+    {/* <StyledInput type="text" id="phoneNumber" /> */}
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
         <StyledInput type="text" id="phoneNumber" />
       </InputGroup>
       <InputGroup>
-        <StyledLabel htmlFor="lastName">City</StyledLabel>
+        <StyledLabel htmlFor="city">City</StyledLabel>
         <StyledInput type="text" id="lastName" />
       </InputGroup>
     </InputRow>
+
     <PaymentMethod />
   </Section>
 );
@@ -111,7 +131,10 @@ const PaymentMethod: React.FC = () => {
 
   return (
     <PaymentSection>
-      <PaymentDropdown onChange={handlePaymentChange} value={selectedPayment || ""}>
+      <PaymentDropdown
+        onChange={handlePaymentChange}
+        value={selectedPayment || ""}
+      >
         <option value="">
           <h2>Payment Method</h2>
         </option>
@@ -183,6 +206,15 @@ const Checkout: React.FC = () => {
       <ContainerHeader>
         <Header>Checkout</Header>
       </ContainerHeader>
+      <ContainerCrum>
+        <CustomBreadcrumb separator="━━━━━━━━━━━━━━━━━━━━━>">
+          <AntBreadcrumb.Item>Cart</AntBreadcrumb.Item>
+          <AntBreadcrumb.Item>
+            <span style={{ color: "black" }}>Checkout</span>
+          </AntBreadcrumb.Item>
+          <AntBreadcrumb.Item>Payment</AntBreadcrumb.Item>
+        </CustomBreadcrumb>
+      </ContainerCrum>
       <Wrapper>
         <StyledLink>
           <Link to="/cart">BACK TO CART</Link>
@@ -267,6 +299,59 @@ const PaymentDropdown = styled.select`
 
   &:hover {
     border-color: #1677ff;
+  }
+`;
+
+const ContainerCrum = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* padding: 0 24px; */
+  text-align: center;
+  /* font-size: 0.875rem; sm text */
+  font-weight: 500; /* medium font weight */
+  color: #000000; /* gray-500 */
+`;
+
+const CustomBreadcrumb = styled(AntBreadcrumb)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1400px;
+  padding: 0 24px;
+  text-align: center;
+  font-size: 0.875rem; /* sm text */
+  font-weight: 500; /* medium font weight */
+  color: #6b7280; /* gray-500 */
+  margin-bottom: 1rem;
+
+  .ant-breadcrumb-link {
+    color: #6b7280; /* primary-700 */
+  }
+
+  .ant-breadcrumb-separator {
+    margin: 0 8px; /* mx-2 */
+    color: #000000; /* gray-200 */
+  }
+
+  @media (min-width: 640px) {
+    font-size: 18px; /* base text */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: #d1d5db; /* gray-400 in dark mode */
+
+    .ant-breadcrumb-link {
+      color: #2563eb; /* primary-500 in dark mode */
+    }
+
+    .ant-breadcrumb-separator {
+      color: #6b7280; /* gray-500 in dark mode */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
   }
 `;
 
