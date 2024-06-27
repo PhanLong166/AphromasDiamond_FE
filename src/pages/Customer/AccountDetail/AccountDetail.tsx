@@ -1,7 +1,6 @@
 import styled from 'styled-components';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useRef, useEffect } from 'react';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
-
 
 interface Address {
   street: string;
@@ -43,6 +42,26 @@ const Account = () => {
   const [addressErrors, setAddressErrors] = useState<Partial<Address>>({});
   const [accountErrors, setAccountErrors] = useState<Partial<Account>>({});
 
+  const modalRef = useRef(null); // Tham chiếu đến phần tử modal
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // Kiểm tra nếu click ra ngoài phạm vi modal
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (modalRef.current && !(modalRef.current as any).contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    // Thêm sự kiện mousedown khi component được mount
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    // Xóa sự kiện khi component bị unmount
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, ); // [] đảm bảo useEffect chỉ chạy một lần khi component mount
+
   const validateAddress = (address: Address) => {
     const errors: Partial<Address> = {};
     if (!address.street) errors.street = 'Street address is required';
@@ -73,8 +92,14 @@ const Account = () => {
   };
 
   const closeModal = () => {
+    resetFormValues();
     setAddressModalOpen(false);
     setAccountModalOpen(false);
+  };
+
+  const resetFormValues = () => {
+    setAddressErrors({});
+    setAccountErrors({});
   };
 
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -190,7 +215,7 @@ const Account = () => {
 
       {isAddressModalOpen && (
         <Modal>
-          <ModalContent>
+          <ModalContent ref={modalRef}>
             <h2>Edit Address Delivery</h2>
             <form onSubmit={handleAddressSubmit}>
               <label>
@@ -244,7 +269,7 @@ const Account = () => {
 
       {isAccountModalOpen && (
         <Modal>
-          <ModalContent>
+          <ModalContent ref={modalRef}>
             <h2>Edit Account Details</h2>
             <form onSubmit={handleAccountSubmit}>
               <label>
@@ -298,8 +323,9 @@ const Account = () => {
                 {accountErrors.password && <Error>{accountErrors.password}</Error>}
               </label>
               <ModalActions>
+                
                 <button type="submit">Save</button>
-                <button type="button" onClick={closeModal}>Cancel</button>
+                <button  type="button" onClick={closeModal}>Cancel</button>
               </ModalActions>
             </form>
           </ModalContent>
@@ -497,12 +523,12 @@ const ModalContent = styled.div`
 `;
 
 const ModalActions = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-    align-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  align-content: center;
+  flex-wrap: wrap;
 
   button {
     font-size: 12px;
@@ -522,6 +548,10 @@ const ModalActions = styled.div`
       background-color: #102c57;
       color: #fff;
       transition: all 0.45s ease;
+    }
+    &:hover:not(:first-of-type) {
+      background-color: #fd424b; 
+      color: #fff; 
     }
   }
 `;

@@ -145,8 +145,8 @@ const PaymentMethod: React.FC = () => {
         <PaymentImage
           src={
             selectedPayment === "vnpay"
-              ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fvnpay.png?alt=media&token=862bf826-5f9f-45d9-807b-a762a7e78506"
-              : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fmomo.png?alt=media&token=5bbb0c32-e05b-4a02-8cd8-cee2af079413"
+              ? "https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
+              : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
           }
           alt={selectedPayment === "vnpay" ? "VnPay" : "Momo"}
         />
@@ -195,6 +195,8 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
     </EditTotal1>
   </SummarySection>
 );
+
+
 
 const Checkout: React.FC = () => {
   const handleEdit = () => {
@@ -276,11 +278,12 @@ const Checkout: React.FC = () => {
           />
         </Content>
         <EditBtn>
-          <a href="#" style={{ color: "white" }}>
-            Continue
-          </a>
+          
+        
+        <BtnContinue>Continue</BtnContinue>
         </EditBtn>
       </Wrapper>
+      
     </main>
   );
 };
@@ -485,15 +488,34 @@ const EditTotal1 = styled.div`
   word-spacing: 203px;
 `;
 
+
+
 const EditBtn = styled.div`
   font-family: Poppins, sans-serif;
-  background-color: #102c57;
-  color: #fff;
-  border-radius: 5px;
-  padding: 11px 30px;
-  align-self: flex-end;
+  width: 1400px;
   margin-top: 25px;
-  margin-right: 94px;
+  display: flex;
+  justify-content: flex-end;
+        
+`;
+const BtnContinue = styled.button`
+    font-size: 15px;
+    padding: 10px 27px;
+    background-color: #fff;
+    border-color: none;
+    color: #000;
+    border: 1px solid #151542;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Gantari", sans-serif;
+    font-weight: 600;
+    transition: all 0.45s ease;
+    margin-bottom: 1rem;
+    &:hover{
+      color: #fff;
+      background-color: #151542;
+      transition: all 0.45s ease;
+    }
 `;
 
 const EditPTag = styled.p`

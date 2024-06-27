@@ -1,3 +1,4 @@
+
 const routes = {
   public: {
     home: "/",
@@ -78,7 +79,11 @@ const routes = {
   },
   deliStaff: {
     // dashboard: '/delistaff',
-    deliveryReport: "/delivery-staff/delivery-report",
+    deliveryPending: "/delivery-staff/delivery-pending",
+    deliveryDelivering: "/delivery-staff/delivery-delivering",
+    deliveryDelivered: "/delivery-staff/delivery-delivered",
+    deliveryReturn: "/delivery-staff/delivery-return",
+    deliveryCompleted: "/delivery-staff/delivery-completed",
   },
   api: {
     loginGoogle: "/auth/signin",

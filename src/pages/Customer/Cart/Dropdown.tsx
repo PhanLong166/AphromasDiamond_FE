@@ -13,12 +13,14 @@ const Dropdown: React.FC = () => {
     <DropdownContainer>
       <DropdownButton onClick={toggleDropdown}>Ring size<span><CaretDownOutlined/></span></DropdownButton>
       <DropdownContent isOpen={isOpen}>
-        <DropdownLink>4</DropdownLink>
+        {/* <option>a</option>
+        <option>b</option> */}
+        {/* <DropdownLink>4</DropdownLink>
         <DropdownLink>4.5</DropdownLink>
         <DropdownLink>5</DropdownLink>
         <DropdownLink>5.5</DropdownLink>
-        <DropdownLink>6</DropdownLink>
-        <DropdownLink>6.5</DropdownLink>
+        <DropdownLink>6</DropdownLink> */}
+        {/* <DropdownLink>6.5</DropdownLink> */}
       </DropdownContent>
     </DropdownContainer>
   );
@@ -48,12 +50,12 @@ const DropdownContent = styled.div<{ isOpen: boolean }>`
   /* z-index: 1; */
 `;
 
-const DropdownLink = styled.a`
-  color: black;
-  font-size: 15px;
-  text-decoration: none;
-  display: block;
-  &:hover {
-    background-color: grey;
-  }
-`;
+// const DropdownLink = styled.a`
+//   color: black;
+//   font-size: 15px;
+//   text-decoration: none;
+//   display: block;
+//   &:hover {
+//     background-color: grey;
+//   }
+// `;

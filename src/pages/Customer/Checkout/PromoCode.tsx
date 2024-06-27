@@ -10,7 +10,7 @@ const PromoCodeSection: React.FC = () => {
 
   return (
     <PromoCodeContainer>
-      <CollapseButton onClick={toggleCollapse}> Promo Code
+      <CollapseButton onClick={toggleCollapse}> Promo Code 
       </CollapseButton>
       {!isCollapsed && (
         <PromoForm>
@@ -60,8 +60,8 @@ const StyledInput = styled.input`
     transition: all 0.2s ease-in-out 0s;
     box-sizing: border-box;
     font-weight: 400;
-    border-radius: 8px;
-    background-color: rgb(255, 255, 255);
+    /* border-radius: 8px; */
+    /* background-color: rgb(255, 255, 255); */
     font-size: 14px;
     padding: 0px 16px;
     height: 30px;

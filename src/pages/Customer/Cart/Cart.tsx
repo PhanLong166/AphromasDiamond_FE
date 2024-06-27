@@ -192,13 +192,13 @@ const Cart = () => {
                   <OrDivider>OR</OrDivider>
                   <Link to="/thanks-page">
                     <PaymentMethodImage
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/4762099b96e0d9911e6dbbff51ed4164d0ebf441a4af10ca789ca321f8ea0dbb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                      src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
                       alt="Credit card icons"
                     />
                   </Link>
                   <Link to="thanks-page">
                     <PaymentMethodImage
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/33c97bbfdfd1027e752ab9f974297feaabc0fea312ba85eead4c91a971711218?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
                       alt="Credit card icons"
                     />
                   </Link>
@@ -617,7 +617,7 @@ const OrDivider = styled.p`
 const PaymentMethodImage = styled.img`
   width: 136px;
   object-fit: contain;
-  border: 1px solid rgba(0, 0, 0, 1);
+  /* border: 1px solid rgba(0, 0, 0, 1); */
   margin-top: 15px;
   max-width: 100%;
   @media (max-width: 991px) {
