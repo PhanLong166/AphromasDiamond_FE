@@ -1,4 +1,4 @@
-import * as Styled from "../ProductPage/Material.styled";
+import * as Styled from "../MarketingPage/Marketing.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined } from "@ant-design/icons";
@@ -7,19 +7,105 @@ import {
   Form,
   Input,
   InputNumber,
-  Table
+  Table,
 } from "antd";
-import { materialData, MaterialDataType } from "./ProductData"; // Import data here
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
-import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
 
+
+interface Item {
+  key: React.Key;
+  promotionID: string;
+  discountPercent: number;
+  startDate: string;
+  endDate: string;
+}
+const originData = (): Item[] => {
+  const data: Item[] = [
+    {
+      key: "1",
+      promotionID: "12345121",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "2",
+      promotionID: "12345122",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "3",
+      promotionID: "12345123",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "4",
+      promotionID: "12345124",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "5",
+      promotionID: "12345125",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "6",
+      promotionID: "12345126",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "7",
+      promotionID: "12345127",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "8",
+      promotionID: "12345128",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "9",
+      promotionID: "12345129",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+    {
+      key: "10",
+      promotionID: "12345130",
+      discountPercent: 10,
+      startDate: "2 Jan 2023",
+      endDate: "2 Jan 2024",
+    },
+  ];
+  return data.map((item) => ({
+    ...item,
+    // sellingPrice: calculateSellingPrice(item.buyingPrice)
+  }));
+};
+
+// const originData = createInitialData();
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof MaterialDataType;
+  dataIndex: keyof Item;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: MaterialDataType;
+  record: Item;
   index: number;
   // children: React.ReactNode;
 }
@@ -59,7 +145,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 };
 
 
-const onChange: TableProps<MaterialDataType>["onChange"] = (
+const onChange: TableProps<Item>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -68,32 +154,38 @@ const onChange: TableProps<MaterialDataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const Material = () => {
+
+const Marketing = () => {
   const [form] = Form.useForm();
-  const [data] = useState<MaterialDataType[]>(materialData);
+  const [data] = useState<Item[]>(originData);
   const [editingKey] = useState<React.Key>("");
-  const isEditing = (record: MaterialDataType) => record.key === editingKey;
+  const isEditing = (record: Item) => record.key === editingKey;
 
 
   const columns = [
     {
-      title: "Material ID",
-      dataIndex: "materialID",
+      title: "ID",
+      dataIndex: "promotionID",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) => a.materialID.localeCompare(b.materialID),
+      sorter: (a: Item, b: Item) => a.promotionID.localeCompare(b.promotionID),
     },
     {
-      title: "Material Name",
-      dataIndex: "materialName",
+      title: "% discount",
+      dataIndex: "discountPercent",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) =>
-        a.materialName.length - b.materialName.length,
+      sorter: (a: Item, b: Item) => a.discountPercent - b.discountPercent,
     },
     {
-      title: "Selling Price per Gram",
-      dataIndex: "sellingPrice",
+      title: "Start Date",
+      dataIndex: "startDate",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) => a.sellingPrice - b.sellingPrice,
+      sorter: (a: Item, b: Item) => a.startDate.length - b.startDate.length,
+    },
+    {
+      title: "End Date",
+      dataIndex: "endDate",
+      editable: true,
+      sorter: (a: Item, b: Item) => a.endDate.length - b.endDate.length,
     },
   ];
 
@@ -103,7 +195,7 @@ const Material = () => {
     }
     return {
       ...col,
-      onCell: (record: MaterialDataType) => ({
+      onCell: (record: Item) => ({
         record,
         inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -117,6 +209,7 @@ const Material = () => {
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
+    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -129,11 +222,14 @@ const Material = () => {
   return (
     <>
       <Styled.GlobalStyle />
-      <Styled.AdminArea>
+      <Styled.ProductAdminArea>
         <Sidebar />
 
         <Styled.AdminPage>
-          <ProductMenu />
+          <Styled.TitlePage>
+            <h1>Marketing Management</h1>
+            <p>View and manage Promotion</p>
+          </Styled.TitlePage>
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
@@ -163,16 +259,16 @@ const Material = () => {
                     dataSource={data}
                     columns={mergedColumns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} 
+                    pagination={{ pageSize: 6 }} // Add pagination here
                     onChange={onChange}
                   />
                 </Form>
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
-      </Styled.AdminArea>
+      </Styled.ProductAdminArea>
     </>
   );
 };
 
-export default Material;
+export default Marketing;

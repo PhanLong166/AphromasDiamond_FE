@@ -1,7 +1,18 @@
-import styled from "styled-components";
 import { theme } from "@/themes";
+import styled from "styled-components";
+import { createGlobalStyle } from 'styled-components';
 
-export const ProductAdminArea = styled.section`
+export const GlobalStyle = createGlobalStyle`
+  html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
+  }
+`;
+
+export const OrderAdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
@@ -10,16 +21,16 @@ export const ProductAdminArea = styled.section`
 `;
 
 export const AdminPage = styled.div`
-  margin-left: 320px;
-  margin-right: 70px;
-  width: 100%;
+  margin-left: 270px;
+  margin-right: 35px;
+  width: 90%;
   height: 100%;
   padding-bottom: 55px;
 `;
 
 // /* -------------------- CONTENT =============== */
 
-export const AdPageContent = styled.div`
+export const OrderContent = styled.div`
   width: 100%;
   background-color: #ffffff;
   border-radius: 16px;
@@ -51,7 +62,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -63,7 +74,7 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
@@ -72,34 +83,9 @@ export const SearchArea = styled.div`
   }
 `;
 
-export const AddButton = styled.div`
-  button {
-    background-color: ${theme.color.primary};
-    color: #ffffff;
-    width: 100%;
-    height: 40px;
-    border-radius: 10px;
-    font-size: 12px;
-    border: 1px solid ${theme.color.primary};
-    padding: 10px 15px 10px 15px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    cursor: pointer;
-  }
-
-  button:hover {
-    transition: all 0.4s;
-    background-color: #ffffff;
-    color: ${theme.color.primary};
-    border: 1px solid ${theme.color.primary};
-  }
-
-  button .anticon {
-    margin-right: 7px;
-  }
-`;
-
-export const AdminTable = styled.div`
+export const Pending_Table = styled.div`
   padding: 0px 50px 0px 50px;
+  color: ${theme.color.primary};
 
   table {
     border-collapse: collapse;
@@ -107,28 +93,33 @@ export const AdminTable = styled.div`
   }
   th,
   td {
-    padding: 8px 0px 8px 0px;
+    padding: 8px;
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
   }
-  td {
-    width: fit-content;
-  }
   tr .TextAlign {
     text-align: center;
+  }
+  td .anticon:hover {
+    cursor: pointer;
   }
   tr th {
     font-size: 13px;
     color: #92929d !important;
   }
-  td img {
-    width: 77px;
-  }
-  td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
+  .confirmBtn {
+    background-color: #cd486b;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #f8e7ee;
+    border: none;
     cursor: pointer;
   }
+  .confirmBtn:hover {
+    color: #cd486b;
+    background-color: #f8e7ee;
+  }
 `;
+
+export const hehe = styled.div``;
