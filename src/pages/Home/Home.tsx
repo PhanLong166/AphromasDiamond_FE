@@ -403,17 +403,6 @@ const Home: React.FC = () => {
   return (
     <Body>
       <Container>
-        {/* <Carousel arrows infinite={false}>
-          {images.map((image, index) => (
-            <div key={index}>
-              <img
-                src={image}
-                alt={`Slide ${index + 1}`}
-                style={{ width: "100%", height: "450px", objectFit: "cover" }}
-              />
-            </div>
-          ))}
-        </Carousel> */}
         <Banner>
           <BannerContent>
             <h2>To Love and Cherish</h2>
@@ -725,9 +714,16 @@ const Home: React.FC = () => {
               rings, our collection is designed to make this Valentine's Day
               truly unforgettable.
             </h6>
-            <Link to={"/info"}>
-              <button>SHOPPING NOW!</button>
-            </Link>
+            <Button>
+              <button
+                onClick={() => navigate(config.routes.public.collectionInfo)}
+              >
+                SHOPPING NOW!
+              </button>
+              <button onClick={() => navigate(config.routes.public.collection)}>
+                ALL COLLECTION
+              </button>
+            </Button>
           </Banner4Container>
         </Banner4>
         <Banner3>
@@ -737,7 +733,10 @@ const Home: React.FC = () => {
               GET READY!
               <br /> AUTUMN IS COMING...
             </h2>
-            <button>DO GET IT!</button>
+
+            <button onClick={() => navigate(config.routes.public.coming)}>
+              DO GET IT!
+            </button>
           </Banner3Container>
         </Banner3>
         <Brand>
@@ -786,11 +785,12 @@ const Home: React.FC = () => {
                   you find the perfect piece, whether it's a special gift, an
                   engagement ring, or a set for a memorable occasion.
                 </AboutText>
-                <Link to={"/about"}>
-                  <ButtonAbout>
-                    <button>LEARN ABOUT</button>
-                  </ButtonAbout>
-                </Link>
+
+                <ButtonAbout>
+                  <button onClick={() => navigate(config.routes.public.about)}>
+                    LEARN ABOUT
+                  </button>
+                </ButtonAbout>
               </AboutContent>
             </Col>
             <Col xs={24} md={12}>

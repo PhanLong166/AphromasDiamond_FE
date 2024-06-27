@@ -483,7 +483,9 @@ export const Banner3 = styled.section`
   background-repeat: no-repeat;
   height: 50vh;
 `;
+export const ButtonSection = styled.div`
 
+`;
 export const Banner3Container = styled.div`
   max-width: 1320px;
   margin: 60px auto;

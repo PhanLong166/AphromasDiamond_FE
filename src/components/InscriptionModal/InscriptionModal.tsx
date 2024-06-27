@@ -69,13 +69,6 @@ const InscriptionModal: React.FC<InscriptionModalProps> = ({
                   width={25}
                 />
               </Option>
-              <Option value="font2">
-                <Image
-                  src="https://ecommo--ion.bluenile.com/static-dyo-bn/font2.d1900.png"
-                  alt="Playfair Display"
-                  width={27}
-                />
-              </Option>
             </Select>
           </div>
           <div className="preview-container">

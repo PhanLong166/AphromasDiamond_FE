@@ -69,7 +69,7 @@ export const Item = styled.div`
     object-fit: cover;
   }
   img:hover {
-    border: solid 1px #B1B1B1;
+    border: solid 1px #b1b1b1;
   }
 `;
 
@@ -163,7 +163,7 @@ export const ProductRating = styled.span`
 export const ProductMetal = styled.div`
   .wrap {
     display: flex;
-    gap: 10px; /* Khoảng cách giữa các nút */
+    gap: 10px;
   }
   .fill {
     font-weight: 400;
@@ -208,6 +208,10 @@ export const ProductMetal = styled.div`
   button.selected,
   button:hover:not(.selected) {
     box-shadow: inset 0 0 0 4px #fff;
+  }
+  button[disabled] {
+    pointer-events: none; 
+    opacity: 0.5; 
   }
 `;
 

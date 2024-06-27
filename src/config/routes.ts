@@ -16,6 +16,9 @@ const routes = {
     collection: "/collection",
     collectionInfo: "/info",
     coming: "/coming",
+    learn: "/learn",
+    size: "/size",
+    wish: "/wishlist"
   },
   customer: {
     account: "/account",
