@@ -1,5 +1,5 @@
+import { theme } from "@/themes";
 import styled from "styled-components";
-import { theme } from "../../../themes";
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -8,10 +8,11 @@ export const GlobalStyle = createGlobalStyle`
     margin: 0;
     padding: 0;
     background-color: #f1f1f1;
+    font-family: 'Poppins', sans-serif;
   }
 `;
 
-export const AdminArea = styled.section`
+export const ProductAdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
@@ -30,11 +31,13 @@ export const AdminPage = styled.div`
   justify-content: space-between;
 `;
 
+export const ContentPage = styled.div``;
+
 export const TitlePage = styled.div`
   h1 {
     font-size: 22px;
     font-weight: 36px;
-    color: #151542;
+    color: ${theme.color.primary};
     margin: 30px 0px 0px 0px;
     padding-bottom: 7px;
   }
@@ -54,7 +57,7 @@ export const AdPageContent = styled.div`
   border-radius: 16px;
   margin-top: 28px;
   padding-top: 25px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -80,7 +83,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -92,12 +95,38 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
 
   .searchInput:focus {
+  }
+`;
+
+export const AddButton = styled.div`
+  button {
+    background-color: ${theme.color.primary};
+    color: #ffffff;
+    width: 100%;
+    height: 40px;
+    border-radius: 10px;
+    font-size: 12px;
+    border: 1px solid ${theme.color.primary};
+    padding: 10px 15px 10px 15px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    cursor: pointer;
+  }
+
+  button:hover {
+    transition: all 0.4s;
+    background-color: #ffffff;
+    color: ${theme.color.primary};
+    border: 1px solid ${theme.color.primary};
+  }
+
+  button .anticon {
+    margin-right: 7px;
   }
 `;
 
@@ -110,8 +139,7 @@ export const AdminTable = styled.div`
   }
   th,
   td {
-    padding: 15px 0px 10px 0px;
-    // padding: 8px;
+    padding: 8px 0px 8px 0px;
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
@@ -123,16 +151,19 @@ export const AdminTable = styled.div`
   tr .TextAlign {
     text-align: center;
   }
+  .SmallSize {
+    font-size: 16px;
+    overflow-wrap: normal !important;
+  }
+  td img {
+    width: 77px;
+  }
   td .anticon {
     font-size: 23px;
   }
   td .anticon:hover {
     cursor: pointer;
   }
-  .deleBtn {
-    color: red;
-  }
-
   .pendStatus {
     background-color: #f8e7ee;
     border-radius: 100px;
@@ -142,15 +173,78 @@ export const AdminTable = styled.div`
     border: none;
   }
   .confirmBtn {
-    background-color: ${theme.color.primary};
+    background-color: #cd486b;
     border-radius: 100px;
     padding: 7px 17px 7px 17px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
     /* font-size: 12px; */
-    color: ${theme.color.secondary};
+    color: #f8e7ee;
     border: none;
-  }
-  .confirmBtn:hover {
     cursor: pointer;
   }
+
+  // --------------------------
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+      // font-size: 16px;
+      font-weight: 500;
+    }
+  }
+`;
+
+
+
+
+// ------------------------- ADD AREA
+
+export const AddContent_Title = styled.div`
+width: 100%;
+  background-color: #ffffff;
+  color: ${theme.color.primary};
+  padding: 0px 0px 0px 0px;
+  font-weight: 600;
+  font-size: 18px;
+`;
+
+export const FormItem = styled.div`
+  width: 100%;
+  height: 57px;
+  margin-bottom: 30px;
+  
+
+  .formItem {
+    width: 100%;
+  }
+`;
+
+export const FormDescript = styled.div`
+  width: 100%;
+  textarea {
+    height: 149px;
+  }
+`;
+
+export const UploadFile = styled.div`
+width: 48%;
+`;
+
+
+export const ActionBtn = styled.div`
+  margin-top: 25px;
+
+  button {
+    border: 1px solid ${theme.color.primary};
+  }
+
+  .ant-btn-primary {
+    background-color: ${theme.color.primary};
+    color: #92929d;
+    border: 0px;
+  }
+
 `;

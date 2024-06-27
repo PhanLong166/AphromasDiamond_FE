@@ -46,10 +46,14 @@ const columns: TableColumnsType<DataType> = [
       let color = "green";
       if (status === "Pending") {
         color = "volcano";
-      } else if (status === "Confirmed") {
+      } else if (status === "Accepted") {
         color = "yellow";
+      } else if (status === "Assigned") {
+        color = "orange";
       } else if (status === "Delivering") {
-        color = "geekblue";
+        color = "blue";
+      } else if (status === "Delivered") {
+        color = "purple";
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
@@ -63,8 +67,10 @@ const columns: TableColumnsType<DataType> = [
     },
     filters: [
       { text: "Pending", value: "Pending" },
-      { text: "Confirmed", value: "Confirmed" },
+      { text: "Accepted", value: "Accepted" },
+      { text: "Assigned", value: "Assigned" },
       { text: "Delivering", value: "Delivering" },
+      { text: "Delivered", value: "Delivered" },
       { text: "Completed", value: "Completed" },
       { text: "Cancelled", value: "Cancelled" },
     ],

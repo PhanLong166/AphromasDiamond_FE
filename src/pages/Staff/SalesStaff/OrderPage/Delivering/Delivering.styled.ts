@@ -2,6 +2,7 @@ import { theme } from "@/themes";
 import styled from "styled-components";
 import { createGlobalStyle } from 'styled-components';
 
+
 export const GlobalStyle = createGlobalStyle`
   html, body {
     height: 100%;
@@ -23,7 +24,7 @@ export const OrderAdminArea = styled.section`
 export const AdminPage = styled.div`
   margin-left: 270px;
   margin-right: 35px;
-  width: 100%;
+  width: 90%;
   height: 100%;
   padding-bottom: 55px;
 `;
@@ -62,7 +63,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: ${theme.color.primary};
+    color: #151542;
   }
   .searchInput {
     border: none;
@@ -74,7 +75,7 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: ${theme.color.primary};
+    color: #151542;
     background-color: #f8f9fb;
     height: 45px;
   }
@@ -84,7 +85,11 @@ export const SearchArea = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 40px 0px 40px;
+  padding: 0px 50px 0px 50px;
+  color: #151542;
+  // .TextAlign {
+  //     text-align: center;
+  // }
 
   table {
     border-collapse: collapse;
@@ -92,16 +97,10 @@ export const AdminTable = styled.div`
   }
   th,
   td {
-    padding: 8px 0px 8px 0px;
+    padding: 8px;
     text-align: left;
     font-size: 16px;
-    color: ${theme.color.primary};
-  }
-  td {
-    width: fit-content;
-  }
-  tr .TextAlign {
-    text-align: center;
+    color: #151542;
   }
   tr th {
     font-size: 13px;
@@ -110,12 +109,22 @@ export const AdminTable = styled.div`
   tr .TextAlign {
     text-align: center;
   }
-  td .anticon {
+
+  td .anticon:hover {
     cursor: pointer;
+  }
+  .pendStatus {
+    background-color: #d2eeff;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: ${theme.color.primary};
+    border: none;
   }
   .confirmBtn {
     background-color: #cd486b;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
     color: #f8e7ee;
     border: none;
     cursor: pointer;
@@ -125,5 +134,3 @@ export const AdminTable = styled.div`
     background-color: #f8e7ee;
   }
 `;
-
-export const hehe = styled.div``;
