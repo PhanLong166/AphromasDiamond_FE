@@ -3,11 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "./PromoCode";
-
-interface ContactInfoProps {
-  email: string;
-  onEdit: (newEmail: string) => void;
-}
+import { Breadcrumb as AntBreadcrumb } from "antd";
 
 interface ContactInfoProps {
   email: string;
@@ -32,9 +28,9 @@ interface SummaryProps {
 }
 
 const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
-  const [ IsEditing, setIsEditing ] =  useState(false);
-  const [ currentEmail, setCurrenEmail] = useState(email);
-  
+  const [isEditing, setIsEditing] = useState(false);
+  const [currentEmail, setCurrentEmail] = useState(email);
+
   const handEditClick = () => {
     setIsEditing(true);
   };
@@ -45,97 +41,119 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrenEmail(e.target.value);
+    setCurrentEmail(e.target.value);
   };
+
   return (
-  <Section>
-   
-    <TextContact>
-      <h2>Contact Information</h2>
-      {!IsEditing && (
-
-      <Buttons onClick={handEditClick}>
-        <button style={{ backgroundColor: "white", border: "none", fontSize: 13, paddingTop: 23 }}>EDIT</button>
-         </Buttons>
-         )} 
-       </TextContact>
-    <p>Email address</p>
-    {IsEditing ? (
-      <div>
-        <StyledInputt type ="email" value={currentEmail} onChange={handleEmailChange} />
-        <SaveButton onClick={handleSaveClick}>SAVE</SaveButton>
-      </div>
-    ) : (
-          <p>{currentEmail}</p>
-    
-    )}
-    {/* <p>{email}</p> */}
-
-
-  </Section>
-  
-)};
+    <Section>
+      <TextContact>
+        <h2>Contact Information</h2>
+        {!isEditing && (
+          <Buttons>
+            <button style={{ border: "none" }} onClick={handEditClick}>
+              EDIT
+            </button>
+          </Buttons>
+        )}
+      </TextContact>
+      <p>Email address</p>
+      {isEditing ? (
+        <div>
+          <StyledInput
+            type="email"
+            value={currentEmail}
+            onChange={handleEmailChange}
+          />
+          <SaveButton onClick={handleSaveClick}>SAVE</SaveButton>
+        </div>
+      ) : (
+        <p>{currentEmail}</p>
+      )}
+    </Section>
+  );
+};
 
 const AddressDetails: React.FC<AddressDetailsProps> = () => (
   <Section>
     <h2>Shipping & Billing</h2>
-    <EditPTag><p>Address Delivery<span><hr></hr></span></p></EditPTag>
+    <EditPTag>
+      <p>
+        Address Delivery
+        <span>
+          <hr></hr>
+        </span>
+      </p>
+    </EditPTag>
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="firstName">First Name</StyledLabel>
-        {/* <Input  placeholder="Basic usage" /> */}
-        <StyledInputt type="text" id="firstName" />
+        <StyledInput type="text" id="firstName" />
       </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
-        {/* <Input  placeholder="Basic usage" /> */}
-        <StyledInputt type="text" id="lastName" />
+        <StyledInput type="text" id="lastName" />
       </InputGroup>
     </InputRow>
-    {/* <label style={{marginBottom: -15}} htmlFor="country">Country</label> */}
-    {/* <Country>
-      <img
-        src="https://cdn.builder.io/api/v1/image/assets/TEMP/1b114f2edfa3b31c61ea104edda326263461457a90784dc66d09c3575872d199?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
-        alt="Country Flag"
-      />
-      <span>{country}</span>
-    </Country> */}
-    <label style={{marginBottom: -15}} htmlFor="address">Address Details</label>
-    <StyledInputt type="text" id="phoneNumber" />
+    <InputRow>
+      <InputGroup>
+        <StyledLabel htmlFor="district">District</StyledLabel>
+        <StyledInput type="text" id="phoneNumber" />
+      </InputGroup>
+      <InputGroup>
+        <StyledLabel htmlFor="address">Address Details</StyledLabel>
+        <StyledInput type="text" id="address" />
+      </InputGroup>
+    </InputRow>
+
+    {/* <label style={{ marginBottom: -15 }} htmlFor="address">Address Details</label> */}
+    {/* <StyledInput type="text" id="phoneNumber" /> */}
     <InputRow>
       <InputGroup>
         <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
-        <StyledInputt type="text" id="phoneNumber" />
+        <StyledInput type="text" id="phoneNumber" />
       </InputGroup>
       <InputGroup>
-        <StyledLabel htmlFor="lastName">City</StyledLabel>
-        <StyledInputt type="text" id="lastName" />
+        <StyledLabel htmlFor="city">City</StyledLabel>
+        <StyledInput type="text" id="lastName" />
       </InputGroup>
     </InputRow>
+
     <PaymentMethod />
   </Section>
 );
 
-const PaymentMethod: React.FC = () => (
-  <PaymentSection>
-    <h2>Payment Method</h2>
-    <ImagesContainer>
-      <Link to="/thanks-page">
-      <PaymentImage
-        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fvnpay.png?alt=media&token=862bf826-5f9f-45d9-807b-a762a7e78506"
-        alt="VnPay"
-      />
-      </Link>
-      <Link to="/thanks-page">
-      <PaymentImage
-      
-        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fmomo.png?alt=media&token=5bbb0c32-e05b-4a02-8cd8-cee2af079413"
-        alt="Momo"
-      />
-      </Link>
-    </ImagesContainer>
-  </PaymentSection>
-);
+const PaymentMethod: React.FC = () => {
+  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
+
+  const handlePaymentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setSelectedPayment(event.target.value);
+  };
+
+  return (
+    <PaymentSection>
+      <PaymentDropdown
+        onChange={handlePaymentChange}
+        value={selectedPayment || ""}
+      >
+        <option value="">
+          <h2>Payment Method</h2>
+        </option>
+        <option value="vnpay">VnPay</option>
+        <option value="momo">Momo</option>
+      </PaymentDropdown>
+      {selectedPayment && (
+        <PaymentImage
+          src={
+            selectedPayment === "vnpay"
+              ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fvnpay.png?alt=media&token=862bf826-5f9f-45d9-807b-a762a7e78506"
+              : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fmomo.png?alt=media&token=5bbb0c32-e05b-4a02-8cd8-cee2af079413"
+          }
+          alt={selectedPayment === "vnpay" ? "VnPay" : "Momo"}
+        />
+      )}
+    </PaymentSection>
+  );
+};
 
 const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
   <CartItemContainer>
@@ -149,15 +167,13 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 );
 
 const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
-  
   <SummarySection>
-    <ItemNumner>
-    <NumberItem>6 ITEMS</NumberItem>
-    <Link to="/cart">
-    <p style={{ textAlign: "end", fontSize: 13, marginTop: 4, fontFamily: "Arial" }} >EDIT CART</p>
-    </Link>
-    </ItemNumner>
-   
+    <ItemNumber>
+      <NumberItem>6 ITEMS</NumberItem>
+      <Link to="/cart">
+        <p>EDIT CART</p>
+      </Link>
+    </ItemNumber>
     {items.map((item, index) => (
       <CartItem
         key={index}
@@ -165,141 +181,210 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
         image={item.image}
         sku={item.sku}
         price={item.price}
-
       />
-      
     ))}
-
-    <EditTotal><p>Subtotal: {subtotal}</p></EditTotal>
-    <EditTotal> <p>Shipping: Free</p> </EditTotal>
-
-    {/* <PromoCoder>
-      <PromoIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/6f0f0a858913ade2024229e06f2a2b2de3377d9aca01b958e1d53f25d9c31bad?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Promo code icon" />
-      <PromoText>
-        
-     
-          <DropdownButton  buttonText="Promo Code " menuItems={menuItems1} />
-        
-        </PromoText>
-    </PromoCoder> */}
-    <PromoCodeSection/>
-    <EditTotal1><p>Total: {subtotal}</p></EditTotal1>
+    <EditTotal>
+      <p>Subtotal: {subtotal}</p>
+    </EditTotal>
+    <EditTotal>
+      <p>Shipping: Free</p>
+    </EditTotal>
+    <PromoCodeSection />
+    <EditTotal1>
+      <p>Total: {subtotal}</p>
+    </EditTotal1>
   </SummarySection>
 );
 
 const Checkout: React.FC = () => {
   const handleEdit = () => {
     console.log("Edit Contact Info");
-
-    
   };
+
   return (
-    <Main>
-      <Header>Checkout</Header>
-    <Wrapper>
-      
-      {/* <Title>CHECKOUT</Title> */}
-      <StyledLink ><Link to="/CART">BACK TO CART</Link></StyledLink>
-      <Content>
-        <Form>
-          <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} />
-          <AddressDetails
-            address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
-            country="VietNam"
+    <main>
+      <ContainerHeader>
+        <Header>Checkout</Header>
+      </ContainerHeader>
+      <ContainerCrum>
+        <CustomBreadcrumb separator="━━━━━━━━━━━━━━━━━━━━━>">
+          <AntBreadcrumb.Item>Cart</AntBreadcrumb.Item>
+          <AntBreadcrumb.Item>
+            <span style={{ color: "black" }}>Checkout</span>
+          </AntBreadcrumb.Item>
+          <AntBreadcrumb.Item>Payment</AntBreadcrumb.Item>
+        </CustomBreadcrumb>
+      </ContainerCrum>
+      <Wrapper>
+        <StyledLink>
+          <Link to="/cart">BACK TO CART</Link>
+        </StyledLink>
+        <Content>
+          <Form>
+            <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} />
+            <AddressDetails
+              address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
+              country="VietNam"
+            />
+          </Form>
+          <Summary
+            items={[
+              {
+                name: "Diamond (Loose)",
+                image:
+                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+                sku: "SKU 18633320",
+                price: "$8,000",
+              },
+              {
+                name: "Diamond (Loose)",
+                image:
+                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+                sku: "SKU 18633320",
+                price: "$8,000",
+              },
+              {
+                name: "Diamond (Loose)",
+                image:
+                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+                sku: "SKU 18633320",
+                price: "$8,000",
+              },
+              {
+                name: "Ring Diamond",
+                image:
+                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
+                sku: "SKU 18633320",
+                price: "$8,000",
+              },
+              {
+                name: "Ring Diamond",
+                image:
+                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+                sku: "SKU 18633320",
+                price: "$8,000",
+              },
+              {
+                name: "Diamond (Loose)",
+                image:
+                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+                sku: "SKU 18633320",
+                price: "$8,000",
+              },
+            ]}
+            subtotal="$10,000"
           />
-        </Form>
-        <Summary
-          items={[
-            {
-              name: "Diamond (Loose)",
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Diamond (Loose)",
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Diamond (Loose)",
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Ring Diamond",
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Ring Diamond",
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            {
-              name: "Diamond (Loose)",
-              image:
-                "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              sku: "SKU 18633320",
-              price: "$8,000",
-            },
-            
-          ]}
-          subtotal="$10,000"
-        />
-       
-      </Content>
-      
-      <Editbtn><a style={{ color: "white" }} href="#" >Continue</a> </Editbtn>
-    </Wrapper>
-    </Main>
+        </Content>
+        <EditBtn>
+          <a href="#" style={{ color: "white" }}>
+            Continue
+          </a>
+        </EditBtn>
+      </Wrapper>
+    </main>
   );
 };
 
-
 export default Checkout;
 
-const Main = styled.div`
+const PaymentDropdown = styled.select`
+  padding: 10px;
+  font-size: 16px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  margin-bottom: 10px;
+  width: 380px;
+  border-radius: 10px;
+  transition: border-color 0.3s, background-color 0.3s;
+
+  &:hover {
+    border-color: #1677ff;
+  }
+`;
+
+const ContainerCrum = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  /* padding: 0 24px; */
+  text-align: center;
+  /* font-size: 0.875rem; sm text */
+  font-weight: 500; /* medium font weight */
+  color: #000000; /* gray-500 */
+`;
+
+const CustomBreadcrumb = styled(AntBreadcrumb)`
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 1400px;
+  padding: 0 24px;
+  text-align: center;
+  font-size: 0.875rem; /* sm text */
+  font-weight: 500; /* medium font weight */
+  color: #6b7280; /* gray-500 */
+  margin-bottom: 1rem;
+
+  .ant-breadcrumb-link {
+    color: #6b7280; /* primary-700 */
+  }
+
+  .ant-breadcrumb-separator {
+    margin: 0 8px; /* mx-2 */
+    color: #000000; /* gray-200 */
+  }
+
+  @media (min-width: 640px) {
+    font-size: 18px; /* base text */
+  }
+
+  @media (prefers-color-scheme: dark) {
+    color: #d1d5db; /* gray-400 in dark mode */
+
+    .ant-breadcrumb-link {
+      color: #2563eb; /* primary-500 in dark mode */
+    }
+
+    .ant-breadcrumb-separator {
+      color: #6b7280; /* gray-500 in dark mode */
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+  }
+`;
+
+const ContainerHeader = styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Header = styled.header`
-   align-items: center;
-    background: #fff;
-    width: 1400px;
-    color: #818594;
-    font: 14px / 150% 'Crimson Text', sans-serif;
-    border-bottom: 1px solid #e4e4e4;
-    border-top: 1px solid #e4e4e4;
-    padding: 10px;
-    display: flex;
-    margin: 0 35px 0 35px;
-    /* margin-bottom: 4rem; */
+  background: #fff;
+  width: 1400px;
+  color: #818594;
+  font: 14px / 150% "Crimson Text", sans-serif;
+  border-bottom: 1px solid #e4e4e4;
+  border-top: 1px solid #e4e4e4;
+  padding: 10px 0;
+  display: flex;
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
     margin-top: 40px;
   }
 `;
 
-
-const ItemNumner = styled.div`
-display: flex;
-justify-content: space-between;
+const ItemNumber = styled.div`
+  display: flex;
+  justify-content: space-between;
 `;
 
-const  NumberItem = styled.div`
-`; 
+const NumberItem = styled.div``;
+
 const TextContact = styled.div`
-display: flex;
-justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
 `;
 
 const Wrapper = styled.div`
@@ -307,24 +392,17 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
-  /* padding: 73px 60px; */
   @media (max-width: 991px) {
     padding: 0 20px;
   }
 `;
-
-// const Title = styled.h1`
-//   color: #000;
-//   font: 600 45px/150% Poppins, sans-serif;
-// `;
 
 const StyledLink = styled.a`
   color: #000;
   text-decoration: underline;
   margin-top: 57px;
   margin-bottom: 10px;
-  // margin-right: 1276px;
-  width: 86%;
+  width: 1400px;
   font: 250 10px/150% Poppins, sans-serif;
   @media (max-width: 991px) {
     margin-top: 40px;
@@ -335,7 +413,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  width: 86%;
+  width: 1400px;
   align-items: flex-start;
   @media (max-width: 991px) {
     flex-direction: column;
@@ -347,35 +425,29 @@ const Form = styled.form`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  
 `;
+
 const Section = styled.section`
-   box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
-    border: 1px solid rgb(232 226 226);
-    border-radius: 8px;
-    background-color: rgb(255, 255, 255);
+  box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
+  border: 1px solid #e8e2e2;
+  border-radius: 8px;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   gap: 20px;
   padding: 48px 40px;
   font-weight: 400;
   font-size: 16px;
-  /* box-shadow: 0px 4px 18px #999797; */
-  @media (max-width: 991px) {
-    padding: 0 20px;
-  }
-  &:hover{
-   box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
-    border: 3px solid rgb(232 226 226);
+  &:hover {
+    box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
+    border: 2px solid #e8e2e2;
   }
 `;
 
 const SummarySection = styled(Section)`
   flex: 1;
-  line-height:40px;
-  
+  line-height: 40px;
 `;
-
 
 const Buttons = styled.button`
   font-family: Poppins, sans-serif;
@@ -383,11 +455,9 @@ const Buttons = styled.button`
   border: none;
   background-color: #fff;
   align-self: flex-end;
-  margin-top: -44px;
-  
 `;
 
-const SaveButton = styled.div`
+const SaveButton = styled.button`
   font-family: Poppins, sans-serif;
   color: #000;
   border: none;
@@ -397,83 +467,75 @@ const SaveButton = styled.div`
 `;
 
 const PaymentImage = styled.img`
-width: 178px;
-object-fit: contain;
-margin-top: 15px;
-max-width: 100%;
-@media (max-width: 991px) {
-  margin-top: 40px;
-}
+  width: 178px;
+  object-fit: contain;
+  margin-top: 15px;
+  max-width: 100%;
+  @media (max-width: 991px) {
+    margin-top: 40px;
+  }
 `;
 
 const EditTotal = styled.div`
-display: flex;
-word-spacing: 171px;
+  display: flex;
+  word-spacing: 171px;
 `;
+
 const EditTotal1 = styled.div`
- word-spacing: 203px;
-`;
-const Editbtn = styled.div`
-font-family: Poppins, sans-serif;
-    background-color: #102C57;
-    color: #fff;
-    border-radius: 5px;
-    padding: 11px 30px;
-    align-self: flex-end;
-    margin-top: 25px;
-    margin-right: 94px;
-
+  word-spacing: 203px;
 `;
 
-const ImagesContainer = styled.div`
-  display: flex; 
-  gap: 10px; 
-  justify-content: space-between;
+const EditBtn = styled.div`
+  font-family: Poppins, sans-serif;
+  background-color: #102c57;
+  color: #fff;
+  border-radius: 5px;
+  padding: 11px 30px;
+  align-self: flex-end;
+  margin-top: 25px;
+  margin-right: 94px;
 `;
 
 const EditPTag = styled.p`
-font-weight: bold;
+  font-weight: bold;
 `;
-
 
 const InputRow = styled.div`
   display: flex;
-  gap: 20px; 
+  gap: 20px;
 `;
 
 const InputGroup = styled.div`
   display: flex;
   flex-direction: column;
-  flex: 1; 
+  flex: 1;
 `;
 
 const StyledLabel = styled.label`
   margin-bottom: 5px;
- 
 `;
-// const StyledLabell = styled.label`
-// margin-bottom: 5px`;
 
-
-const StyledInputt = styled.input`
+const StyledInput = styled.input`
   padding: 9px;
   border-radius: 10px;
   font-size: 16px;
-  width: 100%; 
+  width: 100%;
   border: 1px solid;
-   transition: border-color 0.3s, background-color 0.3s;
+  transition: border-color 0.3s, background-color 0.3s;
   &:hover {
-            border-color: #1677ff;  
-        }
-        &:focus {
-            border-color: #1677ff;
-            outline: none;
-          }         
+    border-color: #1677ff;
+  }
+  &:focus {
+    border-color: #1677ff;
+    outline: none;
+  }
 `;
 
 const PaymentSection = styled.div`
-margin-bottom: 5px;
-    font-weight: 600;
+  margin-bottom: 5px;
+  font-weight: 600;
+  display: flex;
+  flex-direction: column;
 `;
 
 const CartItemContainer = styled.div`
@@ -482,11 +544,10 @@ const CartItemContainer = styled.div`
   gap: 33px;
   padding-top: 18px;
   margin-top: 10px;
-  border-bottom: 2px solid rgb(232 226 226);
+  border-bottom: 2px solid #e8e2e2;
   img {
     max-width: 100px;
   }
-  
   div {
     flex: 1;
   }
@@ -496,5 +557,6 @@ const CartItemContainer = styled.div`
   p {
     margin: 0;
   }
-  
 `;
+
+// export default Checkout;
