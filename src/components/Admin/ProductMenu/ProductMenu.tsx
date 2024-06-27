@@ -18,8 +18,8 @@ const ProductMenu = () => {
       case "/admin/product/add/jewelry":
         setActive("Jewelry");
         break;
-      case "/admin/product/ring-setting":
-        setActive("RingSetting");
+      case "/admin/product/jewelry-setting":
+        setActive("JewelrySetting");
         break;
       case "/admin/product/jewelry-type":
         setActive("JewelryType");
