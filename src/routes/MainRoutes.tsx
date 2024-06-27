@@ -5,7 +5,6 @@ import Cart from "../pages/Customer/Cart/Cart";
 import Checkout from "../pages/Customer/Checkout/Checkout";
 import OrderList from "../pages/Customer/OderList/OderList";
 import Voucher from "../pages/Customer/Voucher/Voucher";
-;
 import { Navigate, Outlet } from "react-router-dom";
 import Product from "@/pages/Home/Product/Product";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
@@ -30,6 +29,7 @@ import AllCollection from "@/pages/Home/AllCollection/AllCollection";
 import CollectionInformation from "@/pages/Home/CollectionInformation/CollectionInfomation";
 // import useAuth from "@/hooks/useAuth";
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
+import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
 
 
 
@@ -37,7 +37,7 @@ const MainRouter = () => {
     const { role } = useAuth();
     if (role?.includes(Role.ADMIN)) return <Navigate to={config.routes.admin.dashboard} />
     if (role?.includes(Role.SALES_STAFF)) return <Navigate to={config.routes.salesStaff.dashboard} />
-    if (role?.includes(Role.DELI_STAFF)) return <Navigate to={config.routes.deliStaff.deliveryReport} />
+    if (role?.includes(Role.DELI_STAFF)) return <Navigate to={config.routes.deliStaff.deliveryPending} />
 
     return <MainLayout />
 }
@@ -62,7 +62,8 @@ const publicRoutes = {
         { path: config.routes.public.ringGuide, element: <RingGuide /> },
         { path: config.routes.public.diamond, element: <AllDiamond /> },
         { path: config.routes.public.collection, element: <AllCollection /> },
-        { path: config.routes.public.collectionInfo, element: <CollectionInformation /> }
+        { path: config.routes.public.collectionInfo, element: <CollectionInformation /> },
+        { path: config.routes.public.coming, element: <CollectionComing/> }
 
     ]
 }

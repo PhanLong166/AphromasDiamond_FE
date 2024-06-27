@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
-import { Table } from 'antd';
+// import { Button, ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
+import Table from 'antd/es/table';
 
 interface Product {
   id: string;
@@ -29,11 +30,18 @@ interface OrderProps {
 }
 
 const Container = styled.div`
-  background-color: #f1f1f1;
+  background-color: #fff;
   display: flex;
   flex-direction: column;
   align-items: center;
-  padding: 80px 60px 43px;
+  /* padding: 80px 60px 43px; */
+  padding-top: 2rem;
+  width: 1400px;
+  padding-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 20px;
+  }
 `;
 
 const OrderWrapper = styled.div`
@@ -52,6 +60,11 @@ const OrderDetailsContainer = styled.div`
   justify-content: space-between;
   align-items: flex-start;
   gap: 20px;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const OrderDetails = styled.div`
@@ -60,6 +73,10 @@ const OrderDetails = styled.div`
   font-size: 18px;
   font-weight: 400;
   width: 60%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const InvoiceDetails = styled.div`
@@ -68,28 +85,51 @@ const InvoiceDetails = styled.div`
   font-size: 18px;
   font-weight: 400;
   width: 40%;
+
+  @media (max-width: 768px) {
+    width: 100%;
+  }
 `;
 
 const OrderTitle = styled.h1`
   font-weight: 600;
   font-size: 24px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const CustomerInfo = styled.p`
   margin-top: 24px;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    font-size: 16px;
+  }
 `;
 
 const InvoiceInfo = styled.p`
   margin-top: 20px;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    font-size: 16px;
+  }
 `;
 
 const ProductsWrapper = styled.div`
   display: flex;
   flex-direction: column;
+  background-color: #fff;
   width: 100%;
   padding: 46px 0;
   border-bottom: 1px solid;
-    padding-bottom: 3rem;
+  padding-bottom: 3rem;
+
+  @media (max-width: 768px) {
+    padding: 20px 0;
+  }
 `;
 
 const OrderInfo = styled.div`
@@ -98,23 +138,42 @@ const OrderInfo = styled.div`
   align-items: flex-start;
   margin-top: 20px;
   width: 100%;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+    gap: 10px;
+  }
 `;
 
 const InfoTitle = styled.h3`
   color: #92929d;
   font-weight: 600;
   font-size: 16px;
+  padding-bottom: 1rem;
+
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
 `;
 
 const InfoText = styled.p`
   color: #151542;
   margin-top: 20px;
   font-size: 18px;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    font-size: 16px;
+  }
 `;
 
 const OrderID = styled.h2`
   font-weight: 600;
   font-size: 24px;
+
+  @media (max-width: 768px) {
+    font-size: 20px;
+  }
 `;
 
 const Row = styled.div`
@@ -126,7 +185,43 @@ const Column = styled.div`
   display: flex;
   flex-direction: column;
   align-items: flex-end;
+
+  @media (max-width: 768px) {
+    align-items: flex-start;
+  }
 `;
+
+const MainContainer = styled.div`
+display: flex;
+justify-content: space-around;
+`;
+
+const EditButton = styled.div`
+  font-family: 'Poppins', sans-serif;
+  border-radius: 10px;
+  border: 1px solid #000;
+  background-color: #fff;
+  /* color: #000; */
+  align-self: center;
+  width: 100px;
+  font-weight: 400;
+  line-height: 1.5;
+  text-align: center;
+  padding: 6px;
+  cursor: pointer;
+  transition: background-color 0.3s ease, color 0.3s ease;
+
+  &:hover {
+    background-color: #102c57;
+    color: #fff;
+  }
+
+  @media (max-width: 991px) {
+    padding: 6px 20px;
+    width: auto;
+  }
+`;
+
 
 const sampleOrder: OrderProps = {
   invoiceDate: '14 Dec 2022',
@@ -215,6 +310,7 @@ const OrderDetail: React.FC = () => {
   ];
 
   return (
+    <MainContainer>
     <Container>
       <OrderWrapper>
         <OrderTitle>Order Detail</OrderTitle>
@@ -234,7 +330,7 @@ const OrderDetail: React.FC = () => {
       </OrderWrapper>
       <ProductsWrapper>
         <OrderID>Order ID #{order.orderId}</OrderID>
-        <Table columns={columns} dataSource={products} pagination={false} rowKey="id" />
+        <Table style={{backgroundColor: '#e8e8e8'}} columns={columns} dataSource={products} pagination={false} rowKey="id" />
       </ProductsWrapper>
       <OrderInfo>
         <Row>
@@ -246,10 +342,14 @@ const OrderDetail: React.FC = () => {
           <InfoText>VAT: {vat}</InfoText>
           <InfoText>Shipping Fee: {shippingFee}</InfoText>
           <br/>
-          <InfoText>Total: {total}</InfoText>
+          <InfoText style={{color:"red"}}>
+              Total: {total}
+          </InfoText>
         </Column>
       </OrderInfo>
+      <EditButton>Comfirm</EditButton>
     </Container>
+    </MainContainer>
   );
 };
 

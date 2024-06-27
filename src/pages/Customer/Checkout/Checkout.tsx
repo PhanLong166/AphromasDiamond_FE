@@ -194,8 +194,10 @@ const Checkout: React.FC = () => {
     
   };
   return (
-    <Main>
+    <main>
+      <ContainerHeader>
       <Header>Checkout</Header>
+      </ContainerHeader>
     <Wrapper>
       
       {/* <Title>CHECKOUT</Title> */}
@@ -261,27 +263,32 @@ const Checkout: React.FC = () => {
       
       <Editbtn><a style={{ color: "white" }} href="#" >Continue</a> </Editbtn>
     </Wrapper>
-    </Main>
+    </main>
   );
 };
 
 
 export default Checkout;
 
-const Main = styled.div`
+// const Main = styled.div`
+// `;
+
+const ContainerHeader =styled.div`
+  display: flex;
+  justify-content: center;
 `;
 
 const Header = styled.header`
-   align-items: center;
+   /* align-items: center; */
     background: #fff;
     width: 1400px;
     color: #818594;
     font: 14px / 150% 'Crimson Text', sans-serif;
     border-bottom: 1px solid #e4e4e4;
     border-top: 1px solid #e4e4e4;
-    padding: 10px;
+    padding: 10px 0;
     display: flex;
-    margin: 0 35px 0 35px;
+    /* margin: 0 35px 0 35px; */
     /* margin-bottom: 4rem; */
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
@@ -324,7 +331,7 @@ const StyledLink = styled.a`
   margin-top: 57px;
   margin-bottom: 10px;
   // margin-right: 1276px;
-  width: 86%;
+  width: 1400px;
   font: 250 10px/150% Poppins, sans-serif;
   @media (max-width: 991px) {
     margin-top: 40px;
@@ -335,7 +342,7 @@ const Content = styled.div`
   display: flex;
   flex-direction: row;
   gap: 20px;
-  width: 86%;
+  width: 1400px;
   align-items: flex-start;
   @media (max-width: 991px) {
     flex-direction: column;
@@ -366,7 +373,7 @@ const Section = styled.section`
   }
   &:hover{
    box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
-    border: 3px solid rgb(232 226 226);
+   border: 2px solid rgb(232 226 226);
   }
 `;
 
