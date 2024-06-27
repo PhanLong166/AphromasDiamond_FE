@@ -1,7 +1,7 @@
-import * as Styled from "../ProductPage/Material.styled";
+import * as Styled from "./JewelryType.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusCircleOutlined, SaveOutlined, } from "@ant-design/icons";
 import type { FormInstance, TableProps } from "antd";
 import {
   Form,
@@ -12,17 +12,18 @@ import {
   Typography,
   Button,
 } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
-import { materialData, MaterialDataType } from "./ProductData"; // Import data here
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
+import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
+import { jewTypeData, JewTypeDataType } from "../ProductData"; // Import data here
+
 
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof MaterialDataType;
+  dataIndex: keyof JewTypeDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: MaterialDataType;
+  record: JewTypeDataType;
   index: number;
   // children: React.ReactNode;
 }
@@ -32,8 +33,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   dataIndex,
   title,
   inputType,
-  // record,
-  // index,
   children,
   ...restProps
 }) => {
@@ -91,18 +90,18 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 };
 
 
-const Material = () => {
+
+
+const JewelryType = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<MaterialDataType[]>(materialData);
+  const [data, setData] = useState<JewTypeDataType[]>(jewTypeData);
   const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: MaterialDataType) => record.key === editingKey;
-  const edit = (record: Partial<MaterialDataType> & { key: React.Key }) => {
+  const isEditing = (record: JewTypeDataType) => record.key === editingKey;
+  const edit = (record: Partial<JewTypeDataType> & { key: React.Key }) => {
     form.setFieldsValue({
-      materialID: "",
-      materialName: "",
-      buyingPrice: "",
-      sellingPrice: "",
+      jewelryTypeID: "",
+      jewelryTypeName: "",
       ...record,
     });
     setEditingKey(record.key);
@@ -112,12 +111,9 @@ const Material = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as MaterialDataType;
+      const row = (await form.validateFields()) as JewTypeDataType;
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
-
-      // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
-
       if (index > -1) {
         const item = newData[index];
         newData.splice(index, 1, {
@@ -143,29 +139,24 @@ const Material = () => {
 
   const columns = [
     {
-      title: "Material ID",
-      dataIndex: "materialID",
+      title: "Jewelry Type ID",
+      dataIndex: "jewelryTypeID",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) => a.materialID.localeCompare(b.materialID),
+      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
+        a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
-      title: "Material Name",
-      dataIndex: "materialName",
+      title: "Jewelry Type Name",
+      dataIndex: "jewelryTypeName",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) =>
-        a.materialName.length - b.materialName.length,
-    },
-    {
-      title: "Selling Price per Gram",
-      dataIndex: "sellingPrice",
-      editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) => a.sellingPrice - b.sellingPrice,
+      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
+        a.jewelryTypeName.length - b.jewelryTypeName.length,
     },
     {
       title: "Edit",
       dataIndex: "edit",
-      className: "TextAlign SmallSize",
-      render: (_: unknown, record: MaterialDataType) => {
+      className: "TextAlign",
+      render: (_: unknown, record: JewTypeDataType) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -193,8 +184,8 @@ const Material = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: MaterialDataType) =>
-        data.length >= 1 ? (
+      render: (_: unknown, record: JewTypeDataType) =>
+        jewTypeData.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.key)}
@@ -211,15 +202,16 @@ const Material = () => {
     }
     return {
       ...col,
-      onCell: (record: MaterialDataType) => ({
+      onCell: (record: JewTypeDataType) => ({
         record,
-        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
+        inputType: col.dataIndex === "price" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
+  mergedColumns;
 
   const [searchText, setSearchText] = useState("");
 
@@ -250,10 +242,16 @@ const Material = () => {
     setIsAdding(false);
   };
 
+  // const onChangeAdd = (
+  //   e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
+  // ) => {
+  //   console.log(e);
+  // };
+
   return (
     <>
       <Styled.GlobalStyle />
-      <Styled.AdminArea>
+      <Styled.ProductAdminArea>
         <Sidebar />
 
         <Styled.AdminPage>
@@ -278,14 +276,14 @@ const Material = () => {
                   <Styled.AddButton>
                     <button onClick={handleAddNew}>
                       <PlusCircleOutlined />
-                      Add New Material
+                      Add New Jewelry Type
                     </button>
                   </Styled.AddButton>
                 </>
               )) || (
                 <>
                   <Styled.AddContent_Title>
-                    <p>Add Material</p>
+                    <p>Add Jewelry Type</p>
                   </Styled.AddContent_Title>
                 </>
               )}
@@ -296,23 +294,15 @@ const Material = () => {
                 <>
                 <Form layout="vertical" className="AdPageContent_Content">
                   <Styled.FormItem>
-                    <Form.Item label="Jewelry Type ID" name="Jewelry Type ID"
-                        rules={[{ required: true }]}>
+                    <Form.Item label="Jewelry Type ID"  name="Jewelry Type ID" rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="D1234" />
                     </Form.Item>
                   </Styled.FormItem>
                   <Styled.FormItem>
-                    <Form.Item label="Jewelry Type Name" name="Jewelry Type Name"
-                        rules={[{ required: true }]}>
+                    <Form.Item label="Jewelry Type Name" name="Jewelry Type Name" rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="Filled" />
                     </Form.Item>
                   </Styled.FormItem>
-                  <Styled.FormItem>
-                  <Form.Item label="Selling Price per Gram" name="1/6 sales"
-                        rules={[{ required: true }]}>
-                    <InputNumber className="formItem" placeholder="4,080" />
-                  </Form.Item>
-                </Styled.FormItem>
                 </Form>
                 <Styled.ActionBtn>
                 <SubmitButton form={form}>
@@ -336,7 +326,7 @@ const Material = () => {
                       },
                     }}
                     bordered
-                    dataSource={materialData}
+                    dataSource={jewTypeData}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
@@ -349,9 +339,9 @@ const Material = () => {
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
-      </Styled.AdminArea>
+      </Styled.ProductAdminArea>
     </>
   );
 };
 
-export default Material;
+export default JewelryType;

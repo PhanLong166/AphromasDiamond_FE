@@ -166,11 +166,8 @@ const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter,
 };
 
 const OrderList = () => {
-  // const [data] = useState<DataType[]>(initialData); // Initial data for the table
-  // const [filteredData, setFilteredData] = useState<DataType[]>(data); // State for filtered data
   const [showModal, setShowModal] = useState(false);
 `
-  
 `
   const handleCancelClick = () => {
     setShowModal(true);
@@ -184,32 +181,6 @@ const OrderList = () => {
   const handleCancel = () => {
     setShowModal(false);
   };
-
-  // const handleMenuClick = (key: string) => {
-  //   const normalizedKey = key.toLowerCase();
-
-  //   if (normalizedKey === 'rings') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond ring');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'necklaces') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond necklaces');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'earrings') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond earrings');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'braclets') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond braclets');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'chokers') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond chokers');
-  //     setFilteredData(filtered);
-  //   }
-  //   // Add more conditions for other categories if needed
-  // };
-
-  // const handleResetData = () => {
-  //   setFilteredData(data); // Reset filtered data to initial data
-  // };
 
   const columns: TableColumnsType<DataType> = [
     // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -362,49 +333,20 @@ const OrderList = () => {
       width: 134,
     },
   ];
-
-  // const menuItems1 = [
-  //   { text: 'Rings', link: '#action1' },
-  //   { text: 'Necklaces', link: '#action2' },
-  //   { text: 'Earrings', link: '#action3' },
-  //   { text: 'Braclets', link: '#action4' },
-  //   { text: 'Chokers', link: '#action5' },
-  // ];
-
-  // const menuItems2 = [
-  //   { text: 'Hight-Low', link: '#option1' },
-  //   { text: 'Low-Hight', link: '#option2' },
-  // ];
-
-  // const menuItems3 = [
-  //   { text: 'Newest', link: '#action1' },
-  //   { text: '10 days ago', link: '#action2' },
-  // ];
-
-  // const menuItems4 = [
-  //   { text: 'Delivered', link: '#option2' },
-  //   { text: 'Canceled', link: '#option4' },
-  // ];
-
   return (
     <main>
       <AccountCus />
       <Section>
-        <Title>My Order</Title>
-        
-          
+        <Title>My Order</Title>   
         <TableContainer>
           <Table columns={columns} dataSource={initialData} pagination={{ pageSize: 6 }} onChange={onChange} />
         </TableContainer>
-        
       </Section>
       <Modal
-      
         title="Cancel Order"
         open={showModal}
         onOk={handleOk}
-        onCancel={handleCancel}
-      >
+        onCancel={handleCancel} >
         <p>Are you sure you want to cancel this order?</p>
       </Modal>
     </main>
@@ -434,44 +376,6 @@ const Title = styled.h1`
     margin-top: 40px;
   }
 `;
-
-// const Filters = styled.div`
-//   display: flex;
-//   margin-top: 53px;
-//   width: 100%;
-//   max-width: 1400px;
-//   gap: 20px;
-//   font-size: 16px;
-//   justify-content: flex-start;
-//   align-items: center;
-
-//   @media (max-width: 991px) {
-//     flex-wrap: wrap;
-//     margin-top: 40px;
-//   }
-// `;
-
-// const CustomSelect = styled.div`
-//   display: flex;
-//   gap: 5px;
-//   color: #000;
-//   border-radius: 7px;
-//   justify-content: space-between;
-
-//   @media (max-width: 991px) {
-//     padding-left: 20px;
-//   }
-// `;
-// const CustomSelects = styled.div`
-//   display: flex;
-//   gap: 5px;
-//   color: #000;
-//   border-radius: 7px;
-//   justify-content: space-between;
-//   align-items: baseline;
-//   font-size: 18px;
-//   width: 96%;
-// `;
 
 const TableContainer = styled.div`
   display: grid;

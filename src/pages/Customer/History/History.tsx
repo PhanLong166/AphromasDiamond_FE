@@ -178,34 +178,7 @@ const History = () => {
     setShowModal(false);
   };
 
-  // const handleMenuClick = (key: string) => {
-  //   const normalizedKey = key.toLowerCase();
-
-  //   if (normalizedKey === 'rings') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond ring');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'necklaces') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond necklaces');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'earrings') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond earrings');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'braclets') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond braclets');
-  //     setFilteredData(filtered);
-  //   } else if (normalizedKey === 'chokers') {
-  //     const filtered = data.filter(item => item.product.toLowerCase() === 'diamond chokers');
-  //     setFilteredData(filtered);
-  //   }
-  //   // Add more conditions for other categories if needed
-  // };
-
-  // const handleResetData = () => {
-  //   setFilteredData(data); // Reset filtered data to initial data
-  // };
-
   const columns: TableColumnsType<DataType> = [
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     { title: 'No', dataIndex: 'No'},
     { title: 'Order Date', dataIndex: 'orderDate',
       // defaultSortOrder: "descend",

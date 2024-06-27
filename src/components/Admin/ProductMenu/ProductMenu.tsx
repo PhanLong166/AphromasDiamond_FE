@@ -18,8 +18,8 @@ const ProductMenu = () => {
       case "/admin/product/add/jewelry":
         setActive("Jewelry");
         break;
-      case "/admin/product/ring-setting":
-        setActive("RingSetting");
+      case "/admin/product/jewelry-setting":
+        setActive("JewelrySetting");
         break;
       case "/admin/product/jewelry-type":
         setActive("JewelryType");
@@ -72,15 +72,19 @@ const ProductMenu = () => {
           </Link>
         </Styled.MiniCatalog_Ele>
         <Styled.MiniCatalog_Ele
-          className={active === "RingSetting" ? "active" : ""}
+          className={active === "JewelrySetting" ? "active" : ""}
         >
           <div
             className={`btn ${
-              active === "RingSetting" ? "adMenu_active-line" : "adMenu_line"
+              active === "JewelrySetting" ? "adMenu_active-line" : "adMenu_line"
             }`}
-            onClick={() => handleSetActive("RingSetting")}
+            onClick={() => handleSetActive("JewelrySetting")}
           ></div>
+<<<<<<< HEAD
           <Link to="/admin/product/ring-setting">
+=======
+          <Link to="/admin/product/jewelry-setting">
+>>>>>>> 68d9690d3461188990d3fb47cc26cdad91181084
             <h3>Jewelry Setting</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
