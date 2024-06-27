@@ -42,7 +42,7 @@ const Sidebar = () => {
       case "/admin/product/detail/:id":
       case "/admin/product/add/product":
       case "/admin/product/add/jewelry":
-      case "/admin/product/ring-setting":
+      case "/admin/product/jewelry-setting":
       case "/admin/product/jewelry-type":
       case "/admin/product/material":
         setActive("Product");

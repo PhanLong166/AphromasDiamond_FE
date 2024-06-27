@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -12,12 +12,18 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const AdminArea = styled.section`
+export const ProductAdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
   /* height: 100%; */
   width: 100%;
+
+  .AddJew {
+    background-color: ${theme.color.primary};
+    color: #ffffff;
+    marginRight: "10px"
+  }
 `;
 
 export const AdminPage = styled.div`
@@ -45,13 +51,17 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
+export const AdPageContent_HeadLeft = styled.div`
+  display: flex;
+  width: 80%;
+`;
+
 export const SearchArea = styled.div`
   width: 30%;
-
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
+  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -109,8 +119,9 @@ export const AddButton = styled.div`
   }
 `;
 
+
 export const AdminTable = styled.div`
-  padding: 0px 50px 0px 50px;
+  padding: 0px 40px 0px 40px;
 
   table {
     border-collapse: collapse;
@@ -123,9 +134,8 @@ export const AdminTable = styled.div`
     font-size: 16px;
     color: ${theme.color.primary};
   }
-  th {
-    color: #783232;
-    font-size: 20px;
+  td {
+    width: fit-content;
   }
   tr .TextAlign {
     text-align: center;
@@ -134,63 +144,15 @@ export const AdminTable = styled.div`
     font-size: 13px;
     color: #92929d !important;
   }
-  .SmallSize {
-    font-size: 16px;
-    overflow-wrap: normal !important;
-  }
   td img {
     width: 77px;
   }
-  td input {
-    font-size: 16px;
-    background-color: #ffffff;
-    color: ${theme.color.primary};
-    padding: 5px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    height: 100%;
-    // width: fit-content;
-  }
-  td input:active {
-    border: none;
-  }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
-    cursor: pointer;
-  }
-  .deleBtn {
-    color: red;
-  }
-  .custom-select .ant-select-selector {
-    background-color: #ffffff !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .custom-select .ant-select-dropdown {
-    background-color: #ffffff !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .custom-select .ant-select-item-option-selected {
-    background-color: #ffffff !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .confirmBtn {
-    background-color: ${theme.color.primary};
-    border-radius: 100px;
-    padding: 7px 17px 7px 17px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    /* font-size: 12px; */
-    color: #ffffff;
-    border: none;
-  }
-  .confirmBtn:hover {
     cursor: pointer;
   }
 
+
+  
   // --------------------------
 
   .AdPageContent_Content {
@@ -206,20 +168,83 @@ export const AdminTable = styled.div`
 `;
 
 
+// ---------------------------- ADD JEWELRY ------------------------------
 
-// ------------------------- ADD AREA
+export const AdPageArea = styled.div`
+padding-top: 32px;
 
-export const AddContent_Title = styled.div`
-width: 100%;
+`;
+
+export const AdPageArea_Title = styled.div`
+display: flex;
+justify-content: space-between;
+
+h1 {
+  font-size: 22px;
+  font-weight: 36px;
+  color: #151542;
+  padding-bottom: 7px;
+  margin: 0px;
+}
+
+p {
+  color: #92929D;
+  font-size: 13px;
+  margin: 0px 0px 0px 0px;
+}
+`;
+
+export const AdPage_HeadLeft = styled.div`
+
+`;
+
+export const AdPageContent_Title = styled.div`
+  width: 100%;
   background-color: #ffffff;
   color: ${theme.color.primary};
-  padding: 0px 0px 0px 0px;
+  padding: 0px 0px 25px 0px;
   font-weight: 600;
   font-size: 18px;
 `;
 
-export const FormItem = styled.div`
+export const AdPageContent_Product = styled.div`
   width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding: 30px 40px 10px 40px;
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+      // font-size: 16px;
+      font-weight: 500;
+    }
+  }
+`;
+
+export const AdPageContent_Jewel = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding: 25px 40px 20px 40px;
+
+  .AdPageContent_Content {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    label {
+      color: #727272;
+    }
+  }
+`;
+
+export const FormItem = styled.div`
+  width: 48%;
   height: 57px;
   margin-bottom: 30px;
   
@@ -237,20 +262,19 @@ export const FormDescript = styled.div`
 `;
 
 export const UploadFile = styled.div`
-width: 48%;
+  width: 48%;
 `;
-
 
 export const ActionBtn = styled.div`
   margin-top: 25px;
 
   button {
-    border: 1px solid ${theme.color.primary};
+    background-color: ${theme.color.primary};
   }
 
-  .MainBtn {
-    background-color: ${theme.color.primary};
+  .CancelBtn {
+    border: 1px solid ${theme.color.primary};
+    background-color: #ffffff;
     border: 0px;
   }
-
 `;

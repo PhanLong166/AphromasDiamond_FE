@@ -11,16 +11,16 @@ import CompletedOrder from "@/pages/Admin/OrderPage/Completed/Completed"
 import CancelledOrder from "@/pages/Admin/OrderPage/Cancelled/Cancelled"
 import OrderDetail from "@/pages/Admin/OrderPage/OrderDetail"
 
-import Diamond from "@/pages/Admin/ProductPage/Diamond"
+import Diamond from "@/pages/Admin/ProductPage/Diamond/Diamond"
 import DiamondDetail from "@/pages/Admin/ProductPage/Detail/DiamondDetail"
 import JewelryDetail from "@/pages/Admin/ProductPage/Detail/JewelryDetail"
-import Jewelry from "@/pages/Admin/ProductPage/Jewelry"
-import AddProduct from "@/pages/Admin/ProductPage/AddDiaJew"
-import AddJewelry from "@/pages/Admin/ProductPage/AddReguJew"
+import Jewelry from "@/pages/Admin/ProductPage/Jewelry/Jewelry"
+import AddProduct from "@/pages/Admin/ProductPage/Jewelry/AddDiaJew"
+import AddJewelry from "@/pages/Admin/ProductPage/Jewelry/AddReguJew"
 import RingSettingProduct from "@/pages/Admin/ProductPage/RingSetting"
-import RingProduct from "@/pages/Admin/ProductPage/Ring"
-import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType"
-import MaterialProduct from "@/pages/Admin/ProductPage/Material"
+// import RingProduct from "@/pages/Admin/ProductPage/Ring"
+import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType/JewelryType"
+import MaterialProduct from "@/pages/Admin/ProductPage/Material/Material"
 import Marketing from "@/pages/Admin/MarketingPage/Marketing"
 
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
@@ -68,7 +68,7 @@ const AdminRoutes = {
         { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
         { path: config.routes.admin.jewelryProduct, element: <Jewelry /> },
         { path: config.routes.admin.ringSettingProduct, element: <RingSettingProduct /> },
-        { path: config.routes.admin.ringProduct, element: <RingProduct /> },
+        // { path: config.routes.admin.ringProduct, element: <RingProduct /> },
         { path: config.routes.admin.jewelryTypeProduct, element: <JewelryTypeProduct /> },
         { path: config.routes.admin.materialProduct, element: <MaterialProduct /> },
 

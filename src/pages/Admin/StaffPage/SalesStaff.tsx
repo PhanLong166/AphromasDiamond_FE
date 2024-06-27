@@ -206,6 +206,7 @@ const SalesStaff = () => {
     setData(newData);
   };
   save;
+  
 
   const columns = [
     {
@@ -266,6 +267,20 @@ const SalesStaff = () => {
             onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
+    {
+      title: "Ban",
+      dataIndex: "ban",
+      className: "TextAlign",
+      render: (_: unknown, record: Item) =>
+        originData.length >= 1 ? (
+          <Popconfirm
+            title="Sure to ban?"
+            onConfirm={() => handleDelete(record.key)}
+          >
+            <a>Ban</a>
           </Popconfirm>
         ) : null,
     },
