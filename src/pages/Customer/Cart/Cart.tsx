@@ -1,11 +1,8 @@
 // import * as React from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Flex } from "antd";
-import Dropdown from "./Dropdown";
+import { Button, Flex, Select } from "antd";
 import PromoCodeSection from "../Checkout/PromoCode";
-// import ProcessBar from '@/components/Customer/Process Bar/ProcessBar';
-import { Breadcrumb as AntBreadcrumb } from "antd";
 
 const Cart = () => {
   return (
@@ -14,22 +11,8 @@ const Cart = () => {
         <ContainerHeader>
           <Header>Shopping Cart</Header>
         </ContainerHeader>
-        {/* <CustomBreadcrumb> */}
-
-        <ContainerCrum>
-          <CustomBreadcrumb separator="━━━━━━━━━━━━━━━━━━━━━>">
-           <AntBreadcrumb.Item><span style={{ color: "black" }}>Cart</span></AntBreadcrumb.Item>
-            <AntBreadcrumb.Item>
-              <Link to="/checkout">Checkout</Link>
-            </AntBreadcrumb.Item>
-            <AntBreadcrumb.Item>
-              <Link to="/payment">Payment</Link>
-            </AntBreadcrumb.Item>
-          </CustomBreadcrumb>
-        </ContainerCrum>
         <Container>
           <InnerContainer>
-            {/* <TitlePage>Cart</TitlePage> */}
             <ContinueShopping>
               <span>
                 <i className="fa-solid fa-chevron-up fa-rotate-270"></i>
@@ -133,14 +116,25 @@ const Cart = () => {
                         1.52 Carat F-VS1 Princess Cut Diamond <br />
                         SKU&nbsp;18633320
                       </ProductDescription>
-                      <Dropdown />
+                      <Select
+                        placeholder="Ring Size"
+                        style={{ width: 110 }}
+                        options={[
+                          { value: "1", label: "4" },
+                          { value: "2", label: "4.5" },
+                          { value: "3", label: "5" },
+                          { value: "4", label: "5.5" },
+                          { value: "5", label: "6" },
+                          { value: "6", label: "6.5" },
+                        ]}
+                      />
                     </ItemDescription>
                     <RingPrice>$8,000</RingPrice>
                   </ItemDetails>
                 </ItemContainer>
                 <ItemContainer>
                   <ActionText>
-                    {" "}
+                    
                     <Flex gap="small" wrap>
                       <Button type="text">VIEW</Button>
                       <Button type="text">REMOVE</Button>
@@ -159,7 +153,18 @@ const Cart = () => {
                         1.52 Carat F-VS1 Princess Cut Diamond <br />
                         SKU&nbsp;18633320
                       </ProductDescription>
-                      <Dropdown />
+                      <Select
+                        placeholder="Ring Size"
+                        style={{ width: 110 }}
+                        options={[
+                          { value: "1", label: "4" },
+                          { value: "2", label: "4.5" },
+                          { value: "3", label: "5" },
+                          { value: "4", label: "5.5" },
+                          { value: "5", label: "6" },
+                          { value: "6", label: "6.5" },
+                        ]}
+                      />
                     </ItemDescription>
                     <RingPrice>$8,000</RingPrice>
                   </ItemDetails>
@@ -225,60 +230,6 @@ const Cart = () => {
 
 export default Cart;
 
-
-const ContainerCrum = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  /* padding: 0 24px; */
-  text-align: center;
-  /* font-size: 0.875rem; sm text */
-  font-weight: 500; /* medium font weight */
-  color: #000000; /* gray-500 */
-`;
-
-const CustomBreadcrumb = styled(AntBreadcrumb)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1400px;
-  padding: 0 24px;
-  text-align: center;
-  font-size: 0.875rem; /* sm text */
-  font-weight: 500; /* medium font weight */
-  color: #6b7280; /* gray-500 */
-  margin-bottom: 1rem;
-
-  .ant-breadcrumb-link {
-    color: #1d4ed8; /* primary-700 */
-  }
-
-  .ant-breadcrumb-separator {
-    margin: 0 8px; /* mx-2 */
-    color: #000000; /* gray-200 */
-  }
-
-  @media (min-width: 640px) {
-    font-size: 18px; /* base text */
-  }
-
-  @media (prefers-color-scheme: dark) {
-    color: #d1d5db; /* gray-400 in dark mode */
-
-    .ant-breadcrumb-link {
-      color: #2563eb; /* primary-500 in dark mode */
-    }
-
-    .ant-breadcrumb-separator {
-      color: #6b7280; /* gray-500 in dark mode */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-`;
-
 const ContainerHeader = styled.div`
   display: flex;
   align-items: canter;
@@ -296,7 +247,7 @@ const Header = styled.header`
   padding: 10px 0;
   display: flex;
   /* margin: 0 35px 0 35px; */
-  margin-bottom: 1rem;
+  margin-bottom: 10rem;
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
     margin-top: 40px;
@@ -557,10 +508,12 @@ const SummaryTotal = styled.div`
 
 const TotalLabel = styled.p`
   font-family: Poppins, sans-serif;
+  font-weight: 600;
 `;
 
 const TotalValue = styled.p`
   font-family: Poppins, sans-serif;
+  font-weight: 600;
 `;
 
 const CheckoutButton = styled.button`

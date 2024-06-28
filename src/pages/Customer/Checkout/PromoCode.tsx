@@ -1,3 +1,4 @@
+import { DownOutlined } from "@ant-design/icons";
 import React, { useState } from "react";
 import styled from "styled-components";
 
@@ -10,7 +11,7 @@ const PromoCodeSection: React.FC = () => {
 
   return (
     <PromoCodeContainer>
-      <CollapseButton onClick={toggleCollapse}> Promo Code 
+      <CollapseButton onClick={toggleCollapse}> Promo Code <span><DownOutlined /></span>
       </CollapseButton>
       {!isCollapsed && (
         <PromoForm>
