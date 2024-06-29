@@ -2,13 +2,16 @@ import * as Styled from "./Sidebar.styled";
 import { Link, useLocation } from "react-router-dom";
 import { useState, useEffect } from "react";
 import {
-  ProductOutlined,
   ShoppingCartOutlined,
   SketchOutlined,
+  AudioOutlined,
   CommentOutlined,
+  // LayoutOutlined,
   SmileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
+import config from "@/config";
+import cookieUtils from "@/services/cookieUtils";
 
 const Sidebar = () => {
   const location = useLocation();
@@ -16,18 +19,30 @@ const Sidebar = () => {
   useEffect(() => {
     switch (location.pathname) {
       case "/sales-staff":
-        setActive("Dashboard");
-        break;
-      case "/sales-staff/order":
+      case "/sales-staff/order/pending":
+      case "/sales-staff/order/accepted":
+      case "/sales-staff/order/assigned":
+      case "/sales-staff/order/delivering":
+      case "/sales-staff/order/delivered":
+      case "/sales-staff/order/completed":
+      case "/sales-staff/order/cancelled":
+      case "/sales-staff/order/detail/:id":
         setActive("Order");
         break;
       case "/sales-staff/product":
+      case "/sales-staff/product/diamond/detail/:id":
+      case "/sales-staff/product/jewelry":
+      case "/sales-staff/product/jewelry/detail/:id":
+      case "/sales-staff/product/ring-setting":
+      case "/sales-staff/product/jewelry-type":
+      case "/sales-staff/product/material":
         setActive("Product");
         break;
-      // case "/admin/marketing":
-      //   setActive("Marketing");
-      //   break;
+      case "/sales-staff/marketing":
+        setActive("Marketing");
+        break;
       case "/sales-staff/client-caring":
+      case "/sales-staff/client-caring/feedback":
         setActive("ClientCaring");
         break;
       default:
@@ -49,28 +64,13 @@ const Sidebar = () => {
           <Styled.SBMenu id="SBMenu">
             <Styled.SBContent>
               <div
-                className={`btn ${active === "Dashboard" ? "active-line" : ""}`}
-                onClick={() => handleSetActive("Dashboard")}
-              ></div>
-              <div className={active === "Dashboard" ? "active" : ""}>
-                <Styled.MenuElement className="activeContent">
-                  <ProductOutlined />
-                  <Link to="/sales-staff">
-                    <p>Dashboard</p>
-                  </Link>
-                </Styled.MenuElement>
-              </div>
-            </Styled.SBContent>
-
-            <Styled.SBContent>
-              <div
                 className={`btn ${active === "Order" ? "active-line" : ""}`}
                 onClick={() => handleSetActive("Order")}
               ></div>
               <div className={active === "Order" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <ShoppingCartOutlined />
-                  <Link to="/sales-staff/order">
+                  <Link to="/sales-staff">
                     <p>Order</p>
                   </Link>
                 </Styled.MenuElement>
@@ -92,7 +92,7 @@ const Sidebar = () => {
               </div>
             </Styled.SBContent>
 
-            {/* <Styled.SBContent>
+            <Styled.SBContent>
               <div
                 className={`btn ${active === "Marketing" ? "active-line" : ""}`}
                 onClick={() => handleSetActive("Marketing")}
@@ -100,12 +100,12 @@ const Sidebar = () => {
               <div className={active === "Marketing" ? "active" : ""}>
                 <Styled.MenuElement className="activeContent">
                   <AudioOutlined />
-                  <Link to="/admin/marketing">
+                  <Link to="/sales-staff/marketing">
                     <p>Marketing</p>
                   </Link>
                 </Styled.MenuElement>
               </div>
-            </Styled.SBContent> */}
+            </Styled.SBContent>
 
             <Styled.SBContent>
               <div
@@ -131,11 +131,11 @@ const Sidebar = () => {
             <SmileOutlined />
             <Styled.AccInfor>
               <p className="accInfor_name">Trang.staff</p>
-              <p className="accOut_role">staff</p>
+              <p className="accOut_role">Staff</p>
             </Styled.AccInfor>
           </Styled.Account>
-          <Link to="/login">
-            <LogoutOutlined />
+          <Link to={config.routes.public.login} onClick={() => cookieUtils.clear()}>
+            <LogoutOutlined className="outLogo"/>
           </Link>
         </Styled.AccOut>
       </Styled.SidebarContainer>

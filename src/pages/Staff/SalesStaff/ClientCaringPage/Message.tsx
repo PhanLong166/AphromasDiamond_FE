@@ -3,9 +3,9 @@ import { InputField } from "./Message.styled";
 import { useState } from "react";
 import { SearchOutlined, SendOutlined } from "@ant-design/icons";
 // import type { MenuProps } from 'antd';
+import { Input } from "antd";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ClientCaringMenu from "@/components/Staff/SalesStaff/ClientCaringMenu/ClientCaringMenu";
-import { Input } from "antd";
 
 interface Message {
   sender: string;
@@ -128,6 +128,7 @@ const Messages = () => {
 
   return (
     <>
+    <Styled.GlobalStyle/>
       <Styled.ClientCaringAdminArea>
         <Sidebar />
 
