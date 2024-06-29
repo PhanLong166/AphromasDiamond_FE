@@ -114,7 +114,7 @@ const GigItem: React.FC<GigProps> = ({
       </Location>
       <Fix />
       <Row>
-        <Button>{buttonLabel}</Button>
+        <Buttons>{buttonLabel}</Buttons>
         <Button>{buttonLabeles}</Button>
       </Row>
     </ItemLeft>
@@ -225,6 +225,19 @@ const Location = styled.div`
 const Row = styled.div`
   display: flex;
   justify-content: space-between;
+`;
+
+const Buttons = styled.div`
+  font-size: 12px;
+    padding: 10px 20px;
+    background-color: #fff9f7;
+    color: #151542;
+    border: 1px solid #151542;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    font-family: "Gantari", sans-serif;
+    font-weight: 600;
+    transition: all 0.45s ease;
 `;
 
 const Button = styled.button`

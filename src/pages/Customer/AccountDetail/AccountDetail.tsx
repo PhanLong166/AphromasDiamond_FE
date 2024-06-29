@@ -1,12 +1,11 @@
 import styled from 'styled-components';
-import { ChangeEvent, FormEvent, useState } from 'react';
+import { ChangeEvent, FormEvent, useState, useRef, useEffect } from 'react';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
-
 
 interface Address {
   street: string;
   city: string;
-  phone: string;
+  // phone: string;
   country: string;
 }
 
@@ -25,7 +24,7 @@ const Account = () => {
   const [address, setAddress] = useState<Address>({
     street: '191-103 Integer Rd.',
     city: 'Forrest Ray',
-    phone: '(404) 960-3807',
+    // phone: '(404) 960-3807',
     country: 'Mexico',
   });
 
@@ -43,11 +42,31 @@ const Account = () => {
   const [addressErrors, setAddressErrors] = useState<Partial<Address>>({});
   const [accountErrors, setAccountErrors] = useState<Partial<Account>>({});
 
+  const modalRef = useRef(null); // Tham chiếu đến phần tử modal
+
+  useEffect(() => {
+    const handleOutsideClick = (event: MouseEvent) => {
+      // Kiểm tra nếu click ra ngoài phạm vi modal
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      if (modalRef.current && !(modalRef.current as any).contains(event.target)) {
+        closeModal();
+      }
+    };
+
+    // Thêm sự kiện mousedown khi component được mount
+    document.addEventListener('mousedown', handleOutsideClick);
+
+    // Xóa sự kiện khi component bị unmount
+    return () => {
+      document.removeEventListener('mousedown', handleOutsideClick);
+    };
+  }, ); // [] đảm bảo useEffect chỉ chạy một lần khi component mount
+
   const validateAddress = (address: Address) => {
     const errors: Partial<Address> = {};
     if (!address.street) errors.street = 'Street address is required';
     if (!address.city) errors.city = 'City is required';
-    if (!address.phone) errors.phone = 'Phone number is required';
+    // if (!address.phone) errors.phone = 'Phone number is required';
     if (!address.country) errors.country = 'Country is required';
     return errors;
   };
@@ -62,6 +81,12 @@ const Account = () => {
     return errors;
   };
 
+  const validateEmail = (email: string) => {
+    // Regex for email validation
+    const re = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return re.test(email);
+  };
+
   const handleAddressEdit = () => {
     setTempAddress({ ...address });
     setAddressModalOpen(true);
@@ -73,8 +98,14 @@ const Account = () => {
   };
 
   const closeModal = () => {
+    resetFormValues();
     setAddressModalOpen(false);
     setAccountModalOpen(false);
+  };
+
+  const resetFormValues = () => {
+    setAddressErrors({});
+    setAccountErrors({});
   };
 
   const handleAddressChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -91,6 +122,19 @@ const Account = () => {
       ...prevAccount,
       [name]: value,
     }));
+
+     // Clear the error for the email field if it is valid
+  if (name === 'email' && validateEmail(value)) {
+    setAccountErrors((prevErrors) => ({
+      ...prevErrors,
+      email: undefined,
+    }));
+  } else if (name === 'email') {
+    setAccountErrors((prevErrors) => ({
+      ...prevErrors,
+      // email: 'Invalid email format',
+    }));
+  }
   };
 
   const handleAddressSubmit = (e: FormEvent<HTMLFormElement>) => {
@@ -107,11 +151,46 @@ const Account = () => {
   const handleAccountSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const errors = validateAccount(tempAccount);
+    const emailIsValid = validateEmail(tempAccount.email);
+
+  if (!emailIsValid) {
+    errors.email = 'Email is required';
+  }
+  // Check if phone number is exactly 10 digits and starts with 0
+  if (tempAccount.phone.length !== 10 || !tempAccount.phone.startsWith('0')) {
+    errors.phone = 'Phone number must be exactly 10 digits and start with 0';
+  }
+
     if (Object.keys(errors).length === 0) {
       setAccount(tempAccount);
       closeModal();
     } else {
       setAccountErrors(errors);
+    }
+  };
+
+  const handlePhoneChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+  
+    // Allow only numeric input
+    const numericValue = value.replace(/[^0-9]/g, '');
+  
+    setTempAccount((prevAccount) => ({
+      ...prevAccount,
+      [name]: numericValue,
+    }));
+  
+    // Validate phone number length and starting digit
+    if (numericValue.length === 10 && numericValue.startsWith('0')) {
+      setAccountErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: undefined,
+      }));
+    } else {
+      setAccountErrors((prevErrors) => ({
+        ...prevErrors,
+        phone: 'Phone number must be exactly 10 digits and start with 0',
+      }));
     }
   };
 
@@ -132,15 +211,11 @@ const Account = () => {
                   <Column>
                     <DetailGroup>
                       <Label>STREET ADDRESS</Label>
-                      <Description>{address.street}</Description>
+                      <Detail>{address.street}</Detail>
                     </DetailGroup>
                     <DetailGroup>
                       <Label>CITY</Label>
                       <Detail>{address.city}</Detail>
-                    </DetailGroup>
-                    <DetailGroup>
-                      <Label>PHONE</Label>
-                      <Detail>{address.phone}</Detail>
                     </DetailGroup>
                   </Column>
                   <Column>
@@ -190,7 +265,7 @@ const Account = () => {
 
       {isAddressModalOpen && (
         <Modal>
-          <ModalContent>
+          <ModalContent ref={modalRef}>
             <h2>Edit Address Delivery</h2>
             <form onSubmit={handleAddressSubmit}>
               <label>
@@ -214,16 +289,6 @@ const Account = () => {
                 {addressErrors.city && <Error>{addressErrors.city}</Error>}
               </label>
               <label>
-                Phone:
-                <input
-                  type="text"
-                  name="phone"
-                  value={tempAddress.phone}
-                  onChange={handleAddressChange}
-                />
-                {addressErrors.phone && <Error>{addressErrors.phone}</Error>}
-              </label>
-              <label>
                 Country:
                 <input
                   type="text"
@@ -231,6 +296,7 @@ const Account = () => {
                   value={tempAddress.country}
                   onChange={handleAddressChange}
                 />
+                {/* {tempAccount.country.length < 2 && <Error>Country must be at least 2 characters.</Error>} */}
                 {addressErrors.country && <Error>{addressErrors.country}</Error>}
               </label>
               <ModalActions>
@@ -244,7 +310,7 @@ const Account = () => {
 
       {isAccountModalOpen && (
         <Modal>
-          <ModalContent>
+          <ModalContent ref={modalRef}>
             <h2>Edit Account Details</h2>
             <form onSubmit={handleAccountSubmit}>
               <label>
@@ -273,9 +339,10 @@ const Account = () => {
                   type="text"
                   name="phone"
                   value={tempAccount.phone}
-                  onChange={handleAccountChange}
+                  onChange={handlePhoneChange}
                 />
                 {accountErrors.phone && <Error>{accountErrors.phone}</Error>}
+                {/* {tempAccount.phone.length < 10 && <Error>Phone number must be at least 10 digits.</Error>} */}
               </label>
               <label>
                 Email:
@@ -286,6 +353,7 @@ const Account = () => {
                   onChange={handleAccountChange}
                 />
                 {accountErrors.email && <Error>{accountErrors.email}</Error>}
+                {!validateEmail(tempAccount.email) && <Error>Invalid email format. Example: 0Hb7W@gmail.com</Error>}
               </label>
               <label>
                 Current Password:
@@ -298,8 +366,9 @@ const Account = () => {
                 {accountErrors.password && <Error>{accountErrors.password}</Error>}
               </label>
               <ModalActions>
+                
                 <button type="submit">Save</button>
-                <button type="button" onClick={closeModal}>Cancel</button>
+                <button  type="button" onClick={closeModal}>Cancel</button>
               </ModalActions>
             </form>
           </ModalContent>
@@ -313,6 +382,7 @@ const Row = styled.div`
   display: flex;
   justify-content: space-between;
   gap: 50px;
+  margin-bottom: 2rem;
 `;
 
 const MainContainer = styled.div`
@@ -330,7 +400,7 @@ const Section = styled.section`
   margin: 0 auto;
   font: 400 15px / 150% 'Crimson Text', sans-serif;
   margin-bottom: 150px;
-  width: 160vh;
+  width: 1400px;
   @media (max-width: 991px) {
     max-width: 100%;
     padding: 0 20px 0 30px;
@@ -350,8 +420,7 @@ const ProfileTitle = styled.div`
 
 const InfoSection = styled.section`
   width: 100%;
-  max-width: 1194px;
-  padding: 0 20px;
+  max-width: 1400px;
   margin: 0 auto;
   @media (max-width: 991px) {
     max-width: 100%;
@@ -361,7 +430,7 @@ const InfoSection = styled.section`
 
 const InfoContainer = styled.div`
   display: flex;
-  gap: 50px;
+  gap: 215px;
   @media (max-width: 991px) {
     flex-direction: column;
     align-items: stretch;
@@ -384,9 +453,10 @@ const Column = styled.div`
 
 const InfoTitle = styled.div`
   font-family: 'Crimson Text', sans-serif;
-  font-size: 18px;
+  font-size: 25px;
   font-weight: 600;
-  margin: 0 0 25px;
+  
+  /* margin: 0 0 25px; */
 `;
 
 const DetailGroup = styled.div`
@@ -395,22 +465,16 @@ const DetailGroup = styled.div`
   margin-bottom: 35px;
 `;
 
-const Description = styled.span`
-  font-family: 'Poppins', sans-serif;
-  font-weight: 400;
-  letter-spacing: 0.75px;
-  margin-top: 6px;
-  font-size: 15px;
-  @media (max-width: 991px) {
-    margin-top: 10px;
-  }
-`;
 
 const Detail = styled.span`
   font-family: 'Poppins', sans-serif;
   font-weight: 400;
   letter-spacing: 0.75px;
   margin-top: 6px;
+  color: rgb(0 0 10 / 55%);
+line-height: 30px;
+
+
 `;
 
 const Label = styled.label`
@@ -497,12 +561,12 @@ const ModalContent = styled.div`
 `;
 
 const ModalActions = styled.div`
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-    align-content: center;
-    flex-wrap: wrap;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: 20px;
+  align-content: center;
+  flex-wrap: wrap;
 
   button {
     font-size: 12px;
@@ -522,6 +586,10 @@ const ModalActions = styled.div`
       background-color: #102c57;
       color: #fff;
       transition: all 0.45s ease;
+    }
+    &:hover:not(:first-of-type) {
+      background-color: #fd424b; 
+      color: #fff; 
     }
   }
 `;

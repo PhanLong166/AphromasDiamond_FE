@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "./PromoCode";
-import { Breadcrumb as AntBreadcrumb } from "antd";
+import { Steps } from "antd";
 
 interface ContactInfoProps {
   email: string;
@@ -30,18 +30,35 @@ interface SummaryProps {
 const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
   const [isEditing, setIsEditing] = useState(false);
   const [currentEmail, setCurrentEmail] = useState(email);
-
+  const [emailError, setEmailError] = useState<string | null>(null);
   const handEditClick = () => {
     setIsEditing(true);
   };
 
   const handleSaveClick = () => {
-    setIsEditing(false);
-    onEdit(currentEmail);
+    if (validateEmail(currentEmail)) {
+      setIsEditing(false);
+      onEdit(currentEmail);
+      setEmailError(null);
+    } else {
+      setEmailError("Invalid email format or email is empty");
+    }
   };
 
   const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setCurrentEmail(e.target.value);
+    if (emailError) {
+      setEmailError(
+        validateEmail(e.target.value)
+          ? null
+          : "Invalid email format or email is empty"
+      );
+    }
+  };
+
+  const validateEmail = (email: string) => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    return emailRegex.test(email) && email.trim() !== "";
   };
 
   return (
@@ -64,7 +81,10 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
             value={currentEmail}
             onChange={handleEmailChange}
           />
-          <SaveButton onClick={handleSaveClick}>SAVE</SaveButton>
+          <SaveButton onClick={handleSaveClick} disabled={!!emailError}>
+            SAVE
+          </SaveButton>
+          {emailError && <ErrorText>{emailError}</ErrorText>}
         </div>
       ) : (
         <p>{currentEmail}</p>
@@ -96,28 +116,24 @@ const AddressDetails: React.FC<AddressDetailsProps> = () => (
     </InputRow>
     <InputRow>
       <InputGroup>
-        <StyledLabel htmlFor="district">District</StyledLabel>
-        <StyledInput type="text" id="phoneNumber" />
+        <StyledLabel htmlFor="city">City</StyledLabel>
+        <StyledInput type="text" id="city" />
       </InputGroup>
       <InputGroup>
-        <StyledLabel htmlFor="address">Address Details</StyledLabel>
-        <StyledInput type="text" id="address" />
+        <StyledLabel htmlFor="district">Disctrict</StyledLabel>
+        <StyledInput type="text" id="district" />
       </InputGroup>
     </InputRow>
-
-    {/* <label style={{ marginBottom: -15 }} htmlFor="address">Address Details</label> */}
-    {/* <StyledInput type="text" id="phoneNumber" /> */}
     <InputRow>
+      <InputGroup>
+        <StyledLabel htmlFor="address">Address Details</StyledLabel>
+        <StyledInput type="text" id="phoneNumber" />
+      </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
         <StyledInput type="text" id="phoneNumber" />
       </InputGroup>
-      <InputGroup>
-        <StyledLabel htmlFor="city">City</StyledLabel>
-        <StyledInput type="text" id="lastName" />
-      </InputGroup>
     </InputRow>
-
     <PaymentMethod />
   </Section>
 );
@@ -145,8 +161,8 @@ const PaymentMethod: React.FC = () => {
         <PaymentImage
           src={
             selectedPayment === "vnpay"
-              ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fvnpay.png?alt=media&token=862bf826-5f9f-45d9-807b-a762a7e78506"
-              : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2Fmomo.png?alt=media&token=5bbb0c32-e05b-4a02-8cd8-cee2af079413"
+              ? "https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
+              : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
           }
           alt={selectedPayment === "vnpay" ? "VnPay" : "Momo"}
         />
@@ -196,6 +212,7 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
   </SummarySection>
 );
 
+const description = "This is a description";
 const Checkout: React.FC = () => {
   const handleEdit = () => {
     console.log("Edit Contact Info");
@@ -206,15 +223,28 @@ const Checkout: React.FC = () => {
       <ContainerHeader>
         <Header>Checkout</Header>
       </ContainerHeader>
-      <ContainerCrum>
-        <CustomBreadcrumb separator="━━━━━━━━━━━━━━━━━━━━━>">
-          <AntBreadcrumb.Item>Cart</AntBreadcrumb.Item>
-          <AntBreadcrumb.Item>
-            <span style={{ color: "black" }}>Checkout</span>
-          </AntBreadcrumb.Item>
-          <AntBreadcrumb.Item>Payment</AntBreadcrumb.Item>
-        </CustomBreadcrumb>
-      </ContainerCrum>
+      <StepEdit>
+        <Steps
+          className="steps-edit"
+          current={1}
+          status="wait"
+          items={[
+            {
+              title: "Checkout",
+              description,
+            },
+            {
+              title: "Payment",
+
+              description,
+            },
+            {
+              title: "Finish",
+              description,
+            },
+          ]}
+        />
+      </StepEdit>
       <Wrapper>
         <StyledLink>
           <Link to="/cart">BACK TO CART</Link>
@@ -276,9 +306,7 @@ const Checkout: React.FC = () => {
           />
         </Content>
         <EditBtn>
-          <a href="#" style={{ color: "white" }}>
-            Continue
-          </a>
+          <BtnContinue>Continue</BtnContinue>
         </EditBtn>
       </Wrapper>
     </main>
@@ -286,6 +314,19 @@ const Checkout: React.FC = () => {
 };
 
 export default Checkout;
+
+const ErrorText = styled.p`
+  color: red;
+  margin-top: 5px;
+`;
+
+const StepEdit = styled.div`
+  display: flex;
+  justify-content: space-around;
+  .steps-edit {
+    max-width: 1400px;
+  }
+`;
 
 const PaymentDropdown = styled.select`
   padding: 10px;
@@ -299,59 +340,6 @@ const PaymentDropdown = styled.select`
 
   &:hover {
     border-color: #1677ff;
-  }
-`;
-
-const ContainerCrum = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  /* padding: 0 24px; */
-  text-align: center;
-  /* font-size: 0.875rem; sm text */
-  font-weight: 500; /* medium font weight */
-  color: #000000; /* gray-500 */
-`;
-
-const CustomBreadcrumb = styled(AntBreadcrumb)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1400px;
-  padding: 0 24px;
-  text-align: center;
-  font-size: 0.875rem; /* sm text */
-  font-weight: 500; /* medium font weight */
-  color: #6b7280; /* gray-500 */
-  margin-bottom: 1rem;
-
-  .ant-breadcrumb-link {
-    color: #6b7280; /* primary-700 */
-  }
-
-  .ant-breadcrumb-separator {
-    margin: 0 8px; /* mx-2 */
-    color: #000000; /* gray-200 */
-  }
-
-  @media (min-width: 640px) {
-    font-size: 18px; /* base text */
-  }
-
-  @media (prefers-color-scheme: dark) {
-    color: #d1d5db; /* gray-400 in dark mode */
-
-    .ant-breadcrumb-link {
-      color: #2563eb; /* primary-500 in dark mode */
-    }
-
-    .ant-breadcrumb-separator {
-      color: #6b7280; /* gray-500 in dark mode */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
   }
 `;
 
@@ -369,6 +357,7 @@ const Header = styled.header`
   border-top: 1px solid #e4e4e4;
   padding: 10px 0;
   display: flex;
+  margin-bottom: 2rem;
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
     margin-top: 40px;
@@ -438,10 +427,6 @@ const Section = styled.section`
   padding: 48px 40px;
   font-weight: 400;
   font-size: 16px;
-  &:hover {
-    box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
-    border: 2px solid #e8e2e2;
-  }
 `;
 
 const SummarySection = styled(Section)`
@@ -487,13 +472,29 @@ const EditTotal1 = styled.div`
 
 const EditBtn = styled.div`
   font-family: Poppins, sans-serif;
-  background-color: #102c57;
-  color: #fff;
-  border-radius: 5px;
-  padding: 11px 30px;
-  align-self: flex-end;
+  width: 1400px;
   margin-top: 25px;
-  margin-right: 94px;
+  display: flex;
+  justify-content: flex-end;
+`;
+const BtnContinue = styled.button`
+  font-size: 15px;
+  padding: 10px 27px;
+  background-color: #fff;
+  border-color: none;
+  color: #000;
+  border: 1px solid #151542;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Gantari", sans-serif;
+  font-weight: 600;
+  transition: all 0.45s ease;
+  margin-bottom: 1rem;
+  &:hover {
+    color: #fff;
+    background-color: #151542;
+    transition: all 0.45s ease;
+  }
 `;
 
 const EditPTag = styled.p`
