@@ -17,8 +17,10 @@ const routes = {
     collectionInfo: "/info",
     coming: "/coming",
     learn: "/learn",
-    size: "/size",
-    wish: "/wishlist"
+    size: "/find-ring-size",
+    wish: "/wishlist",
+    cs:"/learn-4cs",
+    certification: "/diamond-certification"
   },
   customer: {
     account: "/account",

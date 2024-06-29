@@ -6,7 +6,9 @@ export const Container = styled.div`
   max-width: 1450px;
   margin: 40px auto;
   line-height: 1.6;
-
+  .para {
+    margin-bottom: 10px;
+  }
   p,
   ul {
     font-size: 16px;
@@ -129,5 +131,15 @@ export const Container = styled.div`
     text-decoration: none;
     color: blue;
     cursor: pointer;
+  }
+
+  .img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+
+  .strong {
+    font-weight: 700;
   }
 `;
