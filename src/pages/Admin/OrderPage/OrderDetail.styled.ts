@@ -260,8 +260,13 @@ export const Total = styled.div`
   }
 `;
 
-
 export const ActionBtn = styled.div`
+  margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const ActionBtn_Left = styled.div`
   margin-top: 25px;
 
   button {
@@ -274,4 +279,11 @@ export const ActionBtn = styled.div`
     border: 0px;
   }
 
+`;
+
+export const ActionBtn_Right = styled.div`
+  .DeleteBtn {
+    background-color: #DE5353;
+    color: #ffffff;
+  }
 `;

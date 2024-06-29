@@ -17,11 +17,12 @@ import JewelryDetail from "@/pages/Admin/ProductPage/Detail/JewelryDetail"
 import Jewelry from "@/pages/Admin/ProductPage/Jewelry/Jewelry"
 import AddProduct from "@/pages/Admin/ProductPage/Jewelry/AddDiaJew"
 import AddJewelry from "@/pages/Admin/ProductPage/Jewelry/AddReguJew"
-import RingSettingProduct from "@/pages/Admin/ProductPage/RingSetting"
-// import RingProduct from "@/pages/Admin/ProductPage/Ring"
+import JewelrySetting from "@/pages/Admin/ProductPage/Jewelry Setting/RingSetting"
+import JewelrySettingDetail from "@/pages/Admin/ProductPage/Detail/SettingDetail"
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType/JewelryType"
 import MaterialProduct from "@/pages/Admin/ProductPage/Material/Material"
 import Marketing from "@/pages/Admin/MarketingPage/Marketing"
+
 
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
 import Feedback from "@/pages/Admin/ClientCaringPage/Feedback"
@@ -67,8 +68,8 @@ const AdminRoutes = {
         { path: config.routes.admin.addProduct, element: <AddProduct /> },
         { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
         { path: config.routes.admin.jewelryProduct, element: <Jewelry /> },
-        { path: config.routes.admin.ringSettingProduct, element: <RingSettingProduct /> },
-        // { path: config.routes.admin.ringProduct, element: <RingProduct /> },
+        { path: config.routes.admin.ringSettingProduct, element: <JewelrySetting /> },
+        { path: config.routes.admin.ringSettingDetail, element: <JewelrySettingDetail /> },
         { path: config.routes.admin.jewelryTypeProduct, element: <JewelryTypeProduct /> },
         { path: config.routes.admin.materialProduct, element: <MaterialProduct /> },
 

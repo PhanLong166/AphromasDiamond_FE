@@ -68,6 +68,9 @@ const OrderDetail = () => {
   const activeOrder = data.find((order) => order.orderID === id);
 
   const [orderStatus, setOrderStatus] = useState(activeOrder?.status || '');
+
+
+  // TRANSFER TO DELIVERY STAFF
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const showModal = () => {
@@ -84,6 +87,45 @@ const OrderDetail = () => {
   const handleCancel = () => {
     setIsModalVisible(false);
   };
+
+
+  // DELETE ORDER FROM PENDING STATUS
+  const [isModalVisible_Pending, setIsModalVisible_Pending] = useState(false);
+
+
+  const showModal_Pending = () => {
+    setIsModalVisible_Pending(true);
+  };
+
+  const handleOk_Pending = () => {
+    // Handle the submission logic here
+    setOrderStatus("Cancelled");
+    setIsModalVisible_Pending(false);
+  };
+
+  const handleCancel_Pending = () => {
+    setIsModalVisible_Pending(false);
+  };
+
+
+    // DELETE ORDER FROM ACCEPTED STATUS
+    const [isModalVisible_Accepted, setIsModalVisible_Accepted] = useState(false);
+
+
+    const showModal_Accepted = () => {
+      setIsModalVisible_Accepted(true);
+    };
+  
+    const handleOk_Accepted = () => {
+      // Handle the submission logic here
+      setOrderStatus("Pending");
+      setIsModalVisible_Accepted(false);
+    };
+  
+    const handleCancel_Accepted = () => {
+      setIsModalVisible_Accepted(false);
+    };
+
 
   // Calculate the total price of the order lines
   const totalPrice = orderLineData.reduce(
@@ -158,9 +200,7 @@ const OrderDetail = () => {
                                 alt={line.lineName}
                                 /*style={{ width: "60px", height: "50px" }}*/ className="productImg"
                               />
-                              <div className="productName">
-                                {line.lineName}
-                              </div>
+                              <div className="productName">{line.lineName}</div>
                               <div className="productQuant">
                                 {line.quantity}
                               </div>
@@ -202,8 +242,14 @@ const OrderDetail = () => {
                   </Styled.OrderDetail_Infor>
                 </Styled.PageContent_Bot>
                 <Styled.ActionBtn>
+                <Styled.ActionBtn_Left>
                   {orderStatus === "Pending" && (
-                    <Button className="MainBtn" onClick={() => setOrderStatus("Accepted")}>Create Order</Button>
+                    <Button
+                      className="MainBtn"
+                      onClick={() => setOrderStatus("Accepted")}
+                    >
+                      Create Order
+                    </Button>
                   )}
                   {orderStatus === "Accepted" && (
                     <>
@@ -220,9 +266,15 @@ const OrderDetail = () => {
                           style={{ width: "100%" }}
                           placeholder="Select a delivery person"
                         >
-                          <Select.Option value="John Doe">John Doe</Select.Option>
-                          <Select.Option value="Jane Smith">Jane Smith</Select.Option>
-                          <Select.Option value="Jim Brown">Jim Brown</Select.Option>
+                          <Select.Option value="John Doe">
+                            John Doe
+                          </Select.Option>
+                          <Select.Option value="Jane Smith">
+                            Jane Smith
+                          </Select.Option>
+                          <Select.Option value="Jim Brown">
+                            Jim Brown
+                          </Select.Option>
                         </Select>
                       </Modal>
                     </>
@@ -230,6 +282,37 @@ const OrderDetail = () => {
                   <Link to="/admin/order">
                     <Button style={{ marginLeft: "10px" }}>Back</Button>
                   </Link>
+                </Styled.ActionBtn_Left>
+                <Styled.ActionBtn_Right>
+                {orderStatus === "Pending" && (
+                  <>
+                  <Button className="DeleteBtn" onClick={showModal_Pending}>
+                    Reject
+                  </Button>
+                  <Modal
+                    title="Sure to reject?"
+                    visible={isModalVisible_Pending}
+                    onOk={handleOk_Pending}
+                    onCancel={handleCancel_Pending}
+                  ></Modal>
+                  </>
+                )}
+                {orderStatus === "Accepted" && (
+                  <>
+                  <Button className="DeleteBtn" onClick={showModal_Accepted}>
+                    Return to Sales Staff
+                  </Button>
+                  <Modal
+                    title="Sure to return?"
+                    visible={isModalVisible_Accepted}
+                    onOk={handleOk_Accepted}
+                    onCancel={handleCancel_Accepted}
+                  ></Modal>
+                  </>
+                )}
+
+                  
+                </Styled.ActionBtn_Right>
                 </Styled.ActionBtn>
               </>
             ) : (
