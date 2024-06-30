@@ -18,8 +18,8 @@ const ProductMenu = () => {
       case "/admin/product/add/jewelry":
         setActive("Jewelry");
         break;
-      case "/admin/product/ring-setting":
-        setActive("RingSetting");
+      case "/admin/product/jewelry-setting":
+        setActive("JewelrySetting");
         break;
       case "/admin/product/jewelry-type":
         setActive("JewelryType");
@@ -45,67 +45,39 @@ const ProductMenu = () => {
       </Styled.TitlePage>
 
       <Styled.MiniCatalog>
-      <Styled.MiniCatalog_Ele
-          className={active === "Diamond" ? "active" : ""}
-        >
-          <div
-            className={`btn ${
-              active === "Diamond" ? "adMenu_active-line" : "adMenu_line"
-            } `}
-            onClick={() => handleSetActive("Diamond")}
-          ></div>
+        <Styled.MiniCatalog_Ele className={active === "Diamond" ? "active" : ""}>
+          <div className={`btn ${active === "Diamond" ? "adMenu_active-line" : "adMenu_line"} `} onClick={() => handleSetActive("Diamond")}></div>
           <Link to="/admin/product">
             <h3>Diamond</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
-        <Styled.MiniCatalog_Ele
-          className={active === "Jewelry" ? "active" : ""}
-        >
-          <div
-            className={`btn ${
-              active === "Jewelry" ? "adMenu_active-line" : "adMenu_line"
-            }`}
-            onClick={() => handleSetActive("Jewelry")}
-          ></div>
+        <Styled.MiniCatalog_Ele className={active === "Jewelry" ? "active" : ""}>
+          <div className={`btn ${active === "Jewelry" ? "adMenu_active-line" : "adMenu_line"}`} onClick={() => handleSetActive("Jewelry")}></div>
           <Link to="/admin/product/jewelry">
             <h3>Jewelry</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
         <Styled.MiniCatalog_Ele
-          className={active === "RingSetting" ? "active" : ""}
+          className={active === "JewelrySetting" ? "active" : ""}
         >
           <div
             className={`btn ${
-              active === "RingSetting" ? "adMenu_active-line" : "adMenu_line"
+              active === "JewelrySetting" ? "adMenu_active-line" : "adMenu_line"
             }`}
-            onClick={() => handleSetActive("RingSetting")}
+            onClick={() => handleSetActive("JewelrySetting")}
           ></div>
-          <Link to="/admin/product/ring-setting">
-            <h3>Ring Setting</h3>
+          <Link to="/admin/product/jewelry-setting">
+            <h3>Jewelry Setting</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
-        <Styled.MiniCatalog_Ele
-          className={active === "JewelryType" ? "active" : ""}
-        >
-          <div
-            className={`btn ${
-              active === "JewelryType" ? "adMenu_active-line" : "adMenu_line"
-            }`}
-            onClick={() => handleSetActive("JewelryType")}
-          ></div>
+        <Styled.MiniCatalog_Ele className={active === "JewelryType" ? "active" : ""}>
+          <div className={`btn ${active === "JewelryType" ? "adMenu_active-line" : "adMenu_line"}`} onClick={() => handleSetActive("JewelryType")}></div>
           <Link to="/admin/product/jewelry-type">
             <h3>Jewelry Type</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
-        <Styled.MiniCatalog_Ele
-          className={active === "Material" ? "active" : ""}
-        >
-          <div
-            className={`btn ${
-              active === "Material" ? "adMenu_active-line" : "adMenu_line"
-            }`}
-            onClick={() => handleSetActive("Material")}
-          ></div>
+        <Styled.MiniCatalog_Ele className={active === "Material" ? "active" : ""}>
+          <div className={`btn ${active === "Material" ? "adMenu_active-line" : "adMenu_line"}`} onClick={() => handleSetActive("Material")}></div>
           <Link to="/admin/product/material">
             <h3>Material</h3>
           </Link>

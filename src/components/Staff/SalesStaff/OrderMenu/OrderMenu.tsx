@@ -8,14 +8,20 @@ const OrderMenu = () => {
 
     useEffect(() => {
         switch (location.pathname) {
-            case '/sales-staff/order':
+            case "/sales-staff":
+                setActive("All");
+                break;
+            case '/sales-staff/order/pending':
                 setActive('Pending');
                 break;
-            case '/sales-staff/order/confirmed':
-                setActive('Confirmed');
+            case '/sales-staff/order/accepted':
+                setActive('Accepted');
                 break;
             case '/sales-staff/order/delivering':
                 setActive('Delivering');
+                break;
+            case '/sales-staff/order/delivered':
+                setActive('Delivered');
                 break;
             case '/sales-staff/order/completed':
                 setActive('Completed');
@@ -42,22 +48,34 @@ const OrderMenu = () => {
                             </Styled.TitlePage>
                             
                             <Styled.OrderCatalog>
+                                <Styled.OrderCatalog_Ele  className={active === "All" ? "active" : ""}>
+                                    <div className={`btn ${active === "All" ? "adMenu_active-line" : "adMenu_line"} `} onClick={() => handleSetActive("All")}></div>
+                                    <Link to="/sales-staff">
+                                        <h3>All Orders</h3>
+                                    </Link>
+                                </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Pending' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Pending' ? 'adMenu_active-line' : 'adMenu_line'} `} onClick={() => handleSetActive('Pending')} ></div>
-                                    <Link to="/sales-staff/order">
+                                    <Link to="/sales-staff/order/pending">
                                         <h3>Pending confirm</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'Confirmed' ? 'active' : ''}>
-                                    <div className={`btn ${active === 'Confirmed' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Confirmed')}></div>
-                                    <Link to="/sales-staff/order/confirmed">
-                                        <h3>Confirmed</h3>
+                                <Styled.OrderCatalog_Ele className={active === 'Accepted' ? 'active' : ''}>
+                                    <div className={`btn ${active === 'Accepted' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Accepted')}></div>
+                                    <Link to="/sales-staff/order/accepted">
+                                        <h3>Accepted</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Delivering' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Delivering' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Delivering')}></div>
                                     <Link to="/sales-staff/order/delivering">
                                         <h3>Delivering</h3>
+                                    </Link>
+                                </Styled.OrderCatalog_Ele>
+                                <Styled.OrderCatalog_Ele className={active === 'Delivered' ? 'active' : ''}>
+                                    <div className={`btn ${active === 'Delivered' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Delivered')}></div>
+                                    <Link to="/sales-staff/order/delivered">
+                                        <h3>Delivered</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Completed' ? 'active' : ''}>

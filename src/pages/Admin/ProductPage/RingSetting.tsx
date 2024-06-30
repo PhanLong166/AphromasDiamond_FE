@@ -129,7 +129,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 
 
-const RingSetting = () => {
+const JewelrySetting = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<RingDataType[]>(ringData);
   const [currency, setCurrency] = useState<"VND" | "USD">("USD");
@@ -234,21 +234,21 @@ const RingSetting = () => {
       sorter: (a: RingDataType, b: RingDataType) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
     },
-    {
-      title: `Cost Price (${currency})`,
-      key: "price",
-      sorter: (a: RingDataType, b: RingDataType) =>
-        convertPrice(a.price, a.exchangeRate, currency) -
-        convertPrice(b.price, b.exchangeRate, currency),
-      render: (_: unknown, record: RingDataType) => {
-        const convertedPrice = convertPrice(
-          record.price,
-          record.exchangeRate,
-          currency
-        );
-        return `${convertedPrice.toFixed(2)} ${currency}`;
-      },
-    },
+    // {
+    //   title: `Cost Price (${currency})`,
+    //   key: "price",
+    //   sorter: (a: RingDataType, b: RingDataType) =>
+    //     convertPrice(a.price, a.exchangeRate, currency) -
+    //     convertPrice(b.price, b.exchangeRate, currency),
+    //   render: (_: unknown, record: RingDataType) => {
+    //     const convertedPrice = convertPrice(
+    //       record.price,
+    //       record.exchangeRate,
+    //       currency
+    //     );
+    //     return `${convertedPrice.toFixed(2)} ${currency}`;
+    //   },
+    // },
     // {
     //   title: `Selling Price (${currency})`,
     //   key: "sellingPrice",
@@ -287,24 +287,24 @@ const RingSetting = () => {
       editable: true,
       sorter: (a: RingDataType, b: RingDataType) => a.width - b.width,
     },
-    {
-      title: "Material",
-      dataIndex: "material",
-      key: "material",
-      editable: true,
-      defaultSortOrder: "ascend" as SortOrder,
-      filters: [
-        { text: "14K White Gold", value: "14KWhiteGold" },
-        { text: "14K Yellow Gold", value: "14KYellowGold" },
-        { text: "14K Rose Gold", value: "14KRoseGold" },
-        { text: "18K White Gold", value: "18KWhiteGold" },
-        { text: "18K Yellow Gold", value: "18KYellowGold" },
-        { text: "18K Rose Gold", value: "18KRoseGold" },
-        { text: "Platinum", value: "Platinum" },
-      ],
-      onFilter: (value: boolean | React.Key, record: RingDataType) =>
-        record.material.indexOf(value as string) === 0,
-    },
+    // {
+    //   title: "Material",
+    //   dataIndex: "material",
+    //   key: "material",
+    //   editable: true,
+    //   defaultSortOrder: "ascend" as SortOrder,
+    //   filters: [
+    //     { text: "14K White Gold", value: "14KWhiteGold" },
+    //     { text: "14K Yellow Gold", value: "14KYellowGold" },
+    //     { text: "14K Rose Gold", value: "14KRoseGold" },
+    //     { text: "18K White Gold", value: "18KWhiteGold" },
+    //     { text: "18K Yellow Gold", value: "18KYellowGold" },
+    //     { text: "18K Rose Gold", value: "18KRoseGold" },
+    //     { text: "Platinum", value: "Platinum" },
+    //   ],
+    //   onFilter: (value: boolean | React.Key, record: RingDataType) =>
+    //     record.material.indexOf(value as string) === 0,
+    // },
     {
       title: "Edit",
       dataIndex: "edit",
@@ -618,4 +618,4 @@ const RingSetting = () => {
   );
 };
 
-export default RingSetting;
+export default JewelrySetting;
