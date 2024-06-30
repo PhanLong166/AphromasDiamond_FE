@@ -748,13 +748,13 @@ const JewelrySettingDetail = () => {
   };
 
   const materialOptions = [
-    { value: "14K White Gold", label: "14KWhiteGold" },
-    { value: "14K Yellow Gold", label: "14KYellowGold" },
-    { value: "14K Rose Gold", label: "14KRoseGold" },
-    { value: "18K White Gold", label: "18KWhiteGold" },
-    { value: "18K Yellow Gold", label: "18KYellowGold" },
-    { value: "18K Rose Gold", label: "18KRoseGold" },
-    { value: "Platinum", label: "Platinum" },
+    { value: "M12345121", label: "14K White Gold" },
+    { value: "M12345122", label: "14K Yellow Gold" },
+    { value: "M12345123", label: "14K Rose Gold" },
+    { value: "M12345124", label: "18K White Gold" },
+    { value: "M12345125", label: "18K Yellow Gold" },
+    { value: "M12345126", label: "18K Rose Gold" },
+    { value: "M12345127", label: "Platinum" },
   ];
 
   const EditableMaterialCell: React.FC<{
@@ -820,7 +820,7 @@ const JewelrySettingDetail = () => {
       title: "Material Name",
       dataIndex: "materialID",
       editable: true,
-      render: (_: any, record: RingMaterialDataType) => (
+      render: (_: unknown, record: RingMaterialDataType) => (
         <EditableMaterialCell
           editable={true}
           value={record.materialID}
@@ -841,7 +841,7 @@ const JewelrySettingDetail = () => {
       title: "Amount",
       dataIndex: "amount",
       editable: true, 
-      render: (_: any, record: RingMaterialDataType) => (
+      render: (_: unknown, record: RingMaterialDataType) => (
         <EditableCell
           editable={true}
           value={record.amount}
