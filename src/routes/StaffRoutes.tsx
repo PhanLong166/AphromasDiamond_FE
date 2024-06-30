@@ -1,7 +1,6 @@
 import config from "@/config"
 import { Outlet } from "react-router-dom";
 import StaffLayout from "@/layouts/StaffLayout"
-import Dashboard from "@/pages/Staff/SalesStaff/Dashboard/Dashboard"
 import Order from "@/pages/Staff/SalesStaff/OrderPage/Order";
 import PendingOrder from "@/pages/Staff/SalesStaff/OrderPage/Pending/Pending";
 import AcceptedOrder from "@/pages/Staff/SalesStaff/OrderPage/Accepted/Accepted";
@@ -24,8 +23,7 @@ import Messages from "@/pages/Staff/SalesStaff/ClientCaringPage/Message";
 import Feedback from "@/pages/Staff/SalesStaff/ClientCaringPage/Feedback";
 
 
-import StaffLayout from "@/layouts/StaffLayout"
-import DeliveryReport from "@/pages/Staff/DeliveryReport/DeliveryPending";
+// import DeliveryReport from "@/pages/Staff/DeliveryReport/DeliveryPending";
 import DeliveryDelivering from "@/pages/Staff/DeliveryReport/DeliveryDelivering";
 import DeliveryDelivered from "@/pages/Staff/DeliveryReport/DeliveryDelivered";
 import DeliveryReturn from "@/pages/Staff/DeliveryReport/DeliveryReturn";
