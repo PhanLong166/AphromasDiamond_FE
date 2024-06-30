@@ -1,7 +1,6 @@
 import config from "@/config"
 import { Outlet } from "react-router-dom";
-import StaffLayout from "@/layouts/StaffLayout"
-import Dashboard from "@/pages/Staff/SalesStaff/Dashboard/Dashboard"
+
 import Order from "@/pages/Staff/SalesStaff/OrderPage/Order";
 import PendingOrder from "@/pages/Staff/SalesStaff/OrderPage/Pending/Pending";
 import AcceptedOrder from "@/pages/Staff/SalesStaff/OrderPage/Accepted/Accepted";

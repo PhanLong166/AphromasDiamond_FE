@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../../themes";
-import { Dropdown } from "antd";
+import { Menu } from "antd";
 
 export const NavbarContainer = styled.nav`
     display: flex;
@@ -25,13 +25,21 @@ export const Logo = styled.div`
     font-size: 36px;
 `;
 
-export const DropdownFrame = styled.div`
+export const MenuFrame = styled.div`
     display: flex;
     align-items: center;
     font-size: 14px;
     gap: 50px;
 `;
 
-export const DrowdownComponent = styled(Dropdown)`
+export const NavbarComponent = styled(Menu)`
+    width: 1000px;
+    .ant-menu.ant-menu-sub.ant-menu-vertical{
+        display: flex;
+    }    
 
+    & .ant-menu-item-group-list {
+        display: flex;
+        flex-direction: column;
+    }
 `;
