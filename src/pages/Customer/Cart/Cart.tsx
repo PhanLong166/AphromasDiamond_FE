@@ -2,7 +2,7 @@
 import { Link } from "react-router-dom";
 import styled from "styled-components";
 import { Button, Flex, Select } from "antd";
-import PromoCodeSection from "../Checkout/PromoCode";
+import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 
 const Cart = () => {
   return (
