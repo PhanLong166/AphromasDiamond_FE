@@ -113,6 +113,7 @@ const Pending = () => {
     }
   };
 
+
   return (
     <>
       <Styled.GlobalStyle />

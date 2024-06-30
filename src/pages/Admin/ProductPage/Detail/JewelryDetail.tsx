@@ -21,11 +21,11 @@ import {
   materialData,
   ringMaterialData,
   RingMaterialDataType,
-  MaterialDataType,
+  // MaterialDataType,
 } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { SaveOutlined } from "@ant-design/icons";
-import { SortOrder } from "antd/es/table/interface";
+// import { SortOrder } from "antd/es/table/interface";
 
 const EditableContext = React.createContext<FormInstance<any> | null>(null);
 
@@ -81,7 +81,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   const save = async () => {
     try {
       const values = await form.validateFields();
-
       toggleEdit();
       handleSave({ ...record, ...values });
     } catch (errInfo) {
@@ -98,7 +97,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     { value: "18K Rose Gold", label: "18KRoseGold" },
     { value: "Platinum", label: "Platinum" },
   ];
-
 
   const handleMaterialChange = (value: string) => {
     const materialDetail = getMaterialDetails(value);
@@ -119,44 +117,47 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 
   if (editable) {
     childNode = editing ? (
-      dataIndex === 'materialID' ? (
-        <Form.Item
-          style={{ margin: 0 }}
-          name={dataIndex}
-          rules={[
-            {
-              required: true,
-              message: `${title} is required.`,
-            },
-          ]}
-        >
+      // dataIndex === 'materialID' ? (
+      <Form.Item
+        style={{ margin: 0 }}
+        name={dataIndex}
+        rules={[
+          {
+            required: true,
+            message: `${title} is required.`,
+          },
+        ]}
+      >
+        {dataIndex === "materialName" ? (
           <Select
-            ref={inputRef}
-            onSelect={handleMaterialChange}
-            onBlur={save}
+            onChange={(value) => handleMaterialChange(value)}
+            value={record.materialName}
           >
             {materialOptions.map((option) => (
-              <Select.Option key={option.value} value={option.value}>
-                {option.text}
+              <Select.Option key={option.label} value={option.label}>
+                {option.value}
               </Select.Option>
             ))}
           </Select>
-        </Form.Item>
-      ) : (
-        <Form.Item
-          style={{ margin: 0 }}
-          name={dataIndex}
-          rules={[
-            {
-              required: true,
-              message: `${title} is required.`,
-            },
-          ]}
-        >
+        ) : (
           <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-        </Form.Item>
-      )
+        )}
+      </Form.Item>
     ) : (
+      // ) : (
+      //   <Form.Item
+      //     style={{ margin: 0 }}
+      //     name={dataIndex}
+      //     rules={[
+      //       {
+      //         required: true,
+      //         message: `${title} is required.`,
+      //       },
+      //     ]}
+      //   >
+      //     <Input ref={inputRef} onPressEnter={save} onBlur={save} />
+      //   </Form.Item>
+      // )
       <div
         className="editable-cell-value-wrap"
         style={{ paddingRight: 24 }}
@@ -168,6 +169,10 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   }
 
   return <td {...restProps}>{childNode}</td>;
+};
+
+const getMaterialDetails = (materialID: string) => {
+  return materialData.find((material) => material.materialID === materialID);
 };
 
 type EditableTableProps = Parameters<typeof Table>[0];
@@ -198,20 +203,19 @@ const JewelryDetail = () => {
       )
     : [];
 
-
   // GIA CERTIFICATE POPUP
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalGIA, setIsModalGIA] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const showModalGIA = () => {
+    setIsModalGIA(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+  const handleOkGIA = () => {
+    setIsModalGIA(false);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleCancelGIA = () => {
+    setIsModalGIA(false);
   };
 
   // EDIT INFOR
@@ -239,38 +243,36 @@ const JewelryDetail = () => {
   };
 
   // JEWELRY MATERIAL TABLE
-
-  const getMaterialDetails = (materialID: string) => {
-    return materialData.find((material) => material.materialID === materialID);
-  };
-
   const [data, setData] = useState<RingMaterialDataType[]>(
     activeRingSettingMaterials
   );
 
   const [count, setCount] = useState(2);
 
-  const materialTableData = data.map((rm) => {
-    const materialDetail = getMaterialDetails(rm.materialID);
-    if (materialDetail) {
-      const pricePerGram = materialDetail.sellingPrice;
-      const price = rm.weight * pricePerGram;
-      return {
-        key: rm.materialID,
-        materialName: materialDetail.materialName,
-        weight: rm.weight,
-        pricePerGram: pricePerGram,
-        price: price,
-      };
-    }
-    return null;
-  }).filter(Boolean);
+  const materialTableData = data
+    .map((rm) => {
+      const materialDetail = getMaterialDetails(rm.materialID);
+      if (materialDetail) {
+        const pricePerGram = materialDetail.sellingPrice;
+        const price = rm.weight * pricePerGram;
+        return {
+          key: rm.materialID,
+          materialName: materialDetail.materialName,
+          weight: rm.weight,
+          pricePerGram: pricePerGram,
+          price: price,
+        };
+      }
+      return null;
+    })
+    .filter(Boolean);
 
   const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item: RingMaterialDataType) => item.key !== key);
+    const newData = data.filter(
+      (item: RingMaterialDataType) => item.key !== key
+    );
     setData(newData);
   };
-  
 
   const handleAdd = () => {
     const newMaterialID = materialData[0]?.materialID || "";
@@ -365,6 +367,24 @@ const JewelryDetail = () => {
       }),
     };
   });
+
+
+// DELETE JEWELRY 
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    // Handle the submission logic here
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
 
   return (
     <>
@@ -826,7 +846,7 @@ const JewelryDetail = () => {
 
                                   <Modal
                                     title="GIA Certificate"
-                                    visible={isModalVisible}
+                                    visible={isModalGIA}
                                     onOk={handleOk}
                                     onCancel={handleCancel}
                                     footer={null}
@@ -931,25 +951,24 @@ const JewelryDetail = () => {
                                         }
                                       />
                                     </Form.Item> */}
-                                      
                                     </Styled.ProductContent>
                                   </Styled.PageDetail_Infor>
                                   <Styled.MaterialTable>
-                                        <Button
-                                          onClick={handleAdd}
-                                          type="primary"
-                                          style={{ marginBottom: 16 }}
-                                        >
-                                          Add a row
-                                        </Button>
-                                        <Table
-                                          components={components}
-                                          rowClassName={() => "editable-row"}
-                                          bordered
-                                          dataSource={materialTableData}
-                                          columns={columns as ColumnTypes}
-                                        />
-                                      </Styled.MaterialTable>
+                                    <Button
+                                      onClick={handleAdd}
+                                      type="primary"
+                                      style={{ marginBottom: 16 }}
+                                    >
+                                      Add a row
+                                    </Button>
+                                    <Table
+                                      components={components}
+                                      rowClassName={() => "editable-row"}
+                                      bordered
+                                      dataSource={materialTableData}
+                                      columns={columns as ColumnTypes}
+                                    />
+                                  </Styled.MaterialTable>
                                 </Styled.PageContent_Bot>
                                 <Styled.ActionBtn>
                                   <Button
@@ -1162,9 +1181,9 @@ const JewelryDetail = () => {
 
                                   <Modal
                                     title="GIA Certificate"
-                                    visible={isModalVisible}
-                                    onOk={handleOk}
-                                    onCancel={handleCancel}
+                                    visible={isModalGIA}
+                                    onOk={handleOkGIA}
+                                    onCancel={handleCancelGIA}
                                     footer={null}
                                   >
                                     <img
@@ -1230,38 +1249,48 @@ const JewelryDetail = () => {
                                         activeRingSetting.auxiliaryCost}
                                     </p>
                                   </Styled.InforLine> */}
-                                      <div>
-                                        <Button
-                                          onClick={handleAdd}
-                                          type="primary"
-                                          style={{ marginBottom: 16 }}
-                                        >
-                                          Add a row
-                                        </Button>
-                                        <Table
-                                          components={components}
-                                          rowClassName={() => "editable-row"}
-                                          bordered
-                                          dataSource={materialTableData}
-                                          columns={columns as ColumnTypes}
-                                        />
-                                      </div>
                                     </Styled.ProductContent>
                                   </Styled.PageDetail_Infor>
+                                  <div>
+                                    <Button
+                                      onClick={handleAdd}
+                                      type="primary"
+                                      style={{ marginBottom: 16 }}
+                                    >
+                                      Add a row
+                                    </Button>
+                                    <Table
+                                      components={components}
+                                      rowClassName={() => "editable-row"}
+                                      bordered
+                                      dataSource={materialTableData}
+                                      columns={columns as ColumnTypes}
+                                    />
+                                  </div>
                                 </Styled.PageContent_Bot>
                                 <Styled.ActionBtn>
-                                  <Button
-                                    className="MainBtn"
-                                    onClick={startEditing}
-                                  >
-                                    Edit
-                                  </Button>
-
-                                  <Link to="/admin/product/jewelry">
-                                    <Button style={{ marginLeft: "10px" }}>
-                                      Back
+                                  <Styled.ActionBtn_Left>
+                                    <Button className="MainBtn" onClick={startEditing}>
+                                      Edit
                                     </Button>
-                                  </Link>
+                                    <Link to="/admin/product/jewelry">
+                                      <Button style={{ marginLeft: "10px" }}>
+                                        Back
+                                      </Button>
+                                    </Link>
+                                  </Styled.ActionBtn_Left>
+                                  <Styled.ActionBtn_Right>
+                                    <Button className="DeleteBtn" onClick={showModal}>
+                                      Delete
+                                    </Button>
+                                    <Modal
+                                      title="Select Delivery Person"
+                                      visible={isModalVisible}
+                                      onOk={handleOk}
+                                      onCancel={handleCancel}
+                                    >
+                                    </Modal>
+                                  </Styled.ActionBtn_Right>
                                 </Styled.ActionBtn>
                               </>
                             )}
