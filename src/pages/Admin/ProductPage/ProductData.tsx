@@ -641,48 +641,48 @@ export interface MaterialDataType {
 }
 
 export const materialData: MaterialDataType[] = [
-  {
-    key: "1",
-    materialID: "12345121",
-    materialName: "14K White Gold",
-    sellingPrice: 4.08,
-  },
-  {
-    key: "2",
-    materialID: "12345122",
-    materialName: "14K Yellow Gold",
-    sellingPrice: 5.08,
-  },
-  {
-    key: "3",
-    materialID: "12345123",
-    materialName: "14K Rose Gold",
-    sellingPrice: 7.08,
-  },
-  {
-    key: "4",
-    materialID: "12345124",
-    materialName: "18K White Gold",
-    sellingPrice: 6.08,
-  },
-  {
-    key: "5",
-    materialID: "12345125",
-    materialName: "18K Yellow Gold",
-    sellingPrice: 3.08,
-  },
-  {
-    key: "6",
-    materialID: "12345126",
-    materialName: "18K Rose Gold",
-    sellingPrice: 9.08,
-  },
-  {
-    key: "7",
-    materialID: "12345127",
-    materialName: "Platinum",
-    sellingPrice: 2.04,
-  },
+  // {
+  //   key: "1",
+  //   materialID: "12345121",
+  //   materialName: "14K White Gold",
+  //   sellingPrice: 4.08,
+  // },
+  // {
+  //   key: "2",
+  //   materialID: "12345122",
+  //   materialName: "14K Yellow Gold",
+  //   sellingPrice: 5.08,
+  // },
+  // {
+  //   key: "3",
+  //   materialID: "12345123",
+  //   materialName: "14K Rose Gold",
+  //   sellingPrice: 7.08,
+  // },
+  // {
+  //   key: "4",
+  //   materialID: "12345124",
+  //   materialName: "18K White Gold",
+  //   sellingPrice: 6.08,
+  // },
+  // {
+  //   key: "5",
+  //   materialID: "12345125",
+  //   materialName: "18K Yellow Gold",
+  //   sellingPrice: 3.08,
+  // },
+  // {
+  //   key: "6",
+  //   materialID: "12345126",
+  //   materialName: "18K Rose Gold",
+  //   sellingPrice: 9.08,
+  // },
+  // {
+  //   key: "7",
+  //   materialID: "12345127",
+  //   materialName: "Platinum",
+  //   sellingPrice: 2.04,
+  // },
 ];
 
 // ---------------- JEWELRY SETTING MATERIAL DATA -------------------

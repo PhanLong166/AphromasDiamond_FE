@@ -126,12 +126,18 @@ const AddressDetails: React.FC<AddressDetailsProps> = () => (
     </InputRow>
     <InputRow>
       <InputGroup>
-        <StyledLabel htmlFor="address">Address Details</StyledLabel>
-        <StyledInput type="text" id="phoneNumber" />
+        <StyledLabel htmlFor="ward">Ward</StyledLabel>
+        <StyledInput type="text" id="ward" />
       </InputGroup>
       <InputGroup>
         <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
         <StyledInput type="text" id="phoneNumber" />
+      </InputGroup>
+    </InputRow>
+    <InputRow>
+    <InputGroup>
+        <StyledLabel htmlFor="address">Address Details</StyledLabel>
+        <StyledInput type="text" id="address" />
       </InputGroup>
     </InputRow>
     <PaymentMethod />
@@ -156,15 +162,24 @@ const PaymentMethod: React.FC = () => {
         </option>
         <option value="vnpay">VnPay</option>
         <option value="momo">Momo</option>
+        <option value="cod">COD</option>
       </PaymentDropdown>
       {selectedPayment && (
         <PaymentImage
           src={
             selectedPayment === "vnpay"
-              ? "https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
-              : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
+            ? "https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
+            : selectedPayment === "momo"
+            ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
+            : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2F122290830_132545211952745_2371548508191512996_n.jpg?alt=media&token=13186094-eb53-4e6c-98a0-1e7fe06b3664"
           }
-          alt={selectedPayment === "vnpay" ? "VnPay" : "Momo"}
+          alt={
+            selectedPayment === "vnpay"
+              ? "VnPay"
+              : selectedPayment === "momo"
+              ? "Momo"
+              : "cod"
+          }
         />
       )}
     </PaymentSection>
@@ -251,11 +266,13 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Form>
-            <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} />
+            <form> 
+            <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} /> 
             <AddressDetails
               address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
               country="VietNam"
             />
+            </form>
           </Form>
           <Summary
             items={[
@@ -324,7 +341,7 @@ const StepEdit = styled.div`
   display: flex;
   justify-content: space-around;
   .steps-edit {
-    max-width: 1400px;
+    max-width: 1000px;
   }
 `;
 
@@ -468,6 +485,7 @@ const EditTotal = styled.div`
 
 const EditTotal1 = styled.div`
   word-spacing: 203px;
+  font-weight: 600;
 `;
 
 const EditBtn = styled.div`

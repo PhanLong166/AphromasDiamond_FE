@@ -57,15 +57,8 @@ const ProductMenu = () => {
             <h3>Jewelry</h3>
           </Link>
         </Styled.MiniCatalog_Ele>
-        <Styled.MiniCatalog_Ele
-          className={active === "JewelrySetting" ? "active" : ""}
-        >
-          <div
-            className={`btn ${
-              active === "JewelrySetting" ? "adMenu_active-line" : "adMenu_line"
-            }`}
-            onClick={() => handleSetActive("JewelrySetting")}
-          ></div>
+        <Styled.MiniCatalog_Ele className={active === "JewelrySetting" ? "active" : ""}>
+          <div className={`btn ${active === "JewelrySetting" ? "adMenu_active-line" : "adMenu_line" }`} onClick={() => handleSetActive("JewelrySetting")}></div>
           <Link to="/admin/product/jewelry-setting">
             <h3>Jewelry Setting</h3>
           </Link>

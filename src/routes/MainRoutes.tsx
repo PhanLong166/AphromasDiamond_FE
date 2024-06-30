@@ -32,6 +32,8 @@ import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
 import FindSize from "@/pages/Home/FindSize/FindSize";
 import WishListPage from "@/pages/Home/WishList/WishListPage";
+import Learn4cs from "@/pages/Home/Learn4cs/Learn4cs";
+import Certification from "@/pages/Home/Certification/Certification";
 
 
 
@@ -68,8 +70,8 @@ const publicRoutes = {
         { path: config.routes.public.coming, element: <CollectionComing/> },
         { path: config.routes.public.learn, element: <LearnAbout/> },
         { path: config.routes.public.size, element: <FindSize/> },
-        { path: config.routes.public.wish, element: <WishListPage /> }
-
+        { path: config.routes.public.cs, element: <Learn4cs/> },
+        { path: config.routes.public.certification, element: <Certification/> },
     ]
 }
 

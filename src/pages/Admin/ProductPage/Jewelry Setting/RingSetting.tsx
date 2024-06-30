@@ -1,4 +1,4 @@
-import * as Styled from "../ProductPage/RingSetting.styled";
+import * as Styled from "../Jewelry Setting/RingSetting.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import {
@@ -6,25 +6,26 @@ import {
   PlusCircleOutlined,
   InboxOutlined,
   SaveOutlined,
+  EyeOutlined,
 } from "@ant-design/icons";
-import type { FormInstance, TableProps, UploadProps } from "antd";
+import type { FormInstance, TableColumnsType, TableProps, UploadProps } from "antd";
 import {
   Form,
   Input,
   InputNumber,
-  Popconfirm,
   Table,
-  Typography,
   Button,
   Select,
   Upload,
   message,
+  Space,
 } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
+import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
 import { SortOrder } from "antd/es/table/interface";
 import TextArea from "antd/es/input/TextArea";
-import { ringData, RingDataType } from "./ProductData"; // Import data here
+import { ringData, RingDataType } from "../ProductData"; // Import data here
+import { Link } from "react-router-dom";
 
 
 
@@ -131,87 +132,87 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 const JewelrySetting = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<RingDataType[]>(ringData);
-  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
+  const [data] = useState<RingDataType[]>(ringData);
+  // const [currency, setCurrency] = useState<"VND" | "USD">("USD");
   const [isAdding, setIsAdding] = useState(false);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: RingDataType) => record.key === editingKey;
-  const edit = (record: Partial<RingDataType> & { key: React.Key }) => {
-    form.setFieldsValue({
-      ringSettingID: "",
-      ringSettingImg: "",
-      ringSettingName: "",
-      price: "",
-      type: "",
-      width: "",
-      material: "",
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
-  const cancel = () => {
-    setEditingKey("");
-  };
-  const save = async (key: React.Key) => {
-    try {
-      const row = (await form.validateFields()) as RingDataType;
-      const newData = [...ringData];
-      const index = newData.findIndex((item) => key === item.key);
+  // const [editingKey, setEditingKey] = useState<React.Key>("");
+  // const isEditing = (record: RingDataType) => record.key === editingKey;
+  // const edit = (record: Partial<RingDataType> & { key: React.Key }) => {
+  //   form.setFieldsValue({
+  //     ringSettingID: "",
+  //     ringSettingImg: "",
+  //     ringSettingName: "",
+  //     price: "",
+  //     type: "",
+  //     width: "",
+  //     material: "",
+  //     ...record,
+  //   });
+  //   setEditingKey(record.key);
+  // };
+  // const cancel = () => {
+  //   setEditingKey("");
+  // };
 
-      // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
+  // const save = async (key: React.Key) => {
+  //   try {
+  //     const row = (await form.validateFields()) as RingDataType;
+  //     const newData = [...ringData];
+  //     const index = newData.findIndex((item) => key === item.key);
 
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey("");
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey("");
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+  //     // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
-  };
+  //     if (index > -1) {
+  //       const item = newData[index];
+  //       newData.splice(index, 1, {
+  //         ...item,
+  //         ...row,
+  //       });
+  //       setData(newData);
+  //       setEditingKey("");
+  //     } else {
+  //       newData.push(row);
+  //       setData(newData);
+  //       setEditingKey("");
+  //     }
+  //   } catch (errInfo) {
+  //     console.log("Validate Failed:", errInfo);
+  //   }
+  // };
+
+  // const handleDelete = (key: React.Key) => {
+  //   const newData = data.filter((item) => item.key !== key);
+  //   setData(newData);
+  // };
 
   //  Change Currency
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
-  const handleCurrencyChange = (value: "VND" | "USD") => {
-    setCurrency(value);
-  };
+  // const handleCurrencyChange = (value: "VND" | "USD") => {
+  //   setCurrency(value);
+  // };
 
-  const convertPrice = (
-    price: number,
-    exchangeRate: number,
-    currency: "VND" | "USD"
-  ) => {
-    if (currency === "VND") {
-      return price * exchangeRate;
-    }
-    return price;
-  };
+  // const convertPrice = (
+  //   price: number,
+  //   exchangeRate: number,
+  //   currency: "VND" | "USD"
+  // ) => {
+  //   if (currency === "VND") {
+  //     return price * exchangeRate;
+  //   }
+  //   return price;
+  // };
 
   // const sellingPrice = (price: number, markupPercentage: number) => {
   //   return price * (1 + markupPercentage / 100);
   // };
 
-  const columns = [
+  const columns: TableColumnsType<RingDataType> = [
     {
       title: "ID",
       dataIndex: "jewelrySettingID",
-      editable: true,
       sorter: (a: RingDataType, b: RingDataType) =>
         a.jewelrySettingID.localeCompare(b.jewelrySettingID),
     },
@@ -230,7 +231,6 @@ const JewelrySetting = () => {
     {
       title: "Name",
       dataIndex: "jewelrySettingName",
-      editable: true,
       sorter: (a: RingDataType, b: RingDataType) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
     },
@@ -266,7 +266,6 @@ const JewelrySetting = () => {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      editable: true,
       defaultSortOrder: "ascend" as SortOrder,
       filters: [
         { text: "Ring", value: "Ring" },
@@ -284,86 +283,79 @@ const JewelrySetting = () => {
     {
       title: "Width",
       dataIndex: "width",
-      editable: true,
       sorter: (a: RingDataType, b: RingDataType) => a.width - b.width,
     },
     // {
-    //   title: "Material",
-    //   dataIndex: "material",
-    //   key: "material",
-    //   editable: true,
-    //   defaultSortOrder: "ascend" as SortOrder,
-    //   filters: [
-    //     { text: "14K White Gold", value: "14KWhiteGold" },
-    //     { text: "14K Yellow Gold", value: "14KYellowGold" },
-    //     { text: "14K Rose Gold", value: "14KRoseGold" },
-    //     { text: "18K White Gold", value: "18KWhiteGold" },
-    //     { text: "18K Yellow Gold", value: "18KYellowGold" },
-    //     { text: "18K Rose Gold", value: "18KRoseGold" },
-    //     { text: "Platinum", value: "Platinum" },
-    //   ],
-    //   onFilter: (value: boolean | React.Key, record: RingDataType) =>
-    //     record.material.indexOf(value as string) === 0,
+    //   title: "Edit",
+    //   dataIndex: "edit",
+    //   className: "TextAlign SmallSize",
+    //   render: (_: unknown, record: RingDataType) => {
+    //     const editable = isEditing(record);
+    //     return editable ? (
+    //       <span>
+    //         <Typography.Link
+    //           onClick={() => save(record.key)}
+    //           style={{ marginRight: 8 }}
+    //         >
+    //           Save
+    //         </Typography.Link>
+    //         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+    //           <a>Cancel</a>
+    //         </Popconfirm>
+    //       </span>
+    //     ) : (
+    //       <Typography.Link
+    //         disabled={editingKey !== ""}
+    //         onClick={() => edit(record)}
+    //       >
+    //         Edit
+    //       </Typography.Link>
+    //     );
+    //   },
+    // },
+    // {
+    //   title: "Delete",
+    //   dataIndex: "delete",
+    //   className: "TextAlign",
+    //   render: (_: unknown, record: RingDataType) =>
+    //     data.length >= 1 ? (
+    //       <Popconfirm
+    //         title="Sure to delete?"
+    //         onConfirm={() => handleDelete(record.key)}
+    //       >
+    //         <a>Delete</a>
+    //       </Popconfirm>
+    //     ) : null,
     // },
     {
-      title: "Edit",
-      dataIndex: "edit",
-      className: "TextAlign SmallSize",
-      render: (_: unknown, record: RingDataType) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-        );
-      },
-    },
-    {
-      title: "Delete",
-      dataIndex: "delete",
+      title: "Detail",
+      key: "detail",
       className: "TextAlign",
-      render: (_: unknown, record: RingDataType) =>
-        data.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
+      render: (_, { jewelrySettingID }) => (
+        <Space size="middle">
+          <Link to={`/admin/product/jewelry-setting/detail/${jewelrySettingID}`}>
+            <EyeOutlined />
+          </Link>
+        </Space>
+      ),
     },
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: RingDataType) => ({
-        record,
-        inputType: col.dataIndex === "price" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  // const mergedColumns: TableProps["columns"] = columns.map((col) => {
+  //   if (!col.editable) {
+  //     return col;
+  //   }
+  //   return {
+  //     ...col,
+  //     onCell: (record: RingDataType) => ({
+  //       record,
+  //       inputType: col.dataIndex === "price" ? "number" : "text",
+  //       dataIndex: col.dataIndex,
+  //       title: col.title,
+  //       editing: isEditing(record),
+  //     }),
+  //   };
+  // });
 
   const [searchText, setSearchText] = useState("");
 
@@ -395,6 +387,16 @@ const JewelrySetting = () => {
     console.log(e);
   };
 
+
+  const onChangeTable: TableProps<RingDataType>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -422,7 +424,7 @@ const JewelrySetting = () => {
                       />
                     </Styled.SearchArea>
 
-                    <Select
+                    {/* <Select
                       defaultValue="USD"
                       style={{ width: 120, height: "45px" }}
                       onChange={handleCurrencyChange}
@@ -430,7 +432,7 @@ const JewelrySetting = () => {
                         { value: "USD", label: "USD" },
                         { value: "VND", label: "VND" },
                       ]}
-                    />
+                    /> */}
                   </Styled.AdPageContent_HeadLeft>
 
                   <Styled.AddButton>
@@ -601,12 +603,10 @@ const JewelrySetting = () => {
                     }}
                     bordered
                     dataSource={data}
-                    columns={mergedColumns}
+                    columns={columns}
                     rowClassName="editable-row"
-                    pagination={{
-                      onChange: cancel,
-                      pageSize: 6,
-                    }}
+                    pagination={{ pageSize: 6 }} // Add pagination here
+                    onChange={onChangeTable}
                   />
                 </Form>
               )}

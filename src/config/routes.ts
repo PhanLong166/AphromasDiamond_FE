@@ -18,8 +18,10 @@ const routes = {
     collectionInfo: "/info",
     coming: "/coming",
     learn: "/learn",
-    size: "/size",
-    wish: "/wishlist"
+    size: "/find-ring-size",
+    wish: "/wishlist",
+    cs:"/learn-4cs",
+    certification: "/diamond-certification"
   },
   customer: {
     account: "/account",
@@ -51,7 +53,8 @@ const routes = {
     addProduct: "/admin/product/add/product",
     addJewelry: "/admin/product/add/jewelry",
     diamondProduct: "/admin/product/diamond",
-    ringSettingProduct: "/admin/product/ring-setting",
+    ringSettingProduct: "/admin/product/jewelry-setting",
+    ringSettingDetail: "/admin/product/jewelry-setting/detail/:id",
     ringProduct: "/admin/product/ring",
     jewelryTypeProduct: "/admin/product/jewelry-type",
     materialProduct: "/admin/product/material",
