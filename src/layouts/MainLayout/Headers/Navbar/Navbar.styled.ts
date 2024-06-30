@@ -34,12 +34,6 @@ export const MenuFrame = styled.div`
 
 export const NavbarComponent = styled(Menu)`
     width: 1000px;
-    .ant-menu.ant-menu-sub.ant-menu-vertical{
-        display: flex;
-    }    
-
-    & .ant-menu-item-group-list {
-        display: flex;
-        flex-direction: column;
-    }
+    border-bottom: none;
+    font-family: "Gantari", sans-serif;
 `;
