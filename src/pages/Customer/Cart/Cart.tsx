@@ -20,6 +20,8 @@ const Cart = () => {
               <Link to={"/all"}>Continue Shopping</Link>
             </ContinueShopping>
             <CountCart>MY CART 4 ITEMS</CountCart>
+
+            
             <MainSection>
               <Column>
                 <ItemContainer>
@@ -106,7 +108,7 @@ const Cart = () => {
                   <ItemDetails>
                     <ItemInfo>
                       <ItemImage
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.png?alt=media&token=5933d121-78ec-44c7-ab0a-42e2531b532f"
                         alt="Diamond (Loose)"
                       />
                     </ItemInfo>
@@ -143,7 +145,7 @@ const Cart = () => {
                   <ItemDetails>
                     <ItemInfo>
                       <ItemImage
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.png?alt=media&token=5933d121-78ec-44c7-ab0a-42e2531b532f"
                         alt="Diamond (Loose)"
                       />
                     </ItemInfo>
@@ -210,6 +212,7 @@ const Cart = () => {
                 </SummaryContainer>
               </Sidebar>
             </MainSection>
+            
             <ShippingSection>
               <ShippingIcon
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/6933788e6c8896639db19bae2d37194ec1e54bd5cf3292e8cc54f2247afd9959?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
