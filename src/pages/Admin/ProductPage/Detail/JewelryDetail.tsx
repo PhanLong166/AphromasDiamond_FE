@@ -1270,7 +1270,10 @@ const JewelryDetail = () => {
                                 </Styled.PageContent_Bot>
                                 <Styled.ActionBtn>
                                   <Styled.ActionBtn_Left>
-                                    <Button className="MainBtn" onClick={startEditing}>
+                                    <Button
+                                      className="MainBtn"
+                                      onClick={startEditing}
+                                    >
                                       Edit
                                     </Button>
                                     <Link to="/admin/product/jewelry">
@@ -1280,7 +1283,10 @@ const JewelryDetail = () => {
                                     </Link>
                                   </Styled.ActionBtn_Left>
                                   <Styled.ActionBtn_Right>
-                                    <Button className="DeleteBtn" onClick={showModal}>
+                                    <Button
+                                      className="DeleteBtn"
+                                      onClick={showModal}
+                                    >
                                       Delete
                                     </Button>
                                     <Modal
@@ -1288,8 +1294,7 @@ const JewelryDetail = () => {
                                       visible={isModalVisible}
                                       onOk={handleOk}
                                       onCancel={handleCancel}
-                                    >
-                                    </Modal>
+                                    ></Modal>
                                   </Styled.ActionBtn_Right>
                                 </Styled.ActionBtn>
                               </>
