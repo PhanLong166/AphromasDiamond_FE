@@ -21,10 +21,13 @@ const Register = () => {
         try {
             setIsSubmitting(true);
 
-            const { data } = await register(values);
+            const { data } = await register({...values, Role: "ROLE_CUSTOMER"});
 
-            cookieUtils.setItem(config.cookies.token, data);
-            navigate(config.routes.public.home);
+            if (!data.data) throw data.error;
+            else {
+                cookieUtils.setItem(config.cookies.token, data.data.token);
+                navigate(config.routes.public.home);
+            }
         } catch (error: any) {
             if(error.response) messageApi.error(error.response.data);
             else messageApi.error(error.message);
