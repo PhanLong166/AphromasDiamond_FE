@@ -22,9 +22,6 @@ import Marketing from "@/pages/Staff/SalesStaff/MarketingPage/Marketing";
 import Messages from "@/pages/Staff/SalesStaff/ClientCaringPage/Message";
 import Feedback from "@/pages/Staff/SalesStaff/ClientCaringPage/Feedback";
 
-
-import StaffLayout from "@/layouts/StaffLayout"
-import DeliveryReport from "@/pages/Staff/DeliveryReport/DeliveryPending";
 import DeliveryDelivering from "@/pages/Staff/DeliveryReport/DeliveryDelivering";
 import DeliveryDelivered from "@/pages/Staff/DeliveryReport/DeliveryDelivered";
 import DeliveryReturn from "@/pages/Staff/DeliveryReport/DeliveryReturn";
