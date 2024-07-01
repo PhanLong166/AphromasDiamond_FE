@@ -5,21 +5,21 @@ export const showAllOrderLineForAdmin = () => {
 }
 
 export const showAllOrderLineForCustomer = () => {
-    return get('/orderLine/showorderLines');
+    return get('/orderLine/showOrder');
 }
 
-export const orderLineDetail = (id: number) => {
+export const OrderLineDetail = (id: number) => {
     return get(`/orderLine/${id}`);
 }
 
-export const createorderLine = (orderLine: object) => {
+export const createOrderLine = (orderLine: object) => {
     return post('/orderLine/create', orderLine);
 }
 
-export const updateorderLine = (id: number, orderLine: object) => {
+export const updateOrderLine = (id: number, orderLine: object) => {
     return put(`/orderLine/update/${id}`, orderLine);
 }
 
-export const deleteorderLine = (id: number) => {
+export const deleteOrderLine = (id: number) => {
     return remove(`/orderLine/delete/${id}`);
 }
