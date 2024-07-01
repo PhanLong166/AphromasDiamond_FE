@@ -102,7 +102,7 @@ export const PageContent_Mid = styled.div`
 `;
 
 export const ProductImg = styled.div`
-  width: 40%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +117,7 @@ export const ProductImg = styled.div`
 `;
 
 export const ProductContent = styled.div`
-  width: 50%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   font-size: 14px;

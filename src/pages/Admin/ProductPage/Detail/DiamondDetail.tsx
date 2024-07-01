@@ -96,12 +96,7 @@ const DiamondDetail = () => {
                             label="Diamond ID"
                             className="InforLine_Title"
                           >
-                            <Input
-                              value={activeDiamond.diamondID}
-                              onChange={(e) =>
-                                handleFieldChange("diamondID", e.target.value)
-                              }
-                            />
+                            <p>{activeDiamond.diamondID}</p>
                           </Form.Item>
                           <Form.Item
                             label="Diamond Name"
@@ -159,31 +154,38 @@ const DiamondDetail = () => {
                             />
                           </Form.Item>
                           <Form.Item label="Polish" className="InforLine_Title">
-                            <Input
+                            <Select
+                              placeholder={activeDiamond.polish}
+                              options={[
+                                { value: "Excellent", label: "Excellent" },
+                                { value: "Very Good", label: "Very Good" },
+                                { value: "Good", label: "Good" },
+                                { value: "Fair", label: "Fair" },
+                                { value: "Poor", label: "Poor" },
+                              ]}
                               value={activeDiamond.polish}
-                              onChange={(e) =>
-                                handleFieldChange("polish", e.target.value)
-                              }
+                              onChange={(value) => handleFieldChange("polish", value)}
                             />
                           </Form.Item>
                           <Form.Item label="Cut" className="InforLine_Title">
-                            <Input
+                          <Select
+                              placeholder={activeDiamond.cut}
+                              options={[
+                                { value: "Excellent", label: "Excellent" },
+                                { value: "Very Good", label: "Very Good" },
+                                { value: "Good", label: "Good" },
+                                { value: "Fair", label: "Fair" },
+                                { value: "Poor", label: "Poor" },
+                              ]}
                               value={activeDiamond.cut}
-                              onChange={(e) =>
-                                handleFieldChange("cut", e.target.value)
-                              }
+                              onChange={(value) => handleFieldChange("cut", value)}
                             />
                           </Form.Item>
                           <Form.Item
                             label="Length/Width Ratio"
                             className="InforLine_Title"
                           >
-                            <Input
-                              value={activeDiamond.lwRatio}
-                              onChange={(e) =>
-                                handleFieldChange("lwRatio", e.target.value)
-                              }
-                            />
+                            <p>{activeDiamond.lwRatio}</p>
                           </Form.Item>
                           <Form.Item
                             label="Clarity"
@@ -208,51 +210,36 @@ const DiamondDetail = () => {
                             label="Symmetry"
                             className="InforLine_Title"
                           >
-                            <Input
+                            <Select
+                              placeholder={activeDiamond.symmetry}
+                              options={[
+                                { value: "Excellent", label: "Excellent" },
+                                { value: "Very Good", label: "Very Good" },
+                                { value: "Good", label: "Good" },
+                                { value: "Fair", label: "Fair" },
+                                { value: "Poor", label: "Poor" },
+                              ]}
                               value={activeDiamond.symmetry}
-                              onChange={(e) =>
-                                handleFieldChange("symmetry", e.target.value)
-                              }
+                              onChange={(value) => handleFieldChange("symmetry", value)}
                             />
                           </Form.Item>
                           <Form.Item
                             label="Carat Weight"
                             className="InforLine_Title"
                           >
-                            <Input
-                              value={activeDiamond.caratWeight}
-                              onChange={(e) =>
-                                handleFieldChange("caratWeight", e.target.value)
-                              }
-                            />
+                            <p>{activeDiamond.caratWeight}</p>
                           </Form.Item>
                           <Form.Item
                             label="Table %"
                             className="InforLine_Title"
                           >
-                            <Input
-                              value={activeDiamond.tablePercentage}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "tablePercentage",
-                                  e.target.value
-                                )
-                              }
-                            />
+                            <p>{activeDiamond.tablePercentage}</p>
                           </Form.Item>
                           <Form.Item
                             label="Depth %"
                             className="InforLine_Title"
                           >
-                            <Input
-                              value={activeDiamond.depthPercentage}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "depthPercentage",
-                                  e.target.value
-                                )
-                              }
-                            />
+                            <p>{activeDiamond.depthPercentage}</p>
                           </Form.Item>
                           <Form.Item
                             label="Fluorescence"

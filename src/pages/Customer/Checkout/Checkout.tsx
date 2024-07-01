@@ -2,17 +2,14 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import PromoCodeSection from "./PromoCode";
+import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 import { Steps } from "antd";
+import AddressDetails from "../../../components/Customer/Checkout/AddressDetails"; 
+import { getProvinces, getDistricts, getWards } from "./api";
 
 interface ContactInfoProps {
   email: string;
   onEdit: (newEmail: string) => void;
-}
-
-interface AddressDetailsProps {
-  address: string;
-  country: string;
 }
 
 interface CartItemProps {
@@ -93,99 +90,6 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
   );
 };
 
-const AddressDetails: React.FC<AddressDetailsProps> = () => (
-  <Section>
-    <h2>Shipping & Billing</h2>
-    <EditPTag>
-      <p>
-        Address Delivery
-        <span>
-          <hr></hr>
-        </span>
-      </p>
-    </EditPTag>
-    <InputRow>
-      <InputGroup>
-        <StyledLabel htmlFor="firstName">First Name</StyledLabel>
-        <StyledInput type="text" id="firstName" />
-      </InputGroup>
-      <InputGroup>
-        <StyledLabel htmlFor="lastName">Last Name</StyledLabel>
-        <StyledInput type="text" id="lastName" />
-      </InputGroup>
-    </InputRow>
-    <InputRow>
-      <InputGroup>
-        <StyledLabel htmlFor="city">City</StyledLabel>
-        <StyledInput type="text" id="city" />
-      </InputGroup>
-      <InputGroup>
-        <StyledLabel htmlFor="district">Disctrict</StyledLabel>
-        <StyledInput type="text" id="district" />
-      </InputGroup>
-    </InputRow>
-    <InputRow>
-      <InputGroup>
-        <StyledLabel htmlFor="ward">Ward</StyledLabel>
-        <StyledInput type="text" id="ward" />
-      </InputGroup>
-      <InputGroup>
-        <StyledLabel htmlFor="phoneNumber">Phone Number</StyledLabel>
-        <StyledInput type="text" id="phoneNumber" />
-      </InputGroup>
-    </InputRow>
-    <InputRow>
-    <InputGroup>
-        <StyledLabel htmlFor="address">Address Details</StyledLabel>
-        <StyledInput type="text" id="address" />
-      </InputGroup>
-    </InputRow>
-    <PaymentMethod />
-  </Section>
-);
-
-const PaymentMethod: React.FC = () => {
-  const [selectedPayment, setSelectedPayment] = useState<string | null>(null);
-
-  const handlePaymentChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
-    setSelectedPayment(event.target.value);
-  };
-
-  return (
-    <PaymentSection>
-      <PaymentDropdown
-        onChange={handlePaymentChange}
-        value={selectedPayment || ""}
-      >
-        <option value="">
-          <h2>Payment Method</h2>
-        </option>
-        <option value="vnpay">VnPay</option>
-        <option value="momo">Momo</option>
-        <option value="cod">COD</option>
-      </PaymentDropdown>
-      {selectedPayment && (
-        <PaymentImage
-          src={
-            selectedPayment === "vnpay"
-            ? "https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
-            : selectedPayment === "momo"
-            ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
-            : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2F122290830_132545211952745_2371548508191512996_n.jpg?alt=media&token=13186094-eb53-4e6c-98a0-1e7fe06b3664"
-          }
-          alt={
-            selectedPayment === "vnpay"
-              ? "VnPay"
-              : selectedPayment === "momo"
-              ? "Momo"
-              : "cod"
-          }
-        />
-      )}
-    </PaymentSection>
-  );
-};
-
 const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
   <CartItemContainer>
     <img src={image} alt={name} />
@@ -229,6 +133,50 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
 
 const description = "This is a description";
 const Checkout: React.FC = () => {
+
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [provinces, setProvinces] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [districts, setDistricts] = useState<any[]>([]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [wards, setWards] = useState<any[]>([]);
+  const [selectedProvince, setSelectedProvince] = useState<number | null>(null);
+  const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
+
+  React.useEffect(() => {
+    const fetchProvincesData = async () => {
+      try {
+        const data = await getProvinces();
+        setProvinces(data);
+      } catch (error) {
+        console.error("Error fetching provinces:", error);
+      }
+    };
+
+    fetchProvincesData();
+  }, []);
+
+  const handleProvinceChange = async (provinceId: number) => {
+    setSelectedProvince(provinceId);
+    setSelectedDistrict(null); // Reset lại quận/huyện khi thay đổi tỉnh/thành phố
+    try {
+      const data = await getDistricts(provinceId);
+      setDistricts(data);
+    } catch (error) {
+      console.error("Error fetching districts:", error);
+    }
+  };
+
+  const handleDistrictChange = async (districtId: number) => {
+    setSelectedDistrict(districtId);
+    try {
+      const data = await getWards(districtId);
+      setWards(data);
+    } catch (error) {
+      console.error("Error fetching wards:", error);
+    }
+  };
+
   const handleEdit = () => {
     console.log("Edit Contact Info");
   };
@@ -266,13 +214,20 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Form>
-            <form> 
+            
             <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} /> 
             <AddressDetails
-              address="428 Nguyen Van Ba, Di An, Tp Binh Duong"
-              country="VietNam"
+              address=""
+              provinces={provinces}
+              districts={districts}
+              wards={wards}
+              selectedProvince={selectedProvince}
+              selectedDistrict={selectedDistrict}
+              onProvinceChange={handleProvinceChange}
+              onDistrictChange={handleDistrictChange}
             />
-            </form>
+            {/* <PaymentMethod /> */}
+            
           </Form>
           <Summary
             items={[
@@ -342,21 +297,6 @@ const StepEdit = styled.div`
   justify-content: space-around;
   .steps-edit {
     max-width: 1000px;
-  }
-`;
-
-const PaymentDropdown = styled.select`
-  padding: 10px;
-  font-size: 16px;
-  border-radius: 5px;
-  border: 1px solid #ccc;
-  margin-bottom: 10px;
-  width: 380px;
-  border-radius: 10px;
-  transition: border-color 0.3s, background-color 0.3s;
-
-  &:hover {
-    border-color: #1677ff;
   }
 `;
 
@@ -468,16 +408,6 @@ const SaveButton = styled.button`
   font-size: 15px;
 `;
 
-const PaymentImage = styled.img`
-  width: 178px;
-  object-fit: contain;
-  margin-top: 15px;
-  max-width: 100%;
-  @media (max-width: 991px) {
-    margin-top: 40px;
-  }
-`;
-
 const EditTotal = styled.div`
   display: flex;
   word-spacing: 171px;
@@ -515,24 +445,6 @@ const BtnContinue = styled.button`
   }
 `;
 
-const EditPTag = styled.p`
-  font-weight: bold;
-`;
-
-const InputRow = styled.div`
-  display: flex;
-  gap: 20px;
-`;
-
-const InputGroup = styled.div`
-  display: flex;
-  flex-direction: column;
-  flex: 1;
-`;
-
-const StyledLabel = styled.label`
-  margin-bottom: 5px;
-`;
 
 const StyledInput = styled.input`
   padding: 9px;
@@ -548,13 +460,6 @@ const StyledInput = styled.input`
     border-color: #1677ff;
     outline: none;
   }
-`;
-
-const PaymentSection = styled.div`
-  margin-bottom: 5px;
-  font-weight: 600;
-  display: flex;
-  flex-direction: column;
 `;
 
 const CartItemContainer = styled.div`
@@ -578,4 +483,3 @@ const CartItemContainer = styled.div`
   }
 `;
 
-// export default Checkout;

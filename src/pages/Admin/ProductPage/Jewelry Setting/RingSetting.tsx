@@ -280,11 +280,6 @@ const JewelrySetting = () => {
       onFilter: (value: boolean | React.Key, record: RingDataType) =>
         record.type.indexOf(value as string) === 0,
     },
-    {
-      title: "Width",
-      dataIndex: "width",
-      sorter: (a: RingDataType, b: RingDataType) => a.width - b.width,
-    },
     // {
     //   title: "Edit",
     //   dataIndex: "edit",
