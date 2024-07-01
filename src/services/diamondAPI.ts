@@ -16,8 +16,8 @@ export const createDiamond = (diamond: object) => {
     return post('/diamond/create', diamond);
 }
 
-export const updateDiamond = (diamond: object) => {
-    return put('/diamond/update/{id}', diamond);
+export const updateDiamond = (id: number, diamond: object) => {
+    return put(`/diamond/update/${id}`, diamond);
 }
 
 export const deleteDiamond = () => {
