@@ -20,7 +20,16 @@ const routes = {
     size: "/find-ring-size",
     wish: "/wishlist",
     cs:"/learn-4cs",
-    certification: "/diamond-certification"
+    certification: "/diamond-certification",
+    shape: "/diamond-shape",
+    buying: "/buying-guide",
+    metalEdu: "/metal-education",
+    earringEdu: "/earrings-education",
+    necklaceEdu: "/necklaces-education",
+    braceletEdu: "/bracelets-education",
+    engagementEdu: "/engagement-ring-education",
+    weddingEdu: "/wedding-ring-education",
+
   },
   customer: {
     account: "/account",
