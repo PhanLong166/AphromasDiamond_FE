@@ -22,13 +22,11 @@ import Marketing from "@/pages/Staff/SalesStaff/MarketingPage/Marketing";
 import Messages from "@/pages/Staff/SalesStaff/ClientCaringPage/Message";
 import Feedback from "@/pages/Staff/SalesStaff/ClientCaringPage/Feedback";
 
-
-import StaffLayout from "@/layouts/StaffLayout"
-import DeliveryReport from "@/pages/Staff/DeliveryReport/DeliveryPending";
 import DeliveryDelivering from "@/pages/Staff/DeliveryReport/DeliveryDelivering";
 import DeliveryDelivered from "@/pages/Staff/DeliveryReport/DeliveryDelivered";
 import DeliveryReturn from "@/pages/Staff/DeliveryReport/DeliveryReturn";
 import DeliveryCompleted from "@/pages/Staff/DeliveryReport/DeliveryCompleted";
+import DeliveryPending from "@/pages/Staff/DeliveryReport/DeliveryPending";
 
 
 const StaffRouter = () => {
@@ -73,11 +71,11 @@ const salesStaffRoutes = {
 const deliStaffRoutes = {
     // element: <DeliStaffRoutes/>,
     children: [
-        {path: config.routes.deliStaff.deliveryPending, element: <DeliveryReport />},
+        {path: config.routes.deliStaff.deliveryPending, element: <DeliveryPending />},
         {path: config.routes.deliStaff.deliveryDelivering, element: <DeliveryDelivering />},
-        {path: config.routes.deliStaff.deliveredDelivered, element: <DeliveryDelivered />},
-        {path: config.routes.deliStaff.deliveredReturn, element: <DeliveryReturn />},
-        {path: config.routes.deliStaff.deliveredCompleted, element: <DeliveryCompleted />}
+        {path: config.routes.deliStaff.deliveryDelivered, element: <DeliveryDelivered />},
+        {path: config.routes.deliStaff.deliveryReturn, element: <DeliveryReturn />},
+        {path: config.routes.deliStaff.deliveryCompleted, element: <DeliveryCompleted />}
     ]
 }
 

@@ -126,7 +126,7 @@ const initialData: DataType[] = [
 
 
 
-const DeliveryReport = () => {
+const DeliveryPending = () => {
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState(initialData);
 
@@ -211,4 +211,4 @@ const DeliveryReport = () => {
   );
 };
 
-export default DeliveryReport;
+export default DeliveryPending;

@@ -1,11 +1,8 @@
 // import * as React from 'react';
 import { Link } from "react-router-dom";
 import styled from "styled-components";
-import { Button, Flex } from "antd";
-import Dropdown from "./Dropdown";
-import PromoCodeSection from "../Checkout/PromoCode";
-// import ProcessBar from '@/components/Customer/Process Bar/ProcessBar';
-import { Breadcrumb as AntBreadcrumb } from "antd";
+import { Button, Flex, Select } from "antd";
+import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 
 const Cart = () => {
   return (
@@ -14,22 +11,8 @@ const Cart = () => {
         <ContainerHeader>
           <Header>Shopping Cart</Header>
         </ContainerHeader>
-        {/* <CustomBreadcrumb> */}
-
-        <ContainerCrum>
-          <CustomBreadcrumb separator="━━━━━━━━━━━━━━━━━━━━━>">
-           <AntBreadcrumb.Item><span style={{ color: "black" }}>Cart</span></AntBreadcrumb.Item>
-            <AntBreadcrumb.Item>
-              <Link to="/checkout">Checkout</Link>
-            </AntBreadcrumb.Item>
-            <AntBreadcrumb.Item>
-              <Link to="/payment">Payment</Link>
-            </AntBreadcrumb.Item>
-          </CustomBreadcrumb>
-        </ContainerCrum>
         <Container>
           <InnerContainer>
-            {/* <TitlePage>Cart</TitlePage> */}
             <ContinueShopping>
               <span>
                 <i className="fa-solid fa-chevron-up fa-rotate-270"></i>
@@ -37,6 +20,8 @@ const Cart = () => {
               <Link to={"/all"}>Continue Shopping</Link>
             </ContinueShopping>
             <CountCart>MY CART 4 ITEMS</CountCart>
+
+            
             <MainSection>
               <Column>
                 <ItemContainer>
@@ -123,7 +108,7 @@ const Cart = () => {
                   <ItemDetails>
                     <ItemInfo>
                       <ItemImage
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.png?alt=media&token=5933d121-78ec-44c7-ab0a-42e2531b532f"
                         alt="Diamond (Loose)"
                       />
                     </ItemInfo>
@@ -133,14 +118,25 @@ const Cart = () => {
                         1.52 Carat F-VS1 Princess Cut Diamond <br />
                         SKU&nbsp;18633320
                       </ProductDescription>
-                      <Dropdown />
+                      <Select
+                        placeholder="Ring Size"
+                        style={{ width: 110 }}
+                        options={[
+                          { value: "1", label: "4" },
+                          { value: "2", label: "4.5" },
+                          { value: "3", label: "5" },
+                          { value: "4", label: "5.5" },
+                          { value: "5", label: "6" },
+                          { value: "6", label: "6.5" },
+                        ]}
+                      />
                     </ItemDescription>
                     <RingPrice>$8,000</RingPrice>
                   </ItemDetails>
                 </ItemContainer>
                 <ItemContainer>
                   <ActionText>
-                    {" "}
+                    
                     <Flex gap="small" wrap>
                       <Button type="text">VIEW</Button>
                       <Button type="text">REMOVE</Button>
@@ -149,7 +145,7 @@ const Cart = () => {
                   <ItemDetails>
                     <ItemInfo>
                       <ItemImage
-                        src="https://cdn.builder.io/api/v1/image/assets/TEMP/a527c43f562643fd679d5e3998504cd178bcdecc8dea063d00c126a6644eb790?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.png?alt=media&token=5933d121-78ec-44c7-ab0a-42e2531b532f"
                         alt="Diamond (Loose)"
                       />
                     </ItemInfo>
@@ -159,7 +155,18 @@ const Cart = () => {
                         1.52 Carat F-VS1 Princess Cut Diamond <br />
                         SKU&nbsp;18633320
                       </ProductDescription>
-                      <Dropdown />
+                      <Select
+                        placeholder="Ring Size"
+                        style={{ width: 110 }}
+                        options={[
+                          { value: "1", label: "4" },
+                          { value: "2", label: "4.5" },
+                          { value: "3", label: "5" },
+                          { value: "4", label: "5.5" },
+                          { value: "5", label: "6" },
+                          { value: "6", label: "6.5" },
+                        ]}
+                      />
                     </ItemDescription>
                     <RingPrice>$8,000</RingPrice>
                   </ItemDetails>
@@ -192,19 +199,20 @@ const Cart = () => {
                   <OrDivider>OR</OrDivider>
                   <Link to="/thanks-page">
                     <PaymentMethodImage
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/4762099b96e0d9911e6dbbff51ed4164d0ebf441a4af10ca789ca321f8ea0dbb?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                      src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
                       alt="Credit card icons"
                     />
                   </Link>
                   <Link to="thanks-page">
                     <PaymentMethodImage
-                      src="https://cdn.builder.io/api/v1/image/assets/TEMP/33c97bbfdfd1027e752ab9f974297feaabc0fea312ba85eead4c91a971711218?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
                       alt="Credit card icons"
                     />
                   </Link>
                 </SummaryContainer>
               </Sidebar>
             </MainSection>
+            
             <ShippingSection>
               <ShippingIcon
                 src="https://cdn.builder.io/api/v1/image/assets/TEMP/6933788e6c8896639db19bae2d37194ec1e54bd5cf3292e8cc54f2247afd9959?apiKey=5672b1354002436f9bda9e8bc0a69a3b&"
@@ -225,60 +233,6 @@ const Cart = () => {
 
 export default Cart;
 
-
-const ContainerCrum = styled.div`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  /* padding: 0 24px; */
-  text-align: center;
-  /* font-size: 0.875rem; sm text */
-  font-weight: 500; /* medium font weight */
-  color: #000000; /* gray-500 */
-`;
-
-const CustomBreadcrumb = styled(AntBreadcrumb)`
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  width: 1400px;
-  padding: 0 24px;
-  text-align: center;
-  font-size: 0.875rem; /* sm text */
-  font-weight: 500; /* medium font weight */
-  color: #6b7280; /* gray-500 */
-  margin-bottom: 1rem;
-
-  .ant-breadcrumb-link {
-    color: #1d4ed8; /* primary-700 */
-  }
-
-  .ant-breadcrumb-separator {
-    margin: 0 8px; /* mx-2 */
-    color: #000000; /* gray-200 */
-  }
-
-  @media (min-width: 640px) {
-    font-size: 18px; /* base text */
-  }
-
-  @media (prefers-color-scheme: dark) {
-    color: #d1d5db; /* gray-400 in dark mode */
-
-    .ant-breadcrumb-link {
-      color: #2563eb; /* primary-500 in dark mode */
-    }
-
-    .ant-breadcrumb-separator {
-      color: #6b7280; /* gray-500 in dark mode */
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-  }
-`;
-
 const ContainerHeader = styled.div`
   display: flex;
   align-items: canter;
@@ -296,7 +250,7 @@ const Header = styled.header`
   padding: 10px 0;
   display: flex;
   /* margin: 0 35px 0 35px; */
-  margin-bottom: 1rem;
+  margin-bottom: 10rem;
   @media (max-width: 991px) {
     padding: 0 20px 0 30px;
     margin-top: 40px;
@@ -557,10 +511,12 @@ const SummaryTotal = styled.div`
 
 const TotalLabel = styled.p`
   font-family: Poppins, sans-serif;
+  font-weight: 600;
 `;
 
 const TotalValue = styled.p`
   font-family: Poppins, sans-serif;
+  font-weight: 600;
 `;
 
 const CheckoutButton = styled.button`
@@ -617,7 +573,7 @@ const OrDivider = styled.p`
 const PaymentMethodImage = styled.img`
   width: 136px;
   object-fit: contain;
-  border: 1px solid rgba(0, 0, 0, 1);
+  /* border: 1px solid rgba(0, 0, 0, 1); */
   margin-top: 15px;
   max-width: 100%;
   @media (max-width: 991px) {
