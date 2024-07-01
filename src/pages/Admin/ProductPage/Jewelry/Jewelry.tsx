@@ -44,7 +44,7 @@ const onChange: TableProps<ProductDataType>["onChange"] = (
 onChange;
 const Jewelry = () => {
   const [searchText, setSearchText] = useState("");
-  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
+  const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isModalVisible, setIsModalVisible] = useState(false); // Add this line
   const navigate = useNavigate(); // Update this line
 
@@ -72,7 +72,7 @@ const Jewelry = () => {
     exchangeRate: number,
     currency: "VND" | "USD"
   ) => {
-    if (currency === "VND") {
+    if (currency === "USD") {
       return price * exchangeRate;
     }
     return price;
@@ -227,7 +227,7 @@ const Jewelry = () => {
                 </Styled.SearchArea>
 
                 <Select
-                  defaultValue="USD"
+                  defaultValue="VND"
                   style={{ width: 120, height: "45px" }}
                   onChange={handleCurrencyChange}
                   options={[

@@ -99,7 +99,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 const Diamond = () => {
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
-  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
+  const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isAdding, setIsAdding] = useState(false);
 
   useEffect(() => {
@@ -137,7 +137,7 @@ const Diamond = () => {
     exchangeRate: number,
     currency: "VND" | "USD"
   ) => {
-    if (currency === "VND") {
+    if (currency === "USD") {
       return price * exchangeRate;
     }
     return price;
@@ -313,12 +313,12 @@ const Diamond = () => {
                     </Styled.SearchArea>
 
                     <Select
-                      defaultValue="USD"
+                      defaultValue="VND"
                       style={{ width: 120, height: "45px" }}
                       onChange={handleCurrencyChange}
                       options={[
-                        { value: "USD", label: "USD" },
                         { value: "VND", label: "VND" },
+                        { value: "USD", label: "USD" },
                       ]}
                     />
                   </Styled.AdPageContent_HeadLeft>
