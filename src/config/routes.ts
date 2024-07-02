@@ -32,7 +32,7 @@ const routes = {
     engagementEdu: "/engagement-ring-education",
     weddingEdu: "/wedding-ring-education",
     success: "/success",
-
+    fail: "/fail",
   },
   customer: {
     account: "/account",

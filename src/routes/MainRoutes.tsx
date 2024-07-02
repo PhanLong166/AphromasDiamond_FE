@@ -43,6 +43,7 @@ import EarringEdu from "@/pages/Home/EarringEdu/EarringEdu";
 import NecklaceEdu from "@/pages/Home/NecklaceEdu/NecklaceEdu";
 import BraceletEdu from "@/pages/Home/BraceletEdu/BraceletEdu";
 import ThankPageSuccess from "@/pages/Home/ThankPage/ThankPageSuccess";
+import ThankPageFail from "@/pages/Home/ThankPage/ThankPageFail";
 
 
 const MainRouter = () => {
@@ -95,6 +96,7 @@ const publicRoutes = {
     { path: config.routes.public.necklaceEdu, element: <NecklaceEdu /> },
     { path: config.routes.public.braceletEdu, element: <BraceletEdu /> },
     { path: config.routes.public.success, element: <ThankPageSuccess /> },
+    { path: config.routes.public.fail, element: <ThankPageFail /> },
   ],
 };
 

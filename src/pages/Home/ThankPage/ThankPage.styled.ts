@@ -6,7 +6,6 @@ export const Container = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
-  
 
   .thank-page-success-box {
     position: relative;
@@ -50,6 +49,11 @@ export const Container = styled.div`
 
   .thank-page-success-image {
     width: 400px;
+    height: 100%;
+    margin: 20px auto;
+  }
+  .thank-page-fail-image {
+    width: 300px;
     height: 100%;
     margin: 20px auto;
   }
@@ -211,5 +215,11 @@ export const Container = styled.div`
     font-size: 20px;
     font-weight: 500;
     padding: 10px 0;
+  }
+
+  .title-fail {
+    margin: 20px 0;
+    font-size: 17px;
+    color: #a5a3a2;
   }
 `;
