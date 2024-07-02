@@ -45,7 +45,7 @@ const columns: TableColumnsType<DataType> = [
     render: (_, { status }) => {
       let color = "green";
       if (status === "Pending") {
-        color = "volcano";
+        color = "red";
       } else if (status === "Accepted") {
         color = "yellow";
       } else if (status === "Assigned") {
@@ -57,7 +57,7 @@ const columns: TableColumnsType<DataType> = [
       } else if (status === "Completed") {
         color = "green";
       } else if (status === "Cancelled") {
-        color = "grey";
+        color = "default";
       }
       return (
         <Tag color={color} key={status}>

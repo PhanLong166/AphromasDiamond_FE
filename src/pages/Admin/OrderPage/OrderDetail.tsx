@@ -11,7 +11,7 @@ import { Link, useParams } from "react-router-dom";
 const getStatusTag = (status: string) => {
   let color = "green";
   if (status === "Pending") {
-    color = "volcano";
+    color = "red";
   } else if (status === "Accepted") {
     color = "yellow";
   } else if (status === "Assigned") {
@@ -23,7 +23,7 @@ const getStatusTag = (status: string) => {
   } else if (status === "Completed") {
     color = "green";
   } else if (status === "Cancelled") {
-    color = "grey";
+    color = "default";
   }
   return (
     <Tag color={color} key={status}>

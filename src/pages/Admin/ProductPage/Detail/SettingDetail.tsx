@@ -676,14 +676,14 @@
 
 
 
-import * as Styled from "./ProductDetail.styled";
+import * as Styled from "./SettingDetail.styled";
 import React, { useState, useEffect } from "react";
-import { Button, Modal, Form, Input, Select, Popconfirm, Table, Typography } from "antd";
+import { Button, Modal, Form, Input, Select, Popconfirm, Table, Typography, Popover } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { SaveOutlined, DeleteOutlined } from "@ant-design/icons";
-import { ringMaterialData, RingMaterialDataType, MaterialDataType, ringData, ringSizeData, materialData, RingDataType } from "../ProductData";
+import { SaveOutlined, DeleteOutlined, InfoCircleOutlined } from "@ant-design/icons";
+import { ringMaterialData, RingMaterialDataType, MaterialDataType, ringData, ringSizeData, materialData, RingDataType, productData } from "../ProductData";
 
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -698,9 +698,22 @@ const getMaterialDetails = (materialID: string, materialData: MaterialDataType[]
   return materialData.find((material) => material.materialID === materialID);
 };
 
+const PriceCalculation = (
+  <div>
+    (Weight * Price per Gram + Auxiliary Cost + Production Cost)* Charge Rate
+  </div>
+);
+
 const JewelrySettingDetail = () => {
   const { id } = useParams<{ id: string }>();
   const activeRingSetting = ringData.find((setting) => setting.jewelrySettingID === id);
+  const activeProduct = activeRingSetting
+  ? productData.find(
+      (jewelry) =>
+        jewelry.jewelrySettingID === activeRingSetting.jewelrySettingID
+    )
+  : null;
+
   const [isEditing, setIsEditing] = useState(false);
   const [editedProduct, setEditedProduct] = useState(activeRingSetting);
   const [data, setData] = useState<RingMaterialDataType[]>([]);
@@ -764,7 +777,7 @@ const JewelrySettingDetail = () => {
     onChange: (value: any) => void;
     options?: { value: string, label: string }[];
   }> = ({
-    title,
+    // title,
     editable,
     value,
     onChange,
@@ -796,7 +809,7 @@ const JewelrySettingDetail = () => {
     value: any;
     onChange: (value: any) => void;
   }> = ({
-    title,
+    // title,
     editable,
     value,
     onChange,
@@ -852,10 +865,13 @@ const JewelrySettingDetail = () => {
     {
       title: (
         <>
-          Jewelry Setting Price
-          <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
-            (Weight * Price per Gram + Auxiliary Cost + Production Cost)
-          </Typography.Text>
+          Jewelry Setting Price 
+          {/* <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
+            ()
+          </Typography.Text> */}
+          <Popover content={PriceCalculation} title="Price Calculation" trigger="click">
+            <InfoCircleOutlined style={{ marginLeft: 8, fontSize:"12px" }}/>
+          </Popover>
         </>
       ),
       dataIndex: "price",
@@ -889,6 +905,22 @@ const JewelrySettingDetail = () => {
     },
   ];
 
+
+  // DELETE JEWELRY SETTING
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleOk = () => {
+    // Handle the submission logic here
+    setIsModalVisible(false);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
   
 
   return (
@@ -901,131 +933,151 @@ const JewelrySettingDetail = () => {
           <Styled.PageContent>
             {activeRingSetting ? (
               <>
-                {isEditing ? (
+                {activeProduct ? (
                   <>
-                    <Styled.PageContent_Bot>
-                      <Styled.PageDetail_Title>
-                        <p>Jewelry Detail</p>
-                      </Styled.PageDetail_Title>
-                      <Styled.PageDetail_Infor>
-                        <Styled.ProductImg>
-                          <img
-                            src={activeRingSetting.jewelrySettingImg}
-                            alt={activeRingSetting.jewelrySettingName}
-                          />
-                        </Styled.ProductImg>
-                        <Styled.ProductContent>
-                          <Form.Item
-                            label="Jewelry Setting ID"
-                            className="InforLine_Title"
-                          >
-                            <Input
-                              value={editedProduct?.jewelrySettingID}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "jewelrySettingID",
-                                  e.target.value
-                                )
-                              }
+                    {isEditing ? (
+                      <>
+                        <Styled.PageContent_Bot>
+                          <Styled.PageDetail_Title>
+                            <p>Jewelry Detail</p>
+                          </Styled.PageDetail_Title>
+                          <Styled.PageDetail_Infor>
+                            <Styled.ProductImg>
+                              <img
+                                src={activeRingSetting.jewelrySettingImg}
+                                alt={activeRingSetting.jewelrySettingName}
+                              />
+                            </Styled.ProductImg>
+                            <Styled.ProductContent>
+                              <Form.Item
+                                label="Jewelry ID"
+                                className="InforLine_Title"
+                              >
+                                <Input
+                                  value={activeProduct?.jewelryID}
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      "jewelryID",
+                                      e.target.value
+                                    )
+                                  }
+                                  disabled
+                                />
+                              </Form.Item>
+                              <Form.Item
+                                label="Jewelry Setting ID"
+                                className="InforLine_Title"
+                              >
+                                <Input
+                                  value={editedProduct?.jewelrySettingID}
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      "jewelrySettingID",
+                                      e.target.value
+                                    )
+                                  }
+                                  disabled
+                                />
+                              </Form.Item>
+                              <Form.Item
+                                label="Jewelry Setting Name"
+                                className="InforLine_Title"
+                              >
+                                <Input
+                                  value={editedProduct?.jewelrySettingName}
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      "jewelrySettingName",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </Form.Item>
+                              <Form.Item
+                                label="Jewelry Setting Type"
+                                className="InforLine_Title"
+                              >
+                                <Select
+                                  //   defaultValue="Select Clarity"
+                                  className="formItem"
+                                  placeholder={editedProduct?.type}
+                                  options={[
+                                    { value: "Ring", label: "Ring" },
+                                    { value: "Necklace", label: "Necklace" },
+                                    { value: "Earring", label: "Earring" },
+                                    { value: "Bracelet", label: "Bracelet" },
+                                    { value: "Anklet", label: "Anklet" },
+                                    { value: "Bangle", label: "Bangle" },
+                                    { value: "Choker", label: "Choker" },
+                                    { value: "Pendant", label: "Pendant" },
+                                  ]}
+                                  value={editedProduct?.type}
+                                  onChange={(value) =>
+                                    handleFieldChange("type", value)
+                                  }
+                                />
+                              </Form.Item>
+                              <Form.Item
+                                label="Auxiliary Cost"
+                                className="InforLine_Title"
+                              >
+                                <Input
+                                  value={editedProduct?.auxiliaryCost}
+                                  onChange={(e) =>
+                                    handleFieldChange(
+                                      "auxiliaryCost",
+                                      e.target.value
+                                    )
+                                  }
+                                />
+                              </Form.Item>
+                            </Styled.ProductContent>
+                          </Styled.PageDetail_Infor>
+                          <Styled.MaterialTable>
+                            <Button
+                              onClick={handleAdd}
+                              type="primary"
+                              style={{ marginBottom: 16 }}
+                            >
+                              Add a row
+                            </Button>
+                            <Table
+                              dataSource={data}
+                              columns={columns}
+                              rowClassName={() => "editable-row"}
+                              bordered
+                              pagination={false}
                             />
-                          </Form.Item>
-                          <Form.Item
-                            label="Jewelry Setting Name"
-                            className="InforLine_Title"
+                          </Styled.MaterialTable>
+                        </Styled.PageContent_Bot>
+                        <Styled.ActionBtn>
+                          <Button
+                            className="MainBtn"
+                            onClick={() => setIsEditing(false)}
                           >
-                            <Input
-                              value={editedProduct?.jewelrySettingName}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "jewelrySettingName",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </Form.Item>
-                          <Form.Item
-                            label="Jewelry Setting Type"
-                            className="InforLine_Title"
-                          >
-                            <Select
-                              //   defaultValue="Select Clarity"
-                              className="formItem"
-                              placeholder={editedProduct?.type}
-                              options={[
-                                { value: "Ring", label: "Ring" },
-                                { value: "Necklace", label: "Necklace" },
-                                { value: "Earring", label: "Earring" },
-                                { value: "Bracelet", label: "Bracelet" },
-                                { value: "Anklet", label: "Anklet" },
-                                { value: "Bangle", label: "Bangle" },
-                                { value: "Choker", label: "Choker" },
-                                { value: "Pendant", label: "Pendant" },
-                              ]}
-                              value={editedProduct?.type}
-                              onChange={(value) => handleFieldChange("type", value)}
-                            />
-                          </Form.Item>
-                          <Form.Item
-                            label="Auxiliary Cost"
-                            className="InforLine_Title"
-                          >
-                            <Input
-                              value={editedProduct?.auxiliaryCost}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "auxiliaryCost",
-                                  e.target.value
-                                )
-                              }
-                            />
-                          </Form.Item>
-                        </Styled.ProductContent>
-                      </Styled.PageDetail_Infor>
-                      <Styled.MaterialTable>
-                        <Button
-                          onClick={handleAdd}
-                          type="primary"
-                          style={{ marginBottom: 16 }}
-                        >
-                          Add a row
-                        </Button>
-                        <Table
-                          dataSource={data}
-                          columns={columns}
-                          rowClassName={() => "editable-row"}
-                          bordered
-                          pagination={false}
-                        />
-                      </Styled.MaterialTable>
-                    </Styled.PageContent_Bot>
-                    <Styled.ActionBtn>
-                      <Button
-                        className="MainBtn"
-                        onClick={() => setIsEditing(false)}
-                      >
-                        <SaveOutlined />
-                        Save Change
-                      </Button>
-                      <Link to="/admin/product/jewelry">
-                        <Button style={{ marginLeft: "10px" }}>Back</Button>
-                      </Link>
-                    </Styled.ActionBtn>
-                  </>
-                ) : (
-                  <>
-                    <Styled.PageContent_Bot>
-                      <Styled.PageDetail_Title>
-                        <p>Jewelry Detail</p>
-                      </Styled.PageDetail_Title>
-                      <Styled.PageDetail_Infor>
-                        <Styled.ProductImg>
-                          <img
-                            src={activeRingSetting.jewelrySettingImg}
-                            alt={activeRingSetting.jewelrySettingName}
-                          />
-                        </Styled.ProductImg>
-                        <Styled.ProductContent>
-                          <Form.Item
+                            <SaveOutlined />
+                            Save Change
+                          </Button>
+                          <Link to="/admin/product/jewelry">
+                            <Button style={{ marginLeft: "10px" }}>Back</Button>
+                          </Link>
+                        </Styled.ActionBtn>
+                      </>
+                    ) : (
+                      <>
+                        <Styled.PageContent_Bot>
+                          <Styled.PageDetail_Title>
+                            <p>Jewelry Detail</p>
+                          </Styled.PageDetail_Title>
+                          <Styled.PageDetail_Infor>
+                            <Styled.ProductImg>
+                              <img
+                                src={activeRingSetting.jewelrySettingImg}
+                                alt={activeRingSetting.jewelrySettingName}
+                              />
+                            </Styled.ProductImg>
+                            <Styled.ProductContent>
+                              {/* <Form.Item
                             label="Jewelry Setting ID"
                             className="InforLine_Title"
                           >
@@ -1048,36 +1100,97 @@ const JewelrySettingDetail = () => {
                             className="InforLine_Title"
                           >
                             {editedProduct?.auxiliaryCost}
-                          </Form.Item>
-                        </Styled.ProductContent>
-                      </Styled.PageDetail_Infor>
-                      <Styled.MaterialTable>
-                        <Table
-                          dataSource={data}
-                          columns={columns}
-                          rowClassName={() => "editable-row"}
-                          bordered
-                          pagination={false}
-                        />
-                      </Styled.MaterialTable>
-                    </Styled.PageContent_Bot>
-                    <Styled.ActionBtn>
-                      <Button
-                        onClick={() => setIsEditing(true)}
-                        type="primary"
-                        style={{ marginBottom: 16 }}
-                      >
-                        Edit
-                      </Button>
-                      <Link to="/admin/product/jewelry">
-                        <Button style={{ marginLeft: "10px" }}>Back</Button>
-                      </Link>
-                    </Styled.ActionBtn>
+                          </Form.Item> */}
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">Jewelry ID</p>
+                                <p>{activeProduct?.jewelryID}</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">
+                                  Jewelry Setting ID
+                                </p>
+                                <p>{editedProduct?.jewelrySettingID}</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">
+                                  Jewelry Setting Name
+                                </p>
+                                <p>{editedProduct?.jewelrySettingName}</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">
+                                  Jewelry Setting Type
+                                </p>
+                                <p>{editedProduct?.type}</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">Weight (gram)</p>
+                                <p>{editedProduct?.weight} gram</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">Update Time</p>
+                                <p>{editedProduct?.updateTime}</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">
+                                  Auxiliary Cost
+                                </p>
+                                <p>{editedProduct?.auxiliaryCost}</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">
+                                  Charge Rate (%)
+                                </p>
+                                <p>{editedProduct?.chargeRate}%</p>
+                              </Styled.InforLine>
+                            </Styled.ProductContent>
+                          </Styled.PageDetail_Infor>
+                          <Styled.MaterialTable>
+                            <Table
+                              dataSource={data}
+                              columns={columns}
+                              rowClassName={() => "editable-row"}
+                              bordered
+                              pagination={false}
+                            />
+                          </Styled.MaterialTable>
+                        </Styled.PageContent_Bot>
+                        <Styled.ActionBtn>
+                          <Styled.ActionBtn_Left>
+                            <Button
+                              onClick={() => setIsEditing(true)}
+                              type="primary"
+                              style={{ marginBottom: 16 }}
+                            >
+                              Edit
+                            </Button>
+                            <Link to="/admin/product/jewelry-setting">
+                              <Button style={{ marginLeft: "10px" }}>
+                                Back
+                              </Button>
+                            </Link>
+                          </Styled.ActionBtn_Left>
+                          <Styled.ActionBtn_Right>
+                            <Button className="DeleteBtn" onClick={showModal}>
+                              Delete
+                            </Button>
+                            <Modal
+                              title="Select Delivery Person"
+                              visible={isModalVisible}
+                              onOk={handleOk}
+                              onCancel={handleCancel}
+                            ></Modal>
+                          </Styled.ActionBtn_Right>
+                        </Styled.ActionBtn>
+                      </>
+                    )}
                   </>
+                ) : (
+                  <p>No Jewelry found.</p>
                 )}
               </>
             ) : (
-              <p>No data found.</p>
+              <p>No Jewelry Setting found.</p>
             )}
           </Styled.PageContent>
         </Styled.AdminPage>
