@@ -30,6 +30,7 @@ const routes = {
     braceletEdu: "/bracelets-education",
     engagementEdu: "/engagement-ring-education",
     weddingEdu: "/wedding-ring-education",
+    success: "/success",
 
   },
   customer: {

@@ -300,7 +300,7 @@ const ProductDetails: React.FC = () => {
                 <div>
                   <RingSizeContainer>
                     <RingSize>Select size</RingSize>
-                    <RingSizeHelp href="/ring-guide">
+                    <RingSizeHelp href="/find-ring-size">
                       Ring size help
                     </RingSizeHelp>
                   </RingSizeContainer>
