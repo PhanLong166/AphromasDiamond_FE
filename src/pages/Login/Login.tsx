@@ -28,12 +28,13 @@ const Login = () => {
 
             if (!data.data) throw data;
             else {
+                await messageApi.success('Login successfully');
                 cookieUtils.setItem(config.cookies.token, data.data.token);
                 navigate(config.routes.public.home);
             }
         } catch (error: any) {
             if (error.response) messageApi.error(error.response.data);
-            else messageApi.error(error.message);
+            else messageApi.error(error.statusCode === 404 ? "This account haven't created" : error.message);
         } finally {
             setIsSubmitting(false);
         }

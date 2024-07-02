@@ -1,5 +1,5 @@
 import * as Styled from "./Diamond.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import {
   Table,
@@ -31,6 +31,7 @@ import { diamondData, DiamondDataType } from "../ProductData"; // Import data he
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
+import { showAllDiamond } from "@/services/diamondAPI";
 
 
 
@@ -85,6 +86,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
       .validateFields({ validateOnly: true })
       .then(() => setSubmittable(true))
       .catch(() => setSubmittable(false));
+
   }, [form, values]);
 
   return (
@@ -99,6 +101,16 @@ const Diamond = () => {
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isAdding, setIsAdding] = useState(false);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const { data } = await showAllDiamond();
+      console.log(data);
+    }
+    fetchData();
+
+    console.log('Hello sir');
+  })
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -319,12 +331,12 @@ const Diamond = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Diamond</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Diamond</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>

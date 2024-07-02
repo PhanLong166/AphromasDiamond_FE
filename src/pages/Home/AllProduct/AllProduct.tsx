@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
-import {Button} from "antd";
 import {
   HeartFilled,
   HeartOutlined,
@@ -62,7 +61,6 @@ const AllProduct: React.FC = () => {
   };
   return (
     <Section>
-       <Button onClick={() => navigate('/wishlist')}>Go to Wishlist</Button>
       <div>
         <CustomBreadcrumb
           separator=">"

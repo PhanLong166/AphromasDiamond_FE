@@ -145,6 +145,7 @@ const ProfileImage = styled.img`
   width: auto;
   max-height: 65vh;
   max-width: 1400px;
+  width: 100%;
   object-fit: cover;
   object-position: center;
 `;

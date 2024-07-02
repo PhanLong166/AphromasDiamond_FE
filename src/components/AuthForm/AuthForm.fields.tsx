@@ -13,12 +13,12 @@ export type FieldType = {
     initialValue?: string;
 }
 
-// const validateWhitespace = (_: unknown, value: string) => {
-//     if (value && value.trim() === '') {
-//         return Promise.reject('Please enter a valid value');
-//     }
-//     return Promise.resolve();
-// }
+const validateWhitespace = (_: unknown, value: string) => {
+    if (value && value.trim() === '') {
+        return Promise.reject('Please enter a valid value');
+    }
+    return Promise.resolve();
+}
 
 export const LoginFields: FieldType[] = [
     {
@@ -66,8 +66,13 @@ export const RegisterFields: FieldType[] = [
         name: 'Name',
         rules: [
             {
+                required: true,
+                min: 2,
                 max: 50,
-                message: 'Name do not exceed 50 characters'
+                message: 'Name must contain from 2 to 50 characters'
+            },
+            {
+                validator: validateWhitespace,
             }
         ],
         children: <Input placeholder="" />
@@ -79,9 +84,8 @@ export const RegisterFields: FieldType[] = [
         rules: [
             {
                 required: true,
-                max: 20,
-                pattern: /^(?=.*[0-9]).{8,20}$/,
-                message: 'Phone number must be between 8 to 20 numbers'
+                pattern: /^(0|\+?84)(3|5|7|8|9)[0-9]{8}$/,
+                message: 'Please enter the correct phone number format'
             }
         ],
         children: <Input type="number" placeholder="" />

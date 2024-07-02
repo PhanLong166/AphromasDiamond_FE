@@ -1,4 +1,4 @@
-import { MailFilled, PhoneFilled, ShoppingCartOutlined } from '@ant-design/icons';
+import { HeartOutlined, MailFilled, PhoneFilled, ShoppingCartOutlined } from '@ant-design/icons';
 import * as Styled from './TopMenu.styled';
 import Search from 'antd/es/input/Search';
 import { Link, useNavigate } from 'react-router-dom';
@@ -50,6 +50,9 @@ const TopMenu = ({
                             placeholder='Search'
                             allowClear
                         />
+                        <Link to={config.routes.public.wish}>
+                            <HeartOutlined />
+                        </Link>
                         <Link to={config.routes.customer.cart}>
                             <ShoppingCartOutlined />
                         </Link>
