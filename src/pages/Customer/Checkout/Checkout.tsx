@@ -64,7 +64,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
         <h2>Contact Information</h2>
         {!isEditing && (
           <Buttons>
-            <button style={{ border: "none" }} onClick={handEditClick}>
+            <button style={{ border: "none", cursor: "pointer" }} onClick={handEditClick}>
               EDIT
             </button>
           </Buttons>
@@ -133,7 +133,7 @@ const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
 
 const description = "This is a description";
 const Checkout: React.FC = () => {
-
+  // const [form] = Form.useForm();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [provinces, setProvinces] = useState<any[]>([]);
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -156,16 +156,16 @@ const Checkout: React.FC = () => {
     fetchProvincesData();
   }, []);
 
-  const handleProvinceChange = async (provinceId: number) => {
+  const handleProvinceChange = async (provinceId: number ) => {
     setSelectedProvince(provinceId);
     setSelectedDistrict(null); // Reset lại quận/huyện khi thay đổi tỉnh/thành phố
     try {
-      const data = await getDistricts(provinceId);
-      setDistricts(data);
+        const data = await getDistricts(provinceId);
+        setDistricts(data);
     } catch (error) {
-      console.error("Error fetching districts:", error);
+        console.error("Error fetching districts:", error);
     }
-  };
+};
 
   const handleDistrictChange = async (districtId: number) => {
     setSelectedDistrict(districtId);
@@ -180,6 +180,7 @@ const Checkout: React.FC = () => {
   const handleEdit = () => {
     console.log("Edit Contact Info");
   };
+
 
   return (
     <main>
@@ -213,10 +214,12 @@ const Checkout: React.FC = () => {
           <Link to="/cart">BACK TO CART</Link>
         </StyledLink>
         <Content>
-          <Form>
+          <Formm>
             
             <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} /> 
             <AddressDetails
+              
+              
               address=""
               provinces={provinces}
               districts={districts}
@@ -228,7 +231,7 @@ const Checkout: React.FC = () => {
             />
             {/* <PaymentMethod /> */}
             
-          </Form>
+          </Formm>
           <Summary
             items={[
               {
@@ -252,35 +255,35 @@ const Checkout: React.FC = () => {
                 sku: "SKU 18633320",
                 price: "$8,000",
               },
-              {
-                name: "Ring Diamond",
-                image:
-                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
-                sku: "SKU 18633320",
-                price: "$8,000",
-              },
-              {
-                name: "Ring Diamond",
-                image:
-                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-                sku: "SKU 18633320",
-                price: "$8,000",
-              },
-              {
-                name: "Diamond (Loose)",
-                image:
-                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-                sku: "SKU 18633320",
-                price: "$8,000",
-              },
+              // {
+              //   name: "Ring Diamond",
+              //   image:
+              //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
+              //   sku: "SKU 18633320",
+              //   price: "$8,000",
+              // },
+              // {
+              //   name: "Ring Diamond",
+              //   image:
+              //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+              //   sku: "SKU 18633320",
+              //   price: "$8,000",
+              // },
+              // {
+              //   name: "Diamond (Loose)",
+              //   image:
+              //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+              //   sku: "SKU 18633320",
+              //   price: "$8,000",
+              // },
             ]}
             subtotal="$10,000"
           />
         </Content>
-        <EditBtn>
-          <BtnContinue>Continue</BtnContinue>
-        </EditBtn>
+        
+        
       </Wrapper>
+      
     </main>
   );
 };
@@ -366,7 +369,7 @@ const Content = styled.div`
   }
 `;
 
-const Form = styled.form`
+const Formm = styled.div`
   flex: 2;
   display: flex;
   flex-direction: column;
@@ -397,6 +400,7 @@ const Buttons = styled.button`
   border: none;
   background-color: #fff;
   align-self: flex-end;
+  cursor: pointer;
 `;
 
 const SaveButton = styled.button`
@@ -406,6 +410,7 @@ const SaveButton = styled.button`
   background-color: #fff;
   margin-top: 1.5rem;
   font-size: 15px;
+  cursor: pointer;
 `;
 
 const EditTotal = styled.div`
@@ -416,33 +421,6 @@ const EditTotal = styled.div`
 const EditTotal1 = styled.div`
   word-spacing: 203px;
   font-weight: 600;
-`;
-
-const EditBtn = styled.div`
-  font-family: Poppins, sans-serif;
-  width: 1400px;
-  margin-top: 25px;
-  display: flex;
-  justify-content: flex-end;
-`;
-const BtnContinue = styled.button`
-  font-size: 15px;
-  padding: 10px 27px;
-  background-color: #fff;
-  border-color: none;
-  color: #000;
-  border: 1px solid #151542;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: "Gantari", sans-serif;
-  font-weight: 600;
-  transition: all 0.45s ease;
-  margin-bottom: 1rem;
-  &:hover {
-    color: #fff;
-    background-color: #151542;
-    transition: all 0.45s ease;
-  }
 `;
 
 
@@ -466,8 +444,8 @@ const CartItemContainer = styled.div`
   display: flex;
   align-items: center;
   gap: 33px;
-  padding-top: 18px;
-  margin-top: 10px;
+  /* padding-top: 18px;
+  margin-top: 10px; */
   border-bottom: 2px solid #e8e2e2;
   img {
     max-width: 100px;
