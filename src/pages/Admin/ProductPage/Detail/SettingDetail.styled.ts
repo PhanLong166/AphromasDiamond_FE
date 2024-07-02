@@ -28,26 +28,25 @@ export const AdminPage = styled.div`
   padding-bottom: 55px;
 `;
 
-export const TitlePage = styled.div `
-    h1 {
-        font-size: 22px;
-        font-weight: 36px;
-        color: #151542;
-        margin: 30px 0px 0px 0px;
-        padding-bottom: 7px;
-    }
+export const TitlePage = styled.div`
+  h1 {
+    font-size: 22px;
+    font-weight: 36px;
+    color: #151542;
+    margin: 30px 0px 0px 0px;
+    padding-bottom: 7px;
+  }
 
-    p {
-        color: #92929D;
-        font-size: 13px;
-        margin: 0px 0px 0px 0px;
-    }
+  p {
+    color: #92929d;
+    font-size: 13px;
+    margin: 0px 0px 0px 0px;
+  }
 `;
 
 export const PageContent = styled.div`
   width: 100%;
   border-radius: 16px;
-  margin-top: 28px;
   padding-bottom: 30px;
 `;
 
@@ -55,11 +54,12 @@ export const PageContent = styled.div`
 
 export const PageContent_Top = styled.div`
   width: 100%;
+  height: 100%;
   background-color: #ffffff;
   color: ${theme.color.primary};
   border-radius: 16px;
+  margin-top: 28px;
   padding: 25px 40px 20px 40px;
-  height: 230px;
 `;
 
 export const PageDetail_Title = styled.div`
@@ -77,6 +77,10 @@ export const PageDetail_Infor = styled.div`
   justify-content: space-between;
 `;
 
+export const MaterialTable = styled.div`
+
+`;
+
 export const OrderInfor = styled.div`
   width: 30%;
   font-size: 14px;
@@ -85,33 +89,75 @@ export const OrderInfor = styled.div`
   flex-direction: column;
   justify-content: space-around;
 `;
-export const OrderDate = styled.div`
-  display: flex;
-  justify-content: space-between;
 
-  .orderDate {
-    font-weight: 600;
-  }
-`;
-export const OrderStatus = styled.div`
-  display: flex;
-  justify-content: space-between;
+// /* -------------------- MID DETAIL =============== */
+
+export const PageContent_Mid = styled.div`
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+  border-radius: 16px;
+  margin-top: 28px;
+  padding: 25px 40px 20px 40px;
 `;
 
-export const CustomerInfor_Container = styled.div`
-  width: 60%;
-  //   font-size: 14px;
-  display: flex;
-  justify-content: flex-end;
-`;
-export const CustomerInfor = styled.div`
-  //   width: 60%;
-
-  font-size: 14px;
+export const ProductImg = styled.div`
+  width: 40%;
   display: flex;
   flex-direction: column;
-  justify-content: space-around;
-  text-align: end;
+  align-items: center;
+
+  img {
+    width: 50%;
+  }
+
+  .GIAExport {
+    width: 20%;
+  }
+`;
+
+export const ProductContent = styled.div`
+  width: 50%;
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+
+  .InforLine_Title {
+    // width: 100%;
+    display: flex;
+    justify-content: space-between;
+
+    label {
+    width: 700px;
+    }
+
+    input {
+      width: 100%;
+    }
+  }
+`;
+
+export const SignaInfor = styled.div`
+  border-bottom: 1px solid #dde2e8;
+  margin-bottom: 20px;
+`;
+
+export const InforLine = styled.div`
+display: flex;
+justify-content: space-between;
+margin-bottom: 20px;
+ .InforLine_Title {
+    font-weight: 600;
+ }
+`;
+
+export const InforLine_Descrip = styled.div`
+margin-bottom: 20px;
+ .InforLine_Title {
+    font-weight: 600;
+    margin-bottom: 10px;
+ }
+width: 100%;
 `;
 
 // /* -------------------- BOT DETAIL =============== */
@@ -224,7 +270,6 @@ export const Payment = styled.div`
     font-weight: 600;
     padding-bottom: 15px;
   }
-  
 
   img {
     width: 100px;
@@ -248,15 +293,15 @@ export const Total = styled.div`
   display: flex;
   justify-content: space-between;
   padding-top: 15px;
-  border-top: 1px solid #D9D9D9;
+  border-top: 1px solid #d9d9d9;
 
-  p{
+  p {
     font-size: 15px;
     font-weight: 600;
   }
 
   .totalAmount {
-    color: #56BA6C;
+    color: #56ba6c;
   }
 `;
 
@@ -264,11 +309,11 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
   display: flex;
   justify-content: space-between;
+
+
 `;
 
 export const ActionBtn_Left = styled.div`
-  margin-top: 25px;
-
   button {
     border: 1px solid ${theme.color.primary};
   }
@@ -276,9 +321,7 @@ export const ActionBtn_Left = styled.div`
   .MainBtn {
     background-color: ${theme.color.primary};
     color: #ffffff;
-    border: 0px;
   }
-
 `;
 
 export const ActionBtn_Right = styled.div`

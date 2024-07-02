@@ -163,6 +163,7 @@ const FilterSortJewelry = () => {
     });
 
     setFilteredProducts(filtered);
+    console.log(filteredProducts);
   };
 
   const handleResetFilters = () => {

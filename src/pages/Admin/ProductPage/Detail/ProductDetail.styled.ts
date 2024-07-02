@@ -102,7 +102,7 @@ export const PageContent_Mid = styled.div`
 `;
 
 export const ProductImg = styled.div`
-  width: 40%;
+  width: 50%;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -117,7 +117,7 @@ export const ProductImg = styled.div`
 `;
 
 export const ProductContent = styled.div`
-  width: 50%;
+  width: 40%;
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -307,7 +307,13 @@ export const Total = styled.div`
 
 export const ActionBtn = styled.div`
   margin-top: 25px;
+  display: flex;
+  justify-content: space-between;
 
+
+`;
+
+export const ActionBtn_Left = styled.div`
   button {
     border: 1px solid ${theme.color.primary};
   }
@@ -315,6 +321,12 @@ export const ActionBtn = styled.div`
   .MainBtn {
     background-color: ${theme.color.primary};
     color: #ffffff;
-    border: 0px;
+  }
+`;
+
+export const ActionBtn_Right = styled.div`
+  .DeleteBtn {
+    background-color: #DE5353;
+    color: #ffffff;
   }
 `;
