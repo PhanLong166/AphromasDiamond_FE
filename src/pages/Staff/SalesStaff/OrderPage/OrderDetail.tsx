@@ -1,12 +1,10 @@
 import * as Styled from "./OrderDetail.styled";
 import { useState } from "react";
-import { Button, Tag } from "antd";
+import { Button, Modal, Tag } from "antd";
 // import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 import { data } from "./OrderData";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
-
-
 
 // const { Option } = Select;
 
@@ -69,8 +67,7 @@ const OrderDetail = () => {
   const { id } = useParams<{ id: string }>();
   const activeOrder = data.find((order) => order.orderID === id);
 
-  const [orderStatus, setOrderStatus] = useState(activeOrder?.status || '');
-
+  const [orderStatus, setOrderStatus] = useState(activeOrder?.status || "");
 
   // Calculate the total price of the order lines
   const totalPrice = orderLineData.reduce(
@@ -81,6 +78,26 @@ const OrderDetail = () => {
   const shippingFee = 5; // Assuming a fixed shipping fee for demonstration
   const discount = 0; // Assuming no discount for demonstration
   const totalAmount = totalPrice + vat + shippingFee - discount;
+
+
+  
+  // DELETE ORDER FROM PENDING STATUS
+  const [isModalVisible_Pending, setIsModalVisible_Pending] = useState(false);
+
+
+  const showModal_Pending = () => {
+    setIsModalVisible_Pending(true);
+  };
+
+  const handleOk_Pending = () => {
+    // Handle the submission logic here
+    setOrderStatus("Cancelled");
+    setIsModalVisible_Pending(false);
+  };
+
+  const handleCancel_Pending = () => {
+    setIsModalVisible_Pending(false);
+  };
 
   return (
     <>
@@ -145,9 +162,7 @@ const OrderDetail = () => {
                                 alt={line.lineName}
                                 /*style={{ width: "60px", height: "50px" }}*/ className="productImg"
                               />
-                              <div className="productName">
-                                {line.lineName}
-                              </div>
+                              <div className="productName">{line.lineName}</div>
                               <div className="productQuant">
                                 {line.quantity}
                               </div>
@@ -189,13 +204,38 @@ const OrderDetail = () => {
                   </Styled.OrderDetail_Infor>
                 </Styled.PageContent_Bot>
                 <Styled.ActionBtn>
-                  {orderStatus === "Pending" && (
-                    <Button className="MainBtn" onClick={() => setOrderStatus("Accepted")}>Create Order</Button>
-                  )}
-                  
-                  <Link to="/sales-staff">
-                    <Button style={{ marginLeft: "10px" }}>Back</Button>
-                  </Link>
+                  <Styled.ActionBtn_Left>
+                    {orderStatus === "Pending" && (
+                      <Button
+                        className="MainBtn"
+                        onClick={() => setOrderStatus("Accepted")}
+                      >
+                        Create Order
+                      </Button>
+                    )}
+
+                    <Link to="/sales-staff">
+                      <Button style={{ marginLeft: "10px" }}>Back</Button>
+                    </Link>
+                  </Styled.ActionBtn_Left>
+                  <Styled.ActionBtn_Right>
+                    {orderStatus === "Pending" && (
+                      <>
+                        <Button
+                          className="DeleteBtn"
+                          onClick={showModal_Pending}
+                        >
+                          Reject
+                        </Button>
+                        <Modal
+                          title="Sure to reject?"
+                          visible={isModalVisible_Pending}
+                          onOk={handleOk_Pending}
+                          onCancel={handleCancel_Pending}
+                        ></Modal>
+                      </>
+                    )}
+                  </Styled.ActionBtn_Right>
                 </Styled.ActionBtn>
               </>
             ) : (

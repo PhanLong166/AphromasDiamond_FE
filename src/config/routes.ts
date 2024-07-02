@@ -1,3 +1,4 @@
+
 const routes = {
   public: {
     home: "/",
@@ -63,7 +64,8 @@ const routes = {
     addProduct: "/admin/product/add/product",
     addJewelry: "/admin/product/add/jewelry",
     diamondProduct: "/admin/product/diamond",
-    ringSettingProduct: "/admin/product/ring-setting",
+    ringSettingProduct: "/admin/product/jewelry-setting",
+    ringSettingDetail: "/admin/product/jewelry-setting/detail/:id",
     ringProduct: "/admin/product/ring",
     jewelryTypeProduct: "/admin/product/jewelry-type",
     materialProduct: "/admin/product/material",
@@ -99,7 +101,11 @@ const routes = {
   },
   deliStaff: {
     // dashboard: '/delistaff',
-    deliveryReport: "/delivery-staff/delivery-report",
+    deliveryPending: "/delivery-staff/delivery-pending",
+    deliveryDelivering: "/delivery-staff/delivery-delivering",
+    deliveryDelivered: "/delivery-staff/delivery-delivered",
+    deliveryReturn: "/delivery-staff/delivery-return",
+    deliveryCompleted: "/delivery-staff/delivery-completed",
   },
   api: {
     loginGoogle: "/auth/signin",

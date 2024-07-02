@@ -7,6 +7,7 @@ import { Button } from "antd";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { Link, useNavigate } from "react-router-dom";
 import { Section, Container, Heading, List } from "./AllProduct.styled";
+
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
 
@@ -56,6 +57,7 @@ const AllProduct: React.FC = () => {
   return (
     <Section>
       <Button onClick={() => navigate("/wishlist")}>Go to Wishlist</Button>
+
       <div>
         <CustomBreadcrumb
           separator=">"

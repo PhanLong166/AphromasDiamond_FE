@@ -31,7 +31,7 @@ import CollectionInformation from "@/pages/Home/CollectionInformation/Collection
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
 import FindSize from "@/pages/Home/FindSize/FindSize";
-import WishListPage from "@/pages/Home/WishList/WishListPage";
+// import WishListPage from "@/pages/Home/WishList/WishListPage";
 import Learn4cs from "@/pages/Home/Learn4cs/Learn4cs";
 import Certification from "@/pages/Home/Certification/Certification";
 import DiamondShape from "@/pages/Home/DiamondShape/DiamondShape";
@@ -50,7 +50,7 @@ const MainRouter = () => {
   if (role?.includes(Role.ADMIN))
     return <Navigate to={config.routes.admin.dashboard} />;
   if (role?.includes(Role.SALES_STAFF))
-    return <Navigate to={config.routes.salesStaff.dashboard} />;
+    return <Navigate to={config.routes.salesStaff.acceptedOrder} />;
   if (role?.includes(Role.DELI_STAFF))
     return <Navigate to={config.routes.deliStaff.deliveryPending} />;
 
