@@ -3,7 +3,6 @@ import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
-import {Button} from "antd";
 import {
   HeartFilled,
   HeartOutlined,
