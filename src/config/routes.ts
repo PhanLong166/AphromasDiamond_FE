@@ -7,6 +7,7 @@ const routes = {
     setPassword: "/set-password",
     notFound: "/404",
     product: "/product",
+    productDetail: "/product/:id",
     productList: "/list",
     allProduct: "/all",
     about: "/about",
