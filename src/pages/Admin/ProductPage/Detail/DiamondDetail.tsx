@@ -152,7 +152,7 @@ const DiamondDetail = () => {
                                 { value: "K", label: "K" },
                               ]}
                               value={editedProduct?.color}
-                              onChange={(value) => handleFieldChange("color", value)}
+                              // onChange={(value) => handleFieldChange("color", value)}
                             />
                           </Form.Item>
                           <Form.Item label="Polish" className="InforLine_Title">
