@@ -62,7 +62,6 @@ const AllProduct: React.FC = () => {
   };
   return (
     <Section>
-       <Button onClick={() => navigate('/wishlist')}>Go to Wishlist</Button>
       <div>
         <CustomBreadcrumb
           separator=">"

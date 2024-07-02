@@ -25,8 +25,9 @@ const Register = () => {
 
             if (!data.data) throw data.error;
             else {
+                await messageApi.success('Register Successfully!')
                 cookieUtils.setItem(config.cookies.token, data.data.token);
-                navigate(config.routes.public.home);
+                navigate(config.routes.public.login);
             }
         } catch (error: any) {
             if(error.response) messageApi.error(error.response.data);
