@@ -1,4 +1,4 @@
-import * as Styled from "../MarketingPage/Marketing.styled";
+import * as Styled from "./Collection.styled"
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
@@ -14,85 +14,86 @@ import {
   Space,
   DatePicker,
 } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
+import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
 
 interface Item {
   key: React.Key;
-  promotionID: string;
-  discountPercent: number;
-  startDate: string;
+  collectionID: string;
+  collectionName: string;
+  debutDate: string;
   endDate: string;
 }
 const originData = (): Item[] => {
   const data: Item[] = [
     {
       key: "1",
-      promotionID: "12345121",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345121",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "2",
-      promotionID: "12345122",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345122",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "3",
-      promotionID: "12345123",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345123",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "4",
-      promotionID: "12345124",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345124",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "5",
-      promotionID: "12345125",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345125",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "6",
-      promotionID: "12345126",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345126",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "7",
-      promotionID: "12345127",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345127",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "8",
-      promotionID: "12345128",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345128",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "9",
-      promotionID: "12345129",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345129",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
     {
       key: "10",
-      promotionID: "12345130",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
+      collectionID: "12345130",
+      collectionName: "Valentine",
+      debutDate: "2 Jan 2023",
       endDate: "2 Jan 2024",
     },
   ];
@@ -180,7 +181,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 const { RangePicker } = DatePicker;
 
-const Marketing = () => {
+const Collection = () => {
   const [form] = Form.useForm();
   const [data, setData] = useState<Item[]>(originData);
   const [isAdding, setIsAdding] = useState(false);
@@ -189,7 +190,7 @@ const Marketing = () => {
   const edit = (record: Partial<Item> & { key: React.Key }) => {
     form.setFieldsValue({
       promotionID: "",
-      discountPercent: "",
+      collectionName: "",
       startDate: "",
       endDate: "",
       ...record,
@@ -232,22 +233,22 @@ const Marketing = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "promotionID",
+      title: "Collection ID",
+      dataIndex: "collectionID",
       editable: true,
-      sorter: (a: Item, b: Item) => a.promotionID.localeCompare(b.promotionID),
+      sorter: (a: Item, b: Item) => a.collectionID.localeCompare(b.collectionID),
     },
     {
-      title: "% discount",
-      dataIndex: "discountPercent",
+      title: "Collection Name",
+      dataIndex: "collectionName",
       editable: true,
-      sorter: (a: Item, b: Item) => a.discountPercent - b.discountPercent,
+      sorter: (a: Item, b: Item) => a.collectionName.length - b.collectionName.length,
     },
     {
-      title: "Start Date",
-      dataIndex: "startDate",
+      title: "Debut Date",
+      dataIndex: "debutDate",
       editable: true,
-      sorter: (a: Item, b: Item) => a.startDate.length - b.startDate.length,
+      sorter: (a: Item, b: Item) => a.debutDate.length - b.debutDate.length,
     },
     {
       title: "End Date",
@@ -353,10 +354,7 @@ const Marketing = () => {
         <Sidebar />
 
         <Styled.AdminPage>
-          <Styled.TitlePage>
-            <h1>Marketing Management</h1>
-            <p>View and manage Promotion</p>
-          </Styled.TitlePage>
+          <MarketingMenu/>
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
@@ -377,14 +375,14 @@ const Marketing = () => {
                   <Styled.AddButton>
                     <button onClick={handleAddNew}>
                       <PlusCircleOutlined />
-                      Add New Promotion
+                      Add New Collection
                     </button>
                   </Styled.AddButton>
                 </>
               )) || (
                 <>
                   <Styled.AddContent_Title>
-                    <p>Add Promotion</p>
+                    <p>Add Collection</p>
                   </Styled.AddContent_Title>
                 </>
               )}
@@ -401,22 +399,17 @@ const Marketing = () => {
                     autoComplete="off"
                   >
                     <Styled.FormItem>
-                      <Form.Item label="Promotion ID" name="promotionID" rules={[{ required: true }]}>
+                      <Form.Item label="Collection ID" name="collectionID" rules={[{ required: true }]}>
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="% discount" name="sale" rules={[{ required: true }]}>
+                      <Form.Item label="Collection Name" name="collectionID" rules={[{ required: true }]}>
                         <InputNumber className="formItem" placeholder="15" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Start Time" name="startTime" rules={[{ required: true }]}>
-                        <RangePicker showTime />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item label="End Time" name="endTime" rules={[{ required: true }]}>
+                      <Form.Item label="Debut Date" name="debutDate" rules={[{ required: true }]}>
                         <RangePicker showTime />
                       </Form.Item>
                     </Styled.FormItem>
@@ -463,4 +456,4 @@ const Marketing = () => {
   );
 };
 
-export default Marketing;
+export default Collection;

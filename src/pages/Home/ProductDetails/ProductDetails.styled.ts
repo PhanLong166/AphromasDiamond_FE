@@ -494,11 +494,11 @@ export const ProductPrice = styled.span`
 `;
 
 export const CurrentPrice = styled.span`
-  font-size: 25px;
+  font-size: 32px;
   font-family: "Gantari", sans-serif;
   font-weight: 500;
   font-style: italic;
-  color: ${theme.color.primary};
+  color: #DC143C;
 `;
 
 export const BeforePrice = styled.span`
@@ -510,10 +510,9 @@ export const BeforePrice = styled.span`
 
 export const Discount = styled.span`
   display: inline-block;
-  width: 58px;
   font-size: 18px;
   padding: 8px;
-  background-color: ${theme.color.primary};
+  background-color: #DC143C;
   color: ${theme.color.white};
   margin-left: -10px;
   text-align: center;

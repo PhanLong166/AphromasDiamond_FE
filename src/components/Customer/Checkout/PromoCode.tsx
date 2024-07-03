@@ -38,7 +38,7 @@ const CollapseButton = styled.div`
   /* display: flex; */
   cursor: pointer;
   align-items: center;
-  padding: 18px 0;
+  padding: 5px 0;
   /* padding-top: 18px; */
   
   background-color: #fff;

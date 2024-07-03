@@ -28,7 +28,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0003",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345121",
   },
   {
     key: "2",
@@ -58,7 +58,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0005",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345123",
   },
   {
     key: "4",
@@ -73,7 +73,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0003",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345124",
   },
   {
     key: "5",
@@ -88,7 +88,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0007",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345125",
   },
   {
     key: "6",
@@ -103,7 +103,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0002",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345126",
   },
   {
     key: "7",
@@ -118,7 +118,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0003",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345127",
   },
   {
     key: "8",
@@ -133,7 +133,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0006",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345128",
   },
   {
     key: "9",
@@ -148,7 +148,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0008",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345129",
   },
   {
     key: "10",
@@ -163,7 +163,7 @@ export const productData: ProductDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     diamondID: "D0001",
-    jewelrySettingID: "S12345122",
+    jewelrySettingID: "S12345121",
   },
 ];
 

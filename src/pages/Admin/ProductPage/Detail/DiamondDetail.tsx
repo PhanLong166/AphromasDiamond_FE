@@ -4,7 +4,7 @@ import { Button, Modal, Form, Input, Select } from "antd";
 // import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
-import { DiamondDataType, diamondData } from "../ProductData";
+import { diamondData } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { SaveOutlined } from "@ant-design/icons";
 
@@ -32,12 +32,8 @@ const DiamondDetail = () => {
 
   // EDIT INFOR
   const [isEditing, setIsEditing] = useState(false); // Trạng thái để xác định chế độ chỉnh sửa
-  const [editedProduct, setEditedProduct] = useState<DiamondDataType[]>(diamondData); // Trạng thái lưu các thông tin chỉnh sửa
+  const [editedProduct, setEditedProduct] = useState(activeDiamond); // Trạng thái lưu các thông tin chỉnh sửa
 
-  const startEditing = () => {
-    setIsEditing(true);
-    // setEditedProduct({ ...activeDiamond }); // Khởi tạo dữ liệu chỉnh sửa từ dữ liệu hiện tại
-  };
 
   // Hàm để lưu các thay đổi chỉnh sửa
   const saveChanges = () => {
@@ -96,14 +92,20 @@ const DiamondDetail = () => {
                             label="Diamond ID"
                             className="InforLine_Title"
                           >
-                            <p>{activeDiamond.diamondID}</p>
+                            <Input
+                              value={editedProduct?.diamondID}
+                              onChange={(e) =>
+                                handleFieldChange("diamondID", e.target.value)
+                              }
+                              disabled
+                            />
                           </Form.Item>
                           <Form.Item
                             label="Diamond Name"
                             className="InforLine_Title"
                           >
                             <Input
-                              value={activeDiamond.diamondName}
+                              value={editedProduct?.diamondName}
                               onChange={(e) =>
                                 handleFieldChange("diamondName", e.target.value)
                               }
@@ -111,7 +113,7 @@ const DiamondDetail = () => {
                           </Form.Item>
                           <Form.Item label="Price" className="InforLine_Title">
                             <Input
-                              value={activeDiamond.price}
+                              value={editedProduct?.price}
                               onChange={(e) =>
                                 handleFieldChange("price", e.target.value)
                               }
@@ -120,7 +122,7 @@ const DiamondDetail = () => {
                           <Form.Item label="Shape" className="InforLine_Title">
                             <Select
                               // className="formItem"
-                              placeholder={activeDiamond.shape}
+                              placeholder={editedProduct?.shape}
                               options={[
                                 { value: "Round", label: "Round" },
                                 { value: "Princess", label: "Princess" },
@@ -131,14 +133,14 @@ const DiamondDetail = () => {
                                 { value: "Emerald", label: "Emerald" },
                                 { value: "Asscher", label: "Asscher" },
                               ]}
-                              value={activeDiamond.shape}
+                              value={editedProduct?.shape}
                               onChange={(value) => handleFieldChange("shape", value)}
                             />
                           </Form.Item>
                           <Form.Item label="Color" className="InforLine_Title">
                             <Select
                               // className="formItem"
-                              placeholder={activeDiamond.color}
+                              placeholder={editedProduct?.color}
                               options={[
                                 { value: "D", label: "D" },
                                 { value: "E", label: "E" },
@@ -149,13 +151,13 @@ const DiamondDetail = () => {
                                 { value: "J", label: "J" },
                                 { value: "K", label: "K" },
                               ]}
-                              value={activeDiamond.color}
-                              onChange={(value) => handleFieldChange("color", value)}
+                              value={editedProduct?.color}
+                              // onChange={(value) => handleFieldChange("color", value)}
                             />
                           </Form.Item>
                           <Form.Item label="Polish" className="InforLine_Title">
                             <Select
-                              placeholder={activeDiamond.polish}
+                              placeholder={editedProduct?.polish}
                               options={[
                                 { value: "Excellent", label: "Excellent" },
                                 { value: "Very Good", label: "Very Good" },
@@ -163,13 +165,13 @@ const DiamondDetail = () => {
                                 { value: "Fair", label: "Fair" },
                                 { value: "Poor", label: "Poor" },
                               ]}
-                              value={activeDiamond.polish}
+                              value={editedProduct?.polish}
                               onChange={(value) => handleFieldChange("polish", value)}
                             />
                           </Form.Item>
                           <Form.Item label="Cut" className="InforLine_Title">
                           <Select
-                              placeholder={activeDiamond.cut}
+                              placeholder={editedProduct?.cut}
                               options={[
                                 { value: "Excellent", label: "Excellent" },
                                 { value: "Very Good", label: "Very Good" },
@@ -177,7 +179,7 @@ const DiamondDetail = () => {
                                 { value: "Fair", label: "Fair" },
                                 { value: "Poor", label: "Poor" },
                               ]}
-                              value={activeDiamond.cut}
+                              value={editedProduct?.cut}
                               onChange={(value) => handleFieldChange("cut", value)}
                             />
                           </Form.Item>
@@ -185,7 +187,13 @@ const DiamondDetail = () => {
                             label="Length/Width Ratio"
                             className="InforLine_Title"
                           >
-                            <p>{activeDiamond.lwRatio}</p>
+                            <Input
+                              value={editedProduct?.lwRatio}
+                              onChange={(e) =>
+                                handleFieldChange("lwRatio", e.target.value)
+                              }
+                              disabled
+                            />
                           </Form.Item>
                           <Form.Item
                             label="Clarity"
@@ -193,7 +201,7 @@ const DiamondDetail = () => {
                           >
                             <Select
                               // className="formItem"
-                              placeholder={activeDiamond.clarity}
+                              placeholder={editedProduct?.clarity}
                               options={[
                                 { value: "I3", label: "I3" },
                                 { value: "I1-I2", label: "I1-I2" },
@@ -202,7 +210,7 @@ const DiamondDetail = () => {
                                 { value: "VVS1-VVS2", label: "VVS1-VVS2" },
                                 { value: "FL-IF", label: "FL-IF" },
                               ]}
-                              value={activeDiamond.clarity}
+                              value={editedProduct?.clarity}
                               onChange={(value) => handleFieldChange("clarity", value)}
                             />
                           </Form.Item>
@@ -211,7 +219,7 @@ const DiamondDetail = () => {
                             className="InforLine_Title"
                           >
                             <Select
-                              placeholder={activeDiamond.symmetry}
+                              placeholder={editedProduct?.symmetry}
                               options={[
                                 { value: "Excellent", label: "Excellent" },
                                 { value: "Very Good", label: "Very Good" },
@@ -219,7 +227,7 @@ const DiamondDetail = () => {
                                 { value: "Fair", label: "Fair" },
                                 { value: "Poor", label: "Poor" },
                               ]}
-                              value={activeDiamond.symmetry}
+                              value={editedProduct?.symmetry}
                               onChange={(value) => handleFieldChange("symmetry", value)}
                             />
                           </Form.Item>
@@ -227,32 +235,52 @@ const DiamondDetail = () => {
                             label="Carat Weight"
                             className="InforLine_Title"
                           >
-                            <p>{activeDiamond.caratWeight}</p>
+                            <Input
+                              value={editedProduct?.caratWeight}
+                              onChange={(e) =>
+                                handleFieldChange("caratWeight", e.target.value)
+                              }
+                              disabled
+                            />
                           </Form.Item>
                           <Form.Item
                             label="Table %"
                             className="InforLine_Title"
                           >
-                            <p>{activeDiamond.tablePercentage}</p>
+                            <Input
+                              value={editedProduct?.tablePercentage}
+                              onChange={(e) =>
+                                handleFieldChange("tablePercentage", e.target.value)
+                              }
+                              disabled
+                            />
                           </Form.Item>
                           <Form.Item
                             label="Depth %"
                             className="InforLine_Title"
                           >
-                            <p>{activeDiamond.depthPercentage}</p>
+                            <Input
+                              value={editedProduct?.depthPercentage}
+                              onChange={(e) =>
+                                handleFieldChange("depthPercentage", e.target.value)
+                              }
+                              disabled
+                            />
                           </Form.Item>
                           <Form.Item
                             label="Fluorescence"
                             className="InforLine_Title"
                           >
-                            <Input
-                              value={activeDiamond.fluorescence}
-                              onChange={(e) =>
-                                handleFieldChange(
-                                  "fluorescence",
-                                  e.target.value
-                                )
-                              }
+                            <Select
+                              placeholder={editedProduct?.fluorescence}
+                              options={[
+                                { value: "Strong", label: "Strong" },
+                                { value: "Media", label: "Media" },
+                                { value: "Faint", label: "Faint" },
+                                { value: "None", label: "None" },
+                              ]}
+                              value={editedProduct?.fluorescence}
+                              onChange={(value) => handleFieldChange("fluorescence", value)}
                             />
                           </Form.Item>
                           <Form.Item
@@ -260,7 +288,7 @@ const DiamondDetail = () => {
                             className="InforLine_Title"
                           >
                             <Input
-                              value={activeDiamond.description}
+                              value={editedProduct?.description}
                               onChange={(e) =>
                                 handleFieldChange("description", e.target.value)
                               }
@@ -277,7 +305,7 @@ const DiamondDetail = () => {
                         footer={null}
                       >
                         <img
-                          src={activeDiamond.giaCerti}
+                          src={editedProduct?.giaCerti}
                           alt="GIA Certificate"
                           style={{ width: "100%" }}
                         />
@@ -311,8 +339,8 @@ const DiamondDetail = () => {
                       <Styled.PageDetail_Infor>
                         <Styled.ProductImg>
                           <img
-                            src={activeDiamond.diamondImg}
-                            alt={activeDiamond.diamondName}
+                            src={editedProduct?.diamondImg}
+                            alt={editedProduct?.diamondName}
                           />
                           <img
                             className="GIAExport"
@@ -325,65 +353,65 @@ const DiamondDetail = () => {
                         <Styled.ProductContent>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Diamond ID</p>
-                            <p>{activeDiamond.diamondID}</p>
+                            <p>{editedProduct?.diamondID}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Diamond Name</p>
-                            <p>{activeDiamond.diamondName}</p>
+                            <p>{editedProduct?.diamondName}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Price</p>
-                            <p>{activeDiamond.price}</p>
+                            <p>{editedProduct?.price}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Shape</p>
-                            <p>{activeDiamond.shape}</p>
+                            <p>{editedProduct?.shape}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Color</p>
-                            <p>{activeDiamond.color}</p>
+                            <p>{editedProduct?.color}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Polish</p>
-                            <p>{activeDiamond.polish}</p>
+                            <p>{editedProduct?.polish}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Cut</p>
-                            <p>{activeDiamond.cut}</p>
+                            <p>{editedProduct?.cut}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">
                               Length/Width Ratio
                             </p>
-                            <p>{activeDiamond.lwRatio}</p>
+                            <p>{editedProduct?.lwRatio}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Clarity</p>
-                            <p>{activeDiamond.clarity}</p>
+                            <p>{editedProduct?.clarity}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Symmetry</p>
-                            <p>{activeDiamond.symmetry}</p>
+                            <p>{editedProduct?.symmetry}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Carat Weight</p>
-                            <p>{activeDiamond.caratWeight}</p>
+                            <p>{editedProduct?.caratWeight}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Table %</p>
-                            <p>{activeDiamond.tablePercentage}</p>
+                            <p>{editedProduct?.tablePercentage}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Depth %</p>
-                            <p>{activeDiamond.depthPercentage}</p>
+                            <p>{editedProduct?.depthPercentage}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Fluorescence</p>
-                            <p>{activeDiamond.fluorescence}</p>
+                            <p>{editedProduct?.fluorescence}</p>
                           </Styled.InforLine>
                           <Styled.InforLine_Descrip>
                             <p className="InforLine_Title">Description</p>
-                            <p>{activeDiamond.description}</p>
+                            <p>{editedProduct?.description}</p>
                           </Styled.InforLine_Descrip>
                         </Styled.ProductContent>
                       </Styled.PageDetail_Infor>
@@ -396,18 +424,22 @@ const DiamondDetail = () => {
                         footer={null}
                       >
                         <img
-                          src={activeDiamond.giaCerti}
+                          src={editedProduct?.giaCerti}
                           alt="GIA Certificate"
                           style={{ width: "100%" }}
                         />
                       </Modal>
                     </Styled.PageContent_Mid>
                     <Styled.ActionBtn>
-                      <Button className="MainBtn" onClick={startEditing}>
+                      <Button
+                        onClick={() => setIsEditing(true)}
+                        type="primary"
+                        style={{ marginBottom: 16 }}
+                      >
                         Edit
                       </Button>
 
-                      <Link to="/admin/product/jewelry">
+                      <Link to="/admin/product">
                         <Button style={{ marginLeft: "10px" }}>Back</Button>
                       </Link>
                     </Styled.ActionBtn>

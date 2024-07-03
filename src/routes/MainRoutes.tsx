@@ -42,6 +42,8 @@ import MetalEdu from "@/pages/Home/MetalEdu/MetalEdu";
 import EarringEdu from "@/pages/Home/EarringEdu/EarringEdu";
 import NecklaceEdu from "@/pages/Home/NecklaceEdu/NecklaceEdu";
 import BraceletEdu from "@/pages/Home/BraceletEdu/BraceletEdu";
+import ThankPageSuccess from "@/pages/Home/ThankPage/ThankPageSuccess";
+import ThankPageFail from "@/pages/Home/ThankPage/ThankPageFail";
 
 
 const MainRouter = () => {
@@ -68,7 +70,7 @@ const CustomerRouter = () => {
 const publicRoutes = {
   children: [
     { path: config.routes.public.home, element: <Home /> },
-    { path: config.routes.public.product, element: <ProductDetails /> },
+    { path: config.routes.public.productDetail, element: <ProductDetails /> },
     { path: config.routes.public.productList, element: <Product /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },
@@ -93,6 +95,8 @@ const publicRoutes = {
     { path: config.routes.public.earringEdu, element: <EarringEdu /> },
     { path: config.routes.public.necklaceEdu, element: <NecklaceEdu /> },
     { path: config.routes.public.braceletEdu, element: <BraceletEdu /> },
+    { path: config.routes.public.success, element: <ThankPageSuccess /> },
+    { path: config.routes.public.fail, element: <ThankPageFail /> },
   ],
 };
 
