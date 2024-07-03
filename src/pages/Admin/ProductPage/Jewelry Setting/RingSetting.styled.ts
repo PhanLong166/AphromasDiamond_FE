@@ -185,7 +185,7 @@ width: 100%;
 `;
 
 export const FormItem = styled.div`
-  width: 30%;
+  width: 48%;
   height: 57px;
   margin-bottom: 30px;
   
@@ -220,4 +220,9 @@ export const ActionBtn = styled.div`
     border: 0px;
   }
 
+`;
+
+
+export const MaterialTable = styled.div`
+width: 100%;
 `;
