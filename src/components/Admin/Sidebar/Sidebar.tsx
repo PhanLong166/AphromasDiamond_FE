@@ -48,6 +48,10 @@ const Sidebar = () => {
         setActive("Product");
         break;
       case "/admin/marketing":
+      case "/admin/marketing/collection/detail/:id":
+      case "/admin/marketing/discount":
+      case "/admin/marketing/discount/detail/:id":
+      case "/admin/marketing/voucher":
         setActive("Marketing");
         break;
       case "/admin/client-caring":

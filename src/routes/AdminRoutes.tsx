@@ -21,8 +21,9 @@ import JewelrySetting from "@/pages/Admin/ProductPage/Jewelry Setting/RingSettin
 import JewelrySettingDetail from "@/pages/Admin/ProductPage/Detail/SettingDetail"
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType/JewelryType"
 import MaterialProduct from "@/pages/Admin/ProductPage/Material/Material"
-import Marketing from "@/pages/Admin/MarketingPage/Marketing"
-
+import Collection from "@/pages/Admin/MarketingPage/Collection/Collection"
+import ProductPromotion from "@/pages/Admin/MarketingPage/ProductPromotion/ProductPromotion"
+import BillPromotion from "@/pages/Admin/MarketingPage/BillPromotion/BillPromotion"
 
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
 import Feedback from "@/pages/Admin/ClientCaringPage/Feedback"
@@ -73,7 +74,9 @@ const AdminRoutes = {
         { path: config.routes.admin.jewelryTypeProduct, element: <JewelryTypeProduct /> },
         { path: config.routes.admin.materialProduct, element: <MaterialProduct /> },
 
-        { path: config.routes.admin.marketing, element: <Marketing /> },
+        { path: config.routes.admin.collection, element: <Collection /> },
+        { path: config.routes.admin.discount, element: <ProductPromotion /> },
+        { path: config.routes.admin.voucher, element: <BillPromotion /> },
 
         { path: config.routes.admin.clientCaring, element: <ClientCaring /> },
         { path: config.routes.admin.feedback, element: <Feedback /> },
