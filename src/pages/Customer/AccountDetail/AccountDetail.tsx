@@ -79,7 +79,7 @@ const Account = () => {
     const errors: Partial<Account> = {};
     if (!account.firstName) errors.firstName = "First name is required";
     if (!account.lastName) errors.lastName = "Last name is required";
-    if (!account.phone) errors.phone = "Phone number is required";
+    // if (!account.phone) errors.phone = "Phone number is required";
     if (!account.email) errors.email = "Email is required";
     if (!account.password) errors.password = "Password is required";
     return errors;
@@ -164,6 +164,7 @@ const Account = () => {
     if (tempAccount.phone.length !== 10 || !tempAccount.phone.startsWith("0")) {
       errors.phone = "Phone number must be exactly 10 digits and start with 0";
     }
+   
 
     if (Object.keys(errors).length === 0) {
       setAccount(tempAccount);
