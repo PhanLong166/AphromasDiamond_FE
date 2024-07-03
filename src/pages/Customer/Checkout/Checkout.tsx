@@ -2,26 +2,14 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
-import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 import { Steps } from "antd";
 import AddressDetails from "../../../components/Customer/Checkout/AddressDetails"; 
 import { getProvinces, getDistricts, getWards } from "./api";
+import Summary from "@/components/Customer/Checkout/Summary/Summary";
 
 interface ContactInfoProps {
   email: string;
   onEdit: (newEmail: string) => void;
-}
-
-interface CartItemProps {
-  name: string;
-  image: string;
-  sku: string;
-  price: string;
-}
-
-interface SummaryProps {
-  items: CartItemProps[];
-  subtotal: string;
 }
 
 const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
@@ -90,47 +78,6 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
   );
 };
 
-const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
-  <CartItemContainer>
-    <img src={image} alt={name} />
-    <div>
-      <h3>{name}</h3>
-      <p>{sku}</p>
-    </div>
-    <p>{price}</p>
-  </CartItemContainer>
-);
-
-const Summary: React.FC<SummaryProps> = ({ items, subtotal }) => (
-  <SummarySection>
-    <ItemNumber>
-      <NumberItem>6 ITEMS</NumberItem>
-      <Link to="/cart">
-        <p>EDIT CART</p>
-      </Link>
-    </ItemNumber>
-    {items.map((item, index) => (
-      <CartItem
-        key={index}
-        name={item.name}
-        image={item.image}
-        sku={item.sku}
-        price={item.price}
-      />
-    ))}
-    <EditTotal>
-      <p>Subtotal: {subtotal}</p>
-    </EditTotal>
-    <EditTotal>
-      <p>Shipping: Free</p>
-    </EditTotal>
-    <PromoCodeSection />
-    <EditTotal1>
-      <p>Total: {subtotal}</p>
-    </EditTotal1>
-  </SummarySection>
-);
-
 const description = "This is a description";
 const Checkout: React.FC = () => {
   // const [form] = Form.useForm();
@@ -156,21 +103,21 @@ const Checkout: React.FC = () => {
     fetchProvincesData();
   }, []);
 
-  const handleProvinceChange = async (provinceId: number ) => {
-    setSelectedProvince(provinceId);
+  const handleProvinceChange = async (provinceId: unknown ) => {
+    setSelectedProvince(provinceId as number);
     setSelectedDistrict(null); // Reset lại quận/huyện khi thay đổi tỉnh/thành phố
     try {
-        const data = await getDistricts(provinceId);
+        const data = await getDistricts(provinceId as number);
         setDistricts(data);
     } catch (error) {
         console.error("Error fetching districts:", error);
     }
 };
 
-  const handleDistrictChange = async (districtId: number) => {
-    setSelectedDistrict(districtId);
+  const handleDistrictChange = async (districtId: unknown) => {
+    setSelectedDistrict(districtId as number);
     try {
-      const data = await getWards(districtId);
+      const data = await getWards(districtId as number);
       setWards(data);
     } catch (error) {
       console.error("Error fetching wards:", error);
@@ -215,12 +162,9 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Formm>
-            
             <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} /> 
             <AddressDetails
-              
-              
-              address=""
+              onFinish={() => {}}
               provinces={provinces}
               districts={districts}
               wards={wards}
@@ -229,66 +173,22 @@ const Checkout: React.FC = () => {
               onProvinceChange={handleProvinceChange}
               onDistrictChange={handleDistrictChange}
             />
-            {/* <PaymentMethod /> */}
-            
           </Formm>
-          <Summary
-            items={[
-              {
-                name: "Diamond (Loose)",
-                image:
-                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-                sku: "SKU 18633320",
-                price: "$8,000",
-              },
-              {
-                name: "Diamond (Loose)",
-                image:
-                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-                sku: "SKU 18633320",
-                price: "$8,000",
-              },
-              {
-                name: "Diamond (Loose)",
-                image:
-                  "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-                sku: "SKU 18633320",
-                price: "$8,000",
-              },
-              // {
-              //   name: "Ring Diamond",
-              //   image:
-              //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
-              //   sku: "SKU 18633320",
-              //   price: "$8,000",
-              // },
-              // {
-              //   name: "Ring Diamond",
-              //   image:
-              //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              //   sku: "SKU 18633320",
-              //   price: "$8,000",
-              // },
-              // {
-              //   name: "Diamond (Loose)",
-              //   image:
-              //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-              //   sku: "SKU 18633320",
-              //   price: "$8,000",
-              // },
-            ]}
-            subtotal="$10,000"
-          />
+          <StyledSummary 
+          
+          ></StyledSummary>
         </Content>
-        
-        
-      </Wrapper>
-      
+      </Wrapper>  
     </main>
   );
 };
 
 export default Checkout;
+
+const StyledSummary = styled(Summary)`
+  flex: 1;
+  line-height: 40px;
+`;
 
 const ErrorText = styled.p`
   color: red;
@@ -323,13 +223,6 @@ const Header = styled.header`
     margin-top: 40px;
   }
 `;
-
-const ItemNumber = styled.div`
-  display: flex;
-  justify-content: space-between;
-`;
-
-const NumberItem = styled.div``;
 
 const TextContact = styled.div`
   display: flex;
@@ -384,14 +277,9 @@ const Section = styled.section`
   display: flex;
   flex-direction: column;
   gap: 20px;
-  padding: 48px 40px;
+  padding: 35px 40px;
   font-weight: 400;
   font-size: 16px;
-`;
-
-const SummarySection = styled(Section)`
-  flex: 1;
-  line-height: 40px;
 `;
 
 const Buttons = styled.button`
@@ -413,16 +301,6 @@ const SaveButton = styled.button`
   cursor: pointer;
 `;
 
-const EditTotal = styled.div`
-  display: flex;
-  word-spacing: 171px;
-`;
-
-const EditTotal1 = styled.div`
-  word-spacing: 203px;
-  font-weight: 600;
-`;
-
 
 const StyledInput = styled.input`
   padding: 9px;
@@ -440,24 +318,4 @@ const StyledInput = styled.input`
   }
 `;
 
-const CartItemContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 33px;
-  /* padding-top: 18px;
-  margin-top: 10px; */
-  border-bottom: 2px solid #e8e2e2;
-  img {
-    max-width: 100px;
-  }
-  div {
-    flex: 1;
-  }
-  h3 {
-    margin: 0;
-  }
-  p {
-    margin: 0;
-  }
-`;
 
