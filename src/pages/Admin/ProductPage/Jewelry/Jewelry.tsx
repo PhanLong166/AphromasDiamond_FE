@@ -1,6 +1,6 @@
 import * as Styled from "./Jewelry.styled";
 import { useState } from "react";
-import { Space, Table, Select, Input, Button } from "antd";
+import { Space, Table, Input, Button } from "antd";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
@@ -44,7 +44,7 @@ const onChange: TableProps<ProductDataType>["onChange"] = (
 onChange;
 const Jewelry = () => {
   const [searchText, setSearchText] = useState("");
-  const [currency, setCurrency] = useState<"VND" | "USD">("VND");
+  // const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isModalVisible, setIsModalVisible] = useState(false); // Add this line
   const navigate = useNavigate(); // Update this line
 
@@ -63,24 +63,24 @@ const Jewelry = () => {
   //   console.log(`selected ${value}`);
   // };
 
-  const handleCurrencyChange = (value: "VND" | "USD") => {
-    setCurrency(value);
-  };
+  // const handleCurrencyChange = (value: "VND" | "USD") => {
+  //   setCurrency(value);
+  // };
 
-  const convertPrice = (
-    price: number,
-    exchangeRate: number,
-    currency: "VND" | "USD"
-  ) => {
-    if (currency === "USD") {
-      return price * exchangeRate;
-    }
-    return price;
-  };
+  // const convertPrice = (
+  //   price: number,
+  //   exchangeRate: number,
+  //   currency: "VND" | "USD"
+  // ) => {
+  //   if (currency === "USD") {
+  //     return price * exchangeRate;
+  //   }
+  //   return price;
+  // };
 
-  const sellingPrice = (price: number, markupPercentage: number) => {
-    return price * (1 + markupPercentage / 100);
-  };
+  // const sellingPrice = (price: number, markupPercentage: number) => {
+  //   return price * (1 + markupPercentage / 100);
+  // };
 
   const columns: TableColumnsType<ProductDataType> = [
     {
@@ -112,40 +112,21 @@ const Jewelry = () => {
       sorter: (a, b) => a.jewelryName.length - b.jewelryName.length,
       sortDirections: ["descend"],
     },
-    {
-      title: `Cost Price (${currency})`,
-      key: "price",
-      sorter: (a, b) =>
-        convertPrice(a.price, a.exchangeRate, currency) -
-        convertPrice(b.price, b.exchangeRate, currency),
-      render: (_, record) => {
-        const convertedPrice = convertPrice(
-          record.price,
-          record.exchangeRate,
-          currency
-        );
-        return `${convertedPrice.toFixed(2)} ${currency}`;
-      },
-    },
-    {
-      title: "Markup Percentage",
-      dataIndex: "markupPercentage",
-      key: "markupPercentage",
-      render: (_, record) => `${record.markupPercentage}%`,
-    },
-    {
-      title: `Selling Price (${currency})`,
-      key: "sellingPrice",
-      render: (_, record) => {
-        const convertedPrice = convertPrice(
-          record.price,
-          record.exchangeRate,
-          currency
-        );
-        const price = sellingPrice(convertedPrice, record.markupPercentage);
-        return `${price.toFixed(2)} ${currency}`;
-      },
-    },
+    // {
+    //   title: `Cost Price (${currency})`,
+    //   key: "price",
+    //   sorter: (a, b) =>
+    //     convertPrice(a.price, a.exchangeRate, currency) -
+    //     convertPrice(b.price, b.exchangeRate, currency),
+    //   render: (_, record) => {
+    //     const convertedPrice = convertPrice(
+    //       record.price,
+    //       record.exchangeRate,
+    //       currency
+    //     );
+    //     return `${convertedPrice.toFixed(2)} ${currency}`;
+    //   },
+    // },
     {
       title: "Type",
       dataIndex: "type",
@@ -162,12 +143,6 @@ const Jewelry = () => {
       ],
       onFilter: (value, record) => record.type.indexOf(value as string) === 0,
       sortDirections: ["descend"],
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.quantity - b.quantity,
     },
     {
       title: "Detail",
@@ -226,7 +201,7 @@ const Jewelry = () => {
                   />
                 </Styled.SearchArea>
 
-                <Select
+                {/* <Select
                   defaultValue="VND"
                   style={{ width: 120, height: "45px" }}
                   onChange={handleCurrencyChange}
@@ -234,7 +209,7 @@ const Jewelry = () => {
                     { value: "USD", label: "USD" },
                     { value: "VND", label: "VND" },
                   ]}
-                />
+                /> */}
               </Styled.AdPageContent_HeadLeft>
 
               <Styled.AddButton>
