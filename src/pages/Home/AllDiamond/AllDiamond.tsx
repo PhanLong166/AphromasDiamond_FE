@@ -8,6 +8,7 @@ import { Collapse } from "antd";
 import { theme } from "../../../themes";
 import { showAllDiamond } from "@/services/diamondAPI";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
+import Funnel from "@/components/Funnel";
 const { Title, Text } = Typography;
 const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1400px;
@@ -282,6 +283,7 @@ const AllDiamond: React.FC = () => {
           ]}
         />
       </div>
+      <Funnel/>
       <Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>

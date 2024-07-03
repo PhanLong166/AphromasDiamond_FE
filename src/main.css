@@ -1,0 +1,4 @@
+.ant-menu .ant-menu-sub{
+    display: flex;
+    gap: 20px;
+}
