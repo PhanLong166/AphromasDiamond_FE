@@ -1,17 +1,16 @@
 import { PayloadAction, createSlice } from "@reduxjs/toolkit";
 
-
 interface CartState {
     cartLength: number;
 }
 
-const initialState: CartState = {
+const initialCartState: CartState = {
     cartLength: 0,
 }
 
 export const cartSlice = createSlice({
     name: 'cart',
-    initialState,
+    initialState: initialCartState,
     reducers: {
         setLength: (state, action: PayloadAction<number>) => {
             state.cartLength = action.payload;
