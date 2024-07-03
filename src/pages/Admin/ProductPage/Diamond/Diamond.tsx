@@ -23,7 +23,9 @@ import type {
   FormInstance,
   TableColumnsType,
   TableProps,
-  UploadProps,
+  GetProp, 
+  UploadFile, 
+  UploadProps
 } from "antd";
 // import Dragger from "antd/es/upload/Dragger";
 import TextArea from "antd/es/input/TextArea";
@@ -32,8 +34,10 @@ import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { showAllDiamond } from "@/services/diamondAPI";
+import ImgCrop from 'antd-img-crop';
 
 
+type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
 const onChange: TableProps<DiamondDataType>["onChange"] = (
   pagination,
@@ -193,10 +197,10 @@ const Diamond = () => {
       },
     },
     {
-      title: "Markup Percentage",
-      dataIndex: "markupPercentage",
-      key: "markupPercentage",
-      render: (_, record) => `${record.markupPercentage}%`,
+      title: "Charge Rate",
+      dataIndex: "chargeRate",
+      key: "chargeRate",
+      render: (_, record) => `${record.chargeRate}%`,
     },
     {
       title: `Selling Price (${currency})`,
@@ -207,7 +211,7 @@ const Diamond = () => {
           record.exchangeRate,
           currency
         );
-        const price = sellingPrice(convertedPrice, record.markupPercentage);
+        const price = sellingPrice(convertedPrice, record.chargeRate);
         return `${price.toFixed(2)} ${currency}`;
       },
     },
@@ -262,9 +266,7 @@ const Diamond = () => {
     },
   ];
 
-  // const data: DiamondDataType[] = [
-  // ];
-  // --------------------------
+
 
   // Add New
   const handleAddNew = () => {
@@ -284,6 +286,37 @@ const Diamond = () => {
   ) => {
     console.log(e);
   };
+
+
+  // UPLOAD IMAGES
+const [fileList, setFileList] = useState<UploadFile[]>([
+  // {
+  //   uid: '-1',
+  //   name: 'image.png',
+  //   status: 'done',
+  //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+  // },
+]);
+
+const onChangeImg: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+  setFileList(newFileList);
+};
+
+const onPreview = async (file: UploadFile) => {
+  let src = file.url as string;
+  if (!src) {
+    src = await new Promise((resolve) => {
+      const reader = new FileReader();
+      reader.readAsDataURL(file.originFileObj as FileType);
+      reader.onload = () => resolve(reader.result as string);
+    });
+  }
+  const image = new Image();
+  image.src = src;
+  const imgWindow = window.open(src);
+  imgWindow?.document.write(image.outerHTML);
+};
+
 
   return (
     <>
@@ -331,18 +364,22 @@ const Diamond = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                  <>
-                    <Styled.AddContent_Title>
-                      <p>Add Diamond</p>
-                    </Styled.AddContent_Title>
-                  </>
-                )}
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Diamond</p>
+                  </Styled.AddContent_Title>
+                </>
+              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
               {isAdding ? (
                 <>
-                  <Form form={form} layout="vertical" className="AdPageContent_Content">
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    className="AdPageContent_Content"
+                  >
                     <Styled.FormItem>
                       <Form.Item
                         label="Diamond ID"
@@ -363,8 +400,8 @@ const Diamond = () => {
                     </Styled.FormItem>
                     <Styled.FormItem>
                       <Form.Item
-                        label="Markup Percentage (%)"
-                        name="Markup Percentage"
+                        label="Charge Rate (%)"
+                        name="Charge Rate"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="150" />
@@ -427,7 +464,18 @@ const Diamond = () => {
                         name="Polish"
                         rules={[{ required: true }]}
                       >
-                        <Input className="formItem" placeholder="Excellent" />
+                        <Select
+                          className="formItem"
+                          placeholder="Select Polish"
+                          onChange={handleChange}
+                          options={[
+                            { value: "Excellent", label: "Excellent" },
+                            { value: "Very Good", label: "Very Good" },
+                            { value: "Good", label: "Good" },
+                            { value: "Fair", label: "Fair" },
+                            { value: "Poor", label: "Poor" },
+                          ]}
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
@@ -436,7 +484,18 @@ const Diamond = () => {
                         name="Cut"
                         rules={[{ required: true }]}
                       >
-                        <Input className="formItem" placeholder="Excellent" />
+                        <Select
+                          className="formItem"
+                          placeholder="Select Cut"
+                          onChange={handleChange}
+                          options={[
+                            { value: "Excellent", label: "Excellent" },
+                            { value: "Very Good", label: "Very Good" },
+                            { value: "Good", label: "Good" },
+                            { value: "Fair", label: "Fair" },
+                            { value: "Poor", label: "Poor" },
+                          ]}
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
@@ -472,7 +531,18 @@ const Diamond = () => {
                         name="Symmetry"
                         rules={[{ required: true }]}
                       >
-                        <Input className="formItem" placeholder="Excellent" />
+                        <Select
+                          className="formItem"
+                          placeholder="Select Symmetry"
+                          onChange={handleChange}
+                          options={[
+                            { value: "Excellent", label: "Excellent" },
+                            { value: "Very Good", label: "Very Good" },
+                            { value: "Good", label: "Good" },
+                            { value: "Fair", label: "Fair" },
+                            { value: "Poor", label: "Poor" },
+                          ]}
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
@@ -508,7 +578,17 @@ const Diamond = () => {
                         name="Fluorescence"
                         rules={[{ required: true }]}
                       >
-                        <Input className="formItem" placeholder="Strong" />
+                        <Select
+                          className="formItem"
+                          placeholder="Select Symmetry"
+                          onChange={handleChange}
+                          options={[
+                            { value: "Strong", label: "Strong" },
+                            { value: "Media", label: "Media" },
+                            { value: "Faint", label: "Faint" },
+                            { value: "None", label: "None" },
+                          ]}
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
@@ -525,8 +605,11 @@ const Diamond = () => {
                       </Form.Item>
                     </Styled.FormDescript>
                     <Styled.UploadFile>
-                      <Form.Item label="Upload Images" rules={[{ required: true }]}>
-                        <Dragger {...props}>
+                      <Form.Item
+                        label="Upload Images"
+                        rules={[{ required: true }]}
+                      >
+                        {/* <Dragger {...props}>
                           <p className="ant-upload-drag-icon">
                             <InboxOutlined />
                           </p>
@@ -538,12 +621,27 @@ const Diamond = () => {
                             prohibited from uploading company data or other
                             banned files.
                           </p>
-                        </Dragger>
+                        </Dragger> */}
+
+                    <ImgCrop rotationSlider>
+                          <Upload
+                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                            listType="picture-card"
+                            fileList={fileList}
+                            onChange={onChangeImg}
+                            onPreview={onPreview}
+                          >
+                            {fileList.length < 5 && '+ Upload'}
+                          </Upload>
+                        </ImgCrop>
                       </Form.Item>
                     </Styled.UploadFile>
 
                     <Styled.UploadFile>
-                      <Form.Item label="Upload GIA" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Upload GIA"
+                        rules={[{ required: true }]}
+                      >
                         <Dragger {...props}>
                           <p className="ant-upload-drag-icon">
                             <InboxOutlined />
@@ -561,10 +659,12 @@ const Diamond = () => {
                     </Styled.UploadFile>
                   </Form>
                   <Styled.ActionBtn>
-                    <SubmitButton form={form}>
-                      <SaveOutlined />
-                      Save
-                    </SubmitButton>
+                     <Link to="/admin/product/diamond/detail/D0001">  {/* {`/admin/product/jewelry-setting/detail/${diamondID} `} */}
+                      <SubmitButton form={form}> 
+                        <SaveOutlined />
+                        Save
+                      </SubmitButton>
+                    </Link>
                     <Button
                       onClick={handleCancel}
                       className="CancelBtn"
