@@ -1,52 +1,17 @@
 import React, { useEffect, useState } from "react";
-import styled from "styled-components";
-import { Breadcrumb } from "antd";
-import { Section, Heading, List, FAQs, LeftFAQ } from "./AllDiamond.styled";
+import { Section, Heading, List, FAQs, LeftFAQ, CustomBreadcrumb, StyledCollapse } from "./AllDiamond.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { Collapse } from "antd";
-import { theme } from "../../../themes";
 import { showAllDiamond } from "@/services/diamondAPI";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
+
 import { diamonds } from "../shared/ListOfDiamond";
 import { Link } from "react-router-dom";
 
 const { Title, Text } = Typography;
-const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
 
-const texts = [
-  `
-   Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.
-  `,
-  `
-    Yes, diamond rings make perfect weddings rings and engagement rings.
-  `,
-  `
-    Women’s diamond wedding rings are available in platinum along with yellow, white and rose gold. 
-  `,
-  `
-   Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.
-  `,
-  `
-    Yes, diamond rings make perfect weddings rings and engagement rings.
-  `,
-  `
-    Women’s diamond wedding rings are available in platinum along with yellow, white and rose gold. 
-  `,
-];
 
-const labels = [
-  "What is the average cost of a womens diamond wedding ring?",
-  "Can weddings rings be diamond rings?",
-  "What metals are best for diamond wedding bands?",
-  "What is the average cost of a womens diamond wedding ring?",
-  "Can weddings rings be diamond rings?",
-  "What metals are best for diamond wedding bands?",
-];
+
 
 const items = texts.map((text, index) => ({
   key: (index + 1).toString(),
@@ -56,26 +21,9 @@ const items = texts.map((text, index) => ({
 const onChange = (key: any) => {
   console.log(key);
 };
-const StyledCollapse = styled(Collapse)`
-  .ant-collapse-item {
-    background-color: #ffffff;
-  }
-  .ant-collapse-header-text {
-    color: ${theme.color.primary};
-  }
-  .ant-collapse-content {
-    background-color: #f4f2ee;
-    color: #45413e;
-  }
-  .ant-collapse-expand-icon {
-    color: ${theme.color.primary};
-  }
-  .ant-collapse-header {
-    border-radius: 8px;
-  }
-`;
 
 const AllDiamond: React.FC = () => {
+
   const [filteredDiamonds, setFilteredDiamonds] = useState(diamonds);
   console.log(setFilteredDiamonds);
   const [wishList, setWishList] = useState<string[]>([]);
@@ -119,6 +67,7 @@ const AllDiamond: React.FC = () => {
           ]}
         />
       </div>
+      <Funnel />
       <Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>

@@ -1,30 +1,57 @@
-# React + TypeScript + Vite
+# Aphromas Diamond - Diamond Shop System
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+<div id="header" align="center">
+  <img src="https://i.imgur.com/qh73RmE.png" width="200"/>
+</div>
 
-Currently, two official plugins are available:
+## 1. Introduction
+### Welcome to Aphromas Diamond
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+At Aphromas Diamond, we believe that every diamond tells a unique story. As a premier online diamond retailer, we are dedicated to helping you find the perfect gem that captures the essence of your most cherished moments. Whether you're looking for an engagement ring that symbolizes eternal love, a timeless piece to celebrate an anniversary, or a stunning gift to mark a special occasion, Aphromas Diamond is here to make your dreams sparkle.
+## 2. Demo image
 
-## Expanding the ESLint configuration
+<div id="header" align="center">
+  <img src="https://i.imgur.com/JJlGebq.jpeg" width="1280"/>
+</div>
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+## 3. Epic features
 
-- Configure the top-level `parserOptions` property like this:
+<ul>
+  <li>Manage Account</li>
+  <li>Manage Jewelry</li>
+  <li>Manage Order</li>
+  <li>Manage Cart</li>
+  <li>Manage Analysis Reports</li>
+  <li>Manage Marketing</li>
+  <li>Manage Notification</li>
+  <li>Support center</li>
+</ul>
 
-```js
-export default {
-  // other rules...
-  parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
-    project: ['./tsconfig.json', './tsconfig.node.json'],
-    tsconfigRootDir: __dirname,
-  },
-}
-```
+## 4. Technologies
 
-- Replace `plugin:@typescript-eslint/recommended` to `plugin:@typescript-eslint/recommended-type-checked` or `plugin:@typescript-eslint/strict-type-checked`
-- Optionally add `plugin:@typescript-eslint/stylistic-type-checked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and add `plugin:react/recommended` & `plugin:react/jsx-runtime` to the `extends` list
+### Front-end Development :
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/react/react-original.svg" alt="React" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/vitejs/vitejs-original.svg" alt="Vitejs" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/typescript/typescript-original.svg" alt="TypeScript" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/antdesign/antdesign-original.svg" alt="Ant Design" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/redux/redux-original.svg" alt="Redux" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/axios/axios-plain-wordmark.svg" alt="Axios" height="50" />
+</div>
+
+### Back-end Development :
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/nestjs/nestjs-original-wordmark.svg" alt="Nestjs" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/mysql/mysql-original-wordmark.svg" alt="MySQL" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/swagger/swagger-original-wordmark.svg" alt="Swagger" height="50" />
+  <img src="https://cdn.worldvectorlogo.com/logos/jwt-3.svg" alt="JWT" height="50" />
+</div>
+
+### Deployment :
+<div>
+  <img src="https://github.com/devicons/devicon/blob/master/icons/azure/azure-original.svg" alt="Azure" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/docker/docker-plain-wordmark.svg" alt="Docker" height="50" />
+  <img src="https://github.com/devicons/devicon/blob/master/icons/githubactions/githubactions-original.svg" alt="Github Actions" height="50" />
+</div>
+
+

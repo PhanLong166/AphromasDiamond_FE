@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { Breadcrumb, Collapse } from "antd";
 
 export const Section = styled.div`
   margin: 0 auto;
@@ -152,4 +153,29 @@ export const LeftFAQ = styled.div`
 .ant-collapse-header {
   border-radius: 5px; 
 }
+`;
+
+export const StyledCollapse = styled(Collapse)`
+  .ant-collapse-item {
+    background-color: #ffffff;
+  }
+  .ant-collapse-header-text {
+    color: ${theme.color.primary};
+  }
+  .ant-collapse-content {
+    background-color: #f4f2ee;
+    color: #45413e;
+  }
+  .ant-collapse-expand-icon {
+    color: ${theme.color.primary};
+  }
+  .ant-collapse-header {
+    border-radius: 8px;
+  }
+`;
+
+export const CustomBreadcrumb = styled(Breadcrumb)`
+max-width: 1400px;
+margin: 0 auto;
+padding-top: 20px;
 `;

@@ -2,8 +2,7 @@ import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
-// import { useNavigate } from "react-router-dom";
-// import { Button } from "antd";
+
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Section, Container, Heading, List } from "./AllProduct.styled";
