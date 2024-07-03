@@ -1,5 +1,5 @@
 import { cartSlice } from "@/layouts/MainLayout/slice/cartSlice";
-import { customSlice } from "@/layouts/MainLayout/slice/customRIngSlice";
+import { customSlice } from "@/layouts/MainLayout/slice/customRingSlice";
 
 
 import { configureStore } from "@reduxjs/toolkit";
