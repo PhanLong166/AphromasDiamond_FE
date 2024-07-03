@@ -8,6 +8,7 @@ const routes = {
     setPassword: "/set-password",
     notFound: "/404",
     product: "/product",
+    productDetail: "/product/:id",
     productList: "/list",
     allProduct: "/all",
     about: "/about",
@@ -30,7 +31,8 @@ const routes = {
     braceletEdu: "/bracelets-education",
     engagementEdu: "/engagement-ring-education",
     weddingEdu: "/wedding-ring-education",
-
+    success: "/success",
+    fail: "/fail",
   },
   customer: {
     account: "/account",

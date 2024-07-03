@@ -1,5 +1,6 @@
-import { useState } from "react";
+import { useState} from "react";
 import { Breadcrumb } from "antd";
+import { Link, useParams } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
@@ -53,102 +54,23 @@ import {
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import config from "@/config";
 import { Pagination } from "antd";
 
 const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1320px;
+  max-width: 1400px;
   margin: 0 auto;
   padding-top: 20px;
 `;
 
-const ProductDetails = () => {
-  const images = {
-    yellow: [
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a",
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_4.webp?alt=media&token=c964ce76-26c7-404d-8fc7-e173ef7a79c3",
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_5.webp?alt=media&token=6428b184-9347-499e-bfd8-2d7f9666cdde",
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_3.webp?alt=media&token=61c10714-2ce3-439f-bc9c-e61a8b32ad48",
-    ],
-    white: [
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1_b.webp?alt=media&token=4bec468a-76a0-45b2-becd-cef57a006f1d",
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_4_b.webp?alt=media&token=da52e2fa-0443-4e44-8578-543a06551803",
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_5_b.webp?alt=media&token=00aeadec-fa72-404d-9b6b-e8c38b65e65c",
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_3_b.webp?alt=media&token=f1e0020f-38cc-484c-9418-badfa38a0ff9",
-    ],
-    rose: [],
-    platinum: [],
-  };
-  const [mainImage, setMainImage] = useState(images.yellow[0]);
-  const [selectedThumb, setSelectedThumb] = useState(0);
-  const [metalType, setMetalType] = useState<keyof typeof images>("yellow");
-
-  const [metalAvailability] = useState({
-    yellow: images.yellow.length > 0,
-    white: images.white.length > 0,
-    rose: images.rose.length > 0,
-    platinum: images.platinum.length > 0,
-  });
-
-  const changeImage = (src: string, index: number) => {
-    setMainImage(src);
-    setSelectedThumb(index);
-  };
-  const handleMetalClick = (type: keyof typeof images) => {
-    if (metalAvailability[type]) {
-      setMetalType(type);
-      setMainImage(images[type][0]);
-      setSelectedThumb(0);
-    }
-  };
+const ProductDetails: React.FC = () => {
+  //tab description + cmt
   const [activeTab, setActiveTab] = useState("product-description");
 
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
   };
-  const sizes = [8, 10, 12, 14, 16, 18];
 
-  const [selectedSize, setSelectedSize] = useState<number | null>(null);
-
-  const handleClick = (size: number) => {
-    setSelectedSize(size);
-  };
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [inscription, setInscription] = useState<string>("");
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleSave = (text: string) => {
-    setInscription(text);
-    setIsModalVisible(false);
-  };
-
-  const handleDelete = () => {
-    setInscription("");
-  };
-
-  const handleClose = () => {
-    setIsModalVisible(false);
-  };
-
-  // const { id } = useParams();
-  // const product = products.find((product) => product.id === id);
-
-  //fill product for same brand
-  const sameProductIds = ["1", "2", "3", "4"];
-  const sameBrandProducts = products.filter((product) =>
-    sameProductIds.includes(product.id)
-  );
-  //fille product for recently
-  const recentlyProductIds = ["16", "18", "20", "12"];
-  const recentlyViewedProducts = products.filter((product) =>
-    recentlyProductIds.includes(product.id)
-  );
-
-  const navigate = useNavigate();
-
+  //data cmt
   const reviewsData = [
     {
       name: "Olivia Williams",
@@ -187,7 +109,50 @@ const ProductDetails = () => {
         " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
     },
   ];
+  //size
+  const sizes = [8, 10, 12, 14, 16, 18];
 
+  const [selectedSize, setSelectedSize] = useState<number | null>(null);
+
+  const handleClick = (size: number) => {
+    setSelectedSize(size);
+  };
+
+  //inscription
+  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [inscription, setInscription] = useState<string>("");
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleSave = (text: string) => {
+    setInscription(text);
+    setIsModalVisible(false);
+  };
+
+  const handleDelete = () => {
+    setInscription("");
+  };
+
+  const handleClose = () => {
+    setIsModalVisible(false);
+  };
+
+  //2 same
+  const sameProductIds = ["50141014", "50141015", "50141016", "50141017"];
+  const sameBrandProducts = products.filter((product) =>
+    sameProductIds.includes(product.id)
+  );
+
+  const recentlyProductIds = ["50141014", "50141015", "50141016", "50141017"];
+  const recentlyViewedProducts = products.filter((product) =>
+    recentlyProductIds.includes(product.id)
+  );
+  //
+  const navigate = useNavigate();
+
+  //wishlist
   const [wishList, setWishList] = useState<string[]>([]);
 
   const toggleWishList = (productId: string) => {
@@ -197,27 +162,49 @@ const ProductDetails = () => {
         : [...prev, productId]
     );
   };
+
+  //PARAM
+  const { id } = useParams<{ id: string }>();
+  const foundProduct = products.find((product) => product.id === id);
+
+  if (!foundProduct) {
+    return <div>Product not found</div>;
+  }
+
+  const [mainImage, setMainImage] = useState(foundProduct.images.yellow[0]);
+  const [selectedThumb, setSelectedThumb] = useState(0);
+  const [metalType, setMetalType] =
+    useState<keyof typeof foundProduct.images>("yellow");
+  const [metalAvailability] = useState({
+    yellow: foundProduct.images.yellow.length > 0,
+    white: foundProduct.images.white.length > 0,
+    rose: foundProduct.images.rose.length > 0,
+    platinum: foundProduct.images.platinum.length > 0,
+  });
+
+  const changeImage = (src: string, index: number) => {
+    setMainImage(src);
+    setSelectedThumb(index);
+  };
+
+  const handleMetalClick = (type: keyof typeof foundProduct.images) => {
+    if (metalAvailability[type]) {
+      setMetalType(type);
+      setMainImage(foundProduct.images[type][0]);
+      setSelectedThumb(0);
+    }
+  };
+
   return (
     <Body>
       <div>
         <CustomBreadcrumb
           separator=">"
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: "Round Ring",
-              href: "/product",
-            },
-            {
-              title: "All Product",
-              href: "/all",
-            },
-            {
-              title: "Ring - #012345",
-            },
+            { title: "Home", href: "/" },
+            { title: "Round Ring", href: "/product" },
+            { title: "All Product", href: "/all" },
+            { title: `${foundProduct.type} - #${foundProduct.id}` },
           ]}
         />
       </div>
@@ -229,15 +216,19 @@ const ProductDetails = () => {
                 <ImageContainer>
                   <OuterThumb>
                     <ThumbnailImage>
-                      {images[metalType].map((src: string, index: number) => (
-                        <Item
-                          key={index}
-                          className={selectedThumb === index ? "selected" : ""}
-                          onClick={() => changeImage(src, index)}
-                        >
-                          <img src={src} alt={`Thumb ${index + 1}`} />
-                        </Item>
-                      ))}
+                      {foundProduct.images[metalType].map(
+                        (src: string, index: number) => (
+                          <Item
+                            key={index}
+                            className={
+                              selectedThumb === index ? "selected" : ""
+                            }
+                            onClick={() => changeImage(src, index)}
+                          >
+                            <img src={src} alt={`Thumb ${index + 1}`} />
+                          </Item>
+                        )
+                      )}
                     </ThumbnailImage>
                   </OuterThumb>
                   <OuterMain>
@@ -251,20 +242,18 @@ const ProductDetails = () => {
             <ProductDetail>
               <Entry>
                 <Heading>
-                  <Title className="main-title">SOFIA TWO FINGER RING</Title>
+                  <Title className="main-title">{foundProduct.name}</Title>
                   <ProductRating>
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
-                    <StarFilled />
+                    {[...Array(foundProduct.star)].map((_, i) => (
+                      <StarFilled key={i} />
+                    ))}
                   </ProductRating>
                 </Heading>
                 <ProductInfo>
                   <div className="wrap">
-                    <div className="info-box">SI2</div>
-                    <div className="info-box">0.16carat</div>
-                    <div className="info-box">1.80mm</div>
+                    <div className="info-box">{foundProduct.clarity}</div>
+                    <div className="info-box">{foundProduct.carat}</div>
+                    <div className="info-box">{foundProduct.color}</div>
                   </div>
                 </ProductInfo>
                 <ProductMetal>
@@ -275,7 +264,7 @@ const ProductDetails = () => {
                         metalType === "white" ? "selected" : ""
                       }`}
                       onClick={() => handleMetalClick("white")}
-                      disabled={!metalAvailability.white}
+                      disabled={!foundProduct.images.white.length}
                     >
                       <span>14k</span>
                     </button>
@@ -284,7 +273,7 @@ const ProductDetails = () => {
                         metalType === "yellow" ? "selected" : ""
                       }`}
                       onClick={() => handleMetalClick("yellow")}
-                      disabled={!metalAvailability.yellow}
+                      disabled={!foundProduct.images.yellow.length}
                     >
                       <span>14k</span>
                     </button>
@@ -293,7 +282,7 @@ const ProductDetails = () => {
                         metalType === "rose" ? "selected" : ""
                       }`}
                       onClick={() => handleMetalClick("rose")}
-                      disabled={!metalAvailability.rose}
+                      disabled={!foundProduct.images.rose.length}
                     >
                       <span>14k</span>
                     </button>
@@ -302,7 +291,7 @@ const ProductDetails = () => {
                         metalType === "platinum" ? "selected" : ""
                       }`}
                       onClick={() => handleMetalClick("platinum")}
-                      disabled={!metalAvailability.platinum}
+                      disabled={!foundProduct.images.platinum.length}
                     >
                       <span>Pt</span>
                     </button>
@@ -311,7 +300,7 @@ const ProductDetails = () => {
                 <div>
                   <RingSizeContainer>
                     <RingSize>Select size</RingSize>
-                    <RingSizeHelp href={config.routes.public.ringGuide}>
+                    <RingSizeHelp href="/find-ring-size">
                       Ring size help
                     </RingSizeHelp>
                   </RingSizeContainer>
@@ -358,21 +347,25 @@ const ProductDetails = () => {
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>$75,0</CurrentPrice>
-                      <div className="wrap">
-                        <BeforePrice>$100,00</BeforePrice>
-                        <Discount>-25%</Discount>
-                      </div>
+                      <CurrentPrice>
+                        $
+                        {foundProduct.salePrice
+                          ? foundProduct.salePrice
+                          : foundProduct.price}
+                      </CurrentPrice>
+                      {foundProduct.salePrice && (
+                        <div className="wrap">
+                          <BeforePrice>${foundProduct.price}</BeforePrice>
+                          <Discount>- {foundProduct.percentSale}</Discount>
+                        </div>
+                      )}
                     </div>
                   </div>
                 </ProductPrice>
               </Entry>
               <div className="outlet">
                 <ButtonContainer>
-                  <ButtonAdd
-                    className="add"
-                    onClick={() => navigate(config.routes.customer.cart)}
-                  >
+                  <ButtonAdd className="add" onClick={() => navigate("/cart")}>
                     ADD TO CART
                   </ButtonAdd>
                   <Button className="checkout button_slide slide_right">
@@ -384,7 +377,6 @@ const ProductDetails = () => {
                     <ShippingItem>
                       <span>Free shipping & return</span>
                     </ShippingItem>
-
                     <ShippingItem>
                       <span>Estimate delivery: &#160;</span>
                       <span className="delivery"> 01 - 07 Jan, 2024</span>
@@ -428,31 +420,23 @@ const ProductDetails = () => {
           >
             {/* Product detail content */}
             <TextBlock>
-              <h3>Three-Stone Trapezoid Sidestone Diamond Ring</h3>
-              <p>
-                Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse
-                nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt
-                accusamus possimus ex voluptas, perferendis reiciendis?
-              </p>
-              <p>
-                Dolor sit amet consectetur adipisicing elit. Esse nobis aperiam
-                aliquam alias fuga earum neque iste ipsa nesciunt accusamus
-                possimus ex voluptas.
-              </p>
+              <h3>{foundProduct.name}</h3>
+              <p>{foundProduct.description}</p>
+              <p>{foundProduct.description}</p>
             </TextBlock>
             <DotGrid>
               <div className="wrapper2">
                 <ListBlock>
                   <h4>What is this?</h4>
                   <ul>
-                    <li>ID Number: 501410r14</li>
-                    <li>Width: 2.00mm</li>
-                    <li>Quantity: 16</li>
-                    <li>Shape: Round</li>
-                    <li>Total Carat (Average): 0.24</li>
-                    <li>Color: I</li>
-                    <li>Clarity: SI2</li>
-                    <li>Setting Type: Pave </li>
+                    <li>ID Number: {foundProduct.id}</li>
+                    <li>Width: {foundProduct.width}</li>
+                    <li>Quantity: {foundProduct.quantity}</li>
+                    <li>Shape: {foundProduct.shape}</li>
+                    <li>Total Carat (Average): {foundProduct.carat}</li>
+                    <li>Color: {foundProduct.color}</li>
+                    <li>Clarity: {foundProduct.clarity}</li>
+                    <li>Setting Type: {foundProduct.type}</li>
                   </ul>
                 </ListBlock>
                 <ListBlock>
@@ -533,57 +517,62 @@ const ProductDetails = () => {
           <Row gutter={[16, 16]}>
             {sameBrandProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Card
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
-                      <img
-                        style={{ borderRadius: "0" }}
-                        src={product.image}
-                        alt={product.name}
-                        className="product-image"
-                        onMouseOver={(e) =>
-                          (e.currentTarget.src = product.hoverImage)
-                        }
-                        onMouseOut={(e) =>
-                          (e.currentTarget.src = product.image)
-                        }
-                      />
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
-                      {product.name}
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
+                <Link to={`/product/${product.id}`}>
+                  <Card
+                    style={{ borderRadius: "0" }}
+                    hoverable
+                    className="product-card"
+                    cover={
+                      <>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={product.image}
+                          alt={product.name}
+                          className="product-image"
+                          onMouseOver={(e) =>
+                            (e.currentTarget.src = product.hoverImage)
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src = product.image)
+                          }
                         />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
-                      </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
+                        {product.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
+                    }
+                  >
+                    <div className="product-info">
+                      <Title level={4} className="product-name">
+                        {product.name}
+                        {wishList.includes(product.id) ? (
+                          <HeartFilled
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        ) : (
+                          <HeartOutlined
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        )}
+                      </Title>
+                      <div className="price-container">
+                        <Text className="product-price">
+                          $
+                          {product.salePrice
+                            ? product.salePrice
+                            : product.price}
                         </Text>
-                      )}
+                        {product.salePrice && (
+                          <Text delete className="product-sale-price">
+                            ${product.price}
+                          </Text>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </Link>
               </Col>
             ))}
           </Row>
@@ -597,57 +586,62 @@ const ProductDetails = () => {
           <Row gutter={[16, 16]}>
             {recentlyViewedProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Card
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
-                      <img
-                        style={{ borderRadius: "0" }}
-                        src={product.image}
-                        alt={product.name}
-                        className="product-image"
-                        onMouseOver={(e) =>
-                          (e.currentTarget.src = product.hoverImage)
-                        }
-                        onMouseOut={(e) =>
-                          (e.currentTarget.src = product.image)
-                        }
-                      />
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
-                      {product.name}
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
+                <Link to={`/product/${product.id}`}>
+                  <Card
+                    style={{ borderRadius: "0" }}
+                    hoverable
+                    className="product-card"
+                    cover={
+                      <>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={product.image}
+                          alt={product.name}
+                          className="product-image"
+                          onMouseOver={(e) =>
+                            (e.currentTarget.src = product.hoverImage)
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src = product.image)
+                          }
                         />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
-                      </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
+                        {product.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
+                    }
+                  >
+                    <div className="product-info">
+                      <Title level={4} className="product-name">
+                        {product.name}
+                        {wishList.includes(product.id) ? (
+                          <HeartFilled
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        ) : (
+                          <HeartOutlined
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        )}
+                      </Title>
+                      <div className="price-container">
+                        <Text className="product-price">
+                          $
+                          {product.salePrice
+                            ? product.salePrice
+                            : product.price}
                         </Text>
-                      )}
+                        {product.salePrice && (
+                          <Text delete className="product-sale-price">
+                            ${product.price}
+                          </Text>
+                        )}
+                      </div>
                     </div>
-                  </div>
-                </Card>
+                  </Card>
+                </Link>
               </Col>
             ))}
           </Row>
