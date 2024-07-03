@@ -1,7 +1,6 @@
 // import React, { useState } from 'react';
 import { 
   Container,
-  RightSection,
   LeftSection,
   Banner,
   ImageWrapper,
@@ -12,12 +11,14 @@ import {
 import {} from "@ant-design/icons";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
+import config from "@/config";
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
   padding-top: 10px;
   padding-bottom: 10px;
 `;
 import { Row, Col, Card } from "antd";
+import { Link } from "react-router-dom";
 const CardWrapper = styled(Card)`
   background-color: #f1f1f1;
 `;
@@ -30,6 +31,7 @@ const LearnAbout = () => {
       name: "Diamond Education",
       subtitle:
         "Make the right choice by learning how to select your perfect diamond.",
+        href: `${config.routes.public.cs}`,
     },
     {
       imageUrl:
@@ -37,6 +39,7 @@ const LearnAbout = () => {
       name: "Metal Education",
       subtitle:
         "Choose wisely with our guide to platinum, gold, silver, and tungsten jewelry.",
+        href: `${config.routes.public.metalEdu}`,
     },
     {
       imageUrl:
@@ -44,6 +47,7 @@ const LearnAbout = () => {
       name: "Find Your Ring Size",
       subtitle:
         "Blue Nile realizes that you may not know the ring size for a given finger, and we want to help.",
+        href: `${config.routes.public.size}`,
     },
     {
       imageUrl:
@@ -51,30 +55,35 @@ const LearnAbout = () => {
       name: "Wedding Ring Guide",
       subtitle:
         "This guide details all you'll need to know about choosing women's and men's wedding rings.",
+        href: `${config.routes.public.weddingEdu}`,
     },
     {
       imageUrl:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2FnecklaceLearn.png?alt=media&token=1666e3ca-d330-429b-b088-b7d590086ab5",
       name: "Necklace Guide",
       subtitle: "Learn how to choose necklace jewelry to fit her style.",
+      href: `${config.routes.public.necklaceEdu}`,
     },
     {
       imageUrl:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2Fengagement.png?alt=media&token=8e533ff3-0a02-4837-8fd2-046fafafe59b",
       name: "Engagement Ring Guide",
       subtitle: "Get expert guidance on finding the perfect engagement ring.",
+      href: `${config.routes.public.engagementEdu}`,
     },
     {
       imageUrl:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2FbraceletLearn.png?alt=media&token=bdec910a-7d8a-4ecb-844f-cd757170a8fa",
       name: "Earrings Guide",
       subtitle: "Learn why earrings make the perfect gift.",
+      href: `${config.routes.public.earringEdu}`,
     },
     {
       imageUrl:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2FearringLearn.png?alt=media&token=90190447-7199-4ff5-b67e-3a053b8e9bbe",
       name: "Bracelet Guide",
       subtitle: "Learn all about bracelets.",
+      href: `${config.routes.public.braceletEdu}`,
     },
   ];
   return (
@@ -108,12 +117,6 @@ const LearnAbout = () => {
               understanding of these timeless treasures.
             </div>
           </LeftSection>
-          <RightSection>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2Flearnbanner.png?alt=media&token=e2f8d6f8-8102-494d-9891-98dc2bf449c2"
-              alt="Product Image"
-            />
-          </RightSection>
         </Banner>
         <Section>
           <LearnItem>
@@ -121,6 +124,7 @@ const LearnAbout = () => {
               {learnItems.map((item, index) => (
                 <Col span={12} key={index}>
                   <LearnItem>
+                    <Link to={item.href}>
                     <CardWrapper>
                       <Row>
                         <Col span={10}>
@@ -136,6 +140,7 @@ const LearnAbout = () => {
                         </Col>
                       </Row>
                     </CardWrapper>
+                    </Link>
                   </LearnItem>
                 </Col>
               ))}

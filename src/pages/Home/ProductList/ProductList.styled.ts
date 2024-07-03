@@ -74,14 +74,6 @@ export const LeftSection = styled.div`
   }
 `;
 
-export const RightSection = styled.div`
-  img {
-    width: 65%;
-    height: auto;
-    border-radius: 10px;
-    margin-left: 50px;
-  }
-`;
 
 export const FAQs = styled.section`
   display: flex;

@@ -346,10 +346,6 @@ export const Design = styled.div`
     color: #45413e;
   }
 `;
-//Store
-export const Store = styled.div`
-  margin-bottom: 67px;
-`;
 
 //Commitment
 export const Commitment = styled.div`
@@ -498,4 +494,14 @@ export const CustomerImage = styled.img`
   border-radius: 50%;
   object-fit: cover;
   margin-top: 10px;
+`;
+
+export const FullImage = styled.img`
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+`;
+
+export const Section = styled.div`
+margin-bottom: 50px;
 `;

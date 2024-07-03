@@ -49,7 +49,6 @@ export const LeftSection = styled.div`
     font-family: "Gantari", sans-serif;
     color: #45413e;
   }
-
 `;
 
 export const InfoSection = styled.div`
@@ -98,6 +97,7 @@ export const GiftSection = styled.div`
     align-items: center;
     box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
     transition: all 0.2s ease;
+
     img {
       width: 600px;
       height: 300px;
@@ -199,6 +199,15 @@ export const GiftSection = styled.div`
       width: 95%;
       text-align: right;
     }
+  }
+
+  .title {
+    text-transform: lowercase;
+    font-weight: 500;
+  }
+
+  .title:first-letter {
+    text-transform: uppercase;
   }
 
   .gift-button {

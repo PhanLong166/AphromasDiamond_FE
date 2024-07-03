@@ -27,7 +27,8 @@ import {
   CustomerImage,
   Mission,
   Design,
-  Store,
+  FullImage,
+  Section,
   //  StarIcon
 } from "./AboutUs.styled";
 import styled from "styled-components";
@@ -67,7 +68,7 @@ const About = () => {
       <ContainerBanner>
         <LeftSidebar>
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2Fpicleft.jpg?alt=media&token=f0c4bdf4-f0da-494b-b529-22b71c454c7a"
+            src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2Faboutright.jpg?alt=media&token=3e30b0bc-bf84-4f04-b9b2-f3307d6fdae0"
             alt="picture of a person"
           />
         </LeftSidebar>
@@ -77,7 +78,7 @@ const About = () => {
           </Heading>
           <Article>
             <FeaturedImage
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2Fpicmain.jpg?alt=media&token=ed79c309-f895-4b07-b4c4-398a10cba093"
+              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2Fmainabout.jpg?alt=media&token=d0503044-6f7d-4b41-881f-290059c1710f"
               alt="Article's featured image"
             />
             <Paragraph>
@@ -120,7 +121,7 @@ const About = () => {
         </Main>
         <RightSidebar>
           <img
-            src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2Fpicright.jpg?alt=media&token=29a26331-6223-49cd-b93b-9f03df599016"
+            src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2Faboutleft.jpg?alt=media&token=0c015220-324f-4e6d-ac3d-5ebb74a3bb16"
             alt="tall cover photo"
           />
         </RightSidebar>
@@ -243,7 +244,7 @@ const About = () => {
                 <div className="team-image">
                   <TeamImage>
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2FTC.jpg?alt=media&token=cb074d98-d86a-486a-ac7e-d85f5e208bfc"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/NewAbout%2F520c04e6-d8e6-4e88-aee3-2ef6bead9bb7.jpg?alt=media&token=47e4efbd-8b60-444a-a405-80dc996c16a3"
                       className="img-circle img-responsive"
                     />
                   </TeamImage>
@@ -262,7 +263,7 @@ const About = () => {
                 <div className="team-image">
                   <TeamImage>
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2FHW.jpg?alt=media&token=32d03794-ced7-4c58-a854-cf9285912be0"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/NewAbout%2F76d08f93-676a-488d-babd-57880b61b5ac.jpg?alt=media&token=7ccb8f23-c653-432a-b829-b1eca1125a38"
                       className="img-circle img-responsive"
                     />
                   </TeamImage>
@@ -281,7 +282,7 @@ const About = () => {
                 <div className="team-image">
                   <TeamImage>
                     <img
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2FC.jpg?alt=media&token=dfc956d1-1560-4be1-b8cc-5541de3d2014"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/NewAbout%2Fbc265a25-37c3-4431-8791-370ae36ddc7f.jpg?alt=media&token=57e1e86c-5437-48b2-b7e6-8050a9a60d92"
                       className="img-circle img-responsive"
                     />
                   </TeamImage>
@@ -684,24 +685,20 @@ const About = () => {
           </Box>
         </CustomersContainer>
       </Customer>
-      <Store>
-        <Row gutter={0} style={{ width: "100%", margin: 0 }}>
+      <Section>
+        <Row>
           <Col span={12}>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2FValuing-a-Jewelry-Store-1080x675%20(1).jpg?alt=media&token=408b8adb-2c73-4049-b3b6-0d0753bb8a69"
-              alt="Image 1"
-              style={{ width: "100%" }}
+            <FullImage
+              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/CollectionComing%2Fend_1.jpg?alt=media&token=77d2bc32-b903-4371-a1f5-5b103579e474"
+              alt="Image 3"
+              style={{ height: "96%" }}
             />
           </Col>
           <Col span={12}>
-            <img
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/About%2FValuing-a-Jewelry-Store-1080x675%20(1).jpg?alt=media&token=408b8adb-2c73-4049-b3b6-0d0753bb8a69"
-              alt="Image 2"
-              style={{ width: "100%", objectFit: "cover" }}
-            />
+            <FullImage src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/CollectionComing%2Fend_2.jpg?alt=media&token=6c48a9e2-1b66-44ae-9666-ca846ed50c6e" alt="Image 4" />
           </Col>
         </Row>
-      </Store>
+      </Section>
     </Body>
   );
 };

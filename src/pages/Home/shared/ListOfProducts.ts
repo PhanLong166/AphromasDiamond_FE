@@ -62,7 +62,7 @@ export const products: Product[] = [
     color: "I",
     type: "Ring",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
     id: "50141015",
@@ -98,7 +98,7 @@ export const products: Product[] = [
     color: "I",
     type: "Ring",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
     id: "50141016",
@@ -130,7 +130,7 @@ export const products: Product[] = [
     color: "I",
     type: "Necklace",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
     id: "50141017",
@@ -166,7 +166,7 @@ export const products: Product[] = [
     color: "I",
     type: "Earrings",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
     id: "50141020",
@@ -202,7 +202,7 @@ export const products: Product[] = [
     color: "I",
     type: "Earrings",
     description:
-      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
 
 ];
