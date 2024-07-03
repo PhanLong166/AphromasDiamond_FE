@@ -1,5 +1,5 @@
 import * as Styled from "./ProductDetail.styled";
-import React, { useState, useContext, useEffect, useRef } from "react";
+import React, { useState, useEffect, } from "react";
 import {
   Button,
   Modal,
@@ -8,8 +8,6 @@ import {
   Select,
   Popconfirm,
   Table,
-  InputRef,
-  GetRef,
   Popover,
 } from "antd";
 // import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
@@ -23,10 +21,9 @@ import {
   ringMaterialData,
   RingMaterialDataType,
   MaterialDataType,
-  ProductDataType,
   DiamondDataType,
   ringSizeData,
-  RingSizeDataType,
+  // RingSizeDataType,
   // MaterialDataType,
 } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
@@ -54,9 +51,6 @@ const getMaterialDetails = (materialID: string, materialData: MaterialDataType[]
   return materialData.find((material) => material.materialID === materialID);
 };
 
-  const handleInputChange = (field: keyof ProductDataType, value: any) => {
-    setEditedProduct({ ...editedProduct, [field]: value });
-  };
 
 const getDiamondDetails = (diamondID: string, diamondData: DiamondDataType[]) => {
   return diamondData.find((diamond) => diamond.diamondID === diamondID);
@@ -69,160 +63,6 @@ const PriceCalculation = (
 );
 
 
-
-// const EditableContext = React.createContext<FormInstance<any> | null>(null);
-
-// type FormInstance<T> = GetRef<typeof Form<T>>;
-
-// interface EditableRowProps {
-//   index: number;
-// }
-
-// const EditableRow: React.FC<EditableRowProps> = ({ index, ...props }) => {
-//   const [form] = Form.useForm();
-//   return (
-//     <Form form={form} component={false}>
-//       <EditableContext.Provider value={form}>
-//         <tr {...props} />
-//       </EditableContext.Provider>
-//     </Form>
-//   );
-// };
-
-// interface EditableCellProps {
-//   title: React.ReactNode;
-//   editable: boolean;
-//   dataIndex: keyof RingMaterialDataType;
-//   record: RingMaterialDataType;
-//   handleSave: (record: RingMaterialDataType) => void;
-// }
-
-// const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
-//   title,
-//   editable,
-//   children,
-//   dataIndex,
-//   record,
-//   handleSave,
-//   ...restProps
-// }) => {
-//   const [editing, setEditing] = useState(false);
-//   const inputRef = useRef<InputRef>(null);
-//   const form = useContext(EditableContext)!;
-
-//   useEffect(() => {
-//     if (editing) {
-//       inputRef.current?.focus();
-//     }
-//   }, [editing]);
-
-//   const toggleEdit = () => {
-//     setEditing(!editing);
-//     form.setFieldsValue({ [dataIndex]: record[dataIndex] });
-//   };
-
-//   const save = async () => {
-//     try {
-//       const values = await form.validateFields();
-//       toggleEdit();
-//       handleSave({ ...record, ...values });
-//     } catch (errInfo) {
-//       console.log("Save failed:", errInfo);
-//     }
-//   };
-
-//   // const materialOptions = [
-//   //   { value: "14K White Gold", label: "14KWhiteGold" },
-//   //   { value: "14K Yellow Gold", label: "14KYellowGold" },
-//   //   { value: "14K Rose Gold", label: "14KRoseGold" },
-//   //   { value: "18K White Gold", label: "18KWhiteGold" },
-//   //   { value: "18K Yellow Gold", label: "18KYellowGold" },
-//   //   { value: "18K Rose Gold", label: "18KRoseGold" },
-//   //   { value: "Platinum", label: "Platinum" },
-//   // ];
-
-//   // const handleMaterialChange = (value: string) => {
-//   //   const materialDetail = getMaterialDetails(value);
-//   //   if (materialDetail) {
-//   //     const pricePerGram = materialDetail.sellingPrice;
-//   //     const price = record.weight * pricePerGram;
-
-//   //     form.setFieldsValue({
-//   //       materialID: value,
-//   //       pricePerGram,
-//   //       price,
-//   //     });
-//   //   }
-//   //   save();
-//   // };
-
-//   let childNode = children;
-
-//   if (editable) {
-//     childNode = editing ? (
-//       // dataIndex === 'materialID' ? (
-//       <Form.Item
-//         style={{ margin: 0 }}
-//         name={dataIndex}
-//         rules={[
-//           {
-//             required: true,
-//             message: `${title} is required.`,
-//           },
-//         ]}
-//       >
-//         {dataIndex === "materialName" ? (
-//           <Select
-//             onChange={(value) => handleMaterialChange(value)}
-//             value={record.materialName}
-//           >
-//             {materialOptions.map((option) => (
-//               <Select.Option key={option.label} value={option.label}>
-//                 {option.value}
-//               </Select.Option>
-//             ))}
-//           </Select>
-//         ) : (
-//           <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-//         )}
-//       </Form.Item>
-//     ) : (
-//       // ) : (
-//       //   <Form.Item
-//       //     style={{ margin: 0 }}
-//       //     name={dataIndex}
-//       //     rules={[
-//       //       {
-//       //         required: true,
-//       //         message: `${title} is required.`,
-//       //       },
-//       //     ]}
-//       //   >
-//       //     <Input ref={inputRef} onPressEnter={save} onBlur={save} />
-//       //   </Form.Item>
-//       // )
-//       <div
-//         className="editable-cell-value-wrap"
-//         style={{ paddingRight: 24 }}
-//         onClick={toggleEdit}
-//       >
-//         {children}
-//       </div>
-//     );
-//   }
-
-//   return <td {...restProps}>{childNode}</td>;
-// };
-
-// const getMaterialDetails = (materialID: string) => {
-//   return materialData.find((material) => material.materialID === materialID);
-// };
-
-// type EditableTableProps = Parameters<typeof Table>[0];
-
-// type ColumnTypes = Exclude<EditableTableProps["columns"], undefined>;
-
-// const { Option } = Select;
 
 const JewelryDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -268,13 +108,13 @@ const JewelryDetail = () => {
   const [editedRingSetting, setEditedRingSetting] = useState(activeRingSetting);
   const [editedRingSettingMaterials, setEditedRingSettingMaterials] = useState(activeRingSettingMaterials);
 
-  const startEditing = () => {
-    setIsEditing(true);
-    setEditedProduct({ ...activeProduct }); 
-    setEditedDiamond({ ...activeDiamond }); 
-    setEditedRingSetting({ ...activeRingSetting }); 
-    setEditedRingSettingMaterials({ ...activeRingSettingMaterials }); 
-  };
+  // const startEditing = () => {
+  //   setIsEditing(true);
+  //   setEditedProduct({ ...activeProduct }); 
+  //   setEditedDiamond({ ...activeDiamond }); 
+  //   setEditedRingSetting({ ...activeRingSetting }); 
+  //   setEditedRingSettingMaterials({ ...activeRingSettingMaterials }); 
+  // };
 
   const saveChanges = () => {
     setIsEditing(false);
@@ -286,19 +126,19 @@ const JewelryDetail = () => {
 
   const handleFieldChange = (fieldName: string, value: any) => {
     setEditedProduct({
-      ...editedProduct,
+      ...editedProduct!,
       [fieldName]: value,
     });
     setEditedDiamond({
-      ...editedDiamond,
+      ...editedDiamond!,
       [fieldName]: value,
     });
-    setEditedProduct({
-      ...editedRingSetting,
+    setEditedRingSetting({
+      ...editedRingSetting!,
       [fieldName]: value,
     });
-    setEditedProduct({
-      ...editedRingSettingMaterials,
+    setEditedRingSettingMaterials({
+      ...editedRingSettingMaterials!,
       [fieldName]: value,
     });
   };
@@ -346,13 +186,6 @@ const JewelryDetail = () => {
     setData(newData);
   };
 
-  // const handleDelete = (key: React.Key) => {
-  //   const newData = data.filter(
-  //     (item: RingMaterialDataType) => item.key !== key
-  //   );
-  //   setData(newData);
-  // };
-
   const handleDelete = (key: React.Key) => {
     const newData = data.filter(item => item.key !== key);
     setData(newData);
@@ -367,6 +200,7 @@ const JewelryDetail = () => {
     const newData: RingMaterialDataType = {
       key: String(data.length + 1),
       jewelrySettingID: activeRingSetting?.jewelrySettingID || "",
+      jewelrySettingVariantID: "",
       materialID: newMaterialID,
       sizeID: "defaultSize", // Replace with appropriate size ID logic
       amount: 1,
@@ -387,12 +221,12 @@ const JewelryDetail = () => {
   ];
 
   const sizeOptions = [
-    { value: "8", label: "8" },
-    { value: "10", label: "10" },
-    { value: "12", label: "12" },
-    { value: "14", label: "14" },
-    { value: "16", label: "16" },
-    { value: "18", label: "18" },
+    { value: "SZ01", label: 8 },
+    { value: "SZ02", label: 10 },
+    { value: "SZ03", label: 12 },
+    { value: "SZ04", label: 14 },
+    { value: "SZ05", label: 16 },
+    { value: "SZ06", label: 18 },
   ];
 
   const EditableMaterialCell: React.FC<{
@@ -429,13 +263,47 @@ const JewelryDetail = () => {
     );
   };
 
+  const EditableSizeCell: React.FC<{
+    title: React.ReactNode;
+    editable: boolean;
+    value: any;
+    onChange: (value: any) => void;
+    options?: { value: string; label: number }[];
+  }> = ({
+    // title,
+    editable,
+    value,
+    onChange,
+    options
+  }) => {
+    return (
+      <td>
+        {editable ? (
+            options ? (
+              <Select value={value} onChange={onChange}>
+                {options.map((option) => (
+                  <Select.Option key={option.value} value={option.value}>
+                    {option.label}
+                  </Select.Option>
+                ))}
+              </Select>
+          ) : (
+            <Input value={value} onChange={(e) => onChange(e.target.value)} />
+          )
+        ) : (
+          value
+        )}
+      </td>
+    );
+  };
+
   const EditableCell: React.FC<{
     title: React.ReactNode;
     editable: boolean;
     value: any;
     onChange: (value: any) => void;
   }> = ({
-    title,
+    // title,
     editable,
     value,
     onChange,
@@ -454,78 +322,15 @@ const JewelryDetail = () => {
     );
   };
 
-  // const components = {
-  //   body: {
-  //     row: EditableRow,
-  //     cell: EditableCell,
-  //   },
-  // };
-
-  // const defaultColumns: (ColumnTypes[number] & {
-  //   editable?: boolean;
-  //   dataIndex: string;
-  // })[] = [
-  //   {
-  //     title: "Material",
-  //     dataIndex: "materialName",
-  //     key: "materialName",
-  //     editable: true,
-  //   },
-  //   {
-  //     title: "Weight",
-  //     dataIndex: "weight",
-  //     key: "weight",
-  //     editable: true,
-  //   },
-  //   {
-  //     title: "Price per Gram",
-  //     dataIndex: "pricePerGram",
-  //     key: "pricePerGram",
-  //   },
-  //   {
-  //     title: "Jewelry Setting Price",
-  //     dataIndex: "price",
-  //     key: "price",
-  //   },
-  //   {
-  //     title: "Operation",
-  //     dataIndex: "operation",
-  //     render: (_, record) =>
-  //       data.length >= 1 ? (
-  //         <Popconfirm
-  //           title="Sure to delete?"
-  //           onConfirm={() => handleDelete(record.key)}
-  //         >
-  //           <a>Delete</a>
-  //         </Popconfirm>
-  //       ) : null,
-  //   },
-  // ];
-
-  // const columns = defaultColumns.map((col) => {
-  //   if (!col.editable) {
-  //     return col;
-  //   }
-  //   return {
-  //     ...col,
-  //     onCell: (record: RingMaterialDataType) => ({
-  //       record,
-  //       editable: col.editable,
-  //       dataIndex: col.dataIndex,
-  //       title: col.title,
-  //       handleSave,
-  //     }),
-  //   };
-  // });
-
   const jewelryColumns = [
     {
       title: "Material Name",
       dataIndex: "materialID",
-      editable: true,
+      // editable: true,
       render: (_: unknown, record: RingMaterialDataType) => (
         <EditableMaterialCell
-          editable={true}
+          title= "Material Name"
+          editable={false}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
           options={materialOptions}
@@ -579,7 +384,7 @@ const JewelryDetail = () => {
       ),
       dataIndex: "jewelryPrice",
       render: (_: unknown, record: RingMaterialDataType) => {
-        const diamondDetail = getDiamondDetails(activeProduct?.diamondID, diamondData);
+        const diamondDetail = getDiamondDetails(activeProduct.diamondID, diamondData);
         const materialDetail = getMaterialDetails(record.materialID, materialData);
         if (diamondDetail && materialDetail) {
           const diamondPrice = diamondDetail.price;
@@ -605,6 +410,7 @@ const JewelryDetail = () => {
       editable: true,
       render: (_: unknown, record: RingMaterialDataType) => (
         <EditableMaterialCell
+          title= "Material Name"
           editable={true}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
@@ -616,16 +422,26 @@ const JewelryDetail = () => {
       title: "Size Value",
       dataIndex: "sizeID",
       editable: true,
-      render: (sizeID: string, record: RingSizeDataType) => {
-        const sizeDetail = ringSizeData.find(size => size.sizeID === sizeID);
-        <EditableMaterialCell
+      // render: (sizeID: string, record: RingSizeDataType) => {
+      //   const sizeDetail = ringSizeData.find(size => size.sizeID === sizeID);
+      //   <EditableSizeCell
+      //     title= "Size Value"
+      //     editable={true}
+      //     value= {sizeDetail}
+      //     onChange={(value) => handleSave({ ...record, sizeID: value })}
+      //     options={sizeOptions}
+      //   />
+      //    return sizeDetail ? sizeDetail.sizeValue : 0;
+      // },
+      render: (_: unknown, record: RingMaterialDataType) => (
+        <EditableSizeCell
+          title="Size Value"
           editable={true}
-          value={record.sizeValue}
+          value={record.sizeID}
           onChange={(value) => handleSave({ ...record, sizeID: value })}
           options={sizeOptions}
         />
-        return sizeDetail ? sizeDetail.sizeValue : 0;
-      },
+      ),
     },
     {
       title: "Amount",
@@ -633,6 +449,7 @@ const JewelryDetail = () => {
       editable: true, 
       render: (_: unknown, record: RingMaterialDataType) => (
         <EditableCell
+          title="Amount"
           editable={true}
           value={record.amount}
           onChange={(value) => handleSave({ ...record, amount: value })}
@@ -652,7 +469,7 @@ const JewelryDetail = () => {
         </>
       ),
       dataIndex: "price",
-      render: (_, record: RingMaterialDataType) => {
+      render: (_: unknown, record: RingMaterialDataType) => {
         const materialDetail = getMaterialDetails(record.materialID, materialData);
         if (materialDetail) {
           const pricePerGram = materialDetail.sellingPrice;
@@ -670,7 +487,7 @@ const JewelryDetail = () => {
     {
       title: "Operation",
       dataIndex: "operation",
-      render: (_, record: RingMaterialDataType) =>
+      render: (_: unknown, record: RingMaterialDataType) =>
         data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -682,7 +499,7 @@ const JewelryDetail = () => {
     },
   ];
 
-  const mergedColumns_Jewelry = jewelryColumns.map((col) => {
+  const mergedColumns_Jewelry = jewelryColumns.map((col: any) => {
     if (!col.editable) {
       return col;
     }
@@ -697,7 +514,7 @@ const JewelryDetail = () => {
     };
   });
 
-  const mergedColumns_Setting = columns.map((col) => {
+  const mergedColumns_Setting = columns.map((col: any) => {
     if (!col.editable) {
       return col;
     }
@@ -752,7 +569,7 @@ const JewelryDetail = () => {
                               <>
                                 <Styled.PageContent_Top>
                                   <Styled.PageDetail_Title>
-                                    <p>Product Detail</p>
+                                    <p>Jewelry Detail</p>
                                   </Styled.PageDetail_Title>
                                   <Styled.PageDetail_Infor>
                                     <Styled.ProductImg>
@@ -921,13 +738,6 @@ const JewelryDetail = () => {
                                     </Styled.ProductContent>
                                   </Styled.PageDetail_Infor>
                                   <Styled.MaterialTable>
-                                    <Button
-                                      onClick={handleAdd}
-                                      type="primary"
-                                      style={{ marginBottom: 16 }}
-                                    >
-                                      Add a row
-                                    </Button>
                                     <Table
                                       // components={{
                                       //   body: {
@@ -938,7 +748,6 @@ const JewelryDetail = () => {
                                       columns={mergedColumns_Jewelry}
                                       rowClassName={() => "editable-row"}
                                       bordered
-                                      pagination={false}
                                       pagination={{ pageSize: 4 }}
                                     />
                                   </Styled.MaterialTable>
@@ -1374,7 +1183,7 @@ const JewelryDetail = () => {
                                 {/* ------------------------------------------------- */}
                                 <Styled.PageContent_Top>
                                   <Styled.PageDetail_Title>
-                                    <p>Product Detail</p>
+                                    <p>Jewelry Detail</p>
                                   </Styled.PageDetail_Title>
                                   <Styled.PageDetail_Infor>
                                     <Styled.ProductImg>
@@ -1583,7 +1392,7 @@ const JewelryDetail = () => {
 
                                 <Styled.PageContent_Bot>
                                   <Styled.PageDetail_Title>
-                                    <p>Jewelry Detail</p>
+                                    <p>Jewelry Setting Detail</p>
                                   </Styled.PageDetail_Title>
 
                                   <Styled.PageDetail_Infor>
@@ -1639,13 +1448,6 @@ const JewelryDetail = () => {
                                     </Styled.ProductContent>
                                   </Styled.PageDetail_Infor>
                                   <div>
-                                    <Button
-                                      onClick={handleAdd}
-                                      type="primary"
-                                      style={{ marginBottom: 16 }}
-                                    >
-                                      Add a row
-                                    </Button>
                                     <Table
                                       // components={{
                                       //   body: {
@@ -1664,7 +1466,8 @@ const JewelryDetail = () => {
                                   <Styled.ActionBtn_Left>
                                     <Button
                                       className="MainBtn"
-                                      onClick={startEditing}
+                                      // onClick={startEditing}
+                                      onClick={() => setIsEditing(true)}
                                     >
                                       Edit
                                     </Button>

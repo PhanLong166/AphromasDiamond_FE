@@ -18,3 +18,9 @@ export enum LinkEnum {
     NAV_LINK = 'NavLink'
 }
 
+export enum CustomAction {
+    SET_SELECTED_DIAMOND = 'SetSelectedDimond',
+    SET_SELECTED_SETTING = 'SetSelectedSetting',
+    SET_COMPLETED_RING = 'SetCompletedRing'
+}
+

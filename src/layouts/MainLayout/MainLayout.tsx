@@ -6,11 +6,6 @@ import Headers from "@/layouts/MainLayout/Headers/Headers";
 import { Outlet } from "react-router-dom";
 
 const HomeLayout = () => {
-    // const dispatch = useAppDispatch();
-    // const { role } = useAuth();
-    // const [api, contextHolder] = notification.useNotification({
-    //     top: 100,
-    // })
 
     return (
         <>

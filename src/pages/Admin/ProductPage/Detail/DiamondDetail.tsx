@@ -1,15 +1,11 @@
 import * as Styled from "./ProductDetail.styled";
 import { useState } from "react";
 import { Button, Modal, Form, Input, Select } from "antd";
-// import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
-import { diamondData } from "../ProductData";
+import { DiamondDataType, diamondData } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { SaveOutlined } from "@ant-design/icons";
-
-
-// const { Option } = Select;
 
 const DiamondDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -49,12 +45,13 @@ const DiamondDetail = () => {
   };
 
   // Hàm xử lý thay đổi của từng trường thông tin trong khi chỉnh sửa
-  const handleFieldChange = (fieldName: string, value: any) => {
+  const handleFieldChange = (fieldName: keyof DiamondDataType, value: any) => {
     setEditedProduct({
-      ...editedProduct,
+      ...editedProduct!,
       [fieldName]: value,
     });
   };
+
 
   return (
     <>

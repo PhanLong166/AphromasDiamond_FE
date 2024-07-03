@@ -4,11 +4,18 @@ import React, { useState } from "react";
 import {
   SearchOutlined,
   PlusCircleOutlined,
-  InboxOutlined,
+  // InboxOutlined,
   SaveOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
-import type { FormInstance, TableColumnsType, TableProps, UploadProps } from "antd";
+import type {
+  FormInstance,
+  TableColumnsType,
+  TableProps,
+  UploadProps,
+  GetProp,
+  UploadFile,
+} from "antd";
 import {
   Form,
   Input,
@@ -17,19 +24,23 @@ import {
   Button,
   Select,
   Upload,
-  message,
+  // message,
   Space,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
 import { SortOrder } from "antd/es/table/interface";
 import TextArea from "antd/es/input/TextArea";
-import { ringData, RingDataType } from "../ProductData"; // Import data here
+import {
+  ringData,
+  RingDataType,
+  productData,
+  ProductDataType,
+} from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
+import ImgCrop from "antd-img-crop";
 
-
-
-// const originData = createInitialData();
+type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 interface EditableCellProps {
   editing: boolean;
@@ -75,30 +86,29 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-
 // DESCRIPTION INPUT
 
-const { Dragger } = Upload;
+// const { Dragger } = Upload;
 
-const props: UploadProps = {
-  name: "file",
-  multiple: true,
-  action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
+// const props: UploadProps = {
+//   name: "file",
+//   multiple: true,
+//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
+//   onChange(info) {
+//     const { status } = info.file;
+//     if (status !== "uploading") {
+//       console.log(info.file, info.fileList);
+//     }
+//     if (status === "done") {
+//       message.success(`${info.file.name} file uploaded successfully.`);
+//     } else if (status === "error") {
+//       message.error(`${info.file.name} file upload failed.`);
+//     }
+//   },
+//   onDrop(e) {
+//     console.log("Dropped files", e.dataTransfer.files);
+//   },
+// };
 
 // SUBMIT FORM
 interface SubmitButtonProps {
@@ -127,8 +137,6 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     </Button>
   );
 };
-
-
 
 const JewelrySetting = () => {
   const [form] = Form.useForm();
@@ -211,7 +219,7 @@ const JewelrySetting = () => {
 
   const columns: TableColumnsType<RingDataType> = [
     {
-      title: "ID",
+      title: "Jewelry Setting ID",
       dataIndex: "jewelrySettingID",
       sorter: (a: RingDataType, b: RingDataType) =>
         a.jewelrySettingID.localeCompare(b.jewelrySettingID),
@@ -229,7 +237,7 @@ const JewelrySetting = () => {
       ),
     },
     {
-      title: "Name",
+      title: "Jewelry Setting Name",
       dataIndex: "jewelrySettingName",
       sorter: (a: RingDataType, b: RingDataType) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
@@ -328,29 +336,15 @@ const JewelrySetting = () => {
       className: "TextAlign",
       render: (_, { jewelrySettingID }) => (
         <Space size="middle">
-          <Link to={`/admin/product/jewelry-setting/detail/${jewelrySettingID}`}>
+          <Link
+            to={`/admin/product/jewelry-setting/detail/${jewelrySettingID}`}
+          >
             <EyeOutlined />
           </Link>
         </Space>
       ),
     },
   ];
-
-  // const mergedColumns: TableProps["columns"] = columns.map((col) => {
-  //   if (!col.editable) {
-  //     return col;
-  //   }
-  //   return {
-  //     ...col,
-  //     onCell: (record: RingDataType) => ({
-  //       record,
-  //       inputType: col.dataIndex === "price" ? "number" : "text",
-  //       dataIndex: col.dataIndex,
-  //       title: col.title,
-  //       editing: isEditing(record),
-  //     }),
-  //   };
-  // });
 
   const [searchText, setSearchText] = useState("");
 
@@ -382,7 +376,6 @@ const JewelrySetting = () => {
     console.log(e);
   };
 
-
   const onChangeTable: TableProps<RingDataType>["onChange"] = (
     pagination,
     filters,
@@ -390,6 +383,35 @@ const JewelrySetting = () => {
     extra
   ) => {
     console.log("params", pagination, filters, sorter, extra);
+  };
+
+  // UPLOAD IMAGES
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    // {
+    //   uid: '-1',
+    //   name: 'image.png',
+    //   status: 'done',
+    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    // },
+  ]);
+
+  const onChangeImg: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
   };
 
   return (
@@ -451,11 +473,24 @@ const JewelrySetting = () => {
                 <>
                   <Form layout="vertical" className="AdPageContent_Content">
                     <Styled.FormItem>
-                      <Form.Item label="Diamond ID" name="Diamond ID" rules={[{ required: true }]}>
-                        <Input className="formItem" placeholder="D1234" />
+                      <Form.Item
+                        label="Jewelry ID"
+                        name="Jewelry ID"
+                        rules={[{ required: true }]}
+                      >
+                        <Select
+                          //   defaultValue="Select Shape"
+                          className="formItem"
+                          placeholder="Select Jewelry"
+                          onChange={handleChange}
+                          options={productData.map((product) => ({
+                            value: product.jewelryID,
+                            label: product.jewelryName,
+                          }))}
+                        />
                       </Form.Item>
                     </Styled.FormItem>
-                    <Styled.FormItem>
+                    {/* <Styled.FormItem>
                       <Form.Item label="Diamond Shape">
                         <Select
                           //   defaultValue="Select Shape"
@@ -476,35 +511,50 @@ const JewelrySetting = () => {
                           ]}
                         />
                       </Form.Item>
-                    </Styled.FormItem>
+                    </Styled.FormItem> */}
                     <Styled.FormItem>
-                      <Form.Item label="Ring Setting ID" name="Ring Setting ID" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Ring Setting ID"
+                        name="Ring Setting ID"
+                        rules={[{ required: true }]}
+                      >
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Ring Setting Name" name="Ring Setting Name" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Ring Setting Name"
+                        name="Ring Setting Name"
+                        rules={[{ required: true }]}
+                      >
                         <Input className="formItem" placeholder="Filled" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Markup Percentage (%)" name="Markup Percentage" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Markup Percentage (%)"
+                        name="Markup Percentage"
+                        rules={[{ required: true }]}
+                      >
                         <InputNumber className="formItem" placeholder="150" />
                       </Form.Item>
                     </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item label="Cost Price" name="Cost Price" rules={[{ required: true }]}>
+                    {/* <Styled.FormItem>
+                      <Form.Item
+                        label="Cost Price"
+                        name="Cost Price"
+                        rules={[{ required: true }]}
+                      >
                         <InputNumber className="formItem" placeholder="4,080" />
                       </Form.Item>
-                    </Styled.FormItem>
+                    </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item label="Type">
                         <Select
-                          value="Ring"
+                          // value="Ring"
                           className="formItem"
-                          // placeholder="Select Type"
+                          placeholder="Select Type"
                           onChange={handleChange}
-                          disabled
                           options={[
                             { value: "Ring", label: "Ring" },
                             { value: "Necklace", label: "Necklace" },
@@ -516,11 +566,6 @@ const JewelrySetting = () => {
                             { value: "Pendant", label: "Pendant" },
                           ]}
                         />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item label="Width" name="Width" rules={[{ required: true }]}>
-                        <InputNumber className="formItem" placeholder="1,01" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
@@ -549,7 +594,11 @@ const JewelrySetting = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
-                      <Form.Item label="Description" name="Description" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Description"
+                        name="Description"
+                        rules={[{ required: true }]}
+                      >
                         <TextArea
                           placeholder="Description"
                           allowClear
@@ -559,19 +608,17 @@ const JewelrySetting = () => {
                     </Styled.FormDescript>
                     <Styled.UploadFile>
                       <Form.Item label="Upload Images">
-                        <Dragger {...props}>
-                          <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                          </p>
-                          <p className="ant-upload-text">
-                            Click or drag file to this area to upload
-                          </p>
-                          <p className="ant-upload-hint">
-                            Support for a single or bulk upload. Strictly
-                            prohibited from uploading company data or other
-                            banned files.
-                          </p>
-                        </Dragger>
+                        <ImgCrop rotationSlider>
+                          <Upload
+                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                            listType="picture-card"
+                            fileList={fileList}
+                            onChange={onChangeImg}
+                            onPreview={onPreview}
+                          >
+                            {fileList.length < 5 && "+ Upload"}
+                          </Upload>
+                        </ImgCrop>
                       </Form.Item>
                     </Styled.UploadFile>
                   </Form>

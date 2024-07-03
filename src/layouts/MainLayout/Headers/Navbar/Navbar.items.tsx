@@ -1,11 +1,17 @@
-import type { MenuProps } from "antd";
+import config from '@/config';
+import Link from '@/components/Link';
+import type { MenuProps } from 'antd';
 
 type MenuItem = Required<MenuProps>['items'][number];
 
 export const items: MenuItem[] = [
     {
         key: 'diamond',
-        label: 'Diamond',
+        label: (
+            <Link to={config.routes.public.diamond} underline zoom scroll>
+                Diamond
+            </Link>
+        ),
         children: [
             {
                 key: 'diamond-shape',
@@ -118,8 +124,8 @@ export const items: MenuItem[] = [
         label: 'Engagement Ring',
         children: [
             {
-                key: 'engagement-ring',
-                label: 'Jewelry Classification',
+                key: 'engagement-ring-shape',
+                label: 'Ring by Shape',
                 type: 'group',
                 children: [
                     {key: 'engagement-ring-1', label: 'Round'},
@@ -135,14 +141,14 @@ export const items: MenuItem[] = [
                 ]
             },
             {
-                key: 'ring-metal',
+                key: 'engagement-ring-metal',
                 label: 'Ring metals',
                 type: 'group',
                 children: [
-                    {key: 'jewelry-metal-1', label: 'White Gold'},
-                    {key: 'jewelry-metal-2', label: 'Yellow Gold'},
-                    {key: 'jewelry-metal-3', label: 'Rose Gold'},
-                    {key: 'jewelry-metal-4', label: 'Platinum'},
+                    {key: 'engagement-ring-metal-1', label: 'White Gold'},
+                    {key: 'engagement-ring-metal-2', label: 'Yellow Gold'},
+                    {key: 'engagement-ring-metal-3', label: 'Rose Gold'},
+                    {key: 'engagement-ring-metal-4', label: 'Platinum'},
                 ]
             },
             {
@@ -150,22 +156,22 @@ export const items: MenuItem[] = [
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'engagement-ring-designer-1', label: 'Zac Zac Posen'},
+                    {key: 'engagement-ring-designer-2', label: 'Bella Vaughan'},
+                    {key: 'engagement-ring-designer-3', label: 'Blue Nile Studio'},
+                    {key: 'engagement-ring-designer-4', label: 'The Gallery Collection'},
                 ]
             },
             {
-                key: 'learn-about',
+                key: 'learn-about-engagement-ring',
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-1', label: 'Find Your Ring Size'},
-                    {key: 'learn-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-3', label: 'Buying Guide'},
-                    {key: 'learn-4', label: 'Metal Education'},
-                    {key: 'learn-5', label: 'Top 10 Engagement Rings'},
+                    {key: 'learn-engagement-ring-1', label: 'Find Your Ring Size'},
+                    {key: 'learn-engagement-ring-2', label: 'Learn About the 4Cs'},
+                    {key: 'learn-engagement-ring-3', label: 'Buying Guide'},
+                    {key: 'learn-engagement-ring-4', label: 'Metal Education'},
+                    {key: 'learn-engagement-ring-5', label: 'Top 10 Engagement Rings'},
                 ]
             }
         ]
@@ -175,20 +181,20 @@ export const items: MenuItem[] = [
         label: 'Wedding Ring',
         children: [
             {
-                key: 'ring-by-shape',
+                key: 'wedding-ring-by-shape',
                 label: 'Diamond Ring By Shape',
                 type: 'group',
                 children: [
-                    {key: 'ring-shape-1', label: 'Round'},
-                    {key: 'ring-shape-2', label: 'Princess'},
-                    {key: 'ring-shape-3', label: 'Cushion'},
-                    {key: 'ring-shape-4', label: 'Oval'},
-                    {key: 'ring-shape-5', label: 'Emerald'},
-                    {key: 'ring-shape-6', label: 'Pear'},
-                    {key: 'ring-shape-7', label: 'Asscher'},
-                    {key: 'ring-shape-8', label: 'Heart'},
-                    {key: 'ring-shape-9', label: 'Radient'},
-                    {key: 'ring-shape-10', label: 'Marquise'},
+                    {key: 'wedding-ring-shape-1', label: 'Round'},
+                    {key: 'wedding-ring-shape-2', label: 'Princess'},
+                    {key: 'wedding-ring-shape-3', label: 'Cushion'},
+                    {key: 'wedding-ring-shape-4', label: 'Oval'},
+                    {key: 'wedding-ring-shape-5', label: 'Emerald'},
+                    {key: 'wedding-ring-shape-6', label: 'Pear'},
+                    {key: 'wedding-ring-shape-7', label: 'Asscher'},
+                    {key: 'wedding-ring-shape-8', label: 'Heart'},
+                    {key: 'wedding-ring-shape-9', label: 'Radient'},
+                    {key: 'wedding-ring-shape-10', label: 'Marquise'},
                 ]
             },
             {
@@ -196,33 +202,33 @@ export const items: MenuItem[] = [
                 label: 'Ring metals',
                 type: 'group',
                 children: [
-                    {key: 'ring-metal-1', label: 'White Gold'},
-                    {key: 'ring-metal-2', label: 'Yellow Gold'},
-                    {key: 'ring-metal-3', label: 'Rose Gold'},
-                    {key: 'ring-metal-4', label: 'Platinum'},
+                    {key: 'wedding-ring-metal-1', label: 'White Gold'},
+                    {key: 'wedding-ring-metal-2', label: 'Yellow Gold'},
+                    {key: 'wedding-ring-metal-3', label: 'Rose Gold'},
+                    {key: 'wedding-ring-metal-4', label: 'Platinum'},
                 ]
             },
             {
-                key: 'ring-designer',
+                key: 'wedding-ring-designer',
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'wedding-ring-designer-1', label: 'Zac Zac Posen'},
+                    {key: 'wedding-ring-designer-2', label: 'Bella Vaughan'},
+                    {key: 'wedding-ring-designer-3', label: 'Blue Nile Studio'},
+                    {key: 'wedding-ring-designer-4', label: 'The Gallery Collection'},
                 ]
             },
             {
-                key: 'learn-about',
-                label: 'Diamond Ring By Shape',
+                key: 'learn-about-wedding-ring',
+                label: 'Learn about',
                 type: 'group',
                 children: [
-                    {key: 'learn-1', label: 'Find Your Ring Size'},
-                    {key: 'learn-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-3', label: 'Buying Guide'},
-                    {key: 'learn-4', label: 'Metal Education'},
-                    {key: 'learn-5', label: 'Top 10 Engagement Rings'},
+                    {key: 'learn-wedding-ring-1', label: 'Find Your Ring Size'},
+                    {key: 'learn-wedding-ring-2', label: 'Learn About the 4Cs'},
+                    {key: 'learn-wedding-ring-3', label: 'Buying Guide'},
+                    {key: 'learn-wedding-ring-4', label: 'Metal Education'},
+                    {key: 'learn-wedding-ring-5', label: 'Top 10 Engagement Rings'},
                 ]
             }
         ]
@@ -270,76 +276,88 @@ export const items: MenuItem[] = [
                 ]
             },
             {
-                key: 'learn-about',
+                key: 'learn-about-jewelry',
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-1', label: 'Buying Guide'},
-                    {key: 'learn-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-3', label: 'Jewelry Education'},
+                    {key: 'learn-jewelry-1', label: 'Buying Guide'},
+                    {key: 'learn-jewelry-2', label: 'Learn About the 4Cs'},
+                    {key: 'learn-jewelry-3', label: 'Jewelry Education'},
                 ]
             }
         ]
     },
     {
         key: 'gift',
-        label: 'Gifts',
+        label: (
+            <Link to={config.routes.public.gift} underline zoom scroll>
+                Gift
+            </Link>
+        ),
         children: [
             {
                 key: 'jewelry-type',
                 label: 'Jewelry Classification',
                 type: 'group',
                 children: [
-                    {key: 'jewelry-type-1', label: 'Rings'},
-                    {key: 'jewelry-type-2', label: 'Necklaces'},
-                    {key: 'jewelry-type-3', label: 'Earings'},
-                    {key: 'jewelry-type-4', label: 'Bracelets'},
-                    {key: 'jewelry-type-5', label: 'Anklets'},
-                    {key: 'jewelry-type-6', label: 'Bangles'},
-                    {key: 'jewelry-type-7', label: 'Chokers'},
-                    {key: 'jewelry-type-8', label: 'Pendants'},
+                    {key: 'gift-jewelry-type-1', label: 'Rings'},
+                    {key: 'gift-jewelry-type-2', label: 'Necklaces'},
+                    {key: 'gift-jewelry-type-3', label: 'Earings'},
+                    {key: 'gift-jewelry-type-4', label: 'Bracelets'},
+                    {key: 'gift-jewelry-type-5', label: 'Anklets'},
+                    {key: 'gift-jewelry-type-6', label: 'Bangles'},
+                    {key: 'gift-jewelry-type-7', label: 'Chokers'},
+                    {key: 'gift-jewelry-type-8', label: 'Pendants'},
                 ]
             },
             {
-                key: 'ring',
+                key: 'gift-ring',
                 label: 'Ring',
                 type: 'group',
                 children: [
-                    {key: 'ring-1', label: 'Diamond Ring'},
-                    {key: 'ring-2', label: 'Engagement Ring'},
-                    {key: 'ring-3', label: 'Wedding Ring'},
+                    {key: 'gift-ring-1', label: 'Diamond Ring'},
+                    {key: 'gift-ring-2', label: 'Engagement Ring'},
+                    {key: 'gift-ring-3', label: 'Wedding Ring'},
                 ]
             },
             {
-                key: 'jewelry-firm',
+                key: 'gift-jewelry-firm',
                 label: 'Jewelry Firm',
                 type: 'group',
                 children: [
-                    {key: 'jewelry-firm-1', label: 'Van Cleef & Arpels'},
-                    {key: 'jewelry-firm-2', label: 'Harry Winston'},
-                    {key: 'jewelry-firm-3', label: 'Cartier'},
-                    {key: 'jewelry-firm-4', label: 'Tiffany & Co'},
-                    {key: 'jewelry-firm-5', label: 'Bvlgari'},
+                    {key: 'gift-jewelry-firm-1', label: 'Van Cleef & Arpels'},
+                    {key: 'gift-jewelry-firm-2', label: 'Harry Winston'},
+                    {key: 'gift-jewelry-firm-3', label: 'Cartier'},
+                    {key: 'gift-jewelry-firm-4', label: 'Tiffany & Co'},
+                    {key: 'gift-jewelry-firm-5', label: 'Bvlgari'},
                 ]
             },
             {
-                key: 'learn-about',
+                key: 'learn-about-gift',
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-1', label: 'Buying Guide'},
-                    {key: 'learn-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-3', label: 'Jewelry Education'},
+                    {key: 'learn-gift-1', label: 'Buying Guide'},
+                    {key: 'learn-gift-2', label: 'Learn About the 4Cs'},
+                    {key: 'learn-gift-3', label: 'Jewelry Education'},
                 ]
             }
         ]
     },
     {
         key: 'learn-about',
-        label: 'Learn About'
+        label: (
+            <Link to={config.routes.public.learn} underline zoom scroll>
+                Learn about
+            </Link>
+        ),
     },
     {
         key: 'about-us',
-        label: 'About Us'
+        label: (
+            <Link to={config.routes.public.about} underline zoom scroll>
+                About Us
+            </Link>
+        )
     }
 ]

@@ -36,4 +36,12 @@ export const NavbarComponent = styled(Menu)`
     width: 1000px;
     border-bottom: none;
     font-family: "Gantari", sans-serif;
+
+    .ant-menu-overflow-item.ant-menu-submenu.ant-menu-submenu-horizontal::after {
+        display: none;
+    }
+
+    .ant-menu-overflow-item.ant-menu-item.ant-menu-item-only-child::after {
+        display: none;
+    }
 `;

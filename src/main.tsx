@@ -4,6 +4,9 @@ import App from './App.tsx'
 import GlobalStyles from './themes/globalStyles.ts'
 import { DefaultTheme, ThemeProvider } from 'styled-components';
 import { createStyledBreakpointsTheme } from 'styled-breakpoints';
+import { Provider } from 'react-redux';
+import { store } from './store/index.ts';
+import './main.css'
 
 export const breakpoints = {
   xs: '360px',
@@ -21,7 +24,9 @@ const theme: DefaultTheme = createStyledBreakpointsTheme({
 ReactDOM.createRoot(document.getElementById('root')!).render(
   <React.StrictMode>
     <ThemeProvider theme={theme}>
-      <App />
+      <Provider store={store}>
+        <App />
+      </Provider>
       <GlobalStyles />
     </ThemeProvider>
   </React.StrictMode>,

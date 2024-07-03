@@ -5,8 +5,9 @@ import { Link, useNavigate } from 'react-router-dom';
 import config from '@/config';
 import { HeaderProps } from './TopMenu.type';
 import Toolbar from '@/components/Toolbar';
-import { MenuProps } from 'antd';
+import { Badge, MenuProps } from 'antd';
 import cookieUtils from '@/services/cookieUtils';
+import { useAppSelector } from '@/hooks/useStore';
 
 const items: MenuProps['items'] = [
     {
@@ -30,7 +31,8 @@ const TopMenu = ({
     role
 }: HeaderProps) => {
     const navigate = useNavigate();
-    
+
+    const cartLength = useAppSelector((state) => state.cart.cartLength);
     return (
         <>
             <Styled.TopMenuContainer>
@@ -53,13 +55,18 @@ const TopMenu = ({
                         <Link to={config.routes.public.wish}>
                             <HeartOutlined />
                         </Link>
-                        <Link to={config.routes.customer.cart}>
-                            <ShoppingCartOutlined />
-                        </Link>
+
                         {role ? (
-                            <Toolbar
-                                menu={items}
-                            />
+                            <>
+                                <Badge count={cartLength} showZero size='small'>
+                                    <Link to={config.routes.customer.cart}>
+                                        <ShoppingCartOutlined style={{ fontSize: '30px'}}/>
+                                    </Link>
+                                </Badge>
+                                <Toolbar
+                                    menu={items}
+                                />
+                            </>
                         ) : (
                             <Styled.TopMenuButton
                                 onClick={() => navigate(config.routes.public.login)}
