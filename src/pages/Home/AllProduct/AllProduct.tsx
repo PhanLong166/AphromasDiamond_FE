@@ -3,9 +3,8 @@ import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
-import { Button } from "antd";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import { Section, Container, Heading, List } from "./AllProduct.styled";
 
 import { Card, Col, Row, Typography, Pagination } from "antd";
@@ -22,7 +21,6 @@ const CustomBreadcrumb = styled(Breadcrumb)`
 const AllProduct: React.FC = () => {
   const [filteredProducts] = useState(products);
   const [wishList, setWishList] = useState<string[]>([]);
-  const navigate = useNavigate();
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -56,7 +54,6 @@ const AllProduct: React.FC = () => {
 
   return (
     <Section>
-      <Button onClick={() => navigate("/wishlist")}>Go to Wishlist</Button>
 
       <div>
         <CustomBreadcrumb

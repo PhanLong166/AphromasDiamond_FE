@@ -289,7 +289,11 @@ export const items: MenuItem[] = [
     },
     {
         key: 'gift',
-        label: 'Gifts',
+        label: (
+            <Link to={config.routes.public.gift} underline zoom scroll>
+                Gift
+            </Link>
+        ),
         children: [
             {
                 key: 'jewelry-type',
@@ -342,10 +346,18 @@ export const items: MenuItem[] = [
     },
     {
         key: 'learn-about',
-        label: 'Learn About'
+        label: (
+            <Link to={config.routes.public.learn} underline zoom scroll>
+                Learn about
+            </Link>
+        ),
     },
     {
         key: 'about-us',
-        label: 'About Us'
+        label: (
+            <Link to={config.routes.public.about} underline zoom scroll>
+                About Us
+            </Link>
+        )
     }
 ]

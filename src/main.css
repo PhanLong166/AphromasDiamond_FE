@@ -1,4 +1,4 @@
-.ant-menu .ant-menu-sub{
+.ant-menu.ant-menu-sub.ant-menu-vertical{
     display: flex;
     gap: 20px;
 }
