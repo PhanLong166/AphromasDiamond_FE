@@ -159,11 +159,9 @@ export const AdminTable = styled.div`
     width: 77px;
   }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
     cursor: pointer;
   }
+    
   .pendStatus {
     background-color: #f8e7ee;
     border-radius: 100px;
@@ -219,6 +217,7 @@ export const FormItem = styled.div`
 
   .formItem {
     width: 100%;
+    background-color: #F9F8F9;
   }
 `;
 
@@ -238,13 +237,11 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
 
   button {
-    border: 1px solid ${theme.color.primary};
-  }
-
-  .ant-btn-primary {
     background-color: ${theme.color.primary};
-    color: #92929d;
-    border: 0px;
   }
 
+  .CancelBtn {
+    border: 1px solid ${theme.color.primary};
+    background-color: #ffffff;
+  }
 `;

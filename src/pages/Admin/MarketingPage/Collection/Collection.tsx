@@ -1,116 +1,44 @@
-import * as Styled from "./Collection.styled"
+import * as Styled from "./Collection.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import type { TableProps, FormInstance } from "antd";
+import {
+  SearchOutlined,
+  PlusCircleOutlined,
+  EyeOutlined,
+  SaveOutlined,
+} from "@ant-design/icons";
+import type {
+  TableProps,
+  FormInstance,
+  TableColumnsType,
+  DatePickerProps,
+} from "antd";
 import {
   Form,
   Input,
   InputNumber,
-  Popconfirm,
+  // Popconfirm,
   Table,
-  Typography,
+  // Typography,
   Button,
   Space,
   DatePicker,
+  Select,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
-
-interface Item {
-  key: React.Key;
-  collectionID: string;
-  collectionName: string;
-  debutDate: string;
-  endDate: string;
-}
-const originData = (): Item[] => {
-  const data: Item[] = [
-    {
-      key: "1",
-      collectionID: "12345121",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "2",
-      collectionID: "12345122",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "3",
-      collectionID: "12345123",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "4",
-      collectionID: "12345124",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "5",
-      collectionID: "12345125",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "6",
-      collectionID: "12345126",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "7",
-      collectionID: "12345127",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "8",
-      collectionID: "12345128",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "9",
-      collectionID: "12345129",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "10",
-      collectionID: "12345130",
-      collectionName: "Valentine",
-      debutDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-  ];
-  return data.map((item) => ({
-    ...item,
-    // sellingPrice: calculateSellingPrice(item.buyingPrice)
-  }));
-};
+import { Link } from "react-router-dom";
+import { collectionData, CollectionDataType } from "../MarketingData";
+import { productData } from "../../ProductPage/ProductData";
 
 // const originData = createInitialData();
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof CollectionDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: CollectionDataType;
   index: number;
   // children: React.ReactNode;
 }
@@ -178,149 +106,81 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 };
 
 // DATE PICK
+const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
+  console.log(date, dateString);
+};
 
-const { RangePicker } = DatePicker;
+// MULTI JEWELRY PICK
+const handleChange = (value: string[]) => {
+  console.log(`selected ${value}`);
+};
 
 const Collection = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [data] = useState<CollectionDataType[]>(collectionData);
   const [isAdding, setIsAdding] = useState(false);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: Item) => record.key === editingKey;
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
-    form.setFieldsValue({
-      promotionID: "",
-      collectionName: "",
-      startDate: "",
-      endDate: "",
-      ...record,
-    });
-    setEditingKey(record.key);
-  };
-  const cancel = () => {
-    setEditingKey("");
-  };
-  const save = async (key: React.Key) => {
-    try {
-      const row = (await form.validateFields()) as Item;
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
 
-      // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
-
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setData(newData);
-        setEditingKey("");
-      } else {
-        newData.push(row);
-        setData(newData);
-        setEditingKey("");
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
-
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
-  };
-
-  const columns = [
+  const columns: TableColumnsType<CollectionDataType> = [
     {
       title: "Collection ID",
       dataIndex: "collectionID",
-      editable: true,
-      sorter: (a: Item, b: Item) => a.collectionID.localeCompare(b.collectionID),
+      sorter: (a: CollectionDataType, b: CollectionDataType) =>
+        a.collectionID.localeCompare(b.collectionID),
     },
     {
       title: "Collection Name",
       dataIndex: "collectionName",
-      editable: true,
-      sorter: (a: Item, b: Item) => a.collectionName.length - b.collectionName.length,
+      sorter: (a: CollectionDataType, b: CollectionDataType) =>
+        a.collectionName.length - b.collectionName.length,
     },
     {
       title: "Debut Date",
       dataIndex: "debutDate",
-      editable: true,
-      sorter: (a: Item, b: Item) => a.debutDate.length - b.debutDate.length,
+      sorter: (a: CollectionDataType, b: CollectionDataType) =>
+        a.debutDate.length - b.debutDate.length,
     },
     {
-      title: "End Date",
-      dataIndex: "endDate",
-      editable: true,
-      sorter: (a: Item, b: Item) => a.endDate.length - b.endDate.length,
-    },
-    {
-      title: "Edit",
-      dataIndex: "edit",
-      className: "TextAlign SmallSize",
-      render: (_: unknown, record: Item) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingKey !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-        );
+      title: "Amount",
+      dataIndex: "collectionID",
+      render: (_, { collectionID }) => {
+        let count = 0;
+        productData.forEach((collection) => {
+          if (collection.collectionID === collectionID) {
+            count++;
+          }
+        });
+        return count;
       },
+      sorter: (a, b) => a.collectionID.length - b.collectionID.length,
     },
     {
-      title: "Delete",
-      dataIndex: "delete",
+      title: "Detail",
+      key: "detail",
       className: "TextAlign",
-      render: (_: unknown, record: Item) =>
-        data.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
+      render: (_: unknown, { collectionID }) => (
+        <Space size="middle">
+          <Link to={`/admin/product/jewelry-setting/detail/${collectionID}`}>
+            <EyeOutlined />
+          </Link>
+        </Space>
+      ),
     },
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: Item) => ({
-        record,
-        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
+  const onChangeTable: TableProps<CollectionDataType>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
 
+  // SEARCH AREA
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -329,19 +189,9 @@ const Collection = () => {
     }
   };
 
-  // Add New
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
-
   const handleAddNew = () => {
     setIsAdding(true);
   };
-
-  // const handleSave = () => {
-  //   // Logic để lưu dữ liệu mới
-  //   setIsAdding(false);
-  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -354,7 +204,7 @@ const Collection = () => {
         <Sidebar />
 
         <Styled.AdminPage>
-          <MarketingMenu/>
+          <MarketingMenu />
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
@@ -399,18 +249,62 @@ const Collection = () => {
                     autoComplete="off"
                   >
                     <Styled.FormItem>
-                      <Form.Item label="Collection ID" name="collectionID" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Collection ID"
+                        name="Collection ID"
+                        rules={[{ required: true }]}
+                      >
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Collection Name" name="collectionID" rules={[{ required: true }]}>
-                        <InputNumber className="formItem" placeholder="15" />
+                      <Form.Item
+                        label="Collection Name"
+                        name="Collection Name"
+                        rules={[{ required: true }]}
+                      >
+                        <Input className="formItem" placeholder="15" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Debut Date" name="debutDate" rules={[{ required: true }]}>
-                        <RangePicker showTime />
+                      <Form.Item
+                        label="Debut Date"
+                        name="Debut Date"
+                        rules={[{ required: true }]}
+                      >
+                        <DatePicker
+                          onChange={onChangeDate}
+                          className="formItem"
+                        />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Description"
+                        name="Description"
+                        rules={[{ required: true }]}
+                      >
+                        <Input.TextArea className="formItem" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Product in Collection"
+                        name="Product in Collection"
+                        rules={[{ required: true }]}
+                      >
+                        <Select
+                          className="formItem"
+                          mode="multiple"
+                          allowClear
+                          placeholder="Select Product"
+                          options={productData.map((product) => ({
+                            value: product.jewelryID,
+                            label:
+                              product.jewelryID + ": " + product.jewelryName,
+                          }))}
+                          onChange={handleChange}
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                   </Form>
@@ -418,9 +312,15 @@ const Collection = () => {
                   <Styled.ActionBtn>
                     <Form.Item>
                       <Space>
-                        <SubmitButton form={form}>Save</SubmitButton>
+                      {/* <Link to="/admin/product/diamond/detail/D0001">   */}
+                      <SubmitButton form={form}> 
+                        <SaveOutlined />
+                        Save
+                      </SubmitButton>
+                    {/* </Link> */}
                         <Button
                           onClick={handleCancel}
+                          className="CancelBtn"
                           style={{ marginLeft: "10px" }}
                         >
                           Cancel
@@ -439,12 +339,10 @@ const Collection = () => {
                     }}
                     bordered
                     dataSource={data}
-                    columns={mergedColumns}
+                    columns={columns}
                     rowClassName="editable-row"
-                    pagination={{
-                      onChange: cancel,
-                      pageSize: 6,
-                    }}
+                    pagination={{ pageSize: 6 }} // Add pagination here
+                    onChange={onChangeTable}
                   />
                 </Form>
               )}

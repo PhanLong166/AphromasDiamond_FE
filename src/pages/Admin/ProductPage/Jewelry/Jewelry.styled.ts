@@ -267,7 +267,6 @@ export const ActionBtn = styled.div`
   .CancelBtn {
     border: 1px solid ${theme.color.primary};
     background-color: #ffffff;
-    border: 0px;
   }
 `;
 

@@ -1,7 +1,7 @@
-import * as Styled from "./BillPromotion.styled"
+import * as Styled from "./BillPromotion.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined } from "@ant-design/icons";
+import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { TableProps, FormInstance } from "antd";
 import {
   Form,
@@ -16,101 +16,16 @@ import {
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
+import { voucherData, VoucherDataType } from "../MarketingData";
 
-interface Item {
-  key: React.Key;
-  promotionID: string;
-  discountPercent: number;
-  startDate: string;
-  endDate: string;
-}
-const originData = (): Item[] => {
-  const data: Item[] = [
-    {
-      key: "1",
-      promotionID: "12345121",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "2",
-      promotionID: "12345122",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "3",
-      promotionID: "12345123",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "4",
-      promotionID: "12345124",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "5",
-      promotionID: "12345125",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "6",
-      promotionID: "12345126",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "7",
-      promotionID: "12345127",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "8",
-      promotionID: "12345128",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "9",
-      promotionID: "12345129",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-    {
-      key: "10",
-      promotionID: "12345130",
-      discountPercent: 10,
-      startDate: "2 Jan 2023",
-      endDate: "2 Jan 2024",
-    },
-  ];
-  return data.map((item) => ({
-    ...item,
-    // sellingPrice: calculateSellingPrice(item.buyingPrice)
-  }));
-};
 
-// const originData = createInitialData();
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof VoucherDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: VoucherDataType;
   index: number;
   // children: React.ReactNode;
 }
@@ -183,11 +98,11 @@ const { RangePicker } = DatePicker;
 
 const BillPromotion = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [data, setData] = useState<VoucherDataType[]>(voucherData);
   const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: Item) => record.key === editingKey;
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const isEditing = (record: VoucherDataType) => record.key === editingKey;
+  const edit = (record: Partial<VoucherDataType> & { key: React.Key }) => {
     form.setFieldsValue({
       promotionID: "",
       discountPercent: "",
@@ -202,7 +117,7 @@ const BillPromotion = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as Item;
+      const row = (await form.validateFields()) as VoucherDataType;
       const newData = [...data];
       const index = newData.findIndex((item) => key === item.key);
 
@@ -233,34 +148,40 @@ const BillPromotion = () => {
 
   const columns = [
     {
-      title: "ID",
-      dataIndex: "promotionID",
+      title: "Voucher ID",
+      dataIndex: "voucherID",
       editable: true,
-      sorter: (a: Item, b: Item) => a.promotionID.localeCompare(b.promotionID),
+      sorter: (a: VoucherDataType, b: VoucherDataType) => a.voucherID.localeCompare(b.voucherID),
+    },
+    {
+      title: "Voucher Name",
+      dataIndex: "voucherCode",
+      editable: true,
+      sorter: (a: VoucherDataType, b: VoucherDataType) => a.voucherCode.length - b.voucherCode.length,
     },
     {
       title: "% discount",
       dataIndex: "discountPercent",
       editable: true,
-      sorter: (a: Item, b: Item) => a.discountPercent - b.discountPercent,
+      sorter: (a: VoucherDataType, b: VoucherDataType) => a.discountPercent - b.discountPercent,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
       editable: true,
-      sorter: (a: Item, b: Item) => a.startDate.length - b.startDate.length,
+      sorter: (a: VoucherDataType, b: VoucherDataType) => a.startDate.length - b.startDate.length,
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       editable: true,
-      sorter: (a: Item, b: Item) => a.endDate.length - b.endDate.length,
+      sorter: (a: VoucherDataType, b: VoucherDataType) => a.endDate.length - b.endDate.length,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: VoucherDataType) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -288,7 +209,7 @@ const BillPromotion = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: Item) =>
+      render: (_: unknown, record: VoucherDataType) =>
         data.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
@@ -306,7 +227,7 @@ const BillPromotion = () => {
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: VoucherDataType) => ({
         record,
         inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -354,7 +275,7 @@ const BillPromotion = () => {
         <Sidebar />
 
         <Styled.AdminPage>
-          <MarketingMenu/>
+          <MarketingMenu />
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
@@ -399,23 +320,57 @@ const BillPromotion = () => {
                     autoComplete="off"
                   >
                     <Styled.FormItem>
-                      <Form.Item label="Promotion ID" name="promotionID" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Voucher ID"
+                        name="voucherID"
+                        rules={[{ required: true }]}
+                      >
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="% discount" name="sale" rules={[{ required: true }]}>
+                      <Form.Item
+                        label="Voucher Code"
+                        name="voucherCode"
+                        rules={[{ required: true }]}
+                      >
+                        <Input className="formItem" placeholder="Sophia" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="% discount"
+                        name="sale"
+                        rules={[{ required: true }]}
+                      >
                         <InputNumber className="formItem" placeholder="15" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Start Time" name="startTime" rules={[{ required: true }]}>
-                        <RangePicker showTime />
+                      <Form.Item
+                        label="Start Time"
+                        name="startTime"
+                        rules={[{ required: true }]}
+                      >
+                        <RangePicker showTime className="formItem"/>
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="End Time" name="endTime" rules={[{ required: true }]}>
-                        <RangePicker showTime />
+                      <Form.Item
+                        label="End Time"
+                        name="endTime"
+                        rules={[{ required: true }]}
+                      >
+                        <RangePicker showTime className="formItem"/>
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Description"
+                        name="Description"
+                        rules={[{ required: true }]}
+                      >
+                        <Input.TextArea className="formItem" />
                       </Form.Item>
                     </Styled.FormItem>
                   </Form>
@@ -423,9 +378,13 @@ const BillPromotion = () => {
                   <Styled.ActionBtn>
                     <Form.Item>
                       <Space>
-                        <SubmitButton form={form}>Save</SubmitButton>
+                        <SubmitButton form={form}>
+                          <SaveOutlined />
+                          Save
+                        </SubmitButton>
                         <Button
                           onClick={handleCancel}
+                          className="CancelBtn"
                           style={{ marginLeft: "10px" }}
                         >
                           Cancel
