@@ -14,13 +14,22 @@ import {
   Table,
 } from "antd";
 // import { Link } from "react-router-dom";
-import { DeleteOutlined, InboxOutlined, InfoCircleOutlined, PlusCircleOutlined } from "@ant-design/icons";
-import type { FormInstance, UploadProps, GetProp, UploadFile, } from "antd";
+import {
+  DeleteOutlined,
+  InboxOutlined,
+  InfoCircleOutlined,
+  PlusCircleOutlined,
+} from "@ant-design/icons";
+import type { FormInstance, UploadProps, GetProp, UploadFile } from "antd";
 import { Link } from "react-router-dom";
 import TextArea from "antd/es/input/TextArea";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { MaterialDataType, RingMaterialDataType, materialData, productData } from "../ProductData";
+import {
+  MaterialDataType,
+  RingMaterialDataType,
+  materialData,
+} from "../ProductData";
 import ImgCrop from "antd-img-crop";
 // import { ringData, materialData } from "./ProductData";
 
@@ -76,8 +85,6 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
   );
 };
 
-
-
 // MATERIAL TABLE
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -126,11 +133,7 @@ const EditableMaterialCell: React.FC<{
   value: any;
   onChange: (value: any) => void;
   options?: { value: string; label: string }[];
-}> = ({
-  editable,
-  value,
-  onChange,
-}) => {
+}> = ({ editable, value, onChange }) => {
   return (
     <td>
       {editable ? (
@@ -158,12 +161,7 @@ const EditableSizeCell: React.FC<{
   value: any;
   onChange: (value: any) => void;
   options?: { value: string; label: number }[];
-}> = ({
-  editable,
-  value,
-  onChange,
-  options
-}) => {
+}> = ({ editable, value, onChange, options }) => {
   return (
     <td>
       {editable ? (
@@ -190,11 +188,7 @@ const EditableCell_Material: React.FC<{
   editable: boolean;
   value: any;
   onChange: (value: any) => void;
-}> = ({
-  editable,
-  value,
-  onChange,
-}) => {
+}> = ({ editable, value, onChange }) => {
   return (
     <td>
       {editable ? (
@@ -206,13 +200,11 @@ const EditableCell_Material: React.FC<{
   );
 };
 
-
 const AddProduct = () => {
   const [form] = Form.useForm();
   const [diamondSections, setDiamondSections] = useState(1);
   const [type, setType] = useState(""); //LINK TO 2 TYPE
 
-  
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
     setType(value);
@@ -225,42 +217,43 @@ const AddProduct = () => {
     console.log(e);
   };
 
+  // UPLOAD IMAGES
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    // {
+    //   uid: '-1',
+    //   name: 'image.png',
+    //   status: 'done',
+    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    // },
+  ]);
 
-    // UPLOAD IMAGES
-    const [fileList, setFileList] = useState<UploadFile[]>([
-      // {
-      //   uid: '-1',
-      //   name: 'image.png',
-      //   status: 'done',
-      //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-      // },
-    ]);
-  
-    const onChangeImg: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-      setFileList(newFileList);
-    };
-  
-    const onPreview = async (file: UploadFile) => {
-      let src = file.url as string;
-      if (!src) {
-        src = await new Promise((resolve) => {
-          const reader = new FileReader();
-          reader.readAsDataURL(file.originFileObj as FileType);
-          reader.onload = () => resolve(reader.result as string);
-        });
-      }
-      const image = new Image();
-      image.src = src;
-      const imgWindow = window.open(src);
-      imgWindow?.document.write(image.outerHTML);
-    };
-  
+  const onChangeImg: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
 
   // MATERIAL TABLE
   const [dataMaterial, setDataMaterial] = useState<RingMaterialDataType[]>([]);
 
-  const handleFieldChange = (fieldName: keyof RingMaterialDataType, value: any, key: any) => {
+  const handleFieldChange = (
+    fieldName: keyof RingMaterialDataType,
+    value: any,
+    key: any
+  ) => {
     const newData = dataMaterial.map((item) =>
       item.key === key ? { ...item, [fieldName]: value } : item
     );
@@ -280,7 +273,10 @@ const AddProduct = () => {
   };
 
   const handleAdd = () => {
-    const newKey = dataMaterial.length > 0 ? String(Number(dataMaterial[dataMaterial.length - 1].key) + 1) : "1";
+    const newKey =
+      dataMaterial.length > 0
+        ? String(Number(dataMaterial[dataMaterial.length - 1].key) + 1)
+        : "1";
     const newData: RingMaterialDataType = {
       key: newKey,
       jewelrySettingID: "",
@@ -303,7 +299,9 @@ const AddProduct = () => {
           title="Material Name"
           editable={true}
           value={record.materialID}
-          onChange={(value) => handleFieldChange("materialID", value, record.key)}
+          onChange={(value) =>
+            handleFieldChange("materialID", value, record.key)
+          }
           options={materialOptions}
         />
       ),
@@ -380,7 +378,6 @@ const AddProduct = () => {
     },
   ];
 
-
   return (
     <>
       <Styled.GlobalStyle />
@@ -394,7 +391,7 @@ const AddProduct = () => {
             <Styled.AdPageArea_Title>
               <Styled.AdPage_HeadLeft>
                 <h1>Add Diamond Jewelry</h1>
-                <p>Add a new product</p>
+                <p>Add a new jewelry</p>
               </Styled.AdPage_HeadLeft>
               <Styled.AddButton>
                 <button onClick={() => setDiamondSections(diamondSections + 1)}>
@@ -408,7 +405,11 @@ const AddProduct = () => {
                 <Styled.AdPageContent_Title>
                   <p>Add Jewelry</p>
                 </Styled.AdPageContent_Title>
-                <Form form={form} layout="vertical" className="AdPageContent_Content">
+                <Form
+                  form={form}
+                  layout="vertical"
+                  className="AdPageContent_Content"
+                >
                   <Styled.FormItem>
                     <Form.Item
                       label="Jewelry ID"
@@ -447,7 +448,6 @@ const AddProduct = () => {
                           { value: "Choker", label: "Choker" },
                           { value: "Pendant", label: "Pendant" },
                         ]}
-                        
                       />
                     </Form.Item>
                   </Styled.FormItem>
@@ -462,20 +462,20 @@ const AddProduct = () => {
                     </Form.Item>
                   </Styled.FormItem> */}
                   <Styled.UploadFile>
-                      <Form.Item label="Upload Images">
-                        <ImgCrop rotationSlider>
-                          <Upload
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChangeImg}
-                            onPreview={onPreview}
-                          >
-                            {fileList.length < 5 && "+ Upload"}
-                          </Upload>
-                        </ImgCrop>
-                      </Form.Item>
-                    </Styled.UploadFile>
+                    <Form.Item label="Upload Images">
+                      <ImgCrop rotationSlider>
+                        <Upload
+                          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                          listType="picture-card"
+                          fileList={fileList}
+                          onChange={onChangeImg}
+                          onPreview={onPreview}
+                        >
+                          {fileList.length < 5 && "+ Upload"}
+                        </Upload>
+                      </ImgCrop>
+                    </Form.Item>
+                  </Styled.UploadFile>
                 </Form>
               </Styled.AdPageContent_Product>
 
@@ -489,7 +489,11 @@ const AddProduct = () => {
                       <p>Add Diamond</p>
                     </Styled.AdPageContent_Title>
 
-                    <Form form={form} layout="vertical" className="AdPageContent_Content">
+                    <Form
+                      form={form}
+                      layout="vertical"
+                      className="AdPageContent_Content"
+                    >
                       <Styled.FormItem>
                         <Form.Item
                           label="Diamond ID"
@@ -509,14 +513,14 @@ const AddProduct = () => {
                         </Form.Item>
                       </Styled.FormItem>
                       <Styled.FormItem>
-                      <Form.Item
-                        label="Charge Rate (%)"
-                        name="Charge Rate"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="150" />
-                      </Form.Item>
-                    </Styled.FormItem>
+                        <Form.Item
+                          label="Charge Rate (%)"
+                          name="Charge Rate"
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber className="formItem" placeholder="150" />
+                        </Form.Item>
+                      </Styled.FormItem>
                       <Styled.FormItem>
                         <Form.Item
                           label="Price"
@@ -572,45 +576,45 @@ const AddProduct = () => {
                         </Form.Item>
                       </Styled.FormItem>
                       <Styled.FormItem>
-                      <Form.Item
-                        label="Polish"
-                        name="Polish"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Polish"
-                          onChange={handleChange}
-                          options={[
-                            { value: "Excellent", label: "Excellent" },
-                            { value: "Very Good", label: "Very Good" },
-                            { value: "Good", label: "Good" },
-                            { value: "Fair", label: "Fair" },
-                            { value: "Poor", label: "Poor" },
-                          ]}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Cut"
-                        name="Cut"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Cut"
-                          onChange={handleChange}
-                          options={[
-                            { value: "Excellent", label: "Excellent" },
-                            { value: "Very Good", label: "Very Good" },
-                            { value: "Good", label: "Good" },
-                            { value: "Fair", label: "Fair" },
-                            { value: "Poor", label: "Poor" },
-                          ]}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
+                        <Form.Item
+                          label="Polish"
+                          name="Polish"
+                          rules={[{ required: true }]}
+                        >
+                          <Select
+                            className="formItem"
+                            placeholder="Select Polish"
+                            onChange={handleChange}
+                            options={[
+                              { value: "Excellent", label: "Excellent" },
+                              { value: "Very Good", label: "Very Good" },
+                              { value: "Good", label: "Good" },
+                              { value: "Fair", label: "Fair" },
+                              { value: "Poor", label: "Poor" },
+                            ]}
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Cut"
+                          name="Cut"
+                          rules={[{ required: true }]}
+                        >
+                          <Select
+                            className="formItem"
+                            placeholder="Select Cut"
+                            onChange={handleChange}
+                            options={[
+                              { value: "Excellent", label: "Excellent" },
+                              { value: "Very Good", label: "Very Good" },
+                              { value: "Good", label: "Good" },
+                              { value: "Fair", label: "Fair" },
+                              { value: "Poor", label: "Poor" },
+                            ]}
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
                       <Styled.FormItem>
                         <Form.Item
                           label="Length/Width Ratio"
@@ -642,25 +646,25 @@ const AddProduct = () => {
                         </Form.Item>
                       </Styled.FormItem>
                       <Styled.FormItem>
-                      <Form.Item
-                        label="Symmetry"
-                        name="Symmetry"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Symmetry"
-                          onChange={handleChange}
-                          options={[
-                            { value: "Excellent", label: "Excellent" },
-                            { value: "Very Good", label: "Very Good" },
-                            { value: "Good", label: "Good" },
-                            { value: "Fair", label: "Fair" },
-                            { value: "Poor", label: "Poor" },
-                          ]}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
+                        <Form.Item
+                          label="Symmetry"
+                          name="Symmetry"
+                          rules={[{ required: true }]}
+                        >
+                          <Select
+                            className="formItem"
+                            placeholder="Select Symmetry"
+                            onChange={handleChange}
+                            options={[
+                              { value: "Excellent", label: "Excellent" },
+                              { value: "Very Good", label: "Very Good" },
+                              { value: "Good", label: "Good" },
+                              { value: "Fair", label: "Fair" },
+                              { value: "Poor", label: "Poor" },
+                            ]}
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
                       <Styled.FormItem>
                         <Form.Item
                           label="Carat Weight"
@@ -698,24 +702,24 @@ const AddProduct = () => {
                         </Form.Item>
                       </Styled.FormItem>
                       <Styled.FormItem>
-                      <Form.Item
-                        label="Fluorescence"
-                        name="Fluorescence"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Symmetry"
-                          onChange={handleChange}
-                          options={[
-                            { value: "Strong", label: "Strong" },
-                            { value: "Media", label: "Media" },
-                            { value: "Faint", label: "Faint" },
-                            { value: "None", label: "None" },
-                          ]}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
+                        <Form.Item
+                          label="Fluorescence"
+                          name="Fluorescence"
+                          rules={[{ required: true }]}
+                        >
+                          <Select
+                            className="formItem"
+                            placeholder="Select Symmetry"
+                            onChange={handleChange}
+                            options={[
+                              { value: "Strong", label: "Strong" },
+                              { value: "Media", label: "Media" },
+                              { value: "Faint", label: "Faint" },
+                              { value: "None", label: "None" },
+                            ]}
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
                       <Styled.FormDescript>
                         <Form.Item
                           label="Description"
@@ -730,20 +734,20 @@ const AddProduct = () => {
                         </Form.Item>
                       </Styled.FormDescript>
                       <Styled.UploadFile>
-                      <Form.Item label="Upload Images">
-                        <ImgCrop rotationSlider>
-                          <Upload
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChangeImg}
-                            onPreview={onPreview}
-                          >
-                            {fileList.length < 5 && "+ Upload"}
-                          </Upload>
-                        </ImgCrop>
-                      </Form.Item>
-                    </Styled.UploadFile>
+                        <Form.Item label="Upload Images">
+                          <ImgCrop rotationSlider>
+                            <Upload
+                              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                              listType="picture-card"
+                              fileList={fileList}
+                              onChange={onChangeImg}
+                              onPreview={onPreview}
+                            >
+                              {fileList.length < 5 && "+ Upload"}
+                            </Upload>
+                          </ImgCrop>
+                        </Form.Item>
+                      </Styled.UploadFile>
 
                       <Styled.UploadFile>
                         <Form.Item label="Upload GIA">
@@ -785,7 +789,11 @@ const AddProduct = () => {
                 <Styled.AdPageContent_Title>
                   <p>Add Jewelry Setting</p>
                 </Styled.AdPageContent_Title>
-                <Form form={form} layout="vertical" className="AdPageContent_Content">
+                <Form
+                  form={form}
+                  layout="vertical"
+                  className="AdPageContent_Content"
+                >
                   <Styled.FormItem>
                     <Form.Item
                       label="Jewelry Setting ID"
@@ -805,63 +813,63 @@ const AddProduct = () => {
                     </Form.Item>
                   </Styled.FormItem>
                   <Styled.FormItem>
-                      <Form.Item label="Jewelry Setting Type">
-                        <Select
-                          // defaultValue="Ring"
-                          className="formItem"
-                          placeholder="Select Type"
-                          onChange={handleChange}
-                          options={[
-                            { value: "Ring", label: "Ring" },
-                            { value: "Necklace", label: "Necklace" },
-                            { value: "Earring", label: "Earring" },
-                            { value: "Bracelet", label: "Bracelet" },
-                            { value: "Anklet", label: "Anklet" },
-                            { value: "Bangle", label: "Bangle" },
-                            { value: "Choker", label: "Choker" },
-                            { value: "Pendant", label: "Pendant" },
-                          ]}
-                          value={type}
-                          disabled
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Weight (gram)"
-                        name="Weight"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="150" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Auxiliary Cost"
-                        name="Auxiliary Cost"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="150" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Charge Rate (%)"
-                        name="Charge Rate"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="150" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Product Cost"
-                        name="Product Cost"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="5000000" />
-                      </Form.Item>
-                    </Styled.FormItem>
+                    <Form.Item label="Jewelry Setting Type">
+                      <Select
+                        // defaultValue="Ring"
+                        className="formItem"
+                        placeholder="Select Type"
+                        onChange={handleChange}
+                        options={[
+                          { value: "Ring", label: "Ring" },
+                          { value: "Necklace", label: "Necklace" },
+                          { value: "Earring", label: "Earring" },
+                          { value: "Bracelet", label: "Bracelet" },
+                          { value: "Anklet", label: "Anklet" },
+                          { value: "Bangle", label: "Bangle" },
+                          { value: "Choker", label: "Choker" },
+                          { value: "Pendant", label: "Pendant" },
+                        ]}
+                        value={type}
+                        disabled
+                      />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item
+                      label="Weight (gram)"
+                      name="Weight"
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber className="formItem" placeholder="150" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item
+                      label="Auxiliary Cost"
+                      name="Auxiliary Cost"
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber className="formItem" placeholder="150" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item
+                      label="Charge Rate (%)"
+                      name="Charge Rate"
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber className="formItem" placeholder="150" />
+                    </Form.Item>
+                  </Styled.FormItem>
+                  <Styled.FormItem>
+                    <Form.Item
+                      label="Product Cost"
+                      name="Product Cost"
+                      rules={[{ required: true }]}
+                    >
+                      <InputNumber className="formItem" placeholder="5000000" />
+                    </Form.Item>
+                  </Styled.FormItem>
                   <Styled.FormDescript>
                     <Form.Item
                       label="Description"
@@ -876,46 +884,51 @@ const AddProduct = () => {
                     </Form.Item>
                   </Styled.FormDescript>
                   <Styled.UploadFile>
-                      <Form.Item label="Upload Images">
-                        <ImgCrop rotationSlider>
-                          <Upload
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChangeImg}
-                            onPreview={onPreview}
-                          >
-                            {fileList.length < 5 && "+ Upload"}
-                          </Upload>
-                        </ImgCrop>
-                      </Form.Item>
-                    </Styled.UploadFile>
+                    <Form.Item label="Upload Images">
+                      <ImgCrop rotationSlider>
+                        <Upload
+                          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                          listType="picture-card"
+                          fileList={fileList}
+                          onChange={onChangeImg}
+                          onPreview={onPreview}
+                        >
+                          {fileList.length < 5 && "+ Upload"}
+                        </Upload>
+                      </ImgCrop>
+                    </Form.Item>
+                  </Styled.UploadFile>
                   <Styled.MaterialTable>
-                      <Button
-                        onClick={handleAdd}
-                        type="primary"
-                        style={{ marginBottom: 16 }}
-                      >
-                        Add a row
-                      </Button>
-                      <Table
-                        dataSource={dataMaterial}
-                        columns={columnsMaterial}
-                        rowClassName={() => "editable-row"}
-                        bordered
-                        pagination={false}
-                      />
-                    </Styled.MaterialTable>
+                    <Button
+                      onClick={handleAdd}
+                      type="primary"
+                      style={{ marginBottom: 16 }}
+                    >
+                      Add a row
+                    </Button>
+                    <Table
+                      dataSource={dataMaterial}
+                      columns={columnsMaterial}
+                      rowClassName={() => "editable-row"}
+                      bordered
+                      pagination={false}
+                    />
+                  </Styled.MaterialTable>
                 </Form>
               </Styled.AdPageContent_Product>
               <Styled.ActionBtn>
                 <Form.Item>
-                  <Link to="/admin/product/detail/P12345130">  {/* {`/admin/product/detail/${jewelryID} `} */}
+                  <Link to="/admin/product/detail/P12345130">
+                    {" "}
+                    {/* {`/admin/product/detail/${jewelryID} `} */}
                     <SubmitButton form={form}>Create New</SubmitButton>
                   </Link>
 
                   <Link to="/admin/product/jewelry">
-                    <Button /*onClick={}*/ className="CancelBtn" style={{ marginLeft: "10px" }}>
+                    <Button
+                      /*onClick={}*/ className="CancelBtn"
+                      style={{ marginLeft: "10px" }}
+                    >
                       Cancel
                     </Button>
                   </Link>

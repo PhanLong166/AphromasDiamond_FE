@@ -10,7 +10,6 @@ import {
   Table,
   Popover,
 } from "antd";
-// import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import {
@@ -28,7 +27,6 @@ import {
 } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { DeleteOutlined, InfoCircleOutlined, SaveOutlined } from "@ant-design/icons";
-// import { SortOrder } from "antd/es/table/interface";
 
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -154,26 +152,6 @@ const JewelryDetail = () => {
       : [];
     setData(activeRingSettingMaterials);
   }, [activeRingSetting]);
-
-  // const [count, setCount] = useState(2);
-
-  // const materialTableData = data
-  //   .map((rm) => {
-  //     const materialDetail = getMaterialDetails(rm.materialID);
-  //     if (materialDetail) {
-  //       const pricePerGram = materialDetail.sellingPrice;
-  //       const price = rm.weight * pricePerGram;
-  //       return {
-  //         key: rm.materialID,
-  //         materialName: materialDetail.materialName,
-  //         weight: rm.weight,
-  //         pricePerGram: pricePerGram,
-  //         price: price,
-  //       };
-  //     }
-  //     return null;
-  //   })
-  //   .filter(Boolean);
 
   const handleSave = (row: any) => {
     const newData = [...data];
@@ -326,7 +304,6 @@ const JewelryDetail = () => {
     {
       title: "Material Name",
       dataIndex: "materialID",
-      // editable: true,
       render: (_: unknown, record: RingMaterialDataType) => (
         <EditableMaterialCell
           title= "Material Name"
@@ -349,9 +326,6 @@ const JewelryDetail = () => {
       title: (
         <>
           Jewelry Setting Price 
-          {/* <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
-            ()
-          </Typography.Text> */}
           <Popover content={PriceCalculation} title="Price Calculation" trigger="click">
             <InfoCircleOutlined style={{ marginLeft: 8, fontSize:"12px" }}/>
           </Popover>
@@ -384,6 +358,9 @@ const JewelryDetail = () => {
       ),
       dataIndex: "jewelryPrice",
       render: (_: unknown, record: RingMaterialDataType) => {
+        if (!activeProduct) {
+          return 0;
+        }
         const diamondDetail = getDiamondDetails(activeProduct.diamondID, diamondData);
         const materialDetail = getMaterialDetails(record.materialID, materialData);
         if (diamondDetail && materialDetail) {
@@ -422,17 +399,6 @@ const JewelryDetail = () => {
       title: "Size Value",
       dataIndex: "sizeID",
       editable: true,
-      // render: (sizeID: string, record: RingSizeDataType) => {
-      //   const sizeDetail = ringSizeData.find(size => size.sizeID === sizeID);
-      //   <EditableSizeCell
-      //     title= "Size Value"
-      //     editable={true}
-      //     value= {sizeDetail}
-      //     onChange={(value) => handleSave({ ...record, sizeID: value })}
-      //     options={sizeOptions}
-      //   />
-      //    return sizeDetail ? sizeDetail.sizeValue : 0;
-      // },
       render: (_: unknown, record: RingMaterialDataType) => (
         <EditableSizeCell
           title="Size Value"
@@ -460,9 +426,6 @@ const JewelryDetail = () => {
       title: (
         <>
           Jewelry Setting Price 
-          {/* <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
-            ()
-          </Typography.Text> */}
           <Popover content={PriceCalculation} title="Price Calculation" trigger="click">
             <InfoCircleOutlined style={{ marginLeft: 8, fontSize:"12px" }}/>
           </Popover>
@@ -667,20 +630,6 @@ const JewelryDetail = () => {
                                             }
                                           /> */}
                                         </Form.Item>
-                                        {/* <Form.Item
-                                          label="Charge Rate (%)"
-                                          className="InforLine_Title"
-                                        >
-                                          <Input
-                                            value={editedDiamond?.chargeRate}
-                                            onChange={(e) =>
-                                              handleFieldChange(
-                                                "chargeRate",
-                                                e.target.value
-                                              )
-                                            }
-                                          />
-                                        </Form.Item> */}
                                         <Form.Item
                                           label="Discount (%)"
                                           className="InforLine_Title"
@@ -711,39 +660,10 @@ const JewelryDetail = () => {
                                           disabled
                                         />
                                       </Form.Item>
-                                      {/* <Form.Item
-                                        label="Selling Price"
-                                        className="InforLine_Title"
-                                      >
-                                        <Input
-                                          value={
-                                            activeProduct.price &&
-                                            activeProduct.markupPercentage
-                                              ? (activeProduct.price +
-                                                  activeRingSetting.price +
-                                                  activeRingSetting.processingFee) *
-                                                (1 +
-                                                  activeProduct.markupPercentage /
-                                                    100)
-                                              : 0
-                                          }
-                                          onChange={(e) =>
-                                            handleFieldChange(
-                                              "sellingPrice",
-                                              e.target.value
-                                            )
-                                          }
-                                        />
-                                      </Form.Item> */}
                                     </Styled.ProductContent>
                                   </Styled.PageDetail_Infor>
                                   <Styled.MaterialTable>
                                     <Table
-                                      // components={{
-                                      //   body: {
-                                      //     cell: EditableCell,
-                                      //   },
-                                      // }}
                                       dataSource={data}
                                       columns={mergedColumns_Jewelry}
                                       rowClassName={() => "editable-row"}
