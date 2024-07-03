@@ -168,5 +168,41 @@ export const products: Product[] = [
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
   },
+  {
+    id: "50141020",
+    shape: "round",
+    metal: "yellow gold",
+    name: "WATERFALL DROP EARRINGS",
+    star: 4,
+    price: 700,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_1.webp?alt=media&token=c2329ad1-3a56-4354-990c-101ce1881701",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_2.webp?alt=media&token=393f48a3-69cc-455a-a941-f134ac06a648",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_4.webp?alt=media&token=5d23391c-47a5-499d-9795-7c6fce736147",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_3.webp?alt=media&token=745d4a65-28e7-4746-a694-9166cf6edcb1",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_1.webp?alt=media&token=cce91673-64f8-4b0c-9138-d66abbce0541",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_4.webp?alt=media&token=a1e4025d-697d-497b-ac64-061aa3dac503",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_3.webp?alt=media&token=578e6c39-ffdb-4046-baf1-1d7c7dd13394",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_2.webp?alt=media&token=3cc3afd1-4269-476a-ad25-920e4599c482",
+      ],
+      rose: [],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_1.webp?alt=media&token=c2329ad1-3a56-4354-990c-101ce1881701",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_3.webp?alt=media&token=745d4a65-28e7-4746-a694-9166cf6edcb1",
+    clarity: "SI2",
+    carat: "0.16carat",
+    width: "1.80mm",
+    quantity: 16,
+    color: "I",
+    type: "Earrings",
+    description:
+      "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
+  },
 
 ];

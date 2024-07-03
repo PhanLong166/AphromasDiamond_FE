@@ -6,9 +6,9 @@ import Checkout from "../pages/Customer/Checkout/Checkout";
 import OrderList from "../pages/Customer/OderList/OderList";
 import Voucher from "../pages/Customer/Voucher/Voucher";
 import { Navigate, Outlet } from "react-router-dom";
-import Product from "@/pages/Home/Product/Product";
+import ProductList from "@/pages/Home/ProductList/ProductList";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
-import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
+
 import NotiPage from "@/pages/Customer/Nofications/Nofications";
 
 // import Reply from "@/pages/Home/Reply/Reply";
@@ -30,21 +30,23 @@ import CollectionInformation from "@/pages/Home/CollectionInformation/Collection
 // import useAuth from "@/hooks/useAuth";
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
-import FindSize from "@/pages/Home/FindSize/FindSize";
+import FindSize from "@/pages/Home/DocumentPage/FindSize/FindSize";
 // import WishListPage from "@/pages/Home/WishList/WishListPage";
-import Learn4cs from "@/pages/Home/Learn4cs/Learn4cs";
-import Certification from "@/pages/Home/Certification/Certification";
+import Learn4cs from "@/pages/Home/DocumentPage/Learn4cs/Learn4cs";
+import Certification from "@/pages/Home/DocumentPage/Certification/Certification";
 import DiamondShape from "@/pages/Home/DiamondShape/DiamondShape";
-import BuyingGuide from "@/pages/Home/BuyingGuide/BuyingGuide";
-import EngagementEdu from "@/pages/Home/EngagementEdu/EngagementEdu";
-import WeddingEdu from "@/pages/Home/WeddingEdu/WeddingEdu";
-import MetalEdu from "@/pages/Home/MetalEdu/MetalEdu";
-import EarringEdu from "@/pages/Home/EarringEdu/EarringEdu";
-import NecklaceEdu from "@/pages/Home/NecklaceEdu/NecklaceEdu";
-import BraceletEdu from "@/pages/Home/BraceletEdu/BraceletEdu";
+import BuyingGuide from "@/pages/Home/DocumentPage/BuyingGuide/BuyingGuide";
+import EngagementEdu from "@/pages/Home/DocumentPage/EngagementEdu/EngagementEdu";
+import WeddingEdu from "@/pages/Home/DocumentPage/WeddingEdu/WeddingEdu";
+import MetalEdu from "@/pages/Home/DocumentPage/MetalEdu/MetalEdu";
+import EarringEdu from "@/pages/Home/DocumentPage/EarringEdu/EarringEdu";
+import NecklaceEdu from "@/pages/Home/DocumentPage/NecklaceEdu/NecklaceEdu";
+import BraceletEdu from "@/pages/Home/DocumentPage/BraceletEdu/BraceletEdu";
 import ThankPageSuccess from "@/pages/Home/ThankPage/ThankPageSuccess";
 import ThankPageFail from "@/pages/Home/ThankPage/ThankPageFail";
-
+import ProductDetails  from "@/pages/Home/ProductDetails/ProductDetails";
+import DiamondDetails from "@/pages/Home/DiamondDetail/DiamondDetail";
+import BrandList from "@/pages/Home/BrandList/BrandList";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -71,7 +73,8 @@ const publicRoutes = {
   children: [
     { path: config.routes.public.home, element: <Home /> },
     { path: config.routes.public.productDetail, element: <ProductDetails /> },
-    { path: config.routes.public.productList, element: <Product /> },
+    { path: config.routes.public.diamondDetail, element: <DiamondDetails /> },
+    { path: config.routes.public.productList, element: <ProductList /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },
     { path: config.routes.public.gift, element: <Gift /> },
@@ -97,6 +100,7 @@ const publicRoutes = {
     { path: config.routes.public.braceletEdu, element: <BraceletEdu /> },
     { path: config.routes.public.success, element: <ThankPageSuccess /> },
     { path: config.routes.public.fail, element: <ThankPageFail /> },
+    { path: config.routes.public.brand, element: <BrandList /> },
   ],
 };
 
