@@ -1,11 +1,11 @@
 import { get, post, put, remove } from "./apiCaller";
 
 export const showAllOrderLineForAdmin = () => {
-    return get('/orderLine/showAll');
+    return get(`/orderLine/showAll`);
 }
 
 export const showAllOrderLineForCustomer = () => {
-    return get('/orderLine/showOrder');
+    return get(`/orderLine/showOrder`);
 }
 
 export const OrderLineDetail = (id: number) => {
@@ -13,7 +13,7 @@ export const OrderLineDetail = (id: number) => {
 }
 
 export const createOrderLine = (orderLine: object) => {
-    return post('/orderLine/create', orderLine);
+    return post(`/orderLine/create`, orderLine);
 }
 
 export const updateOrderLine = (id: number, orderLine: object) => {

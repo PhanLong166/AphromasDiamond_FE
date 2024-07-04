@@ -1,11 +1,11 @@
 import { get, post, put, remove } from "./apiCaller";
 
 export const showAllDiamond = () => {
-    return get('/diamond/showAll');
+    return get(`/diamond/showAll`);
 }
 
 export const showDiamonds = () => {
-    return get('/diamond/showDiamonds');
+    return get(`/diamond/showDiamonds`);
 }
 
 export const getDiamondDetails = (diamondID: number) => {
@@ -13,13 +13,13 @@ export const getDiamondDetails = (diamondID: number) => {
 }
 
 export const createDiamond = (diamond: object) => {
-    return post('/diamond/create', diamond);
+    return post(`/diamond/create`, diamond);
 }
 
 export const updateDiamond = (id: number, diamond: object) => {
     return put(`/diamond/update/${id}`, diamond);
 }
 
-export const deleteDiamond = () => {
-    return remove('/diamond/delete/{id}');
+export const deleteDiamond = (id: number) => {
+    return remove(`/diamond/update/${id}`);
 }
