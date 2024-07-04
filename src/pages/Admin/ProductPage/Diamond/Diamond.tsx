@@ -93,6 +93,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
   }, [form, values]);
 
+  console.log(values);
+
   return (
     <Button type="primary" htmlType="submit" disabled={!submittable}>
       {children}
@@ -106,15 +108,15 @@ const Diamond = () => {
   const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isAdding, setIsAdding] = useState(false);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await showAllDiamond();
-      console.log(data);
-    }
-    fetchData();
+  const fetchData = async () => {
+    const { data } = await showAllDiamond();
+    console.log(data);
+  }
 
-    console.log('Hello sir');
-  })
+  useEffect(() => {
+    fetchData();
+  });
+  
 
   const onSearch = (value: string) => {
     console.log("Search:", value);

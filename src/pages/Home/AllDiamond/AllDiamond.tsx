@@ -7,6 +7,8 @@ import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond"
 
 import { diamonds } from "../shared/ListOfDiamond";
 import { Link } from "react-router-dom";
+import Funnel from "@/components/Funnel";
+import { labels, texts } from "./AllDiamond.props";
 
 const { Title, Text } = Typography;
 
