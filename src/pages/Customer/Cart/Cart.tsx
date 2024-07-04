@@ -187,7 +187,7 @@ const Cart = () => {
                     <PromoIcon src="https://cdn.builder.io/api/v1/image/assets/TEMP/6f0f0a858913ade2024229e06f2a2b2de3377d9aca01b958e1d53f25d9c31bad?apiKey=5672b1354002436f9bda9e8bc0a69a3b&" alt="Promo code icon" />
                     <PromoText>Promo Code</PromoText>
                   </PromoCode> */}
-                    <PromoCodeSection />
+                    <PromoCodeSection onApplyVoucher={(discount) => {discount}}/>
                     <SummaryTotal>
                       <TotalLabel>Total</TotalLabel>
                       <TotalValue>$10,000</TotalValue>
