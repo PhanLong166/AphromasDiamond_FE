@@ -7,6 +7,8 @@ import {
   // InboxOutlined,
   SaveOutlined,
   EyeOutlined,
+  DeleteOutlined,
+  InfoCircleOutlined,
 } from "@ant-design/icons";
 import type {
   FormInstance,
@@ -15,6 +17,8 @@ import type {
   UploadProps,
   GetProp,
   UploadFile,
+  // GetRef,
+  // InputRef,
 } from "antd";
 import {
   Form,
@@ -26,6 +30,8 @@ import {
   Upload,
   // message,
   Space,
+  Popconfirm,
+  Popover,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
@@ -35,7 +41,11 @@ import {
   ringData,
   RingDataType,
   productData,
-  ProductDataType,
+  RingMaterialDataType,
+  // ringMaterialData,
+  materialData,
+  MaterialDataType,
+  // ProductDataType,
 } from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
@@ -86,30 +96,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-// DESCRIPTION INPUT
-
-// const { Dragger } = Upload;
-
-// const props: UploadProps = {
-//   name: "file",
-//   multiple: true,
-//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== "uploading") {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === "done") {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === "error") {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log("Dropped files", e.dataTransfer.files);
-//   },
-// };
-
 // SUBMIT FORM
 interface SubmitButtonProps {
   form: FormInstance;
@@ -138,60 +124,141 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
   );
 };
 
+// MATERIAL TABLE
+const calculateJewelrySettingPrice = (
+  weight: number,
+  pricePerGram: number,
+  auxiliaryCost: number,
+  productionCost: number
+) => {
+  return weight * pricePerGram + auxiliaryCost + productionCost;
+};
+
+const getMaterialDetails = (
+  materialID: string,
+  materialData: MaterialDataType[]
+) => {
+  return materialData.find((material) => material.materialID === materialID);
+};
+
+const PriceCalculation = (
+  <div>
+    (Weight * Price per Gram + Auxiliary Cost + Production Cost)* Charge Rate
+  </div>
+);
+
+const materialOptions = [
+  { value: "M12345121", label: "14K White Gold" },
+  { value: "M12345122", label: "14K Yellow Gold" },
+  { value: "M12345123", label: "14K Rose Gold" },
+  { value: "M12345124", label: "18K White Gold" },
+  { value: "M12345125", label: "18K Yellow Gold" },
+  { value: "M12345126", label: "18K Rose Gold" },
+  { value: "M12345127", label: "Platinum" },
+];
+
+const sizeOptions = [
+  { value: "SZ01", label: 8 },
+  { value: "SZ02", label: 10 },
+  { value: "SZ03", label: 12 },
+  { value: "SZ04", label: 14 },
+  { value: "SZ05", label: 16 },
+  { value: "SZ06", label: 18 },
+];
+
+const EditableMaterialCell: React.FC<{
+  title: React.ReactNode;
+  editable: boolean;
+  value: any;
+  onChange: (value: any) => void;
+  options?: { value: string; label: string }[];
+}> = ({
+  editable,
+  value,
+  onChange,
+}) => {
+  return (
+    <td>
+      {editable ? (
+        materialOptions ? (
+          <Select value={value} onChange={onChange}>
+            {materialOptions.map((option) => (
+              <Select.Option key={option.value} value={option.value}>
+                {option.label}
+              </Select.Option>
+            ))}
+          </Select>
+        ) : (
+          <Input value={value} onChange={(e) => onChange(e.target.value)} />
+        )
+      ) : (
+        value
+      )}
+    </td>
+  );
+};
+
+const EditableSizeCell: React.FC<{
+  title: React.ReactNode;
+  editable: boolean;
+  value: any;
+  onChange: (value: any) => void;
+  options?: { value: string; label: number }[];
+}> = ({
+  editable,
+  value,
+  onChange,
+  options
+}) => {
+  return (
+    <td>
+      {editable ? (
+        options ? (
+          <Select value={value} onChange={onChange}>
+            {options.map((option) => (
+              <Select.Option key={option.value} value={option.value}>
+                {option.label}
+              </Select.Option>
+            ))}
+          </Select>
+        ) : (
+          <Input value={value} onChange={(e) => onChange(e.target.value)} />
+        )
+      ) : (
+        value
+      )}
+    </td>
+  );
+};
+
+const EditableCell_Material: React.FC<{
+  title: React.ReactNode;
+  editable: boolean;
+  value: any;
+  onChange: (value: any) => void;
+}> = ({
+  editable,
+  value,
+  onChange,
+}) => {
+  return (
+    <td>
+      {editable ? (
+        <Input value={value} onChange={(e) => onChange(e.target.value)} />
+      ) : (
+        value
+      )}
+    </td>
+  );
+};
+
+
+
 const JewelrySetting = () => {
   const [form] = Form.useForm();
   const [data] = useState<RingDataType[]>(ringData);
   // const [currency, setCurrency] = useState<"VND" | "USD">("USD");
   const [isAdding, setIsAdding] = useState(false);
-  // const [editingKey, setEditingKey] = useState<React.Key>("");
-  // const isEditing = (record: RingDataType) => record.key === editingKey;
-  // const edit = (record: Partial<RingDataType> & { key: React.Key }) => {
-  //   form.setFieldsValue({
-  //     ringSettingID: "",
-  //     ringSettingImg: "",
-  //     ringSettingName: "",
-  //     price: "",
-  //     type: "",
-  //     width: "",
-  //     material: "",
-  //     ...record,
-  //   });
-  //   setEditingKey(record.key);
-  // };
-  // const cancel = () => {
-  //   setEditingKey("");
-  // };
-
-  // const save = async (key: React.Key) => {
-  //   try {
-  //     const row = (await form.validateFields()) as RingDataType;
-  //     const newData = [...ringData];
-  //     const index = newData.findIndex((item) => key === item.key);
-
-  //     // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
-
-  //     if (index > -1) {
-  //       const item = newData[index];
-  //       newData.splice(index, 1, {
-  //         ...item,
-  //         ...row,
-  //       });
-  //       setData(newData);
-  //       setEditingKey("");
-  //     } else {
-  //       newData.push(row);
-  //       setData(newData);
-  //       setEditingKey("");
-  //     }
-  //   } catch (errInfo) {
-  //     console.log("Validate Failed:", errInfo);
-  //   }
-  // };
-
-  // const handleDelete = (key: React.Key) => {
-  //   const newData = data.filter((item) => item.key !== key);
-  //   setData(newData);
-  // };
 
   //  Change Currency
   const handleChange = (value: string) => {
@@ -288,48 +355,6 @@ const JewelrySetting = () => {
       onFilter: (value: boolean | React.Key, record: RingDataType) =>
         record.type.indexOf(value as string) === 0,
     },
-    // {
-    //   title: "Edit",
-    //   dataIndex: "edit",
-    //   className: "TextAlign SmallSize",
-    //   render: (_: unknown, record: RingDataType) => {
-    //     const editable = isEditing(record);
-    //     return editable ? (
-    //       <span>
-    //         <Typography.Link
-    //           onClick={() => save(record.key)}
-    //           style={{ marginRight: 8 }}
-    //         >
-    //           Save
-    //         </Typography.Link>
-    //         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-    //           <a>Cancel</a>
-    //         </Popconfirm>
-    //       </span>
-    //     ) : (
-    //       <Typography.Link
-    //         disabled={editingKey !== ""}
-    //         onClick={() => edit(record)}
-    //       >
-    //         Edit
-    //       </Typography.Link>
-    //     );
-    //   },
-    // },
-    // {
-    //   title: "Delete",
-    //   dataIndex: "delete",
-    //   className: "TextAlign",
-    //   render: (_: unknown, record: RingDataType) =>
-    //     data.length >= 1 ? (
-    //       <Popconfirm
-    //         title="Sure to delete?"
-    //         onConfirm={() => handleDelete(record.key)}
-    //       >
-    //         <a>Delete</a>
-    //       </Popconfirm>
-    //     ) : null,
-    // },
     {
       title: "Detail",
       key: "detail",
@@ -414,6 +439,131 @@ const JewelrySetting = () => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+  // MATERIAL TABLE
+  const [dataMaterial, setDataMaterial] = useState<RingMaterialDataType[]>([]);
+
+  const handleFieldChange = (fieldName: keyof RingMaterialDataType, value: any, key: any) => {
+    const newData = dataMaterial.map((item) =>
+      item.key === key ? { ...item, [fieldName]: value } : item
+    );
+    setDataMaterial(newData);
+  };
+
+  // const handleSave = (row: RingMaterialDataType) => {
+  //   const newData = dataMaterial.map((item) =>
+  //     row.key === item.key ? { ...item, ...row } : item
+  //   );
+  //   setDataMaterial(newData);
+  // };
+
+  const handleDelete = (key: React.Key) => {
+    const newData = dataMaterial.filter((item) => item.key !== key);
+    setDataMaterial(newData);
+  };
+
+  const handleAdd = () => {
+    const newKey = dataMaterial.length > 0 ? String(Number(dataMaterial[dataMaterial.length - 1].key) + 1) : "1";
+    const newData: RingMaterialDataType = {
+      key: newKey,
+      jewelrySettingID: "",
+      jewelrySettingVariantID: "",
+      materialID: "",
+      sizeID: "",
+      amount: 0,
+      price: 0,
+    };
+    setDataMaterial([...dataMaterial, newData]);
+  };
+
+  const columnsMaterial = [
+    {
+      title: "Material Name",
+      dataIndex: "materialID",
+      editable: true,
+      render: (_: unknown, record: RingMaterialDataType) => (
+        <EditableMaterialCell
+          title="Material Name"
+          editable={true}
+          value={record.materialID}
+          onChange={(value) => handleFieldChange("materialID", value, record.key)}
+          options={materialOptions}
+        />
+      ),
+    },
+    {
+      title: "Size Value",
+      dataIndex: "sizeID",
+      render: (_: unknown, record: RingMaterialDataType) => (
+        <EditableSizeCell
+          title="Size Value"
+          editable={true}
+          value={record.sizeID}
+          onChange={(value) => handleFieldChange("sizeID", value, record.key)}
+          options={sizeOptions}
+        />
+      ),
+    },
+    {
+      title: "Amount",
+      dataIndex: "amount",
+      render: (_: unknown, record: RingMaterialDataType) => (
+        <EditableCell_Material
+          title="Amount"
+          editable={true}
+          value={record.amount}
+          onChange={(value) => handleFieldChange("amount", value, record.key)}
+        />
+      ),
+    },
+    {
+      title: (
+        <>
+          Jewelry Setting Price
+          <Popover
+            content={PriceCalculation}
+            title="Price Calculation"
+            trigger="click"
+          >
+            <InfoCircleOutlined style={{ marginLeft: 8, fontSize: "12px" }} />
+          </Popover>
+        </>
+      ),
+      dataIndex: "price",
+      render: (_: unknown, record: RingMaterialDataType) => {
+        const materialDetail = getMaterialDetails(
+          record.materialID,
+          materialData
+        );
+        if (materialDetail) {
+          const pricePerGram = materialDetail.sellingPrice;
+          const jewelrySettingPrice = calculateJewelrySettingPrice(
+            record.amount,
+            pricePerGram,
+            0,
+            0
+          );
+          return jewelrySettingPrice;
+        }
+        return 0;
+      },
+    },
+    {
+      title: "Operation",
+      dataIndex: "operation",
+      render: (_: unknown, record: RingMaterialDataType) =>
+        dataMaterial.length >= 1 ? (
+          <Popconfirm
+            title="Sure to delete?"
+            onConfirm={() => handleDelete(record.key)}
+          >
+            <Button icon={<DeleteOutlined />} />
+          </Popconfirm>
+        ) : null,
+    },
+  ];
+
+
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -474,8 +624,8 @@ const JewelrySetting = () => {
                   <Form layout="vertical" className="AdPageContent_Content">
                     <Styled.FormItem>
                       <Form.Item
-                        label="Jewelry ID"
-                        name="Jewelry ID"
+                        label="Jewelry Name"
+                        name="Jewelry Name"
                         rules={[{ required: true }]}
                       >
                         <Select
@@ -514,8 +664,8 @@ const JewelrySetting = () => {
                     </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item
-                        label="Ring Setting ID"
-                        name="Ring Setting ID"
+                        label="Jewelry Setting ID"
+                        name="Jewelry Setting ID"
                         rules={[{ required: true }]}
                       >
                         <Input className="formItem" placeholder="D1234" />
@@ -523,20 +673,11 @@ const JewelrySetting = () => {
                     </Styled.FormItem>
                     <Styled.FormItem>
                       <Form.Item
-                        label="Ring Setting Name"
-                        name="Ring Setting Name"
+                        label="Jewelry Setting Name"
+                        name="Jewelry Setting Name"
                         rules={[{ required: true }]}
                       >
                         <Input className="formItem" placeholder="Filled" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Markup Percentage (%)"
-                        name="Markup Percentage"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="150" />
                       </Form.Item>
                     </Styled.FormItem>
                     {/* <Styled.FormItem>
@@ -549,7 +690,7 @@ const JewelrySetting = () => {
                       </Form.Item>
                     </Styled.FormItem> */}
                     <Styled.FormItem>
-                      <Form.Item label="Type">
+                      <Form.Item label="Jewelry Setting Type">
                         <Select
                           // value="Ring"
                           className="formItem"
@@ -569,28 +710,39 @@ const JewelrySetting = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Material">
-                        <Select
-                          //   defaultValue="Select Clarity"
-                          className="formItem"
-                          placeholder="Select Material"
-                          onChange={handleChange}
-                          options={[
-                            { value: "14K White Gold", label: "14KWhiteGold" },
-                            {
-                              value: "14K Yellow Gold",
-                              label: "14KYellowGold",
-                            },
-                            { value: "14K Rose Gold", label: "14KRoseGold" },
-                            { value: "18K White Gold", label: "18KWhiteGold" },
-                            {
-                              value: "18K Yellow Gold",
-                              label: "18KYellowGold",
-                            },
-                            { value: "18K Rose Gold", label: "18KRoseGold" },
-                            { value: "Platinum", label: "Platinum" },
-                          ]}
-                        />
+                      <Form.Item
+                        label="Weight (gram)"
+                        name="Weight"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber className="formItem" placeholder="150" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Auxiliary Cost"
+                        name="Auxiliary Cost"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber className="formItem" placeholder="150" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Charge Rate (%)"
+                        name="Charge Rate"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber className="formItem" placeholder="150" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Product Cost"
+                        name="Product Cost"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber className="formItem" placeholder="5000000" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
@@ -621,6 +773,22 @@ const JewelrySetting = () => {
                         </ImgCrop>
                       </Form.Item>
                     </Styled.UploadFile>
+                    <Styled.MaterialTable>
+                      <Button
+                        onClick={handleAdd}
+                        type="primary"
+                        style={{ marginBottom: 16 }}
+                      >
+                        Add a row
+                      </Button>
+                      <Table
+                        dataSource={dataMaterial}
+                        columns={columnsMaterial}
+                        rowClassName={() => "editable-row"}
+                        bordered
+                        pagination={false}
+                      />
+                    </Styled.MaterialTable>
                   </Form>
                   <Styled.ActionBtn>
                     <SubmitButton form={form}>

@@ -12,6 +12,8 @@ export interface ProductDataType {
   currencyType: string;
   diamondID: string;
   jewelrySettingID: string;
+  collectionID: string;
+  promotionID: string;
 }
 
 export const productData: ProductDataType[] = [
@@ -29,6 +31,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0003",
     jewelrySettingID: "S12345121",
+    collectionID: "C12345121",
+    promotionID: "D12345121",
   },
   {
     key: "2",
@@ -44,6 +48,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0007",
     jewelrySettingID: "S12345122",
+    collectionID: "C12345122",
+    promotionID: "D12345129",
   },
   {
     key: "3",
@@ -59,6 +65,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0005",
     jewelrySettingID: "S12345123",
+    collectionID: "C12345123",
+    promotionID: "D12345123",
   },
   {
     key: "4",
@@ -74,6 +82,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0003",
     jewelrySettingID: "S12345124",
+    collectionID: "C12345124",
+    promotionID: "D12345124",
   },
   {
     key: "5",
@@ -89,6 +99,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0007",
     jewelrySettingID: "S12345125",
+    collectionID: "C12345125",
+    promotionID: "D12345125",
   },
   {
     key: "6",
@@ -104,6 +116,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0002",
     jewelrySettingID: "S12345126",
+    collectionID: "C12345126",
+    promotionID: "D12345126",
   },
   {
     key: "7",
@@ -119,6 +133,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0003",
     jewelrySettingID: "S12345127",
+    collectionID: "C12345127",
+    promotionID: "D12345127",
   },
   {
     key: "8",
@@ -134,6 +150,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0006",
     jewelrySettingID: "S12345128",
+    collectionID: "C12345128",
+    promotionID: "D12345128",
   },
   {
     key: "9",
@@ -149,6 +167,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0008",
     jewelrySettingID: "S12345129",
+    collectionID: "C12345129",
+    promotionID: "D12345129",
   },
   {
     key: "10",
@@ -164,6 +184,8 @@ export const productData: ProductDataType[] = [
     currencyType: "VND",
     diamondID: "D0001",
     jewelrySettingID: "S12345121",
+    collectionID: "C12345121",
+    promotionID: "D12345121",
   },
 ];
 
