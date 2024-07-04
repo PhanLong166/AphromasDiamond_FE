@@ -9,6 +9,7 @@ const routes = {
     notFound: "/404",
     product: "/product",
     productDetail: "/product/:id",
+    diamondDetail: "/diamond/:id",
     productList: "/list",
     allProduct: "/all",
     about: "/about",
@@ -33,6 +34,7 @@ const routes = {
     weddingEdu: "/wedding-ring-education",
     success: "/success",
     fail: "/fail",
+    brand: "/brand",
   },
   customer: {
     account: "/account",

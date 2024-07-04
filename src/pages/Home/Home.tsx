@@ -22,6 +22,7 @@ import {
   DotImage,
   DotTitle,
   Banner2,
+  Banner2Container,
   Feature,
   About,
   Banner4,
@@ -35,6 +36,7 @@ import {
   ButtonAbout,
   AboutText,
   AboutContent,
+  AboutContainer,
   ContainBrand,
   Brand,
   BrandItem,
@@ -164,7 +166,7 @@ const shapes = [
 
 const brand = [
   {
-    href: "#",
+    href: "/brand",
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FBvlgari.png?alt=media&token=9702661b-d3a5-49b5-9bf7-87adc932fa7d",
     title: "Bvlgari",
@@ -282,8 +284,6 @@ const products: Product[] = [
 ];
 
 const Home: React.FC = () => {
-  // type Carousel = /*unresolved*/ any;
-  // const carouselRef = React.useRef<Carousel | null>(null);
   const StyledCarousel = styled(Carousel)`
     .slick-slide {
       display: flex;
@@ -482,38 +482,40 @@ const Home: React.FC = () => {
           </ContainShape>
         </Shape>
         <Banner2>
-          <Row gutter={[0, 0]}>
-            <Col xs={24} md={12}>
-              <StyledImage
-                src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fmodel.f0d74.jpg?alt=media&token=912a91dc-09f3-43f4-8708-5246d4c912ab"
-                alt=""
-              />
-            </Col>
-            <Col xs={24} md={12}>
-              <StyledContent>
-                <Title
-                  level={5}
-                  className="super"
-                  style={{ paddingBottom: "0" }}
-                >
-                  SUPER SALE
-                </Title>
-                <Heading>
-                  <h2 className="title">UP TO 50%</h2>
-                </Heading>
-                <StyledText>
-                  Don't miss out on our Dazzling Deals! For a limited time,
-                  enjoy an incredible 50% off on a wide range of products.
-                  Whether you're looking to upgrade your tech, refresh your
-                  wardrobe, or find the perfect gift, now is the perfect time to
-                  save big!
-                </StyledText>
-                <ButtonSale>
-                  <button>SHOP NOW</button>
-                </ButtonSale>
-              </StyledContent>
-            </Col>
-          </Row>
+          <Banner2Container>
+            <Row gutter={[0, 0]}>
+              <Col xs={24} md={12}>
+                <StyledImage
+                  src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fmodel.f0d74.jpg?alt=media&token=912a91dc-09f3-43f4-8708-5246d4c912ab"
+                  alt=""
+                />
+              </Col>
+              <Col xs={24} md={12}>
+                <StyledContent>
+                  <Title
+                    level={5}
+                    className="super"
+                    style={{ paddingBottom: "0" }}
+                  >
+                    SUPER SALE
+                  </Title>
+                  <Heading>
+                    <h2 className="title">UP TO 50%</h2>
+                  </Heading>
+                  <StyledText>
+                    Don't miss out on our Dazzling Deals! For a limited time,
+                    enjoy an incredible 50% off on a wide range of products.
+                    Whether you're looking to upgrade your tech, refresh your
+                    wardrobe, or find the perfect gift, now is the perfect time
+                    to save big!
+                  </StyledText>
+                  <ButtonSale>
+                    <button>SHOP NOW</button>
+                  </ButtonSale>
+                </StyledContent>
+              </Col>
+            </Row>
+          </Banner2Container>
         </Banner2>
         <Feature>
           <Row gutter={[16, 16]} style={{ height: "100%" }}>
@@ -767,40 +769,45 @@ const Home: React.FC = () => {
             </DotGrid>
           </ContainBrand>
         </Brand>
-        <About id="about" className="about container">
-          <Row gutter={[0, 0]}>
-            <Col xs={24} md={12}>
-              <AboutContent>
-                <Heading>
-                  <h2 className="title"> ABOUT OUR COMPANY</h2>
-                </Heading>
-                <AboutText>
-                  Welcome to Aphromas Diamond, where the beauty and elegance of
-                  diamonds are celebrated in every piece of jewelry. With years
-                  of experience, we offer unique designs, exceptional quality,
-                  and professional service. Our mission is to create jewelry
-                  that not only looks stunning but also carries deep meaning. We
-                  use the finest materials and craftsmanship to ensure every
-                  product is perfect. Our dedicated team is always ready to help
-                  you find the perfect piece, whether it's a special gift, an
-                  engagement ring, or a set for a memorable occasion.
-                </AboutText>
+        <AboutContainer>
+          <About id="about" className="about container">
+            <Row gutter={[0, 0]}>
+              <Col xs={24} md={12}>
+                <AboutContent>
+                  <Heading>
+                    <h2 className="title"> ABOUT OUR COMPANY</h2>
+                  </Heading>
+                  <AboutText>
+                    Welcome to Aphromas Diamond, where the beauty and elegance
+                    of diamonds are celebrated in every piece of jewelry. With
+                    years of experience, we offer unique designs, exceptional
+                    quality, and professional service. Our mission is to create
+                    jewelry that not only looks stunning but also carries deep
+                    meaning. We use the finest materials and craftsmanship to
+                    ensure every product is perfect. Our dedicated team is
+                    always ready to help you find the perfect piece, whether
+                    it's a special gift, an engagement ring, or a set for a
+                    memorable occasion.
+                  </AboutText>
 
-                <ButtonAbout>
-                  <button onClick={() => navigate(config.routes.public.about)}>
-                    LEARN ABOUT
-                  </button>
-                </ButtonAbout>
-              </AboutContent>
-            </Col>
-            <Col xs={24} md={12}>
-              <StyledImage
-                src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FValuing-a-Jewelry-Store-1080x675.jpg?alt=media&token=2811a397-f833-4161-907c-a252db575b26"
-                alt=""
-              />
-            </Col>
-          </Row>
-        </About>
+                  <ButtonAbout>
+                    <button
+                      onClick={() => navigate(config.routes.public.about)}
+                    >
+                      LEARN ABOUT
+                    </button>
+                  </ButtonAbout>
+                </AboutContent>
+              </Col>
+              <Col xs={24} md={12}>
+                <StyledImage
+                  src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FValuing-a-Jewelry-Store-1080x675.jpg?alt=media&token=2811a397-f833-4161-907c-a252db575b26"
+                  alt=""
+                />
+              </Col>
+            </Row>
+          </About>
+        </AboutContainer>
       </Container>
     </Body>
   );

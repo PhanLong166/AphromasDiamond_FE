@@ -1,13 +1,10 @@
 import { useState } from "react";
-import { Breadcrumb } from "antd";
 import { Link, useParams } from "react-router-dom";
-import { CloseOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-import { products } from "../shared/ListOfProducts";
-import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
+import { diamonds } from "../shared/ListOfDiamond";
+
 import {
   Body,
   Section,
@@ -25,11 +22,7 @@ import {
   Entry,
   Heading,
   ProductRating,
-  ProductMetal,
   ProductInfo,
-  RingSizeContainer,
-  RingSize,
-  RingSizeHelp,
   ProductPrice,
   ButtonContainer,
   Button,
@@ -48,21 +41,14 @@ import {
   Review,
   ProductSection,
   ButtonAdd,
-  Space,
   List,
   ProductSectionViewed,
-} from "./ProductDetails.styled";
+} from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "antd";
 
-const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
-
-const ProductDetails: React.FC = () => {
+const DiamondDetails: React.FC = () => {
   //tab description + cmt
   const [activeTab, setActiveTab] = useState("product-description");
 
@@ -109,45 +95,16 @@ const ProductDetails: React.FC = () => {
         " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
     },
   ];
-  //size
-  const sizes = [8, 10, 12, 14, 16, 18];
-
-  const [selectedSize, setSelectedSize] = useState<number | null>(null);
-
-  const handleClick = (size: number) => {
-    setSelectedSize(size);
-  };
-
-  //inscription
-  const [isModalVisible, setIsModalVisible] = useState(false);
-  const [inscription, setInscription] = useState<string>("");
-
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
-  const handleSave = (text: string) => {
-    setInscription(text);
-    setIsModalVisible(false);
-  };
-
-  const handleDelete = () => {
-    setInscription("");
-  };
-
-  const handleClose = () => {
-    setIsModalVisible(false);
-  };
 
   //2 same
-  const sameProductIds = ["50141014", "50141015", "50141016", "50141017"];
-  const sameBrandProducts = products.filter((product) =>
-    sameProductIds.includes(product.id)
+  const sameProductIds = ["1", "2", "3", "4"];
+  const sameBrandProducts = diamonds.filter((diamond) =>
+    sameProductIds.includes(diamond.id)
   );
 
-  const recentlyProductIds = ["50141014", "50141015", "50141016", "50141017"];
-  const recentlyViewedProducts = products.filter((product) =>
-    recentlyProductIds.includes(product.id)
+  const recentlyProductIds = ["2", "4", "3", "5"];
+  const recentlyViewedProducts = diamonds.filter((diamond) =>
+    recentlyProductIds.includes(diamond.id)
   );
   //
   const navigate = useNavigate();
@@ -165,49 +122,28 @@ const ProductDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
-  const foundProduct = products.find((product) => product.id === id);
+  const foundProduct = diamonds.find((diamond) => diamond.id === id);
 
   if (!foundProduct) {
-    return <div>Product not found</div>;
+    return <div>Diamond not found</div>;
   }
 
-  const [mainImage, setMainImage] = useState(foundProduct.images.yellow[0]);
+  const [mainImage, setMainImage] = useState(foundProduct.image);
   const [selectedThumb, setSelectedThumb] = useState(0);
-  const [metalType, setMetalType] =
-    useState<keyof typeof foundProduct.images>("yellow");
-  const [metalAvailability] = useState({
-    yellow: foundProduct.images.yellow.length > 0,
-    white: foundProduct.images.white.length > 0,
-    rose: foundProduct.images.rose.length > 0,
-    platinum: foundProduct.images.platinum.length > 0,
-  });
+
+  const thumbnailImages = [
+    foundProduct.image,
+    foundProduct.image1,
+    foundProduct.image2,
+  ].filter((src): src is string => !!src); 
 
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
     setSelectedThumb(index);
   };
 
-  const handleMetalClick = (type: keyof typeof foundProduct.images) => {
-    if (metalAvailability[type]) {
-      setMetalType(type);
-      setMainImage(foundProduct.images[type][0]);
-      setSelectedThumb(0);
-    }
-  };
-
   return (
     <Body>
-      <div>
-        <CustomBreadcrumb
-          separator=">"
-          items={[
-            { title: "Home", href: "/" },
-            { title: "Round Ring", href: "/product" },
-            { title: "All Product", href: "/all" },
-            { title: `${foundProduct.type} - #${foundProduct.id}` },
-          ]}
-        />
-      </div>
       <Section>
         <Container>
           <Wrap>
@@ -216,19 +152,15 @@ const ProductDetails: React.FC = () => {
                 <ImageContainer>
                   <OuterThumb>
                     <ThumbnailImage>
-                      {foundProduct.images[metalType].map(
-                        (src: string, index: number) => (
-                          <Item
-                            key={index}
-                            className={
-                              selectedThumb === index ? "selected" : ""
-                            }
-                            onClick={() => changeImage(src, index)}
-                          >
-                            <img src={src} alt={`Thumb ${index + 1}`} />
-                          </Item>
-                        )
-                      )}
+                      {thumbnailImages.map((src, index) => (
+                        <Item
+                          key={index}
+                          className={selectedThumb === index ? "selected" : ""}
+                          onClick={() => changeImage(src, index)}
+                        >
+                          <img src={src} alt={`Thumb ${index + 1}`} />
+                        </Item>
+                      ))}
                     </ThumbnailImage>
                   </OuterThumb>
                   <OuterMain>
@@ -254,102 +186,11 @@ const ProductDetails: React.FC = () => {
                     <div className="info-box">{foundProduct.clarity}</div>
                     <div className="info-box">{foundProduct.carat}</div>
                     <div className="info-box">{foundProduct.color}</div>
+                    <div className="info-box">{foundProduct.shape}</div>
+                    <div className="info-box">{foundProduct.cut}</div>
                   </div>
                 </ProductInfo>
-                <ProductMetal>
-                  <span className="fill">Metal Type:</span>
-                  <div className="wrap">
-                    <button
-                      className={`metal-button white ${
-                        metalType === "white" ? "selected" : ""
-                      }`}
-                      onClick={() => handleMetalClick("white")}
-                      disabled={!foundProduct.images.white.length}
-                    >
-                      <span>14k</span>
-                    </button>
-                    <button
-                      className={`metal-button yellow ${
-                        metalType === "yellow" ? "selected" : ""
-                      }`}
-                      onClick={() => handleMetalClick("yellow")}
-                      disabled={!foundProduct.images.yellow.length}
-                    >
-                      <span>14k</span>
-                    </button>
-                    <button
-                      className={`metal-button rose ${
-                        metalType === "rose" ? "selected" : ""
-                      }`}
-                      onClick={() => handleMetalClick("rose")}
-                      disabled={!foundProduct.images.rose.length}
-                    >
-                      <span>14k</span>
-                    </button>
-                    <button
-                      className={`metal-button platinum ${
-                        metalType === "platinum" ? "selected" : ""
-                      }`}
-                      onClick={() => handleMetalClick("platinum")}
-                      disabled={!foundProduct.images.platinum.length}
-                    >
-                      <span>Pt</span>
-                    </button>
-                  </div>
-                </ProductMetal>
-                {foundProduct.type.toLowerCase() === "ring" && (
-                  <>
-                    <div>
-                      <RingSizeContainer>
-                        <RingSize>Select size</RingSize>
-                        <RingSizeHelp href="/find-ring-size">
-                          Ring size help
-                        </RingSizeHelp>
-                      </RingSizeContainer>
-                      <div className="button-container">
-                        {sizes.map((size) => (
-                          <button
-                            key={size}
-                            className={`size-button ${
-                              selectedSize === size ? "selected" : ""
-                            }`}
-                            onClick={() => handleClick(size)}
-                          >
-                            {size}
-                          </button>
-                        ))}
-                      </div>
-                    </div>
-                    <div className="inscription-container">
-                      {inscription ? (
-                        <Space>
-                          <span className="inscription">Your inscription</span>:{" "}
-                          <span>{inscription}</span>
-                          <CloseOutlined
-                            style={{
-                              fontSize: "12px",
-                              marginLeft: "3px",
-                              cursor: "pointer",
-                              backgroundColor: "#eee",
-                              borderRadius: "50%",
-                              color: "#DB7F67",
-                            }}
-                            onClick={handleDelete}
-                          />
-                        </Space>
-                      ) : (
-                        <Button onClick={showModal}>
-                          + Add free inscription
-                        </Button>
-                      )}
-                      <InscriptionModal
-                        visible={isModalVisible}
-                        onClose={handleClose}
-                        onSave={handleSave}
-                      />
-                    </div>
-                  </>
-                )}
+                <hr style={{ borderTop: "1px solid #d9d9d9" }}></hr>
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
@@ -436,14 +277,13 @@ const ProductDetails: React.FC = () => {
                   <h4>What is this?</h4>
                   <ul>
                     <li>ID Number: {foundProduct.id}</li>
-                    <li>Width: {foundProduct.width}</li>
-                    <li>Quantity: {foundProduct.quantity}</li>
                     <li>Shape: {foundProduct.shape}</li>
                     <li>Total Carat (Average): {foundProduct.carat}</li>
                     <li>Color: {foundProduct.color}</li>
                     <li>Clarity: {foundProduct.clarity}</li>
-                    <li>Setting Type: {foundProduct.type}</li>
-                    
+                    <li>Cut: {foundProduct.cut}</li>
+                    <li>Width: {foundProduct.width}</li>
+                    <li>Length: {foundProduct.length}</li>
                   </ul>
                 </ListBlock>
                 <ListBlock>
@@ -522,9 +362,9 @@ const ProductDetails: React.FC = () => {
         </Title>
         <List>
           <Row gutter={[16, 16]}>
-            {sameBrandProducts.map((product) => (
-              <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`}>
+            {sameBrandProducts.map((diamond) => (
+              <Col key={diamond.id} span={6}>
+                <Link to={`/diamond/${diamond.id}`}>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -533,17 +373,14 @@ const ProductDetails: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={product.image}
-                          alt={product.name}
+                          src={diamond.image}
+                          alt={diamond.name}
                           className="product-image"
-                          onMouseOver={(e) =>
-                            (e.currentTarget.src = product.hoverImage)
-                          }
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = product.image)
+                            (e.currentTarget.src = diamond.image)
                           }
                         />
-                        {product.salePrice && (
+                        {diamond.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
                       </>
@@ -551,29 +388,29 @@ const ProductDetails: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                        {product.name}
-                        {wishList.includes(product.id) ? (
+                        {diamond.name}
+                        {wishList.includes(diamond.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            onClick={() => toggleWishList(diamond.id)}
                           />
                         ) : (
                           <HeartOutlined
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            onClick={() => toggleWishList(diamond.id)}
                           />
                         )}
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
                           $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                          {diamond.salePrice
+                            ? diamond.salePrice
+                            : diamond.price}
                         </Text>
-                        {product.salePrice && (
+                        {diamond.salePrice && (
                           <Text delete className="product-sale-price">
-                            ${product.price}
+                            ${diamond.price}
                           </Text>
                         )}
                       </div>
@@ -591,9 +428,9 @@ const ProductDetails: React.FC = () => {
         </Title>
         <List>
           <Row gutter={[16, 16]}>
-            {recentlyViewedProducts.map((product) => (
-              <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`}>
+            {recentlyViewedProducts.map((diamond) => (
+              <Col key={diamond.id} span={6}>
+                <Link to={`/diamond/${diamond.id}`}>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -602,17 +439,14 @@ const ProductDetails: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={product.image}
-                          alt={product.name}
+                          src={diamond.image}
+                          alt={diamond.name}
                           className="product-image"
-                          onMouseOver={(e) =>
-                            (e.currentTarget.src = product.hoverImage)
-                          }
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = product.image)
+                            (e.currentTarget.src = diamond.image)
                           }
                         />
-                        {product.salePrice && (
+                        {diamond.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
                       </>
@@ -620,29 +454,29 @@ const ProductDetails: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                        {product.name}
-                        {wishList.includes(product.id) ? (
+                        {diamond.name}
+                        {wishList.includes(diamond.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            onClick={() => toggleWishList(diamond.id)}
                           />
                         ) : (
                           <HeartOutlined
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            onClick={() => toggleWishList(diamond.id)}
                           />
                         )}
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
                           $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                          {diamond.salePrice
+                            ? diamond.salePrice
+                            : diamond.price}
                         </Text>
-                        {product.salePrice && (
+                        {diamond.salePrice && (
                           <Text delete className="product-sale-price">
-                            ${product.price}
+                            ${diamond.price}
                           </Text>
                         )}
                       </div>
@@ -658,4 +492,4 @@ const ProductDetails: React.FC = () => {
   );
 };
 
-export default ProductDetails;
+export default DiamondDetails;

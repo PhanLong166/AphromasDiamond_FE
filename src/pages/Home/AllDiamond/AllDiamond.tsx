@@ -4,8 +4,10 @@ import { Card, Col, Row, Typography, Pagination } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { showAllDiamond } from "@/services/diamondAPI";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
-import Funnel from "@/components/Funnel";
-import { diamonds, labels, texts } from "./AllDiamond.props";
+
+import { diamonds } from "../shared/ListOfDiamond";
+import { Link } from "react-router-dom";
+
 const { Title, Text } = Typography;
 
 
@@ -20,14 +22,13 @@ const onChange = (key: any) => {
   console.log(key);
 };
 
-
 const AllDiamond: React.FC = () => {
 
   const [filteredDiamonds, setFilteredDiamonds] = useState(diamonds);
   console.log(setFilteredDiamonds);
-  const [wishList, setWishList] = useState<number[]>([]);
+  const [wishList, setWishList] = useState<string[]>([]);
 
-  const toggleWishList = (productId: number) => {
+  const toggleWishList = (productId: string) => {
     setWishList((prev) =>
       prev.includes(productId)
         ? prev.filter((id) => id !== productId)
@@ -82,6 +83,7 @@ const AllDiamond: React.FC = () => {
         <Row gutter={[16, 16]}>
           {filteredDiamonds.map((diamond) => (
             <Col key={diamond.id} span={6}>
+              <Link to={`/diamond/${diamond.id}`}>
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable
@@ -128,6 +130,7 @@ const AllDiamond: React.FC = () => {
                   </div>
                 </div>
               </Card>
+              </Link>
             </Col>
           ))}
         </Row>

@@ -6,7 +6,6 @@ import { products } from "./../shared/ListOfProducts";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import { Link } from "react-router-dom";
 import { Section, Container, Heading, List } from "./AllProduct.styled";
-
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
 
@@ -21,6 +20,7 @@ const CustomBreadcrumb = styled(Breadcrumb)`
 const AllProduct: React.FC = () => {
   const [filteredProducts] = useState(products);
   const [wishList, setWishList] = useState<string[]>([]);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -54,6 +54,7 @@ const AllProduct: React.FC = () => {
 
   return (
     <Section>
+      {/* <Button onClick={() => navigate("/wishlist")}>Go to Wishlist</Button> */}
 
       <div>
         <CustomBreadcrumb
@@ -69,7 +70,6 @@ const AllProduct: React.FC = () => {
             },
             {
               title: "All Product",
-              href: "/all",
             },
           ]}
         />

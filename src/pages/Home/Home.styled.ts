@@ -38,7 +38,7 @@ export const Banner = styled.div`
 export const BannerContent = styled.div`
   position: relative;
   z-index: 1;
-  max-width: 1400px;
+  max-width: 1340px;
   width: 100%;
 
   h2 {
@@ -115,7 +115,7 @@ export const Heading = styled.div`
 
 export const Contain = styled.div`
   margin: 40px auto;
-  max-width: 1320px;
+  max-width: 1340px;
 `;
 
 export const DotGrid = styled.div``;
@@ -153,7 +153,7 @@ export const CateTitle = styled.p`
 
 export const ContainShape = styled.div`
   margin: 0 auto;
-  max-width: 1320px;
+  max-width: 1340px;
   justify-content: center;
 `;
 
@@ -213,11 +213,19 @@ export const DotTitle = styled.h3`
 
 export const Banner2 = styled.section`
   margin: 60px auto;
+  background-color: #dbdad6;
+  height: fix-content;
+`;
+
+export const Banner2Container = styled.div`
+  max-width: 1340px;
+  margin: 0 auto;
 `;
 
 export const StyledImage = styled.img`
   width: 100%;
-  height: 550px;
+  height: 500px;
+  height: 100%;
 `;
 
 export const StyledContent = styled.div`
@@ -225,9 +233,8 @@ export const StyledContent = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: flex-end;
-  height: 99.35%;
   background-color: #dbdad6;
-  padding: 114px;
+  height: 100%;
 
   .super {
     font-weight: 400;
@@ -277,7 +284,7 @@ export const ButtonSale = styled.div`
 `;
 
 export const Feature = styled.section`
-  max-width: 1300px;
+  max-width: 1340px;
   margin: 0 auto;
 
   .main-title {
@@ -435,7 +442,8 @@ export const AboutContent = styled.div`
   align-items: flex-start;
   height: 99.3%;
   background-color: #f8f5ee;
-  padding: 40px 114px;
+  padding: 40px 0;
+  padding-right: 100px;
   .about {
     font-size: 32px;
     font-weight: 600;
@@ -443,9 +451,14 @@ export const AboutContent = styled.div`
   }
 `;
 export const About = styled.section`
-  // max-width: 1300px;
+  max-width: 1340px;
   margin: 0 auto;
   margin-bottom: 70px;
+  
+`;
+
+export const AboutContainer = styled.div`
+  background-color: #f8f5ee;
 `;
 
 export const ButtonAbout = styled.div`
@@ -483,11 +496,9 @@ export const Banner3 = styled.section`
   background-repeat: no-repeat;
   height: 50vh;
 `;
-export const ButtonSection = styled.div`
-
-`;
+export const ButtonSection = styled.div``;
 export const Banner3Container = styled.div`
-  max-width: 1320px;
+  max-width: 1340px;
   margin: 60px auto;
   height: 100%;
   display: flex;
@@ -539,7 +550,7 @@ export const Banner4 = styled.section`
 `;
 
 export const Banner4Container = styled.div`
-  max-width: 1320px;
+  max-width: 1340px;
   margin: 60px auto;
   height: 100%;
   display: flex;
@@ -593,7 +604,7 @@ export const Banner4Container = styled.div`
 
 export const ContainBrand = styled.div`
   margin: 0 auto;
-  max-width: 1320px;
+  max-width: 1360px;
   justify-content: center;
 `;
 

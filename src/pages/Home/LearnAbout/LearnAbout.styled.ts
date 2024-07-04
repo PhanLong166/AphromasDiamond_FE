@@ -12,17 +12,17 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.section`
-  background-color: #f1f1f1;
+  background: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2Flearnaboutbanner.jpeg?alt=media&token=8fe62efb-f5a7-4620-87ec-c1b9896e2d3c")
+    no-repeat center center;
+  background-size: cover;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  height: 450px;
 `;
 
 export const LeftSection = styled.div`
   width: 50%;
-  padding: 10px;
-  align-items: center;
-  margin: 50px 150px;
+  max-width: 1600px;
+  margin: 120px 60px;
 
   h2 {
     font-size: 50px;
@@ -41,17 +41,31 @@ export const LeftSection = styled.div`
     font-family: "Gantari", sans-serif;
     color: #45413e;
   }
-`;
 
-export const RightSection = styled.div`
-  img {
-    width: 65%;
-    height: auto;
-    border-radius: 10px;
-    margin-left: 100px;
+  .consult-button {
+    padding: 15px 20px;
+    background-color: #efe2d4;
+    color: ${theme.color.primary};
+    border: 1px solid;
+    cursor: pointer;
+    font-size: 14px;
+
+    font-family: "Gantari", sans-serif;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .button_slide {
+    letter-spacing: 1px;
+    cursor: pointer;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+  }
+  .slide_right:hover {
+    box-shadow: inset 400px 0 0 0 ${theme.color.primary};
+    color: #efe2d4;
   }
 `;
-
 export const ImageWrapper = styled.div`
   img {
     width: 100%;
@@ -69,10 +83,10 @@ height: 100%;
 
 h4 {
   color: #151542;
-  font-family: "Gantari", sans-serif;
-  font-size: 20px;
-  font-weight: 600;
-  letter-spacing: 2px;
+ font-family: "Great Vibes";
+  font-size: 30px;
+  font-weight: 400;
+ 
 }
 
 p{

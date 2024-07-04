@@ -83,9 +83,12 @@ export const OuterMain = styled.div`
 export const MainImage = styled.div`
   width: 100%;
   overflow: hidden;
+  height: 100%;
   img {
     width: 100%;
+    max-width: 550px;
   }
+
 `;
 
 export const ProductDetail = styled.div`
@@ -160,61 +163,6 @@ export const ProductRating = styled.span`
   font-size: 20px;
 `;
 
-export const ProductMetal = styled.div`
-  .wrap {
-    display: flex;
-    gap: 10px;
-  }
-  .fill {
-    font-weight: 400;
-    font-size: 14px;
-  }
-  span {
-    color: ${theme.color.primary};
-    font-family: "Gantari", sans-serif;
-    font-weight: 600;
-    font-size: 14px;
-  }
-
-  .metal-button {
-    width: 40px;
-    height: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 14px;
-    border: none;
-    cursor: pointer;
-    margin-top: 10px;
-  }
-
-  button.white {
-    background-color: #d9d9d9;
-  }
-
-  button.yellow {
-    background-color: #d8a25a;
-  }
-
-  button.rose {
-    background-color: #f4cfc6;
-  }
-
-  button.platinum {
-    background-color: #696969;
-  }
-
-  button.selected,
-  button:hover:not(.selected) {
-    box-shadow: inset 0 0 0 4px #fff;
-  }
-  button[disabled] {
-    pointer-events: none; 
-    opacity: 0.5; 
-  }
-`;
-
 export const ProductInfo = styled.div`
   span {
     color: ${theme.color.primary};
@@ -229,7 +177,7 @@ export const ProductInfo = styled.div`
   }
 
   .info-box {
-    width: 60px;
+    width: 70px;
     height: 35px;
     display: flex;
     align-items: center;
@@ -241,14 +189,6 @@ export const ProductInfo = styled.div`
     opacity: 0.8;
   }
 `;
-
-export const RingSizeContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  justify-content: space-between;
-`;
-
 export const RingChoose = styled.select`
   .button-container {
     display: flex;
@@ -275,33 +215,6 @@ export const RingChoose = styled.select`
     background-color: #ffe5e5;
   }
 `;
-
-export const RingSizeHelp = styled.a`
-  text-decoration: underline;
-  color: ${theme.color.primary};
-  font-weight: 400;
-  font-size: 14px;
-`;
-
-export const RingSize = styled.div`
-  color: ${theme.color.primary};
-  font-weight: 400;
-  font-size: 14px;
-`;
-
-// export const SelectButton = styled.div`
-//   display: flex;
-//   justify-content: space-between;
-//   align-items: center;
-//   padding: 15px;
-//   border: 1px solid #ccc;
-//   border-radius: 5px;
-//   margin-bottom: 5px;
-//   cursor: pointer;
-//   width: 520px;
-//   background-color: ${theme.color.secondary};
-//   border-radius: 8px;
-// `;
 
 export const SelectionTitle = styled.h5`
   margin: 0;
@@ -908,16 +821,6 @@ export const AddLink = styled.a`
 `;
 
 export const PageLink = styled.a``;
-export const Space = styled.div`
-  span {
-    font-size: 18px;
-    color: ${theme.color.primary};
-  }
-  .inscription {
-    text-decoration: underline;
-    color: ${theme.color.primary};
-  }
-`;
 
 export const List = styled.div`
   max-width: 1400px;
@@ -969,7 +872,8 @@ export const List = styled.div`
     align-items: center;
     gap: 10px;
   }
-.product-price {
+
+  .product-price {
     font-size: 14px;
     color: ${theme.color.primary};
     font-weight: 400;
