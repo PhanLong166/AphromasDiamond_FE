@@ -37,6 +37,7 @@ import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { createDiamond, showAllDiamond } from "@/services/diamondAPI";
 import ImgCrop from 'antd-img-crop';
+import { ColorType, ShapeType } from "./Diamond.type";
 
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -255,16 +256,7 @@ const Diamond = () => {
       title: "Color",
       dataIndex: "color",
       key: "color",
-      filters: [
-        { text: "K", value: "K" },
-        { text: "J", value: "J" },
-        { text: "I", value: "I" },
-        { text: "H", value: "H" },
-        { text: "G", value: "G" },
-        { text: "F", value: "F" },
-        { text: "E", value: "E" },
-        { text: "D", value: "D" },
-      ],
+      filters: ColorType,
       onFilter: (value, record) => record.color.indexOf(value as string) === 0,
       sortDirections: ["descend"],
     },
@@ -272,18 +264,7 @@ const Diamond = () => {
       title: "Shape",
       dataIndex: "shape",
       key: "shape",
-      filters: [
-        { text: "Round", value: "Round" },
-        { text: "Princess", value: "Princess" },
-        { text: "Cushion", value: "Cushion" },
-        { text: "Oval", value: "Oval" },
-        { text: "Emerald", value: "Emerald" },
-        { text: "Pear", value: "Pear" },
-        { text: "Asscher", value: "Asscher" },
-        { text: "Heart", value: "Heart" },
-        { text: "Radiant", value: "Radiant" },
-        { text: "Marquise", value: "Marquise" },
-      ],
+      filters: ShapeType,
       onFilter: (value, record) => record.shape.indexOf(value as string) === 0,
       sorter: (a, b) => a.shape.length - b.shape.length,
       sortDirections: ["descend"],
@@ -357,6 +338,7 @@ const Diamond = () => {
   return (
     <>
       {contextHolder}
+      
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -463,18 +445,7 @@ const Diamond = () => {
                           className="formItem"
                           placeholder="Select Shape"
                           onChange={handleChange}
-                          options={[
-                            { value: "Round", label: "Round" },
-                            { value: "Princess", label: "Princess" },
-                            { value: "Cushion", label: "Cushion" },
-                            { value: "Oval", label: "Oval" },
-                            { value: "Emerald", label: "Emerald" },
-                            { value: "Pear", label: "Pear" },
-                            { value: "Asscher", label: "Asscher" },
-                            { value: "Heart", label: "Heart" },
-                            { value: "Radiant", label: "Radiant" },
-                            { value: "Marquise", label: "Marquise" },
-                          ]}
+                          options={ShapeType}
                         />
                       </Form.Item>
                     </Styled.FormItem>
@@ -488,16 +459,7 @@ const Diamond = () => {
                           className="formItem"
                           placeholder="Select Color"
                           onChange={handleChange}
-                          options={[
-                            { value: "K", label: "K" },
-                            { value: "J", label: "J" },
-                            { value: "I", label: "I" },
-                            { value: "H", label: "H" },
-                            { value: "G", label: "G" },
-                            { value: "F", label: "F" },
-                            { value: "E", label: "E" },
-                            { value: "D", label: "D" },
-                          ]}
+                          options={ColorType}
                         />
                       </Form.Item>
                     </Styled.FormItem>
