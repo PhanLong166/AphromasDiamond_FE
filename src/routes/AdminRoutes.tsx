@@ -22,7 +22,9 @@ import JewelrySettingDetail from "@/pages/Admin/ProductPage/Detail/SettingDetail
 import JewelryTypeProduct from "@/pages/Admin/ProductPage/JewelryType/JewelryType"
 import MaterialProduct from "@/pages/Admin/ProductPage/Material/Material"
 import Collection from "@/pages/Admin/MarketingPage/Collection/Collection"
+import CollectionDetail from "@/pages/Admin/MarketingPage/Detail/CollectionDetail"
 import ProductPromotion from "@/pages/Admin/MarketingPage/ProductPromotion/ProductPromotion"
+import ProductPromotionDetail from "@/pages/Admin/MarketingPage/Detail/ProductPromotionDetail"
 import BillPromotion from "@/pages/Admin/MarketingPage/BillPromotion/BillPromotion"
 
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
@@ -75,7 +77,9 @@ const AdminRoutes = {
         { path: config.routes.admin.materialProduct, element: <MaterialProduct /> },
 
         { path: config.routes.admin.collection, element: <Collection /> },
+        { path: config.routes.admin.collectionDetail, element: <CollectionDetail /> },
         { path: config.routes.admin.discount, element: <ProductPromotion /> },
+        { path: config.routes.admin.discountDetail, element: <ProductPromotionDetail /> },
         { path: config.routes.admin.voucher, element: <BillPromotion /> },
 
         { path: config.routes.admin.clientCaring, element: <ClientCaring /> },
