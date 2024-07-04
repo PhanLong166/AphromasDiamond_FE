@@ -11,6 +11,8 @@ import {
   Space,
   Upload,
   message,
+  Switch,
+  notification,
 } from "antd";
 import {
   SearchOutlined,
@@ -23,8 +25,8 @@ import type {
   FormInstance,
   TableColumnsType,
   TableProps,
-  GetProp, 
-  UploadFile, 
+  GetProp,
+  UploadFile,
   UploadProps
 } from "antd";
 // import Dragger from "antd/es/upload/Dragger";
@@ -33,7 +35,7 @@ import { diamondData, DiamondDataType } from "../ProductData"; // Import data he
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { showAllDiamond } from "@/services/diamondAPI";
+import { createDiamond, showAllDiamond } from "@/services/diamondAPI";
 import ImgCrop from 'antd-img-crop';
 
 
@@ -72,41 +74,22 @@ const props: UploadProps = {
   },
 };
 
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-
-  }, [form, values]);
-
-  console.log(values);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
 const Diamond = () => {
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isAdding, setIsAdding] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+
+  type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+  const openNotification = (type: NotificationType, method: string, error: string) => {
+    api[type]({
+      message: type === 'success' ? 'Notification' : 'Error',
+      description:
+        type === 'success' ? `${method} diamond successfully` : error
+    })
+  }
 
   const fetchData = async () => {
     const { data } = await showAllDiamond();
@@ -116,7 +99,58 @@ const Diamond = () => {
   useEffect(() => {
     fetchData();
   });
-  
+
+  // SUBMIT FORM
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+    form,
+    children,
+  }) => {
+    const [submittable, setSubmittable] = React.useState<boolean>(false);
+
+    // Watch all values
+    const values = Form.useWatch([], form);
+    React.useEffect(() => {
+      form
+        .validateFields({ validateOnly: true })
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+
+    }, [form, values]);
+
+    const diamondValues: object = {
+      ...values,
+      UpdateTime: new Date(),
+      JewelrySettingID: null,
+    }
+    console.log(diamondValues);
+
+    const addDiamond = async (diamondValues: object) => {
+      try {
+        const { data } = await createDiamond(diamondValues);
+        if (data.statusCode !== 200) throw new Error(data.message);
+        console.log(data);
+
+      } catch (error: any) {
+        openNotification('error', '', error);
+      }
+    }
+
+    return (
+      <Button
+        type="primary"
+        htmlType="submit"
+        disabled={!submittable}
+        onClick={() => addDiamond(diamondValues)}
+      >
+        {children}
+      </Button>
+    );
+  };
+
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -291,37 +325,38 @@ const Diamond = () => {
 
 
   // UPLOAD IMAGES
-const [fileList, setFileList] = useState<UploadFile[]>([
-  // {
-  //   uid: '-1',
-  //   name: 'image.png',
-  //   status: 'done',
-  //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-  // },
-]);
+  const [fileList, setFileList] = useState<UploadFile[]>([
+    // {
+    //   uid: '-1',
+    //   name: 'image.png',
+    //   status: 'done',
+    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
+    // },
+  ]);
 
-const onChangeImg: UploadProps['onChange'] = ({ fileList: newFileList }) => {
-  setFileList(newFileList);
-};
+  const onChangeImg: UploadProps['onChange'] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
 
-const onPreview = async (file: UploadFile) => {
-  let src = file.url as string;
-  if (!src) {
-    src = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file.originFileObj as FileType);
-      reader.onload = () => resolve(reader.result as string);
-    });
-  }
-  const image = new Image();
-  image.src = src;
-  const imgWindow = window.open(src);
-  imgWindow?.document.write(image.outerHTML);
-};
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
 
 
   return (
     <>
+      {contextHolder}
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -366,12 +401,12 @@ const onPreview = async (file: UploadFile) => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Diamond</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Diamond</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -382,7 +417,7 @@ const onPreview = async (file: UploadFile) => {
                     layout="vertical"
                     className="AdPageContent_Content"
                   >
-                    <Styled.FormItem>
+                    {/* <Styled.FormItem>
                       <Form.Item
                         label="Diamond ID"
                         name="Diamond ID"
@@ -390,11 +425,11 @@ const onPreview = async (file: UploadFile) => {
                       >
                         <Input className="formItem" placeholder="D1234" />
                       </Form.Item>
-                    </Styled.FormItem>
+                    </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item
                         label="Diamond Name"
-                        name="Diamond Name"
+                        name="Name"
                         rules={[{ required: true }]}
                       >
                         <Input className="formItem" placeholder="Filled" />
@@ -403,7 +438,7 @@ const onPreview = async (file: UploadFile) => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Charge Rate (%)"
-                        name="Charge Rate"
+                        name="ChargeRate"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="150" />
@@ -419,7 +454,10 @@ const onPreview = async (file: UploadFile) => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Shape">
+                      <Form.Item
+                        label="Shape"
+                        name="Shape"
+                      >
                         <Select
                           //   defaultValue="Select Shape"
                           className="formItem"
@@ -441,7 +479,10 @@ const onPreview = async (file: UploadFile) => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Color">
+                      <Form.Item 
+                        label="Color"
+                        name="Color"
+                      >
                         <Select
                           //   defaultValue="Select Color"
                           className="formItem"
@@ -503,7 +544,7 @@ const onPreview = async (file: UploadFile) => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Length/Width Ratio"
-                        name="Length/Width"
+                        name="LengthOnWidthRatio"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="1,01" />
@@ -550,7 +591,7 @@ const onPreview = async (file: UploadFile) => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Carat Weight"
-                        name="Weight"
+                        name="WeightCarat"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="1,01" />
@@ -559,7 +600,7 @@ const onPreview = async (file: UploadFile) => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Table %"
-                        name="Table"
+                        name="PercentTable"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="56.0" />
@@ -568,7 +609,7 @@ const onPreview = async (file: UploadFile) => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Depth %"
-                        name="Depth"
+                        name="PercentDepth"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="63.8" />
@@ -591,6 +632,14 @@ const onPreview = async (file: UploadFile) => {
                             { value: "None", label: "None" },
                           ]}
                         />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Active"
+                        name="IsActive"
+                      >
+                        <Switch />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
@@ -625,7 +674,7 @@ const onPreview = async (file: UploadFile) => {
                           </p>
                         </Dragger> */}
 
-                    <ImgCrop rotationSlider>
+                        <ImgCrop rotationSlider>
                           <Upload
                             action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
                             listType="picture-card"
@@ -661,12 +710,12 @@ const onPreview = async (file: UploadFile) => {
                     </Styled.UploadFile>
                   </Form>
                   <Styled.ActionBtn>
-                     <Link to="/admin/product/diamond/detail/D0001">  {/* {`/admin/product/jewelry-setting/detail/${diamondID} `} */}
-                      <SubmitButton form={form}> 
+                    {/* <Link to="/admin/product/diamond/detail/D0001">  {`/admin/product/jewelry-setting/detail/${diamondID} `} */}
+                      <SubmitButton form={form}>
                         <SaveOutlined />
                         Save
                       </SubmitButton>
-                    </Link>
+                    {/* </Link> */}
                     <Button
                       onClick={handleCancel}
                       className="CancelBtn"
