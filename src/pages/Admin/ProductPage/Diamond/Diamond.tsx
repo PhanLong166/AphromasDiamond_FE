@@ -513,7 +513,10 @@ const Diamond = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Clarity">
+                      <Form.Item 
+                        label="Clarity"
+                        name="Clarity"    
+                      >
                         <Select
                           //   defaultValue="Select Clarity"
                           className="formItem"
