@@ -47,6 +47,7 @@ import ThankPageFail from "@/pages/Home/ThankPage/ThankPageFail";
 import ProductDetails  from "@/pages/Home/ProductDetails/ProductDetails";
 import DiamondDetails from "@/pages/Home/DiamondDetail/DiamondDetail";
 import BrandList from "@/pages/Home/BrandList/BrandList";
+import DiamondList from "@/pages/Home/DiamondList/DiamondList";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -75,6 +76,7 @@ const publicRoutes = {
     { path: config.routes.public.productDetail, element: <ProductDetails /> },
     { path: config.routes.public.diamondDetail, element: <DiamondDetails /> },
     { path: config.routes.public.productList, element: <ProductList /> },
+    { path: config.routes.public.diamondList, element: <DiamondList /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },
     { path: config.routes.public.gift, element: <Gift /> },
