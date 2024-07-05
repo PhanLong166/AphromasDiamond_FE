@@ -1,64 +1,18 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
-// import AccountCus from '@/components/Customer/Account Details/AccountCus';
+// import { diamondvouchers} from './data';
+import { diamondvouchers } from "../../Customer/Checkout/Data/data";
 
 const App = () => {
-  const gigs = [
-    {
-      price: "15",
-      character: "%",
-      eventTitle: "Special Voucher",
-      eventName: "Aphromas Store",
-      date: "Monday 15th 2016",
-      time: "15:20Pm & 11:00Am",
-      location: "North, South, United State, Amre",
-      locationDetails: "Party Number 16,20",
-      buttonLabel: "VC2024SUMMER",
-      buttonLabeles: "Claim Now"
-    },
-    {
-      price: "33",
-      character: "%",
-      eventTitle: "Exclusive Discount",
-      eventName: "Aphromas Store",
-      date: "Wednesday 17th 2016",
-      time: "10:00Am & 3:00Pm",
-      location: "East, West, United State, Amre",
-      locationDetails: "Party Number 30,40",
-      buttonLabel: "VCDISCOUNT50",
-      buttonLabeles: "Claim Now"
-    },
-    {
-        price: "17",
-        character: "%",
-        eventTitle: "Special Voucher",
-        eventName: "Aphromas Store",
-        date: "Monday 15th 2016",
-        time: "15:20Pm & 11:00Am",
-        location: "North, South, United State, Amre",
-        locationDetails: "Party Number 16,20",
-        buttonLabel: "VCSAVE20",
-        buttonLabeles: "Claim Now"
-      },
-      {
-        price: "99",
-        character: "%",
-        eventTitle: "Exclusive Discount",
-        eventName: "Aphromas Store",
-        date: "Wednesday 17th 2016",
-        time: "10:00Am & 3:00Pm",
-        location: "East, West, United State, Amre",
-        locationDetails: "Party Number 30,40",
-        buttonLabel: "VCFREEDELIVERY",
-        buttonLabeles: "Claim Now"
-      },
-  ];
+ 
+  const availableVouchers = diamondvouchers.filter(diamond => !diamond.used);
 
   return (
     <Container>
-      {gigs.map((gig, index) => (
-        <GigItem key={index} {...gig} />
+      
+      {availableVouchers.map((diamond, index) => (
+        <GigItem key={index} {...diamond} />
       ))}
     </Container>
   );
@@ -87,7 +41,7 @@ const GigItem: React.FC<GigProps> = ({
   location,
   locationDetails,
   buttonLabel,
-  buttonLabeles
+ 
 }) => (
   <Item>
     <ItemRight>
@@ -115,7 +69,7 @@ const GigItem: React.FC<GigProps> = ({
       <Fix />
       <Row>
         <Buttons>{buttonLabel}</Buttons>
-        <Button>{buttonLabeles}</Button>
+        {/* <Button>{buttonLabeles}</Button> */}
       </Row>
     </ItemLeft>
   </Item>
@@ -224,7 +178,7 @@ const Location = styled.div`
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const Buttons = styled.div`
@@ -238,32 +192,8 @@ const Buttons = styled.div`
     font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
+    
 `;
 
-const Button = styled.button`
-  /* color: #fff;
-  padding: 5px 11px;
-  font-size: 14px;
-  border: none;
-  cursor: pointer;
-  background-color: #102c57;
-  margin-right: 5px; */
-  font-size: 12px;
-    padding: 10px 20px;
-    background-color: #fff9f7;
-    color: #151542;
-    border: 1px solid #151542;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: "Gantari", sans-serif;
-    font-weight: 600;
-    transition: all 0.45s ease;
-
-    &:hover {
-    background-color: #151542;
-    color: #fff;
-    transition: all 0.45s ease;
-}
-`;
 
 export default App;

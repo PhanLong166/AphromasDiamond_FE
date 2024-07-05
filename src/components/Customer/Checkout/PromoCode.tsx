@@ -1,8 +1,9 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { DownOutlined } from "@ant-design/icons";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Select } from "antd";
-import { vouchers } from './Summary/vouchers';
+import { diamondvouchers, ringvouchers, combinedvouchers, items } from "../../Customer/Checkout/Data/data";
 interface PromoCodeSectionProps {
   onApplyVoucher: (discount: number) => void;
 }
@@ -11,23 +12,51 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedVoucher, setSelectedVoucher] = useState<string | null>(null);
   const [error, setError] = useState("");
-
+  const [availableVouchers, setAvailableVouchers] = useState<any[]>([]);
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
+  useEffect(() => {
+    // Kiểm tra loại sản phẩm trong giỏ hàng
+    const hasDiamond = items.some(item => item.name.toLowerCase().includes("diamond"));
+    const hasRing = items.some(item => item.name.toLowerCase().includes("ring"));
+
+    let filteredVouchers: any[] = [];
+
+    if (hasDiamond && hasRing) {
+      filteredVouchers = combinedvouchers;
+    } else if (hasDiamond) {
+      filteredVouchers = diamondvouchers;
+    } else if (hasRing) {
+      filteredVouchers = ringvouchers;
+    }
+
+    setAvailableVouchers(filteredVouchers.filter(voucher => !voucher.used));
+  }, []);
 
   const handleApplyClick = () => {
-    const voucher = vouchers.find(voucher => voucher.buttonLabel === selectedVoucher);
+    const voucher = availableVouchers.find(voucher => voucher.buttonLabel === selectedVoucher);
     if (voucher) {
       const discount = parseFloat(voucher.price);
       onApplyVoucher(discount);
+      
+      // Đánh dấu voucher đã được sử dụng
+      const updatedVouchers = availableVouchers.map(v => {
+        if (v.buttonLabel === selectedVoucher) {
+          return { ...v, used: true };
+        }
+        return v;
+      });
+
+      setAvailableVouchers(updatedVouchers);
+      setSelectedVoucher(null);
       setError("");
     } else {
       setError("Please select a valid promo code");
     }
   };
 
-  const availableVouchers = vouchers.filter(voucher => !voucher.used);
+  // const availableVouchers = vouchers.filter(voucher => !voucher.used);
 
   return (
     <PromoCodeContainer>
@@ -37,9 +66,18 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
       {!isCollapsed && (
         <PromoForm>
           <Select
+            allowClear
             placeholder="Select a promo code"
             style={{ width: '100%' }}
-            onChange={(value) => setSelectedVoucher(value as string)}
+            onChange={(value) => {
+              if (value === undefined) {
+                setSelectedVoucher(null);
+                setError("");
+                onApplyVoucher(0); // Không thực hiện discount khi giá trị bị xóa
+              } else {
+                setSelectedVoucher(value as string);
+              }
+            }}
           >
             {availableVouchers.map(voucher => (
               <Select.Option key={voucher.buttonLabel} value={voucher.buttonLabel}>
@@ -71,8 +109,8 @@ const BtnApply = styled.div`
   height: 34px;
   font-size: 15px;
     padding: 7px 20px;
-    background-color: #fff;
-    color: #000;
+    background-color: #151542;
+    color: #ffffff;
     border: 1px solid #151542;
     cursor: pointer;
     transition: background-color 0.3s ease;
@@ -80,8 +118,8 @@ const BtnApply = styled.div`
     font-weight: 400;
     transition: all 0.45s ease;
     &:hover {
-    color: #fff;
-    background-color: #151542;
+    color: #000000;
+    background-color: #efefef;
     transition: all 0.45s ease;
   }
 `;
