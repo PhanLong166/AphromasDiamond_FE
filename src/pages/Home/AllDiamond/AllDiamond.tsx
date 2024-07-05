@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
-import { Section, Heading, List, FAQs, LeftFAQ, CustomBreadcrumb, StyledCollapse } from "./AllDiamond.styled";
-import { Card, Col, Row, Typography, Pagination } from "antd";
+import { Section, Heading, List, FAQs, LeftFAQ, CustomBreadcrumb, StyledCollapse, StyledPagination } from "./AllDiamond.styled";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { showAllDiamond } from "@/services/diamondAPI";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
@@ -139,14 +139,12 @@ const AllDiamond: React.FC = () => {
           ))}
         </Row>
       </List>
-      <div style={{ textAlign: "center", margin: "20px auto" }}>
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={filteredDiamonds.length}
-          onChange={handleChangePage}
-        />
-      </div>
+      <StyledPagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={filteredDiamonds.length}
+        onChange={handleChangePage}
+      />
       <FAQs>
         <LeftFAQ>
           <h2>FAQs ABOUT PRODUCT</h2>

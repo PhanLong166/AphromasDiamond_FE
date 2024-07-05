@@ -24,12 +24,15 @@ export interface Product {
   type: string;
   categories: string;
   designer?: string;
+  //ring thì có designer và firm 
+  //các jewelry khác chỉ có firm
   firm: string;
+  gift: boolean;
 }
 
 export const products: Product[] = [
   {
-    id: "50141014",
+    id: "1",
     shape: "princess",
     metal: "yellow gold",
     name: "SOFIA TWO FINGER RING",
@@ -66,11 +69,12 @@ export const products: Product[] = [
     categories: "princess-ring",
     designer: "The Gallery Collection",
     firm: "Cartier",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "50141015",
+    id: "2",
     shape: "marquise",
     metal: "yellow gold",
     name: "RAIN SOLITARY RING",
@@ -84,12 +88,14 @@ export const products: Product[] = [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fb_1.webp?alt=media&token=5713d35a-c3bb-4697-a4fd-3b1e8822107d",
       ],
       white: [
+       
+      ],
+      rose: [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fa_4.webp?alt=media&token=80c7f023-dee5-4922-9149-f8f9ed1ed192",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fa_3.webp?alt=media&token=2eb2dfb7-d401-4e47-8de4-6cdd23ad5e89",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fa_2.webp?alt=media&token=61ac9d99-cca9-429d-b06a-4c5876ba564b",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fa_1.webp?alt=media&token=48edeff4-acbd-410f-8d43-c309f546e550",
       ],
-      rose: [],
       platinum: [],
     },
     image:
@@ -105,11 +111,12 @@ export const products: Product[] = [
     categories: "marquise-ring",
     designer: "Blue Nile Studio",
     firm: "Tiffany & Co",
+    gift: true,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "50141016",
+    id: "3",
     shape: "round",
     metal: "yellow gold",
     name: "DIAMONDS ETERNITY NECKLACE",
@@ -138,11 +145,12 @@ export const products: Product[] = [
     color: "I",
     type: "Necklace",
     firm: "Bvlgari",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "50141017",
+    id: "4",
     shape: "round",
     metal: "yellow gold",
     name: "WATERFALL DROP EARRINGS",
@@ -156,13 +164,15 @@ export const products: Product[] = [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_3.webp?alt=media&token=745d4a65-28e7-4746-a694-9166cf6edcb1",
       ],
       white: [
+        
+      ],
+      rose: [],
+      platinum: [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_1.webp?alt=media&token=cce91673-64f8-4b0c-9138-d66abbce0541",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_4.webp?alt=media&token=a1e4025d-697d-497b-ac64-061aa3dac503",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_3.webp?alt=media&token=578e6c39-ffdb-4046-baf1-1d7c7dd13394",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fj_2.webp?alt=media&token=3cc3afd1-4269-476a-ad25-920e4599c482",
       ],
-      rose: [],
-      platinum: [],
     },
     image:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fe_1.webp?alt=media&token=c2329ad1-3a56-4354-990c-101ce1881701",
@@ -176,11 +186,12 @@ export const products: Product[] = [
     type: "Earrings",
     categories: "earrings",
     firm: "Van Cleef & Arpels",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "50141020",
+    id: "5",
     shape: "round",
     metal: "yellow gold",
     name: "WATERFALL DROP EARRINGS",
@@ -214,11 +225,12 @@ export const products: Product[] = [
     type: "Bracelet",
     categories: "bracelet",
     firm: "Harry Winston",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410201",
+    id: "6",
     shape: "heart",
     metal: "yellow gold",
     name: "BRIGHT HEART SILVER RING",
@@ -255,12 +267,13 @@ export const products: Product[] = [
     categories: "heart-ring",
     designer: "Bella Vaughan",
     firm: "Cartier",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
 
   {
-    id: "501410220",
+    id: "7",
     shape: "pear",
     metal: "yellow gold",
     name: "AQUA SOLITARY RING",
@@ -292,11 +305,12 @@ export const products: Product[] = [
     categories: "pear-ring",
     designer: "Zac Zac Posen",
     firm: "Tiffany & Co",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410216",
+    id: "8",
     shape: "oval",
     metal: "yellow gold",
     name: "KIM RING",
@@ -326,11 +340,12 @@ export const products: Product[] = [
     categories: "oval-ring",
     designer: "The Gallery Collection",
     firm: "Bvlgari",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410216",
+    id: "9",
     shape: "asscher",
     metal: "yellow gold",
     name: "DIAMOND AND GOLD SOLITAIRE RING",
@@ -344,13 +359,15 @@ export const products: Product[] = [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fasscher-ring-1_1.webp?alt=media&token=dc728a82-6dff-4a95-bced-adf127e9fa52",
       ],
       white: [
+       
+      ],
+      rose: [],
+      platinum: [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fasscher-ring-1_2.webp?alt=media&token=1c99a6fc-55b1-4e1e-adbe-36fe3d9df4bc",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fasscher-ring-3_2.webp?alt=media&token=deda6fc7-bd80-44fd-aab5-46d4b5e05458",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fasscher-ring-4_2.webp?alt=media&token=1d3ada21-f149-4c35-a6b8-60ece4af5091",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fasscher-ring-2_2.webp?alt=media&token=0a546c43-ec27-4b5b-b745-4c2b24590d06",
       ],
-      rose: [],
-      platinum: [],
     },
     image:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fasscher-ring-1_1.webp?alt=media&token=dc728a82-6dff-4a95-bced-adf127e9fa52",
@@ -365,11 +382,12 @@ export const products: Product[] = [
     categories: "asscher-ring",
     designer: "Blue Nile Studio",
     firm: "Van Cleef & Arpels",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410266",
+    id: "10",
     shape: "emerald",
     metal: "yellow gold",
     name: "OCTAGON SHIMMER STAMP RING",
@@ -401,11 +419,12 @@ export const products: Product[] = [
     categories: "emerald-ring",
     designer: "Bella Vaughan",
     firm: "Harry Winston",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410266",
+    id: "11",
     shape: "radiant",
     metal: "yellow gold",
     name: "RADIANT SHIMMER STAMP RING",
@@ -420,12 +439,13 @@ export const products: Product[] = [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
       ],
       white: [
+      ],
+      rose: [
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
       ],
-      rose: [],
       platinum: [],
     },
     image:
@@ -442,11 +462,12 @@ export const products: Product[] = [
     categories: "radiant-ring",
     designer: "Zac Zac Posen",
     firm: "Cartier",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410286",
+    id: "12",
     shape: "round",
     metal: "yellow gold",
     name: "SOLITAIRE SUPREME RING",
@@ -481,11 +502,12 @@ export const products: Product[] = [
     categories: "round-ring",
     designer: "The Gallery Collection",
     firm: "Tiffany & Co",
+    gift: false,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
   {
-    id: "501410286",
+    id: "13",
     shape: "cushion",
     metal: "yellow gold",
     name: "ANNA RING",
@@ -517,6 +539,258 @@ export const products: Product[] = [
     categories: "cushion-ring",
     designer: "Blue Nile Studio",
     firm: "Bvlgari",
+    gift: false,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+  {
+    id: "14",
+    shape: "marquise",
+    metal: "yellow gold",
+    name: "AQUA CLIMBING EARRINGS",
+    star: 5,
+    price: 90,
+    salePrice: 45,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FaquaE_1_1.webp?alt=media&token=16ffbadd-e259-4386-8833-59dead3369b8",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FaquaE_1_3.webp?alt=media&token=798c5937-4642-4198-be82-b71a9ecaafe2",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FaquaE_1_2.webp?alt=media&token=9dc40877-28b5-401f-a6f6-73a8a9aa42f3",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FaquaE_1_4.webp?alt=media&token=ab04f113-0157-4eb3-8363-9d817ba47012",
+      ],
+      white: [],
+      rose: [],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FaquaE_1_1.webp?alt=media&token=16ffbadd-e259-4386-8833-59dead3369b8",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FaquaE_1_2.webp?alt=media&token=9dc40877-28b5-401f-a6f6-73a8a9aa42f3",
+    clarity: "SI1",
+    carat: "0.19carat",
+    width: "2.0mm",
+    quantity: 16,
+    color: "F",
+    percentSale: "50%",
+    type: "Earrings",
+    categories: "earrings",
+    designer: "Blue Nile Studio",
+    firm: "Bvlgari",
+    gift: true,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+  {
+    id: "15",
+    shape: "round",
+    metal: "yellow gold",
+    name: "CLARA RING",
+    star: 5,
+    price: 640,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FclaraR_1_1.webp?alt=media&token=4885134c-cab8-4dac-9a41-710509aa860e",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FclaraR_1_3.webp?alt=media&token=103405ee-867f-4aca-a0d0-bbd68e1b1396",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FclaraR_1_4.webp?alt=media&token=09b1a0b2-25a3-41af-83f4-d66c19618009",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FclaraR_1_2.webp?alt=media&token=b47ad990-a7d0-42a5-89fa-1594a0be55f0",
+      ],
+      white: [
+      ],
+      rose: [
+      ],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FclaraR_1_1.webp?alt=media&token=4885134c-cab8-4dac-9a41-710509aa860e",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FclaraR_1_2.webp?alt=media&token=b47ad990-a7d0-42a5-89fa-1594a0be55f0",
+    clarity: "SI1",
+    carat: "0.19carat",
+    width: "2.0mm",
+    quantity: 16,
+    color: "F",
+    type: "Ring",
+    categories: "round-ring",
+    designer: "Zac Zac Posen",
+    firm: "Cartier",
+    gift: true,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+  {
+    id: "16",
+    shape: "round",
+    metal: "yellow gold",
+    name: "DUO NECKLACE",
+    star: 5,
+    price: 520,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FdouN_1_1.webp?alt=media&token=6861d55b-73d9-4020-8a68-8198af5c4ebe",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FdouN_1_3.webp?alt=media&token=bc772c9c-d9c9-4259-91e8-156beedf12e4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FdouN_1_4.webp?alt=media&token=c1e37bc2-cadd-4056-9316-9bec29de6ec3",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FdouN_1_2.webp?alt=media&token=594db5c3-1c48-44f6-922c-03c6d7e95312",
+      ],
+      white: [],
+      rose: [],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FdouN_1_1.webp?alt=media&token=6861d55b-73d9-4020-8a68-8198af5c4ebe",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FdouN_1_2.webp?alt=media&token=594db5c3-1c48-44f6-922c-03c6d7e95312",
+    clarity: "SI2",
+    carat: "0.16carat",
+    width: "1.80mm",
+    categories: "necklace",
+    quantity: 16,
+    color: "I",
+    type: "Necklace",
+    firm: "Bvlgari",
+    gift: true,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+  {
+    id: "17",
+    shape: "round",
+    metal: "yellow gold",
+    name: "LOOP RING",
+    star: 5,
+    price: 585,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FloopR_1_1.webp?alt=media&token=ec39699d-0615-4360-b7e7-bbade8e233b1",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FloopR_1_3.webp?alt=media&token=fa7bfeb8-9217-454c-b272-d5478ca8f5a5",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FloopR_1_2.webp?alt=media&token=0bf6c3a5-7aab-46d1-9a49-f1e61bfc3ce3",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FloopR_1_4.webp?alt=media&token=49df851f-d152-4f3a-8eb8-060298f9adf7",
+      ],
+      white: [],
+      rose: [],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FloopR_1_1.webp?alt=media&token=ec39699d-0615-4360-b7e7-bbade8e233b1",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FloopR_1_2.webp?alt=media&token=0bf6c3a5-7aab-46d1-9a49-f1e61bfc3ce3",
+    clarity: "SI1",
+    carat: "0.19carat",
+    width: "2.0mm",
+    quantity: 16,
+    color: "F",
+    type: "Ring",
+    categories: "round-ring",
+    designer: "Bella Vaughan",
+    firm: "Harry Winston",
+    gift: true,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+
+  {
+    id: "18",
+    shape: "round",
+    metal: "yellow gold",
+    name: "SIENA BANGLE",
+    star: 4,
+    price: 105,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FsienaB_1_1.webp?alt=media&token=61554d10-c98e-4199-901c-6473cad50fa1",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FsienaB_1_3.webp?alt=media&token=bd120a02-eaff-4fab-8384-b046fb4cb5db",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FsienaB_1_4.webp?alt=media&token=f31ff3f7-a043-4ed9-ac96-c20122c56751",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FsienaB_1_2.webp?alt=media&token=cd744ace-3776-48c3-b00e-05e651806509",
+      ],
+      white: [
+      ],
+      rose: [],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FsienaB_1_1.webp?alt=media&token=61554d10-c98e-4199-901c-6473cad50fa1",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FsienaB_1_2.webp?alt=media&token=cd744ace-3776-48c3-b00e-05e651806509",
+    clarity: "SI2",
+    carat: "0.16carat",
+    width: "1.80mm",
+    quantity: 16,
+    color: "I",
+    type: "Bracelet",
+    categories: "bracelet",
+    firm: "Van Cleef & Arpels",
+    gift: true,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+  {
+    id: "19",
+    shape: "oval",
+    metal: "yellow gold",
+    name: "STARE EARRINGS",
+    star: 4,
+    price: 77,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FstareE_1_1.webp?alt=media&token=276647be-5d62-414f-84fb-b52383782df9",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fstare_1_3.webp?alt=media&token=4c698e39-1eb3-4be5-85ab-42839d8b2716",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2Fstare_1_4.webp?alt=media&token=ed93d517-3c03-40a7-933d-963c14974a57",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FstareE_1_2.webp?alt=media&token=15fa1c50-9585-4343-bb49-fdf43270c96e",
+      ],
+      white: [
+        
+      ],
+      rose: [],
+      platinum: [
+      ],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FstareE_1_1.webp?alt=media&token=276647be-5d62-414f-84fb-b52383782df9",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FstareE_1_2.webp?alt=media&token=15fa1c50-9585-4343-bb49-fdf43270c96e",
+    clarity: "SI2",
+    carat: "0.16carat",
+    width: "1.80mm",
+    quantity: 16,
+    color: "I",
+    type: "Earrings",
+    categories: "earrings",
+    firm: "Harry Winston",
+    gift: true,
+    description:
+      "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
+  },
+  {
+    id: "20",
+    shape: "princess",
+    metal: "yellow gold",
+    name: "WATER BRACELET",
+    star: 4,
+    price: 72,
+    images: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FwaterB_1_1.webp?alt=media&token=a8c6f893-8e06-496e-a614-0350eca9da45",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FwaterB_1_3.webp?alt=media&token=d50ad189-ac78-483b-8dba-c60d0e926ff0",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FwaterB_1_4.webp?alt=media&token=2547742c-8faf-4f9f-87b4-f6989441787d",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FwaterB_1_2.webp?alt=media&token=b8576b7c-1ebd-41fc-918c-98cbb211b7ac",
+      ],
+      white: [
+      ],
+      rose: [],
+      platinum: [],
+    },
+    image:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FwaterB_1_1.webp?alt=media&token=a8c6f893-8e06-496e-a614-0350eca9da45",
+    hoverImage:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/All%20Jewelry%2FwaterB_1_2.webp?alt=media&token=b8576b7c-1ebd-41fc-918c-98cbb211b7ac",
+    clarity: "SI2",
+    carat: "0.16carat",
+    width: "1.80mm",
+    quantity: 16,
+    color: "I",
+    type: "Bracelet",
+    categories: "bracelet",
+    firm: "Tiffany & Co",
+    gift: true,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },

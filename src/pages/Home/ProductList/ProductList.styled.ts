@@ -23,6 +23,7 @@ export const Banner = styled.section`
     no-repeat center center;
   background-size: cover;
   display: flex;
+  margin-bottom: 40px;
 `;
 
 export const LeftSection = styled.div`
@@ -106,7 +107,7 @@ export const LeftFAQ = styled.div`
 export const List = styled.div`
   max-width: 1400px;
   margin: 0px auto;
-  margin-top: 60px;
+  margin-top: 40px;
 
   .product-image {
     width: 100%;
