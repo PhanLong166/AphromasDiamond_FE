@@ -626,7 +626,6 @@ const JewelrySetting = () => {
                       <Form.Item
                         label="Jewelry Name"
                         name="Jewelry Name"
-                        rules={[{ required: true }]}
                       >
                         <Select
                           //   defaultValue="Select Shape"

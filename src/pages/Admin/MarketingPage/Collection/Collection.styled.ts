@@ -24,30 +24,10 @@ export const AdminPage = styled.div`
   margin-left: 270px;
   margin-right: 35px;
   width: 100%;
-  height: 100%;
+  height: auto;
   padding-bottom: 55px;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
 `;
 
-export const ContentPage = styled.div``;
-
-export const TitlePage = styled.div`
-  h1 {
-    font-size: 22px;
-    font-weight: 36px;
-    color: ${theme.color.primary};
-    margin: 30px 0px 0px 0px;
-    padding-bottom: 7px;
-  }
-
-  p {
-    color: #92929d;
-    font-size: 13px;
-    margin: 0px 0px 0px 0px;
-  }
-`;
 
 // /* -------------------- ORDER CONTENT =============== */
 
@@ -57,7 +37,7 @@ export const AdPageContent = styled.div`
   border-radius: 16px;
   margin-top: 28px;
   padding-top: 25px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -227,9 +207,6 @@ export const FormDescript = styled.div`
   }
 `;
 
-export const UploadFile = styled.div`
-width: 48%;
-`;
 
 
 export const ActionBtn = styled.div`

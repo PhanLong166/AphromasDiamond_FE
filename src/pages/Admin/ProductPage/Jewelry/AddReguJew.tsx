@@ -7,7 +7,6 @@ import {
   Form,
   Button,
   InputNumber,
-  // message,
   Upload,
   Popover,
   Popconfirm,
@@ -17,7 +16,6 @@ import {
 import {
   DeleteOutlined,
   InfoCircleOutlined,
-  PlusCircleOutlined,
 } from "@ant-design/icons";
 import type { FormInstance, UploadProps, GetProp, UploadFile } from "antd";
 import { Link } from "react-router-dom";
@@ -26,36 +24,20 @@ import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import {
   MaterialDataType,
+  RingDataType,
   RingMaterialDataType,
   materialData,
+  ringData,
+  ringSizeData,
 } from "../ProductData";
 import ImgCrop from "antd-img-crop";
-// import { ringData, materialData } from "./ProductData";
+import {
+  JewelryType,
+} from "./Jewelry.type";
+import { Option } from "antd/es/mentions";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-// DESCRIPTION INPUT
-// const { Dragger } = Upload;
-
-// const props: UploadProps = {
-//   name: "file",
-//   multiple: true,
-//   action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-//   onChange(info) {
-//     const { status } = info.file;
-//     if (status !== "uploading") {
-//       console.log(info.file, info.fileList);
-//     }
-//     if (status === "done") {
-//       message.success(`${info.file.name} file uploaded successfully.`);
-//     } else if (status === "error") {
-//       message.error(`${info.file.name} file upload failed.`);
-//     }
-//   },
-//   onDrop(e) {
-//     console.log("Dropped files", e.dataTransfer.files);
-//   },
-// };
 
 // SUBMIT FORM
 interface SubmitButtonProps {
@@ -107,25 +89,6 @@ const PriceCalculation = (
   </div>
 );
 
-const materialOptions = [
-  { value: "M12345121", label: "14K White Gold" },
-  { value: "M12345122", label: "14K Yellow Gold" },
-  { value: "M12345123", label: "14K Rose Gold" },
-  { value: "M12345124", label: "18K White Gold" },
-  { value: "M12345125", label: "18K Yellow Gold" },
-  { value: "M12345126", label: "18K Rose Gold" },
-  { value: "M12345127", label: "Platinum" },
-];
-
-const sizeOptions = [
-  { value: "SZ01", label: 8 },
-  { value: "SZ02", label: 10 },
-  { value: "SZ03", label: 12 },
-  { value: "SZ04", label: 14 },
-  { value: "SZ05", label: 16 },
-  { value: "SZ06", label: 18 },
-];
-
 const EditableMaterialCell: React.FC<{
   title: React.ReactNode;
   editable: boolean;
@@ -136,17 +99,21 @@ const EditableMaterialCell: React.FC<{
   return (
     <td>
       {editable ? (
-        materialOptions ? (
-          <Select value={value} onChange={onChange}>
-            {materialOptions.map((option) => (
-              <Select.Option key={option.value} value={option.value}>
-                {option.label}
-              </Select.Option>
-            ))}
-          </Select>
-        ) : (
-          <Input value={value} onChange={(e) => onChange(e.target.value)} />
-        )
+        <Select
+          placeholder="Select Material"
+          onChange={onChange}
+          style={{ width: "100%" }}
+        >
+          {materialData.map((option) => (
+            <Select.Option
+              placeholder="Select Diamond"
+              key={option.materialID}
+              value={option.materialID}
+            >
+              {option.materialName}
+            </Select.Option>
+          ))}
+        </Select>
       ) : (
         value
       )}
@@ -160,21 +127,17 @@ const EditableSizeCell: React.FC<{
   value: any;
   onChange: (value: any) => void;
   options?: { value: string; label: number }[];
-}> = ({ editable, value, onChange, options }) => {
+}> = ({ editable, value, onChange }) => {
   return (
     <td>
       {editable ? (
-        options ? (
-          <Select value={value} onChange={onChange}>
-            {options.map((option) => (
-              <Select.Option key={option.value} value={option.value}>
-                {option.label}
-              </Select.Option>
-            ))}
-          </Select>
-        ) : (
-          <Input value={value} onChange={(e) => onChange(e.target.value)} />
-        )
+        <Select placeholder="Select Size" onChange={onChange}>
+          {ringSizeData.map((option) => (
+            <Select.Option key={option.sizeID} value={option.sizeID}>
+              {option.sizeValue}
+            </Select.Option>
+          ))}
+        </Select>
       ) : (
         value
       )}
@@ -199,9 +162,11 @@ const EditableCell_Material: React.FC<{
   );
 };
 
-const AddJewelry = () => {
+const AddProduct = () => {
   const [form] = Form.useForm();
-  const [diamondSections, setDiamondSections] = useState(1);
+  const [selectedSetting, setSelectedSetting] = useState<RingDataType | null>(null);
+  const [settingOption, setSettingOption] = useState("new");
+
   const [type, setType] = useState(""); //LINK TO 2 TYPE
 
   const handleChange = (value: string) => {
@@ -217,14 +182,7 @@ const AddJewelry = () => {
   };
 
   // UPLOAD IMAGES
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    // {
-    //   uid: '-1',
-    //   name: 'image.png',
-    //   status: 'done',
-    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    // },
-  ]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
   const onChangeImg: UploadProps["onChange"] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -245,6 +203,7 @@ const AddJewelry = () => {
     imgWindow?.document.write(image.outerHTML);
   };
 
+
   // MATERIAL TABLE
   const [dataMaterial, setDataMaterial] = useState<RingMaterialDataType[]>([]);
 
@@ -258,13 +217,6 @@ const AddJewelry = () => {
     );
     setDataMaterial(newData);
   };
-
-  // const handleSave = (row: RingMaterialDataType) => {
-  //   const newData = dataMaterial.map((item) =>
-  //     row.key === item.key ? { ...item, ...row } : item
-  //   );
-  //   setDataMaterial(newData);
-  // };
 
   const handleDelete = (key: React.Key) => {
     const newData = dataMaterial.filter((item) => item.key !== key);
@@ -301,7 +253,6 @@ const AddJewelry = () => {
           onChange={(value) =>
             handleFieldChange("materialID", value, record.key)
           }
-          options={materialOptions}
         />
       ),
     },
@@ -314,7 +265,6 @@ const AddJewelry = () => {
           editable={true}
           value={record.sizeID}
           onChange={(value) => handleFieldChange("sizeID", value, record.key)}
-          options={sizeOptions}
         />
       ),
     },
@@ -377,6 +327,22 @@ const AddJewelry = () => {
     },
   ];
 
+  // CHANGE DIAMOND & SETTING OPTIONS
+
+  const handleChangeSettingOption = (value: any) => {
+    setSettingOption(value);
+    if (value === "existing") {
+      setSelectedSetting(ringData[0]);
+    } else {
+      setSelectedSetting(null);
+    }
+  };
+
+  const handleSettingChange = (settingID: any) => {
+    const setting = ringData.find((s) => s.jewelrySettingID === settingID);
+    setSelectedSetting(setting || null);
+  };
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -392,18 +358,12 @@ const AddJewelry = () => {
                 <h1>Add Regular Jewelry</h1>
                 <p>Add a new jewelry</p>
               </Styled.AdPage_HeadLeft>
-              <Styled.AddButton>
-                <button onClick={() => setDiamondSections(diamondSections + 1)}>
-                  <PlusCircleOutlined />
-                  Add one Diamond
-                </button>
-              </Styled.AddButton>
             </Styled.AdPageArea_Title>
             <>
               <Styled.AdPageContent_Product>
-                <Styled.AdPageContent_Title>
+                <Styled.AdPageContent_TitleJewelry>
                   <p>Add Jewelry</p>
-                </Styled.AdPageContent_Title>
+                </Styled.AdPageContent_TitleJewelry>
                 <Form
                   form={form}
                   layout="vertical"
@@ -437,29 +397,10 @@ const AddJewelry = () => {
                         placeholder="Select Type"
                         onChange={handleChange}
                         value={type}
-                        options={[
-                          { value: "Ring", label: "Ring" },
-                          { value: "Necklace", label: "Necklace" },
-                          { value: "Earring", label: "Earring" },
-                          { value: "Bracelet", label: "Bracelet" },
-                          { value: "Anklet", label: "Anklet" },
-                          { value: "Bangle", label: "Bangle" },
-                          { value: "Choker", label: "Choker" },
-                          { value: "Pendant", label: "Pendant" },
-                        ]}
+                        options={JewelryType}
                       />
                     </Form.Item>
                   </Styled.FormItem>
-                  {/* <Styled.FormItem>
-                    <Form.Item
-                      label="Markup Percentage (%)"
-                      name="Markup Percentage"
-                      rules={[{ required: true }]}
-                      validateTrigger="onChange"
-                    >
-                      <InputNumber className="formItem" placeholder="150" />
-                    </Form.Item>
-                  </Styled.FormItem> */}
                   <Styled.UploadFile>
                     <Form.Item label="Upload Images">
                       <ImgCrop rotationSlider>
@@ -481,132 +422,216 @@ const AddJewelry = () => {
               <Styled.AdPageContent_Product>
                 <Styled.AdPageContent_Title>
                   <p>Add Jewelry Setting</p>
+                  <Styled.FormChoice>
+                    <Form.Item
+                      label="Select Setting Option"
+                      name="settingOption"
+                      rules={[{ required: true }]}
+                    >
+                      <Select
+                        placeholder="Select Option"
+                        onChange={(value) => handleChangeSettingOption(value)}
+                      >
+                        <Option value="new">Create New</Option>
+                        <Option value="existing">Select Existing</Option>
+                      </Select>
+                    </Form.Item>
+                  </Styled.FormChoice>
                 </Styled.AdPageContent_Title>
                 <Form
                   form={form}
                   layout="vertical"
                   className="AdPageContent_Content"
                 >
-                  <Styled.FormItem>
-                    <Form.Item
-                      label="Jewelry Setting ID"
-                      name="Setting ID"
-                      rules={[{ required: true }]}
-                    >
-                      <Input className="formItem" placeholder="D1234" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item
-                      label="Jewelry Setting Name"
-                      name="Setting Name"
-                      rules={[{ required: true }]}
-                    >
-                      <Input className="formItem" placeholder="Filled" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item label="Jewelry Setting Type">
-                      <Select
-                        // defaultValue="Ring"
-                        className="formItem"
-                        placeholder="Select Type"
-                        onChange={handleChange}
-                        options={[
-                          { value: "Ring", label: "Ring" },
-                          { value: "Necklace", label: "Necklace" },
-                          { value: "Earring", label: "Earring" },
-                          { value: "Bracelet", label: "Bracelet" },
-                          { value: "Anklet", label: "Anklet" },
-                          { value: "Bangle", label: "Bangle" },
-                          { value: "Choker", label: "Choker" },
-                          { value: "Pendant", label: "Pendant" },
-                        ]}
-                        value={type}
-                        disabled
-                      />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item
-                      label="Weight (gram)"
-                      name="Weight"
-                      rules={[{ required: true }]}
-                    >
-                      <InputNumber className="formItem" placeholder="150" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item
-                      label="Auxiliary Cost"
-                      name="Auxiliary Cost"
-                      rules={[{ required: true }]}
-                    >
-                      <InputNumber className="formItem" placeholder="150" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item
-                      label="Charge Rate (%)"
-                      name="Charge Rate"
-                      rules={[{ required: true }]}
-                    >
-                      <InputNumber className="formItem" placeholder="150" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item
-                      label="Product Cost"
-                      name="Product Cost"
-                      rules={[{ required: true }]}
-                    >
-                      <InputNumber className="formItem" placeholder="5000000" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormDescript>
-                    <Form.Item
-                      label="Description"
-                      name="Description"
-                      rules={[{ required: true }]}
-                    >
-                      <TextArea
-                        placeholder="Description"
-                        allowClear
-                        onChange={onChange}
-                      />
-                    </Form.Item>
-                  </Styled.FormDescript>
-                  <Styled.UploadFile>
-                    <Form.Item label="Upload Images">
-                      <ImgCrop rotationSlider>
-                        <Upload
-                          action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
-                          listType="picture-card"
-                          fileList={fileList}
-                          onChange={onChangeImg}
-                          onPreview={onPreview}
+                  
+
+                  {settingOption === "new" ? (
+                    <>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Jewelry Setting ID"
+                          name="Setting ID"
+                          rules={[{ required: true }]}
                         >
-                          {fileList.length < 5 && "+ Upload"}
-                        </Upload>
-                      </ImgCrop>
-                    </Form.Item>
-                  </Styled.UploadFile>
-                  <Styled.MaterialTable>
-                    <Button
-                      onClick={handleAdd}
-                      type="primary"
-                      style={{ marginBottom: 16 }}
-                    >
-                      Add a row
-                    </Button>
-                    <Table
-                      dataSource={dataMaterial}
-                      columns={columnsMaterial}
-                      rowClassName={() => "editable-row"}
-                      bordered
-                      pagination={false}
-                    />
-                  </Styled.MaterialTable>
+                          <Input className="formItem" placeholder="D1234" />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Jewelry Setting Name"
+                          name="Setting Name"
+                          rules={[{ required: true }]}
+                        >
+                          <Input className="formItem" placeholder="Filled" />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item label="Jewelry Setting Type">
+                          <Select
+                            // defaultValue="Ring"
+                            className="formItem"
+                            placeholder="Select Type"
+                            onChange={handleChange}
+                            options={JewelryType}
+                            value={type}
+                            disabled
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Weight (gram)"
+                          name="Weight"
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber className="formItem" placeholder="150" />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Auxiliary Cost"
+                          name="Auxiliary Cost"
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber className="formItem" placeholder="150" />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Charge Rate (%)"
+                          name="Charge Rate"
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber className="formItem" placeholder="150" />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Product Cost"
+                          name="Product Cost"
+                          rules={[{ required: true }]}
+                        >
+                          <InputNumber
+                            className="formItem"
+                            placeholder="5000000"
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormDescript>
+                        <Form.Item
+                          label="Description"
+                          name="Description"
+                          rules={[{ required: true }]}
+                        >
+                          <TextArea
+                            placeholder="Description"
+                            allowClear
+                            onChange={onChange}
+                          />
+                        </Form.Item>
+                      </Styled.FormDescript>
+                      <Styled.UploadFile>
+                        <Form.Item label="Upload Images">
+                          <ImgCrop rotationSlider>
+                            <Upload
+                              action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                              listType="picture-card"
+                              fileList={fileList}
+                              onChange={onChangeImg}
+                              onPreview={onPreview}
+                            >
+                              {fileList.length < 5 && "+ Upload"}
+                            </Upload>
+                          </ImgCrop>
+                        </Form.Item>
+                      </Styled.UploadFile>
+                      <Styled.MaterialTable>
+                        <Button
+                          onClick={handleAdd}
+                          type="primary"
+                          style={{ marginBottom: 16 }}
+                        >
+                          Add a row
+                        </Button>
+                        <Table
+                          dataSource={dataMaterial}
+                          columns={columnsMaterial}
+                          rowClassName={() => "editable-row"}
+                          bordered
+                          pagination={false}
+                        />
+                      </Styled.MaterialTable>
+                    </>
+                  ) : (
+                    <>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Select Existing Setting"
+                          name="Setting ID"
+                          rules={[{ required: true }]}
+                        >
+                          <Select
+                            placeholder="Select Setting"
+                            onChange={handleSettingChange}
+                          >
+                            {ringData.map((setting) => (
+                              <Option
+                                key={setting.jewelrySettingID}
+                                value={setting.jewelrySettingID}
+                              >
+                                {setting.jewelrySettingID}
+                              </Option>
+                            ))}
+                          </Select>
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item label="Jewelry Setting Name">
+                          <Input
+                            className="formItem"
+                            value={selectedSetting?.jewelrySettingName}
+                            readOnly
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item label="Jewelry Setting Type">
+                          <Input
+                            className="formItem"
+                            value={selectedSetting?.type}
+                            readOnly
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item label="Weight (gram)">
+                          <Input
+                            className="formItem"
+                            value={selectedSetting?.weight}
+                            readOnly
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item label="Auxiliary Cost">
+                          <Input
+                            className="formItem"
+                            value={selectedSetting?.auxiliaryCost}
+                            readOnly
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item label="Charge Rate (%)">
+                          <Input
+                            className="formItem"
+                            value={selectedSetting?.chargeRate}
+                            readOnly
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                    </>
+                  )}
                 </Form>
               </Styled.AdPageContent_Product>
               <Styled.ActionBtn>
@@ -636,4 +661,4 @@ const AddJewelry = () => {
   );
 };
 
-export default AddJewelry;
+export default AddProduct;
