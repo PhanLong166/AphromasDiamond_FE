@@ -16,7 +16,7 @@ export const ProductAdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
-  /* height: 100%; */
+  height: 100%;
   width: 100%;
 `;
 
@@ -24,11 +24,12 @@ export const AdminPage = styled.div`
   margin-left: 270px;
   margin-right: 35px;
   width: 100%;
-  height: 100%;
+  height: auto;
   padding-bottom: 55px;
 `;
 
-// /* -------------------- CONTENT =============== */
+
+// /* -------------------- ORDER CONTENT =============== */
 
 export const AdPageContent = styled.div`
   width: 100%;
@@ -45,17 +46,13 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
-export const AdPageContent_HeadLeft = styled.div`
-  display: flex;
-  width: 80%;
-`;
-
 export const SearchArea = styled.div`
   width: 30%;
+
   display: flex;
   align-items: center;
+  //
   border-radius: 16px;
-  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -66,7 +63,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -78,7 +75,7 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
@@ -114,7 +111,7 @@ export const AddButton = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 40px 0px 40px;
+  padding: 0px 50px 0px 50px;
 
   table {
     border-collapse: collapse;
@@ -127,20 +124,39 @@ export const AdminTable = styled.div`
     font-size: 16px;
     color: ${theme.color.primary};
   }
-  td {
-    width: fit-content;
+  tr th {
+    font-size: 13px;
+    color: #92929d !important;
   }
   tr .TextAlign {
     text-align: center;
   }
-  tr th {
-    font-size: 13px;
-    color: #92929d !important;
+  .SmallSize {
+    font-size: 16px;
+    overflow-wrap: normal !important;
   }
   td img {
     width: 77px;
   }
   td .anticon {
+    cursor: pointer;
+  }
+  .pendStatus {
+    background-color: #f8e7ee;
+    border-radius: 100px;
+    padding: 5px 10px 5px 10px;
+    font-size: 12px;
+    color: #cd486b;
+    border: none;
+  }
+  .confirmBtn {
+    background-color: #cd486b;
+    border-radius: 100px;
+    padding: 7px 17px 7px 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #f8e7ee;
+    border: none;
     cursor: pointer;
   }
 
@@ -160,6 +176,7 @@ export const AdminTable = styled.div`
 
 
 
+
 // ------------------------- ADD AREA
 
 export const AddContent_Title = styled.div`
@@ -172,13 +189,14 @@ width: 100%;
 `;
 
 export const FormItem = styled.div`
-  width: 30%;
+  width: 100%;
   height: 57px;
   margin-bottom: 30px;
   
 
   .formItem {
     width: 100%;
+    background-color: #F9F8F9;
   }
 `;
 
@@ -189,9 +207,6 @@ export const FormDescript = styled.div`
   }
 `;
 
-export const UploadFile = styled.div`
-width: 48%;
-`;
 
 
 export const ActionBtn = styled.div`
@@ -204,6 +219,5 @@ export const ActionBtn = styled.div`
   .CancelBtn {
     border: 1px solid ${theme.color.primary};
     background-color: #ffffff;
-    border: 0px;
   }
 `;

@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const ProductAdminArea = styled.section`
+export const AdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
@@ -36,7 +36,7 @@ export const AdPageContent = styled.div`
   border-radius: 16px;
   margin-top: 28px;
   padding-top: 25px;
-  padding-bottom: 20px;
+  padding-bottom: 30px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -45,17 +45,13 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
-export const AdPageContent_HeadLeft = styled.div`
-  display: flex;
-  width: 80%;
-`;
-
 export const SearchArea = styled.div`
   width: 30%;
+
   display: flex;
   align-items: center;
+  //
   border-radius: 16px;
-  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -66,7 +62,7 @@ export const SearchArea = styled.div`
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: #151542;
+    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -78,7 +74,7 @@ export const SearchArea = styled.div`
     border-radius: 10px;
     padding: 4px 8px;
     border: 1px solid rgba(203, 210, 220, 0.5);
-    color: #151542;
+    color: ${theme.color.primary};
     background-color: #f8f9fb;
     height: 45px;
   }
@@ -114,9 +110,9 @@ export const AddButton = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 40px 0px 40px;
+  padding: 0px 50px 0px 50px;
 
-  .ant-table {
+  table {
     border-collapse: collapse;
     width: 100%;
   }
@@ -126,7 +122,6 @@ export const AdminTable = styled.div`
     text-align: left;
     font-size: 16px;
     color: ${theme.color.primary};
-    border: none;
   }
   th {
     color: #783232;
@@ -148,13 +143,52 @@ export const AdminTable = styled.div`
   }
   td input {
     font-size: 16px;
+    background-color: #ffffff;
     color: ${theme.color.primary};
     padding: 5px;
+    border: 1px solid #ffffff;
     border-radius: 5px;
     height: 100%;
+    // width: fit-content;
   }
   td input:active {
     border: none;
+  }
+  td .anticon {
+    font-size: 23px;
+  }
+  td .anticon:hover {
+    cursor: pointer;
+  }
+  .deleBtn {
+    color: red;
+  }
+  .custom-select .ant-select-selector {
+    background-color: #ffffff !important;
+    color: ${theme.color.primary} !important;
+  }
+
+  .custom-select .ant-select-dropdown {
+    background-color: #ffffff !important;
+    color: ${theme.color.primary} !important;
+  }
+
+  .custom-select .ant-select-item-option-selected {
+    background-color: #ffffff !important;
+    color: ${theme.color.primary} !important;
+  }
+
+  .confirmBtn {
+    background-color: ${theme.color.primary};
+    border-radius: 100px;
+    padding: 7px 17px 7px 17px;
+    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
+    /* font-size: 12px; */
+    color: #ffffff;
+    border: none;
+  }
+  .confirmBtn:hover {
+    cursor: pointer;
   }
 
   // --------------------------
@@ -185,7 +219,7 @@ width: 100%;
 `;
 
 export const FormItem = styled.div`
-  width: 30%;
+  width: 100%;
   height: 57px;
   margin-bottom: 30px;
   
@@ -214,9 +248,8 @@ export const ActionBtn = styled.div`
     border: 1px solid ${theme.color.primary};
   }
 
-  .ant-btn-primary {
+  .MainBtn {
     background-color: ${theme.color.primary};
-    color: #92929d;
     border: 0px;
   }
 

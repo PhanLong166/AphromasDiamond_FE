@@ -79,11 +79,8 @@ const OrderDetail = () => {
   const discount = 0; // Assuming no discount for demonstration
   const totalAmount = totalPrice + vat + shippingFee - discount;
 
-
-  
   // DELETE ORDER FROM PENDING STATUS
   const [isModalVisible_Pending, setIsModalVisible_Pending] = useState(false);
-
 
   const showModal_Pending = () => {
     setIsModalVisible_Pending(true);
@@ -214,7 +211,7 @@ const OrderDetail = () => {
                       </Button>
                     )}
 
-                    <Link to="/sales-staff">
+                    <Link to="/sales-staff/order">
                       <Button style={{ marginLeft: "10px" }}>Back</Button>
                     </Link>
                   </Styled.ActionBtn_Left>

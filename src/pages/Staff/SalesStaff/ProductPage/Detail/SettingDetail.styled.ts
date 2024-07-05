@@ -106,6 +106,7 @@ export const ProductImg = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  
 
   img {
     width: 50%;
@@ -121,6 +122,8 @@ export const ProductContent = styled.div`
   display: flex;
   flex-direction: column;
   font-size: 14px;
+  margin-bottom: 20px;
+
 
   .InforLine_Title {
     // width: 100%;
@@ -159,7 +162,6 @@ margin-bottom: 20px;
  }
 width: 100%;
 `;
-
 
 // /* -------------------- BOT DETAIL =============== */
 

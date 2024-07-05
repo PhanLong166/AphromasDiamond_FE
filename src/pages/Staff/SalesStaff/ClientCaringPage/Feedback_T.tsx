@@ -1,4 +1,4 @@
-import * as Styled from "../ClientCaringPage/Feedback.styled";
+import * as Styled from "./Feedback_T.styled";
 import React, { useState } from "react";
 import {
   SearchOutlined,

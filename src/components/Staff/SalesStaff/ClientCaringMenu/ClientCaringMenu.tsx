@@ -7,16 +7,16 @@ const ClientCaringMenu = () => {
   const [active, setActive] = useState<string>("");
 
   useEffect(() => {
-    switch (location.pathname) {
-      case "/sales-staff/client-caring":
-        setActive("Message");
-        break;
-      case "/sales-staff/client-caring/feedback":
-        setActive("Feedback");
-        break;
-      default:
-        setActive("");
-    }
+    const path = location.pathname;
+        if (path === "/sales-staff/client-caring") {
+            setActive("Message");
+        } else if (path === "/sales-staff/client-caring/feedback") {
+            setActive("Feedback");
+        } else if (path === "/sales-staff/client-caring/feedback-completed") {
+            setActive("Completed");
+        } else {
+            setActive("");
+        }
   }, [location.pathname]);
 
   const handleSetActive = (menuItem: string) => {
@@ -74,6 +74,20 @@ const ClientCaringMenu = () => {
           ></div>
           <Link to="/sales-staff/client-caring/feedback">
             <h3>Feedback</h3>
+          </Link>
+        </Styled.OrderCatalog_Ele>
+        
+        <Styled.OrderCatalog_Ele
+          className={active === "Completed" ? "active" : ""}
+        >
+          <div
+            className={`btn ${
+              active === "Completed" ? "adMenu_active-line" : "adMenu_line"
+            }`}
+            onClick={() => handleSetActive("Completed")}
+          ></div>
+          <Link to="/sales-staff/client-caring/feedback-completed">
+            <h3>Completed</h3>
           </Link>
         </Styled.OrderCatalog_Ele>
       </Styled.OrderCatalog>

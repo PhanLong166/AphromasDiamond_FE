@@ -12,7 +12,7 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const AdminArea = styled.section`
+export const ProductAdminArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
@@ -45,13 +45,17 @@ export const AdPageContent_Head = styled.div`
   justify-content: space-between;
 `;
 
+export const AdPageContent_HeadLeft = styled.div`
+  display: flex;
+  width: 80%;
+`;
+
 export const SearchArea = styled.div`
   width: 30%;
-
   display: flex;
   align-items: center;
-  //
   border-radius: 16px;
+  margin-right: 20px;
 
   .searchInputContainer {
     display: flex;
@@ -110,7 +114,7 @@ export const AddButton = styled.div`
 `;
 
 export const AdminTable = styled.div`
-  padding: 0px 50px 0px 50px;
+  padding: 0px 40px 0px 40px;
 
   table {
     border-collapse: collapse;
@@ -123,9 +127,8 @@ export const AdminTable = styled.div`
     font-size: 16px;
     color: ${theme.color.primary};
   }
-  th {
-    color: #783232;
-    font-size: 20px;
+  td {
+    width: fit-content;
   }
   tr .TextAlign {
     text-align: center;
@@ -134,60 +137,10 @@ export const AdminTable = styled.div`
     font-size: 13px;
     color: #92929d !important;
   }
-  .SmallSize {
-    font-size: 16px;
-    overflow-wrap: normal !important;
-  }
   td img {
     width: 77px;
   }
-  td input {
-    font-size: 16px;
-    background-color: #ffffff;
-    color: ${theme.color.primary};
-    padding: 5px;
-    border: 1px solid #ffffff;
-    border-radius: 5px;
-    height: 100%;
-    // width: fit-content;
-  }
-  td input:active {
-    border: none;
-  }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
-    cursor: pointer;
-  }
-  .deleBtn {
-    color: red;
-  }
-  .custom-select .ant-select-selector {
-    background-color: #ffffff !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .custom-select .ant-select-dropdown {
-    background-color: #ffffff !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .custom-select .ant-select-item-option-selected {
-    background-color: #ffffff !important;
-    color: ${theme.color.primary} !important;
-  }
-
-  .confirmBtn {
-    background-color: ${theme.color.primary};
-    border-radius: 100px;
-    padding: 7px 17px 7px 17px;
-    box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    /* font-size: 12px; */
-    color: #ffffff;
-    border: none;
-  }
-  .confirmBtn:hover {
     cursor: pointer;
   }
 
@@ -219,7 +172,7 @@ width: 100%;
 `;
 
 export const FormItem = styled.div`
-  width: 100%;
+  width: 30%;
   height: 57px;
   margin-bottom: 30px;
   
@@ -245,12 +198,11 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
 
   button {
-    border: 1px solid ${theme.color.primary};
-  }
-
-  .MainBtn {
     background-color: ${theme.color.primary};
-    border: 0px;
   }
 
+  .CancelBtn {
+    border: 1px solid ${theme.color.primary};
+    background-color: #ffffff;
+  }
 `;
