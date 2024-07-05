@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Breadcrumb } from "antd";
 import { Link, useParams } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
@@ -6,7 +6,7 @@ import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-import { products } from "../shared/ListOfProducts";
+import { products, Product } from "../shared/ListOfProducts";
 import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
 import {
   Body,
@@ -62,6 +62,13 @@ const CustomBreadcrumb = styled(Breadcrumb)`
   padding-top: 20px;
 `;
 
+//
+const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
+
 const ProductDetails: React.FC = () => {
   //tab description + cmt
   const [activeTab, setActiveTab] = useState("product-description");
@@ -88,7 +95,7 @@ const ProductDetails: React.FC = () => {
       name: "Phoenix Knight",
       avatar:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt2.jpg?alt=media&token=31ba6ae3-17f5-4f7e-b1b3-d316d7019068",
-      rating: 5,
+      rating: 4,
       date: "March 7, 2022",
       highlight: "Awesome Product",
       comment:
@@ -109,6 +116,11 @@ const ProductDetails: React.FC = () => {
         " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
     },
   ];
+
+  //Avg rating
+  const totalReviews = reviewsData.length;
+  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const averageRating = totalRating / totalReviews;
   //size
   const sizes = [8, 10, 12, 14, 16, 18];
 
@@ -121,8 +133,10 @@ const ProductDetails: React.FC = () => {
   //inscription
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [inscription, setInscription] = useState<string>("");
+  const [resetModal, setResetModal] = useState<boolean>(false);
 
   const showModal = () => {
+    setResetModal(false);
     setIsModalVisible(true);
   };
 
@@ -133,22 +147,13 @@ const ProductDetails: React.FC = () => {
 
   const handleDelete = () => {
     setInscription("");
+    setResetModal(true);
   };
 
   const handleClose = () => {
     setIsModalVisible(false);
   };
 
-  //2 same
-  const sameProductIds = ["50141014", "50141015", "50141016", "50141017"];
-  const sameBrandProducts = products.filter((product) =>
-    sameProductIds.includes(product.id)
-  );
-
-  const recentlyProductIds = ["50141014", "50141015", "50141016", "50141017"];
-  const recentlyViewedProducts = products.filter((product) =>
-    recentlyProductIds.includes(product.id)
-  );
   //
   const navigate = useNavigate();
 
@@ -165,22 +170,53 @@ const ProductDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
-  const foundProduct = products.find((product) => product.id === id);
+  const [foundProduct, setFoundProduct] = useState<Product | null>(null);
+  const [mainImage, setMainImage] = useState("");
+  const [selectedThumb, setSelectedThumb] = useState(0);
+  const [sameBrandProducts, setSameBrandProducts] = useState<Product[]>([]);
+  const [metalType, setMetalType] = useState<keyof Product["images"]>("yellow");
+  const [metalAvailability, setMetalAvailability] = useState({
+    yellow: false,
+    white: false,
+    rose: false,
+    platinum: false,
+  });
 
+  useEffect(() => {
+    const product = products.find((product) => product.id === id);
+    if (product) {
+      setFoundProduct(product);
+      setMainImage(product.images.yellow[0]);
+      setSelectedThumb(0);
+      setMetalType("yellow");
+      setMetalAvailability({
+        yellow: product.images.yellow.length > 0,
+        white: product.images.white.length > 0,
+        rose: product.images.rose.length > 0,
+        platinum: product.images.platinum.length > 0,
+      });
+  
+      // Filter products by the same firm as the found product
+      const filteredProducts = products.filter(
+        (p) => p.firm === product.firm && p.id !== product.id
+      );
+  
+      // Determine how many products to show (up to 4)
+      const maxProductsToShow = 4;
+      const productsToShow = filteredProducts.length <= maxProductsToShow
+        ? filteredProducts
+        : filteredProducts.sort(() => 0.5 - Math.random()).slice(0, maxProductsToShow);
+  
+      setSameBrandProducts(productsToShow);
+    } else {
+      setFoundProduct(null);
+    }
+  }, [id, products]);
+  
   if (!foundProduct) {
     return <div>Product not found</div>;
   }
-
-  const [mainImage, setMainImage] = useState(foundProduct.images.yellow[0]);
-  const [selectedThumb, setSelectedThumb] = useState(0);
-  const [metalType, setMetalType] =
-    useState<keyof typeof foundProduct.images>("yellow");
-  const [metalAvailability] = useState({
-    yellow: foundProduct.images.yellow.length > 0,
-    white: foundProduct.images.white.length > 0,
-    rose: foundProduct.images.rose.length > 0,
-    platinum: foundProduct.images.platinum.length > 0,
-  });
+  
 
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
@@ -195,9 +231,13 @@ const ProductDetails: React.FC = () => {
     }
   };
 
-  
-  
+  //2 same
 
+  const recentlyProductIds = ["20", "3", "16", "2"];
+  const recentlyViewedProducts = products.filter((product) =>
+    recentlyProductIds.includes(product.id)
+  );
+  
   return (
     <Body>
       <div>
@@ -327,7 +367,12 @@ const ProductDetails: React.FC = () => {
                       {inscription ? (
                         <Space>
                           <span className="inscription">Your inscription</span>:{" "}
-                          <span>{inscription}</span>
+                          <span
+                            className="inscription-content"
+                            onClick={showModal}
+                          >
+                            {inscription}
+                          </span>
                           <CloseOutlined
                             style={{
                               fontSize: "12px",
@@ -349,6 +394,7 @@ const ProductDetails: React.FC = () => {
                         visible={isModalVisible}
                         onClose={handleClose}
                         onSave={handleSave}
+                        reset={resetModal}
                       />
                     </div>
                   </>
@@ -439,6 +485,7 @@ const ProductDetails: React.FC = () => {
                   <h4>What is this?</h4>
                   <ul>
                     <li>ID Number: {foundProduct.id}</li>
+                    <li>Firm: {foundProduct.firm}</li>
                     <li>Width: {foundProduct.width}</li>
                     <li>Quantity: {foundProduct.quantity}</li>
                     <li>Shape: {foundProduct.shape}</li>
@@ -446,7 +493,6 @@ const ProductDetails: React.FC = () => {
                     <li>Color: {foundProduct.color}</li>
                     <li>Clarity: {foundProduct.clarity}</li>
                     <li>Setting Type: {foundProduct.type}</li>
-                    
                   </ul>
                 </ListBlock>
                 <ListBlock>
@@ -476,7 +522,7 @@ const ProductDetails: React.FC = () => {
             <Review>
               <div className="head-review">
                 <div className="sum-rating">
-                  <strong>5.0</strong>
+                  <strong>{averageRating.toFixed(1)}</strong>
                   <span>{reviewsData.length} reviews</span>
                 </div>
               </div>
@@ -512,9 +558,7 @@ const ProductDetails: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <Pagination defaultCurrent={1} total={10} />
-              </div>
+              <StyledPagination defaultCurrent={1} total={10} />
             </Review>
           </ProductAbout>
         </div>

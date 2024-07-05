@@ -34,7 +34,7 @@ import FindSize from "@/pages/Home/DocumentPage/FindSize/FindSize";
 // import WishListPage from "@/pages/Home/WishList/WishListPage";
 import Learn4cs from "@/pages/Home/DocumentPage/Learn4cs/Learn4cs";
 import Certification from "@/pages/Home/DocumentPage/Certification/Certification";
-import DiamondShape from "@/pages/Home/DiamondShape/DiamondShape";
+import DiamondShape from "@/pages/Home/DocumentPage/DiamondShape/DiamondShape";
 import BuyingGuide from "@/pages/Home/DocumentPage/BuyingGuide/BuyingGuide";
 import EngagementEdu from "@/pages/Home/DocumentPage/EngagementEdu/EngagementEdu";
 import WeddingEdu from "@/pages/Home/DocumentPage/WeddingEdu/WeddingEdu";
@@ -44,10 +44,15 @@ import NecklaceEdu from "@/pages/Home/DocumentPage/NecklaceEdu/NecklaceEdu";
 import BraceletEdu from "@/pages/Home/DocumentPage/BraceletEdu/BraceletEdu";
 import ThankPageSuccess from "@/pages/Home/ThankPage/ThankPageSuccess";
 import ThankPageFail from "@/pages/Home/ThankPage/ThankPageFail";
-import ProductDetails  from "@/pages/Home/ProductDetails/ProductDetails";
+import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
 import DiamondDetails from "@/pages/Home/DiamondDetail/DiamondDetail";
 import BrandList from "@/pages/Home/BrandList/BrandList";
 import DiamondList from "@/pages/Home/DiamondList/DiamondList";
+import CutterList from "@/pages/Home/CutterList/CutterList";
+import DiamondRingList from "@/pages/Home/DiamondRingList/DiamondRingList";
+import DesignerList from "@/pages/Home/DesignerList/DesignerList";
+import FirmList from "@/pages/Home/FirmList/FirmList";
+import GiftFirmList from "@/pages/Home/GiftFirmList/GiftFirmList";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -75,11 +80,16 @@ const publicRoutes = {
     { path: config.routes.public.home, element: <Home /> },
     { path: config.routes.public.productDetail, element: <ProductDetails /> },
     { path: config.routes.public.diamondDetail, element: <DiamondDetails /> },
-    { path: config.routes.public.productList, element: <ProductList /> },
+    { path: config.routes.public.jewelryList, element: <ProductList /> },
     { path: config.routes.public.diamondList, element: <DiamondList /> },
+    { path: config.routes.public.diamondRingList, element: <DiamondRingList /> },
+    { path: config.routes.public.designerList, element: <DesignerList /> },
+    { path: config.routes.public.firmList, element: <FirmList /> },
+    { path: config.routes.public.cutterList, element: <CutterList /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },
     { path: config.routes.public.gift, element: <Gift /> },
+    { path: config.routes.public.giftFirm, element: <GiftFirmList /> },
     { path: config.routes.public.ringGuide, element: <RingGuide /> },
     { path: config.routes.public.diamond, element: <AllDiamond /> },
     { path: config.routes.public.collection, element: <AllCollection /> },

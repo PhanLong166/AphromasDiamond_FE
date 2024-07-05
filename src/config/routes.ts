@@ -1,4 +1,5 @@
 
+
 const routes = {
   public: {
     home: "/",
@@ -10,11 +11,16 @@ const routes = {
     product: "/product",
     productDetail: "/product/:id",
     diamondDetail: "/diamond/:id",
-    productList: "/list/:jewelryType",
-    diamondList: "/shape/:diamondShape",
+    jewelryList: "/jewelry/:jewelryType",
+    diamondList: "/diamond/shape/:diamondShape",
+    firmList: "/jewelry/firm/:jewelryFirm",
+    designerList: "/diamond-ring/designer/:designer",
+    diamondRingList: "/diamond-ring/:ringType",
+    cutterList: "/diamond/cutter/:diamondCutter",
     allProduct: "/all",
     about: "/about",
-    gift: "/gift",
+    gift: "/gift/:jewelryType",
+    giftFirm: "/gift/firm/:jewelryFirm",
     ringGuide: "/ring-guide",
     diamond: "/diamond",
     collection: "/collection",

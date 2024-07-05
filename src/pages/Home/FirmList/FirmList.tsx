@@ -6,7 +6,7 @@ import {
   FAQs,
   LeftFAQ,
   List,
-} from "./ProductList.styled";
+} from "./FirmList.styled";
 import styled from "styled-components";
 import {
   Breadcrumb,
@@ -23,7 +23,6 @@ import { products } from "./../shared/ListOfProducts";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-import FilterSort from "@/components/FilterSort/FilterSort";
 
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
@@ -32,158 +31,120 @@ const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1400px;
   margin: 0 auto;
 `;
-
 const StyledPagination = styled(Pagination)`
   display: block;
   text-align: center;
   margin: 20px auto;
 `;
 
-const ProductList: React.FC = () => {
-  const { jewelryType } = useParams<{ jewelryType: string }>();
+const FirmList: React.FC = () => {
+  const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
   const navigate = useNavigate();
 
-  const jewelryData: Record<string, any> = {
-    bracelet: {
-      title: "Bracelet",
-      description:
-        "Elevate your style with our diamond bracelets, crafted to perfection in yellow gold, white gold, rose gold, or platinum. Each bracelet features meticulously set diamonds that sparkle with every movement, offering a luxurious and timeless accessory for any occasion. Whether worn alone as a statement piece or layered with other jewelry, our bracelets are designed to enhance your beauty and express your individuality with sophistication and grace.",
-      products: products.filter((product) => product.categories === "bracelet"),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $900 to $1000 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fnecklacelist.jpeg?alt=media&token=e518f32c-79ba-4898-9438-4a294882b4e9",
-    },
-
-    necklace: {
-      title: "Necklace",
-      description:
-        "Adorn yourself with our exquisite diamond necklaces, crafted to capture attention and admiration. Set in yellow gold, white gold, rose gold, or platinum, each necklace showcases the beauty of diamonds in designs that range from classic to contemporary, making them a stunning addition to any jewelry collection. Whether worn as a centerpiece for formal occasions or as an everyday luxury, our necklaces are designed to complement your style and elevate your look with timeless elegance.",
-      products: products.filter((product) => product.categories === "necklace"),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $700 to $800 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FDesign%20Your%20Own%20Pendant.jpeg?alt=media&token=9e6ba197-39d3-4b7e-84f3-a185792eb4aa",
-    },
-    earrings: {
-      title: "Earrings",
-      description:
-        "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
-      products: products.filter((product) => product.categories === "earrings"),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $500 to $600 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20Diamond%20Earring.jpeg?alt=media&token=7fe4d3e5-6894-4b52-90b8-ac1d94b5f588",
-    },
-    ring: {
-      title: "Rings Setting",
+  const firmData: Record<string, any> = {
+    "Bvlgari": {
+      title: "Bvlgari Firm",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.type === "Ring"),
+      products: products.filter((product) => product.firm === "Bvlgari"),
       faqs: [
         {
           key: "1",
           label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $276 to $56,024 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
+          children: <p> Our women's diamond rings range from $900 to $1000 depending on several factors, including the type of metal and diamond carat weight.</p>,
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
+          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
         },
       ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20grown%20diamonds.jpeg?alt=media&token=63d86a3e-c0cb-48ea-a8e7-38e650e17425",
+      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fbulgari.png?alt=media&token=1897c535-f005-4d37-a106-26bf8426d5ba",
+    },
+    "HarryWinston": {
+      title: "Harry Winston Firm",
+      description:
+        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+      products: products.filter((product) => product.firm === "Harry Winston"),
+      faqs: [
+        {
+          key: "1",
+          label: "What is the average cost of a womens diamond wedding ring?",
+          children: <p> Our women's diamond rings range from $700 to $800 depending on several factors, including the type of metal and diamond carat weight.</p>,
+        },
+        {
+          key: "2",
+          label: "Can weddings rings be diamond rings?",
+          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+        },
+      ],
+      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Flearnaboutbanner.jpeg?alt=media&token=e7168cf6-8434-4cad-95e8-dc5fce8d81af",
+    },
+    "Tiffany&Co": {
+      title: "Tiffany & Co Firm",
+      description:
+        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+      products: products.filter((product) => product.firm === "Tiffany & Co"),
+      faqs: [
+        {
+          key: "1",
+          label: "What is the average cost of a womens diamond wedding ring?",
+          children: <p> Our women's diamond rings range from $500 to $600 depending on several factors, including the type of metal and diamond carat weight.</p>,
+        },
+        {
+          key: "2",
+          label: "Can weddings rings be diamond rings?",
+          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+        },
+      ],
+      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FDesign%20Your%20Own%20Pendant.jpeg?alt=media&token=9e6ba197-39d3-4b7e-84f3-a185792eb4aa",
+    },
+    "Cartier": {
+      title: "Cartier Firm",
+      description:
+        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+      products: products.filter((product) => product.firm === "Cartier"),
+      faqs: [
+        {
+          key: "1",
+          label: "What is the average cost of a womens diamond wedding ring?",
+          children: <p> Our women's diamond rings range from $300 to $400 depending on several factors, including the type of metal and diamond carat weight.</p>,
+        },
+        {
+          key: "2",
+          label: "Can weddings rings be diamond rings?",
+          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+        },
+      ],
+      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Flab_diamonds_sale_banner.6a518.jpg?alt=media&token=b7d30ece-f543-4890-b7de-7c37e1286dfb",
+    },
+    "VanCleef&Arpels": {
+      title: "Van Cleef & Arpels Firm",
+      description:
+        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+      products: products.filter((product) => product.firm === "Van Cleef & Arpels"),
+      faqs: [
+        {
+          key: "1",
+          label: "What is the average cost of a womens diamond wedding ring?",
+          children: <p> Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.</p>,
+        },
+        {
+          key: "2",
+          label: "Can weddings rings be diamond rings?",
+          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+        },
+      ],
+      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBrandBvl.jpg?alt=media&token=344f0091-7993-435a-9fc1-e6f689f0e976",
     },
   };
 
-  if (!jewelryType || !jewelryData[jewelryType]) {
+ 
+  if (!jewelryFirm || !firmData[jewelryFirm]) {
     return <div>Invalid jewelry type selected.</div>;
   }
 
-  const currentJewelryData = jewelryData[jewelryType];
+  const currentFirmData = firmData[jewelryFirm];
 
   const [wishList, setWishList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -212,7 +173,8 @@ const ProductList: React.FC = () => {
     );
   };
 
-  const faqs = jewelryData[jewelryType]?.faqs || [];
+ 
+  const faqs = firmData[jewelryFirm]?.faqs || [];
 
   const onChange = (key: string | string[]) => {
     console.log(key);
@@ -248,36 +210,25 @@ const ProductList: React.FC = () => {
               href: "/",
             },
             {
-              title: currentJewelryData.title,
+              title: currentFirmData.title,
             },
           ]}
         />
       </div>
-      <Banner
-        style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}
-      >
+      <Banner style={{ backgroundImage: `url(${currentFirmData.bannerImage})` }}>
         <div className="bannerContent">
           <LeftSection>
-            <h2>{currentJewelryData.title}</h2>
-            <div className="subheading">{currentJewelryData.description}</div>
+            <h2>{currentFirmData.title}</h2>
+            <div className="subheading">{currentFirmData.description}</div>
             <button className="consult-button button_slide slide_right">
               <span>CONTACT US FOR CONSULTATION</span>
             </button>
           </LeftSection>
         </div>
       </Banner>
-      <FilterSort />
-      <hr
-        style={{
-          maxWidth: "1400px",
-          margin: "0 auto",
-          marginTop: "32px",
-          border: "1px solid rgba(21, 21, 66, 0.3)",
-        }}
-      />
       <List>
         <Row gutter={[16, 16]}>
-          {currentJewelryData.products.map((product: any) => (
+          {currentFirmData.products.map((product: any) => (
             <Col key={product.id} span={6}>
               <Link to={`/product/${product.id}`}>
                 <Card
@@ -353,17 +304,16 @@ const ProductList: React.FC = () => {
           </Col>
         </Row>
       </List>
-
       <StyledPagination
         current={currentPage}
         pageSize={pageSize}
-        total={currentJewelryData.products.length}
+        total={currentFirmData.products.length}
         onChange={handleChangePage}
       />
 
       <FAQs>
         <LeftFAQ>
-          <h2>FAQs about {currentJewelryData.title}</h2>
+          <h2>FAQs about {currentFirmData.title}</h2>
         </LeftFAQ>
         <StyledCollapse
           items={faqs.map((faq: any) => ({
@@ -371,7 +321,7 @@ const ProductList: React.FC = () => {
             label: faq.label,
             children: <p>{faq.children}</p>,
           }))}
-          defaultActiveKey={["1"]}
+          defaultActiveKey={['1']}
           onChange={onChange}
         />
       </FAQs>
@@ -379,4 +329,4 @@ const ProductList: React.FC = () => {
   );
 };
 
-export default ProductList;
+export default FirmList;

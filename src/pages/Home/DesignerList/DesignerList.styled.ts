@@ -1,29 +1,98 @@
-import styled from "styled-components";
 import { theme } from "../../../themes";
-import { Breadcrumb, Collapse, Pagination } from "antd";
+import styled from "styled-components";
 
-export const Section = styled.div`
-  margin: 0 auto;
+export const Container = styled.div`
   background-color: ${theme.color.white};
-  max-width: 1400px;
 `;
 
-export const Container = styled.div``;
+export const Banner = styled.section`
+    no-repeat center center;
+  background-size: cover;
+  display: flex;
+`;
 
-export const Heading = styled.div`
+export const LeftSection = styled.div`
+  width: 50%;
+  max-width: 1600px;
+  margin: 100px 60px;
+
+  h2 {
+    font-size: 50px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-family: "Great Vibes";
+    font-weight: 500;
+    color: ${theme.color.primary};
+  }
+
+  .subheading {
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-align: left;
+    font-family: "Gantari", sans-serif;
+    color: #45413e;
+  }
+
+  .consult-button {
+    padding: 15px 20px;
+    background-color: #efe2d4;
+    color: ${theme.color.primary};
+    border: 1px solid;
+    cursor: pointer;
+    font-size: 14px;
+
+    font-family: "Gantari", sans-serif;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .button_slide {
+    letter-spacing: 1px;
+    cursor: pointer;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+  }
+  .slide_right:hover {
+    box-shadow: inset 400px 0 0 0 ${theme.color.primary};
+    color: #efe2d4;
+  }
+`;
+
+export const FAQs = styled.section`
+  display: flex;
+  margin: 50px auto;
+  max-width: 1400px;
+  justify-content: space-between;
+`;
+
+export const LeftFAQ = styled.div`
+  width: 50%;
+  padding-right: 20px;
+
   h2 {
     font-size: 32px;
-    text-align: center;
-    margin: 50px auto;
+    font-weight: 600;
     font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};
-    font-weight: 700;
+  }
+  .ant-collapse {
+    border-radius: 5px;
+  }
+
+  .ant-collapse-item {
+    background-color: #f4f2ee;
+  }
+
+  .ant-collapse-header {
+    border-radius: 5px;
   }
 `;
 
 export const List = styled.div`
   max-width: 1400px;
-  margin: 0 auto;
+  margin: 0px auto;
+  margin-top: 60px;
 
   .product-image {
     width: 100%;
@@ -74,12 +143,14 @@ export const List = styled.div`
   .product-price {
     font-size: 14px;
     color: ${theme.color.primary};
+    font-weight: 400;
   }
 
   .product-sale-price {
     font-size: 12px;
     color: #888;
     text-decoration: line-through;
+    margin-top: 2px;
   }
 
   .show-all-card {
@@ -123,65 +194,4 @@ export const List = styled.div`
     background-color: ${theme.color.primary};
     color: #f4f2ee;
   }
-`;
-
-export const FAQs = styled.section`
-  display: flex;
-  margin: 50px auto;
-  max-width: 1400px;
-  justify-content: space-between;
-`;
-
-export const LeftFAQ = styled.div`
-  width: 50%;
-  padding-right: 20px;
-
-  h2 {
-    font-size: 32px;
-    font-weightL 600;
-    font-family: "Gantari", sans-serif;
-    color: ${theme.color.primary};
-  }
-  .ant-collapse {
-  border-radius: 5px; 
-}
-
-.ant-collapse-item {
-  background-color: #f4f2ee;
-}
-
-.ant-collapse-header {
-  border-radius: 5px; 
-}
-`;
-
-export const StyledCollapse = styled(Collapse)`
-  .ant-collapse-item {
-    background-color: #ffffff;
-  }
-  .ant-collapse-header-text {
-    color: ${theme.color.primary};
-  }
-  .ant-collapse-content {
-    background-color: #f4f2ee;
-    color: #45413e;
-  }
-  .ant-collapse-expand-icon {
-    color: ${theme.color.primary};
-  }
-  .ant-collapse-header {
-    border-radius: 8px;
-  }
-`;
-
-export const CustomBreadcrumb = styled(Breadcrumb)`
-max-width: 1400px;
-margin: 0 auto;
-padding-top: 20px;
-`;
-
-export const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
 `;

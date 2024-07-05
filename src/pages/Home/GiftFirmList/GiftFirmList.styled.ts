@@ -246,7 +246,7 @@ export const LeftFAQ = styled.div`
   padding-right: 20px;
 
   h2 {
-    font-size: 32px;
+    font-size: 27px;
     font-weightL 600;
     font-family: "Gantari", sans-serif;
     color: ${theme.color.primary};

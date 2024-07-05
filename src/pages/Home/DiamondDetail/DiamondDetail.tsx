@@ -1,9 +1,10 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-import { diamonds } from "../shared/ListOfDiamond";
+import { diamonds, Diamond } from "../shared/ListOfDiamond";
+import styled from "styled-components";
 
 import {
   Body,
@@ -56,6 +57,13 @@ const DiamondDetails: React.FC = () => {
     setActiveTab(tabId);
   };
 
+  //
+  const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
+
   //data cmt
   const reviewsData = [
     {
@@ -94,18 +102,20 @@ const DiamondDetails: React.FC = () => {
       reply:
         " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
     },
+    {
+      name: "Serena Sterling",
+      avatar:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
+      rating: 4,
+      date: "October 16, 2022",
+      highlight: "Awesome Product",
+      comment:
+        "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
+      reply:
+        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
+    },
   ];
 
-  //2 same
-  const sameProductIds = ["1", "2", "3", "4"];
-  const sameBrandProducts = diamonds.filter((diamond) =>
-    sameProductIds.includes(diamond.id)
-  );
-
-  const recentlyProductIds = ["2", "4", "3", "5"];
-  const recentlyViewedProducts = diamonds.filter((diamond) =>
-    recentlyProductIds.includes(diamond.id)
-  );
   //
   const navigate = useNavigate();
 
@@ -122,25 +132,51 @@ const DiamondDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
-  const foundProduct = diamonds.find((diamond) => diamond.id === id);
+  const [foundProduct, setFoundProduct] = useState<Diamond | null>(null);
+  const [mainImage, setMainImage] = useState("");
+  const [selectedThumb, setSelectedThumb] = useState(0);
+
+  useEffect(() => {
+    const product = diamonds.find((diamond) => diamond.id === id);
+    if (product) {
+      setFoundProduct(product);
+      setMainImage(product.image);
+      setSelectedThumb(0);
+    } else {
+      setFoundProduct(null);
+    }
+  }, [id, diamonds]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
   }
 
-  const [mainImage, setMainImage] = useState(foundProduct.image);
-  const [selectedThumb, setSelectedThumb] = useState(0);
-
   const thumbnailImages = [
     foundProduct.image,
     foundProduct.image1,
     foundProduct.image2,
-  ].filter((src): src is string => !!src); 
+  ].filter((src): src is string => !!src);
 
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
     setSelectedThumb(index);
   };
+
+  const sameProductIds = ["1", "2", "3", "4"];
+  const sameBrandProducts = diamonds.filter((diamond) =>
+    sameProductIds.includes(diamond.id)
+  );
+
+  const recentlyProductIds = ["2", "4", "3", "5"];
+  const recentlyViewedProducts = diamonds.filter((diamond) =>
+    recentlyProductIds.includes(diamond.id)
+  );
+
+  
+  //Avg rating
+  const totalReviews = reviewsData.length;
+  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const averageRating = totalRating / totalReviews;
 
   return (
     <Body>
@@ -313,7 +349,7 @@ const DiamondDetails: React.FC = () => {
             <Review>
               <div className="head-review">
                 <div className="sum-rating">
-                  <strong>5.0</strong>
+                <strong>{averageRating.toFixed(1)}</strong>
                   <span>{reviewsData.length} reviews</span>
                 </div>
               </div>
@@ -349,9 +385,7 @@ const DiamondDetails: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <Pagination defaultCurrent={1} total={10} />
-              </div>
+                <StyledPagination defaultCurrent={1} total={10} />
             </Review>
           </ProductAbout>
         </div>
