@@ -30,7 +30,6 @@ import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
 import { Link } from "react-router-dom";
 import { collectionData, CollectionDataType } from "../MarketingData";
 import { productData } from "../../ProductPage/ProductData";
-import TextArea from "antd/es/input/TextArea";
 
 // const originData = createInitialData();
 
