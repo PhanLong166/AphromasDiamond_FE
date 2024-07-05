@@ -31,7 +31,6 @@ import {
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 
-
 const calculateJewelrySettingPrice = (
   weight: number,
   pricePerGram: number,
@@ -165,13 +164,13 @@ const JewelrySettingDetail = () => {
       <td>
         {editable ? (
           materialOptions ? (
-              <Select value={value} onChange={onChange}>
-                {materialOptions.map((option) => (
-                  <Select.Option key={option.value} value={option.value}>
-                    {option.label}
-                  </Select.Option>
-                ))}
-              </Select>
+            <Select value={value} onChange={onChange}>
+              {materialOptions.map((option) => (
+                <Select.Option key={option.value} value={option.value}>
+                  {option.label}
+                </Select.Option>
+              ))}
+            </Select>
           ) : (
             <Input value={value} onChange={(e) => onChange(e.target.value)} />
           )
@@ -193,19 +192,19 @@ const JewelrySettingDetail = () => {
     editable,
     value,
     onChange,
-    options
+    options,
   }) => {
     return (
       <td>
         {editable ? (
-            options ? (
-              <Select value={value} onChange={onChange}>
-                {options.map((option) => (
-                  <Select.Option key={option.value} value={option.value}>
-                    {option.label}
-                  </Select.Option>
-                ))}
-              </Select>
+          options ? (
+            <Select value={value} onChange={onChange}>
+              {options.map((option) => (
+                <Select.Option key={option.value} value={option.value}>
+                  {option.label}
+                </Select.Option>
+              ))}
+            </Select>
           ) : (
             <Input value={value} onChange={(e) => onChange(e.target.value)} />
           )

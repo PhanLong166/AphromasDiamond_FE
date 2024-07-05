@@ -87,6 +87,7 @@ export interface PromotionDataType {
   key: React.Key;
   promotionID: string;
   promotionName: string;
+  discountPercent: number;
   startDate: string;
   endDate: string;
   description: string;
@@ -97,6 +98,7 @@ export const promotionData: PromotionDataType[] = [
     key: "1",
     promotionID: "D12345121",
     promotionName: "Valentine",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -106,6 +108,7 @@ export const promotionData: PromotionDataType[] = [
     key: "2",
     promotionID: "D12345122",
     promotionName: "Eternal Radiance Collection",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -115,6 +118,7 @@ export const promotionData: PromotionDataType[] = [
     key: "3",
     promotionID: "D12345123",
     promotionName: "Celestial Sparkle Collection",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -124,6 +128,7 @@ export const promotionData: PromotionDataType[] = [
     key: "4",
     promotionID: "D12345124",
     promotionName: "Timeless Elegance Collection",
+    discountPercent: 20,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -133,6 +138,7 @@ export const promotionData: PromotionDataType[] = [
     key: "5",
     promotionID: "D12345125",
     promotionName: "Brilliance & Beyond Collection",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -142,6 +148,7 @@ export const promotionData: PromotionDataType[] = [
     key: "6",
     promotionID: "D12345126",
     promotionName: "Radiant Dreams Collection",
+    discountPercent: 30,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -151,6 +158,7 @@ export const promotionData: PromotionDataType[] = [
     key: "7",
     promotionID: "D12345127",
     promotionName: "Infinity Shine Collection",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -160,6 +168,7 @@ export const promotionData: PromotionDataType[] = [
     key: "8",
     promotionID: "D12345128",
     promotionName: "Luminous Luxe Collection",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:
@@ -169,6 +178,7 @@ export const promotionData: PromotionDataType[] = [
     key: "9",
     promotionID: "D12345129",
     promotionName: "Majestic Glimmer Collection",
+    discountPercent: 10,
     startDate: "2 Jan 2023",
     endDate: "2 Jan 2024",
     description:

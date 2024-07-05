@@ -30,6 +30,7 @@ import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
 import { Link } from "react-router-dom";
 import { collectionData, CollectionDataType } from "../MarketingData";
 import { productData } from "../../ProductPage/ProductData";
+import TextArea from "antd/es/input/TextArea";
 
 // const originData = createInitialData();
 
@@ -140,7 +141,7 @@ const Collection = () => {
         a.debutDate.length - b.debutDate.length,
     },
     {
-      title: "Amount",
+      title: "Product Quantity",
       dataIndex: "collectionID",
       render: (_, { collectionID }) => {
         let count = 0;
@@ -159,7 +160,7 @@ const Collection = () => {
       className: "TextAlign",
       render: (_: unknown, { collectionID }) => (
         <Space size="middle">
-          <Link to={`/admin/product/jewelry-setting/detail/${collectionID}`}>
+          <Link to={`/admin/marketing/collection/detail/${collectionID}`}>
             <EyeOutlined />
           </Link>
         </Space>
@@ -278,15 +279,20 @@ const Collection = () => {
                         />
                       </Form.Item>
                     </Styled.FormItem>
-                    <Styled.FormItem>
+                    <Styled.FormDescript>
                       <Form.Item
                         label="Description"
                         name="Description"
                         rules={[{ required: true }]}
                       >
-                        <Input.TextArea className="formItem" />
+                        <Input.TextArea
+                          placeholder="Description"
+                          className="formItem"
+                          allowClear
+                          // onChange={onChangeAdd}
+                        />
                       </Form.Item>
-                    </Styled.FormItem>
+                    </Styled.FormDescript>
                     <Styled.FormItem>
                       <Form.Item
                         label="Product in Collection"

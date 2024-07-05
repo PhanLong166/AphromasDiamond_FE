@@ -364,7 +364,7 @@ const BillPromotion = () => {
                         <RangePicker showTime className="formItem"/>
                       </Form.Item>
                     </Styled.FormItem>
-                    <Styled.FormItem>
+                    <Styled.FormDescript>
                       <Form.Item
                         label="Description"
                         name="Description"
@@ -372,7 +372,7 @@ const BillPromotion = () => {
                       >
                         <Input.TextArea className="formItem" />
                       </Form.Item>
-                    </Styled.FormItem>
+                    </Styled.FormDescript>
                   </Form>
 
                   <Styled.ActionBtn>

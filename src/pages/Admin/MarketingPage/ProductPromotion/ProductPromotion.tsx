@@ -105,15 +105,18 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
   );
 };
 
+
 // DATE PICK
 const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
   console.log(date, dateString);
 };
 
+
 // MULTI JEWELRY PICK
 const handleChange = (value: string[]) => {
   console.log(`selected ${value}`);
 };
+
 
 const ProductPromotion = () => {
   const [form] = Form.useForm();
@@ -134,6 +137,12 @@ const ProductPromotion = () => {
         a.promotionName.length - b.promotionName.length,
     },
     {
+      title: "% discount",
+      dataIndex: "discountPercent",
+      sorter: (a: PromotionDataType, b: PromotionDataType) =>
+        a.discountPercent - b.discountPercent,
+    },
+    {
       title: "Start Date",
       dataIndex: "startDate",
       sorter: (a: PromotionDataType, b: PromotionDataType) =>
@@ -146,7 +155,7 @@ const ProductPromotion = () => {
         a.endDate.length - b.endDate.length,
     },
     {
-      title: "Amount",
+      title: "Product Quantity",
       dataIndex: "promotionID",
       render: (_, { promotionID }) => {
         let count = 0;
@@ -157,7 +166,6 @@ const ProductPromotion = () => {
         });
         return count;
       },
-      sorter: (a, b) => a.promotionID.length - b.promotionID.length,
     },
     {
       title: "Detail",
@@ -165,7 +173,7 @@ const ProductPromotion = () => {
       className: "TextAlign",
       render: (_: unknown, { promotionID }) => (
         <Space size="middle">
-          <Link to={`/admin/product/jewelry-setting/detail/${promotionID}`}>
+          <Link to={`/admin/marketing/discount/detail/${promotionID}`}>
             <EyeOutlined />
           </Link>
         </Space>
@@ -305,7 +313,7 @@ const ProductPromotion = () => {
                         />
                       </Form.Item>
                     </Styled.FormItem>
-                    <Styled.FormItem>
+                    <Styled.FormDescript>
                       <Form.Item
                         label="Description"
                         name="Description"
@@ -313,7 +321,7 @@ const ProductPromotion = () => {
                       >
                         <Input.TextArea className="formItem" />
                       </Form.Item>
-                    </Styled.FormItem>
+                    </Styled.FormDescript>
                     <Styled.FormItem>
                       <Form.Item
                         label="Product in Promotion"

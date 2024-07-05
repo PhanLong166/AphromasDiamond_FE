@@ -195,6 +195,9 @@ const ProductDetails: React.FC = () => {
     }
   };
 
+  
+  
+
   return (
     <Body>
       <div>

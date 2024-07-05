@@ -160,6 +160,7 @@ margin-bottom: 20px;
 width: 100%;
 `;
 
+
 // /* -------------------- BOT DETAIL =============== */
 
 export const PageContent_Bot = styled.div`

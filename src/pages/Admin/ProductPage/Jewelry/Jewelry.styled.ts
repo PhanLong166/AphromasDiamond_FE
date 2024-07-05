@@ -191,13 +191,26 @@ export const AdPageArea_Title = styled.div`
 
 export const AdPage_HeadLeft = styled.div``;
 
-export const AdPageContent_Title = styled.div`
+export const AdPageContent_TitleJewelry = styled.div`
   width: 100%;
   background-color: #ffffff;
   color: ${theme.color.primary};
   padding: 0px 0px 25px 0px;
   font-weight: 600;
   font-size: 18px;
+  display: flex;
+  justify-content: space-between;
+`;
+
+export const AdPageContent_Title = styled.div`
+  width: 100%;
+  background-color: #ffffff;
+  color: ${theme.color.primary};
+  padding: 0px;
+  font-weight: 600;
+  font-size: 18px;
+  display: flex;
+  justify-content: space-between;
 `;
 
 export const AdPageContent_Product = styled.div`
@@ -233,6 +246,15 @@ export const AdPageContent_Jewel = styled.div`
     label {
       color: #727272;
     }
+  }
+`;
+
+export const FormChoice = styled.div`
+  width: 30%;
+  height: 57px;
+
+  .formItem {
+    width: 100%;
   }
 `;
 

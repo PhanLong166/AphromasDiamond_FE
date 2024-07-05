@@ -18,7 +18,11 @@ export const items: MenuItem[] = [
                 label: 'Diamond By Shape',
                 type: 'group',
                 children: [
-                    {key: 'shape-1', label: 'Round'},
+                    {key: 'shape-1', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "round-shape")}`}>
+                          Round
+                        </Link>
+                      ),},
                     {key: 'shape-2', label: 'Princess'},
                     {key: 'shape-3', label: 'Cushion'},
                     {key: 'shape-4', label: 'Oval'},
@@ -56,7 +60,7 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'about-1', label: 'Lucara Diamond'},
+                    {key: 'about-1', label: 'Diamond Shape'},
                     {key: 'about-2', label: 'Learn about 4Cs'},
                     {key: 'about-3', label: 'Diamond Certification'},
                 ]
@@ -72,16 +76,63 @@ export const items: MenuItem[] = [
                 label: 'Diamond Ring By Shape',
                 type: 'group',
                 children: [
-                    {key: 'ring-shape-1', label: 'Round'},
-                    {key: 'ring-shape-2', label: 'Princess'},
-                    {key: 'ring-shape-3', label: 'Cushion'},
-                    {key: 'ring-shape-4', label: 'Oval'},
-                    {key: 'ring-shape-5', label: 'Emerald'},
-                    {key: 'ring-shape-6', label: 'Pear'},
-                    {key: 'ring-shape-7', label: 'Asscher'},
-                    {key: 'ring-shape-8', label: 'Heart'},
-                    {key: 'ring-shape-9', label: 'Radient'},
-                    {key: 'ring-shape-10', label: 'Marquise'},
+                    {key: 'ring-shape-1',  label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "round-ring")}`}>
+                          Round
+                        </Link>
+                      ),
+                    },
+                    {key: 'ring-shape-2', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "princess-ring")}`}>
+                          Princess
+                        </Link>
+                      ),
+                    },
+                    {key: 'ring-shape-3', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "cushion-ring")}`}>
+                          Cushion
+                        </Link>
+                      )
+                    },
+                    {key: 'ring-shape-4', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "oval-ring")}`}>
+                          Oval
+                        </Link>
+                      )
+                    },
+                    {key: 'ring-shape-5', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "emerald-ring")}`}>
+                          Emerald
+                        </Link>
+                      )
+                    },
+                    {key: 'ring-shape-6', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "pear-ring")}`}>
+                          Pear
+                        </Link>
+                      )
+                    },
+                    {key: 'ring-shape-7', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "asscher-ring")}`}>
+                          Asscher
+                        </Link>
+                      )
+                    },
+                    {key: 'ring-shape-8', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "heart-ring")}`}>
+                          Heart
+                        </Link>
+                      )},
+                    {key: 'ring-shape-9', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "radiant-ring")}`}>
+                          Radiant
+                        </Link>
+                      )},
+                    {key: 'ring-shape-10', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "marquise-ring")}`}>
+                          Marquise
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -100,10 +151,26 @@ export const items: MenuItem[] = [
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'ring-designer-1', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "zaczacposen")}`}>
+                          Zac Zac Posen
+                        </Link>
+                      )},
+                    {key: 'ring-designer-2', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bellavaughan")}`}>
+                         Bella Vaughan
+                        </Link>
+                      )},
+                    {key: 'ring-designer-3', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bluenile")}`}>
+                         Blue Nile Studio
+                        </Link>
+                      )},
+                    {key: 'ring-designer-4', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "thegallerycollection")}`}>
+                         The Gallery Collection
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -242,10 +309,27 @@ export const items: MenuItem[] = [
                 label: 'Jewelry Classification',
                 type: 'group',
                 children: [
-                    {key: 'jewelry-type-1', label: 'Rings'},
-                    {key: 'jewelry-type-2', label: 'Necklaces'},
-                    {key: 'jewelry-type-3', label: 'Earings'},
-                    {key: 'jewelry-type-4', label: 'Bracelets'},
+                    {key: 'jewelry-type-1', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "ring")}`}>
+                         Rings
+                        </Link>
+                      )
+                    },
+                    {key: 'jewelry-type-2', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "necklace")}`}>
+                         Necklaces
+                        </Link>
+                      )},
+                    {key: 'jewelry-type-3', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "earrings")}`}>
+                         Earrings
+                        </Link>
+                      )},
+                    {key: 'jewelry-type-4', label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bracelet")}`}>
+                         Bracelets
+                        </Link>
+                      )},
                     {key: 'jewelry-type-5', label: 'Anklets'},
                     {key: 'jewelry-type-6', label: 'Bangles'},
                     {key: 'jewelry-type-7', label: 'Chokers'},
@@ -268,11 +352,32 @@ export const items: MenuItem[] = [
                 label: 'Jewelry Firm',
                 type: 'group',
                 children: [
-                    {key: 'jewelry-firm-1', label: 'Van Cleef & Arpels'},
-                    {key: 'jewelry-firm-2', label: 'Harry Winston'},
-                    {key: 'jewelry-firm-3', label: 'Cartier'},
-                    {key: 'jewelry-firm-4', label: 'Tiffany & Co'},
-                    {key: 'jewelry-firm-5', label: 'Bvlgari'},
+                    {key: 'jewelry-firm-1',  label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "vancleefnarpels")}`}>
+                        Van Cleef & Arpels Firm
+                        </Link>
+                      )
+                    },
+                    {key: 'jewelry-firm-2',  label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "harrywinston")}`}>
+                         Harry Winston
+                        </Link>
+                      )},
+                    {key: 'jewelry-firm-3',  label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "cartier")}`}>
+                        Cartier
+                        </Link>
+                      )},
+                    {key: 'jewelry-firm-4',  label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "tiffanyco")}`}>
+                         Tiffany & Co
+                        </Link>
+                      )},
+                    {key: 'jewelry-firm-5',  label: (
+                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bvlgari")}`}>
+                        Bvlgari
+                        </Link>
+                      )},
                 ]
             },
             {
