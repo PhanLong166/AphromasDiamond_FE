@@ -4,7 +4,7 @@ import styled from 'styled-components';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
 import RingVoucher from '@/components/Customer/Voucher/RingVoucher';
 import DiamondVoucher from '@/components/Customer/Voucher/DiamondVoucher';
-
+import CombinVoucher from '@/components/Customer/Voucher/CombinVoucher';
 const Voucher = () => {
   return (
     <Main>
@@ -15,6 +15,8 @@ const Voucher = () => {
         <RingVoucher/>
         <TypeVoucher>Diamond Voucher</TypeVoucher>
         <DiamondVoucher/>
+        <TypeVoucher>Combin Voucher</TypeVoucher>
+        <CombinVoucher />
       </Section>
     </Main>
   );

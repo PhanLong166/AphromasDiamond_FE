@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Modal, Input, Button, Typography, Select, Image } from "antd";
 import { CloseOutlined } from "@ant-design/icons";
 import { Main } from "./InscriptionModal.styled";
@@ -9,21 +9,38 @@ interface InscriptionModalProps {
   visible: boolean;
   onClose: () => void;
   onSave: (text: string) => void;
+  reset: boolean;
 }
 
 const InscriptionModal: React.FC<InscriptionModalProps> = ({
   visible,
   onClose,
   onSave,
+  reset,
 }) => {
   const [inscription, setInscription] = useState<string>("");
+  const [initialInscription, setInitialInscription] = useState<string>("");
   const [selectedFont, setSelectedFont] = useState<string>("font1");
   const [charactersLeft, setCharactersLeft] = useState<number>(20);
+
+  useEffect(() => {
+    if (reset) {
+      setInitialInscription("");
+      setCharactersLeft(20);
+    }
+  }, [reset]);
+
+  useEffect(() => {
+    if (visible) {
+      setInscription(initialInscription);
+      setCharactersLeft(Math.max(0, 20 - initialInscription.length));
+    }
+  }, [visible, initialInscription]);
 
   const handleInscriptionChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const value = e.target.value;
     setInscription(value);
-    setCharactersLeft(20 - value.length);
+    setCharactersLeft(Math.max(0, 20 - value.length));
   };
 
   const handleFontChange = (value: string) => {
@@ -31,6 +48,7 @@ const InscriptionModal: React.FC<InscriptionModalProps> = ({
   };
 
   const handleSave = () => {
+    setInitialInscription(inscription);
     onSave(inscription);
   };
 

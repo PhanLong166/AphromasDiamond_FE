@@ -22,37 +22,85 @@ export const items: MenuItem[] = [
                         <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "round-shape")}`}>
                           Round
                         </Link>
-                      ),},
-                    {key: 'shape-2', label: 'Princess'},
-                    {key: 'shape-3', label: 'Cushion'},
-                    {key: 'shape-4', label: 'Oval'},
-                    {key: 'shape-5', label: 'Emerald'},
-                    {key: 'shape-6', label: 'Pear'},
-                    {key: 'shape-7', label: 'Asscher'},
-                    {key: 'shape-8', label: 'Heart'},
-                    {key: 'shape-9', label: 'Radient'},
-                    {key: 'shape-10', label: 'Marquise'},
+                      )},
+                    {key: 'shape-2', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "princess-shape")}`}>
+                         Princess
+                        </Link>
+                      )},
+                    {key: 'shape-3', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "cushion-shape")}`}>
+                          Cushion
+                        </Link>
+                      )},
+                    {key: 'shape-4', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "oval-shape")}`}>
+                          Oval
+                        </Link>
+                      )},
+                    {key: 'shape-5', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "emerald-shape")}`}>
+                          Emerald
+                        </Link>
+                      )},
+                    {key: 'shape-6', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "pear-shape")}`}>
+                          Pear
+                        </Link>
+                      )},
+                    {key: 'shape-7', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "asscher-shape")}`}>
+                         Asscher
+                        </Link>
+                      )},
+                    {key: 'shape-8', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "heart-shape")}`}>
+                         Heart
+                        </Link>
+                      )},
+                    {key: 'shape-9', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "radiant-shape")}`}>
+                          Radiant
+                        </Link>
+                      )},
+                    {key: 'shape-10', label: (
+                        <Link to={`${config.routes.public.diamondList.replace(":diamondShape", "marquise-shape")}`}>
+                          Marquise
+                        </Link>
+                      )},
                 ]
             },
-            {
-                key: 'diamond-color',
-                label: 'Diamond By Color',
-                type: 'group',
-                children: [
-                    {key: 'color-1', label: 'Color Grade D-Z'},
-                    {key: 'color-2', label: 'Fancy Color Diamonds'},
-                ]
-            },
+           
             {
                 key: 'diamond-cutter',
                 label: 'Diamond Cutter',
                 type: 'group',
                 children: [
-                    {key: 'cutter-1', label: 'Lucara Diamond'},
-                    {key: 'cutter-2', label: 'Petra Diamonds'},
-                    {key: 'cutter-3', label: 'Rio Tinto Diamonds'},
-                    {key: 'cutter-4', label: 'Arlosa'},
-                    {key: 'cutter-5', label: 'De Beers Group'},
+                    {key: 'cutter-1', label: (
+                        <Link to={`${config.routes.public.cutterList.replace(":diamondCutter", "lucara")}`}>
+                          Lucara Diamond
+                        </Link>
+                      )},
+                    {key: 'cutter-2', label: (
+                        <Link to={`${config.routes.public.cutterList.replace(":diamondCutter", "petra")}`}>
+                          Petra Diamonds
+                        </Link>
+                      )},
+                    {key: 'cutter-3', label: (
+                        <Link to={`${config.routes.public.cutterList.replace(":diamondCutter", "riotinto")}`}>
+                          Rio Tinto Diamonds
+                        </Link>
+                      )},
+                    {key: 'cutter-4', label: (
+                        <Link to={`${config.routes.public.cutterList.replace(":diamondCutter", "arlosa")}`}>
+                         Arlosa
+                        </Link>
+                      )},
+                    {key: 'cutter-5', label: (
+                        <Link to={`${config.routes.public.cutterList.replace(":diamondCutter", "debeers")}`}>
+                         De Beers Group
+                        </Link>
+                      ),},
                 ]
             },
             {
@@ -60,9 +108,21 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'about-1', label: 'Diamond Shape'},
-                    {key: 'about-2', label: 'Learn about 4Cs'},
-                    {key: 'about-3', label: 'Diamond Certification'},
+                    {key: 'about-1', label: (
+                        <Link to={config.routes.public.shape} underline zoom scroll>
+                            Diamond Shape
+                        </Link>
+                    )},
+                    {key: 'about-2',  label: (
+                        <Link to={config.routes.public.cs} underline zoom scroll>
+                            Learn About the 4Cs
+                        </Link>
+                    )},
+                    {key: 'about-3', label: (
+                        <Link to={config.routes.public.certification} underline zoom scroll>
+                            Diamond Certification
+                        </Link>
+                    )},
                 ]
             }
         ]
@@ -77,73 +137,62 @@ export const items: MenuItem[] = [
                 type: 'group',
                 children: [
                     {key: 'ring-shape-1',  label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "round-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "round-ring")}`}>
                           Round
                         </Link>
                       ),
                     },
                     {key: 'ring-shape-2', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "princess-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "princess-ring")}`}>
                           Princess
                         </Link>
                       ),
                     },
                     {key: 'ring-shape-3', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "cushion-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "cushion-ring")}`}>
                           Cushion
                         </Link>
                       )
                     },
                     {key: 'ring-shape-4', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "oval-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "oval-ring")}`}>
                           Oval
                         </Link>
                       )
                     },
                     {key: 'ring-shape-5', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "emerald-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "emerald-ring")}`}>
                           Emerald
                         </Link>
                       )
                     },
                     {key: 'ring-shape-6', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "pear-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "pear-ring")}`}>
                           Pear
                         </Link>
                       )
                     },
                     {key: 'ring-shape-7', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "asscher-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "asscher-ring")}`}>
                           Asscher
                         </Link>
                       )
                     },
                     {key: 'ring-shape-8', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "heart-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "heart-ring")}`}>
                           Heart
                         </Link>
                       )},
                     {key: 'ring-shape-9', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "radiant-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "radiant-ring")}`}>
                           Radiant
                         </Link>
                       )},
                     {key: 'ring-shape-10', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "marquise-ring")}`}>
+                        <Link to={`${config.routes.public.diamondRingList.replace(":ringType", "marquise-ring")}`}>
                           Marquise
                         </Link>
                       )},
-                ]
-            },
-            {
-                key: 'ring-metals',
-                label: 'Ring metals',
-                type: 'group',
-                children: [
-                    {key: 'ring-metal-1', label: 'White Gold'},
-                    {key: 'ring-metal-2', label: 'Yellow Gold'},
-                    {key: 'ring-metal-3', label: 'Rose Gold'},
-                    {key: 'ring-metal-4', label: 'Platinum'},
                 ]
             },
             {
@@ -152,22 +201,22 @@ export const items: MenuItem[] = [
                 type: 'group',
                 children: [
                     {key: 'ring-designer-1', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "zaczacposen")}`}>
+                        <Link to={`${config.routes.public.designerList.replace(":designer", "zaczacposen")}`}>
                           Zac Zac Posen
                         </Link>
                       )},
                     {key: 'ring-designer-2', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bellavaughan")}`}>
+                        <Link to={`${config.routes.public.designerList.replace(":designer", "bellavaughan")}`}>
                          Bella Vaughan
                         </Link>
                       )},
                     {key: 'ring-designer-3', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bluenile")}`}>
+                        <Link to={`${config.routes.public.designerList.replace(":designer", "bluenile")}`}>
                          Blue Nile Studio
                         </Link>
                       )},
                     {key: 'ring-designer-4', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "thegallerycollection")}`}>
+                        <Link to={`${config.routes.public.designerList.replace(":designer", "thegallerycollection")}`}>
                          The Gallery Collection
                         </Link>
                       )},
@@ -178,10 +227,26 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-1', label: 'Find Your Ring Size'},
-                    {key: 'learn-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-3', label: 'Buying Guide'},
-                    {key: 'learn-4', label: 'Metal Education'},
+                    {key: 'learn-1', label: (
+                        <Link to={config.routes.public.size} underline zoom scroll>
+                            Find Your Ring Size
+                        </Link>
+                    )},
+                    {key: 'learn-2',  label: (
+                        <Link to={config.routes.public.cs} underline zoom scroll>
+                            Learn About the 4Cs
+                        </Link>
+                    )},
+                    {key: 'learn-3', label: (
+                        <Link to={config.routes.public.buying} underline zoom scroll>
+                            Buying Guide
+                        </Link>
+                    )},
+                    {key: 'learn-4', label: (
+                        <Link to={config.routes.public.metalEdu} underline zoom scroll>
+                            Metal Education
+                        </Link>
+                    )},
                 ]
             }
         ]
@@ -209,7 +274,7 @@ export const items: MenuItem[] = [
             },
             {
                 key: 'engagement-ring-metal',
-                label: 'Ring metals',
+                label: "Men's Ring",
                 type: 'group',
                 children: [
                     {key: 'engagement-ring-metal-1', label: 'White Gold'},
@@ -234,11 +299,27 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-engagement-ring-1', label: 'Find Your Ring Size'},
-                    {key: 'learn-engagement-ring-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-engagement-ring-3', label: 'Buying Guide'},
-                    {key: 'learn-engagement-ring-4', label: 'Metal Education'},
-                    {key: 'learn-engagement-ring-5', label: 'Top 10 Engagement Rings'},
+                    {key: 'learn-engagement-ring-1', label: (
+                        <Link to={config.routes.public.size} underline zoom scroll>
+                            Find Your Ring Size
+                        </Link>
+                    )},
+                    {key: 'learn-engagement-ring-2',  label: (
+                        <Link to={config.routes.public.cs} underline zoom scroll>
+                            Learn About the 4Cs
+                        </Link>
+                    )},
+                    {key: 'learn-engagement-ring-3', label: (
+                        <Link to={config.routes.public.buying} underline zoom scroll>
+                            Buying Guide
+                        </Link>
+                    )},
+                    {key: 'learn-engagement-ring-4', label: (
+                        <Link to={config.routes.public.metalEdu} underline zoom scroll>
+                            Metal Education
+                        </Link>
+                    )},
+                    {key: 'learn-engagement-ring-5', label: 'Top 10 Wedding Rings'},
                 ]
             }
         ]
@@ -266,7 +347,7 @@ export const items: MenuItem[] = [
             },
             {
                 key: 'ring-metals',
-                label: 'Ring metals',
+                label: "Men's Rings",
                 type: 'group',
                 children: [
                     {key: 'wedding-ring-metal-1', label: 'White Gold'},
@@ -291,10 +372,26 @@ export const items: MenuItem[] = [
                 label: 'Learn about',
                 type: 'group',
                 children: [
-                    {key: 'learn-wedding-ring-1', label: 'Find Your Ring Size'},
-                    {key: 'learn-wedding-ring-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-wedding-ring-3', label: 'Buying Guide'},
-                    {key: 'learn-wedding-ring-4', label: 'Metal Education'},
+                    {key: 'learn-wedding-ring-1', label: (
+                        <Link to={config.routes.public.size} underline zoom scroll>
+                            Find Your Ring Size
+                        </Link>
+                    )},
+                    {key: 'learn-wedding-ring-2',  label: (
+                        <Link to={config.routes.public.cs} underline zoom scroll>
+                            Learn About the 4Cs
+                        </Link>
+                    )},
+                    {key: 'learn-wedding-ring-3', label: (
+                        <Link to={config.routes.public.buying} underline zoom scroll>
+                            Buying Guide
+                        </Link>
+                    )},
+                    {key: 'learn-wedding-ring-4', label: (
+                        <Link to={config.routes.public.metalEdu} underline zoom scroll>
+                            Metal Education
+                        </Link>
+                    )},
                     {key: 'learn-wedding-ring-5', label: 'Top 10 Engagement Rings'},
                 ]
             }
@@ -302,7 +399,11 @@ export const items: MenuItem[] = [
     },
     {
         key: 'jewelry',
-        label: 'Jewelry',
+        label: (
+            <Link to={config.routes.public.allProduct} underline zoom scroll>
+                Jewelry
+            </Link>
+        ),
         children: [
             {
                 key: 'jewelry-type',
@@ -310,23 +411,23 @@ export const items: MenuItem[] = [
                 type: 'group',
                 children: [
                     {key: 'jewelry-type-1', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "ring")}`}>
+                        <Link to={`${config.routes.public.jewelryList.replace(":jewelryType", "ring")}`}>
                          Rings
                         </Link>
                       )
                     },
                     {key: 'jewelry-type-2', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "necklace")}`}>
+                        <Link to={`${config.routes.public.jewelryList.replace(":jewelryType", "necklace")}`}>
                          Necklaces
                         </Link>
                       )},
                     {key: 'jewelry-type-3', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "earrings")}`}>
+                        <Link to={`${config.routes.public.jewelryList.replace(":jewelryType", "earrings")}`}>
                          Earrings
                         </Link>
                       )},
                     {key: 'jewelry-type-4', label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bracelet")}`}>
+                        <Link to={`${config.routes.public.jewelryList.replace(":jewelryType", "bracelet")}`}>
                          Bracelets
                         </Link>
                       )},
@@ -353,28 +454,28 @@ export const items: MenuItem[] = [
                 type: 'group',
                 children: [
                     {key: 'jewelry-firm-1',  label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "vancleefnarpels")}`}>
-                        Van Cleef & Arpels Firm
+                        <Link to={`${config.routes.public.firmList.replace(":jewelryFirm", "VanCleef&Arpels")}`}>
+                        Van Cleef & Arpels
                         </Link>
                       )
                     },
                     {key: 'jewelry-firm-2',  label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "harrywinston")}`}>
+                        <Link to={`${config.routes.public.firmList.replace(":jewelryFirm", "HarryWinston")}`}>
                          Harry Winston
                         </Link>
                       )},
                     {key: 'jewelry-firm-3',  label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "cartier")}`}>
+                        <Link to={`${config.routes.public.firmList.replace(":jewelryFirm", "Cartier")}`}>
                         Cartier
                         </Link>
                       )},
                     {key: 'jewelry-firm-4',  label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "tiffanyco")}`}>
+                        <Link to={`${config.routes.public.firmList.replace(":jewelryFirm", "Tiffany&Co")}`}>
                          Tiffany & Co
                         </Link>
                       )},
                     {key: 'jewelry-firm-5',  label: (
-                        <Link to={`${config.routes.public.productList.replace(":jewelryType", "bvlgari")}`}>
+                        <Link to={`${config.routes.public.firmList.replace(":jewelryFirm", "Bvlgari")}`}>
                         Bvlgari
                         </Link>
                       )},
@@ -385,30 +486,70 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-jewelry-1', label: 'Buying Guide'},
-                    {key: 'learn-jewelry-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-jewelry-3', label: 'Jewelry Education'},
+                    {key: 'learn-jewelry-1', label: (
+                        <Link to={config.routes.public.buying} underline zoom scroll>
+                            Buying Guide
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-2', label: (
+                        <Link to={config.routes.public.cs} underline zoom scroll>
+                            Learn About the 4Cs
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-3', label: (
+                        <Link to={config.routes.public.size} underline zoom scroll>
+                            Find your ring size
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-4', label: (
+                        <Link to={config.routes.public.necklaceEdu} underline zoom scroll>
+                            Necklace Education
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-5', label: (
+                        <Link to={config.routes.public.braceletEdu} underline zoom scroll>
+                            Bracelet Education
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-6', label: (
+                        <Link to={config.routes.public.earringEdu} underline zoom scroll>
+                           Earrings Education
+                        </Link>
+                    )},
+                   
                 ]
             }
         ]
     },
     {
         key: 'gift',
-        label: (
-            <Link to={config.routes.public.gift} underline zoom scroll>
-                Gift
-            </Link>
-        ),
+        label:"Gift",
         children: [
             {
                 key: 'jewelry-type',
                 label: 'Jewelry Classification',
                 type: 'group',
                 children: [
-                    {key: 'gift-jewelry-type-1', label: 'Rings'},
-                    {key: 'gift-jewelry-type-2', label: 'Necklaces'},
-                    {key: 'gift-jewelry-type-3', label: 'Earings'},
-                    {key: 'gift-jewelry-type-4', label: 'Bracelets'},
+                    {key: 'gift-jewelry-type-1', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-ring")}`}>
+                         Rings
+                        </Link>
+                      )},
+                    {key: 'gift-jewelry-type-2', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-necklace")}`}>
+                         Necklaces
+                        </Link>
+                      )},
+                    {key: 'gift-jewelry-type-3', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-earrings")}`}>
+                         Earrings
+                        </Link>
+                      )},
+                    {key: 'gift-jewelry-type-4', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-bracelet")}`}>
+                         Bracelet
+                        </Link>
+                      )},
                     {key: 'gift-jewelry-type-5', label: 'Anklets'},
                     {key: 'gift-jewelry-type-6', label: 'Bangles'},
                     {key: 'gift-jewelry-type-7', label: 'Chokers'},
@@ -417,12 +558,11 @@ export const items: MenuItem[] = [
             },
             {
                 key: 'gift-ring',
-                label: 'Ring',
+                label: 'Gifts By Occasion',
                 type: 'group',
                 children: [
-                    {key: 'gift-ring-1', label: 'Diamond Ring'},
-                    {key: 'gift-ring-2', label: 'Engagement Ring'},
-                    {key: 'gift-ring-3', label: 'Wedding Ring'},
+                    {key: 'gift-ring-1', label: 'Engagement Ring'},
+                    {key: 'gift-ring-2', label: 'Wedding Ring'},
                 ]
             },
             {
@@ -430,11 +570,32 @@ export const items: MenuItem[] = [
                 label: 'Jewelry Firm',
                 type: 'group',
                 children: [
-                    {key: 'gift-jewelry-firm-1', label: 'Van Cleef & Arpels'},
-                    {key: 'gift-jewelry-firm-2', label: 'Harry Winston'},
-                    {key: 'gift-jewelry-firm-3', label: 'Cartier'},
-                    {key: 'gift-jewelry-firm-4', label: 'Tiffany & Co'},
-                    {key: 'gift-jewelry-firm-5', label: 'Bvlgari'},
+                    {key: 'jewelry-firm-1',  label: (
+                        <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-vancleef&arpels")}`}>
+                        Van Cleef & Arpels
+                        </Link>
+                      )
+                    },
+                    {key: 'jewelry-firm-2',  label: (
+                        <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-harrywinston")}`}>
+                         Harry Winston
+                        </Link>
+                      )},
+                    {key: 'jewelry-firm-3',  label: (
+                        <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-cartier")}`}>
+                        Cartier
+                        </Link>
+                      )},
+                    {key: 'jewelry-firm-4',  label: (
+                        <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-tiffany&co")}`}>
+                         Tiffany & Co
+                        </Link>
+                      )},
+                    {key: 'jewelry-firm-5',  label: (
+                        <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-bvlgari")}`}>
+                        Bvlgari
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -442,9 +603,37 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-gift-1', label: 'Buying Guide'},
-                    {key: 'learn-gift-2', label: 'Learn About the 4Cs'},
-                    {key: 'learn-gift-3', label: 'Jewelry Education'},
+                    {key: 'learn-jewelry-1', label: (
+                        <Link to={config.routes.public.buying} underline zoom scroll>
+                            Buying Guide
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-2', label: (
+                        <Link to={config.routes.public.cs} underline zoom scroll>
+                            Learn About the 4Cs
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-3', label: (
+                        <Link to={config.routes.public.size} underline zoom scroll>
+                            Find your ring size
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-4', label: (
+                        <Link to={config.routes.public.necklaceEdu} underline zoom scroll>
+                            Necklace Education
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-5', label: (
+                        <Link to={config.routes.public.braceletEdu} underline zoom scroll>
+                            Bracelet Education
+                        </Link>
+                    )},
+                    {key: 'learn-jewelry-6', label: (
+                        <Link to={config.routes.public.earringEdu} underline zoom scroll>
+                           Earrings Education
+                        </Link>
+                    )},
+                   
                 ]
             }
         ]

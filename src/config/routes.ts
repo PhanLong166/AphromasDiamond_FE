@@ -1,4 +1,5 @@
 
+
 const routes = {
   public: {
     home: "/",
@@ -10,11 +11,16 @@ const routes = {
     product: "/product",
     productDetail: "/product/:id",
     diamondDetail: "/diamond/:id",
-    productList: "/list/:jewelryType",
-    diamondList: "/shape/:diamondShape",
+    jewelryList: "/jewelry/:jewelryType",
+    diamondList: "/diamond/shape/:diamondShape",
+    firmList: "/jewelry/firm/:jewelryFirm",
+    designerList: "/diamond-ring/designer/:designer",
+    diamondRingList: "/diamond-ring/:ringType",
+    cutterList: "/diamond/cutter/:diamondCutter",
     allProduct: "/all",
     about: "/about",
-    gift: "/gift",
+    gift: "/gift/:jewelryType",
+    giftFirm: "/gift/firm/:jewelryFirm",
     ringGuide: "/ring-guide",
     diamond: "/diamond",
     collection: "/collection",
@@ -84,7 +90,7 @@ const routes = {
     theme: "/admin/theme",
   },
   salesStaff: {
-    order: "/sales-staff",
+    order: "/sales-staff/order",
     pendingOrder: "/sales-staff/order/pending",
     acceptedOrder: "/sales-staff/order/accepted",
     assignedOrder: "/sales-staff/order/assigned",
@@ -98,11 +104,17 @@ const routes = {
     jewelry: "/sales-staff/product/jewelry",
     jewelryDetail: "/sales-staff/product/jewelry/detail/:id",
     ringSettingProduct: "/sales-staff/product/jewelry-setting",
+    ringSettingDetail: "/sales-staff/product/jewelry-setting/detail/:id",
     jewelryTypeProduct: "/sales-staff/product/jewelry-type",
     materialProduct: "/sales-staff/product/material",
-    marketing: "/sales-staff/marketing",
+    collection: "/sales-staff/marketing",
+    collectionDetail: "/sales-staff/marketing/collection/detail/:id",
+    discount: "/sales-staff/marketing/discount",
+    discountDetail: "/sales-staff/marketing/discount/detail/:id",
+    voucher: "/sales-staff/marketing/voucher",
     clientCaring: "/sales-staff/client-caring",
     feedback: "/sales-staff/client-caring/feedback",
+    feedbackCompleted: "/sales-staff/client-caring/feedback-completed",
   },
   deliStaff: {
     // dashboard: '/delistaff',

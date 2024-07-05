@@ -1,63 +1,15 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
-
+import { ringvouchers } from '../../Customer/Checkout/Data/data';
 const App = () => {
-  const gigs = [
-    {
-      price: "20",
-      character: "%",
-      eventTitle: "Special Voucher",
-      eventName: "Aphromas Store",
-      date: "Monday 15th 2016",
-      time: "15:20Pm & 11:00Am",
-      location: "North, South, United State, Amre",
-      locationDetails: "Party Number 16,20",
-      buttonLabel: "VCWELCOME10",
-      buttonLabeles: "Claim Now"
-    },
-    {
-      price: "30",
-      character: "%",
-      eventTitle: "Exclusive Discount",
-      eventName: "Bargain Shop",
-      date: "Wednesday 17th 2016",
-      time: "10:00Am & 3:00Pm",
-      location: "East, West, United State, Amre",
-      locationDetails: "Party Number 30,40",
-      buttonLabel: "VCBONUS5",
-      buttonLabeles: "Claim Now"
-    },
-    {
-      price: "22",
-      character: "%",
-      eventTitle: "Special Voucher",
-      eventName: "Aphromas Store",
-      date: "Monday 15th 2016",
-      time: "15:20Pm & 11:00Am",
-      location: "North, South, United State, Amre",
-      locationDetails: "Party Number 16,20",
-      buttonLabel: "VCFIRSTORDER",
-      buttonLabeles: "Claim Now"
-    },
-    {
-      price: "15",
-      character: "%",
-      eventTitle: "Exclusive Discount",
-      eventName: "Bargain Shop",
-      date: "Wednesday 17th 2016",
-      time: "10:00Am & 3:00Pm",
-      location: "East, West, United State, Amre",
-      locationDetails: "Party Number 30,40",
-      buttonLabel: "VCSPRINGSALE",
-      buttonLabeles: "Claim Now"
-    },
-  ];
+ 
+  const availableVouchers = ringvouchers.filter(ring => !ring.used);
 
   return (
     <Container>
-      {gigs.map((gig, index) => (
-        <GigItem key={index} {...gig} />
+      {availableVouchers.map((ring, index) => (
+        <GigItem key={index} {...ring} />
       ))}
     </Container>
   );
@@ -86,7 +38,7 @@ const GigItem: React.FC<GigProps> = ({
   location,
   locationDetails,
   buttonLabel,
-  buttonLabeles
+  
 }) => (
   <Item>
     <ItemRight>
@@ -114,7 +66,7 @@ const GigItem: React.FC<GigProps> = ({
       <Fix />
       <Row>
         <Buttons>{buttonLabel}</Buttons>
-        <Button>{buttonLabeles}</Button>
+        {/* <Button>{buttonLabeles}</Button> */}
       </Row>
     </ItemLeft>
   </Item>
@@ -223,7 +175,7 @@ const Location = styled.div`
 
 const Row = styled.div`
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
 `;
 
 const Buttons = styled.div`
@@ -240,25 +192,6 @@ const Buttons = styled.div`
     transition: all 0.45s ease;
 `;
 
-const Button = styled.div`
-  font-size: 12px;
-    padding: 10px 20px;
-    background-color: #fff9f7;
-    color: #151542;
-    border: none;
-    border: 1px solid #151542;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: "Gantari", sans-serif;
-    font-weight: 600;
-    transition: all 0.45s ease;
 
-     &:hover {
-    background-color: #151542;
-    color: #fff;
-    transition: all 0.45s ease;
-     }
-
-`;
 
 export default App;
