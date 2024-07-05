@@ -7,28 +7,25 @@ const ProductMenu = () => {
   const [active, setActive] = useState<string>("");
 
   useEffect(() => {
-    switch (location.pathname) {
-      case "/admin/product":
-      case "/admin/product/diamond/detail/:id":
-        setActive("Diamond");
-        break;
-      case "/admin/product/jewelry":
-      case "/admin/product/detail/:id":
-      case "/admin/product/add/product":
-      case "/admin/product/add/jewelry":
-        setActive("Jewelry");
-        break;
-      case "/admin/product/jewelry-setting":
-        setActive("JewelrySetting");
-        break;
-      case "/admin/product/jewelry-type":
-        setActive("JewelryType");
-        break;
-      case "/admin/product/material":
-        setActive("Material");
-        break;
-      default:
-        setActive("");
+    const path = location.pathname;
+    if (path === "/admin/product") {
+      setActive("Diamond");
+    } else if (path.startsWith("/admin/product/diamond/")) {
+      setActive("Diamond");
+    } else if (path === "/admin/product/jewelry") {
+      setActive("Jewelry");
+    } else if (path.startsWith("/admin/product/jewelry/")) {
+      setActive("Jewelry");
+    } else if (path === "/admin/product/jewelry-setting") {
+      setActive("JewelrySetting");
+    } else if (path.startsWith("/admin/product/jewelry-setting/")) {
+      setActive("JewelrySetting");
+    } else if (path === "/admin/product/jewelry-type") {
+      setActive("JewelryType");
+    } else if (path === "/admin/product/material") {
+      setActive("Material");
+    } else {
+      setActive("");
     }
   }, [location.pathname]);
 

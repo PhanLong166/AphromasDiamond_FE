@@ -22,8 +22,6 @@ import {
   MaterialDataType,
   DiamondDataType,
   ringSizeData,
-  // RingSizeDataType,
-  // MaterialDataType,
 } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import {
@@ -35,6 +33,8 @@ import {
   collectionData,
   CollectionDataType,
 } from "../../MarketingPage/MarketingData";
+import { ClarityType_Option, ColorType_Option, FluorescenceType_Option, RateType_Option, ShapeType_Option } from "../Diamond/Diamond.type";
+import { JewelryType } from "../Jewelry/Jewelry.type";
 
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -134,13 +134,6 @@ const JewelryDetail = () => {
   );
   const [editedCollection, setEditedCollection] = useState(activeCollection);
 
-  // const startEditing = () => {
-  //   setIsEditing(true);
-  //   setEditedProduct({ ...activeProduct });
-  //   setEditedDiamond({ ...activeDiamond });
-  //   setEditedRingSetting({ ...activeRingSetting });
-  //   setEditedRingSettingMaterials({ ...activeRingSettingMaterials });
-  // };
 
   const saveChanges = () => {
     setIsEditing(false);
@@ -223,25 +216,6 @@ const JewelryDetail = () => {
     setData([...data, newData]);
   };
 
-  const materialOptions = [
-    { value: "M12345121", label: "14K White Gold" },
-    { value: "M12345122", label: "14K Yellow Gold" },
-    { value: "M12345123", label: "14K Rose Gold" },
-    { value: "M12345124", label: "18K White Gold" },
-    { value: "M12345125", label: "18K Yellow Gold" },
-    { value: "M12345126", label: "18K Rose Gold" },
-    { value: "M12345127", label: "Platinum" },
-  ];
-
-  const sizeOptions = [
-    { value: "SZ01", label: 8 },
-    { value: "SZ02", label: 10 },
-    { value: "SZ03", label: 12 },
-    { value: "SZ04", label: 14 },
-    { value: "SZ05", label: 16 },
-    { value: "SZ06", label: 18 },
-  ];
-
   const EditableMaterialCell: React.FC<{
     title: React.ReactNode;
     editable: boolean;
@@ -253,16 +227,15 @@ const JewelryDetail = () => {
     editable,
     value,
     onChange,
-    options,
   }) => {
     return (
       <td>
         {editable ? (
-          options ? (
+          materialData ? (
             <Select value={value} onChange={onChange}>
-              {options.map((option) => (
-                <Select.Option key={option.value} value={option.value}>
-                  {option.label}
+              {materialData.map((option) => (
+                <Select.Option key={option.materialID} value={option.materialID}>
+                  {option.materialName}
                 </Select.Option>
               ))}
             </Select>
@@ -287,16 +260,15 @@ const JewelryDetail = () => {
     editable,
     value,
     onChange,
-    options,
   }) => {
     return (
       <td>
         {editable ? (
-          options ? (
+          ringSizeData ? (
             <Select value={value} onChange={onChange}>
-              {options.map((option) => (
-                <Select.Option key={option.value} value={option.value}>
-                  {option.label}
+              {ringSizeData.map((option) => (
+                <Select.Option key={option.sizeID} value={option.sizeID}>
+                  {option.sizeValue}
                 </Select.Option>
               ))}
             </Select>
@@ -342,7 +314,6 @@ const JewelryDetail = () => {
           editable={false}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
-          options={materialOptions}
         />
       ),
     },
@@ -443,7 +414,6 @@ const JewelryDetail = () => {
           editable={true}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
-          options={materialOptions}
         />
       ),
     },
@@ -457,7 +427,6 @@ const JewelryDetail = () => {
           editable={true}
           value={record.sizeID}
           onChange={(value) => handleSave({ ...record, sizeID: value })}
-          options={sizeOptions}
         />
       ),
     },
@@ -559,7 +528,6 @@ const JewelryDetail = () => {
   };
 
   const handleOk = () => {
-    // Handle the submission logic here
     setIsModalVisible(false);
   };
 
@@ -582,8 +550,6 @@ const JewelryDetail = () => {
                   <>
                     {activeRingSetting ? (
                       <>
-                        {/* {activeRingSettingMaterials ? (
-                          <> */}
                         {isEditing ? (
                           <>
                             <Styled.PageContent_Top>
@@ -598,7 +564,6 @@ const JewelryDetail = () => {
                                   />
                                 </Styled.ProductImg>
                                 <Styled.ProductContent>
-                                  {/* <Styled.SignaInfor> */}
                                   <Form.Item
                                     label="Jewelry ID"
                                     className="InforLine_Title"
@@ -634,25 +599,9 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      //   defaultValue="Select Clarity"
                                       className="formItem"
                                       placeholder={editedProduct?.type}
-                                      options={[
-                                        { value: "Ring", label: "Ring" },
-                                        {
-                                          value: "Necklace",
-                                          label: "Necklace",
-                                        },
-                                        { value: "Earring", label: "Earring" },
-                                        {
-                                          value: "Bracelet",
-                                          label: "Bracelet",
-                                        },
-                                        { value: "Anklet", label: "Anklet" },
-                                        { value: "Bangle", label: "Bangle" },
-                                        { value: "Choker", label: "Choker" },
-                                        { value: "Pendant", label: "Pendant" },
-                                      ]}
+                                      options={JewelryType}
                                       value={editedProduct?.type}
                                       onChange={(value) =>
                                         handleFieldChange("type", value)
@@ -665,7 +614,6 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      // className="formItem"
                                       placeholder={
                                         getCollectionDetails(
                                           activeProduct.collectionID,
@@ -794,24 +742,8 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      // className="formItem"
                                       placeholder={editedDiamond?.shape}
-                                      options={[
-                                        { value: "Round", label: "Round" },
-                                        {
-                                          value: "Princess",
-                                          label: "Princess",
-                                        },
-                                        { value: "Oval", label: "Oval" },
-                                        {
-                                          value: "Marquise",
-                                          label: "Marquise",
-                                        },
-                                        { value: "Pear", label: "Pear" },
-                                        { value: "Cushion", label: "Cushion" },
-                                        { value: "Emerald", label: "Emerald" },
-                                        { value: "Asscher", label: "Asscher" },
-                                      ]}
+                                      options={ShapeType_Option}
                                       value={editedDiamond?.shape}
                                       onChange={(value) =>
                                         handleFieldChange("shape", value)
@@ -823,18 +755,8 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      // className="formItem"
                                       placeholder={editedDiamond?.color}
-                                      options={[
-                                        { value: "K", label: "K" },
-                                        { value: "J", label: "J" },
-                                        { value: "I", label: "I" },
-                                        { value: "H", label: "H" },
-                                        { value: "G", label: "G" },
-                                        { value: "F", label: "F" },
-                                        { value: "E", label: "E" },
-                                        { value: "D", label: "D" },
-                                      ]}
+                                      options={ColorType_Option}
                                       value={editedDiamond?.color}
                                     />
                                   </Form.Item>
@@ -844,19 +766,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.polish}
-                                      options={[
-                                        {
-                                          value: "Excellent",
-                                          label: "Excellent",
-                                        },
-                                        {
-                                          value: "Very Good",
-                                          label: "Very Good",
-                                        },
-                                        { value: "Good", label: "Good" },
-                                        { value: "Fair", label: "Fair" },
-                                        { value: "Poor", label: "Poor" },
-                                      ]}
+                                      options={RateType_Option}
                                       value={editedDiamond?.polish}
                                       onChange={(value) =>
                                         handleFieldChange("polish", value)
@@ -869,19 +779,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.cut}
-                                      options={[
-                                        {
-                                          value: "Excellent",
-                                          label: "Excellent",
-                                        },
-                                        {
-                                          value: "Very Good",
-                                          label: "Very Good",
-                                        },
-                                        { value: "Good", label: "Good" },
-                                        { value: "Fair", label: "Fair" },
-                                        { value: "Poor", label: "Poor" },
-                                      ]}
+                                      options={RateType_Option}
                                       value={editedDiamond?.cut}
                                       onChange={(value) =>
                                         handleFieldChange("cut", value)
@@ -911,17 +809,7 @@ const JewelryDetail = () => {
                                     <Select
                                       // className="formItem"
                                       placeholder={editedDiamond?.clarity}
-                                      options={[
-                                        { value: "I3", label: "I3" },
-                                        { value: "I1-I2", label: "I1-I2" },
-                                        { value: "SI1-S12", label: "SI1-S12" },
-                                        { value: "VS1-VS2", label: "VS1-VS2" },
-                                        {
-                                          value: "VVS1-VVS2",
-                                          label: "VVS1-VVS2",
-                                        },
-                                        { value: "FL-IF", label: "FL-IF" },
-                                      ]}
+                                      options={ClarityType_Option}
                                       value={editedDiamond?.clarity}
                                       onChange={(value) =>
                                         handleFieldChange("clarity", value)
@@ -934,19 +822,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.symmetry}
-                                      options={[
-                                        {
-                                          value: "Excellent",
-                                          label: "Excellent",
-                                        },
-                                        {
-                                          value: "Very Good",
-                                          label: "Very Good",
-                                        },
-                                        { value: "Good", label: "Good" },
-                                        { value: "Fair", label: "Fair" },
-                                        { value: "Poor", label: "Poor" },
-                                      ]}
+                                      options={RateType_Option}
                                       value={editedDiamond?.symmetry}
                                       onChange={(value) =>
                                         handleFieldChange("symmetry", value)
@@ -1004,12 +880,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.fluorescence}
-                                      options={[
-                                        { value: "Strong", label: "Strong" },
-                                        { value: "Media", label: "Media" },
-                                        { value: "Faint", label: "Faint" },
-                                        { value: "None", label: "None" },
-                                      ]}
+                                      options={FluorescenceType_Option}
                                       value={editedDiamond?.fluorescence}
                                       onChange={(value) =>
                                         handleFieldChange("fluorescence", value)
@@ -1099,22 +970,7 @@ const JewelryDetail = () => {
                                     <Select
                                       className="formItem"
                                       placeholder={editedRingSetting?.type}
-                                      options={[
-                                        { value: "Ring", label: "Ring" },
-                                        {
-                                          value: "Necklace",
-                                          label: "Necklace",
-                                        },
-                                        { value: "Earring", label: "Earring" },
-                                        {
-                                          value: "Bracelet",
-                                          label: "Bracelet",
-                                        },
-                                        { value: "Anklet", label: "Anklet" },
-                                        { value: "Bangle", label: "Bangle" },
-                                        { value: "Choker", label: "Choker" },
-                                        { value: "Pendant", label: "Pendant" },
-                                      ]}
+                                      options={JewelryType}
                                       value={editedProduct?.type}
                                       onChange={(value) =>
                                         handleFieldChange("type", value)
@@ -1220,28 +1076,6 @@ const JewelryDetail = () => {
                                     </p>
                                     <p>{editedDiamond?.price}</p>
                                   </Styled.InforLine>
-                                  {/* <Styled.InforLine>
-                                        <p className="InforLine_Title">
-                                          Production Cost
-                                        </p>
-                                        <p>{editedRingSetting?.productionCost}</p>
-                                      </Styled.InforLine> */}
-                                  {/* <Styled.InforLine>
-                                        <p className="InforLine_Title">
-                                          Selling Price
-                                        </p>
-                                        <p>
-                                          {editedProduct?.price &&
-                                          editedProduct?.markupPercentage
-                                            ? (editedProduct?.price +
-                                                activeRingSetting.price +
-                                                activeRingSetting.processingFee) *
-                                              (1 +
-                                                activeProduct.markupPercentage /
-                                                  100)
-                                            : 0}
-                                        </p>
-                                      </Styled.InforLine> */}
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
                               <Styled.MaterialTable>
@@ -1419,7 +1253,6 @@ const JewelryDetail = () => {
                               <Styled.ActionBtn_Left>
                                 <Button
                                   className="MainBtn"
-                                  // onClick={startEditing}
                                   onClick={() => setIsEditing(true)}
                                 >
                                   Edit
@@ -1447,10 +1280,6 @@ const JewelryDetail = () => {
                             </Styled.ActionBtn>
                           </>
                         )}
-                        {/* </>
-                        ) : (
-                          <div>Jewelry Setting Material not found.</div>
-                        )} */}
                       </>
                     ) : (
                       <div>Jewelry setting not found.</div>

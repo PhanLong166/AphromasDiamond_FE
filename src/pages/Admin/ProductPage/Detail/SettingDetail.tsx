@@ -26,10 +26,12 @@ import {
   RingDataType,
   productData,
   ProductDataType,
+  ringSizeData,
   // RingSizeDataType,
 } from "../ProductData";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
+import { JewelryType } from "../Jewelry/Jewelry.type";
 
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -129,45 +131,24 @@ const JewelrySettingDetail = () => {
     setData([...data, newData]);
   };
 
-  const materialOptions = [
-    { value: "M12345121", label: "14K White Gold" },
-    { value: "M12345122", label: "14K Yellow Gold" },
-    { value: "M12345123", label: "14K Rose Gold" },
-    { value: "M12345124", label: "18K White Gold" },
-    { value: "M12345125", label: "18K Yellow Gold" },
-    { value: "M12345126", label: "18K Rose Gold" },
-    { value: "M12345127", label: "Platinum" },
-  ];
-
-  const sizeOptions = [
-    { value: "SZ01", label: 8 },
-    { value: "SZ02", label: 10 },
-    { value: "SZ03", label: 12 },
-    { value: "SZ04", label: 14 },
-    { value: "SZ05", label: 16 },
-    { value: "SZ06", label: 18 },
-  ];
-
   const EditableMaterialCell: React.FC<{
     title: React.ReactNode;
     editable: boolean;
     value: any;
     onChange: (value: any) => void;
     options?: { value: string; label: string }[];
-  }> = ({
-    // title,
-    editable,
-    value,
-    onChange,
-  }) => {
+  }> = ({ editable, value, onChange }) => {
     return (
       <td>
         {editable ? (
-          materialOptions ? (
+          materialData ? (
             <Select value={value} onChange={onChange}>
-              {materialOptions.map((option) => (
-                <Select.Option key={option.value} value={option.value}>
-                  {option.label}
+              {materialData.map((option) => (
+                <Select.Option
+                  key={option.materialID}
+                  value={option.materialID}
+                >
+                  {option.materialName}
                 </Select.Option>
               ))}
             </Select>
@@ -192,16 +173,15 @@ const JewelrySettingDetail = () => {
     editable,
     value,
     onChange,
-    options,
   }) => {
     return (
       <td>
         {editable ? (
-          options ? (
+          ringSizeData ? (
             <Select value={value} onChange={onChange}>
-              {options.map((option) => (
-                <Select.Option key={option.value} value={option.value}>
-                  {option.label}
+              {ringSizeData.map((option) => (
+                <Select.Option key={option.sizeID} value={option.sizeID}>
+                  {option.sizeValue}
                 </Select.Option>
               ))}
             </Select>
@@ -248,24 +228,18 @@ const JewelrySettingDetail = () => {
           editable={true}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
-          options={materialOptions}
         />
       ),
     },
     {
       title: "Size Value",
       dataIndex: "sizeID",
-      // render: (sizeID: string) => {React.Key
-      //   const sizeDetail = ringSizeData.find((size) => size.sizeID === sizeID);
-      //   return sizeDetail ? sizeDetail.sizeValue : 0;
-      // },
       render: (_: unknown, record: RingMaterialDataType) => (
         <EditableSizeCell
           title="Size Value"
           editable={true}
           value={record.sizeID}
           onChange={(value) => handleSave({ ...record, sizeID: value })}
-          options={sizeOptions}
         />
       ),
     },
@@ -286,9 +260,6 @@ const JewelrySettingDetail = () => {
       title: (
         <>
           Jewelry Setting Price
-          {/* <Typography.Text type="secondary" style={{ marginLeft: 8 }}>
-            ()
-          </Typography.Text> */}
           <Popover
             content={PriceCalculation}
             title="Price Calculation"
@@ -426,16 +397,7 @@ const JewelrySettingDetail = () => {
                                   //   defaultValue="Select Clarity"
                                   className="formItem"
                                   placeholder={editedSetting?.type}
-                                  options={[
-                                    { value: "Ring", label: "Ring" },
-                                    { value: "Necklace", label: "Necklace" },
-                                    { value: "Earring", label: "Earring" },
-                                    { value: "Bracelet", label: "Bracelet" },
-                                    { value: "Anklet", label: "Anklet" },
-                                    { value: "Bangle", label: "Bangle" },
-                                    { value: "Choker", label: "Choker" },
-                                    { value: "Pendant", label: "Pendant" },
-                                  ]}
+                                  options={JewelryType}
                                   value={editedSetting?.type}
                                   onChange={(value) =>
                                     handleFieldChange("type", value)
@@ -502,30 +464,6 @@ const JewelrySettingDetail = () => {
                               />
                             </Styled.ProductImg>
                             <Styled.ProductContent>
-                              {/* <Form.Item
-                            label="Jewelry Setting ID"
-                            className="InforLine_Title"
-                          >
-                            {editedProduct?.jewelrySettingID}
-                          </Form.Item>
-                          <Form.Item
-                            label="Jewelry Setting Name"
-                            className="InforLine_Title"
-                          >
-                            {editedProduct?.jewelrySettingName}
-                          </Form.Item>
-                          <Form.Item
-                            label="Jewelry Setting Type"
-                            className="InforLine_Title"
-                          >
-                            {editedProduct?.type}
-                          </Form.Item>
-                          <Form.Item
-                            label="Auxiliary Cost"
-                            className="InforLine_Title"
-                          >
-                            {editedProduct?.auxiliaryCost}
-                          </Form.Item> */}
                               <Styled.InforLine>
                                 <p className="InforLine_Title">Jewelry ID</p>
                                 <p>{editedProduct?.jewelryID}</p>

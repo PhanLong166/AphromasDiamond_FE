@@ -7,20 +7,19 @@ const MarketingMenu = () => {
     const [active, setActive] = useState<string>('');
 
     useEffect(() => {
-        switch (location.pathname) {
-          case "/admin/marketing":
-          case "/admin/marketing/collection/detail/:id":
-            setActive("Collection");
-            break;
-          case "/admin/marketing/discount":
-          case "/admin/marketing/discount/detail/:id":
-            setActive("ProductPromotion");
-            break;
-          case "/admin/marketing/voucher":
-            setActive("BillPromotion");
-            break;
-          default:
-            setActive("");
+        const path = location.pathname;
+        if (path === "/admin/marketing") {
+          setActive("Collection");
+        } else if (path.startsWith("/admin/marketing/collection/")) {
+          setActive("Collection");
+        } else if (path === "/admin/marketing/discount") {
+          setActive("ProductPromotion");
+        } else if (path.startsWith("/admin/marketing/discount/")) {
+          setActive("ProductPromotion");
+        } else if (path === "/admin/marketing/voucher") {
+          setActive("BillPromotion");
+        } else {
+          setActive("");
         }
     }, [location.pathname]);
 

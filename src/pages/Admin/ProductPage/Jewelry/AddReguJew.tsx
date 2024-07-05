@@ -636,7 +636,7 @@ const AddProduct = () => {
               </Styled.AdPageContent_Product>
               <Styled.ActionBtn>
                 <Form.Item>
-                  <Link to="/admin/product/detail/P12345130">
+                  <Link to="/admin/product/jewelry/detail/P12345130">
                     {" "}
                     {/* {`/admin/product/detail/${jewelryID} `} */}
                     <SubmitButton form={form}>Create New</SubmitButton>
