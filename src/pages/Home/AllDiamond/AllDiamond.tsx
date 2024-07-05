@@ -9,6 +9,7 @@ import { diamonds } from "../shared/ListOfDiamond";
 import { Link } from "react-router-dom";
 import Funnel from "@/components/Funnel";
 import { labels, texts } from "./AllDiamond.props";
+import { useDocumentTitle } from "@/hooks";
 
 const { Title, Text } = Typography;
 
@@ -25,6 +26,7 @@ const onChange = (key: any) => {
 };
 
 const AllDiamond: React.FC = () => {
+  useDocumentTitle('Diamond | Aphromas Diamond')
 
   const [filteredDiamonds, setFilteredDiamonds] = useState(diamonds);
   console.log(setFilteredDiamonds);

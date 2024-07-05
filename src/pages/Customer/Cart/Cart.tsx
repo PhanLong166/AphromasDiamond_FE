@@ -3,8 +3,11 @@ import { Link } from "react-router-dom";
 import * as CartStyled from './Cart.styled';
 import { Button, Flex, Select } from "antd";
 import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
+import { useDocumentTitle } from "@/hooks";
 
 const Cart = () => {
+  useDocumentTitle('Cart | Aphromas Diamond');
+  
   return (
     <>
       <main>
