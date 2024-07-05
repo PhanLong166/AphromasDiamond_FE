@@ -1,18 +1,16 @@
 import * as Styled from "./Jewelry.styled";
 import { useState } from "react";
-import { Space, Table, Select, Input } from "antd";
-// import { Link } from "react-router-dom";
+import { Space, Table, Input } from "antd";
 import {
   SearchOutlined,
   EyeOutlined,
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-// import { Link } from "react-router-dom";
 import { Link } from "react-router-dom"; 
-import { productData, ProductDataType } from "./ProductData"; // Import data here
+import { productData, ProductDataType } from "../ProductData"; // Import data here
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
-
+import { JewelryType_Filter } from "./Jewelry.type";
 
 
 const onChange: TableProps<ProductDataType>["onChange"] = (
@@ -27,7 +25,6 @@ const onChange: TableProps<ProductDataType>["onChange"] = (
 onChange;
 const Jewelry = () => {
   const [searchText, setSearchText] = useState("");
-  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -39,28 +36,6 @@ const Jewelry = () => {
     }
   };
 
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
-
-  const handleCurrencyChange = (value: "VND" | "USD") => {
-    setCurrency(value);
-  };
-
-  const convertPrice = (
-    price: number,
-    exchangeRate: number,
-    currency: "VND" | "USD"
-  ) => {
-    if (currency === "VND") {
-      return price * exchangeRate;
-    }
-    return price;
-  };
-
-  const sellingPrice = (price: number, markupPercentage: number) => {
-    return price * (1 + markupPercentage / 100);
-  };
 
   const columns: TableColumnsType<ProductDataType> = [
     {
@@ -87,65 +62,18 @@ const Jewelry = () => {
       title: "Jewelry Name",
       dataIndex: "jewelryName",
       showSorterTooltip: { target: "full-header" },
+      onFilter: (value, record) =>
+        record.jewelryName.indexOf(value as string) === 0,
       sorter: (a, b) => a.jewelryName.length - b.jewelryName.length,
       sortDirections: ["descend"],
-    },
-    {
-      title: `Cost Price (${currency})`,
-      key: "price",
-      sorter: (a, b) =>
-        convertPrice(a.price, a.exchangeRate, currency) -
-        convertPrice(b.price, b.exchangeRate, currency),
-      render: (_, record) => {
-        const convertedPrice = convertPrice(
-          record.price,
-          record.exchangeRate,
-          currency
-        );
-        return `${convertedPrice.toFixed(2)} ${currency}`;
-      },
-    },
-    {
-      title: "Markup Percentage",
-      dataIndex: "markupPercentage",
-      key: "markupPercentage",
-      render: (_, record) => `${record.markupPercentage}%`,
-    },
-    {
-      title: `Selling Price (${currency})`,
-      key: "sellingPrice",
-      render: (_, record) => {
-        const convertedPrice = convertPrice(
-          record.price,
-          record.exchangeRate,
-          currency
-        );
-        const price = sellingPrice(convertedPrice, record.markupPercentage);
-        return `${price.toFixed(2)} ${currency}`;
-      },
     },
     {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      filters: [
-        { text: "Ring", value: "Ring" },
-        { text: "Necklace", value: "Necklace" },
-        { text: "Earring", value: "Earring" },
-        { text: "Bracelet", value: "Bracelet" },
-        { text: "Anklet", value: "Anklet" },
-        { text: "Bangle", value: "Bangle" },
-        { text: "Choker", value: "Choker" },
-        { text: "Pendant", value: "Pendant" },
-      ],
+      filters: JewelryType_Filter,
       onFilter: (value, record) => record.type.indexOf(value as string) === 0,
       sortDirections: ["descend"],
-    },
-    {
-      title: "Quantity",
-      dataIndex: "quantity",
-      defaultSortOrder: "descend",
-      sorter: (a, b) => a.quantity - b.quantity,
     },
     {
       title: "Detail",
@@ -184,16 +112,6 @@ const Jewelry = () => {
                     prefix={<SearchOutlined className="searchIcon" />}
                   />
                 </Styled.SearchArea>
-
-                <Select
-                  defaultValue="USD"
-                  style={{ width: 120, height: "45px" }}
-                  onChange={handleCurrencyChange}
-                  options={[
-                    { value: "USD", label: "USD" },
-                    { value: "VND", label: "VND" },
-                  ]}
-                />
               </Styled.AdPageContent_HeadLeft>
             </Styled.AdPageContent_Head>
 
@@ -209,6 +127,7 @@ const Jewelry = () => {
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
+
       </Styled.ProductAdminArea>
     </>
   );

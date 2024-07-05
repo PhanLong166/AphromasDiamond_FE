@@ -238,13 +238,11 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
 
   button {
-    border: 1px solid ${theme.color.primary};
-  }
-
-  .ant-btn-primary {
     background-color: ${theme.color.primary};
-    color: #92929d;
-    border: 0px;
   }
 
+  .CancelBtn {
+    border: 1px solid ${theme.color.primary};
+    background-color: #ffffff;
+  }
 `;

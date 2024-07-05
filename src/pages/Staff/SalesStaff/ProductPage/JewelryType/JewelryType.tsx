@@ -1,59 +1,16 @@
-import * as Styled from "../ProductPage/JewelryType.styled";
+import * as Styled from "./JewelryType.styled";
 import React, { useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import type { TableProps } from "antd";
+import type { TableColumnsType, TableProps } from "antd";
 import {
   Form,
   Input,
-  InputNumber,
   Table,
 } from "antd";
-import { jewTypeData, JewTypeDataType } from "./ProductData"; // Import data here
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
+import { jewTypeData, JewTypeDataType } from "../ProductData"; // Import data here
 
-
-interface EditableCellProps {
-  editing: boolean;
-  dataIndex: keyof JewTypeDataType;
-  title: React.ReactNode;
-  inputType: "number" | "text";
-  record: JewTypeDataType;
-  index: number;
-  // children: React.ReactNode;
-}
-
-const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
 
 const onChange: TableProps<JewTypeDataType>["onChange"] = (
   pagination,
@@ -65,46 +22,25 @@ const onChange: TableProps<JewTypeDataType>["onChange"] = (
 };
 
 
-
 const JewelryType = () => {
   const [form] = Form.useForm();
-  const [editingKey] = useState<React.Key>("");
-  const isEditing = (record: JewTypeDataType) => record.key === editingKey;
-  
-  const columns = [
+ 
+  const columns: TableColumnsType<JewTypeDataType> = [
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
-      editable: true,
       sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
         a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
-      editable: true,
       sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
         a.jewelryTypeName.length - b.jewelryTypeName.length,
     }
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
-    if (!col.editable) {
-      return col;
-    }
-    return {
-      ...col,
-      onCell: (record: JewTypeDataType) => ({
-        record,
-        inputType: col.dataIndex === "price" ? "number" : "text",
-        dataIndex: col.dataIndex,
-        title: col.title,
-        editing: isEditing(record),
-      }),
-    };
-  });
-  mergedColumns;
-
+// SEARCH AREA
   const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
@@ -146,18 +82,13 @@ const JewelryType = () => {
             <Styled.AdminTable>
                 <Form form={form} component={false}>
                   <Table
-                    components={{
-                      body: {
-                        cell: EditableCell,
-                      },
-                    }}
                     bordered
                     dataSource={jewTypeData}
-                    columns={mergedColumns}
+                    columns={columns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} 
+                    pagination={{ pageSize: 6 }} // Add pagination here
                     onChange={onChange}
-                  />
+                  />  
                 </Form>
             </Styled.AdminTable>
           </Styled.AdPageContent>

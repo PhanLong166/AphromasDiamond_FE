@@ -1,6 +1,6 @@
-import { theme } from "@/themes";
 import styled from "styled-components";
-import { createGlobalStyle } from 'styled-components';
+// import { theme } from "../../../themes";
+import { createGlobalStyle } from "styled-components";
 
 export const GlobalStyle = createGlobalStyle`
   html, body {
@@ -12,15 +12,19 @@ export const GlobalStyle = createGlobalStyle`
   }
 `;
 
-export const OrderAdminArea = styled.section`
+export const FeedbackArea = styled.section`
   display: inline-flex;
   background-color: #f1f1f1;
   font-family: "Poppins", sans-serif;
-  /* height: 100%; */
   width: 100%;
+
+  .custom-dropdown .ant-dropdown-menu {
+    background-color: red; /* Màu nền */
+    border: 1px solid #ccc; /* Viền */
+  }
 `;
 
-export const AdminPage = styled.div`
+export const SaleStaffPage = styled.div`
   margin-left: 270px;
   margin-right: 35px;
   width: 100%;
@@ -30,7 +34,7 @@ export const AdminPage = styled.div`
 
 // /* -------------------- CONTENT =============== */
 
-export const OrderContent = styled.div`
+export const FeedbackContent = styled.div`
   width: 100%;
   background-color: #ffffff;
   border-radius: 16px;
@@ -39,30 +43,29 @@ export const OrderContent = styled.div`
   padding-bottom: 30px;
 `;
 
-export const AdPageContent_Head = styled.div`
+export const FeedbackContent_Head = styled.div`
   margin: 0px 40px 30px 40px;
-  display: flex;
-  justify-content: space-between;
 `;
 
 export const SearchArea = styled.div`
-  width: 30%;
-
+  width: 301px;
+  height: 45px;
   display: flex;
   align-items: center;
-  //
+  border: 1px solid rgba(203, 210, 220, 0.5);
   border-radius: 16px;
+  color: #151542;
+  background-color: #f8f9fb;
 
   .searchInputContainer {
     display: flex;
     align-items: center;
     border-radius: 4px;
     padding: 4px 8px;
-    width: calc(100% - 46px); // Adjust width to fit the layout
+    width: calc(100% - 46px);
   }
   .searchIcon {
     margin: 0px 10px 0px 10px;
-    color: ${theme.color.primary};
   }
   .searchInput {
     border: none;
@@ -71,20 +74,20 @@ export const SearchArea = styled.div`
     // font-size: 16px;
     background-color: #f8f9fb;
     padding: 0px;
-    border-radius: 10px;
-    padding: 4px 8px;
-    border: 1px solid rgba(203, 210, 220, 0.5);
-    color: ${theme.color.primary};
-    background-color: #f8f9fb;
-    height: 45px;
   }
-
-  .searchInput:focus {
+  .filterIcon {
+    font-size: 20px;
+    margin-left: 10px;
+    background: none;
+    border: none;
+    cursor: pointer;
+    text-align: center;
   }
 `;
 
-export const AdminTable = styled.div`
-  padding: 0px 40px 0px 40px;
+export const Confirm_Table = styled.div`
+  padding: 0px 50px 0px 50px;
+  color: #151542;
 
   table {
     border-collapse: collapse;
@@ -92,16 +95,10 @@ export const AdminTable = styled.div`
   }
   th,
   td {
-    padding: 8px;
+    padding: 8px 0px 8px 0px;
     text-align: left;
     font-size: 16px;
-    color: ${theme.color.primary};
-  }
-  td {
-    width: fit-content;
-  }
-  tr .TextAlign {
-    text-align: center;
+    color: #151542;
   }
   tr th {
     font-size: 13px;
@@ -110,18 +107,28 @@ export const AdminTable = styled.div`
   tr .TextAlign {
     text-align: center;
   }
-  td .anticon {
+  td .anticon:hover {
     cursor: pointer;
   }
-  .confirmBtn {
-    background-color: #cd486b;
+  .to-column {
+    background-color: #f1f1f1;
+    padding: 5px 15px;
+    border-radius: 5px;
     box-shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.08);
-    color: #f8e7ee;
-    border: none;
+    border: 1px solid #151542;
     cursor: pointer;
   }
-  .confirmBtn:hover {
-    color: #cd486b;
-    background-color: #f8e7ee;
+
+  .view-link {
+    color: #151542;
+    font-weight: 400;
+  }
+
+  .to-column:hover {
+    background-color: #ffffff;
+
+    .view-link:hover {
+      color: #151542;
+    }
   }
 `;

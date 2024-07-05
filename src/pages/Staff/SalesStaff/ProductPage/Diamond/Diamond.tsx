@@ -1,26 +1,14 @@
 import * as Styled from "./Diamond.styled";
-import React, { useState } from "react";
-// import { Link } from "react-router-dom";
-import {
-  Table,
-  Input,
-  Select,
-  Space,
-} from "antd";
-import {
-  SearchOutlined,
-  EyeOutlined,
-} from "@ant-design/icons";
-import type {
-  TableColumnsType,
-  TableProps,
-} from "antd";
-// import Dragger from "antd/es/upload/Dragger";
-import { diamondData, DiamondDataType } from "./ProductData"; // Import data here
+import React, { useEffect, useState } from "react";
+import { Table, Input, Select, Space } from "antd";
+import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
+import type { TableColumnsType, TableProps } from "antd";
+import { diamondData, DiamondDataType } from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
-
+import { showAllDiamond } from "@/services/diamondAPI";
+import { ColorType, ShapeType } from "./Diamond.type";
 
 const onChange: TableProps<DiamondDataType>["onChange"] = (
   pagination,
@@ -31,11 +19,33 @@ const onChange: TableProps<DiamondDataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-
-
 const Diamond = () => {
   const [searchText, setSearchText] = useState("");
-  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
+  const [currency, setCurrency] = useState<"VND" | "USD">("VND");
+  // const [api, contextHolder] = notification.useNotification();
+
+  // type NotificationType = "success" | "info" | "warning" | "error";
+
+  // const openNotification = (
+  //   type: NotificationType,
+  //   method: string,
+  //   error: string
+  // ) => {
+  //   api[type]({
+  //     message: type === "success" ? "Notification" : "Error",
+  //     description:
+  //       type === "success" ? `${method} diamond successfully` : error,
+  //   });
+  // };
+
+  const fetchData = async () => {
+    const { data } = await showAllDiamond();
+    console.log(data);
+  };
+
+  useEffect(() => {
+    fetchData();
+  });
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -49,9 +59,6 @@ const Diamond = () => {
 
   // -------------------------
   // Change Currency
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
 
   const handleCurrencyChange = (value: "VND" | "USD") => {
     setCurrency(value);
@@ -62,7 +69,7 @@ const Diamond = () => {
     exchangeRate: number,
     currency: "VND" | "USD"
   ) => {
-    if (currency === "VND") {
+    if (currency === "USD") {
       return price * exchangeRate;
     }
     return price;
@@ -118,10 +125,10 @@ const Diamond = () => {
       },
     },
     {
-      title: "Markup Percentage",
-      dataIndex: "markupPercentage",
-      key: "markupPercentage",
-      render: (_, record) => `${record.markupPercentage}%`,
+      title: "Charge Rate",
+      dataIndex: "chargeRate",
+      key: "chargeRate",
+      render: (_, record) => `${record.chargeRate}%`,
     },
     {
       title: `Selling Price (${currency})`,
@@ -132,7 +139,7 @@ const Diamond = () => {
           record.exchangeRate,
           currency
         );
-        const price = sellingPrice(convertedPrice, record.markupPercentage);
+        const price = sellingPrice(convertedPrice, record.chargeRate);
         return `${price.toFixed(2)} ${currency}`;
       },
     },
@@ -140,16 +147,7 @@ const Diamond = () => {
       title: "Color",
       dataIndex: "color",
       key: "color",
-      filters: [
-        { text: "K", value: "K" },
-        { text: "J", value: "J" },
-        { text: "I", value: "I" },
-        { text: "H", value: "H" },
-        { text: "G", value: "G" },
-        { text: "F", value: "F" },
-        { text: "E", value: "E" },
-        { text: "D", value: "D" },
-      ],
+      filters: ColorType,
       onFilter: (value, record) => record.color.indexOf(value as string) === 0,
       sortDirections: ["descend"],
     },
@@ -157,18 +155,7 @@ const Diamond = () => {
       title: "Shape",
       dataIndex: "shape",
       key: "shape",
-      filters: [
-        { text: "Round", value: "Round" },
-        { text: "Princess", value: "Princess" },
-        { text: "Cushion", value: "Cushion" },
-        { text: "Oval", value: "Oval" },
-        { text: "Emerald", value: "Emerald" },
-        { text: "Pear", value: "Pear" },
-        { text: "Asscher", value: "Asscher" },
-        { text: "Heart", value: "Heart" },
-        { text: "Radiant", value: "Radiant" },
-        { text: "Marquise", value: "Marquise" },
-      ],
+      filters: ShapeType,
       onFilter: (value, record) => record.shape.indexOf(value as string) === 0,
       sorter: (a, b) => a.shape.length - b.shape.length,
       sortDirections: ["descend"],
@@ -187,10 +174,10 @@ const Diamond = () => {
     },
   ];
 
- 
-
   return (
     <>
+      {/* {contextHolder} */}
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -200,41 +187,41 @@ const Diamond = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-                  <Styled.AdPageContent_HeadLeft>
-                    <Styled.SearchArea>
-                      <Input
-                        className="searchInput"
-                        type="text"
-                        // size="large"
-                        placeholder="Search here..."
-                        value={searchText}
-                        onChange={(e) => setSearchText(e.target.value)}
-                        onKeyPress={handleKeyPress}
-                        prefix={<SearchOutlined className="searchIcon" />}
-                      />
-                    </Styled.SearchArea>
+              <Styled.AdPageContent_HeadLeft>
+                <Styled.SearchArea>
+                  <Input
+                    className="searchInput"
+                    type="text"
+                    // size="large"
+                    placeholder="Search here..."
+                    value={searchText}
+                    onChange={(e) => setSearchText(e.target.value)}
+                    onKeyPress={handleKeyPress}
+                    prefix={<SearchOutlined className="searchIcon" />}
+                  />
+                </Styled.SearchArea>
 
-                    <Select
-                      defaultValue="USD"
-                      style={{ width: 120, height: "45px" }}
-                      onChange={handleCurrencyChange}
-                      options={[
-                        { value: "USD", label: "USD" },
-                        { value: "VND", label: "VND" },
-                      ]}
-                    />
-                  </Styled.AdPageContent_HeadLeft>
+                <Select
+                  defaultValue="VND"
+                  style={{ width: 120, height: "45px" }}
+                  onChange={handleCurrencyChange}
+                  options={[
+                    { value: "VND", label: "VND" },
+                    { value: "USD", label: "USD" },
+                  ]}
+                />
+              </Styled.AdPageContent_HeadLeft>
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-                <Table
-                  className="table"
-                  columns={columns}
-                  dataSource={diamondData}
-                  pagination={{ pageSize: 6 }} // Add pagination here
-                  onChange={onChange}
-                  showSorterTooltip={{ target: "sorter-icon" }}
-                />
+              <Table
+                className="table"
+                columns={columns}
+                dataSource={diamondData}
+                pagination={{ pageSize: 6 }} // Add pagination here
+                onChange={onChange}
+                showSorterTooltip={{ target: "sorter-icon" }}
+              />
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>
