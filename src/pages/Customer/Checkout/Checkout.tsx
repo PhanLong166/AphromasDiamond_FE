@@ -234,6 +234,7 @@ const Wrapper = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  margin-bottom: 50px;
   @media (max-width: 991px) {
     padding: 0 20px;
   }
@@ -246,6 +247,7 @@ const StyledLink = styled.a`
   margin-bottom: 10px;
   width: 1400px;
   font: 250 10px/150% Poppins, sans-serif;
+  
   @media (max-width: 991px) {
     margin-top: 40px;
   }

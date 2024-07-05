@@ -3,14 +3,13 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "../../../Customer/Checkout/PromoCode";
-import { items } from './data'
+import { items } from "../Data/data";
 interface CartItemProps {
   name: string;
   image: string;
   sku: string;
   price: string;
 }
-
 
 const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
   <CartItemContainer>
@@ -22,7 +21,6 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
     <ItemInfo>
       <ItemName>{name}</ItemName>
       <ItemSku>{sku}</ItemSku>
-     
     </ItemInfo>
     <ItemPrice>{price}</ItemPrice>
   </CartItemContainer>
@@ -35,21 +33,43 @@ const Summary: React.FC = () => {
     setDiscount(discount);
   };
 
-  const calculateTotal = (subtotal: number, discount: number, shippingCost: number) => {
-    return subtotal - (subtotal * discount) / 100 + shippingCost;
+  const calculateTotal = (
+    subtotal: number,
+    discount: number,
+    shippingCost: number
+  ) => {
+    let newShippingCost = shippingCost;
+    if (items.length < 2) {
+      newShippingCost = 15;
+      console.log(shippingCost);
+    } else {
+      newShippingCost = 0;
+    }
+
+    return subtotal - (subtotal * discount) / 100 + newShippingCost;
   };
 
   const subtotalNumber = items.reduce((acc, item) => {
-    return acc + parseFloat(item.price.replace(/[$,]/g, ''));
+    return acc + parseFloat(item.price.replace(/[$,]/g, ""));
   }, 0);
-  const total = calculateTotal(subtotalNumber, discount, shippingCost).toFixed(0);
+  const total = calculateTotal(subtotalNumber, discount, shippingCost).toFixed(
+    0
+  );
 
   return (
     <SummarySection>
       <ItemNumber>
         <NumberItem>{items.length} ITEMS</NumberItem>
         <Link to="/cart">
-          <p style={{ cursor: "pointer", fontSize: "13px", fontFamily: "Poppins, sans-serif" }}>EDIT CART</p>
+          <p
+            style={{
+              cursor: "pointer",
+              fontSize: "13px",
+              fontFamily: "Poppins, sans-serif",
+            }}
+          >
+            EDIT CART
+          </p>
         </Link>
       </ItemNumber>
       {items.map((item, index) => (
@@ -61,24 +81,25 @@ const Summary: React.FC = () => {
           price={item.price}
         />
       ))}
-      <EditTotal> {discount > 0 && (
-        <AppliedPromo>
-          <p>Discount: {discount}%</p>
-        </AppliedPromo>
-      )}</EditTotal>
       <EditTotal>
-        <p>Shipping: {shippingCost > 0 ? `$${shippingCost}` : "Free"}</p>
+        {" "}
+        {discount > 0 && (
+          <AppliedPromo>
+            <p>Discount: {discount}%</p>
+          </AppliedPromo>
+        )}
       </EditTotal>
       <EditTotal>
-
+        <p>Shipping: {items.length < 2 ? "$15" : "Free"}</p>
+      </EditTotal>
+      <EditTotal>
         <p>Subtotal: ${subtotalNumber}</p>
       </EditTotal>
-      
+
       <PromoCodeSection onApplyVoucher={onApplyVoucher} />
       <EditTotal1>
         <p>Total: ${total}</p>
       </EditTotal1>
-     
     </SummarySection>
   );
 };
@@ -105,9 +126,8 @@ const ItemNumber = styled.div`
 `;
 
 const NumberItem = styled.p`
-  
   font-size: 13px;
-  font-family: Poppins, sans-serif;;
+  font-family: Poppins, sans-serif;
 `;
 
 const EditTotal = styled.div`
@@ -124,15 +144,15 @@ const EditTotal1 = styled(EditTotal)`
 `;
 
 const CartItemContainer = styled.div`
-   display: flex;
-   align-items: center;
-   gap: 20px;
-    /* padding-top: 18px; */
-//   margin-top: 10px; */
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  /* padding-top: 18px; */
+  //   margin-top: 10px; */
   border-bottom: 2px solid #e8e2e2;
   img {
     max-width: 100px;
-   }
+  }
   /* div {
      flex: 1;
   } */
@@ -163,13 +183,10 @@ const ItemName = styled.p`
 `;
 
 const ItemSku = styled.p`
-  
   font-size: 17px;
 `;
 
 const ItemPrice = styled.p`
-  
   color: #333;
   font-size: 17px;
 `;
-

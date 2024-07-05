@@ -1,22 +1,25 @@
 import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
-import { ringvouchers } from '../../Customer/Checkout/Data/data';
+// import { diamondvouchers} from './data';
+import { combinedvouchers } from "../../Customer/Checkout/Data/data";
+
 const App = () => {
  
-  const availableVouchers = ringvouchers.filter(ring => !ring.used);
+  const availableVouchers = combinedvouchers.filter(combin => !combin.used);
 
   return (
     <Container>
-      {availableVouchers.map((ring, index) => (
-        <GigItem key={index} {...ring} />
+      
+      {availableVouchers.map((combin, index) => (
+        <GigItem key={index} {...combin} />
       ))}
     </Container>
   );
 };
 
 interface GigProps {
-  price: string;
+  price: number;
   character: string;
   eventTitle: string;
   eventName: string;
@@ -38,7 +41,7 @@ const GigItem: React.FC<GigProps> = ({
   location,
   locationDetails,
   buttonLabel,
-  
+ 
 }) => (
   <Item>
     <ItemRight>
@@ -179,19 +182,18 @@ const Row = styled.div`
 `;
 
 const Buttons = styled.div`
-   font-size: 12px;
+  font-size: 12px;
     padding: 10px 20px;
     background-color: #fff9f7;
     color: #151542;
-    border: none;
     border: 1px solid #151542;
     cursor: pointer;
     transition: background-color 0.3s ease;
     font-family: "Gantari", sans-serif;
     font-weight: 600;
     transition: all 0.45s ease;
+    
 `;
-
 
 
 export default App;
