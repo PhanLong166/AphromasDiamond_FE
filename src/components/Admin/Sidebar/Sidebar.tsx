@@ -21,58 +21,35 @@ const Sidebar = () => {
   const location = useLocation();
   const [active, setActive] = useState<string>("");
   useEffect(() => {
-    switch (location.pathname) {
-      case "/admin":
-        setActive("Dashboard");
-        break;
-      case "/admin/order":
-      case "/admin/order/pending":
-      case "/admin/order/accepted":
-      case "/admin/order/assigned":
-      case "/admin/order/delivering":
-      case "/admin/order/delivered":
-      case "/admin/order/completed":
-      case "/admin/order/cancelled":
-      case "/admin/order/detail/:id":
-        setActive("Order");
-        break;
-      case "/admin/product":
-      case "/admin/product/diamond/detail/:id":
-      case "/admin/product/jewelry":
-      case "/admin/product/detail/:id":
-      case "/admin/product/add/product":
-      case "/admin/product/add/jewelry":
-      case "/admin/product/jewelry-setting":
-      case "/admin/product/jewelry-type":
-      case "/admin/product/material":
-        setActive("Product");
-        break;
-      case "/admin/marketing":
-      case "/admin/marketing/collection/detail/:id":
-      case "/admin/marketing/discount":
-      case "/admin/marketing/discount/detail/:id":
-      case "/admin/marketing/voucher":
-        setActive("Marketing");
-        break;
-      case "/admin/client-caring":
-      case "/admin/client-caring/feedback":
-        setActive("ClientCaring");
-        break;
-      case "/admin/customer":
-        setActive("Customer");
-        break;
-      case "/admin/sales-staff":
-      case "/admin/staff/delivery-staff":
-        setActive("Staff");
-        break;
-      case "/admin/manager":
-        setActive("Manager");
-        break;
-      // case "/admin/theme":
-      //   setActive("Theme");
-      //   break;
-      default:
-        setActive("");
+    const path = location.pathname;
+    if (path === "/admin") {
+      setActive("Dashboard");
+    } else if (path === "/admin/order") {
+      setActive("Order");
+    } else if (path === "/admin/product") {
+      setActive("Product");
+    } else if (path === "/admin/marketing") {
+      setActive("Marketing");
+    } else if (path === "/admin/client-caring") {
+      setActive("ClientCaring");
+    } else if (path === "/admin/customer") {
+      setActive("Customer");
+    } else if (path === "/admin/sales-staff") {
+      setActive("Staff");
+    } else if (path === "/admin/manager") {
+      setActive("Manager");
+    } else if (path.startsWith("/admin/order/")) {
+      setActive("Order");
+    } else if (path.startsWith("/admin/product/")) {
+      setActive("Product");
+    } else if (path.startsWith("/admin/marketing/")) {
+      setActive("Marketing");
+    } else if (path.startsWith("/admin/client-caring/")) {
+      setActive("ClientCaring");
+    } else if (path.startsWith("/admin/staff/")) {
+      setActive("Staff");
+    } else {
+      setActive("");
     }
   }, [location.pathname]);
 

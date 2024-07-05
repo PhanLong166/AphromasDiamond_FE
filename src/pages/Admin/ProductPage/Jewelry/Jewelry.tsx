@@ -14,6 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { productData, ProductDataType } from "../ProductData"; // Import data here
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
+import { JewelryType_Filter } from "./Jewelry.type";
 
 
 
@@ -131,16 +132,7 @@ const Jewelry = () => {
       title: "Type",
       dataIndex: "type",
       key: "type",
-      filters: [
-        { text: "Ring", value: "Ring" },
-        { text: "Necklace", value: "Necklace" },
-        { text: "Earring", value: "Earring" },
-        { text: "Bracelet", value: "Bracelet" },
-        { text: "Anklet", value: "Anklet" },
-        { text: "Bangle", value: "Bangle" },
-        { text: "Choker", value: "Choker" },
-        { text: "Pendant", value: "Pendant" },
-      ],
+      filters: JewelryType_Filter,
       onFilter: (value, record) => record.type.indexOf(value as string) === 0,
       sortDirections: ["descend"],
     },
@@ -150,7 +142,7 @@ const Jewelry = () => {
       className: "TextAlign",
       render: (_, { jewelryID }) => (
         <Space size="middle">
-          <Link to={`/admin/product/detail/${jewelryID}`}>
+          <Link to={`/admin/product/jewelry/detail/${jewelryID}`}>
             <EyeOutlined />
           </Link>
         </Space>
@@ -169,12 +161,12 @@ const Jewelry = () => {
   
   const handleAddJewelry = () => {
     setIsModalVisible(false);
-    navigate("/admin/product/add/jewelry"); // Update this line
+    navigate("/admin/product/jewelry/add/regular-jewelry"); // Update this line
   };
   
   const handleAddCustomRing = () => {
     setIsModalVisible(false);
-    navigate("/admin/product/add/product"); // Update this line
+    navigate("/admin/product/jewelry/add/diamond-jewelry"); // Update this line
   };
 
   return (

@@ -49,6 +49,7 @@ import {
 } from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
+import { JewelryType_Filter } from "./RingSetting.type";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -342,16 +343,7 @@ const JewelrySetting = () => {
       dataIndex: "type",
       key: "type",
       defaultSortOrder: "ascend" as SortOrder,
-      filters: [
-        { text: "Ring", value: "Ring" },
-        { text: "Necklace", value: "Necklace" },
-        { text: "Earring", value: "Earring" },
-        { text: "Bracelet", value: "Bracelet" },
-        { text: "Anklet", value: "Anklet" },
-        { text: "Bangle", value: "Bangle" },
-        { text: "Choker", value: "Choker" },
-        { text: "Pendant", value: "Pendant" },
-      ],
+      filters: JewelryType_Filter,
       onFilter: (value: boolean | React.Key, record: RingDataType) =>
         record.type.indexOf(value as string) === 0,
     },
@@ -386,10 +378,6 @@ const JewelrySetting = () => {
   const handleAddNew = () => {
     setIsAdding(true);
   };
-
-  // const handleSave = () => {
-  //   setIsAdding(false);
-  // };
 
   const handleCancel = () => {
     setIsAdding(false);
@@ -628,7 +616,6 @@ const JewelrySetting = () => {
                         name="Jewelry Name"
                       >
                         <Select
-                          //   defaultValue="Select Shape"
                           className="formItem"
                           placeholder="Select Jewelry"
                           onChange={handleChange}
@@ -679,15 +666,6 @@ const JewelrySetting = () => {
                         <Input className="formItem" placeholder="Filled" />
                       </Form.Item>
                     </Styled.FormItem>
-                    {/* <Styled.FormItem>
-                      <Form.Item
-                        label="Cost Price"
-                        name="Cost Price"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="4,080" />
-                      </Form.Item>
-                    </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item label="Jewelry Setting Type">
                         <Select
