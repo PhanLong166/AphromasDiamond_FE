@@ -251,7 +251,7 @@ function EngagementEdu() {
                   RELATED:{" "}
                   <span
                     className="here"
-                    onClick={() => navigate(config.routes.public.productList)}
+                    onClick={() => navigate(config.routes.public.jewelryList)}
                   >
                     ALL PRINCESS RING
                   </span>
@@ -311,7 +311,7 @@ function EngagementEdu() {
                   RELATED:{" "}
                   <span
                     className="here"
-                    onClick={() => navigate(config.routes.public.productList)}
+                    onClick={() => navigate(config.routes.public.jewelryList)}
                   >
                     ALL OVAL RING
                   </span>
@@ -345,14 +345,14 @@ function EngagementEdu() {
                   RELATED:{" "}
                   <span
                     className="here"
-                    onClick={() => navigate(config.routes.public.productList)}
+                    onClick={() => navigate(config.routes.public.diamondRingList.replace(':ring-type','round-ring'))}
                   >
                     ALL ROUND RING
                   </span>{" "}
                   &
                   <span
                     className="here"
-                    onClick={() => navigate(config.routes.public.productList)}
+                    onClick={() => navigate(config.routes.public.firmList.replace(':jewelryFirm','Tiffany&Co'))}
                   >
                     TIFFANY & CO BRAND
                   </span>
@@ -392,7 +392,7 @@ function EngagementEdu() {
                   &
                   <span
                     className="here"
-                    onClick={() => navigate(config.routes.public.productList)}
+                    onClick={() => navigate(config.routes.public.jewelryList.replace(':jewelryType', 'ring'))}
                   >
                     ALL ASSCHER RING
                   </span>

@@ -44,10 +44,13 @@ import {
   ButtonAdd,
   List,
   ProductSectionViewed,
+  CustomBreadcrumb,
 } from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "antd";
+import useAuth from "@/hooks/useAuth";
+import config from "@/config";
 
 const DiamondDetails: React.FC = () => {
   //tab description + cmt
@@ -132,9 +135,11 @@ const DiamondDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
+  const { role } = useAuth();
   const [foundProduct, setFoundProduct] = useState<Diamond | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
+
 
   useEffect(() => {
     const product = diamonds.find((diamond) => diamond.id === id);
@@ -172,7 +177,7 @@ const DiamondDetails: React.FC = () => {
     recentlyProductIds.includes(diamond.id)
   );
 
-  
+
   //Avg rating
   const totalReviews = reviewsData.length;
   const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
@@ -180,6 +185,24 @@ const DiamondDetails: React.FC = () => {
 
   return (
     <Body>
+      <div>
+          <CustomBreadcrumb
+            separator=">"
+            items={[
+              {
+                title: "Home",
+                href: "/",
+              },
+              {
+                title: "Diamond",
+                href: config.routes.public.diamond
+              },
+              {
+                title: id,
+              }
+            ]}
+          />
+      </div>
       <Section>
         <Container>
           <Wrap>
@@ -248,10 +271,16 @@ const DiamondDetails: React.FC = () => {
               </Entry>
               <div className="outlet">
                 <ButtonContainer>
-                  <ButtonAdd className="add" onClick={() => navigate("/cart")}>
+                  <ButtonAdd
+                    className="add"
+                    onClick={() => role ? navigate("/cart") : navigate(config.routes.public.login)}
+                  >
                     ADD TO CART
                   </ButtonAdd>
-                  <Button className="checkout button_slide slide_right">
+                  <Button
+                    className="checkout button_slide slide_right"
+                    onClick={() => role ? navigate("/cart") : navigate(config.routes.public.login)}
+                  >
                     <span>CHECKOUT</span>
                   </Button>
                 </ButtonContainer>
@@ -349,7 +378,7 @@ const DiamondDetails: React.FC = () => {
             <Review>
               <div className="head-review">
                 <div className="sum-rating">
-                <strong>{averageRating.toFixed(1)}</strong>
+                  <strong>{averageRating.toFixed(1)}</strong>
                   <span>{reviewsData.length} reviews</span>
                 </div>
               </div>
@@ -385,7 +414,7 @@ const DiamondDetails: React.FC = () => {
                   </div>
                 ))}
               </div>
-                <StyledPagination defaultCurrent={1} total={10} />
+              <StyledPagination defaultCurrent={1} total={10} />
             </Review>
           </ProductAbout>
         </div>

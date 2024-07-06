@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { Breadcrumb } from "antd";
 
 export const Body = styled.div`
   margin: 0;
@@ -885,4 +886,12 @@ export const List = styled.div`
     text-decoration: line-through;
     margin-top: 2px;
   }
+`;
+
+export const CustomBreadcrumb = styled(Breadcrumb)`
+  margin-left: 175px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 1400px;
+  margin: 0 auto;
 `;
