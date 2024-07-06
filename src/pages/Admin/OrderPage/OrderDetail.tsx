@@ -3,7 +3,7 @@ import { useState } from "react";
 import { Button, Modal, Select, Tag } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 // import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data } from "./OrderData";
+import { orderData } from "./OrderData";
 import { Link, useParams } from "react-router-dom";
 
 // const { Option } = Select;
@@ -65,7 +65,7 @@ const orderLineData: OrderLine[] = [
 
 const OrderDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const activeOrder = data.find((order) => order.orderID === id);
+  const activeOrder = orderData.find((order) => order.orderID === id);
 
   const [orderStatus, setOrderStatus] = useState(activeOrder?.status || '');
 

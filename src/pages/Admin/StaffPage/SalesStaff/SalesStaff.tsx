@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import * as Styled from "../StaffPage/SalesStaff.styled";
+import * as Styled from "./SalesStaff.styled";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { TableProps, FormInstance } from "antd";
 import {
@@ -13,7 +13,7 @@ import {
   Space,
   Radio,
 } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
 import { SortOrder } from "antd/es/table/interface";
 

@@ -5,14 +5,14 @@ import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "../OrderData";
+import { orderData, OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
 
 
 
-const filteredData = data.filter((item) => item.status === "Accepted");
+const filteredData = orderData.filter((item) => item.status === "Accepted");
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<OrderDataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
@@ -91,7 +91,7 @@ const columns: TableColumnsType<DataType> = [
   // },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<OrderDataType>["onChange"] = (
   pagination,
   filters,
   sorter,

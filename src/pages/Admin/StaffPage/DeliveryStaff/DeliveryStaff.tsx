@@ -1,4 +1,4 @@
-import * as Styled from "../StaffPage/DeliveryStaff.styled";
+import * as Styled from "./DeliveryStaff.styled";
 import React, { useState } from "react";
 // import { Link } from "react-router-dom";
 import type { TableColumnsType, FormInstance } from "antd";
@@ -18,85 +18,17 @@ import {
   Button,
   Radio,
 } from "antd";
-import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
-
-interface Item {
-  key: React.Key;
-  staffID: string;
-  staffName: string;
-  email: string;
-}
-
-const originData: Item[] = [
-  {
-    key: "1",
-    staffID: "12345121",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "2",
-    staffID: "12345122",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "3",
-    staffID: "12345123",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "4",
-    staffID: "12345124",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "5",
-    staffID: "12345125",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "6",
-    staffID: "12345126",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "7",
-    staffID: "12345127",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "8",
-    staffID: "12345128",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "9",
-    staffID: "12345129",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "10",
-    staffID: "12345130",
-    staffName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-];
+import { Link } from "react-router-dom";
+import { deliveryStaffData, DeliveryStaffDataType } from "./DeliveryStaffData"
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof Item;
+  dataIndex: keyof DeliveryStaffDataType;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: DeliveryStaffDataType;
   index: number;
   children: React.ReactNode;
 }
@@ -165,7 +97,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
 const DeliveryStaff = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [data, setData] = useState<DeliveryStaffDataType[]>(deliveryStaffData);
   const [isAdding, setIsAdding] = useState(false);
 
   const handleDelete = (key: React.Key) => {
@@ -173,7 +105,7 @@ const DeliveryStaff = () => {
     setData(newData);
   };
 
-  const columns: TableColumnsType<Item> = [
+  const columns: TableColumnsType<DeliveryStaffDataType> = [
     {
       title: "Staff ID",
       dataIndex: "staffID",
@@ -197,9 +129,11 @@ const DeliveryStaff = () => {
       title: "Detail",
       key: "detail",
       className: "TextAlign",
-      render: () => (
+      render: (_, { staffID }) => (
         <Space size="middle">
+          <Link to={`/admin/staff/delivery-staff/detail/${staffID}`}>
           <EyeOutlined />
+          </Link>
         </Space>
       ),
     },
@@ -208,7 +142,7 @@ const DeliveryStaff = () => {
       dataIndex: "delete",
       className: "TextAlign",
       render: (_, record) =>
-        originData.length >= 1 ? (
+        deliveryStaffData.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.key)}
