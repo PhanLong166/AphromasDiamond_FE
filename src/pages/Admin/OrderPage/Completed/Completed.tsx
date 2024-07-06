@@ -5,13 +5,13 @@ import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "../OrderData";
+import { orderData, OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
 
 
-const filteredData = data.filter((item) => item.status === "Completed");
+const filteredData = orderData.filter((item) => item.status === "Completed");
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<OrderDataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
@@ -35,16 +35,6 @@ const columns: TableColumnsType<DataType> = [
     title: "Delivery Staff",
     dataIndex: "deliveryStaff",
     showSorterTooltip: { target: "full-header" },
-    filters: [
-      { text: "Joe", value: "Joe" },
-      { text: "Jim", value: "Jim" },
-      { text: "Esther", value: "Esther" },
-      { text: "Ajmal", value: "Ajmal" },
-    ],
-    // specify the condition of filtering result
-    // here is that finding the name started with `value`
-    onFilter: (value, record) =>
-      record.deliveryStaff.indexOf(value as string) === 0,
     sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
     sortDirections: ["descend"],
   },
@@ -90,7 +80,7 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<OrderDataType>["onChange"] = (
   pagination,
   filters,
   sorter,

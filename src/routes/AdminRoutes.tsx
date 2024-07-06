@@ -30,8 +30,10 @@ import BillPromotion from "@/pages/Admin/MarketingPage/BillPromotion/BillPromoti
 import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
 import Feedback from "@/pages/Admin/ClientCaringPage/Feedback"
 import Customer from "@/pages/Admin/CustomerPage/Customer"
-import SalesStaff from "@/pages/Admin/StaffPage/SalesStaff"
-import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff"
+import CustomerDetail from "@/pages/Admin/CustomerPage/CustomerDetail"
+import SalesStaff from "@/pages/Admin/StaffPage/SalesStaff/SalesStaff"
+import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff/DeliveryStaff"
+import DeliStaffDetail from "@/pages/Admin/StaffPage/DeliveryStaff/DeliStaffDetail"
 import Manager from "@/pages/Admin/ManagerPage/Manager"
 
 //Open it when you have database
@@ -86,12 +88,13 @@ const AdminRoutes = {
         { path: config.routes.admin.feedback, element: <Feedback /> },
 
         { path: config.routes.admin.customer, element: <Customer /> },
+        { path: config.routes.admin.customerDetail, element: <CustomerDetail /> },
 
         { path: config.routes.admin.salesStaff, element: <SalesStaff /> },
         { path: config.routes.admin.deliveryStaff, element: <DeliveryStaff /> },
+        { path: config.routes.admin.deliveryStaffDetail, element: <DeliStaffDetail /> },
 
         { path: config.routes.admin.manager, element: <Manager /> },
-        // {path: config.routes.admin.theme, element: <Theme/>},
     ]
 
 }

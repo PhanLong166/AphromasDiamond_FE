@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 import { createGlobalStyle } from 'styled-components';
 
 export const GlobalStyle = createGlobalStyle`
@@ -28,7 +28,7 @@ export const AdminPage = styled.div`
   padding-bottom: 55px;
 `;
 
-// /* --------------------  CONTENT =============== */
+// /* -------------------- CONTENT =============== */
 
 export const AdPageContent = styled.div`
   width: 100%;
@@ -36,7 +36,7 @@ export const AdPageContent = styled.div`
   border-radius: 16px;
   margin-top: 28px;
   padding-top: 25px;
-  padding-bottom: 30px;
+  padding-bottom: 20px;
 `;
 
 export const AdPageContent_Head = styled.div`
@@ -136,8 +136,15 @@ export const AdminTable = styled.div`
     text-align: center;
   }
   td .anticon {
+    font-size: 23px;
+  }
+  td .anticon:hover {
     cursor: pointer;
   }
+  .deleBtn {
+    color: red;
+  }
+
   .pendStatus {
     background-color: #f8e7ee;
     border-radius: 100px;
@@ -159,7 +166,6 @@ export const AdminTable = styled.div`
     cursor: pointer;
   }
 
-  
   
   // --------------------------
 
