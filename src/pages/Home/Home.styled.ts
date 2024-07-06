@@ -1,6 +1,8 @@
 import styled from "styled-components";
 import { theme } from "../../themes";
 import { createGlobalStyle } from "styled-components";
+import { Link } from "react-router-dom";
+import { Card, Carousel } from "antd";
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 `;
@@ -617,3 +619,97 @@ export const BrandItem = styled.div`
   width: 100%;
   padding: 10px;
 `;
+
+export const StyledCarousel = styled(Carousel)`
+    .slick-slide {
+      display: flex;
+      justify-content: center;
+    }
+
+    .slick-dots {
+      bottom: -10px;
+    }
+
+    .slick-dots li {
+      margin: 0 2px;
+    }
+
+    .slick-dots li button {
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background: ${theme.color.primary};
+      justify-content: center;
+    }
+
+    .slick-dots li.slick-active button {
+      background: ${theme.color.primary};
+      justify-content: center;
+    }
+  `;
+export const StyledLink = styled(Link)`
+    text-decoration: none;
+
+    &:hover {
+      text-decoration: none;
+    }
+  `;
+
+export const StyledCard = styled(Card)`
+    .product-image {
+      width: 100%;
+      height: 328px;
+      transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng mượt mà */
+    }
+
+    .sale-badge {
+      position: absolute;
+      top: 10px;
+      left: 10px;
+      padding: 4px 8px;
+      font-size: 14px;
+      font-weight: 500;
+      background-color: #ede0b8;
+      color: ${theme.color.primary};
+      width: auto;
+    }
+
+    .product-info {
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+    }
+
+    .product-name {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      width: 100%;
+      font-size: 13px;
+      color: ${theme.color.primary};
+    }
+
+    .wishlist-icon {
+      margin-left: 8px;
+      cursor: pointer;
+      font-size: 16px;
+      color: #db7f67;
+    }
+
+    .price-container {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .product-price {
+      font-size: 14px;
+      color: ${theme.color.primary};
+    }
+
+    .product-sale-price {
+      font-size: 12px;
+      color: #888;
+      text-decoration: line-through;
+    }
+  `;

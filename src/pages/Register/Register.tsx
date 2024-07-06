@@ -2,7 +2,7 @@ import AuthForm from "@/components/AuthForm";
 import { RegisterFields } from "@/components/AuthForm/AuthForm.fields";
 import config from "@/config";
 import { useDocumentTitle } from "@/hooks";
-import { register } from "@/services/authAPI";
+import { registerCustomer } from "@/services/authAPI";
 import cookieUtils from "@/services/cookieUtils";
 import { PageEnum } from "@/utils/enum";
 import { message } from "antd";
@@ -21,7 +21,7 @@ const Register = () => {
         try {
             setIsSubmitting(true);
 
-            const { data } = await register({...values, Role: "ROLE_CUSTOMER"});
+            const { data } = await registerCustomer(values);
 
             if (!data.data) throw data.error;
             else {
