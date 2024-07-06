@@ -104,7 +104,7 @@ export const AdminTable = styled.div`
     text-align: center;
   }
   tr th {
-    font-size: 15px;
+    font-size: 13px;
     color: #92929d !important;
   }
   tr .TextAlign {

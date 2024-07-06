@@ -17,6 +17,12 @@ const CustomBreadcrumb = styled(Breadcrumb)`
   padding-top: 20px;
 `;
 
+const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
+
 const AllProduct: React.FC = () => {
   const [filteredProducts] = useState(products);
   const [wishList, setWishList] = useState<string[]>([]);
@@ -109,7 +115,6 @@ const AllProduct: React.FC = () => {
                           onMouseOut={(e) =>
                             (e.currentTarget.src = product.image)
                           }
-                          
                         />
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
@@ -119,9 +124,7 @@ const AllProduct: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                        <div >
-                          {product.name}
-                        </div>
+                        <div>{product.name}</div>
                         {wishList.includes(product.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -154,14 +157,12 @@ const AllProduct: React.FC = () => {
             ))}
           </Row>
         </List>
-        <div style={{ textAlign: "center", margin: "20px auto" }}>
-          <Pagination
-            current={currentPage}
-            pageSize={pageSize}
-            total={products.length}
-            onChange={handleChangePage}
-          />
-        </div>
+        <StyledPagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={products.length}
+          onChange={handleChangePage}
+        />
       </Container>
     </Section>
   );

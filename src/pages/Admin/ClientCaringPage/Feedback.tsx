@@ -20,92 +20,114 @@ import ClientCaringMenu from "../../../components/Admin/ClientCaringMenu/ClientC
 interface Item {
   key: React.Key;
   feedbackID: string;
+  date: Date;
   productName: string;
   customer: string;
   description: string;
   star: number;
+  to: string[];
 }
 
 const originData: Item[] = [
   {
     key: "1",
     feedbackID: "12345121",
+    date: new Date("2023-06-01"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 5,
+    to: ["https://example.com/"],
   },
   {
     key: "2",
     feedbackID: "12345122",
+    date: new Date("2023-06-02"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "3",
     feedbackID: "12345123",
+    date: new Date("2023-06-03"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "4",
     feedbackID: "12345124",
+    date: new Date("2023-06-04"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "5",
     feedbackID: "12345125",
+    date: new Date("2023-06-05"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "6",
     feedbackID: "12345126",
+    date: new Date("2023-06-06"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "7",
     feedbackID: "12345127",
+    date: new Date("2023-06-07"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "8",
     feedbackID: "12345128",
+    date: new Date("2023-06-08"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "9",
     feedbackID: "12345129",
+    date: new Date("2023-06-09"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
   {
     key: "10",
     feedbackID: "12345130",
+    date: new Date("2023-06-10"),
     productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     customer: "Ajmal Abdul Rahiman",
     description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
     star: 4,
+    to: ["https://example.com/"],
   },
 ];
 
@@ -171,6 +193,13 @@ const Feedback = () => {
       sorter: (a, b) => a.feedbackID.localeCompare(b.feedbackID),
     },
     {
+      title: "Date",
+      dataIndex: "date",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.date.getTime() - b.date.getTime(),
+      render: (date: Date) => date.toLocaleDateString(),
+    },
+    {
       title: "Product Name",
       dataIndex: "productName",
       // editable: true,
@@ -196,10 +225,20 @@ const Feedback = () => {
     },
     {
       title: "Action",
-      key: "action",
-      render: () => (
+      key: "to",
+      render: (_, record) => (
         <Space size="middle">
-          <Button className="confirmBtn">View</Button>
+          {record.to.map((link, index) => (
+            <a
+              href={link}
+              target="_blank"
+              rel="noopener noreferrer"
+              key={index}
+              className="view-link"
+            >
+              <Button className="confirmBtn">View</Button>
+            </a>
+          ))}
         </Space>
       ),
     },

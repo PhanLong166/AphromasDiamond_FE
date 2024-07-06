@@ -8,8 +8,8 @@ import {
 } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import { Space, Table, Input } from "antd";
-import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
-import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
+import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
+import ProductMenu from "../../../components/Admin/ProductMenu/ProductMenu";
 
 
 interface DataType {

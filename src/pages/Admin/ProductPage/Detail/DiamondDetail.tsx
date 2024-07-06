@@ -6,30 +6,36 @@ import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import { DiamondDataType, diamondData } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { SaveOutlined } from "@ant-design/icons";
+import {
+  ClarityType_Option,
+  ColorType_Option,
+  FluorescenceType_Option,
+  RateType_Option,
+  ShapeType_Option,
+} from "../Diamond/Diamond.type";
 
 const DiamondDetail = () => {
   const { id } = useParams<{ id: string }>();
   const activeDiamond = diamondData.find((diamond) => diamond.diamondID === id);
 
   // GIA CERTIFICATE POPUP
-  const [isModalVisible, setIsModalVisible] = useState(false);
+  const [isModalVisibleGIA, setIsModalVisibleGIA] = useState(false);
 
-  const showModal = () => {
-    setIsModalVisible(true);
+  const showModalGIA = () => {
+    setIsModalVisibleGIA(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+  const handleOkGIA = () => {
+    setIsModalVisibleGIA(false);
   };
 
-  const handleCancel = () => {
-    setIsModalVisible(false);
+  const handleCancelGIA = () => {
+    setIsModalVisibleGIA(false);
   };
 
   // EDIT INFOR
   const [isEditing, setIsEditing] = useState(false); // Trạng thái để xác định chế độ chỉnh sửa
   const [editedProduct, setEditedProduct] = useState(activeDiamond); // Trạng thái lưu các thông tin chỉnh sửa
-
 
   // Hàm để lưu các thay đổi chỉnh sửa
   const saveChanges = () => {
@@ -51,6 +57,23 @@ const DiamondDetail = () => {
       [fieldName]: value,
     });
   };
+
+
+    // DELETE JEWELRY
+    const [isModalVisible, setIsModalVisible] = useState(false);
+
+    const showModal = () => {
+      setIsModalVisible(true);
+    };
+  
+    const handleOk = () => {
+      // Handle the submission logic here
+      setIsModalVisible(false);
+    };
+  
+    const handleCancel = () => {
+      setIsModalVisible(false);
+    };
 
 
   return (
@@ -80,7 +103,7 @@ const DiamondDetail = () => {
                             className="GIAExport"
                             src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
                             alt="GIA Certificate"
-                            onClick={showModal}
+                            onClick={showModalGIA}
                             style={{ cursor: "pointer" }}
                           />
                         </Styled.ProductImg>
@@ -118,66 +141,42 @@ const DiamondDetail = () => {
                           </Form.Item>
                           <Form.Item label="Shape" className="InforLine_Title">
                             <Select
-                              // className="formItem"
                               placeholder={editedProduct?.shape}
-                              options={[
-                                { value: "Round", label: "Round" },
-                                { value: "Princess", label: "Princess" },
-                                { value: "Oval", label: "Oval" },
-                                { value: "Marquise", label: "Marquise" },
-                                { value: "Pear", label: "Pear" },
-                                { value: "Cushion", label: "Cushion" },
-                                { value: "Emerald", label: "Emerald" },
-                                { value: "Asscher", label: "Asscher" },
-                              ]}
+                              options={ShapeType_Option}
                               value={editedProduct?.shape}
-                              onChange={(value) => handleFieldChange("shape", value)}
+                              onChange={(value) =>
+                                handleFieldChange("shape", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item label="Color" className="InforLine_Title">
                             <Select
-                              // className="formItem"
                               placeholder={editedProduct?.color}
-                              options={[
-                                { value: "D", label: "D" },
-                                { value: "E", label: "E" },
-                                { value: "F", label: "F" },
-                                { value: "G", label: "G" },
-                                { value: "H", label: "H" },
-                                { value: "I", label: "I" },
-                                { value: "J", label: "J" },
-                                { value: "K", label: "K" },
-                              ]}
+                              options={ColorType_Option}
                               value={editedProduct?.color}
-                              // onChange={(value) => handleFieldChange("color", value)}
+                              onChange={(value) =>
+                                handleFieldChange("color", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item label="Polish" className="InforLine_Title">
                             <Select
                               placeholder={editedProduct?.polish}
-                              options={[
-                                { value: "Excellent", label: "Excellent" },
-                                { value: "Very Good", label: "Very Good" },
-                                { value: "Good", label: "Good" },
-                                { value: "Fair", label: "Fair" },
-                                { value: "Poor", label: "Poor" },
-                              ]}
+                              options={RateType_Option}
                               value={editedProduct?.polish}
-                              onChange={(value) => handleFieldChange("polish", value)}
+                              onChange={(value) =>
+                                handleFieldChange("polish", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item label="Cut" className="InforLine_Title">
-                          <Select
+                            <Select
                               placeholder={editedProduct?.cut}
-                              options={[
-                                { value: "Excellent", label: "Excellent" },
-                                { value: "Very Good", label: "Very Good" },
-                                { value: "Good", label: "Good" },
-                                { value: "Fair", label: "Fair" },
-                                { value: "Poor", label: "Poor" },
-                              ]}
+                              options={RateType_Option}
                               value={editedProduct?.cut}
-                              onChange={(value) => handleFieldChange("cut", value)}
+                              onChange={(value) =>
+                                handleFieldChange("cut", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item
@@ -199,16 +198,11 @@ const DiamondDetail = () => {
                             <Select
                               // className="formItem"
                               placeholder={editedProduct?.clarity}
-                              options={[
-                                { value: "I3", label: "I3" },
-                                { value: "I1-I2", label: "I1-I2" },
-                                { value: "SI1-S12", label: "SI1-S12" },
-                                { value: "VS1-VS2", label: "VS1-VS2" },
-                                { value: "VVS1-VVS2", label: "VVS1-VVS2" },
-                                { value: "FL-IF", label: "FL-IF" },
-                              ]}
+                              options={ClarityType_Option}
                               value={editedProduct?.clarity}
-                              onChange={(value) => handleFieldChange("clarity", value)}
+                              onChange={(value) =>
+                                handleFieldChange("clarity", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item
@@ -217,15 +211,11 @@ const DiamondDetail = () => {
                           >
                             <Select
                               placeholder={editedProduct?.symmetry}
-                              options={[
-                                { value: "Excellent", label: "Excellent" },
-                                { value: "Very Good", label: "Very Good" },
-                                { value: "Good", label: "Good" },
-                                { value: "Fair", label: "Fair" },
-                                { value: "Poor", label: "Poor" },
-                              ]}
+                              options={RateType_Option}
                               value={editedProduct?.symmetry}
-                              onChange={(value) => handleFieldChange("symmetry", value)}
+                              onChange={(value) =>
+                                handleFieldChange("symmetry", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item
@@ -247,7 +237,10 @@ const DiamondDetail = () => {
                             <Input
                               value={editedProduct?.tablePercentage}
                               onChange={(e) =>
-                                handleFieldChange("tablePercentage", e.target.value)
+                                handleFieldChange(
+                                  "tablePercentage",
+                                  e.target.value
+                                )
                               }
                               disabled
                             />
@@ -259,7 +252,10 @@ const DiamondDetail = () => {
                             <Input
                               value={editedProduct?.depthPercentage}
                               onChange={(e) =>
-                                handleFieldChange("depthPercentage", e.target.value)
+                                handleFieldChange(
+                                  "depthPercentage",
+                                  e.target.value
+                                )
                               }
                               disabled
                             />
@@ -270,14 +266,11 @@ const DiamondDetail = () => {
                           >
                             <Select
                               placeholder={editedProduct?.fluorescence}
-                              options={[
-                                { value: "Strong", label: "Strong" },
-                                { value: "Media", label: "Media" },
-                                { value: "Faint", label: "Faint" },
-                                { value: "None", label: "None" },
-                              ]}
+                              options={FluorescenceType_Option}
                               value={editedProduct?.fluorescence}
-                              onChange={(value) => handleFieldChange("fluorescence", value)}
+                              onChange={(value) =>
+                                handleFieldChange("fluorescence", value)
+                              }
                             />
                           </Form.Item>
                           <Form.Item
@@ -297,8 +290,8 @@ const DiamondDetail = () => {
                       <Modal
                         title="GIA Certificate"
                         visible={isModalVisible}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
+                        onOk={handleOkGIA}
+                        onCancel={handleCancelGIA}
                         footer={null}
                       >
                         <img
@@ -310,19 +303,21 @@ const DiamondDetail = () => {
                     </Styled.PageContent_Mid>
 
                     <Styled.ActionBtn>
-                      <Button className="MainBtn" onClick={saveChanges}>
-                        <SaveOutlined />
-                        Save Change
-                      </Button>
-
-                      <Link to="/admin/product/jewelry">
-                        <Button
-                          style={{ marginLeft: "10px" }}
-                          onClick={cancelEditing}
-                        >
-                          Back
+                      <Styled.ActionBtn_Left>
+                        <Button className="MainBtn" onClick={saveChanges}>
+                          <SaveOutlined />
+                          Save Change
                         </Button>
-                      </Link>
+
+                        <Link to="/admin/product/jewelry">
+                          <Button
+                            style={{ marginLeft: "10px" }}
+                            onClick={cancelEditing}
+                          >
+                            Back
+                          </Button>
+                        </Link>
+                      </Styled.ActionBtn_Left>
                     </Styled.ActionBtn>
                   </>
                 ) : (
@@ -415,7 +410,7 @@ const DiamondDetail = () => {
 
                       <Modal
                         title="GIA Certificate"
-                        visible={isModalVisible}
+                        visible={isModalVisibleGIA}
                         onOk={handleOk}
                         onCancel={handleCancel}
                         footer={null}
@@ -428,17 +423,29 @@ const DiamondDetail = () => {
                       </Modal>
                     </Styled.PageContent_Mid>
                     <Styled.ActionBtn>
-                      <Button
-                        onClick={() => setIsEditing(true)}
-                        type="primary"
-                        style={{ marginBottom: 16 }}
-                      >
-                        Edit
-                      </Button>
+                      <Styled.ActionBtn_Left>
+                        <Button
+                          onClick={() => setIsEditing(true)}
+                          className="MainBtn"
+                        >
+                          Edit
+                        </Button>
 
-                      <Link to="/admin/product">
-                        <Button style={{ marginLeft: "10px" }}>Back</Button>
-                      </Link>
+                        <Link to="/admin/product">
+                          <Button style={{ marginLeft: "10px" }}>Back</Button>
+                        </Link>
+                      </Styled.ActionBtn_Left>
+                      <Styled.ActionBtn_Right>
+                        <Button className="DeleteBtn" onClick={showModal}>
+                          Delete
+                        </Button>
+                        <Modal
+                          title="Select Delivery Person"
+                          visible={isModalVisible}
+                          onOk={handleOk}
+                          onCancel={handleCancel}
+                        ></Modal>
+                      </Styled.ActionBtn_Right>
                     </Styled.ActionBtn>
                   </>
                 )}

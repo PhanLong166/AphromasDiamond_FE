@@ -160,8 +160,7 @@ export const ItemDescription = styled.div`
   display: flex;
   flex-direction: column;
   gap: 46px;
-  //  margin-top: 57px;
-  //  margin-left: 20px;
+
   @media (max-width: 991px) {
     margin-top: 40px;
   }
@@ -217,9 +216,7 @@ export const ItemPrice = styled.p`
 `;
 
 export const SummaryContainer = styled.div`
-  //  background-color: #fff;
-  //  border: 1px solid rgba(0, 0, 0, 1);
-  //  box-shadow: rgba(51, 59, 69, 0.15) 0px 0px 40px;
+ 
   box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
   border: 1px solid rgb(232 226 226);
   border-radius: 8px;
@@ -229,7 +226,7 @@ export const SummaryContainer = styled.div`
   align-items: center;
   font: 300 14px/150% Poppins, sans-serif;
   width: 100%;
-  padding: 30px 0 80px;
+  padding: 18px 0 80px;
   margin-top: 20px;
   @media (max-width: 991px) {
     margin-top: 40px;
@@ -241,6 +238,7 @@ export const SummaryDetails = styled.div`
   display: flex;
   flex-direction: column;
   padding: 0 16px;
+  line-height: 53px;
 `;
 
 export const SummaryRow = styled.div`
@@ -283,6 +281,16 @@ export const TotalLabel = styled.p`
 export const TotalValue = styled.p`
   font-family: Poppins, sans-serif;
   font-weight: 600;
+`;
+
+export const AppliedPromo = styled.div`
+margin-bottom: 30px;
+display: flex;
+justify-content: space-between;
+font: 400 15px / 150% Poppins, sans-serif;
+`;
+export const AppliedPromoValuve = styled.div`
+font: 400 15px / 150% Poppins, sans-serif;
 `;
 
 export const CheckoutButton = styled.button`
