@@ -40,6 +40,7 @@ const DiamondDetail = () => {
   // Hàm để lưu các thay đổi chỉnh sửa
   const saveChanges = () => {
     // Xử lý logic lưu các thay đổi (ví dụ: gọi API để cập nhật)
+    console.log(editedProduct);
     // Sau khi lưu thành công, có thể cập nhật lại trạng thái nếu cần
     setIsEditing(false);
   };

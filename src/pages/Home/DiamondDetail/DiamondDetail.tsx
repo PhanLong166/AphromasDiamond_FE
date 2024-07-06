@@ -183,6 +183,18 @@ const DiamondDetails: React.FC = () => {
   const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
   const averageRating = totalRating / totalReviews;
 
+  const handleAddToCart = () => {
+    if (role) {
+      navigate(config.routes.customer.cart);
+    } else navigate(config.routes.public.login);
+  }
+
+  const handleCheckout = () => {
+    if (role) {
+      navigate(config.routes.customer.checkout);
+    } else navigate(config.routes.public.login);
+  }
+
   return (
     <Body>
       <div>
@@ -273,13 +285,13 @@ const DiamondDetails: React.FC = () => {
                 <ButtonContainer>
                   <ButtonAdd
                     className="add"
-                    onClick={() => role ? navigate("/cart") : navigate(config.routes.public.login)}
+                    onClick={handleAddToCart}
                   >
                     ADD TO CART
                   </ButtonAdd>
                   <Button
                     className="checkout button_slide slide_right"
-                    onClick={() => role ? navigate("/cart") : navigate(config.routes.public.login)}
+                    onClick={handleCheckout}
                   >
                     <span>CHECKOUT</span>
                   </Button>
