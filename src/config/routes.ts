@@ -89,7 +89,6 @@ const routes = {
     deliveryStaff: "/admin/staff/delivery-staff",
     deliveryStaffDetail: "/admin/staff/delivery-staff/detail/:id",
     manager: "/admin/manager",
-    theme: "/admin/theme",
   },
   salesStaff: {
     order: "/sales-staff/order",

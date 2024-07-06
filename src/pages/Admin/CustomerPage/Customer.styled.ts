@@ -124,9 +124,6 @@ export const AdminTable = styled.div`
     text-align: center;
   }
   td .anticon {
-    font-size: 23px;
-  }
-  td .anticon:hover {
     cursor: pointer;
   }
   .deleBtn {
