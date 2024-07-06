@@ -94,10 +94,10 @@ const Jewelry = () => {
       title: "Image",
       key: "jewelryImg",
       className: "TextAlign",
-      render: (_, record) => (
+      render: (_, record: ProductDataType) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.jewelryImg}
+            src={record.jewelryImg}  
             alt={record.jewelryName}
             style={{ width: "50px", height: "50px" }}
           />

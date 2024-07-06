@@ -4,10 +4,15 @@ export interface ProductDataType {
   key: React.Key;
   jewelryID: string;
   jewelryImg: string;
+  jewelryImgList: {
+    yellow: string[];
+    white: string[];
+    rose: string[];
+    platinum: string[];
+  };
   jewelryName: string;
   price: number;
   type: string;
-  // quantity: number;
   exchangeRate: number;
   currencyType: string;
   diamondID: string;
@@ -20,8 +25,23 @@ export const productData: ProductDataType[] = [
   {
     key: "1",
     jewelryID: "P12345121",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 100,
@@ -37,8 +57,23 @@ export const productData: ProductDataType[] = [
   {
     key: "2",
     jewelryID: "P12345122",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 100,
@@ -54,8 +89,23 @@ export const productData: ProductDataType[] = [
   {
     key: "3",
     jewelryID: "P12345123",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 100,
@@ -71,8 +121,23 @@ export const productData: ProductDataType[] = [
   {
     key: "4",
     jewelryID: "P12345124",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 150,
@@ -88,8 +153,23 @@ export const productData: ProductDataType[] = [
   {
     key: "5",
     jewelryID: "P12345125",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 100,
@@ -105,8 +185,23 @@ export const productData: ProductDataType[] = [
   {
     key: "6",
     jewelryID: "P12345126",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 150,
@@ -122,8 +217,23 @@ export const productData: ProductDataType[] = [
   {
     key: "7",
     jewelryID: "P12345127",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 100,
@@ -139,8 +249,23 @@ export const productData: ProductDataType[] = [
   {
     key: "8",
     jewelryID: "P12345128",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     // chargeRate: 100,
@@ -156,8 +281,23 @@ export const productData: ProductDataType[] = [
   {
     key: "9",
     jewelryID: "P12345129",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
     price: 12350000,
     type: "Bangle",
@@ -173,10 +313,25 @@ export const productData: ProductDataType[] = [
   {
     key: "10",
     jewelryID: "P12345130",
-    jewelryImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelryImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelryImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelryName: "Petite Twist Diamond Engagement Ring",
-    price:12350000,
+    price: 12350000,
     // chargeRate: 150,
     type: "Choker",
     // quantity: 51,
@@ -193,276 +348,349 @@ export const productData: ProductDataType[] = [
 
 export interface DiamondDataType {
   key?: React.Key;
-  diamondID: string;//
-  diamondImg: string;
-  diamondName: string;//
-  price: number;//
-  chargeRate: number;//
-  shape: string;//
-  color: string;//
-  polish: string;//
-  cut: string;//
-  lwRatio: number;//
-  clarity: string;//
-  symmetry: string;//
-  caratWeight: number;//
-  tablePercentage: number;//
-  depthPercentage: number;//
-  fluorescence: string;//
-  description: string;//
+  diamondID: string; //
+  diamondImg: string[];
+  diamondName: string; //
+  price: number; //
+  chargeRate: number; //
+  shape: string; //
+  color: string; //
+  polish: string; //
+  cut: string; //
+  lwRatio: number; //
+  clarity: string; //
+  symmetry: string; //
+  caratWeight: number; //
+  tablePercentage: number; //
+  depthPercentage: number; //
+  fluorescence: string; //
+  description: string; //
   giaCerti: string;
   updateTime: string;
   exchangeRate: number;
   currencyType: string;
 }
 
-
 export const diamondData: DiamondDataType[] = [
-  { key: "1",
-  diamondID: "D0001",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Emerald Diamond",
-  price: 21500000,
-  chargeRate: 20,
-  shape: "Asscher",
-  color: "F",
-  polish: "Excellent",
-  cut: "Excellent",
-  lwRatio: 1.06,
-  clarity: "VVS2",
-  symmetry: "Very Good",
-  caratWeight: 0.87,
-  tablePercentage: 55.59,
-  depthPercentage: 61.29,
-  fluorescence: "Medium",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "2",
-  diamondID: "D0002",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Emerald Diamond",
-  price: 21500000,
-  chargeRate: 25,
-  shape: "Asscher",
-  color: "F",
-  polish: "Good",
-  cut: "Very Good",
-  lwRatio: 1.05,
-  clarity: "IF",
-  symmetry: "Good",
-  caratWeight: 0.76,
-  tablePercentage: 56.76,
-  depthPercentage: 60.9,
-  fluorescence: "None",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "3",
-  diamondID: "D0003",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Princess Diamond",
-  price: 21500000,
-  chargeRate: 25,
-  shape: "Emerald",
-  color: "G",
-  polish: "Very Good",
-  cut: "Excellent",
-  lwRatio: 1.01,
-  clarity: "VVS1",
-  symmetry: "Good",
-  caratWeight: 1.06,
-  tablePercentage: 55.78,
-  depthPercentage: 60.22,
-  fluorescence: "Medium",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "4",
-  diamondID: "D0004",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Princess Diamond",
-  price: 21500000,
-  chargeRate: 30,
-  shape: "Emerald",
-  color: "F",
-  polish: "Excellent",
-  cut: "Good",
-  lwRatio: 1.05,
-  clarity: "VS1",
-  symmetry: "Excellent",
-  caratWeight: 1.4,
-  tablePercentage: 54.85,
-  depthPercentage: 60.31,
-  fluorescence: "Faint",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "5",
-  diamondID: "D0005",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Marquise Diamond",
-  price: 21500000,
-  chargeRate: 20,
-  shape: "Marquise",
-  color: "F",
-  polish: "Excellent",
-  cut: "Good",
-  lwRatio: 1.03,
-  clarity: "IF",
-  symmetry: "Excellent",
-  caratWeight: 0.86,
-  tablePercentage: 55.53,
-  depthPercentage: 61.25,
-  fluorescence: "Medium",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "6",
-  diamondID: "D0006",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Princess Diamond",
-  price: 21500000,
-  chargeRate: 20,
-  shape: "Round",
-  color: "D",
-  polish: "Good",
-  cut: "Very Good",
-  lwRatio: 1.02,
-  clarity: "VS1",
-  symmetry: "Good",
-  caratWeight: 0.85,
-  tablePercentage: 55.03,
-  depthPercentage: 61.55,
-  fluorescence: "None",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "7",
-  diamondID: "D0007",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Round Diamond",
-  price:21500000,
-  chargeRate: 20,
-  shape: "Round",
-  color: "H",
-  polish: "Very Good",
-  cut: "Good",
-  lwRatio: 1.06,
-  clarity: "IF",
-  symmetry: "Excellent",
-  caratWeight: 0.52,
-  tablePercentage: 54.94,
-  depthPercentage: 60.08,
-  fluorescence: "Strong",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "8",
-  diamondID: "D0008",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Emerald Diamond",
-  price: 21500000,
-  chargeRate: 25,
-  shape: "Marquise",
-  color: "F",
-  polish: "Good",
-  cut: "Good",
-  lwRatio: 1.04,
-  clarity: "VS1",
-  symmetry: "Good",
-  caratWeight: 0.98,
-  tablePercentage: 55.13,
-  depthPercentage: 61.77,
-  fluorescence: "Medium",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "9",
-  diamondID: "D0009",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Marquise Diamond",
-  price:21500000,
-  chargeRate: 30,
-  shape: "Emerald",
-  color: "E",
-  polish: "Excellent",
-  cut: "Excellent",
-  lwRatio: 1.0,
-  clarity: "VVS2",
-  symmetry: "Good",
-  caratWeight: 0.69,
-  tablePercentage: 56.3,
-  depthPercentage: 61.57,
-  fluorescence: "Medium",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-},
-{ key: "10",
-  diamondID: "D0010",
-  diamondImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-  diamondName: "1.0 Carat Asscher Diamond",
-  price: 21500000,
-  chargeRate: 25,
-  shape: "Princess",
-  color: "H",
-  polish: "Good",
-  cut: "Excellent",
-  lwRatio: 1.09,
-  clarity: "IF",
-  symmetry: "Good",
-  caratWeight: 1.08,
-  tablePercentage: 56.02,
-  depthPercentage: 61.63,
-  fluorescence: "None",
-  description: "A high-quality diamond with excellent features.",
-  giaCerti: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
-  updateTime: "2023-05-06",
-  exchangeRate: 0.000039,
-  currencyType: "VND"
-}
+  {
+    key: "1",
+    diamondID: "D0001",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Emerald Diamond",
+    price: 21500000,
+    chargeRate: 20,
+    shape: "Asscher",
+    color: "F",
+    polish: "Excellent",
+    cut: "Excellent",
+    lwRatio: 1.06,
+    clarity: "VVS2",
+    symmetry: "Very Good",
+    caratWeight: 0.87,
+    tablePercentage: 55.59,
+    depthPercentage: 61.29,
+    fluorescence: "Medium",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "2",
+    diamondID: "D0002",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Emerald Diamond",
+    price: 21500000,
+    chargeRate: 25,
+    shape: "Asscher",
+    color: "F",
+    polish: "Good",
+    cut: "Very Good",
+    lwRatio: 1.05,
+    clarity: "IF",
+    symmetry: "Good",
+    caratWeight: 0.76,
+    tablePercentage: 56.76,
+    depthPercentage: 60.9,
+    fluorescence: "None",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "3",
+    diamondID: "D0003",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Princess Diamond",
+    price: 21500000,
+    chargeRate: 25,
+    shape: "Emerald",
+    color: "G",
+    polish: "Very Good",
+    cut: "Excellent",
+    lwRatio: 1.01,
+    clarity: "VVS1",
+    symmetry: "Good",
+    caratWeight: 1.06,
+    tablePercentage: 55.78,
+    depthPercentage: 60.22,
+    fluorescence: "Medium",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "4",
+    diamondID: "D0004",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Princess Diamond",
+    price: 21500000,
+    chargeRate: 30,
+    shape: "Emerald",
+    color: "F",
+    polish: "Excellent",
+    cut: "Good",
+    lwRatio: 1.05,
+    clarity: "VS1",
+    symmetry: "Excellent",
+    caratWeight: 1.4,
+    tablePercentage: 54.85,
+    depthPercentage: 60.31,
+    fluorescence: "Faint",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "5",
+    diamondID: "D0005",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Marquise Diamond",
+    price: 21500000,
+    chargeRate: 20,
+    shape: "Marquise",
+    color: "F",
+    polish: "Excellent",
+    cut: "Good",
+    lwRatio: 1.03,
+    clarity: "IF",
+    symmetry: "Excellent",
+    caratWeight: 0.86,
+    tablePercentage: 55.53,
+    depthPercentage: 61.25,
+    fluorescence: "Medium",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "6",
+    diamondID: "D0006",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Princess Diamond",
+    price: 21500000,
+    chargeRate: 20,
+    shape: "Round",
+    color: "D",
+    polish: "Good",
+    cut: "Very Good",
+    lwRatio: 1.02,
+    clarity: "VS1",
+    symmetry: "Good",
+    caratWeight: 0.85,
+    tablePercentage: 55.03,
+    depthPercentage: 61.55,
+    fluorescence: "None",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "7",
+    diamondID: "D0007",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Round Diamond",
+    price: 21500000,
+    chargeRate: 20,
+    shape: "Round",
+    color: "H",
+    polish: "Very Good",
+    cut: "Good",
+    lwRatio: 1.06,
+    clarity: "IF",
+    symmetry: "Excellent",
+    caratWeight: 0.52,
+    tablePercentage: 54.94,
+    depthPercentage: 60.08,
+    fluorescence: "Strong",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "8",
+    diamondID: "D0008",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Emerald Diamond",
+    price: 21500000,
+    chargeRate: 25,
+    shape: "Marquise",
+    color: "F",
+    polish: "Good",
+    cut: "Good",
+    lwRatio: 1.04,
+    clarity: "VS1",
+    symmetry: "Good",
+    caratWeight: 0.98,
+    tablePercentage: 55.13,
+    depthPercentage: 61.77,
+    fluorescence: "Medium",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "9",
+    diamondID: "D0009",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Marquise Diamond",
+    price: 21500000,
+    chargeRate: 30,
+    shape: "Emerald",
+    color: "E",
+    polish: "Excellent",
+    cut: "Excellent",
+    lwRatio: 1.0,
+    clarity: "VVS2",
+    symmetry: "Good",
+    caratWeight: 0.69,
+    tablePercentage: 56.3,
+    depthPercentage: 61.57,
+    fluorescence: "Medium",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
+  {
+    key: "10",
+    diamondID: "D0010",
+    diamondImg: [
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    ],
+    diamondName: "1.0 Carat Asscher Diamond",
+    price: 21500000,
+    chargeRate: 25,
+    shape: "Princess",
+    color: "H",
+    polish: "Good",
+    cut: "Excellent",
+    lwRatio: 1.09,
+    clarity: "IF",
+    symmetry: "Good",
+    caratWeight: 1.08,
+    tablePercentage: 56.02,
+    depthPercentage: 61.63,
+    fluorescence: "None",
+    description: "A high-quality diamond with excellent features.",
+    giaCerti:
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2F83F468EA-18AC-48EB-8C88-D0FD5ABA0004.jfif?alt=media&token=48ce66e9-d4ce-44bc-9bfb-f7b25fef1a49",
+    updateTime: "2023-05-06",
+    exchangeRate: 0.000039,
+    currencyType: "VND",
+  },
 ];
 
 // ---------------- JEWELRY SETTING DATA -------------------
 
 export interface RingDataType {
   key: React.Key;
-  jewelrySettingID: string;//
+  jewelrySettingID: string; //
   jewelrySettingImg: string;
+  jewelrySettingImgList: {
+    yellow: string[];
+    white: string[];
+    rose: string[];
+    platinum: string[];
+  };
   jewelrySettingName: string;
-  // material: string;
-  // width: number;
-  productionCost: number;//
-  weight: number;//
-  updateTime: string;//
-  diamondShape: string;//
+  productionCost: number; //
+  weight: number; //
+  updateTime: string; //
+  diamondShape: string; //
   auxiliaryCost: number;
   chargeRate: number;
   // price: number;
@@ -476,7 +704,23 @@ export const ringData: RingDataType[] = [
   {
     key: "1",
     jewelrySettingID: "S12345121",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -495,7 +739,23 @@ export const ringData: RingDataType[] = [
   {
     key: "2",
     jewelrySettingID: "S12345122",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -514,7 +774,23 @@ export const ringData: RingDataType[] = [
   {
     key: "3",
     jewelrySettingID: "S12345123",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -533,7 +809,23 @@ export const ringData: RingDataType[] = [
   {
     key: "4",
     jewelrySettingID: "S12345124",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -552,7 +844,23 @@ export const ringData: RingDataType[] = [
   {
     key: "5",
     jewelrySettingID: "S12345125",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -571,7 +879,23 @@ export const ringData: RingDataType[] = [
   {
     key: "6",
     jewelrySettingID: "S12345126",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -590,7 +914,23 @@ export const ringData: RingDataType[] = [
   {
     key: "7",
     jewelrySettingID: "S12345127",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -609,7 +949,23 @@ export const ringData: RingDataType[] = [
   {
     key: "8",
     jewelrySettingID: "S12345128",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -628,7 +984,23 @@ export const ringData: RingDataType[] = [
   {
     key: "9",
     jewelrySettingID: "S12345129",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -647,7 +1019,23 @@ export const ringData: RingDataType[] = [
   {
     key: "10",
     jewelrySettingID: "S12345130",
-    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
+    jewelrySettingImg: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+    jewelrySettingImgList: {
+      yellow: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_4.webp?alt=media&token=abb92930-d492-4b33-afb1-8c4233050995",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_2.webp?alt=media&token=113e4d7a-da53-4fb2-ae93-9ea1be2cfcff",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_3.webp?alt=media&token=28841189-25f2-490d-970e-08b098b74981",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fd_1.webp?alt=media&token=d0533cb1-c70c-4478-b5d8-fbaf9889d69a",
+      ],
+      white: [
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_4.webp?alt=media&token=02d43579-5372-450e-9c36-d83de9b19240",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_2.webp?alt=media&token=0aac23a7-1e17-4c17-8ceb-9a8a798ae56f",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_1.webp?alt=media&token=f721e4bc-fa57-4f45-a593-4f440b0fe8c4",
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdated2%2Fc_3.webp?alt=media&token=2178c70b-e362-4f9e-b788-0cbe204e324e",
+      ],
+      rose: [],
+      platinum: [],
+    },
     jewelrySettingName: "1.00 Carat H-VS2 Emerald Cut Diamond",
     // price: 5350000,
     type: "Ring",
@@ -662,10 +1050,8 @@ export const ringData: RingDataType[] = [
     exchangeRate: 0.000039,
     currencyType: "VND",
     // weight: 5.2 // new attribute
-  }
+  },
 ];
-
-
 
 // ---------------- JEWELRY TYPE DATA -------------------
 
@@ -761,8 +1147,6 @@ export const materialData: MaterialDataType[] = [
   },
 ];
 
-
-
 // ---------------- RING SIZE DATA -------------------
 
 export interface RingSizeDataType {
@@ -811,7 +1195,6 @@ export const ringSizeData: RingSizeDataType[] = [
   },
 ];
 
-
 // ---------------- JEWELRY SETTING MATERIAL DATA -------------------
 
 export interface RingMaterialDataType {
@@ -823,7 +1206,6 @@ export interface RingMaterialDataType {
   amount: number;
   price: number;
 }
-
 
 export const ringMaterialData: RingMaterialDataType[] = [
   {
@@ -1007,4 +1389,3 @@ export const ringMaterialData: RingMaterialDataType[] = [
     price: 1,
   },
 ];
-

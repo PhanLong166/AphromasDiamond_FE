@@ -296,12 +296,14 @@ const JewelrySetting = () => {
       title: "Image",
       key: "jewelrySettingImg",
       className: "TextAlign",
-      render: (_: unknown, record: RingDataType) => (
-        <img
-          src={record.jewelrySettingImg}
-          alt={record.jewelrySettingName}
-          style={{ width: "50px", height: "50px" }}
-        />
+      render: (_, record: RingDataType) => (
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          <img
+            src={record.jewelrySettingImg}  
+            alt={record.jewelrySettingName}
+            style={{ width: "50px", height: "50px" }}
+          />
+        </a>
       ),
     },
     {
