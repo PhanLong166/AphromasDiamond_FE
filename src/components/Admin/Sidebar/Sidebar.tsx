@@ -46,6 +46,8 @@ const Sidebar = () => {
       setActive("Marketing");
     } else if (path.startsWith("/admin/client-caring/")) {
       setActive("ClientCaring");
+    } else if (path.startsWith("/admin/customer")) {
+      setActive("Customer");
     } else if (path.startsWith("/admin/staff/")) {
       setActive("Staff");
     } else {

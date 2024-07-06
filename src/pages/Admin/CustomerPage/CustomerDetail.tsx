@@ -1,56 +1,23 @@
 import * as Styled from "./CustomerDetail.styled";
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
-import {
-  Button,
-  Input,
-  Form,
-  TableColumnsType,
-  Table,
-  Modal,
-  Tag,
-} from "antd";
-import { SaveOutlined } from "@ant-design/icons";
-import { customerData, CustomerDataType } from "./CustomerData";
+import { Button, TableColumnsType, Table, Modal, Tag } from "antd";
+import { customerData } from "./CustomerData";
 import { orderData, OrderDataType } from "../OrderPage/OrderData";
 
 const CustomerDetail = () => {
   const { id } = useParams<{ id: string }>();
 
-  const activeCustomer = customerData.find((customer) => customer.customerID === id);
+  const activeCustomer = customerData.find(
+    (customer) => customer.customerID === id
+  );
 
   const orderList = orderData.filter(
     (order) => order.cusName === activeCustomer?.customerName
   );
 
-  // EDIT
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedCustomer, setEditedCustomer] = useState(activeCustomer);
-  const [data, setData] = useState<OrderDataType[]>(orderList);
-
-  useEffect(() => {
-    if (activeCustomer) {
-      setEditedCustomer(activeCustomer);
-      setData(orderList);
-    }
-  }, [activeCustomer, id]);
-
-  const handleFieldChange = (
-    fieldName: keyof CustomerDataType,
-    value: any
-  ) => {
-    setEditedCustomer({
-      ...editedCustomer!,
-      [fieldName]: value,
-    });
-  };
-
-  const handleSave = () => {
-    // Implement save logic here
-    setIsEditing(false);
-  };
-
+  const [data] = useState<OrderDataType[]>(orderList);
 
   const columns: TableColumnsType<OrderDataType> = [
     {
@@ -79,7 +46,11 @@ const CustomerDetail = () => {
       dataIndex: "status",
       render: (_, { status }) => {
         let color = "green";
-        if (status === "Assigned") {
+        if (status === "Pending") {
+          color = "red";
+        } else if (status === "Accepted") {
+          color = "yellow";
+        } else if (status === "Assigned") {
           color = "orange";
         } else if (status === "Delivering") {
           color = "blue";
@@ -97,6 +68,8 @@ const CustomerDetail = () => {
         );
       },
       filters: [
+        { text: "Pending", value: "Pending" },
+        { text: "Accepted", value: "Accepted" },
         { text: "Assigned", value: "Assigned" },
         { text: "Delivering", value: "Delivering" },
         { text: "Delivered", value: "Delivered" },
@@ -116,65 +89,67 @@ const CustomerDetail = () => {
       <Styled.PageAdminArea>
         <Sidebar />
         <Styled.AdminPage>
-
+          <Styled.TitlePage>
+            <h1>Customer Management</h1>
+            <p>View and manage Customer</p>
+          </Styled.TitlePage>
           <Styled.PageContent>
             {activeCustomer ? (
               <>
-                    <Styled.PageContent_Bot>
-                      <Styled.PageDetail_Title>
-                        <p>Customer Detail</p>
-                      </Styled.PageDetail_Title>
-                      <Styled.PageDetail_Infor>
-                        <Styled.InforLine>
-                          <p className="InforLine_Title">Customer ID</p>
-                          <p>{editedCustomer?.customerID}</p>
-                        </Styled.InforLine>
-                        <Styled.InforLine>
-                          <p className="InforLine_Title">Customer Name</p>
-                          <p>{editedCustomer?.customerName}</p>
-                        </Styled.InforLine>
-                        <Styled.InforLine>
-                          <p className="InforLine_Title">Email</p>
-                          <p>{editedCustomer?.email}</p>
-                        </Styled.InforLine>
-                      </Styled.PageDetail_Infor>
-                      <Styled.MaterialTable>
-                        <Table
-                          dataSource={data}
-                          columns={columns}
-                          rowClassName={() => "editable-row"}
-                          bordered
-                          pagination={false}
-                        />
-                      </Styled.MaterialTable>
-                    </Styled.PageContent_Bot>
-                    <Styled.ActionBtn>
-                      <Styled.ActionBtn_Left>
-                        <Link to="/admin/customer">
-                          <Button style={{ marginLeft: "10px" }}>Back</Button>
-                        </Link>
-                      </Styled.ActionBtn_Left>
-                      <Styled.ActionBtn_Right>
-                        <Button
-                          className="DeleteBtn"
-                          onClick={() => setIsModalVisible(true)}
-                        >
-                          Delete
-                        </Button>
-                        <Modal
-                          title="Confirm Deletion"
-                          visible={isModalVisible}
-                          onOk={() => {
-                            // Handle the deletion logic here
-                            setIsModalVisible(false);
-                          }}
-                          onCancel={() => setIsModalVisible(false)}
-                        >
-                          Are you sure you want to delete this customer?
-                        </Modal>
-                      </Styled.ActionBtn_Right>
-                    </Styled.ActionBtn>
-                  
+                <Styled.PageContent_Bot>
+                  <Styled.PageDetail_Title>
+                    <p>Customer Detail</p>
+                  </Styled.PageDetail_Title>
+                  <Styled.PageDetail_Infor>
+                    <Styled.InforLine>
+                      <p className="InforLine_Title">Customer ID</p>
+                      <p>{activeCustomer?.customerID}</p>
+                    </Styled.InforLine>
+                    <Styled.InforLine>
+                      <p className="InforLine_Title">Customer Name</p>
+                      <p>{activeCustomer?.customerName}</p>
+                    </Styled.InforLine>
+                    <Styled.InforLine>
+                      <p className="InforLine_Title">Email</p>
+                      <p>{activeCustomer?.email}</p>
+                    </Styled.InforLine>
+                  </Styled.PageDetail_Infor>
+                  <Styled.MaterialTable>
+                    <Table
+                      dataSource={data}
+                      columns={columns}
+                      rowClassName={() => "editable-row"}
+                      bordered
+                      pagination={{ pageSize: 6 }}
+                    />
+                  </Styled.MaterialTable>
+                </Styled.PageContent_Bot>
+                <Styled.ActionBtn>
+                  <Styled.ActionBtn_Left>
+                    <Link to="/admin/customer">
+                      <Button style={{ marginLeft: "10px" }}>Back</Button>
+                    </Link>
+                  </Styled.ActionBtn_Left>
+                  <Styled.ActionBtn_Right>
+                    <Button
+                      className="DeleteBtn"
+                      onClick={() => setIsModalVisible(true)}
+                    >
+                      Delete
+                    </Button>
+                    <Modal
+                      title="Confirm Deletion"
+                      visible={isModalVisible}
+                      onOk={() => {
+                        // Handle the deletion logic here
+                        setIsModalVisible(false);
+                      }}
+                      onCancel={() => setIsModalVisible(false)}
+                    >
+                      Are you sure you want to delete this customer?
+                    </Modal>
+                  </Styled.ActionBtn_Right>
+                </Styled.ActionBtn>
               </>
             ) : (
               <p>No Customer found.</p>
