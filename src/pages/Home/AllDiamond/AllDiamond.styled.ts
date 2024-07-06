@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
-import { Breadcrumb, Collapse } from "antd";
+import { Breadcrumb, Collapse, Pagination } from "antd";
 
 export const Section = styled.div`
   margin: 0 auto;
@@ -178,4 +178,10 @@ export const CustomBreadcrumb = styled(Breadcrumb)`
 max-width: 1400px;
 margin: 0 auto;
 padding-top: 20px;
+`;
+
+export const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
 `;

@@ -21,8 +21,7 @@ export const Container = styled.div`
 `;
 
 export const Banner = styled.section`
-  background: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2F5_loose_diamonds_in_varying_cuts_and_1_round_engagement_ring.jpeg?alt=media&token=600d983a-07f8-4eb9-ad9d-8eb496e6bdd0")
-    no-repeat center center;
+  no-repeat center center;
   background-size: cover;
   display: flex;
 `;
@@ -100,7 +99,8 @@ export const GiftSection = styled.div`
 
     img {
       width: 600px;
-      height: 300px;
+      height: 350px;
+       object-fit: cover;
     }
   }
 
@@ -171,7 +171,8 @@ export const GiftSection = styled.div`
     transition: all 0.2s ease;
     img {
       width: 600px;
-      height: 300px;
+      height: 350px;
+      object-fit: cover;
     }
   }
 

@@ -107,9 +107,6 @@ export const AdminTable = styled.div`
     font-size: 13px;
     color: #92929d !important;
   }
-  tr .TextAlign {
-    text-align: center;
-  }
   td .anticon {
     cursor: pointer;
   }

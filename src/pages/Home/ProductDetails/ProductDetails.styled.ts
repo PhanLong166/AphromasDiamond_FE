@@ -917,6 +917,10 @@ export const Space = styled.div`
     text-decoration: underline;
     color: ${theme.color.primary};
   }
+
+  .inscription-content {
+  cursor: pointer;
+  }
 `;
 
 export const List = styled.div`

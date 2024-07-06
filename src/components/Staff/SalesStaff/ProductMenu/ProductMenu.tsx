@@ -7,26 +7,25 @@ const ProductMenu = () => {
     const [active, setActive] = useState<string>('');
 
     useEffect(() => {
-        switch (location.pathname) {
-            case "/sales-staff/product":
-            case "/sales-staff/product/diamond/detail/:id":
-                setActive("Diamond");
-                break;
-            case "/sales-staff/product/jewelry":
-            case "/sales-staff/product/jewelry/detail/:id":
-                setActive("Jewelry");
-                break;
-            case "/sales-staff/product/jewelry-setting":
-                setActive("RingSetting");
-                break;
-            case "/sales-staff/product/jewelry-type":
-                setActive("JewelryType");
-                break;
-            case "/sales-staff/product/material":
-                setActive("Material");
-                break;
-            default:
-                setActive('');
+        const path = location.pathname;
+        if (path.startsWith("/sales-staff/product/diamond/detail/")) {
+            setActive("Diamond");
+        } else if (path.startsWith("/sales-staff/product/jewelry/detail/")) {
+            setActive("Jewelry");
+        } else if (path.startsWith("/sales-staff/product/jewelry-setting/detail/")) {
+            setActive("RingSetting");
+        } else if (path === "/sales-staff/product") {
+            setActive("Diamond");
+        } else if (path === "/sales-staff/product/jewelry") {
+            setActive("Jewelry");
+        } else if (path === "/sales-staff/product/jewelry-setting") {
+            setActive("RingSetting");
+        } else if (path === "/sales-staff/product/jewelry-type") {
+            setActive("JewelryType");
+        } else if (path === "/sales-staff/product/material") {
+            setActive("Material");
+        } else {
+            setActive("");
         }
     }, [location.pathname]);
 
