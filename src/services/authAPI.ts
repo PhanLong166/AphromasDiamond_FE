@@ -7,3 +7,7 @@ export const login = (account: object) => {
 export const register = (account: object) => {
     return post(`/auth/signup`, account);
 }
+
+export const registerCustomer = (account: object) => {
+    return post(`/auth/signupCustomer`, account);
+}

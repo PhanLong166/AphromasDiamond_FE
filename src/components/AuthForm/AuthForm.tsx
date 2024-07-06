@@ -2,16 +2,15 @@ import * as FormStyled from './AuthFrom.styled';
 
 import Container from "../Container/Container";
 import { FieldType } from "./AuthForm.fields";
-import { Col, Typography } from 'antd';
+import { Col } from 'antd';
 import { Loading3QuartersOutlined } from '@ant-design/icons';
-import { LOGIN_GOOGLE_URL } from '@/config/constants';
-import { FcGoogle } from 'react-icons/fc';
+// import { LOGIN_GOOGLE_URL } from '@/config/constants';
+// import { FcGoogle } from 'react-icons/fc';
 import Link from '../Link';
-import { PageEnum } from '@/utils/enum';
-import config from '@/config';
+// import { PageEnum } from '@/utils/enum';
+// import config from '@/config';
 import images from './AuthForm.images';
 
-const { Text } = Typography;
 
 type RedirectType = {
     description: string;
@@ -35,7 +34,6 @@ type AuthFormProps = {
 
 const AuthForm = ({
     className,
-    page,
     formTitle,
     buttonTitle,
     fields,
@@ -91,10 +89,10 @@ const AuthForm = ({
                             </FormStyled.FormItem>
                         </FormStyled.FormWrapper>
 
-                        <FormStyled.FormGoogleButton to={LOGIN_GOOGLE_URL}>
+                        {/* <FormStyled.FormGoogleButton to={LOGIN_GOOGLE_URL}>
                             <FcGoogle />
                             <Text>Login with Google</Text>
-                        </FormStyled.FormGoogleButton>
+                        </FormStyled.FormGoogleButton> */}
 
                         <FormStyled.FormRedirect>
                             {redirect.description}
@@ -104,11 +102,11 @@ const AuthForm = ({
                             </Link>
                         </FormStyled.FormRedirect>
 
-                        {page === PageEnum.LOGIN && (
+                        {/* {page === PageEnum.LOGIN && (
                             <FormStyled.FormForgotPassword to={config.routes.public.forgotPassword}>
                                 Forgot password?
                             </FormStyled.FormForgotPassword>
-                        )}
+                        )} */}
                     </FormStyled.FormContainer>
                 </Col>
 

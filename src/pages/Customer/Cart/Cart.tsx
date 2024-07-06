@@ -7,6 +7,7 @@ import { useDocumentTitle } from "@/hooks";
 import { items } from "../../../components/Customer/Checkout/Data/data";
 import { useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
+
 const Cart = () => {
   useDocumentTitle('Cart | Aphromas Diamond');
   

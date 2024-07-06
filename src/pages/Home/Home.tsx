@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { theme } from "../../themes";
 import { Row, Col, Typography, Pagination } from "antd";
-import { Card } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 
@@ -43,11 +40,15 @@ import {
   Button,
   BannerContent,
   Banner,
+  StyledCarousel,
+  StyledLink,
+  StyledCard,
 } from "./Home.styled";
 
 import { Link, useNavigate } from "react-router-dom";
 import { Carousel } from "antd";
 import config from "@/config";
+import { useDocumentTitle } from "@/hooks";
 
 const categories = [
   {
@@ -284,99 +285,9 @@ const products: Product[] = [
 ];
 
 const Home: React.FC = () => {
-  const StyledCarousel = styled(Carousel)`
-    .slick-slide {
-      display: flex;
-      justify-content: center;
-    }
-
-    .slick-dots {
-      bottom: -10px;
-    }
-
-    .slick-dots li {
-      margin: 0 2px;
-    }
-
-    .slick-dots li button {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: ${theme.color.primary};
-      justify-content: center;
-    }
-
-    .slick-dots li.slick-active button {
-      background: ${theme.color.primary};
-      justify-content: center;
-    }
-  `;
-  const StyledLink = styled(Link)`
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: none;
-    }
-  `;
-
-  const StyledCard = styled(Card)`
-    .product-image {
-      width: 100%;
-      height: 328px;
-      transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng mượt mà */
-    }
-
-    .sale-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 4px 8px;
-      font-size: 14px;
-      font-weight: 500;
-      background-color: #ede0b8;
-      color: ${theme.color.primary};
-      width: auto;
-    }
-
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .product-name {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      font-size: 13px;
-      color: ${theme.color.primary};
-    }
-
-    .wishlist-icon {
-      margin-left: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #db7f67;
-    }
-
-    .price-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .product-price {
-      font-size: 14px;
-      color: ${theme.color.primary};
-    }
-
-    .product-sale-price {
-      font-size: 12px;
-      color: #888;
-      text-decoration: line-through;
-    }
-  `;
+  useDocumentTitle('Aphromas Diamond')
+  
+  
   const pageSize = 4;
   const [current, setCurrent] = useState(1);
 
