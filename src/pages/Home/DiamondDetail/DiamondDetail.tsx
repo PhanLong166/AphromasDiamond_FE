@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Link from '@/components/Link';
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
@@ -450,7 +451,7 @@ const DiamondDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {sameBrandProducts.map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`}>
+                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -516,7 +517,7 @@ const DiamondDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {recentlyViewedProducts.map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`}>
+                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable

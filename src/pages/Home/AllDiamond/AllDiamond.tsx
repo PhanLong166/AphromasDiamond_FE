@@ -6,9 +6,10 @@ import { showAllDiamond } from "@/services/diamondAPI";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 
 import { diamonds } from "../shared/ListOfDiamond";
-import { Link } from "react-router-dom";
+
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
+import Link from '@/components/Link';
 
 const { Title, Text } = Typography;
 
@@ -85,7 +86,7 @@ const AllDiamond: React.FC = () => {
         <Row gutter={[16, 16]}>
           {filteredDiamonds.map((diamond) => (
             <Col key={diamond.id} span={6}>
-              <Link to={`/diamond/${diamond.id}`}>
+              <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable

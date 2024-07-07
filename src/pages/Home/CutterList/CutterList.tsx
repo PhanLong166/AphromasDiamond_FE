@@ -20,10 +20,11 @@ import {
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { diamonds } from "../shared/ListOfDiamond";
+import Link from '@/components/Link';
 
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
@@ -243,7 +244,7 @@ const CutterList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentCutterData.diamonds.map((diamond: any) => (
             <Col key={diamond.id} span={6}>
-              <Link to={`/diamond/${diamond.id}`}>
+              <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable

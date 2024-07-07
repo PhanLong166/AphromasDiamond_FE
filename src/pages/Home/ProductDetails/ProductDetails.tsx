@@ -1,6 +1,7 @@
 import { useState, useEffect } from "react";
 import { Breadcrumb } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Link from '@/components/Link';
 import { CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
@@ -192,12 +193,12 @@ const ProductDetails: React.FC = () => {
       setMainImage(product.images[0]);
       setSelectedThumb(0);
 
-      // Filter products by the same firm as the found product
+  
       const filteredProducts = products.filter(
         (p) => p.firm === product.firm && p.id !== product.id
       );
 
-      // Determine how many products to show (up to 4)
+   
       const maxProductsToShow = 4;
       const productsToShow =
         filteredProducts.length <= maxProductsToShow
@@ -539,7 +540,7 @@ const ProductDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {sameBrandProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`}>
+                <Link to={`/product/${product.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -608,7 +609,7 @@ const ProductDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {recentlyViewedProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`}>
+                <Link to={`/product/${product.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
