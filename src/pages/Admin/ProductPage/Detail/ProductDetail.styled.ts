@@ -135,6 +135,10 @@ export const ProductContent = styled.div`
       width: 100%;
     }
   }
+
+  .error {
+    color: red;
+  }
 `;
 
 export const SignaInfor = styled.div`
