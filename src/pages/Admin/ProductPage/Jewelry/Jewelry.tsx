@@ -97,7 +97,7 @@ const Jewelry = () => {
       render: (_, record: ProductDataType) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.jewelryImg}  
+            src={record.jewelryImg[0]}  
             alt={record.jewelryName}
             style={{ width: "50px", height: "50px" }}
           />

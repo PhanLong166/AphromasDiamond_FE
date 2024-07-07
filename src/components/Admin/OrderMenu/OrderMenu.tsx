@@ -59,7 +59,7 @@ const OrderMenu = () => {
                 <Styled.OrderCatalog_Ele className={active === "Pending" ? "active" : ""}>
                     <div className={`btn ${active === "Pending" ? "adMenu_active-line" : "adMenu_line"} `} onClick={() => handleSetActive("Pending")}></div>
                     <Link to="/admin/order/pending">
-                        <h3>Pending confirm</h3>
+                        <h3>Pending</h3>
                     </Link>
                 </Styled.OrderCatalog_Ele>
                 <Styled.OrderCatalog_Ele className={active === "Accepted" ? "active" : ""}>
