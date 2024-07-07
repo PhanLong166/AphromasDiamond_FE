@@ -3,7 +3,7 @@ import { DownOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Select } from "antd";
-import { diamondvouchers, ringvouchers, combinedvouchers, items } from "../../Customer/Checkout/Data/data";
+import { diamondvouchers, ringvouchers, combinedvouchers, items } from "../Data/data";
 interface PromoCodeSectionProps {
   onApplyVoucher: (discount: number) => void;
 }

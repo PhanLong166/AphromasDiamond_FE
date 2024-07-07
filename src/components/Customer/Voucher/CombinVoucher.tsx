@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
 // import { diamondvouchers} from './data';
-import { combinedvouchers } from "../../Customer/Checkout/Data/data";
+import { combinedvouchers } from "../Data/data";
 
 const App = () => {
  

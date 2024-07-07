@@ -275,19 +275,7 @@ const OrderList = () => {
       onFilter: (value, record) => record.product.includes(value as string),
       width: '30%',
     },
-    // { title: 'Product', dataIndex: 'product',
-    //   showSorterTooltip: { target: "full-header" },
-    //   sorter: (a: DataType, b: DataType) => a.product.length - b.product.length,
-    //   sortDirections: ["descend"],
-    //   filters: [
-    //     { text: "Diamond Ring", value: "Diamond Ring" },
-    //     { text: "Diamond Earrings", value: "Diamond Earrings" },
-    //     { text: "Diamond Necklaces", value: "Diamond Necklaces" },
-    //     { text: "Diamond Braclets", value: "Diamond Braclets" },
-    //     { text: "Diamond Chokers", value: "Diamond Chokers" },
-    //   ],
-    //   onFilter: (value, record) => record.product.indexOf(value as string) === 0,
-    //  },
+
     { title: 'Price', dataIndex: 'price',
       // defaultSortOrder: "descend",
     sorter: (a: DataType, b: DataType) => a.price - b.price,
@@ -297,8 +285,7 @@ const OrderList = () => {
       let color = "green";
       if (status === "Pending") {
         color = "grey";
-      // } else if (status === "Confirmed") {
-      //   color = "yellow";
+      
       } else if (status === "Delivering") {
         color = "geekblue";
       } else if (status === "Delivered") {
@@ -316,7 +303,6 @@ const OrderList = () => {
       { text: "Pending", value: "Pending" },
       { text: "Confirmed", value: "Delivered" },
       { text: "Delivering", value: "Delivering" },
-      // { text: "Completed", value: "Completed" },
       { text: "Cancelled", value: "Cancelled" },
     ],
     onFilter: (value, record) => record.status.indexOf(value as string) === 0,

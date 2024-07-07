@@ -4,8 +4,8 @@ import * as CartStyled from './Cart.styled';
 // import { Button, Flex, Select } from "antd";
 import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 import { useDocumentTitle } from "@/hooks";
-import { items } from "../../../components/Customer/Checkout/Data/data";
-import  CartItem  from "./CartItem";
+import { items } from "../../../components/Customer/Data/data";
+import  CartItem  from "../../../components/Customer/Cart/CartItem";
 import { useState } from "react";
 const Cart = () => {
   useDocumentTitle('Cart | Aphromas Diamond');
@@ -98,13 +98,13 @@ const Cart = () => {
                   <CartStyled.OrDivider>OR</CartStyled.OrDivider>
                   <Link to="/thanks-page">
                     <CartStyled.PaymentMethodImage
-                      src="https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCart%2Fvnpay-logo-vinadesign-25-12-57-55.jpg?alt=media&token=5c8bd77d-6a86-478e-83d7-44d4e1227e5c"
                       alt="Credit card icons"
                     />
                   </Link>
                   <Link to="thanks-page">
                     <CartStyled.PaymentMethodImage
-                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
+                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCart%2Fimage%2022%20(1).png?alt=media&token=086cc881-2091-4405-8a2e-6fc25d6e6c77"
                       alt="Credit card icons"
                     />
                   </Link>
