@@ -20,10 +20,11 @@ import {
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { diamonds } from "../shared/ListOfDiamond";
+import Link from '@/components/Link';
 
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
@@ -243,7 +244,7 @@ const CutterList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentCutterData.diamonds.map((diamond: any) => (
             <Col key={diamond.id} span={6}>
-              <Link to={`/diamond/${diamond.id}`}>
+              <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable
@@ -252,10 +253,10 @@ const CutterList: React.FC = () => {
                   <>
                     <img
                       style={{ borderRadius: "0" }}
-                      src={diamond.image}
+                      src={diamond.images[0]}
                       alt={diamond.name}
                       className="product-image"
-                      onMouseOut={(e) => (e.currentTarget.src = diamond.image)}
+                      onMouseOut={(e) => (e.currentTarget.src = diamond.images[0])}
                     />
                     {diamond.salePrice && (
                       <div className="sale-badge">SALE</div>
@@ -314,7 +315,7 @@ const CutterList: React.FC = () => {
       <StyledPagination
         current={currentPage}
         pageSize={pageSize}
-        total={currentCutterData.products.length}
+        total={currentCutterData.diamonds.length}
         onChange={handleChangePage}
       />
 
