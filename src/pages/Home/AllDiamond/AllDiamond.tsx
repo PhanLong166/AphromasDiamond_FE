@@ -94,10 +94,10 @@ const AllDiamond: React.FC = () => {
                   <>
                     <img
                       style={{ borderRadius: "0" }}
-                      src={diamond.image}
+                      src={diamond.images[0]}
                       alt={diamond.name}
                       className="product-image"
-                      onMouseOut={(e) => (e.currentTarget.src = diamond.image)}
+                      onMouseOut={(e) => (e.currentTarget.src = diamond.images[0])}
                     />
                     {diamond.salePrice && (
                       <div className="sale-badge">SALE</div>
