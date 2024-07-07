@@ -1,5 +1,5 @@
 import * as Styled from "./ProductDetail.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Button, Modal, Form, Input, Select } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
@@ -59,23 +59,41 @@ const DiamondDetail = () => {
     });
   };
 
+  // DELETE JEWELRY
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
-    // DELETE JEWELRY
-    const [isModalVisible, setIsModalVisible] = useState(false);
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
 
-    const showModal = () => {
-      setIsModalVisible(true);
-    };
-  
-    const handleOk = () => {
-      // Handle the submission logic here
-      setIsModalVisible(false);
-    };
-  
-    const handleCancel = () => {
-      setIsModalVisible(false);
-    };
+  const handleOk = () => {
+    // Handle the submission logic here
+    setIsModalVisible(false);
+  };
 
+  const handleCancel = () => {
+    setIsModalVisible(false);
+  };
+
+  // IMAGE STATES
+  const [diamondMainImage, setDiamondMainImage] = useState("");
+  const [diamondSelectedThumb, setDiamondSelectedThumb] = useState(0);
+
+  useEffect(() => {
+    if (activeDiamond) {
+      setDiamondMainImage(activeDiamond.diamondImg[0]);
+      setDiamondSelectedThumb(0);
+    }
+  }, [activeDiamond]);
+
+  if (!activeDiamond) {
+    return <div>Diamond not found</div>;
+  }
+
+  const changeDiamondImage = (src: string, index: number) => {
+    setDiamondMainImage(src);
+    setDiamondSelectedThumb(index);
+  };
 
   return (
     <>
@@ -95,7 +113,7 @@ const DiamondDetail = () => {
                         <p>Diamond Detail</p>
                       </Styled.PageDetail_Title>
                       <Styled.PageDetail_Infor>
-                        <Styled.ProductImg>
+                        {/* <Styled.ProductImg>
                           <img
                             src={activeDiamond.diamondImg}
                             alt={activeDiamond.diamondName}
@@ -107,7 +125,49 @@ const DiamondDetail = () => {
                             onClick={showModalGIA}
                             style={{ cursor: "pointer" }}
                           />
-                        </Styled.ProductImg>
+                        </Styled.ProductImg> */}
+
+                        <Styled.ImageContainer>
+                          <Styled.OuterThumb>
+                            <Styled.ThumbnailImage>
+                              {activeDiamond.diamondImg.map((image, index) => (
+                                <Styled.Item
+                                  key={index}
+                                  className={
+                                    index === diamondSelectedThumb
+                                      ? "selected"
+                                      : ""
+                                  }
+                                  onClick={() =>
+                                    changeDiamondImage(image, index)
+                                  }
+                                >
+                                  <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Diamond Thumbnail ${index}`}
+                                  />
+                                </Styled.Item>
+                              ))}
+                            </Styled.ThumbnailImage>
+                          </Styled.OuterThumb>
+                          <Styled.OuterMain>
+                            <Styled.MainImage>
+                              <img
+                                id="mainImage"
+                                src={diamondMainImage}
+                                alt="Main"
+                              />
+                              <img
+                                className="GIAExport"
+                                src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
+                                alt="GIA Certificate"
+                                onClick={showModalGIA}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </Styled.MainImage>
+                          </Styled.OuterMain>
+                        </Styled.ImageContainer>
                         <Styled.ProductContent>
                           <Form.Item
                             label="Diamond ID"
@@ -290,7 +350,7 @@ const DiamondDetail = () => {
 
                       <Modal
                         title="GIA Certificate"
-                        visible={isModalVisible}
+                        visible={isModalVisibleGIA}
                         onOk={handleOkGIA}
                         onCancel={handleCancelGIA}
                         footer={null}
@@ -310,7 +370,7 @@ const DiamondDetail = () => {
                           Save Change
                         </Button>
 
-                        <Link to="/admin/product/jewelry">
+                        <Link to="/admin/product">
                           <Button
                             style={{ marginLeft: "10px" }}
                             onClick={cancelEditing}
@@ -330,7 +390,7 @@ const DiamondDetail = () => {
                         <p>Diamond Detail</p>
                       </Styled.PageDetail_Title>
                       <Styled.PageDetail_Infor>
-                        <Styled.ProductImg>
+                        {/* <Styled.ProductImg>
                           <img
                             src={editedProduct?.diamondImg}
                             alt={editedProduct?.diamondName}
@@ -342,7 +402,49 @@ const DiamondDetail = () => {
                             onClick={showModal}
                             style={{ cursor: "pointer" }}
                           />
-                        </Styled.ProductImg>
+                        </Styled.ProductImg> */}
+
+                        <Styled.ImageContainer>
+                          <Styled.OuterThumb>
+                            <Styled.ThumbnailImage>
+                              {activeDiamond.diamondImg.map((image, index) => (
+                                <Styled.Item
+                                  key={index}
+                                  className={
+                                    index === diamondSelectedThumb
+                                      ? "selected"
+                                      : ""
+                                  }
+                                  onClick={() =>
+                                    changeDiamondImage(image, index)
+                                  }
+                                >
+                                  <img
+                                    key={index}
+                                    src={image}
+                                    alt={`Diamond Thumbnail ${index}`}
+                                  />
+                                </Styled.Item>
+                              ))}
+                            </Styled.ThumbnailImage>
+                          </Styled.OuterThumb>
+                          <Styled.OuterMain>
+                            <Styled.MainImage>
+                              <img
+                                id="mainImage"
+                                src={diamondMainImage}
+                                alt="Main"
+                              />
+                              <img
+                                className="GIAExport"
+                                src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
+                                alt="GIA Certificate"
+                                onClick={showModalGIA}
+                                style={{ cursor: "pointer" }}
+                              />
+                            </Styled.MainImage>
+                          </Styled.OuterMain>
+                        </Styled.ImageContainer>
                         <Styled.ProductContent>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Diamond ID</p>
@@ -412,8 +514,8 @@ const DiamondDetail = () => {
                       <Modal
                         title="GIA Certificate"
                         visible={isModalVisibleGIA}
-                        onOk={handleOk}
-                        onCancel={handleCancel}
+                        onOk={handleCancelGIA}
+                        onCancel={handleCancelGIA}
                         footer={null}
                       >
                         <img

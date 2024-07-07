@@ -22,6 +22,8 @@ import {
   MaterialDataType,
   DiamondDataType,
   ringSizeData,
+  ProductDataType,
+  RingDataType,
 } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import {
@@ -33,7 +35,13 @@ import {
   collectionData,
   CollectionDataType,
 } from "../../MarketingPage/MarketingData";
-import { ClarityType_Option, ColorType_Option, FluorescenceType_Option, RateType_Option, ShapeType_Option } from "../Diamond/Diamond.type";
+import {
+  ClarityType_Option,
+  ColorType_Option,
+  FluorescenceType_Option,
+  RateType_Option,
+  ShapeType_Option,
+} from "../Diamond/Diamond.type";
 import { JewelryType } from "../Jewelry/Jewelry.type";
 
 const calculateJewelrySettingPrice = (
@@ -134,7 +142,6 @@ const JewelryDetail = () => {
   );
   const [editedCollection, setEditedCollection] = useState(activeCollection);
 
-
   const saveChanges = () => {
     setIsEditing(false);
   };
@@ -234,7 +241,10 @@ const JewelryDetail = () => {
           materialData ? (
             <Select value={value} onChange={onChange}>
               {materialData.map((option) => (
-                <Select.Option key={option.materialID} value={option.materialID}>
+                <Select.Option
+                  key={option.materialID}
+                  value={option.materialID}
+                >
                   {option.materialName}
                 </Select.Option>
               ))}
@@ -535,6 +545,163 @@ const JewelryDetail = () => {
     setIsModalVisible(false);
   };
 
+
+  // IMAGE STATES
+const [jewelryMainImage, setJewelryMainImage] = useState("");
+const [jewelrySelectedThumb, setJewelrySelectedThumb] = useState(0);
+const [jewelryMetalType, setJewelryMetalType] =
+  useState<keyof ProductDataType["jewelryImgList"]>("yellow");
+const [jewelryMetalAvailability, setJewelryMetalAvailability] = useState({
+  yellow: false,
+  white: false,
+  rose: false,
+  platinum: false,
+});
+
+const [diamondMainImage, setDiamondMainImage] = useState("");
+const [diamondSelectedThumb, setDiamondSelectedThumb] = useState(0);
+
+const [settingMainImage, setSettingMainImage] = useState("");
+const [settingSelectedThumb, setSettingSelectedThumb] = useState(0);
+const [settingMetalType, setSettingMetalType] =
+  useState<keyof RingDataType["jewelrySettingImgList"]>("yellow");
+const [settingMetalAvailability, setSettingMetalAvailability] = useState({
+  yellow: false,
+  white: false,
+  rose: false,
+  platinum: false,
+});
+
+useEffect(() => {
+  if (activeProduct && activeRingSetting && activeDiamond) {
+    setJewelryMainImage(activeProduct.jewelryImgList[jewelryMetalType][0]);
+    setJewelrySelectedThumb(0);
+    setJewelryMetalAvailability({
+      yellow: activeProduct.jewelryImgList.yellow.length > 0,
+      white: activeProduct.jewelryImgList.white.length > 0,
+      rose: activeProduct.jewelryImgList.rose.length > 0,
+      platinum: activeProduct.jewelryImgList.platinum.length > 0,
+    });
+
+    setDiamondMainImage(activeDiamond.diamondImg[0]); 
+    setDiamondSelectedThumb(0); 
+
+    setSettingMainImage(
+      activeRingSetting.jewelrySettingImgList[settingMetalType][0]
+    );
+    setSettingSelectedThumb(0);
+    setSettingMetalAvailability({
+      yellow: activeRingSetting.jewelrySettingImgList.yellow.length > 0,
+      white: activeRingSetting.jewelrySettingImgList.white.length > 0,
+      rose: activeRingSetting.jewelrySettingImgList.rose.length > 0,
+      platinum: activeRingSetting.jewelrySettingImgList.platinum.length > 0,
+    });
+  }
+}, [
+  activeProduct,
+  activeDiamond,
+  activeRingSetting,
+  jewelryMetalType,
+  settingMetalType,
+]);
+
+if (!activeProduct || !activeDiamond || !activeRingSetting) {
+  return <div>Jewelry not found</div>;
+}
+
+const changeJewelryImage = (src: string, index: number) => {
+  setJewelryMainImage(src);
+  setJewelrySelectedThumb(index);
+};
+
+const changeDiamondImage = (src: string, index: number) => {
+  setDiamondMainImage(src);
+  setDiamondSelectedThumb(index);
+};
+
+const changeSettingImage = (src: string, index: number) => {
+  setSettingMainImage(src);
+  setSettingSelectedThumb(index);
+};
+
+const handleJewelryMetalClick = (
+  type: keyof ProductDataType["jewelryImgList"]
+) => {
+  if (jewelryMetalAvailability[type]) {
+    setJewelryMetalType(type);
+    setJewelryMainImage(activeProduct.jewelryImgList[type][0]);
+    setJewelrySelectedThumb(0);
+  }
+};
+
+const handleSettingMetalClick = (
+  type: keyof RingDataType["jewelrySettingImgList"]
+) => {
+  if (settingMetalAvailability[type]) {
+    setSettingMetalType(type);
+    setSettingMainImage(activeRingSetting.jewelrySettingImgList[type][0]);
+    setSettingSelectedThumb(0);
+  }
+};
+
+const renderJewelryMetalButtons = () => {
+  return (
+    <Styled.ProductMetal>
+      <div className="wrap">
+        {Object.keys(activeProduct.jewelryImgList).map((type) => (
+          <button
+            key={type}
+            className={`metal-button ${type} ${
+              jewelryMetalType === type ? "selected" : ""
+            }`}
+            onClick={() =>
+              handleJewelryMetalClick(
+                type as keyof typeof activeProduct.jewelryImgList
+              )
+            }
+            disabled={
+              !(activeProduct.jewelryImgList as Record<string, string[]>)[type]
+                .length
+            }
+          >
+            <span>{type === "platinum" ? "Pt" : "14k"}</span>
+          </button>
+        ))}
+      </div>
+    </Styled.ProductMetal>
+  );
+};
+
+const renderSettingMetalButtons = () => {
+  return (
+    <Styled.ProductMetal>
+      <div className="wrap">
+        {Object.keys(activeRingSetting.jewelrySettingImgList).map((type) => (
+          <button
+            key={type}
+            className={`metal-button ${type} ${
+              settingMetalType === type ? "selected" : ""
+            }`}
+            onClick={() =>
+              handleSettingMetalClick(
+                type as keyof typeof activeRingSetting.jewelrySettingImgList
+              )
+            }
+            disabled={
+              !(activeRingSetting.jewelrySettingImgList as Record<
+                string,
+                string[]
+              >)[type].length
+            }
+          >
+            <span>{type === "platinum" ? "Pt" : "14k"}</span>
+          </button>
+        ))}
+      </div>
+    </Styled.ProductMetal>
+  );
+};
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -682,7 +849,7 @@ const JewelryDetail = () => {
                               <Styled.PageDetail_Infor>
                                 <Styled.ProductImg>
                                   <img
-                                    src={activeDiamond.diamondImg}
+                                    src={activeDiamond.diamondImg[0]}
                                     alt={activeDiamond.diamondName}
                                   />
                                   <img
@@ -954,7 +1121,7 @@ const JewelryDetail = () => {
                                     <Input
                                       value={
                                         editedRingSetting?.jewelrySettingName
-                                      } 
+                                      }
                                       onChange={(e) =>
                                         handleFieldChange(
                                           "jewelrySettingName",
@@ -1030,17 +1197,54 @@ const JewelryDetail = () => {
                         ) : (
                           <>
                             {/* ------------------------------------------------- */}
+
                             <Styled.PageContent_Top>
                               <Styled.PageDetail_Title>
                                 <p>Jewelry Detail</p>
                               </Styled.PageDetail_Title>
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
+                                {/* <Styled.ProductImg>
                                   <img
                                     src={activeProduct.jewelryImg}
                                     alt={activeProduct.jewelryName}
                                   />
-                                </Styled.ProductImg>
+                                </Styled.ProductImg> */}
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeProduct.jewelryImgList[
+                                        jewelryMetalType
+                                      ].map((src: string, index: number) => (
+                                        <Styled.Item
+                                          key={index}
+                                          className={
+                                            jewelrySelectedThumb === index
+                                              ? "selected"
+                                              : ""
+                                          }
+                                          onClick={() =>
+                                            changeJewelryImage(src, index)
+                                          }
+                                        >
+                                          <img
+                                            src={src}
+                                            alt={`Thumb ${index + 1}`}
+                                          />
+                                        </Styled.Item>
+                                      ))}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={jewelryMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
+
                                 <Styled.ProductContent>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
@@ -1076,6 +1280,12 @@ const JewelryDetail = () => {
                                     </p>
                                     <p>{editedDiamond?.price}</p>
                                   </Styled.InforLine>
+                                  <Styled.InforLine>
+                                    <p className="InforLine_Title">
+                                      Material Type
+                                    </p>
+                                    {renderJewelryMetalButtons()}
+                                  </Styled.InforLine>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
                               <Styled.MaterialTable>
@@ -1094,19 +1304,57 @@ const JewelryDetail = () => {
                                 <p>Diamond Detail</p>
                               </Styled.PageDetail_Title>
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeDiamond.diamondImg}
-                                    alt={activeDiamond.diamondName}
-                                  />
-                                  <img
-                                    className="GIAExport"
-                                    src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
-                                    alt="GIA Certificate"
-                                    onClick={showModal}
-                                    style={{ cursor: "pointer" }}
-                                  />
-                                </Styled.ProductImg>
+                                {/* <Styled.ProductImg>
+                                    <img
+                                      src={activeDiamond.diamondImg[0]}
+                                      alt={activeDiamond.diamondName}
+                                    />
+                                    <img
+                                      className="GIAExport"
+                                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
+                                      alt="GIA Certificate"
+                                      onClick={showModal}
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </Styled.ProductImg> */}
+
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeDiamond.diamondImg.map(
+                                        (image, index) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              index === diamondSelectedThumb
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeDiamondImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Diamond Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={diamondMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
+
                                 <Styled.ProductContent>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
@@ -1204,12 +1452,49 @@ const JewelryDetail = () => {
                               </Styled.PageDetail_Title>
 
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeRingSetting.jewelrySettingImg}
-                                    alt={activeRingSetting.jewelrySettingName}
-                                  />
-                                </Styled.ProductImg>
+                                {/* <Styled.ProductImg>
+                                    <img
+                                      src={activeRingSetting.jewelrySettingImg}
+                                      alt={activeProductImgRingSetting.jewelrySettingName}
+                                    />
+                                  </Styled.ProductImg> */}
+
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeRingSetting.jewelrySettingImgList[
+                                        settingMetalType
+                                      ].map((src: string, index: number) => (
+                                        <Styled.Item
+                                          key={index}
+                                          className={
+                                            settingSelectedThumb === index
+                                              ? "selected"
+                                              : ""
+                                          }
+                                          onClick={() =>
+                                            changeSettingImage(src, index)
+                                          }
+                                        >
+                                          <img
+                                            src={src}
+                                            alt={`Thumb ${index + 1}`}
+                                          />
+                                        </Styled.Item>
+                                      ))}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={settingMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
+
                                 <Styled.ProductContent>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
@@ -1236,6 +1521,12 @@ const JewelryDetail = () => {
                                       Auxiliary Cost
                                     </p>
                                     <p>{editedRingSetting?.auxiliaryCost}</p>
+                                  </Styled.InforLine>
+                                  <Styled.InforLine>
+                                    <p className="InforLine_Title">
+                                      Material Type
+                                    </p>
+                                    {renderSettingMetalButtons()}
                                   </Styled.InforLine>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
@@ -1298,5 +1589,4 @@ const JewelryDetail = () => {
     </>
   );
 };
-
 export default JewelryDetail;

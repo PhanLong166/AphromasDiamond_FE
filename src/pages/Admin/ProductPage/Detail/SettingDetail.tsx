@@ -55,6 +55,9 @@ const PriceCalculation = (
   </div>
 );
 
+
+
+
 const JewelrySettingDetail = () => {
   const { id } = useParams<{ id: string }>();
   const activeRingSetting = ringData.find(
@@ -319,6 +322,54 @@ const JewelrySettingDetail = () => {
     setIsModalVisible(false);
   };
 
+
+  // IMAGE CHOICE 
+  const [mainImage, setMainImage] = useState("");
+  const [selectedThumb, setSelectedThumb] = useState(0);
+  const [metalType, setMetalType] = useState<keyof RingDataType["jewelrySettingImgList"]>("yellow");
+  const [metalAvailability, setMetalAvailability] = useState({
+    yellow: false,
+    white: false,
+    rose: false,
+    platinum: false,
+  });
+
+  useEffect(() => {
+    const setting = ringData.find((setting) => setting.jewelrySettingID === id);
+    if (setting) {
+      setEditedSetting(setting);
+      setMainImage(setting.jewelrySettingImgList.yellow[0]);
+      setSelectedThumb(0);
+      setMetalType("yellow");
+      setMetalAvailability({
+        yellow: setting.jewelrySettingImgList.yellow.length > 0,
+        white: setting.jewelrySettingImgList.white.length > 0,
+        rose: setting.jewelrySettingImgList.rose.length > 0,
+        platinum: setting.jewelrySettingImgList.platinum.length > 0,
+      });
+    } else {
+      setEditedSetting(null);
+    }
+  }, [id, ringData]);
+
+  if (!activeRingSetting) {
+    return <div>Jewelry not found</div>;
+  }
+
+  const changeImage = (src: string, index: number) => {
+    setMainImage(src);
+    setSelectedThumb(index);
+  };
+
+  const handleMetalClick = (type: keyof typeof activeRingSetting.jewelrySettingImgList) => {
+    if (metalAvailability[type]) {
+      setMetalType(type);
+      setMainImage(activeRingSetting.jewelrySettingImgList[type][0]);
+      setSelectedThumb(0);
+    }
+  };
+
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -338,12 +389,60 @@ const JewelrySettingDetail = () => {
                             <p>Jewelry Detail</p>
                           </Styled.PageDetail_Title>
                           <Styled.PageDetail_Infor>
-                            <Styled.ProductImg>
-                              <img
-                                src={activeRingSetting.jewelrySettingImg}
-                                alt={activeRingSetting.jewelrySettingName}
-                              />
-                            </Styled.ProductImg>
+                            {/* <Styled.ProductImg>
+                              <Styled.ProductImg_Sub>
+                                {activeRingSetting.jewelrySettingImg
+                                  .slice(1)
+                                  .map((image) => (
+                                    <img
+                                      src={image}
+                                      alt={activeRingSetting.jewelrySettingName}
+                                    />
+                                  ))}
+                              </Styled.ProductImg_Sub>
+                              <Styled.ProductImg_Main>
+                                <img
+                                  src={activeRingSetting.jewelrySettingImg[0]} // Lấy ảnh đầu tiên trong mảng
+                                  alt={activeRingSetting.jewelrySettingName}
+                                  // style={{ width: "100px", height: "100px" }} // Đặt kích thước lớn hơn cho ảnh trong Main
+                                />
+                              </Styled.ProductImg_Main>
+                            </Styled.ProductImg> */}
+
+                              <Styled.ImageContainer>
+                                <Styled.OuterThumb>
+                                  <Styled.ThumbnailImage>
+                                    {activeRingSetting.jewelrySettingImgList[
+                                      metalType
+                                    ].map((src: string, index: number) => (
+                                      <Styled.Item
+                                        key={index}
+                                        className={
+                                          selectedThumb === index
+                                            ? "selected"
+                                            : ""
+                                        }
+                                        onClick={() => changeImage(src, index)}
+                                      >
+                                        <img
+                                          src={src}
+                                          alt={`Thumb ${index + 1}`}
+                                        />
+                                      </Styled.Item>
+                                    ))}
+                                  </Styled.ThumbnailImage>
+                                </Styled.OuterThumb>
+                                <Styled.OuterMain>
+                                  <Styled.MainImage>
+                                    <img
+                                      id="mainImage"
+                                      src={mainImage}
+                                      alt="Main"
+                                    />
+                                  </Styled.MainImage>
+                                </Styled.OuterMain>
+                              </Styled.ImageContainer>
+
                             <Styled.ProductContent>
                               <Form.Item
                                 label="Jewelry ID"
@@ -418,6 +517,38 @@ const JewelrySettingDetail = () => {
                                   }
                                 />
                               </Form.Item>
+                              <Form.Item
+                                label="Metal Type"
+                                className="InforLine_Title"
+                              >
+                                <Styled.ProductMetal>
+                                  <div className="wrap">
+                                    <button className={`metal-button white ${metalType === "white" ? "selected" : ""}`}
+                                      onClick={() => handleMetalClick("white")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.white.length}>
+                                      <span>14k</span>
+                                    </button>
+                                    <button
+                                      className={`metal-button yellow ${metalType === "yellow" ? "selected" : ""}`}
+                                      onClick={() => handleMetalClick("yellow")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.yellow.length}>
+                                      <span>14k</span>
+                                    </button>
+                                    <button
+                                      className={`metal-button rose ${metalType === "rose" ? "selected" : ""}`}
+                                      onClick={() => handleMetalClick("rose")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.rose.length}>
+                                      <span>14k</span>
+                                    </button>
+                                    <button
+                                      className={`metal-button platinum ${metalType === "platinum"? "selected": ""}`}
+                                      onClick={() =>handleMetalClick("platinum")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.platinum.length}>
+                                      <span>Pt</span>
+                                    </button>
+                                  </div>
+                                </Styled.ProductMetal>
+                              </Form.Item>
                             </Styled.ProductContent>
                           </Styled.PageDetail_Infor>
                           <Styled.MaterialTable>
@@ -457,12 +588,40 @@ const JewelrySettingDetail = () => {
                             <p>Jewelry Detail</p>
                           </Styled.PageDetail_Title>
                           <Styled.PageDetail_Infor>
-                            <Styled.ProductImg>
-                              <img
-                                src={activeRingSetting.jewelrySettingImg}
-                                alt={activeRingSetting.jewelrySettingName}
-                              />
-                            </Styled.ProductImg>
+                            <Styled.ImageContainer>
+                                <Styled.OuterThumb>
+                                  <Styled.ThumbnailImage>
+                                    {activeRingSetting.jewelrySettingImgList[
+                                      metalType
+                                    ].map((src: string, index: number) => (
+                                      <Styled.Item
+                                        key={index}
+                                        className={
+                                          selectedThumb === index
+                                            ? "selected"
+                                            : ""
+                                        }
+                                        onClick={() => changeImage(src, index)}
+                                      >
+                                        <img
+                                          src={src}
+                                          alt={`Thumb ${index + 1}`}
+                                        />
+                                      </Styled.Item>
+                                    ))}
+                                  </Styled.ThumbnailImage>
+                                </Styled.OuterThumb>
+                                <Styled.OuterMain>
+                                  <Styled.MainImage>
+                                    <img
+                                      id="mainImage"
+                                      src={mainImage}
+                                      alt="Main"
+                                    />
+                                  </Styled.MainImage>
+                                </Styled.OuterMain>
+                              </Styled.ImageContainer>
+
                             <Styled.ProductContent>
                               <Styled.InforLine>
                                 <p className="InforLine_Title">Jewelry ID</p>
@@ -505,6 +664,38 @@ const JewelrySettingDetail = () => {
                                   Charge Rate (%)
                                 </p>
                                 <p>{editedSetting?.chargeRate}%</p>
+                              </Styled.InforLine>
+                              <Styled.InforLine>
+                                <p className="InforLine_Title">
+                                  Metal Type
+                                </p>
+                                <Styled.ProductMetal>
+                                  <div className="wrap">
+                                    <button className={`metal-button white ${metalType === "white" ? "selected" : ""}`}
+                                      onClick={() => handleMetalClick("white")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.white.length}>
+                                      <span>14k</span>
+                                    </button>
+                                    <button
+                                      className={`metal-button yellow ${metalType === "yellow" ? "selected" : ""}`}
+                                      onClick={() => handleMetalClick("yellow")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.yellow.length}>
+                                      <span>14k</span>
+                                    </button>
+                                    <button
+                                      className={`metal-button rose ${metalType === "rose" ? "selected" : ""}`}
+                                      onClick={() => handleMetalClick("rose")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.rose.length}>
+                                      <span>14k</span>
+                                    </button>
+                                    <button
+                                      className={`metal-button platinum ${metalType === "platinum"? "selected": ""}`}
+                                      onClick={() =>handleMetalClick("platinum")}
+                                      disabled={!activeRingSetting.jewelrySettingImgList.platinum.length}>
+                                      <span>Pt</span>
+                                    </button>
+                                  </div>
+                                </Styled.ProductMetal>
                               </Styled.InforLine>
                             </Styled.ProductContent>
                           </Styled.PageDetail_Infor>
