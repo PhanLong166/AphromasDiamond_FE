@@ -299,7 +299,7 @@ const JewelrySetting = () => {
       render: (_, record: RingDataType) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.jewelrySettingImg}  
+            src={record.jewelrySettingImg[0]}  
             alt={record.jewelrySettingName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -458,6 +458,7 @@ const JewelrySetting = () => {
       jewelrySettingID: "",
       jewelrySettingVariantID: "",
       materialID: "",
+      weight: 0,
       sizeID: "",
       amount: 0,
       price: 0,

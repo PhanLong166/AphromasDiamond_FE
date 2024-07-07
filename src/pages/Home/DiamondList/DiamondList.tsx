@@ -18,10 +18,11 @@ import {
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { diamondData } from "./DiamondList.data";
+import Link from '@/components/Link';
 
 
 
@@ -103,7 +104,7 @@ const DiamondList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentDiamondData.diamonds.map((diamond: any) => (
             <Col key={diamond.id} span={6}>
-              <Link to={`/diamond/${diamond.id}`}>
+              <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable
@@ -112,10 +113,10 @@ const DiamondList: React.FC = () => {
                   <>
                     <img
                       style={{ borderRadius: "0" }}
-                      src={diamond.image}
+                      src={diamond.images[0]}
                       alt={diamond.name}
                       className="product-image"
-                      onMouseOut={(e) => (e.currentTarget.src = diamond.image)}
+                      onMouseOut={(e) => (e.currentTarget.src = diamond.images[0])}
                     />
                     {diamond.salePrice && (
                       <div className="sale-badge">SALE</div>

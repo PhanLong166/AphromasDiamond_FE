@@ -20,7 +20,8 @@ import {
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { theme } from "../../../themes";
 import { products } from "../shared/ListOfProducts";
-import { Link, useNavigate, useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import Link from '@/components/Link';
 const { Title, Text } = Typography;
 import config from "@/config";
 
@@ -347,7 +348,7 @@ const DiamondRingList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentJewelryData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              <Link to={`/product/${product.id}`}>
+              <Link to={`/product/${product.id}`} underline zoom scroll>
                 <Card
                   key={product.id}
                   style={{ borderRadius: "0" }}
@@ -357,14 +358,14 @@ const DiamondRingList: React.FC = () => {
                     <>
                       <img
                         style={{ borderRadius: "0" }}
-                        src={product.image}
+                        src={product.images[0]}
                         alt={product.name}
                         className="product-image"
                         onMouseOver={(e) =>
-                          (e.currentTarget.src = product.hoverImage)
+                          (e.currentTarget.src = product.images[2])
                         }
                         onMouseOut={(e) =>
-                          (e.currentTarget.src = product.image)
+                          (e.currentTarget.src = product.images[0])
                         }
                       />
                       {product.salePrice && (

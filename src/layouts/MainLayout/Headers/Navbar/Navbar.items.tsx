@@ -438,17 +438,6 @@ export const items: MenuItem[] = [
                 ]
             },
             {
-                key: 'jewelry-metals',
-                label: 'Jewelry metals',
-                type: 'group',
-                children: [
-                    {key: 'jewelry-metals-1', label: 'White Gold'},
-                    {key: 'jewelry-metal-2', label: 'Yellow Gold'},
-                    {key: 'jewelry-metal-3', label: 'Rose Gold'},
-                    {key: 'jewelry-metal-4', label: 'Platinum'},
-                ]
-            },
-            {
                 key: 'jewelry-firm',
                 label: 'Jewelry Firm',
                 type: 'group',
