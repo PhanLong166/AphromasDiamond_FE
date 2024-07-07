@@ -71,7 +71,7 @@ const JewelrySettingDetail = () => {
     : null;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editedSetting, setEditedSetting] = useState(activeRingSetting);
+  const [editedSetting, setEditedSetting] = useState<RingDataType | undefined>(activeRingSetting);
   const [editedProduct, setEditedProduct] = useState(activeProduct);
 
   const [data, setData] = useState<RingMaterialDataType[]>([]);
@@ -348,7 +348,7 @@ const JewelrySettingDetail = () => {
         platinum: setting.jewelrySettingImgList.platinum.length > 0,
       });
     } else {
-      setEditedSetting(null);
+      setEditedSetting(undefined);
     }
   }, [id, ringData]);
 
