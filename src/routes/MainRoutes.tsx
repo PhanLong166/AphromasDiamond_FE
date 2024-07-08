@@ -57,6 +57,7 @@ import DesignerList from "@/pages/Home/List/DesignerList/DesignerList";
 import EngagementList from "@/pages/Home/List/EngagementList/EngagementList";
 import AllEngagementRing from "@/pages/Home/AllEngagementRing/AllEngagementRing";
 import MenEngagementRing from "@/pages/Home/List/MenEngagementRing/MenEngagementRing";
+import EngagementDesignerList from "@/pages/Home/List/EngagementDesignerList/EngagementDesignerList";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -95,6 +96,7 @@ const publicRoutes = {
     { path: config.routes.public.cutterList, element: <CutterList /> },
     { path: config.routes.public.allEngagement, element: <AllEngagementRing /> },
     { path: config.routes.public.engagementShape, element: <EngagementList /> },
+    { path: config.routes.public.engagementDesigner, element: <EngagementDesignerList /> },
     { path: config.routes.public.menEngagement, element: <MenEngagementRing /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },

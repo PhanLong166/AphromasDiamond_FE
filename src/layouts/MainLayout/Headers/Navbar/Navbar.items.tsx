@@ -348,10 +348,26 @@ export const items: MenuItem[] = [
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'engagement-ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'engagement-ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'engagement-ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'engagement-ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'engagement-ring-designer-1', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "zaczacposen")}`}>
+                          Zac Zac Posen
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-designer-2', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "bellavaughan")}`}>
+                         Bella Vaughan
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-designer-3', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "bluenile")}`}>
+                         Blue Nile Studio
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-designer-4', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "thegallerycollection")}`}>
+                         The Gallery Collection
+                        </Link>
+                      )},
                 ]
             },
             {
