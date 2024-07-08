@@ -18,12 +18,12 @@ import {
   Pagination,
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-import { diamonds } from "../shared/ListOfDiamond";
+import { diamonds } from "../../shared/ListOfDiamond";
 
 const CustomBreadcrumb = styled(Breadcrumb)`
   margin-left: 175px;
@@ -34,7 +34,7 @@ const CustomBreadcrumb = styled(Breadcrumb)`
 `;
 
 const DiamondList: React.FC = () => {
-    const { diamondShape } = useParams<{ diamondShape: string }>();
+  const { diamondShape } = useParams<{ diamondShape: string }>();
   const navigate = useNavigate();
 
   const diamondData: Record<string, any> = {

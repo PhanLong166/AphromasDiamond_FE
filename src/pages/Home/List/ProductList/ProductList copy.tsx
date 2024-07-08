@@ -12,8 +12,8 @@ import { Breadcrumb } from "antd";
 import { Collapse } from "antd";
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../themes";
-import { products } from "./../shared/ListOfProducts";
+import { theme } from "../../../../themes";
+import { products } from "../../shared/ListOfProducts";
 import { Link, useNavigate } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
@@ -216,9 +216,12 @@ const ProductList: React.FC = () => {
                   Don't see what you're looking for? <br />
                   Browse our full catalog
                 </Text>
-                <button className="show-all-button"
-                 onClick={() => navigate(config.routes.public.allProduct)}
-                >SHOW ALL</button>
+                <button
+                  className="show-all-button"
+                  onClick={() => navigate(config.routes.public.allProduct)}
+                >
+                  SHOW ALL
+                </button>
               </div>
             </Card>
           </Col>

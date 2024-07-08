@@ -260,16 +260,56 @@ export const items: MenuItem[] = [
                 label: 'Ring by Shape',
                 type: 'group',
                 children: [
-                    {key: 'engagement-ring-1', label: 'Round'},
-                    {key: 'engagement-ring-2', label: 'Princess'},
-                    {key: 'engagement-ring-3', label: 'Cushion'},
-                    {key: 'engagement-ring-4', label: 'Oval'},
-                    {key: 'engagement-ring-5', label: 'Emerald'},
-                    {key: 'engagement-ring-6', label: 'Pear'},
-                    {key: 'engagement-ring-7', label: 'Asscher'},
-                    {key: 'engagement-ring-8', label: 'Heart'},
-                    {key: 'engagement-ring-9', label: 'Radient'},
-                    {key: 'engagement-ring-10 ', label: 'Marquise'},
+                    {key: 'engagement-ring-1', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "round-engagement-ring")}`}>
+                          Round
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-2', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "princess-engagement-ring")}`}>
+                         Princess
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-3', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "cushion-engagement-ring")}`}>
+                          Cushion
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-4', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "oval-engagement-ring")}`}>
+                          Oval
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-5', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "emerald-engagement-ring")}`}>
+                          Emerald
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-6', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "pear-engagement-ring")}`}>
+                          Pear
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-7', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "asscher-engagement-ring")}`}>
+                         Asscher
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-8', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "heart-engagement-ring")}`}>
+                         Heart
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-9', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "radiant-engagement-ring")}`}>
+                          Radiant
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-10', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "marquise-engagement-ring")}`}>
+                          Marquise
+                        </Link>
+                      )},
                 ]
             },
             {

@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 
 const GlobalStyle = `
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
@@ -100,7 +100,7 @@ export const GiftSection = styled.div`
     img {
       width: 600px;
       height: 350px;
-       object-fit: cover;
+      object-fit: cover;
     }
   }
 

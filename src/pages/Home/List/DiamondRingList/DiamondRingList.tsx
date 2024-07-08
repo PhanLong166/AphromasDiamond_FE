@@ -18,10 +18,10 @@ import {
   Pagination,
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../themes";
-import { products } from "../shared/ListOfProducts";
+import { theme } from "../../../../themes";
+import { products } from "../../shared/ListOfProducts";
 import { useNavigate, useParams } from "react-router-dom";
-import Link from '@/components/Link';
+import Link from "@/components/Link";
 const { Title, Text } = Typography;
 import config from "@/config";
 
@@ -53,16 +53,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Round Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $900 to $1000 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Round Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $900 to $1000 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "princess-ring": {
       title: "Princess Rings",
@@ -74,16 +89,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Princess Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $700 to $800 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Princess Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $700 to $800 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "heart-ring": {
       title: "Heart Rings",
@@ -95,16 +125,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Heart Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $500 to $600 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Heart Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $500 to $600 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "oval-ring": {
       title: "Oval Rings",
@@ -116,16 +161,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Oval Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $300 to $400 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Oval Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $300 to $400 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "cushion-ring": {
       title: "Cushion Rings",
@@ -137,16 +197,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Cushion Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Cushion Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $276 to $56,024 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "emerald-ring": {
       title: "Emerald Rings",
@@ -158,16 +233,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Emerald Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $900 to $1000 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Emerald Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $900 to $1000 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "asscher-ring": {
       title: "Asscher Rings",
@@ -179,16 +269,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Asscher Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $700 to $800 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Asscher Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $700 to $800 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "marquise-ring": {
       title: "Marquise Rings",
@@ -200,16 +305,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Marquise Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $300 to $400 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Marquise Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $300 to $400 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "radiant-ring": {
       title: "Radiant Rings",
@@ -221,16 +341,31 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Radiant Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $700 to $800 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Radiant Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $700 to $800 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
     "pear-ring": {
       title: "Pear Rings",
@@ -242,20 +377,34 @@ const DiamondRingList: React.FC = () => {
       faqs: [
         {
           key: "1",
-          label: "Pear Ring What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $700 to $800 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          label:
+            "Pear Ring What is the average cost of a womens diamond wedding ring?",
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $700 to $800 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
     },
   };
 
- 
   if (!ringType || !jewelryData[ringType]) {
     return <div>Invalid diamond ring selected.</div>;
   }
@@ -289,14 +438,11 @@ const DiamondRingList: React.FC = () => {
     );
   };
 
-  
   const faqs = jewelryData[ringType]?.faqs || [];
 
   const onChange = (key: string | string[]) => {
     console.log(key);
   };
-
- 
 
   const StyledCollapse = styled(Collapse)`
     .ant-collapse-item {
@@ -333,7 +479,9 @@ const DiamondRingList: React.FC = () => {
           ]}
         />
       </div>
-      <Banner style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}>
+      <Banner
+        style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}
+      >
         <div className="bannerContent">
           <LeftSection>
             <h2>{currentJewelryData.title}</h2>
@@ -439,7 +587,7 @@ const DiamondRingList: React.FC = () => {
             label: faq.label,
             children: <p>{faq.children}</p>,
           }))}
-          defaultActiveKey={['1']}
+          defaultActiveKey={["1"]}
           onChange={onChange}
         />
       </FAQs>

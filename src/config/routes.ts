@@ -42,6 +42,12 @@ const routes = {
     success: "/success",
     fail: "/fail",
     brand: "/brand",
+    engagementShape: "/jewelry/women-engagement-ring/:ringShape",
+    wedding: "/jewelry/women-wedding-ring/:ringShape",
+    menEngagement: "/jewelry/men-engagement-ring/:ringMetal",
+    menWedding: "/jewelry/men-wedding-ring/:ringMetal",
+    engagementDesigner: "/jewelry/engagement-ring/designer/:designer",
+    weddingDesigner: "/jewelry/wedding-ring/designer/:designer",
   },
   customer: {
     account: "/account",

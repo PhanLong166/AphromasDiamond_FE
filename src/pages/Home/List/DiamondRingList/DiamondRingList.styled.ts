@@ -1,17 +1,4 @@
-import { createGlobalStyle } from "styled-components";
-import { theme } from "../../../themes";
-
-const GlobalStyle = createGlobalStyle`
-@import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-@import url('https://fonts.googleapis.com/css2?family=Gantari:ital,wght@0,100..900;1,100..900&display=swap');
-  body {
-    font-family: 'Great Vibes', cursive;
-  }
-`;
-
-export default GlobalStyle;
+import { theme } from "../../../../themes";
 
 import styled from "styled-components";
 
@@ -23,7 +10,6 @@ export const Banner = styled.section`
     no-repeat center center;
   background-size: cover;
   display: flex;
-  margin-bottom: 40px;
 `;
 
 export const LeftSection = styled.div`
@@ -107,7 +93,7 @@ export const LeftFAQ = styled.div`
 export const List = styled.div`
   max-width: 1400px;
   margin: 0px auto;
-  margin-top: 40px;
+  margin-top: 60px;
 
   .product-image {
     width: 100%;

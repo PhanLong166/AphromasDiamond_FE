@@ -13,10 +13,10 @@ import {} from "@ant-design/icons";
 import { Collapse } from "antd";
 import styled from "styled-components";
 import { Breadcrumb } from "antd";
-import { theme } from "../../../themes";
+import { theme } from "../../../../themes";
 import { useParams } from "react-router-dom";
 import Link from "@/components/Link";
-import { products } from "./../shared/ListOfProducts";
+import { products } from "../../shared/ListOfProducts";
 const CustomBreadcrumb = styled(Breadcrumb)`
   padding-top: 10px;
   padding-bottom: 10px;

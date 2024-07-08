@@ -6,7 +6,7 @@ import Checkout from "../pages/Customer/Checkout/Checkout";
 import OrderList from "../pages/Customer/OderList/OderList";
 import Voucher from "../pages/Customer/Voucher/Voucher";
 import { Navigate, Outlet } from "react-router-dom";
-import ProductList from "@/pages/Home/ProductList/ProductList";
+import ProductList from "@/pages/Home/List/ProductList/ProductList";
 import AllProduct from "@/pages/Home/AllProduct/AllProduct";
 
 import NotiPage from "@/pages/Customer/Nofications/Nofications";
@@ -18,7 +18,7 @@ import History from "@/pages/Customer/History/History";
 import Home from "@/pages/Home/Home";
 import About from "@/pages/Home/AboutUs/AboutUs";
 import LearnAbout from "@/pages/Home/LearnAbout/LearnAbout";
-import Gift from "@/pages/Home/Gift/Gift";
+import Gift from "@/pages/Home/List/Gift/Gift";
 import RingGuide from "@/pages/Home/RingGuilde/RingGuide";
 
 // import OrderDetails from "@/pages/Customer/OrderDetails/OrderDetails";
@@ -47,12 +47,14 @@ import ThankPageFail from "@/pages/Home/ThankPage/ThankPageFail";
 import ProductDetails from "@/pages/Home/ProductDetails/ProductDetails";
 import DiamondDetails from "@/pages/Home/DiamondDetail/DiamondDetail";
 import BrandList from "@/pages/Home/BrandList/BrandList";
-import DiamondList from "@/pages/Home/DiamondList/DiamondList";
-import CutterList from "@/pages/Home/CutterList/CutterList";
-import DiamondRingList from "@/pages/Home/DiamondRingList/DiamondRingList";
-import DesignerList from "@/pages/Home/DesignerList/DesignerList";
-import FirmList from "@/pages/Home/FirmList/FirmList";
-import GiftFirmList from "@/pages/Home/GiftFirmList/GiftFirmList";
+import DiamondList from "@/pages/Home/List/DiamondList/DiamondList";
+import DiamondRingList from "@/pages/Home/List/DiamondRingList/DiamondRingList";
+
+import FirmList from "@/pages/Home/List/FirmList/FirmList";
+import GiftFirmList from "@/pages/Home/List/GiftFirmList/GiftFirmList";
+import CutterList from "@/pages/Home/List/CutterList/CutterList";
+import DesignerList from "@/pages/Home/List/DesignerList/DesignerList";
+import EngagementList from "@/pages/Home/List/EngagementList/EngagementList";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -82,10 +84,14 @@ const publicRoutes = {
     { path: config.routes.public.diamondDetail, element: <DiamondDetails /> },
     { path: config.routes.public.jewelryList, element: <ProductList /> },
     { path: config.routes.public.diamondList, element: <DiamondList /> },
-    { path: config.routes.public.diamondRingList, element: <DiamondRingList /> },
+    {
+      path: config.routes.public.diamondRingList,
+      element: <DiamondRingList />,
+    },
     { path: config.routes.public.designerList, element: <DesignerList /> },
     { path: config.routes.public.firmList, element: <FirmList /> },
     { path: config.routes.public.cutterList, element: <CutterList /> },
+    { path: config.routes.public.engagementShape, element: <EngagementList /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },
     { path: config.routes.public.gift, element: <Gift /> },
