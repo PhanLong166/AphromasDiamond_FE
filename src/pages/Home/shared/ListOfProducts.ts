@@ -1106,7 +1106,7 @@ export const products: Product[] = [
     categories: "wedding-ring",
     designer: "Bella Vaughan",
     firm: "Harry Winston",
-    gift: false,
+    gift: true,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
@@ -1133,7 +1133,7 @@ export const products: Product[] = [
     categories: "men-engagement-ring",
     designer: "The Gallery Collection",
     firm: "Bvlgari",
-    gift: false,
+    gift: true,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
@@ -1160,7 +1160,7 @@ export const products: Product[] = [
     categories: "men-engagement-ring",
     designer: "Blue Nile Studio",
     firm: "Van Cleef & Arpels",
-    gift: false,
+    gift: true,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },
@@ -1218,7 +1218,7 @@ export const products: Product[] = [
     categories: "men-engagement-ring",
     designer: "Zac Zac Posen",
     firm: "Cartier",
-    gift: false,
+    gift: true,
     description:
       "Radiating eternal allure and capturing the essence of sophistication, this diamond ring embodies the epitome of luxury and style.",
   },

@@ -395,7 +395,11 @@ export const items: MenuItem[] = [
                             Metal Education
                         </Link>
                     )},
-                    {key: 'learn-engagement-ring-5', label: 'Top 10 Wedding Rings'},
+                    {key: 'learn-engagement-ring-5', label:(
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-engagement-ring")}`} underline zoom scroll>
+                           Top 10 Engagement Rings
+                        </Link>
+                    )},
                 ]
             }
         ]
@@ -626,7 +630,11 @@ export const items: MenuItem[] = [
                 label: 'Gifts By Occasion',
                 type: 'group',
                 children: [
-                    {key: 'gift-ring-1', label: 'Engagement Ring'},
+                    {key: 'gift-ring-1', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-engagement-ring")}`} underline zoom scroll>
+                           Engagement Rings
+                        </Link>
+                    )},
                     {key: 'gift-ring-2', label: 'Wedding Ring'},
                 ]
             },
