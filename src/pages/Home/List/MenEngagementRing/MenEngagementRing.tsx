@@ -333,7 +333,7 @@ const MenEngagementRing: React.FC = () => {
                 </Text>
                 <button
                   className="show-all-button"
-                  onClick={() => navigate(config.routes.public.allProduct)}
+                  onClick={() => navigate(config.routes.public.allEngagement)}
                 >
                   SHOW ALL
                 </button>

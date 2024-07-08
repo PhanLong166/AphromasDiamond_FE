@@ -561,7 +561,7 @@ const DiamondRingList: React.FC = () => {
                 </Text>
                 <button
                   className="show-all-button"
-                  onClick={() => navigate(config.routes.public.allProduct)}
+                  onClick={() => navigate(config.routes.public.jewelryList.replace(":jewelryType", "ring"))}
                 >
                   SHOW ALL
                 </button>
