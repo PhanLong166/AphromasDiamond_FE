@@ -406,7 +406,11 @@ export const items: MenuItem[] = [
     },
     {
         key: 'wedding-ring',
-        label: 'Wedding Ring',
+        label:  (
+            <Link to={config.routes.public.allWedding} underline zoom scroll>
+               Wedding Ring
+            </Link>
+        ),
         children: [
             {
                 key: 'wedding-ring-by-shape',

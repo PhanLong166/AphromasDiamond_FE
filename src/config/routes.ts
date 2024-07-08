@@ -43,6 +43,7 @@ const routes = {
     fail: "/fail",
     brand: "/brand",
     allEngagement: "/jewelry/engagement-ring/",
+    allWedding: "/jewelry/wedding-ring/",
     engagementShape: "/jewelry/women-engagement-ring/:ringShape",
     wedding: "/jewelry/women-wedding-ring/:ringShape",
     menEngagement: "/jewelry/men-engagement-ring/:ringMetal",
