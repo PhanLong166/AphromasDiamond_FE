@@ -31,7 +31,7 @@ import CollectionInformation from "@/pages/Home/CollectionInformation/Collection
 import OrderDetail from "@/pages/Customer/OrderDetails/OrderDetails";
 import CollectionComing from "@/pages/Home/CollectionComing/CollectionComing";
 import FindSize from "@/pages/Home/DocumentPage/FindSize/FindSize";
-// import WishListPage from "@/pages/Home/WishList/WishListPage";
+import WishListPage from "@/pages/Home/WishList/WishListPage";
 import Learn4cs from "@/pages/Home/DocumentPage/Learn4cs/Learn4cs";
 import Certification from "@/pages/Home/DocumentPage/Certification/Certification";
 import DiamondShape from "@/pages/Home/DocumentPage/DiamondShape/DiamondShape";
@@ -136,6 +136,7 @@ const publicRoutes = {
     { path: config.routes.public.fail, element: <ThankPageFail /> },
     { path: config.routes.public.brand, element: <BrandList /> },
     { path: config.routes.public.sale, element: <SaleJewelryPage /> },
+    { path: config.routes.public.wish, element: <WishListPage /> },
   ],
 };
 
