@@ -321,10 +321,26 @@ export const items: MenuItem[] = [
                 label: "Men's Ring",
                 type: 'group',
                 children: [
-                    {key: 'engagement-ring-metal-1', label: 'White Gold'},
-                    {key: 'engagement-ring-metal-2', label: 'Yellow Gold'},
-                    {key: 'engagement-ring-metal-3', label: 'Rose Gold'},
-                    {key: 'engagement-ring-metal-4', label: 'Platinum'},
+                    {key: 'engagement-ring-metal-1', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "white-gold")}`}>
+                         White Gold
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-metal-2', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "yellow-gold")}`}>
+                         Yellow Gold
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-metal-3', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "rose-gold")}`}>
+                         Rose Gold
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-metal-4', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "platinum")}`}>
+                          Platinum
+                        </Link>
+                      )},
                 ]
             },
             {

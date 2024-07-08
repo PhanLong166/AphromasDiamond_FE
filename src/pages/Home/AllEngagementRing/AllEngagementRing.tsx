@@ -7,7 +7,7 @@ import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import Link from "@/components/Link";
 import { Section, Container, Heading, List } from "./AllEngagementRing.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
-import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
+import FilterSort from "@/components/FilterSort/FilterSort";
 
 const { Title, Text } = Typography;
 
@@ -91,7 +91,7 @@ const AllEngagementRing: React.FC = () => {
         <Heading>
           <h2>ALL ENGAGEMENTS RING</h2>
         </Heading>
-        <FilterSortJewelry />
+        <FilterSort />
         <hr
           style={{
             maxWidth: "1400px",
