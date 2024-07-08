@@ -6,7 +6,7 @@ import {
   FAQs,
   LeftFAQ,
   List,
-} from "./EngagementDesignerList.styled";
+} from "./WeddingDesignerList.styled";
 import styled from "styled-components";
 import {
   Breadcrumb,
@@ -38,16 +38,16 @@ const StyledPagination = styled(Pagination)`
   margin: 20px auto;
 `;
 
-const EngagementDesignerList: React.FC = () => {
+const WeddingDesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
   const navigate = useNavigate();
 
   const designerData: Record<string, any> = {
     zaczacposen: {
-      title: "Engagement Ring of Zac Zac Posen",
+      title: "Wedding Ring of Zac Zac Posen",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "Zac Zac Posen" && product.categories.includes("engagement-ring")),
+      products: products.filter((product) => product.designer === "Zac Zac Posen" && product.categories.includes("wedding-ring")),
       faqs: [
         {
           key: "1",
@@ -63,10 +63,10 @@ const EngagementDesignerList: React.FC = () => {
       bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20grown%20diamonds.jpeg?alt=media&token=63d86a3e-c0cb-48ea-a8e7-38e650e17425",
     },
     bellavaughan: {
-      title: "Engagement Ring of Bella Vaughan",
+      title: "Wedding Ring of Bella Vaughan",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "Bella Vaughan" && product.categories.includes("engagement-ring")),
+      products: products.filter((product) => product.designer === "Bella Vaughan" && product.categories.includes("wedding-ring")),
       faqs: [
         {
           key: "1",
@@ -82,10 +82,10 @@ const EngagementDesignerList: React.FC = () => {
       bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBrandBvl.jpg?alt=media&token=344f0091-7993-435a-9fc1-e6f689f0e976",
     },
     bluenile: {
-      title: "Engagement Ring of Blue Nile Studio",
+      title: "Wedding Ring of Blue Nile Studio",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "Blue Nile Studio" && product.categories.includes("engagement-ring")),
+      products: products.filter((product) => product.designer === "Blue Nile Studio" && product.categories.includes("wedding-ring")),
       faqs: [
         {
           key: "1",
@@ -101,10 +101,10 @@ const EngagementDesignerList: React.FC = () => {
       bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBlue%20Nile%20diamond%20jewelry.jpeg?alt=media&token=79f02baa-b4cf-4368-b838-2c7baa50d305",
     },
     thegallerycollection: {
-      title: "Engagement Ring of The Gallery Collection",
+      title: "Wedding Ring of The Gallery Collection",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "The Gallery Collection" && product.categories.includes("engagement-ring")),
+      products: products.filter((product) => product.designer === "The Gallery Collection" && product.categories.includes("wedding-ring")),
       faqs: [
         {
           key: "1",
@@ -277,7 +277,7 @@ const EngagementDesignerList: React.FC = () => {
                 </Text>
                 <button
                   className="show-all-button"
-                  onClick={() => navigate(config.routes.public.allEngagement)}
+                  onClick={() => navigate(config.routes.public.allWedding)}
                 >
                   SHOW ALL
                 </button>
@@ -311,4 +311,4 @@ const EngagementDesignerList: React.FC = () => {
   );
 };
 
-export default EngagementDesignerList;
+export default WeddingDesignerList;

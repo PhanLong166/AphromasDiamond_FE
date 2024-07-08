@@ -501,10 +501,26 @@ export const items: MenuItem[] = [
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'wedding-ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'wedding-ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'wedding-ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'wedding-ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'wedding-ring-designer-1', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "zaczacposen")}`}>
+                          Zac Zac Posen
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-designer-2', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "bellavaughan")}`}>
+                         Bella Vaughan
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-designer-3', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "bluenile")}`}>
+                         Blue Nile Studio
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-designer-4', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "thegallerycollection")}`}>
+                         The Gallery Collection
+                        </Link>
+                      )},
                 ]
             },
             {

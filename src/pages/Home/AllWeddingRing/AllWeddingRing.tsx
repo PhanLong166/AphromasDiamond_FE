@@ -89,7 +89,7 @@ const AllWeddingRing: React.FC = () => {
       </div>
       <Container className="wide">
         <Heading>
-          <h2>ALL ENGAGEMENTS RING</h2>
+          <h2>ALL WEDDING RINGS</h2>
         </Heading>
         <FilterSort />
         <hr
