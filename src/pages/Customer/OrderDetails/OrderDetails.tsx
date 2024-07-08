@@ -3,13 +3,19 @@ import styled from 'styled-components';
 // import { Button, ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/es/table';
+import { Tag, Form } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
+
+
 
 interface Product {
   id: string;
   name: string;
   quantity: number;
-  price: string;
+  price: number;
   imageUrl: string;
+  type: string;
+  size?: string;
 }
 
 interface OrderProps {
@@ -23,11 +29,232 @@ interface OrderProps {
   address: string;
   products: Product[];
   paymentMethod: string;
-  discount: string;
-  vat: string;
-  shippingFee: string;
-  total: string;
+  discount: number;
+  vat: number;
+  shippingFee: number;
+  total: number;
 }
+
+
+
+
+const sampleOrder: OrderProps = {
+  invoiceDate: '14 Dec 2022',
+  dueDate: '14 Dec 2022',
+  status: 'Pending',
+  orderId: '123456',
+  name: 'Ha Thi Huyen Trang',
+  phone: '0937250913',
+  email: 'hthuyentrange@gmail.com',
+  address: '123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam',
+  products: [
+    {
+      id: '1',
+      name: 'Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond',
+      quantity: 1,
+      price: 5030,
+      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7',
+      size: '8',
+      type: 'ring',
+    },
+    {
+      id: '2',
+      name: 'Aquamarine Stud Ring In 14k White Gold (7mm)',
+      quantity: 2,
+      price: 4000,
+      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring1.jpg?alt=media&token=1fd5a503-9856-403a-a250-60ab0f42b372',
+      size: '8',
+      type: 'ring',
+    },
+    {
+      id: '3',
+      name: 'Aquamarine Stud Diamond In 14k White Gold (7mm)',
+      quantity: 1,
+      price: 4000,
+      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2',
+      type: 'diamond',
+    },
+  ],
+  paymentMethod: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579',
+  discount: 503,
+  vat: 503,
+  shippingFee: 0,
+  total: 9033,
+};
+
+const StatusTag = ({ status }: { status: string }) => {
+  let color = "green";
+
+  switch (status) {
+    case "Pending":
+      color = "grey";
+      break;
+    case "Delivering":
+      color = "geekblue";
+      break;
+    case "Delivered":
+      color = "green";
+      break;
+    case "Canceled":
+      color = "volcano";
+      break;
+    default:
+      color = "default";
+  }
+
+  return (
+    <Tag color={color} key={status}>
+      {status.toUpperCase()}
+    </Tag>
+  );
+};
+const formatPrice = (price: number): string => {
+  return `$${price.toFixed(0)}`;
+};
+
+const OrderDetail: React.FC = () => {
+  const [order, setOrder] = useState<OrderProps | null>(null);
+  // const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
+  useEffect(() => {
+    // Simulating fetching data from an API
+    setTimeout(() => {
+      setOrder(sampleOrder);
+    }, 1000);
+  }, []);
+
+  if (!order) {
+    return <div>Loading...</div>;
+  }
+
+  const {
+    invoiceDate,
+    dueDate,
+    status,
+    name,
+    phone,
+    email,
+    address,
+    products,
+    paymentMethod,
+    discount,
+    vat,
+    shippingFee,
+    
+  } = order;
+
+  const columns: ColumnsType<Product> = [
+    {
+      title: 'Product',
+      dataIndex: 'name',
+      key: 'name',
+      render: (text, record) => (
+        <div style={{ display: 'flex', alignItems: 'center' }}>
+          <img src={record.imageUrl} alt={text} style={{ width: '70px', marginRight: '10px' }} />
+          <span>{text}</span>
+        </div>
+      ),
+    },
+    {
+      title: 'Quantity',
+      dataIndex: 'quantity',
+      key: 'quantity',
+    },
+    {
+      title: 'Size',
+      dataIndex: 'size',
+      key: 'size',
+      render: (text, record) => record.type === 'ring' ? text : '',
+    },
+  
+    
+    {
+      title: 'Price',
+      dataIndex: 'price',
+      key: 'price',
+      render: (_, record) => formatPrice(Number(record.price) * record.quantity),
+      
+    },
+  ];
+
+  const calculateTotal = () => {
+    const productsTotal = products.reduce((acc, product) => {
+      return acc + product.price * product.quantity;
+    }, 0);
+
+    return formatPrice(productsTotal - discount + vat);
+  };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  
+
+  return (
+    <MainContainer>
+    <Container>
+      <OrderWrapper>
+        <OrderTitle>Order Detail</OrderTitle>
+        <OrderDetailsContainer>
+          <OrderDetails>
+            <CustomerInfo>{name}</CustomerInfo>
+            <CustomerInfo>{phone}</CustomerInfo>
+            <CustomerInfo>{email}</CustomerInfo>
+            <CustomerInfo>{address}</CustomerInfo>
+          </OrderDetails>
+          <InvoiceDetails>
+            <InvoiceInfo>Invoice Date: {invoiceDate}</InvoiceInfo>
+            <InvoiceInfo>Due Date: {dueDate}</InvoiceInfo>
+            <InvoiceInfo>
+            Status: <StatusTag status={status} />
+              </InvoiceInfo>
+          </InvoiceDetails>
+        </OrderDetailsContainer>
+      </OrderWrapper>
+      <ProductsWrapper>
+        <OrderID>Order ID #{order.orderId}</OrderID>
+        <Table style={{backgroundColor: '#e8e8e8'}} columns={columns} dataSource={products} pagination={false} rowKey="id" />
+        <Form>
+        {/* checked={componentDisabled} */}
+        
+        <Form.Item label="Feedback">
+          <TextArea 
+          placeholder='Option'
+          // onChange={(e) => setComponentDisabled(e.target.checked)}
+          disabled
+          rows={4}
+          style={{ width: '400px', height: '140px' }}
+          allowClear
+          showCount
+          maxLength={300}
+           />
+        </Form.Item>
+        </Form>
+      </ProductsWrapper>
+      
+      <OrderInfo>
+     
+        <Row>
+          <InfoTitle>Payment method</InfoTitle>
+          <img className="payment-method" src={paymentMethod} alt="Payment method" />
+        </Row>
+        <Column>
+          <InfoText>Discount: {formatPrice(discount)}</InfoText>
+          <InfoText>VAT: {formatPrice(vat)}</InfoText>
+          <InfoText>Shipping: {shippingFee ? formatPrice(shippingFee) : 'Free'}</InfoText>
+          <br/>
+          <InfoText style={{color:"red"}}>
+              Total: {calculateTotal()}
+          </InfoText>
+        </Column>
+      </OrderInfo>
+      <EditButton>Comfirm</EditButton>
+    </Container>
+    </MainContainer>
+  );
+};
+
+const App: React.FC = () => {
+  return <OrderDetail />;
+};
+
+export default App;
 
 const Container = styled.div`
   background-color: #fff;
@@ -198,7 +425,7 @@ justify-content: space-around;
 
 const EditButton = styled.div`
   font-family: 'Poppins', sans-serif;
-  border-radius: 10px;
+  font-size: 16px;
   border: 1px solid #000;
   background-color: #fff;
   /* color: #000; */
@@ -221,140 +448,3 @@ const EditButton = styled.div`
     width: auto;
   }
 `;
-
-
-const sampleOrder: OrderProps = {
-  invoiceDate: '14 Dec 2022',
-  dueDate: '14 Dec 2022',
-  status: 'Pending',
-  orderId: '123456',
-  name: 'Ha Thi Huyen Trang',
-  phone: '0937250913',
-  email: 'hthuyentrange@gmail.com',
-  address: '123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam',
-  products: [
-    {
-      id: '1',
-      name: 'Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond',
-      quantity: 1,
-      price: '$5,030',
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7',
-    },
-    {
-      id: '2',
-      name: 'Aquamarine Stud Earrings In 14k White Gold (7mm)',
-      quantity: 2,
-      price: '$4,000',
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring1.jpg?alt=media&token=1fd5a503-9856-403a-a250-60ab0f42b372',
-    },
-  ],
-  paymentMethod: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579',
-  discount: '$503',
-  vat: '$503',
-  shippingFee: '$503',
-  total: '$9,033',
-};
-
-const OrderDetail: React.FC = () => {
-  const [order, setOrder] = useState<OrderProps | null>(null);
-
-  useEffect(() => {
-    // Simulating fetching data from an API
-    setTimeout(() => {
-      setOrder(sampleOrder);
-    }, 1000);
-  }, []);
-
-  if (!order) {
-    return <div>Loading...</div>;
-  }
-
-  const {
-    invoiceDate,
-    dueDate,
-    status,
-    name,
-    phone,
-    email,
-    address,
-    products,
-    paymentMethod,
-    discount,
-    vat,
-    shippingFee,
-    total,
-  } = order;
-
-  const columns: ColumnsType<Product> = [
-    {
-      title: 'Product',
-      dataIndex: 'name',
-      key: 'name',
-      render: (text, record) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={record.imageUrl} alt={text} style={{ width: '70px', marginRight: '10px' }} />
-          <span>{text}</span>
-        </div>
-      ),
-    },
-    {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
-    },
-    {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-    },
-  ];
-
-  return (
-    <MainContainer>
-    <Container>
-      <OrderWrapper>
-        <OrderTitle>Order Detail</OrderTitle>
-        <OrderDetailsContainer>
-          <OrderDetails>
-            <CustomerInfo>{name}</CustomerInfo>
-            <CustomerInfo>{phone}</CustomerInfo>
-            <CustomerInfo>{email}</CustomerInfo>
-            <CustomerInfo>{address}</CustomerInfo>
-          </OrderDetails>
-          <InvoiceDetails>
-            <InvoiceInfo>Invoice Date: {invoiceDate}</InvoiceInfo>
-            <InvoiceInfo>Due Date: {dueDate}</InvoiceInfo>
-            <InvoiceInfo>Status: {status}</InvoiceInfo>
-          </InvoiceDetails>
-        </OrderDetailsContainer>
-      </OrderWrapper>
-      <ProductsWrapper>
-        <OrderID>Order ID #{order.orderId}</OrderID>
-        <Table style={{backgroundColor: '#e8e8e8'}} columns={columns} dataSource={products} pagination={false} rowKey="id" />
-      </ProductsWrapper>
-      <OrderInfo>
-        <Row>
-          <InfoTitle>Payment method</InfoTitle>
-          <img className="payment-method" src={paymentMethod} alt="Payment method" />
-        </Row>
-        <Column>
-          <InfoText>Discount: {discount}</InfoText>
-          <InfoText>VAT: {vat}</InfoText>
-          <InfoText>Shipping Fee: {shippingFee}</InfoText>
-          <br/>
-          <InfoText style={{color:"red"}}>
-              Total: {total}
-          </InfoText>
-        </Column>
-      </OrderInfo>
-      <EditButton>Comfirm</EditButton>
-    </Container>
-    </MainContainer>
-  );
-};
-
-const App: React.FC = () => {
-  return <OrderDetail />;
-};
-
-export default App;

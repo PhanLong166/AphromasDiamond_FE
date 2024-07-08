@@ -3,164 +3,17 @@ import { Space, Table, Modal, TableColumnsType, Tag, TableProps } from 'antd';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
 import { Link } from 'react-router-dom';
 import { useState } from 'react';
+import { initialData, DataType } from './data';
 // import DropdownButton from './DropdownButton';
 
-interface DataType {
-  key: string;
-  No: string;
-  product: string;
-  orderDate: string;
-  price: number;
-  status: string;
-}
 
-const initialData: DataType[] = [
-  {
-    key: '1',
-    No: '1',
-    product: 'Diamond Ring',
-    orderDate: '24 Dec 2023',
-    price: 1000,
-    status: 'Delivered'
-  },
-  {
-    key: '2',
-    No: '2',
-    product: 'Diamond Earrings',
-    orderDate: '24 June 2023',
-    price: 2000,
-    status: 'Canceled',
-  },
-  {
-    key: '3',
-    No: '3',
-    product: 'Diamond Necklaces',
-    orderDate: '27 Jan 2024',
-    price: 2000,
-    status: 'Canceled',
-  },
-  {
-    key: '4',
-    No: '4',
-    product: 'Diamond Braclets',
-    orderDate: '24 Dec 2023',
-    price: 7000,
-    status: 'Delivered'
-  },
-  {
-    key: '5',
-    No: '5',
-    product: 'Diamond Chokers',
-    orderDate: '27 Dec 2023',
-    price: 2000,
-    status: 'Canceled',
-  },
-  {
-    key: '6',
-    No: '6',
-    product: 'Diamond Round',
-    orderDate: '27 Jan 2024',
-    price: 5000,
-    status: 'Pending',
-  },
-  {
-    key: '7',
-    No: '7',
-    product: 'Diamond Bracelets',
-    orderDate: '24 Dec 2023',
-    price: 7000,
-    status: 'Delivered'
-  },
-  {
-    key: '8',
-    No: '8',
-    product: 'Diamond Chokers',
-    orderDate: '27 Dec 2023',
-    price: 2000,
-    status: 'Canceled',
-  },
-  {
-    key: '9',
-    No: '9',
-    product: 'Diamond Marquise',
-    orderDate: '27 Jan 2024',
-    price: 5000,
-    status: 'Pending',
-  },
-  {
-    key: '10',
-    No: '10',
-    product: 'Diamond Oval',
-    orderDate: '27 Jan 2024',
-    price: 5000,
-    status: 'Pending',
-  },
-  {
-    key: '11',
-    No: '11',
-    product: 'Diamond Emerald',
-    orderDate: '27 Jan 2024',
-    price: 5000,
-    status: 'Delivering',
-  },
-  {
-    key: '12',
-    No: '12',
-    product: 'Diamond Cushion',
-    orderDate: '27 Jan 2024',
-    price: 5000,
-    status: 'Delivering',
-  },
-  {
-    key: '13',
-    No: '13',
-    product: 'Diamond Braclets',
-    orderDate: '24 Dec 2023',
-    price: 7000,
-    status: 'Delivered'
-  },
-  {
-    key: '14',
-    No: '14',
-    product: 'Diamond Chokers',
-    orderDate: '27 Dec 2023',
-    price: 2000,
-    status: 'Canceled',
-  },
-  {
-    key: '15',
-    No: '15',
-    product: 'Diamond Radiant',
-    orderDate: '27 Jan 2024',
-    price: 5000,
-    status: 'Pending',
-  },
-  {
-    key: '16',
-    No: '16',
-    product: 'Diamond Bracelets',
-    orderDate: '24 Dec 2023',
-    price: 7000,
-    status: 'Delivered'
-  },
-  {
-    key: '17',
-    No: '17',
-    product: 'Dimaond Princess',
-    orderDate: '27 Dec 2023',
-    price: 2000,
-    status: 'Canceled',
-  },
-  
-];
 
 const onChange: TableProps<DataType>['onChange'] = (pagination, filters, sorter, extra) => {
   console.log('params', pagination, filters, sorter, extra);
 };
 
 const History = () => {
-  // const [data] = useState<DataType[]>(initialData); // Initial data for the table
-  // const [filteredData, setFilteredData] = useState<DataType[]>(data); // State for filtered data
+
   const [showModal, setShowModal] = useState(false);
 `
   
@@ -270,19 +123,7 @@ const History = () => {
       onFilter: (value, record) => record.product.includes(value as string),
       width: '30%',
     },
-    // { title: 'Product', dataIndex: 'product',
-    //   showSorterTooltip: { target: "full-header" },
-    //   sorter: (a: DataType, b: DataType) => a.product.length - b.product.length,
-    //   sortDirections: ["descend"],
-    //   filters: [
-    //     { text: "Diamond Ring", value: "Diamond Ring" },
-    //     { text: "Diamond Earrings", value: "Diamond Earrings" },
-    //     { text: "Diamond Necklaces", value: "Diamond Necklaces" },
-    //     { text: "Diamond Braclets", value: "Diamond Braclets" },
-    //     { text: "Diamond Chokers", value: "Diamond Chokers" },
-    //   ],
-    //   onFilter: (value, record) => record.product.indexOf(value as string) === 0,
-    //  },
+    
     { title: 'Price', dataIndex: 'price',
       // defaultSortOrder: "descend",
     sorter: (a: DataType, b: DataType) => a.price - b.price,
@@ -292,8 +133,8 @@ const History = () => {
       let color = "green";
       if (status === "Pending") {
         color = "grey";
-      // } else if (status === "Confirmed") {
-      //   color = "yellow";
+      } else if (status === "Completed") {
+        color = "#32CD32";
       } else if (status === "Delivering") {
         color = "geekblue";
       } else if (status === "Delivered") {
@@ -308,10 +149,10 @@ const History = () => {
       );
     },
     filters: [
-      { text: "Pending", value: "Pending" },
-      { text: "Confirmed", value: "Delivered" },
-      { text: "Delivering", value: "Delivering" },
-      // { text: "Completed", value: "Completed" },
+      // { text: "Pending", value: "Pending" },
+      { text: "Delivered", value: "Delivered" },
+      // { text: "Delivering", value: "Delivering" },
+      { text: "Completed", value: "Completed" },
       { text: "Cancelled", value: "Cancelled" },
     ],
     onFilter: (value, record) => record.status.indexOf(value as string) === 0,
@@ -329,36 +170,12 @@ const History = () => {
     },
   ];
 
-  // const menuItems1 = [
-  //   { text: 'Rings', link: '#action1' },
-  //   { text: 'Necklaces', link: '#action2' },
-  //   { text: 'Earrings', link: '#action3' },
-  //   { text: 'Braclets', link: '#action4' },
-  //   { text: 'Chokers', link: '#action5' },
-  // ];
-
-  // const menuItems2 = [
-  //   { text: 'Hight-Low', link: '#option1' },
-  //   { text: 'Low-Hight', link: '#option2' },
-  // ];
-
-  // const menuItems3 = [
-  //   { text: 'Newest', link: '#action1' },
-  //   { text: '10 days ago', link: '#action2' },
-  // ];
-
-  // const menuItems4 = [
-  //   { text: 'Delivered', link: '#option2' },
-  //   { text: 'Canceled', link: '#option4' },
-  // ];
 
   return (
     <main>
       <AccountCus />
       <Section>
         <Title>History</Title>
-        
-          
         <TableContainer>
           <Table columns={columns} dataSource={initialData} pagination={{ pageSize: 6 }} onChange={onChange} />
         </TableContainer>

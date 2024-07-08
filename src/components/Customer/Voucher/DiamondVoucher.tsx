@@ -2,7 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 import 'font-awesome/css/font-awesome.min.css';
 // import { diamondvouchers} from './data';
-import { diamondvouchers } from "../../Customer/Checkout/Data/data";
+import { diamondvouchers } from "../Data/data";
 
 const App = () => {
  
@@ -23,12 +23,13 @@ interface GigProps {
   character: string;
   eventTitle: string;
   eventName: string;
-  date: string;
-  time: string;
+  startDate: string;
+  endDate: string;
   location: string;
   locationDetails: string;
   buttonLabel: string;
   buttonLabeles: string;
+  used: boolean;
 }
 
 const GigItem: React.FC<GigProps> = ({
@@ -36,8 +37,8 @@ const GigItem: React.FC<GigProps> = ({
   character,
   eventTitle,
   eventName,
-  date,
-  time,
+  startDate,
+  endDate,
   location,
   locationDetails,
   buttonLabel,
@@ -56,7 +57,7 @@ const GigItem: React.FC<GigProps> = ({
       <Schedule>
         <Icon className="fa fa-table" />
         <Text>
-          {date} <br /> {time}
+          {startDate} <br /> {endDate}
         </Text>
       </Schedule>
       <Fix />

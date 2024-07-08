@@ -2,21 +2,19 @@
 import styled from 'styled-components';
 // import 'font-awesome/css/font-awesome.min.css';
 import AccountCus from '@/components/Customer/Account Details/AccountCus';
-import RingVoucher from '@/components/Customer/Voucher/RingVoucher';
 import DiamondVoucher from '@/components/Customer/Voucher/DiamondVoucher';
-import CombinVoucher from '@/components/Customer/Voucher/CombinVoucher';
 const Voucher = () => {
   return (
     <Main>
       <AccountCus />
       <Titles>Voucher</Titles>
       <Section>
-        <TypeVoucher>Ring Voucher</TypeVoucher>
-        <RingVoucher/>
-        <TypeVoucher>Diamond Voucher</TypeVoucher>
+        {/* <TypeVoucher>Ring Voucher</TypeVoucher>
+        <RingVoucher/> */}
+        {/* <TypeVoucher>Diamond Voucher</TypeVoucher> */}
         <DiamondVoucher/>
-        <TypeVoucher>Combin Voucher</TypeVoucher>
-        <CombinVoucher />
+        {/* <TypeVoucher>Combin Voucher</TypeVoucher>
+        <CombinVoucher /> */}
       </Section>
     </Main>
   );
@@ -45,9 +43,9 @@ const Titles = styled.h1`
   }
 `;
 
-const TypeVoucher = styled.div`
-  font-size: 28px;
-  display: flex;
-  justify-content: space-around;
-  padding: 2rem 0 0.5rem 1rem;
-`;
+// const TypeVoucher = styled.div`
+//   font-size: 28px;
+//   display: flex;
+//   justify-content: space-around;
+//   padding: 2rem 0 0.5rem 1rem;
+// `;
