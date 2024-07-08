@@ -202,7 +202,7 @@ const Diamond = () => {
       render: (_, record: DiamondDataType) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.diamondImg}
+            src={record.diamondImg[0]}  
             alt={record.diamondName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -641,7 +641,7 @@ const Diamond = () => {
 
                         <ImgCrop rotationSlider>
                           <Upload
-                            action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                            // action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
                             listType="picture-card"
                             fileList={fileList}
                             onChange={onChangeImg}

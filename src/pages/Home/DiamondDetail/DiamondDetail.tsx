@@ -1,9 +1,11 @@
-import { useState } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useParams } from "react-router-dom";
+import Link from '@/components/Link';
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-import { diamonds } from "../shared/ListOfDiamond";
+import { diamonds, Diamond } from "../shared/ListOfDiamond";
+import styled from "styled-components";
 
 import {
   Body,
@@ -43,10 +45,13 @@ import {
   ButtonAdd,
   List,
   ProductSectionViewed,
+  CustomBreadcrumb,
 } from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 import { Pagination } from "antd";
+import useAuth from "@/hooks/useAuth";
+import config from "@/config";
 
 const DiamondDetails: React.FC = () => {
   //tab description + cmt
@@ -55,6 +60,13 @@ const DiamondDetails: React.FC = () => {
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
   };
+
+  //
+  const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
 
   //data cmt
   const reviewsData = [
@@ -94,18 +106,20 @@ const DiamondDetails: React.FC = () => {
       reply:
         " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
     },
+    {
+      name: "Serena Sterling",
+      avatar:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
+      rating: 4,
+      date: "October 16, 2022",
+      highlight: "Awesome Product",
+      comment:
+        "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
+      reply:
+        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
+    },
   ];
 
-  //2 same
-  const sameProductIds = ["1", "2", "3", "4"];
-  const sameBrandProducts = diamonds.filter((diamond) =>
-    sameProductIds.includes(diamond.id)
-  );
-
-  const recentlyProductIds = ["2", "4", "3", "5"];
-  const recentlyViewedProducts = diamonds.filter((diamond) =>
-    recentlyProductIds.includes(diamond.id)
-  );
   //
   const navigate = useNavigate();
 
@@ -122,28 +136,96 @@ const DiamondDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
-  const foundProduct = diamonds.find((diamond) => diamond.id === id);
+  const { role } = useAuth();
+  const [foundProduct, setFoundProduct] = useState<Diamond | null>(null);
+  const [mainImage, setMainImage] = useState("");
+  const [selectedThumb, setSelectedThumb] = useState(0);
+  const [sameBrandProducts, setSameBrandProducts] = useState<Diamond[]>([]);
+
+
+  useEffect(() => {
+    const product = diamonds.find((diamond) => diamond.id === id);
+    if (product) {
+      setFoundProduct(product);
+      setMainImage(product.images[0]);
+      setSelectedThumb(0);
+      const filteredProducts = diamonds.filter(
+        (p) => p.cutter === product.cutter && p.id !== product.id
+      );
+
+      // Determine how many products to show (up to 4)
+      const maxProductsToShow = 4;
+      const productsToShow =
+        filteredProducts.length <= maxProductsToShow
+          ? filteredProducts
+          : filteredProducts
+              .sort(() => 0.5 - Math.random())
+              .slice(0, maxProductsToShow);
+
+      setSameBrandProducts(productsToShow);
+
+    } else {
+      setFoundProduct(null);
+    }
+  }, [id, diamonds]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
   }
 
-  const [mainImage, setMainImage] = useState(foundProduct.image);
-  const [selectedThumb, setSelectedThumb] = useState(0);
-
-  const thumbnailImages = [
-    foundProduct.image,
-    foundProduct.image1,
-    foundProduct.image2,
-  ].filter((src): src is string => !!src); 
+  const thumbnailImages =
+    foundProduct?.images.filter((src): src is string => !!src) || [];
 
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
     setSelectedThumb(index);
   };
 
+
+
+  const recentlyProductIds = ["2", "4", "3", "5"];
+  const recentlyViewedProducts = diamonds.filter((diamond) =>
+    recentlyProductIds.includes(diamond.id)
+  );
+
+
+  //Avg rating
+  const totalReviews = reviewsData.length;
+  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const averageRating = totalRating / totalReviews;
+
+  const handleAddToCart = () => {
+    if (role) {
+      navigate(config.routes.customer.cart);
+    } else navigate(config.routes.public.login);
+  }
+
+  const handleCheckout = () => {
+    if (role) {
+      navigate(config.routes.customer.checkout);
+    } else navigate(config.routes.public.login);
+  }
+
   return (
     <Body>
+      <div>
+          <CustomBreadcrumb
+            separator=">"
+            items={[
+              {
+                title: "Home",
+                href: "/",
+              },
+              {
+                title: "Diamond",
+                href: config.routes.public.diamond
+              },
+              {
+                title: id,
+              }
+            ]}
+          />
+      </div>
       <Section>
         <Container>
           <Wrap>
@@ -212,10 +294,16 @@ const DiamondDetails: React.FC = () => {
               </Entry>
               <div className="outlet">
                 <ButtonContainer>
-                  <ButtonAdd className="add" onClick={() => navigate("/cart")}>
+                  <ButtonAdd
+                    className="add"
+                    onClick={handleAddToCart}
+                  >
                     ADD TO CART
                   </ButtonAdd>
-                  <Button className="checkout button_slide slide_right">
+                  <Button
+                    className="checkout button_slide slide_right"
+                    onClick={handleCheckout}
+                  >
                     <span>CHECKOUT</span>
                   </Button>
                 </ButtonContainer>
@@ -282,6 +370,7 @@ const DiamondDetails: React.FC = () => {
                     <li>Color: {foundProduct.color}</li>
                     <li>Clarity: {foundProduct.clarity}</li>
                     <li>Cut: {foundProduct.cut}</li>
+                    <li>Cutter: {foundProduct.cutter}</li>
                     <li>Width: {foundProduct.width}</li>
                     <li>Length: {foundProduct.length}</li>
                   </ul>
@@ -313,7 +402,7 @@ const DiamondDetails: React.FC = () => {
             <Review>
               <div className="head-review">
                 <div className="sum-rating">
-                  <strong>5.0</strong>
+                  <strong>{averageRating.toFixed(1)}</strong>
                   <span>{reviewsData.length} reviews</span>
                 </div>
               </div>
@@ -349,9 +438,7 @@ const DiamondDetails: React.FC = () => {
                   </div>
                 ))}
               </div>
-              <div style={{ textAlign: "center", marginTop: "20px" }}>
-                <Pagination defaultCurrent={1} total={10} />
-              </div>
+              <StyledPagination defaultCurrent={1} total={10} />
             </Review>
           </ProductAbout>
         </div>
@@ -364,7 +451,7 @@ const DiamondDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {sameBrandProducts.map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`}>
+                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -373,11 +460,11 @@ const DiamondDetails: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={diamond.image}
+                          src={diamond.images[0]}
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = diamond.image)
+                            (e.currentTarget.src = diamond.images[0])
                           }
                         />
                         {diamond.salePrice && (
@@ -430,7 +517,7 @@ const DiamondDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {recentlyViewedProducts.map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`}>
+                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -439,11 +526,11 @@ const DiamondDetails: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={diamond.image}
+                          src={diamond.images[0]}
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = diamond.image)
+                            (e.currentTarget.src = diamond.images[0])
                           }
                         />
                         {diamond.salePrice && (

@@ -1,5 +1,7 @@
 import styled from "styled-components";
 import { Link, NavLink as RouterNavLink } from 'react-router-dom';
+import config from "@/config";
+import cookieUtils from "@/services/cookieUtils";
 
 const AccountCus = () => {
   return (
@@ -10,7 +12,11 @@ const AccountCus = () => {
       <Section>
         <AccountActions>
           <Text><span><i className="fa-solid fa-heart"></i></span>Wishlist</Text>
-          <Text><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span><Link to="/login">Sign Out</Link></Text>
+          <Text><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span>
+            <Link to={config.routes.public.home} onClick={() => cookieUtils.clear()}>
+              Sign Out
+            </Link>
+          </Text>
         </AccountActions>
         <ProfileSection>
           <ProfileImage loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FAccount%2Fbanner.png?alt=media&token=7726f33e-43c5-49e3-88de-ff6ad1a3d334" alt="Profile Background" />

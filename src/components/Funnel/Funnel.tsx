@@ -4,6 +4,7 @@ import { Image } from 'antd';
 import { RootState } from '@/store';
 import { useNavigate } from 'react-router-dom';
 import config from '@/config';
+import { diamonds } from '@/pages/Home/shared/ListOfDiamond';
 
 const Funnel = () => {
     const selectedDiamond = useSelector((state: RootState) => state.customRing.selectedDiamond);
@@ -17,7 +18,7 @@ const Funnel = () => {
             <FunnelStyled.FunnelStep span={8}>
                 {selectedDiamond ?
                     <>
-
+                        {diamonds.find((diamond) => parseInt(diamond.id) === selectedDiamond)}
                     </> :
                     <>
                         <FunnelStyled.FunnelStepTitle level={4} onClick={() => navigate(config.routes.public.diamond)}>

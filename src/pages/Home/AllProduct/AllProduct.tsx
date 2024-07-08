@@ -4,7 +4,7 @@ import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import Link from '@/components/Link';
 import { Section, Container, Heading, List } from "./AllProduct.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
@@ -15,6 +15,12 @@ const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1400px;
   margin: 0 auto;
   padding-top: 20px;
+`;
+
+const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
 `;
 
 const AllProduct: React.FC = () => {
@@ -90,7 +96,7 @@ const AllProduct: React.FC = () => {
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`}>
+                <Link to={`/product/${product.id}`} underline zoom scroll>
                   <Card
                     key={product.id}
                     style={{ borderRadius: "0" }}
@@ -100,16 +106,15 @@ const AllProduct: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={product.image}
+                          src={product.images[0]}
                           alt={product.name}
                           className="product-image"
                           onMouseOver={(e) =>
-                            (e.currentTarget.src = product.hoverImage)
+                            (e.currentTarget.src = product.images[2])
                           }
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = product.image)
+                            (e.currentTarget.src = product.images[0])
                           }
-                          
                         />
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
@@ -119,9 +124,7 @@ const AllProduct: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                        <div >
-                          {product.name}
-                        </div>
+                        <div>{product.name}</div>
                         {wishList.includes(product.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -154,14 +157,12 @@ const AllProduct: React.FC = () => {
             ))}
           </Row>
         </List>
-        <div style={{ textAlign: "center", margin: "20px auto" }}>
-          <Pagination
-            current={currentPage}
-            pageSize={pageSize}
-            total={products.length}
-            onChange={handleChangePage}
-          />
-        </div>
+        <StyledPagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={products.length}
+          onChange={handleChangePage}
+        />
       </Container>
     </Section>
   );

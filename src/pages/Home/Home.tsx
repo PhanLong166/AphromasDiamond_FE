@@ -1,8 +1,5 @@
 import React, { useState } from "react";
-import styled from "styled-components";
-import { theme } from "../../themes";
 import { Row, Col, Typography, Pagination } from "antd";
-import { Card } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 
@@ -43,33 +40,47 @@ import {
   Button,
   BannerContent,
   Banner,
+  StyledCarousel,
+  StyledLink,
+  StyledCard,
 } from "./Home.styled";
 
 import { Link, useNavigate } from "react-router-dom";
+
 import { Carousel } from "antd";
 import config from "@/config";
+import { useDocumentTitle } from "@/hooks";
 
 const categories = [
   {
-    href: `${config.routes.public.productList}`,
+    href: `${config.routes.public.jewelryList.replace(":jewelryType", "ring")}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Frings.png?alt=media&token=c98d3b13-b088-4446-beec-818451532578",
     title: "Rings",
   },
   {
-    href: "#",
+    href: `${config.routes.public.jewelryList.replace(
+      ":jewelryType",
+      "necklace"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fnecklaces.png?alt=media&token=f93e37c0-56ba-465b-8cd4-bae4e0f2f01b",
     title: "Necklaces",
   },
   {
-    href: "#",
+    href: `${config.routes.public.jewelryList.replace(
+      ":jewelryType",
+      "earrings"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fearring.png?alt=media&token=9463ef63-fd14-469e-85c4-acaadab99c89",
     title: "Earrings",
   },
   {
-    href: "#",
+    href: `${config.routes.public.jewelryList.replace(
+      ":jewelryType",
+      "bracelet"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fbracelets.png?alt=media&token=153a1833-4a24-465d-8cd8-27e2e7d8bb73",
     title: "Bracelets",
@@ -102,61 +113,91 @@ const categories = [
 
 const shapes = [
   {
-    href: "/list",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "round-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Froundshape.jpg?alt=media&token=7b5a2b64-dd48-4820-b629-95ca68b70d42",
     title: "Round",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "princess-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fprincessshape.jpg?alt=media&token=c60b33dd-8ef7-4661-98a3-978f0483f8fc",
     title: "Princess",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "cushion-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fcushionshap.jpg?alt=media&token=67d271c0-d75d-498d-b75c-d35048749069",
     title: "Cushion",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "oval-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fovalshape.jpg?alt=media&token=500f0670-bc32-44d4-8acb-623705a3333c",
     title: "Oval",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "emerald-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Femeraldshape.jpg?alt=media&token=63a5cedb-652c-4391-86e3-6f4114caa8de",
     title: "Emerald",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "pear-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fpearshape.jpg?alt=media&token=406f5c80-251c-479e-8264-f3044beccd62",
     title: "Pear",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "asscher-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fasschershape.jpg?alt=media&token=365da7a9-f60c-4fd4-989f-dd6e35e39009",
     title: "Asscher",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "heart-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fheartshape.jpg?alt=media&token=877c29bb-5993-48fc-9f40-c33152dfb622",
     title: "Heart",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "radiant-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fradiantshape.jpg?alt=media&token=9848b421-1322-466c-837c-fda46cb3807a",
     title: "Radiant",
   },
   {
-    href: "#",
+    href: `${config.routes.public.diamondList.replace(
+      ":diamondShape",
+      "marquise-shape"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fmarquiseshape.jpg?alt=media&token=bb18d51b-1230-4829-a677-2ec98998b215",
     title: "Marquise",
@@ -166,25 +207,25 @@ const shapes = [
 
 const brand = [
   {
-    href: "/brand",
+    href: `${config.routes.public.firmList.replace(":jewelryFirm", "Bvlgari")}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FBvlgari.png?alt=media&token=9702661b-d3a5-49b5-9bf7-87adc932fa7d",
     title: "Bvlgari",
   },
   {
-    href: "#",
+    href: `${config.routes.public.firmList.replace(":jewelryFirm", "Cartier")}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FCartier.jpg?alt=media&token=e8d641af-9dd1-41a4-9375-9e3eeb687a71",
     title: "Cartier",
   },
   {
-    href: "#",
+    href: `${config.routes.public.firmList.replace(":jewelryFirm", "HarryWinston")}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FHarryWinston.png?alt=media&token=55b3feaa-45ca-406d-bdb1-bf11582eeeba",
     title: "Harry Winston",
   },
   {
-    href: "#",
+    href: `${config.routes.public.firmList.replace(":jewelryFirm", "Tiffany&Co")}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FTiffany%26Co..png?alt=media&token=f9e75673-a2bc-4b37-9ffc-589ddc1fca20",
     title: "Tiffany & Co.",
@@ -284,99 +325,8 @@ const products: Product[] = [
 ];
 
 const Home: React.FC = () => {
-  const StyledCarousel = styled(Carousel)`
-    .slick-slide {
-      display: flex;
-      justify-content: center;
-    }
+  useDocumentTitle("Aphromas Diamond");
 
-    .slick-dots {
-      bottom: -10px;
-    }
-
-    .slick-dots li {
-      margin: 0 2px;
-    }
-
-    .slick-dots li button {
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background: ${theme.color.primary};
-      justify-content: center;
-    }
-
-    .slick-dots li.slick-active button {
-      background: ${theme.color.primary};
-      justify-content: center;
-    }
-  `;
-  const StyledLink = styled(Link)`
-    text-decoration: none;
-
-    &:hover {
-      text-decoration: none;
-    }
-  `;
-
-  const StyledCard = styled(Card)`
-    .product-image {
-      width: 100%;
-      height: 328px;
-      transition: transform 0.3s ease-in-out; /* Thêm hiệu ứng mượt mà */
-    }
-
-    .sale-badge {
-      position: absolute;
-      top: 10px;
-      left: 10px;
-      padding: 4px 8px;
-      font-size: 14px;
-      font-weight: 500;
-      background-color: #ede0b8;
-      color: ${theme.color.primary};
-      width: auto;
-    }
-
-    .product-info {
-      display: flex;
-      flex-direction: column;
-      align-items: flex-start;
-    }
-
-    .product-name {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      width: 100%;
-      font-size: 13px;
-      color: ${theme.color.primary};
-    }
-
-    .wishlist-icon {
-      margin-left: 8px;
-      cursor: pointer;
-      font-size: 16px;
-      color: #db7f67;
-    }
-
-    .price-container {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-
-    .product-price {
-      font-size: 14px;
-      color: ${theme.color.primary};
-    }
-
-    .product-sale-price {
-      font-size: 12px;
-      color: #888;
-      text-decoration: line-through;
-    }
-  `;
   const pageSize = 4;
   const [current, setCurrent] = useState(1);
 
@@ -472,8 +422,8 @@ const Home: React.FC = () => {
                     <DotImage>
                       <Link to={shape.href}>
                         <img src={shape.imgSrc} alt={shape.title} />
+                        <DotTitle>{shape.title}</DotTitle>
                       </Link>
-                      <DotTitle>{shape.title}</DotTitle>
                     </DotImage>
                   </ShapeItem>
                 ))}
@@ -760,8 +710,8 @@ const Home: React.FC = () => {
                     <DotImage>
                       <Link to={brands.href}>
                         <img src={brands.imgSrc} alt={brands.title} />
+                        <DotTitle>{brands.title}</DotTitle>
                       </Link>
-                      <DotTitle>{brands.title}</DotTitle>
                     </DotImage>
                   </BrandItem>
                 ))}

@@ -1,15 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Section, Heading, List, FAQs, LeftFAQ, CustomBreadcrumb, StyledCollapse } from "./AllDiamond.styled";
-import { Card, Col, Row, Typography, Pagination } from "antd";
+import { Section, Heading, List, FAQs, LeftFAQ, CustomBreadcrumb, StyledCollapse, StyledPagination } from "./AllDiamond.styled";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { showAllDiamond } from "@/services/diamondAPI";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 
 import { diamonds } from "../shared/ListOfDiamond";
-import { Link } from "react-router-dom";
-import Funnel from "@/components/Funnel";
+
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
+import Link from '@/components/Link';
 
 const { Title, Text } = Typography;
 
@@ -71,7 +71,6 @@ const AllDiamond: React.FC = () => {
           ]}
         />
       </div>
-      <Funnel />
       <Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>
@@ -87,7 +86,7 @@ const AllDiamond: React.FC = () => {
         <Row gutter={[16, 16]}>
           {filteredDiamonds.map((diamond) => (
             <Col key={diamond.id} span={6}>
-              <Link to={`/diamond/${diamond.id}`}>
+              <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable
@@ -96,10 +95,10 @@ const AllDiamond: React.FC = () => {
                   <>
                     <img
                       style={{ borderRadius: "0" }}
-                      src={diamond.image}
+                      src={diamond.images[0]}
                       alt={diamond.name}
                       className="product-image"
-                      onMouseOut={(e) => (e.currentTarget.src = diamond.image)}
+                      onMouseOut={(e) => (e.currentTarget.src = diamond.images[0])}
                     />
                     {diamond.salePrice && (
                       <div className="sale-badge">SALE</div>
@@ -139,14 +138,12 @@ const AllDiamond: React.FC = () => {
           ))}
         </Row>
       </List>
-      <div style={{ textAlign: "center", margin: "20px auto" }}>
-        <Pagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={filteredDiamonds.length}
-          onChange={handleChangePage}
-        />
-      </div>
+      <StyledPagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={filteredDiamonds.length}
+        onChange={handleChangePage}
+      />
       <FAQs>
         <LeftFAQ>
           <h2>FAQs ABOUT PRODUCT</h2>

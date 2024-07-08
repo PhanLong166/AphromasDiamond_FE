@@ -13,7 +13,7 @@ const menuItems = [
   },
   { label: "Buying Guide", key: "buying-guide" },
   { label: "Metal Education", key: "metal-education" },
-  { label: "Find Your Ring Size", key: "find-ring-size", path: "/find-size" },
+  { label: "Find Your Ring Size", key: "find-ring-size"},
   { label: "Earrings Education", key: "earrings-education" },
   { label: "Necklaces Education", key: "necklaces-education" },
   { label: "Bracelets Education", key: "bracelets-education" },

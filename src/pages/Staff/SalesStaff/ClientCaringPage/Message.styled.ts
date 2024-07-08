@@ -58,7 +58,7 @@ export const AdPageContent_Head = styled.div`
     margin: 0px 0px 0px 0px;
     padding: 0px 0px 27px;
     font-size: 24px;
-    color: #102c57;
+    color: #151542;
   }
 `;
 

@@ -5,8 +5,9 @@ import * as CartStyled from './Cart.styled';
 import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 import { useDocumentTitle } from "@/hooks";
 import { items } from "../../../components/Customer/Data/data";
-import  CartItem  from "../../../components/Customer/Cart/CartItem";
 import { useState } from "react";
+import CartItem from "@/components/Customer/Cart/CartItem";
+
 const Cart = () => {
   useDocumentTitle('Cart | Aphromas Diamond');
   

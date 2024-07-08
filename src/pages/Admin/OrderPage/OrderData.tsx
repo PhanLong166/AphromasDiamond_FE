@@ -1,5 +1,5 @@
 
-export interface DataType {
+export interface OrderDataType {
   key: React.Key;
   orderID: string;
   date: string;
@@ -9,7 +9,7 @@ export interface DataType {
   status: string;
 }
 
-export const data: DataType[] = [
+export const orderData : OrderDataType[] = [
   {
     key: "1",
     orderID: "12345150",

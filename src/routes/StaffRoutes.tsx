@@ -13,16 +13,22 @@ import OrderDetail from "@/pages/Staff/SalesStaff/OrderPage/OrderDetail";
 import CompletedOrder from "@/pages/Staff/SalesStaff/OrderPage/Completed/Completed";
 import CancelledOrder from "@/pages/Staff/SalesStaff/OrderPage/Cancelled/Cancelled";
 
-import Diamond from "@/pages/Staff/SalesStaff/ProductPage/Diamond";
+import Diamond from "@/pages/Staff/SalesStaff/ProductPage/Diamond/Diamond";
 import DiamondDetail from "@/pages/Staff/SalesStaff/ProductPage/Detail/DiamondDetail";
-import Jewelry from "@/pages/Staff/SalesStaff/ProductPage/Jewelry";
+import Jewelry from "@/pages/Staff/SalesStaff/ProductPage/Jewelry/Jewelry";
 import JewelryDetail from "@/pages/Staff/SalesStaff/ProductPage/Detail/JewelryDetail";
-import RingSetting from "@/pages/Staff/SalesStaff/ProductPage/RingSetting";
-import ProductType from "@/pages/Staff/SalesStaff/ProductPage/JewelryType";
-import Material from "@/pages/Staff/SalesStaff/ProductPage/Material";
-import Marketing from "@/pages/Staff/SalesStaff/MarketingPage/Marketing";
+import RingSetting from "@/pages/Staff/SalesStaff/ProductPage/Jewelry Setting/RingSetting";
+import JewelrySettingDetail from "@/pages/Staff/SalesStaff/ProductPage/Detail/SettingDetail";
+import ProductType from "@/pages/Staff/SalesStaff/ProductPage/JewelryType/JewelryType";
+import Material from "@/pages/Staff/SalesStaff/ProductPage/Material/Material";
+import Collection from "@/pages/Staff/SalesStaff/MarketingPage/Collection/Collection";
+import CollectionDetail from "@/pages/Staff/SalesStaff/MarketingPage/Detail/CollectionDetail";
+import ProductPromotion from "@/pages/Staff/SalesStaff/MarketingPage/ProductPromotion/ProductPromotion";
+import ProductPromotionDetail from "@/pages/Staff/SalesStaff/MarketingPage/Detail/ProductPromotionDetail";
+import BillPromotion from "@/pages/Staff/SalesStaff/MarketingPage/BillPromotion/BillPromotion";
 import Messages from "@/pages/Staff/SalesStaff/ClientCaringPage/Message";
-import Feedback from "@/pages/Staff/SalesStaff/ClientCaringPage/Feedback";
+import FeedbackSale from "@/pages/Staff/SalesStaff/ClientCaringPage/FeedbackSale";
+import FeedbackCompleted from "@/pages/Staff/SalesStaff/ClientCaringPage/FeedbackCompleted";
 
 // import DeliveryReport from "@/pages/Staff/DeliveryReport/DeliveryPending";
 import DeliveryDelivering from "@/pages/Staff/DeliveryReport/DeliveryDelivering";
@@ -62,12 +68,18 @@ const salesStaffRoutes = {
         {path: config.routes.salesStaff.jewelry, element: <Jewelry /> },
         {path: config.routes.salesStaff.jewelryDetail, element: <JewelryDetail /> },
         {path: config.routes.salesStaff.ringSettingProduct, element: <RingSetting/>},
+        {path: config.routes.salesStaff.ringSettingDetail, element: <JewelrySettingDetail/>},
         {path: config.routes.salesStaff.jewelryTypeProduct, element: <ProductType/>},
         {path: config.routes.salesStaff.materialProduct, element: <Material/>},
 
-        {path: config.routes.salesStaff.marketing, element: <Marketing/>},
+        {path: config.routes.salesStaff.collection, element: <Collection/>},
+        {path: config.routes.salesStaff.collectionDetail, element: <CollectionDetail/>},
+        {path: config.routes.salesStaff.discount, element: <ProductPromotion/>},
+        {path: config.routes.salesStaff.discountDetail, element: <ProductPromotionDetail/>},
+        {path: config.routes.salesStaff.voucher, element: <BillPromotion/>},
         {path: config.routes.salesStaff.clientCaring, element: <Messages/>},
-        {path: config.routes.salesStaff.feedback, element: <Feedback/>},
+        {path: config.routes.salesStaff.feedback, element: <FeedbackSale/>},
+        {path: config.routes.salesStaff.feedbackCompleted, element: <FeedbackCompleted/>},
     ]
 }
 

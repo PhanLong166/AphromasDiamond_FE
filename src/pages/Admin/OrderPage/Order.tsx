@@ -1,42 +1,42 @@
+// Order.tsx
 import * as Styled from "./Order.styled";
 import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-// import { Col, Row } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
-
+import { orderData, OrderDataType } from "./OrderData";
 import { Link } from "react-router-dom";
 
+// (rest of your Order.tsx code)
 
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<OrderDataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a: OrderDataType, b: OrderDataType) => a.orderID.localeCompare(b.orderID),
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
+    sorter: (a: OrderDataType, b: OrderDataType) => a.date.localeCompare(b.date),
   },
   {
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
+    sorter: (a: OrderDataType, b: OrderDataType) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    sorter: (a: OrderDataType, b: OrderDataType) => a.total - b.total,
   },
   {
     title: "Status",
@@ -76,15 +76,6 @@ const columns: TableColumnsType<DataType> = [
     ],
     onFilter: (value, record) => record.status.indexOf(value as string) === 0,
   },
-  // {
-  //   title: "Action",
-  //   key: "action",
-  //   render: () => (
-  //     <Space size="middle">
-  //       <Button className="confirmBtn">Confirm</Button>
-  //     </Space>
-  //   ),
-  // },
   {
     title: "Detail",
     key: "detail",
@@ -99,7 +90,7 @@ const columns: TableColumnsType<DataType> = [
   },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<OrderDataType>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -135,7 +126,6 @@ const Order = () => {
                 <Input
                   className="searchInput"
                   type="text"
-                  // size="large"
                   placeholder="Search here..."
                   value={searchText}
                   onChange={(e) => setSearchText(e.target.value)}
@@ -149,8 +139,7 @@ const Order = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
-                // pagination={{ pageSize: 6 }} // Add pagination here
+                dataSource={orderData}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />

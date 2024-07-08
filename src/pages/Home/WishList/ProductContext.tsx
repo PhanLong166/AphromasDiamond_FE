@@ -8,11 +8,11 @@ interface Product {
     name: string;
     price: number;
     salePrice?: number;
-    image: string;
+    // image: string;
     image1?: string;
     image2?: string;
     image3?: string;
-    hoverImage: string;
+    // hoverImage: string;
     description: string;
   }
 

@@ -5,19 +5,19 @@ import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { data, DataType } from "../OrderData";
+import { orderData, OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
 
 
 
-const filteredData = data.filter((item) => item.status === "Pending");
+const filteredData = orderData.filter((item) => item.status === "Pending");
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<OrderDataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a: OrderDataType, b: OrderDataType) => a.orderID.localeCompare(b.orderID),
   },
   {
     title: "Date",
@@ -29,14 +29,14 @@ const columns: TableColumnsType<DataType> = [
     title: "Customer",
     dataIndex: "cusName",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a: DataType, b: DataType) => a.cusName.length - b.cusName.length,
+    sorter: (a: OrderDataType, b: OrderDataType) => a.cusName.length - b.cusName.length,
     sortDirections: ["descend"],
   },
   {
     title: "Total",
     dataIndex: "total",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.total - b.total,
+    sorter: (a: OrderDataType, b: OrderDataType) => a.total - b.total,
   },
   {
     title: "Status",
@@ -91,7 +91,7 @@ const columns: TableColumnsType<DataType> = [
   // },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<OrderDataType>["onChange"] = (
   pagination,
   filters,
   sorter,

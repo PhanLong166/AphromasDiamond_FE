@@ -22,8 +22,6 @@ import {
   MaterialDataType,
   DiamondDataType,
   ringSizeData,
-  // RingSizeDataType,
-  // MaterialDataType,
 } from "../ProductData";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import {
@@ -35,6 +33,16 @@ import {
   collectionData,
   CollectionDataType,
 } from "../../MarketingPage/MarketingData";
+import {
+  ClarityType_Option,
+  ColorType_Option,
+  FluorescenceType_Option,
+  RateType_Option,
+  ShapeType_Option,
+} from "../Diamond/Diamond.type";
+import { JewelryType } from "../Jewelry/Jewelry.type";
+import * as Yup from "yup";
+import { Formik } from "formik";
 
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -80,6 +88,61 @@ const PriceCalculation = (
     (Weight * Price per Gram + Auxiliary Cost + Production Cost)* Charge Rate
   </div>
 );
+
+const validationSchema = Yup.object().shape({
+  jewelryName: Yup.string()
+    .required("Jewelry Name is required.")
+    .matches(
+      /^[a-zA-Z0-9\s()-.]*$/,
+      "Only alphabet, numbers, (), - and . are allowed."
+    )
+    .max(300, "Jewelry Name must be at most 300 characters long."),
+  // ---------------------------
+  diamondName: Yup.string()
+    .required("Diamond Name is required.")
+    .matches(
+      /^[a-zA-Z0-9\s()-.]*$/,
+      "Only alphabet, numbers, (), - and . are allowed."
+    )
+    .max(300, "Diamond Name must be at most 300 characters long."),
+  price: Yup.number()
+    .required("Price is required.")
+    .positive("Price must be a positive number.")
+    .max(1000000, "Price must be less than or equal to $1,000,000 USD."),
+  description: Yup.string()
+    .required("Description is required.")
+    .matches(
+      /^[a-zA-Z0-9\s()-.]*$/,
+      "Only alphabet, numbers, (), - and . are allowed."
+    ),
+  // ---------------------------
+  jewelrySettingName: Yup.string()
+    .required("Jewelry Setting Name is required.")
+    .matches(
+      /^[a-zA-Z0-9\s()-.]*$/,
+      "Only alphabet, numbers, (), - and . are allowed."
+    )
+    .max(300, "Jewelry Setting Name must be at most 300 characters long."),
+  auxiliaryCost: Yup.number()
+    .required("Auxiliary Cost is required.")
+    .positive("Auxiliary Cost must be a positive number.")
+    .max(
+      1000000,
+      "Auxiliary Cost must be less than or equal to $1,000,000 USD."
+    ),
+  chargeRate: Yup.number()
+    .required("Charge Rate is required.")
+    .positive("Charge Rate must be a positive number.")
+    .max(300, "Charge Rate must be less than or equal to 300%."),
+  weight: Yup.number()
+    .required("Weight is required.")
+    .positive("Weight must be a positive number.")
+    .max(500, "Weight must be less than or equal to 500 grams."),
+  amount: Yup.number()
+    .required("Amount is required.")
+    .positive("Amount must be a positive number.")
+    .max(300, "Amount must be less than or equal to 300 units."),
+});
 
 const JewelryDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -133,14 +196,6 @@ const JewelryDetail = () => {
     activeRingSettingMaterials
   );
   const [editedCollection, setEditedCollection] = useState(activeCollection);
-
-  // const startEditing = () => {
-  //   setIsEditing(true);
-  //   setEditedProduct({ ...activeProduct });
-  //   setEditedDiamond({ ...activeDiamond });
-  //   setEditedRingSetting({ ...activeRingSetting });
-  //   setEditedRingSettingMaterials({ ...activeRingSettingMaterials });
-  // };
 
   const saveChanges = () => {
     setIsEditing(false);
@@ -206,7 +261,7 @@ const JewelryDetail = () => {
 
   const handleAdd = () => {
     const newMaterialID = ringMaterialData[0]?.materialID || "";
-    const newWeight = 1;
+    const newWeight = ringMaterialData[0]?.weight || 1;
     const newPricePerGram = ringMaterialData[0]?.price || 1;
     const newJewelrySettingPrice = newWeight * newPricePerGram;
 
@@ -215,7 +270,8 @@ const JewelryDetail = () => {
       jewelrySettingID: activeRingSetting?.jewelrySettingID || "",
       jewelrySettingVariantID: "",
       materialID: newMaterialID,
-      sizeID: "defaultSize", // Replace with appropriate size ID logic
+      weight: newWeight,
+      sizeID: "defaultSize",
       amount: 1,
       price: newJewelrySettingPrice,
     };
@@ -223,46 +279,30 @@ const JewelryDetail = () => {
     setData([...data, newData]);
   };
 
-  const materialOptions = [
-    { value: "M12345121", label: "14K White Gold" },
-    { value: "M12345122", label: "14K Yellow Gold" },
-    { value: "M12345123", label: "14K Rose Gold" },
-    { value: "M12345124", label: "18K White Gold" },
-    { value: "M12345125", label: "18K Yellow Gold" },
-    { value: "M12345126", label: "18K Rose Gold" },
-    { value: "M12345127", label: "Platinum" },
-  ];
-
-  const sizeOptions = [
-    { value: "SZ01", label: 8 },
-    { value: "SZ02", label: 10 },
-    { value: "SZ03", label: 12 },
-    { value: "SZ04", label: 14 },
-    { value: "SZ05", label: 16 },
-    { value: "SZ06", label: 18 },
-  ];
-
   const EditableMaterialCell: React.FC<{
     title: React.ReactNode;
     editable: boolean;
     value: any;
     onChange: (value: any) => void;
     options?: { value: string; label: string }[];
+    isEditing: boolean;
   }> = ({
-    // title,
     editable,
     value,
     onChange,
-    options,
+    isEditing
   }) => {
     return (
       <td>
-        {editable ? (
-          options ? (
+        {editable && isEditing ? (
+          materialData ? (
             <Select value={value} onChange={onChange}>
-              {options.map((option) => (
-                <Select.Option key={option.value} value={option.value}>
-                  {option.label}
+              {materialData.map((option) => (
+                <Select.Option
+                  key={option.materialID}
+                  value={option.materialID}
+                >
+                  {option.materialName}
                 </Select.Option>
               ))}
             </Select>
@@ -282,21 +322,21 @@ const JewelryDetail = () => {
     value: any;
     onChange: (value: any) => void;
     options?: { value: string; label: number }[];
+    isEditing: boolean;
   }> = ({
-    // title,
     editable,
     value,
     onChange,
-    options,
+    isEditing
   }) => {
     return (
       <td>
-        {editable ? (
-          options ? (
+        {editable && isEditing ? (
+          ringSizeData ? (
             <Select value={value} onChange={onChange}>
-              {options.map((option) => (
-                <Select.Option key={option.value} value={option.value}>
-                  {option.label}
+              {ringSizeData.map((option) => (
+                <Select.Option key={option.sizeID} value={option.sizeID}>
+                  {option.sizeValue}
                 </Select.Option>
               ))}
             </Select>
@@ -315,15 +355,17 @@ const JewelryDetail = () => {
     editable: boolean;
     value: any;
     onChange: (value: any) => void;
+    isEditing: boolean;
   }> = ({
     // title,
     editable,
     value,
     onChange,
+    isEditing
   }) => {
     return (
       <td>
-        {editable ? (
+        {editable && isEditing ? (
           <Input value={value} onChange={(e) => onChange(e.target.value)} />
         ) : (
           value
@@ -342,7 +384,7 @@ const JewelryDetail = () => {
           editable={false}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
-          options={materialOptions}
+          isEditing={false}
         />
       ),
     },
@@ -443,7 +485,7 @@ const JewelryDetail = () => {
           editable={true}
           value={record.materialID}
           onChange={(value) => handleSave({ ...record, materialID: value })}
-          options={materialOptions}
+          isEditing={isEditing}
         />
       ),
     },
@@ -457,7 +499,7 @@ const JewelryDetail = () => {
           editable={true}
           value={record.sizeID}
           onChange={(value) => handleSave({ ...record, sizeID: value })}
-          options={sizeOptions}
+          isEditing={isEditing}
         />
       ),
     },
@@ -471,6 +513,7 @@ const JewelryDetail = () => {
           editable={true}
           value={record.amount}
           onChange={(value) => handleSave({ ...record, amount: value })}
+          isEditing={isEditing}
         />
       ),
     },
@@ -559,12 +602,53 @@ const JewelryDetail = () => {
   };
 
   const handleOk = () => {
-    // Handle the submission logic here
     setIsModalVisible(false);
   };
 
   const handleCancel = () => {
     setIsModalVisible(false);
+  };
+
+  // IMAGE STATES
+  const [jewelryMainImage, setJewelryMainImage] = useState("");
+  const [jewelrySelectedThumb, setJewelrySelectedThumb] = useState(0);
+
+  const [diamondMainImage, setDiamondMainImage] = useState("");
+  const [diamondSelectedThumb, setDiamondSelectedThumb] = useState(0);
+
+  const [settingMainImage, setSettingMainImage] = useState("");
+  const [settingSelectedThumb, setSettingSelectedThumb] = useState(0);
+
+  useEffect(() => {
+    if (activeProduct && activeRingSetting && activeDiamond) {
+      setJewelryMainImage(activeProduct.jewelryImg[0]);
+      setJewelrySelectedThumb(0);
+
+      setDiamondMainImage(activeDiamond.diamondImg[0]);
+      setDiamondSelectedThumb(0);
+
+      setSettingMainImage(activeRingSetting.jewelrySettingImg[0]);
+      setSettingSelectedThumb(0);
+    }
+  }, [activeProduct, activeDiamond, activeRingSetting]);
+
+  if (!activeProduct || !activeDiamond || !activeRingSetting) {
+    return <div>Jewelry not found</div>;
+  }
+
+  const changeJewelryImage = (src: string, index: number) => {
+    setJewelryMainImage(src);
+    setJewelrySelectedThumb(index);
+  };
+
+  const changeDiamondImage = (src: string, index: number) => {
+    setDiamondMainImage(src);
+    setDiamondSelectedThumb(index);
+  };
+
+  const changeSettingImage = (src: string, index: number) => {
+    setSettingMainImage(src);
+    setSettingSelectedThumb(index);
   };
 
   return (
@@ -575,6 +659,54 @@ const JewelryDetail = () => {
         <Styled.AdminPage>
           <ProductMenu />
 
+          <Formik
+            initialValues={{
+              jewelryName: editedProduct?.jewelryName || "",
+              diamondName: editedDiamond?.diamondName || "",
+              diamondPrice: editedDiamond?.price || 0,
+              diamondDescription: editedDiamond?.description || "",
+              jewelrySettingName: editedRingSetting?.jewelrySettingName || "",
+              auxiliaryCost: editedRingSetting?.auxiliaryCost || 0,
+              chargeRate: editedRingSetting?.chargeRate || 1,
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values, { setSubmitting }) => {
+              // Update activeRingSetting và activeProduct với các giá trị mới
+              if (editedRingSetting && editedProduct && editedDiamond) {
+                setEditedProduct({
+                  ...editedProduct,
+                  jewelryName: values.jewelryName,
+                });
+                setEditedDiamond({
+                  ...editedDiamond,
+                  diamondName: values.diamondName,
+                  price: values.diamondPrice,
+                  description: values.diamondDescription,
+                });
+                setEditedRingSetting({
+                  ...editedRingSetting,
+                  jewelrySettingName: values.jewelrySettingName,
+                  auxiliaryCost: values.auxiliaryCost,
+                  chargeRate: values.chargeRate,
+                });
+
+                setIsEditing(false); 
+
+                console.log("Form submitted with values:", values);
+              }
+              setSubmitting(false);
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+              <>
           <Styled.PageContent>
             {activeProduct ? (
               <>
@@ -582,8 +714,6 @@ const JewelryDetail = () => {
                   <>
                     {activeRingSetting ? (
                       <>
-                        {/* {activeRingSettingMaterials ? (
-                          <> */}
                         {isEditing ? (
                           <>
                             <Styled.PageContent_Top>
@@ -591,14 +721,43 @@ const JewelryDetail = () => {
                                 <p>Jewelry Detail</p>
                               </Styled.PageDetail_Title>
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeProduct?.jewelryImg}
-                                    alt={activeProduct?.jewelryName}
-                                  />
-                                </Styled.ProductImg>
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeProduct.jewelryImg.map(
+                                        (image: string, index: number) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              jewelrySelectedThumb === index
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeJewelryImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={jewelryMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
                                 <Styled.ProductContent>
-                                  {/* <Styled.SignaInfor> */}
                                   <Form.Item
                                     label="Jewelry ID"
                                     className="InforLine_Title"
@@ -616,43 +775,30 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
-                                    label="Jewelry Name"
-                                    className="InforLine_Title"
-                                  >
-                                    <Input
-                                      value={editedProduct?.jewelryName}
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          "jewelryName",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  </Form.Item>
+                                      label="Jewelry Name"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="jewelryName"
+                                        value={values?.jewelryName}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.jewelryName &&
+                                        errors.jewelryName && (
+                                          <div className="error">
+                                            {errors.jewelryName}
+                                          </div>
+                                        )}
+                                    </Form.Item>
                                   <Form.Item
                                     label="Type"
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      //   defaultValue="Select Clarity"
                                       className="formItem"
                                       placeholder={editedProduct?.type}
-                                      options={[
-                                        { value: "Ring", label: "Ring" },
-                                        {
-                                          value: "Necklace",
-                                          label: "Necklace",
-                                        },
-                                        { value: "Earring", label: "Earring" },
-                                        {
-                                          value: "Bracelet",
-                                          label: "Bracelet",
-                                        },
-                                        { value: "Anklet", label: "Anklet" },
-                                        { value: "Bangle", label: "Bangle" },
-                                        { value: "Choker", label: "Choker" },
-                                        { value: "Pendant", label: "Pendant" },
-                                      ]}
+                                      options={JewelryType}
                                       value={editedProduct?.type}
                                       onChange={(value) =>
                                         handleFieldChange("type", value)
@@ -665,7 +811,6 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      // className="formItem"
                                       placeholder={
                                         getCollectionDetails(
                                           activeProduct.collectionID,
@@ -732,19 +877,49 @@ const JewelryDetail = () => {
                                 <p>Diamond Detail</p>
                               </Styled.PageDetail_Title>
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeDiamond.diamondImg}
-                                    alt={activeDiamond.diamondName}
-                                  />
-                                  <img
-                                    className="GIAExport"
-                                    src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
-                                    alt="GIA Certificate"
-                                    onClick={showModalGIA}
-                                    style={{ cursor: "pointer" }}
-                                  />
-                                </Styled.ProductImg>
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeDiamond.diamondImg.map(
+                                        (image, index) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              diamondSelectedThumb === index
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeDiamondImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Diamond Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={diamondMainImage}
+                                        alt="Main"
+                                      />
+                                      <img
+                                        className="GIAExport"
+                                        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
+                                        alt="GIA Certificate"
+                                        onClick={showModalGIA}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
                                 <Styled.ProductContent>
                                   <Form.Item
                                     label="Diamond ID"
@@ -776,6 +951,23 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
+                                      label="Diamond Name"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="diamondName"
+                                        value={values?.diamondName}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.diamondName &&
+                                        errors.diamondName && (
+                                          <div className="error">
+                                            {errors.diamondName}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                  <Form.Item
                                     label="Price"
                                     className="InforLine_Title"
                                   >
@@ -790,28 +982,29 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
+                                      label="Price"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="price"
+                                        value={values?.diamondPrice}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.diamondPrice &&
+                                        errors.diamondPrice && (
+                                          <div className="error">
+                                            {errors.diamondPrice}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                  <Form.Item
                                     label="Shape"
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      // className="formItem"
                                       placeholder={editedDiamond?.shape}
-                                      options={[
-                                        { value: "Round", label: "Round" },
-                                        {
-                                          value: "Princess",
-                                          label: "Princess",
-                                        },
-                                        { value: "Oval", label: "Oval" },
-                                        {
-                                          value: "Marquise",
-                                          label: "Marquise",
-                                        },
-                                        { value: "Pear", label: "Pear" },
-                                        { value: "Cushion", label: "Cushion" },
-                                        { value: "Emerald", label: "Emerald" },
-                                        { value: "Asscher", label: "Asscher" },
-                                      ]}
+                                      options={ShapeType_Option}
                                       value={editedDiamond?.shape}
                                       onChange={(value) =>
                                         handleFieldChange("shape", value)
@@ -823,18 +1016,8 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Select
-                                      // className="formItem"
                                       placeholder={editedDiamond?.color}
-                                      options={[
-                                        { value: "K", label: "K" },
-                                        { value: "J", label: "J" },
-                                        { value: "I", label: "I" },
-                                        { value: "H", label: "H" },
-                                        { value: "G", label: "G" },
-                                        { value: "F", label: "F" },
-                                        { value: "E", label: "E" },
-                                        { value: "D", label: "D" },
-                                      ]}
+                                      options={ColorType_Option}
                                       value={editedDiamond?.color}
                                     />
                                   </Form.Item>
@@ -844,19 +1027,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.polish}
-                                      options={[
-                                        {
-                                          value: "Excellent",
-                                          label: "Excellent",
-                                        },
-                                        {
-                                          value: "Very Good",
-                                          label: "Very Good",
-                                        },
-                                        { value: "Good", label: "Good" },
-                                        { value: "Fair", label: "Fair" },
-                                        { value: "Poor", label: "Poor" },
-                                      ]}
+                                      options={RateType_Option}
                                       value={editedDiamond?.polish}
                                       onChange={(value) =>
                                         handleFieldChange("polish", value)
@@ -869,19 +1040,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.cut}
-                                      options={[
-                                        {
-                                          value: "Excellent",
-                                          label: "Excellent",
-                                        },
-                                        {
-                                          value: "Very Good",
-                                          label: "Very Good",
-                                        },
-                                        { value: "Good", label: "Good" },
-                                        { value: "Fair", label: "Fair" },
-                                        { value: "Poor", label: "Poor" },
-                                      ]}
+                                      options={RateType_Option}
                                       value={editedDiamond?.cut}
                                       onChange={(value) =>
                                         handleFieldChange("cut", value)
@@ -911,17 +1070,7 @@ const JewelryDetail = () => {
                                     <Select
                                       // className="formItem"
                                       placeholder={editedDiamond?.clarity}
-                                      options={[
-                                        { value: "I3", label: "I3" },
-                                        { value: "I1-I2", label: "I1-I2" },
-                                        { value: "SI1-S12", label: "SI1-S12" },
-                                        { value: "VS1-VS2", label: "VS1-VS2" },
-                                        {
-                                          value: "VVS1-VVS2",
-                                          label: "VVS1-VVS2",
-                                        },
-                                        { value: "FL-IF", label: "FL-IF" },
-                                      ]}
+                                      options={ClarityType_Option}
                                       value={editedDiamond?.clarity}
                                       onChange={(value) =>
                                         handleFieldChange("clarity", value)
@@ -934,19 +1083,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.symmetry}
-                                      options={[
-                                        {
-                                          value: "Excellent",
-                                          label: "Excellent",
-                                        },
-                                        {
-                                          value: "Very Good",
-                                          label: "Very Good",
-                                        },
-                                        { value: "Good", label: "Good" },
-                                        { value: "Fair", label: "Fair" },
-                                        { value: "Poor", label: "Poor" },
-                                      ]}
+                                      options={RateType_Option}
                                       value={editedDiamond?.symmetry}
                                       onChange={(value) =>
                                         handleFieldChange("symmetry", value)
@@ -1004,12 +1141,7 @@ const JewelryDetail = () => {
                                   >
                                     <Select
                                       placeholder={editedDiamond?.fluorescence}
-                                      options={[
-                                        { value: "Strong", label: "Strong" },
-                                        { value: "Media", label: "Media" },
-                                        { value: "Faint", label: "Faint" },
-                                        { value: "None", label: "None" },
-                                      ]}
+                                      options={FluorescenceType_Option}
                                       value={editedDiamond?.fluorescence}
                                       onChange={(value) =>
                                         handleFieldChange("fluorescence", value)
@@ -1030,14 +1162,31 @@ const JewelryDetail = () => {
                                       }
                                     />
                                   </Form.Item>
+                                  <Form.Item
+                                      label="Description"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="description"
+                                        value={values?.diamondDescription}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.diamondDescription &&
+                                        errors.diamondDescription && (
+                                          <div className="error">
+                                            {errors.diamondDescription}
+                                          </div>
+                                        )}
+                                    </Form.Item>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
 
                               <Modal
                                 title="GIA Certificate"
                                 visible={isModalGIA}
-                                onOk={handleOk}
-                                onCancel={handleCancel}
+                                onOk={handleOkGIA}
+                                onCancel={handleCancelGIA}
                                 footer={null}
                               >
                                 <img
@@ -1054,12 +1203,42 @@ const JewelryDetail = () => {
                               </Styled.PageDetail_Title>
 
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeRingSetting.jewelrySettingImg}
-                                    alt={activeRingSetting.jewelrySettingName}
-                                  />
-                                </Styled.ProductImg>
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeRingSetting.jewelrySettingImg.map(
+                                        (image, index) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              index === settingSelectedThumb
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeSettingImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Setting Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={settingMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
                                 <Styled.ProductContent>
                                   <Form.Item
                                     label="Jewelry Setting ID"
@@ -1083,7 +1262,7 @@ const JewelryDetail = () => {
                                     <Input
                                       value={
                                         editedRingSetting?.jewelrySettingName
-                                      } 
+                                      }
                                       onChange={(e) =>
                                         handleFieldChange(
                                           "jewelrySettingName",
@@ -1093,28 +1272,30 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
+                                      label="Jewelry Setting Name"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="jewelrySettingName"
+                                        value={values?.jewelrySettingName}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.jewelrySettingName &&
+                                        errors.jewelrySettingName && (
+                                          <div className="error">
+                                            {errors.jewelrySettingName}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                  <Form.Item
                                     label="Jewelry Setting Type"
                                     className="InforLine_Title"
                                   >
                                     <Select
                                       className="formItem"
                                       placeholder={editedRingSetting?.type}
-                                      options={[
-                                        { value: "Ring", label: "Ring" },
-                                        {
-                                          value: "Necklace",
-                                          label: "Necklace",
-                                        },
-                                        { value: "Earring", label: "Earring" },
-                                        {
-                                          value: "Bracelet",
-                                          label: "Bracelet",
-                                        },
-                                        { value: "Anklet", label: "Anklet" },
-                                        { value: "Bangle", label: "Bangle" },
-                                        { value: "Choker", label: "Choker" },
-                                        { value: "Pendant", label: "Pendant" },
-                                      ]}
+                                      options={JewelryType}
                                       value={editedProduct?.type}
                                       onChange={(value) =>
                                         handleFieldChange("type", value)
@@ -1123,19 +1304,53 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
-                                    label="Auxiliary Cost"
+                                      label="Auxiliary Cost"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="auxiliaryCost"
+                                        value={values?.auxiliaryCost}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.auxiliaryCost &&
+                                        errors.auxiliaryCost && (
+                                          <div className="error">
+                                            {errors.auxiliaryCost}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                  <Form.Item
+                                    label="Charge Rate (%)"
                                     className="InforLine_Title"
                                   >
                                     <Input
-                                      value={activeRingSetting.auxiliaryCost} // chưa chuyển sang dạng editedJewelrySetting
+                                      value={activeRingSetting.chargeRate} // chưa chuyển sang dạng editedJewelrySetting
                                       onChange={(e) =>
                                         handleFieldChange(
-                                          "auxiliaryCost",
+                                          "chargeRate",
                                           e.target.value
                                         )
                                       }
                                     />
                                   </Form.Item>
+                                  <Form.Item
+                                      label="Charge Rate (%)"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="chargeRate"
+                                        value={values?.chargeRate}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.chargeRate &&
+                                        errors.chargeRate && (
+                                          <div className="error">
+                                            {errors.chargeRate}
+                                          </div>
+                                        )}
+                                    </Form.Item>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
                               <Styled.MaterialTable>
@@ -1156,10 +1371,18 @@ const JewelryDetail = () => {
                               </Styled.MaterialTable>
                             </Styled.PageContent_Bot>
                             <Styled.ActionBtn>
-                              <Button className="MainBtn" onClick={saveChanges}>
-                                <SaveOutlined />
-                                Save Change
-                              </Button>
+                            <Button
+                                  type="primary"
+                                  disabled={isSubmitting}
+                                  onClick={() => {
+                                    handleSubmit();
+                                    saveChanges();
+                                  }}
+                                  className="MainBtn"
+                                >
+                                  <SaveOutlined />
+                                  Save Change
+                                </Button>
 
                               <Link to="/admin/product/jewelry">
                                 <Button
@@ -1174,17 +1397,55 @@ const JewelryDetail = () => {
                         ) : (
                           <>
                             {/* ------------------------------------------------- */}
+
                             <Styled.PageContent_Top>
                               <Styled.PageDetail_Title>
                                 <p>Jewelry Detail</p>
                               </Styled.PageDetail_Title>
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
+                                {/* <Styled.ProductImg>
                                   <img
                                     src={activeProduct.jewelryImg}
                                     alt={activeProduct.jewelryName}
                                   />
-                                </Styled.ProductImg>
+                                </Styled.ProductImg> */}
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeProduct.jewelryImg.map(
+                                        (image: string, index: number) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              jewelrySelectedThumb === index
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeJewelryImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={jewelryMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
+
                                 <Styled.ProductContent>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
@@ -1220,28 +1481,6 @@ const JewelryDetail = () => {
                                     </p>
                                     <p>{editedDiamond?.price}</p>
                                   </Styled.InforLine>
-                                  {/* <Styled.InforLine>
-                                        <p className="InforLine_Title">
-                                          Production Cost
-                                        </p>
-                                        <p>{editedRingSetting?.productionCost}</p>
-                                      </Styled.InforLine> */}
-                                  {/* <Styled.InforLine>
-                                        <p className="InforLine_Title">
-                                          Selling Price
-                                        </p>
-                                        <p>
-                                          {editedProduct?.price &&
-                                          editedProduct?.markupPercentage
-                                            ? (editedProduct?.price +
-                                                activeRingSetting.price +
-                                                activeRingSetting.processingFee) *
-                                              (1 +
-                                                activeProduct.markupPercentage /
-                                                  100)
-                                            : 0}
-                                        </p>
-                                      </Styled.InforLine> */}
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
                               <Styled.MaterialTable>
@@ -1260,19 +1499,64 @@ const JewelryDetail = () => {
                                 <p>Diamond Detail</p>
                               </Styled.PageDetail_Title>
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeDiamond.diamondImg}
-                                    alt={activeDiamond.diamondName}
-                                  />
-                                  <img
-                                    className="GIAExport"
-                                    src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
-                                    alt="GIA Certificate"
-                                    onClick={showModal}
-                                    style={{ cursor: "pointer" }}
-                                  />
-                                </Styled.ProductImg>
+                                {/* <Styled.ProductImg>
+                                    <img
+                                      src={activeDiamond.diamondImg[0]}
+                                      alt={activeDiamond.diamondName}
+                                    />
+                                    <img
+                                      className="GIAExport"
+                                      src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
+                                      alt="GIA Certificate"
+                                      onClick={showModal}
+                                      style={{ cursor: "pointer" }}
+                                    />
+                                  </Styled.ProductImg> */}
+
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeDiamond.diamondImg.map(
+                                        (image, index) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              diamondSelectedThumb === index
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeDiamondImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Diamond Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={diamondMainImage}
+                                        alt="Main"
+                                      />
+                                      <img
+                                        className="GIAExport"
+                                        src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-logo.svg?alt=media&token=223f8b08-36c3-401b-ae25-a35f4c930631"
+                                        alt="GIA Certificate"
+                                        onClick={showModalGIA}
+                                        style={{ cursor: "pointer" }}
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
+
                                 <Styled.ProductContent>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
@@ -1370,12 +1654,50 @@ const JewelryDetail = () => {
                               </Styled.PageDetail_Title>
 
                               <Styled.PageDetail_Infor>
-                                <Styled.ProductImg>
-                                  <img
-                                    src={activeRingSetting.jewelrySettingImg}
-                                    alt={activeRingSetting.jewelrySettingName}
-                                  />
-                                </Styled.ProductImg>
+                                {/* <Styled.ProductImg>
+                                    <img
+                                      src={activeRingSetting.jewelrySettingImg}
+                                      alt={activeProductImgRingSetting.jewelrySettingName}
+                                    />
+                                  </Styled.ProductImg> */}
+
+                                <Styled.ImageContainer>
+                                  <Styled.OuterThumb>
+                                    <Styled.ThumbnailImage>
+                                      {activeRingSetting.jewelrySettingImg.map(
+                                        (image, index) => (
+                                          <Styled.Item
+                                            key={index}
+                                            className={
+                                              index === settingSelectedThumb
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeSettingImage(image, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={image}
+                                              alt={`Setting Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        )
+                                      )}
+                                    </Styled.ThumbnailImage>
+                                  </Styled.OuterThumb>
+                                  <Styled.OuterMain>
+                                    <Styled.MainImage>
+                                      <img
+                                        id="mainImage"
+                                        src={settingMainImage}
+                                        alt="Main"
+                                      />
+                                    </Styled.MainImage>
+                                  </Styled.OuterMain>
+                                </Styled.ImageContainer>
+
                                 <Styled.ProductContent>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
@@ -1399,9 +1721,21 @@ const JewelryDetail = () => {
                                   </Styled.InforLine>
                                   <Styled.InforLine>
                                     <p className="InforLine_Title">
+                                      Update Time
+                                    </p>
+                                    <p>{editedRingSetting?.updateTime}</p>
+                                  </Styled.InforLine>
+                                  <Styled.InforLine>
+                                    <p className="InforLine_Title">
                                       Auxiliary Cost
                                     </p>
                                     <p>{editedRingSetting?.auxiliaryCost}</p>
+                                  </Styled.InforLine>
+                                  <Styled.InforLine>
+                                    <p className="InforLine_Title">
+                                      Charge Rate (%)
+                                    </p>
+                                    <p>{editedRingSetting?.chargeRate}%</p>
                                   </Styled.InforLine>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
@@ -1419,7 +1753,6 @@ const JewelryDetail = () => {
                               <Styled.ActionBtn_Left>
                                 <Button
                                   className="MainBtn"
-                                  // onClick={startEditing}
                                   onClick={() => setIsEditing(true)}
                                 >
                                   Edit
@@ -1447,10 +1780,6 @@ const JewelryDetail = () => {
                             </Styled.ActionBtn>
                           </>
                         )}
-                        {/* </>
-                        ) : (
-                          <div>Jewelry Setting Material not found.</div>
-                        )} */}
                       </>
                     ) : (
                       <div>Jewelry setting not found.</div>
@@ -1464,10 +1793,12 @@ const JewelryDetail = () => {
               <div>Jewelry not found.</div>
             )}
           </Styled.PageContent>
+          </>
+            )}
+          </Formik>
         </Styled.AdminPage>
       </Styled.PageAdminArea>
     </>
   );
 };
-
 export default JewelryDetail;

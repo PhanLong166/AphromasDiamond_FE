@@ -3,16 +3,16 @@ import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import { data, DataType } from "../OrderData";
+import { orderData, OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import OrderMenu from "@/components/Admin/OrderMenu/OrderMenu";
 
 
 
-const filteredData = data.filter((item) => item.status === "Assigned");
+const filteredData = orderData.filter((item) => item.status === "Assigned");
 
-const columns: TableColumnsType<DataType> = [
+const columns: TableColumnsType<OrderDataType> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
@@ -92,7 +92,7 @@ const columns: TableColumnsType<DataType> = [
   // },
 ];
 
-const onChange: TableProps<DataType>["onChange"] = (
+const onChange: TableProps<OrderDataType>["onChange"] = (
   pagination,
   filters,
   sorter,
