@@ -42,12 +42,19 @@ const DesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
   const navigate = useNavigate();
 
+  const excludedCategories = [
+    "wedding-ring",
+    "engagement-ring",
+    "men-engagement-ring",
+    "men-wedding-ring",
+  ];
+
   const designerData: Record<string, any> = {
     zaczacposen: {
       title: "Zac Zac Posen",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "Zac Zac Posen"),
+      products: products.filter((product) => product.designer === "Zac Zac Posen" && !excludedCategories.includes(product.categories)),
       faqs: [
         {
           key: "1",
@@ -66,7 +73,7 @@ const DesignerList: React.FC = () => {
       title: "Bella Vaughan",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "Bella Vaughan"),
+      products: products.filter((product) => product.designer === "Bella Vaughan" && !excludedCategories.includes(product.categories)),
       faqs: [
         {
           key: "1",
@@ -85,7 +92,7 @@ const DesignerList: React.FC = () => {
       title: "Blue Nile Studio",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "Blue Nile Studio"),
+      products: products.filter((product) => product.designer === "Blue Nile Studio" && !excludedCategories.includes(product.categories)),
       faqs: [
         {
           key: "1",
@@ -104,7 +111,7 @@ const DesignerList: React.FC = () => {
       title: "The Gallery Collection",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.designer === "The Gallery Collection"),
+      products: products.filter((product) => product.designer === "The Gallery Collection" && !excludedCategories.includes(product.categories)),
       faqs: [
         {
           key: "1",

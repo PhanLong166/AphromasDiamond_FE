@@ -44,6 +44,12 @@ const GiftFirmList = () => {
     }
   `;
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
+  const excludedCategories = [
+    "wedding-ring",
+    "engagement-ring",
+    "men-engagement-ring",
+    "men-wedding-ring",
+  ];
   const jewelryData: Record<string, any> = {
     "top-ten-bvlgari": {
       title: "Top Ten of Bvlgari",
@@ -53,7 +59,7 @@ const GiftFirmList = () => {
       description:
         "Elevate your style with our diamond bracelets, crafted to perfection in yellow gold, white gold, rose gold, or platinum. Each bracelet features meticulously set diamonds that sparkle with every movement, offering a luxurious and timeless accessory for any occasion. Whether worn alone as a statement piece or layered with other jewelry, our bracelets are designed to enhance your beauty and express your individuality with sophistication and grace.",
       products: products.filter(
-        (product) => product.firm === "Bvlgari" && product.gift === true
+        (product) => product.firm === "Bvlgari" && product.gift === true && !excludedCategories.includes(product.categories)
       ),
       faqs: [
         {
@@ -92,7 +98,7 @@ const GiftFirmList = () => {
       description:
         "Adorn yourself with our exquisite diamond necklaces, crafted to capture attention and admiration. Set in yellow gold, white gold, rose gold, or platinum, each necklace showcases the beauty of diamonds in designs that range from classic to contemporary, making them a stunning addition to any jewelry collection. Whether worn as a centerpiece for formal occasions or as an everyday luxury, our necklaces are designed to complement your style and elevate your look with timeless elegance.",
       products: products.filter(
-        (product) => product.firm === "Tiffany & Co" && product.gift === true
+        (product) => product.firm === "Tiffany & Co" && product.gift === true && !excludedCategories.includes(product.categories)
       ),
       faqs: [
         {
@@ -130,7 +136,7 @@ const GiftFirmList = () => {
       description:
         "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
       products: products.filter(
-        (product) => product.firm === "Harry Winston" && product.gift === true
+        (product) => product.firm === "Harry Winston" && product.gift === true && !excludedCategories.includes(product.categories)
       ),
       faqs: [
         {
@@ -169,7 +175,7 @@ const GiftFirmList = () => {
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
         (product) =>
-          product.firm === "Van Cleef & Arpels" && product.gift === true
+          product.firm === "Van Cleef & Arpels" && product.gift === true && !excludedCategories.includes(product.categories)
       ),
       faqs: [
         {
@@ -207,7 +213,7 @@ const GiftFirmList = () => {
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
-        (product) => product.firm === "Cartier" && product.gift === true
+        (product) => product.firm === "Cartier" && product.gift === true && !excludedCategories.includes(product.categories)
       ),
       faqs: [
         {

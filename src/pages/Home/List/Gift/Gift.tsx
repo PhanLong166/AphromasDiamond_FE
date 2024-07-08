@@ -44,6 +44,12 @@ const Gift = () => {
     }
   `;
   const { jewelryType } = useParams<{ jewelryType: string }>();
+  const excludedCategories = [
+    "wedding-ring",
+    "engagement-ring",
+    "men-engagement-ring",
+    "men-wedding-ring",
+  ];
   const jewelryData: Record<string, any> = {
     "top-ten-bracelet": {
       title: "Top Ten Bracelets",
@@ -168,7 +174,7 @@ const Gift = () => {
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
-        (product) => product.type === "Ring" && product.gift === true
+        (product) => product.type === "Ring" && product.gift === true && !excludedCategories.includes(product.categories)
       ),
       faqs: [
         {
