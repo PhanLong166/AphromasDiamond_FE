@@ -253,7 +253,11 @@ export const items: MenuItem[] = [
     },
     {
         key: 'engagement-ring',
-        label: 'Engagement Ring',
+        label:  (
+            <Link to={config.routes.public.allEngagement} underline zoom scroll>
+               Engagement Ring
+            </Link>
+        ),
         children: [
             {
                 key: 'engagement-ring-shape',

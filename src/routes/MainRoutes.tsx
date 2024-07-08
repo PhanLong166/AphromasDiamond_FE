@@ -55,6 +55,7 @@ import GiftFirmList from "@/pages/Home/List/GiftFirmList/GiftFirmList";
 import CutterList from "@/pages/Home/List/CutterList/CutterList";
 import DesignerList from "@/pages/Home/List/DesignerList/DesignerList";
 import EngagementList from "@/pages/Home/List/EngagementList/EngagementList";
+import AllEngagementRing from "@/pages/Home/AllEngagementRing/AllEngagementRing";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -91,6 +92,7 @@ const publicRoutes = {
     { path: config.routes.public.designerList, element: <DesignerList /> },
     { path: config.routes.public.firmList, element: <FirmList /> },
     { path: config.routes.public.cutterList, element: <CutterList /> },
+    { path: config.routes.public.allEngagement, element: <AllEngagementRing /> },
     { path: config.routes.public.engagementShape, element: <EngagementList /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },
     { path: config.routes.public.about, element: <About /> },
