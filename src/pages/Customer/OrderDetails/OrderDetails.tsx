@@ -3,7 +3,8 @@ import styled from 'styled-components';
 // import { Button, ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from 'antd/es/table';
 import Table from 'antd/es/table';
-import { Tag } from 'antd';
+import { Tag, Form } from 'antd';
+import TextArea from 'antd/es/input/TextArea';
 
 
 
@@ -31,7 +32,7 @@ interface OrderProps {
   discount: number;
   vat: number;
   shippingFee: number;
-  total: string;
+  total: number;
 }
 
 
@@ -78,7 +79,7 @@ const sampleOrder: OrderProps = {
   discount: 503,
   vat: 503,
   shippingFee: 0,
-  total: '$9,033',
+  total: 9033,
 };
 
 const StatusTag = ({ status }: { status: string }) => {
@@ -113,7 +114,7 @@ const formatPrice = (price: number): string => {
 
 const OrderDetail: React.FC = () => {
   const [order, setOrder] = useState<OrderProps | null>(null);
-
+  // const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
   useEffect(() => {
     // Simulating fetching data from an API
     setTimeout(() => {
@@ -182,6 +183,8 @@ const OrderDetail: React.FC = () => {
 
     return formatPrice(productsTotal - discount + vat);
   };
+  // eslint-disable-next-line react-hooks/rules-of-hooks
+  
 
   return (
     <MainContainer>
@@ -207,8 +210,26 @@ const OrderDetail: React.FC = () => {
       <ProductsWrapper>
         <OrderID>Order ID #{order.orderId}</OrderID>
         <Table style={{backgroundColor: '#e8e8e8'}} columns={columns} dataSource={products} pagination={false} rowKey="id" />
+        <Form>
+        {/* checked={componentDisabled} */}
+        
+        <Form.Item label="Feedback">
+          <TextArea 
+          placeholder='Option'
+          // onChange={(e) => setComponentDisabled(e.target.checked)}
+          disabled
+          rows={4}
+          style={{ width: '400px', height: '140px' }}
+          allowClear
+          showCount
+          maxLength={300}
+           />
+        </Form.Item>
+        </Form>
       </ProductsWrapper>
+      
       <OrderInfo>
+     
         <Row>
           <InfoTitle>Payment method</InfoTitle>
           <img className="payment-method" src={paymentMethod} alt="Payment method" />
