@@ -6,7 +6,7 @@ import {
   FAQs,
   LeftFAQ,
   List,
-} from "./MenEngagementRing.styled";
+} from "./MenWeddingRing.styled";
 import styled from "styled-components";
 import {
   Breadcrumb,
@@ -38,16 +38,16 @@ const StyledPagination = styled(Pagination)`
   margin: 20px auto;
 `;
 
-const MenEngagementRing: React.FC = () => {
+const MenWeddingRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
   const navigate = useNavigate();
 
-  const menEngagementData: Record<string, any> = {
+  const menWeddingData: Record<string, any> = {
     "white-gold": {
-      title: "Men's White Gold Engagement Bands",
+      title: "Men's White Gold Wedding Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "white gold"),
+      products: products.filter((product) => product.categories === "men-wedding-ring" && product.metal === "white gold"),
       faqs: [
         {
           key: "1",
@@ -77,10 +77,10 @@ const MenEngagementRing: React.FC = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fbulgari.png?alt=media&token=1897c535-f005-4d37-a106-26bf8426d5ba",
     },
     "yellow-gold": {
-        title: "Men's Yellow Gold Engagement Bands",
+        title: "Men's Yellow Gold Wedding Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "yellow gold"),
+      products: products.filter((product) => product.categories === "men-wedding-ring" && product.metal === "yellow gold"),
       faqs: [
         {
           key: "1",
@@ -110,10 +110,10 @@ const MenEngagementRing: React.FC = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Flearnaboutbanner.jpeg?alt=media&token=e7168cf6-8434-4cad-95e8-dc5fce8d81af",
     },
     "rose-gold": {
-        title: "Men's Rose Gold Engagement Bands",
+        title: "Men's Rose Gold Wedding Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "rose gold"),
+      products: products.filter((product) => product.categories === "men-wedding-ring" && product.metal === "rose gold"),
       faqs: [
         {
           key: "1",
@@ -143,10 +143,10 @@ const MenEngagementRing: React.FC = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FDesign%20Your%20Own%20Pendant.jpeg?alt=media&token=9e6ba197-39d3-4b7e-84f3-a185792eb4aa",
     },
     "platinum": {
-        title: "Men's White Gold Engagement Bands",
+        title: "Men's White Gold Wedding Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "platinum"),
+      products: products.filter((product) => product.categories === "men-wedding-ring" && product.metal === "platinum"),
       faqs: [
         {
           key: "1",
@@ -177,11 +177,11 @@ const MenEngagementRing: React.FC = () => {
     },
   };
 
-  if (!ringMetal || !menEngagementData[ringMetal]) {
+  if (!ringMetal || ! menWeddingData[ringMetal]) {
     return <div>Invalid jewelry type selected.</div>;
   }
 
-  const currentMenEngagementData = menEngagementData[ringMetal];
+  const currentMenWeddingData =  menWeddingData[ringMetal];
 
   const [wishList, setWishList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -210,7 +210,7 @@ const MenEngagementRing: React.FC = () => {
     );
   };
 
-  const faqs = menEngagementData[ringMetal]?.faqs || [];
+  const faqs =  menWeddingData[ringMetal]?.faqs || [];
 
   const onChange = (key: string | string[]) => {
     console.log(key);
@@ -246,18 +246,18 @@ const MenEngagementRing: React.FC = () => {
               href: "/",
             },
             {
-              title: currentMenEngagementData.title,
+              title: currentMenWeddingData.title,
             },
           ]}
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentMenEngagementData.bannerImage})` }}
+        style={{ backgroundImage: `url(${currentMenWeddingData.bannerImage})` }}
       >
         <div className="bannerContent">
           <LeftSection>
-            <h2>{currentMenEngagementData.title}</h2>
-            <div className="subheading">{currentMenEngagementData.description}</div>
+            <h2>{currentMenWeddingData.title}</h2>
+            <div className="subheading">{currentMenWeddingData.description}</div>
             <button className="consult-button button_slide slide_right">
               <span>CONTACT US FOR CONSULTATION</span>
             </button>
@@ -266,7 +266,7 @@ const MenEngagementRing: React.FC = () => {
       </Banner>
       <List>
         <Row gutter={[16, 16]}>
-          {currentMenEngagementData.products.map((product: any) => (
+          {currentMenWeddingData.products.map((product: any) => (
             <Col key={product.id} span={6}>
               <Link to={`/product/${product.id}`} underline zoom scroll>
                 <Card
@@ -345,13 +345,13 @@ const MenEngagementRing: React.FC = () => {
       <StyledPagination
         current={currentPage}
         pageSize={pageSize}
-        total={currentMenEngagementData.products.length}
+        total={currentMenWeddingData.products.length}
         onChange={handleChangePage}
       />
 
       <FAQs>
         <LeftFAQ>
-          <h2>FAQs about {currentMenEngagementData.title}</h2>
+          <h2>FAQs about {currentMenWeddingData.title}</h2>
         </LeftFAQ>
         <StyledCollapse
           items={faqs.map((faq: any) => ({
@@ -367,4 +367,4 @@ const MenEngagementRing: React.FC = () => {
   );
 };
 
-export default  MenEngagementRing;
+export default MenWeddingRing;
