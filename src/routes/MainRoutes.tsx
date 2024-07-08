@@ -59,6 +59,7 @@ import AllEngagementRing from "@/pages/Home/AllEngagementRing/AllEngagementRing"
 import MenEngagementRing from "@/pages/Home/List/MenEngagementRing/MenEngagementRing";
 import EngagementDesignerList from "@/pages/Home/List/EngagementDesignerList/EngagementDesignerList";
 import AllWeddingRing from "@/pages/Home/AllWeddingRing/AllWeddingRing";
+import WeddingList from "@/pages/Home/List/WeddingList/WeddingList";
 
 const MainRouter = () => {
   const { role } = useAuth();
@@ -98,6 +99,7 @@ const publicRoutes = {
     { path: config.routes.public.allEngagement, element: <AllEngagementRing /> },
     { path: config.routes.public.allWedding, element: <AllWeddingRing /> },
     { path: config.routes.public.engagementShape, element: <EngagementList /> },
+    { path: config.routes.public.weddingShape, element: <WeddingList /> },
     { path: config.routes.public.engagementDesigner, element: <EngagementDesignerList /> },
     { path: config.routes.public.menEngagement, element: <MenEngagementRing /> },
     { path: config.routes.public.allProduct, element: <AllProduct /> },

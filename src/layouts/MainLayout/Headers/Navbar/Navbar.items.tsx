@@ -417,16 +417,56 @@ export const items: MenuItem[] = [
                 label: 'Diamond Ring By Shape',
                 type: 'group',
                 children: [
-                    {key: 'wedding-ring-shape-1', label: 'Round'},
-                    {key: 'wedding-ring-shape-2', label: 'Princess'},
-                    {key: 'wedding-ring-shape-3', label: 'Cushion'},
-                    {key: 'wedding-ring-shape-4', label: 'Oval'},
-                    {key: 'wedding-ring-shape-5', label: 'Emerald'},
-                    {key: 'wedding-ring-shape-6', label: 'Pear'},
-                    {key: 'wedding-ring-shape-7', label: 'Asscher'},
-                    {key: 'wedding-ring-shape-8', label: 'Heart'},
-                    {key: 'wedding-ring-shape-9', label: 'Radient'},
-                    {key: 'wedding-ring-shape-10', label: 'Marquise'},
+                    {key: 'wedding-ring-1', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "round-wedding-ring")}`}>
+                          Round
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-2', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "princess-wedding-ring")}`}>
+                         Princess
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-3', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "cushion-wedding-ring")}`}>
+                          Cushion
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-4', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "oval-wedding-ring")}`}>
+                          Oval
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-5', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "emerald-wedding-ring")}`}>
+                          Emerald
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-6', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "pear-wedding-ring")}`}>
+                          Pear
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-7', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "asscher-wedding-ring")}`}>
+                         Asscher
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-8', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "heart-wedding-ring")}`}>
+                         Heart
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-9', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "radiant-wedding-ring")}`}>
+                          Radiant
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-10', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "marquise-wedding-ring")}`}>
+                          Marquise
+                        </Link>
+                      )},
                 ]
             },
             {

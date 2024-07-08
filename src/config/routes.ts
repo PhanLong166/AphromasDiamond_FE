@@ -45,7 +45,7 @@ const routes = {
     allEngagement: "/jewelry/engagement-ring/",
     allWedding: "/jewelry/wedding-ring/",
     engagementShape: "/jewelry/women-engagement-ring/:ringShape",
-    wedding: "/jewelry/women-wedding-ring/:ringShape",
+    weddingShape: "/jewelry/women-wedding-ring/:ringShape",
     menEngagement: "/jewelry/men-engagement-ring/:ringMetal",
     menWedding: "/jewelry/men-wedding-ring/:ringMetal",
     engagementDesigner: "/jewelry/engagement-ring/designer/:designer",
