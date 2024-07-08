@@ -62,6 +62,7 @@ import AllWeddingRing from "@/pages/Home/AllWeddingRing/AllWeddingRing";
 import WeddingList from "@/pages/Home/List/WeddingList/WeddingList";
 import MenWeddingRing from "@/pages/Home/List/MenWeddingRing/MenWeddingRing";
 import WeddingDesignerList from "@/pages/Home/List/WeddingDesignerList/WeddingDesignerList";
+import SaleJewelryPage from "@/pages/Home/SaleJewelryPage/SaleJewelryPage";
 
 
 const MainRouter = () => {
@@ -134,6 +135,7 @@ const publicRoutes = {
     { path: config.routes.public.success, element: <ThankPageSuccess /> },
     { path: config.routes.public.fail, element: <ThankPageFail /> },
     { path: config.routes.public.brand, element: <BrandList /> },
+    { path: config.routes.public.sale, element: <SaleJewelryPage /> },
   ],
 };
 

@@ -4,8 +4,8 @@ import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import Link from '@/components/Link';
-import { Section, Container, Heading, List } from "./AllProduct.styled";
+import Link from "@/components/Link";
+import { Section, Container, Heading, List } from "./SaleJewelryPage.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
 
@@ -23,7 +23,7 @@ const StyledPagination = styled(Pagination)`
   margin: 20px auto;
 `;
 
-const AllProduct: React.FC = () => {
+const SaleJewelryPage: React.FC = () => {
   const excludedCategories = [
     "wedding-ring",
     "engagement-ring",
@@ -32,7 +32,13 @@ const AllProduct: React.FC = () => {
   ];
 
   const [filteredProducts] = useState(
-    products.filter(product => !excludedCategories.includes(product.categories))
+    products.filter(
+      (product) =>
+        !excludedCategories.includes(product.categories) &&
+        product.salePrice &&
+        product.percentSale &&
+        parseInt(product.percentSale) <= 50
+    )
   );
 
   const [wishList, setWishList] = useState<string[]>([]);
@@ -81,18 +87,14 @@ const AllProduct: React.FC = () => {
               href: "/",
             },
             {
-              title: "Round Ring",
-              href: "/list",
-            },
-            {
-              title: "All Product",
+              title: "Shop Sale Jewelry ",
             },
           ]}
         />
       </div>
       <Container className="wide">
         <Heading>
-          <h2>ALL JEWELRYS</h2>
+          <h2>SALE JEWELRY - UP TO 50%</h2>
         </Heading>
         <FilterSortJewelry />
         <hr
@@ -178,4 +180,4 @@ const AllProduct: React.FC = () => {
   );
 };
 
-export default AllProduct;
+export default SaleJewelryPage;

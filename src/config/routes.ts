@@ -50,6 +50,7 @@ const routes = {
     menWedding: "/jewelry/men-wedding-ring/:ringMetal",
     engagementDesigner: "/jewelry/engagement-ring/designer/:designer",
     weddingDesigner: "/jewelry/wedding-ring/designer/:designer",
+    sale: "/sale",
   },
   customer: {
     account: "/account",
