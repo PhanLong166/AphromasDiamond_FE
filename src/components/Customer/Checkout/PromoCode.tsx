@@ -3,7 +3,7 @@ import { DownOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Select } from "antd";
-import { diamondvouchers, ringvouchers, combinedvouchers, items } from "../../Customer/Checkout/Data/data";
+import { diamondvouchers} from "../Data/data";
 interface PromoCodeSectionProps {
   onApplyVoucher: (discount: number) => void;
 }
@@ -17,21 +17,9 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
     setIsCollapsed(!isCollapsed);
   };
   useEffect(() => {
-    // Kiểm tra loại sản phẩm trong giỏ hàng
-    const hasDiamond = items.some(item => item.name.toLowerCase().includes("diamond"));
-    const hasRing = items.some(item => item.name.toLowerCase().includes("ring"));
-
-    let filteredVouchers: any[] = [];
-
-    if (hasDiamond && hasRing) {
-      filteredVouchers = combinedvouchers;
-    } else if (hasDiamond) {
-      filteredVouchers = diamondvouchers;
-    } else if (hasRing) {
-      filteredVouchers = ringvouchers;
-    }
-
-    setAvailableVouchers(filteredVouchers.filter(voucher => !voucher.used));
+    // Set all vouchers as available regardless of product type
+    const allVouchers = [...diamondvouchers, ];
+    setAvailableVouchers(allVouchers.filter(voucher => !voucher.used));
   }, []);
 
   const handleApplyClick = () => {
@@ -39,8 +27,8 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
     if (voucher) {
       const discount = parseFloat(voucher.price);
       onApplyVoucher(discount);
-      
-      // Đánh dấu voucher đã được sử dụng
+
+      // Mark voucher as used
       const updatedVouchers = availableVouchers.map(v => {
         if (v.buttonLabel === selectedVoucher) {
           return { ...v, used: true };
@@ -56,7 +44,6 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
     }
   };
 
-  // const availableVouchers = vouchers.filter(voucher => !voucher.used);
 
   return (
     <PromoCodeContainer>
