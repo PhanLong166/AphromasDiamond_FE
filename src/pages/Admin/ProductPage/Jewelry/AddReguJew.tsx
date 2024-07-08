@@ -235,6 +235,7 @@ const AddProduct = () => {
       materialID: "",
       sizeID: "",
       amount: 0,
+      weight: 0,
       price: 0,
     };
     setDataMaterial([...dataMaterial, newData]);
@@ -607,7 +608,7 @@ const AddProduct = () => {
                         <Form.Item label="Weight (gram)">
                           <Input
                             className="formItem"
-                            value={selectedSetting?.weight}
+                            // value={selectedSetting?.weight}
                             readOnly
                           />
                         </Form.Item>

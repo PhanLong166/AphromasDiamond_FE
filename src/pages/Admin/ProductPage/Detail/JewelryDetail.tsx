@@ -1376,7 +1376,7 @@ const JewelryDetail = () => {
                                   disabled={isSubmitting}
                                   onClick={() => {
                                     handleSubmit();
-                                    setIsEditing(false);
+                                    saveChanges();
                                   }}
                                   className="MainBtn"
                                 >

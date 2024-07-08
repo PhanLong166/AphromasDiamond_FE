@@ -403,7 +403,7 @@ const JewelrySettingDetail = () => {
               // other initial values
             }}
             validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
+            onSubmit={(values: any, { setSubmitting }) => {
               // Update activeRingSetting và activeProduct với các giá trị mới
               if (editedSetting && editedProduct) {
                 setEditedSetting({
@@ -547,7 +547,7 @@ const JewelrySettingDetail = () => {
                                       {touched.jewelrySettingName &&
                                         errors.jewelrySettingName && (
                                           <div className="error">
-                                            {errors.jewelrySettingName}
+                                            {/* {errors.jewelrySettingName} */}
                                           </div>
                                         )}
                                     </Form.Item>
@@ -578,7 +578,7 @@ const JewelrySettingDetail = () => {
                                       {touched.auxiliaryCost &&
                                         errors.auxiliaryCost && (
                                           <div className="error">
-                                            {errors.auxiliaryCost}
+                                            {/* {errors.auxiliaryCost} */}
                                           </div>
                                         )}
                                     </Form.Item>
@@ -595,7 +595,7 @@ const JewelrySettingDetail = () => {
                                       {touched.chargeRate &&
                                         errors.chargeRate && (
                                           <div className="error">
-                                            {errors.chargeRate}
+                                            {/* {errors.chargeRate} */}
                                           </div>
                                         )}
                                     </Form.Item>
