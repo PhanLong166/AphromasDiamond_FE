@@ -24,7 +24,17 @@ const StyledPagination = styled(Pagination)`
 `;
 
 const AllProduct: React.FC = () => {
-  const [filteredProducts] = useState(products);
+  const excludedCategories = [
+    "wedding-ring",
+    "engagement-ring",
+    "men-engagement-ring",
+    "men-wedding-ring",
+  ];
+
+  const [filteredProducts] = useState(
+    products.filter(product => !excludedCategories.includes(product.categories))
+  );
+
   const [wishList, setWishList] = useState<string[]>([]);
   // const navigate = useNavigate();
 
@@ -82,7 +92,7 @@ const AllProduct: React.FC = () => {
       </div>
       <Container className="wide">
         <Heading>
-          <h2>ALL PRODUCTS</h2>
+          <h2>ALL JEWELRYS</h2>
         </Heading>
         <FilterSortJewelry />
         <hr
