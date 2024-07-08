@@ -196,6 +196,7 @@ const DiamondDetails: React.FC = () => {
 
   const handleAddToCart = () => {
     if (role) {
+      
       navigate(config.routes.customer.cart);
     } else navigate(config.routes.public.login);
   }
