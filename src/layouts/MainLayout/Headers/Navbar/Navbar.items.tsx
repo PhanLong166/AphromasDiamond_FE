@@ -548,7 +548,11 @@ export const items: MenuItem[] = [
                             Metal Education
                         </Link>
                     )},
-                    {key: 'learn-wedding-ring-5', label: 'Top 10 Engagement Rings'},
+                    {key: 'learn-wedding-ring-5', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-wedding-ring")}`} underline zoom scroll>
+                           Top 10 Wedding Rings
+                        </Link>
+                    )},
                 ]
             }
         ]
@@ -587,10 +591,6 @@ export const items: MenuItem[] = [
                          Bracelets
                         </Link>
                       )},
-                    {key: 'jewelry-type-5', label: 'Anklets'},
-                    {key: 'jewelry-type-6', label: 'Bangles'},
-                    {key: 'jewelry-type-7', label: 'Chokers'},
-                    {key: 'jewelry-type-8', label: 'Pendants'},
                 ]
             },
             {
@@ -695,10 +695,6 @@ export const items: MenuItem[] = [
                          Bracelet
                         </Link>
                       )},
-                    {key: 'gift-jewelry-type-5', label: 'Anklets'},
-                    {key: 'gift-jewelry-type-6', label: 'Bangles'},
-                    {key: 'gift-jewelry-type-7', label: 'Chokers'},
-                    {key: 'gift-jewelry-type-8', label: 'Pendants'},
                 ]
             },
             {
@@ -711,7 +707,11 @@ export const items: MenuItem[] = [
                            Engagement Rings
                         </Link>
                     )},
-                    {key: 'gift-ring-2', label: 'Wedding Ring'},
+                    {key: 'gift-ring-2', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-wedding-ring")}`} underline zoom scroll>
+                           Wedding Rings
+                        </Link>
+                    )},
                 ]
             },
             {
