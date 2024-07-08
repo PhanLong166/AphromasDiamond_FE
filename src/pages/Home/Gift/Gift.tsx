@@ -251,7 +251,7 @@ const Gift = () => {
               index % 2 === 0 ? (
                 <div key={product.id} className="gift-item1">
                   <div className="gift-img1">
-                    <img src={product.image} alt={product.name} />
+                    <img src={product.images[0]} alt={product.name} />
                   </div>
 
                   <div className="gift-text1">
@@ -289,7 +289,7 @@ const Gift = () => {
                   </div>
 
                   <div className="gift-img">
-                    <img src={product.image} alt={product.name} />
+                    <img src={product.images[0]} alt={product.name} />
                   </div>
                 </div>
               )
