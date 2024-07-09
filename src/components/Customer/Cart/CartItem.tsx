@@ -1,17 +1,28 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import { Select, Button, Flex } from 'antd'; // Import Select nếu bạn sử dụng từ ant design
 
+// interface CartItemProps {
+//     name: string;
+//     image: string;
+//     sku: string;
+//     description: string;
+//     price: number;
+//     type: string;
+//     // eslint-disable-next-line @typescript-eslint/no-explicit-any
+//     ringOptions: any [];
+//   }
 interface CartItemProps {
+    DiamondID: number;
     name: string;
-    image: string;
-    sku: string;
     description: string;
-    price: string;
-    type: string;
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    ringOptions: any [];
-  }
-  const CartItem: React.FC<CartItemProps> = ({ name, image, sku, description, price, type, ringOptions })=> {
+    price: number;
+  
+  
+  // ringOptions: { value: string; label: string }[];
+  type: string; // 'diamond' or 'ring'
+}
+  const CartItem: React.FC<CartItemProps> = ( {type, name, description, price})=> {
   return (
     <ItemContainer>
       <ActionText>
@@ -23,7 +34,8 @@ interface CartItemProps {
       
       <ItemDetails>
         <ItemInfo>
-          <ItemImage src={image} alt={name} />
+          {/* <ItemImage src={diamondDetails.image} alt={diamondDetails.description} /> */}
+          
         </ItemInfo>
         <ItemDescription>
           <ProductDescription>
@@ -31,7 +43,7 @@ interface CartItemProps {
             <Description>{description}</Description>
             {type === 'diamond' ? (
               <>
-                <div>{sku}</div>
+                <div>{price}</div>
                 <AddOptions>
                   <AddOption>
                     <Flex gap="small" wrap>
@@ -47,11 +59,11 @@ interface CartItemProps {
               </>
             ) : (
               <>
-                <div>{sku}</div>
+                <div>{name}</div>
                 <Select
                   placeholder="Ring Size"
                   style={{ width: 120, marginTop: '3rem' }}
-                  options={ringOptions}
+                  // options={ringOptions}
                 />
               </>
             )}
