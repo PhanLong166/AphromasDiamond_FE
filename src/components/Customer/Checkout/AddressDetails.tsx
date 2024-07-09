@@ -31,6 +31,7 @@ const AddressDetails: React.FC<{
     try {
       const values = await form.validateFields();
       onFinish(values);
+      console.log(values);
     } catch (error) {
       console.error('Validation failed:', error);
     }
@@ -164,9 +165,10 @@ const AddressDetails: React.FC<{
           rules={[{ required: true, message: 'Payment Method is required' }]}
         >
           <StyledSelect placeholder="Select Payment Method" onChange={handlePaymentChange}>
-            <Option value="vnpay">VnPay</Option>
-            <Option value="momo">Momo</Option>
-            <Option value="cod">COD</Option>
+            <Option value="VNPay">VnPay</Option>
+            <Option value="Momo">Momo</Option>
+            <Option value="Paypal">Paypal</Option>
+            <Option value="COD">COD</Option>
           </StyledSelect>
         </Form.Item>
 
