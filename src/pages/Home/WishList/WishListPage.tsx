@@ -73,7 +73,7 @@ const WishListPage: React.FC = () => {
     const shuffled = productArray.sort(() => 0.5 - Math.random());
     return shuffled.slice(0, numProducts);
   };
-
+``
   const randomProducts = getRandomProducts(products, 6);
 
   const [currentPage, setCurrentPage] = useState(1);
