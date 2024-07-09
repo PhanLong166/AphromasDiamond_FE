@@ -28,7 +28,8 @@ const CloseButton = styled.button`
   position: absolute;
   bottom: 95px;
   right: 0;
-  background-color: #f0f0f0;
+  background-color: #000;
+  opacity: 0.5;
   border: none;
   padding: 20px;
   cursor: pointer;
@@ -36,19 +37,13 @@ const CloseButton = styled.button`
 
   &:hover {
     background-color: #000;
+    opacity: 1;
+     transition: background-color 0.3s ease;
   }
 
   .close-icon-wrapper {
-    color: #000;
+    color: #fff;
     transition: color 0.3s ease;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-  .ant-card .ant-card-cover > * {
-    display: block;
-    width: 20% !important;
   }
 `;
 
@@ -143,6 +138,7 @@ const WishListPage: React.FC = () => {
                         <CloseButton
                           onClick={() => toggleWishList(product.id)}
                           aria-label="Close"
+                          style={{ width: "20%" }}
                         >
                           <div className="close-icon-wrapper">
                             <CloseOutlined className="close-icon" />
