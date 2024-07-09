@@ -41,8 +41,6 @@ import {
   ShapeType_Option,
 } from "../Diamond/Diamond.type";
 import { JewelryType } from "../Jewelry/Jewelry.type";
-import * as Yup from "yup";
-import { Formik } from "formik";
 
 const calculateJewelrySettingPrice = (
   weight: number,
@@ -89,62 +87,8 @@ const PriceCalculation = (
   </div>
 );
 
-const validationSchema = Yup.object().shape({
-  jewelryName: Yup.string()
-    .required("Jewelry Name is required.")
-    .matches(
-      /^[a-zA-Z0-9\s()-.]*$/,
-      "Only alphabet, numbers, (), - and . are allowed."
-    )
-    .max(300, "Jewelry Name must be at most 300 characters long."),
-  // ---------------------------
-  diamondName: Yup.string()
-    .required("Diamond Name is required.")
-    .matches(
-      /^[a-zA-Z0-9\s()-.]*$/,
-      "Only alphabet, numbers, (), - and . are allowed."
-    )
-    .max(300, "Diamond Name must be at most 300 characters long."),
-  price: Yup.number()
-    .required("Price is required.")
-    .positive("Price must be a positive number.")
-    .max(1000000, "Price must be less than or equal to $1,000,000 USD."),
-  description: Yup.string()
-    .required("Description is required.")
-    .matches(
-      /^[a-zA-Z0-9\s()-.]*$/,
-      "Only alphabet, numbers, (), - and . are allowed."
-    ),
-  // ---------------------------
-  jewelrySettingName: Yup.string()
-    .required("Jewelry Setting Name is required.")
-    .matches(
-      /^[a-zA-Z0-9\s()-.]*$/,
-      "Only alphabet, numbers, (), - and . are allowed."
-    )
-    .max(300, "Jewelry Setting Name must be at most 300 characters long."),
-  auxiliaryCost: Yup.number()
-    .required("Auxiliary Cost is required.")
-    .positive("Auxiliary Cost must be a positive number.")
-    .max(
-      1000000,
-      "Auxiliary Cost must be less than or equal to $1,000,000 USD."
-    ),
-  chargeRate: Yup.number()
-    .required("Charge Rate is required.")
-    .positive("Charge Rate must be a positive number.")
-    .max(300, "Charge Rate must be less than or equal to 300%."),
-  weight: Yup.number()
-    .required("Weight is required.")
-    .positive("Weight must be a positive number.")
-    .max(500, "Weight must be less than or equal to 500 grams."),
-  amount: Yup.number()
-    .required("Amount is required.")
-    .positive("Amount must be a positive number.")
-    .max(300, "Amount must be less than or equal to 300 units."),
-});
-
 const JewelryDetail = () => {
+  // const [form] = Form.useForm();
   const { id } = useParams<{ id: string }>();
   const activeProduct = productData.find((jewelry) => jewelry.jewelryID === id);
   const activeDiamond = activeProduct
@@ -286,12 +230,7 @@ const JewelryDetail = () => {
     onChange: (value: any) => void;
     options?: { value: string; label: string }[];
     isEditing: boolean;
-  }> = ({
-    editable,
-    value,
-    onChange,
-    isEditing
-  }) => {
+  }> = ({ editable, value, onChange, isEditing }) => {
     return (
       <td>
         {editable && isEditing ? (
@@ -323,12 +262,7 @@ const JewelryDetail = () => {
     onChange: (value: any) => void;
     options?: { value: string; label: number }[];
     isEditing: boolean;
-  }> = ({
-    editable,
-    value,
-    onChange,
-    isEditing
-  }) => {
+  }> = ({ editable, value, onChange, isEditing }) => {
     return (
       <td>
         {editable && isEditing ? (
@@ -361,7 +295,7 @@ const JewelryDetail = () => {
     editable,
     value,
     onChange,
-    isEditing
+    isEditing,
   }) => {
     return (
       <td>
@@ -658,55 +592,6 @@ const JewelryDetail = () => {
         <Sidebar />
         <Styled.AdminPage>
           <ProductMenu />
-
-          <Formik
-            initialValues={{
-              jewelryName: editedProduct?.jewelryName || "",
-              diamondName: editedDiamond?.diamondName || "",
-              diamondPrice: editedDiamond?.price || 0,
-              diamondDescription: editedDiamond?.description || "",
-              jewelrySettingName: editedRingSetting?.jewelrySettingName || "",
-              auxiliaryCost: editedRingSetting?.auxiliaryCost || 0,
-              chargeRate: editedRingSetting?.chargeRate || 1,
-            }}
-            validationSchema={validationSchema}
-            onSubmit={(values, { setSubmitting }) => {
-              // Update activeRingSetting và activeProduct với các giá trị mới
-              if (editedRingSetting && editedProduct && editedDiamond) {
-                setEditedProduct({
-                  ...editedProduct,
-                  jewelryName: values.jewelryName,
-                });
-                setEditedDiamond({
-                  ...editedDiamond,
-                  diamondName: values.diamondName,
-                  price: values.diamondPrice,
-                  description: values.diamondDescription,
-                });
-                setEditedRingSetting({
-                  ...editedRingSetting,
-                  jewelrySettingName: values.jewelrySettingName,
-                  auxiliaryCost: values.auxiliaryCost,
-                  chargeRate: values.chargeRate,
-                });
-
-                setIsEditing(false); 
-
-                console.log("Form submitted with values:", values);
-              }
-              setSubmitting(false);
-            }}
-          >
-            {({
-              values,
-              errors,
-              touched,
-              handleChange,
-              handleBlur,
-              handleSubmit,
-              isSubmitting,
-            }) => (
-              <>
           <Styled.PageContent>
             {activeProduct ? (
               <>
@@ -758,107 +643,167 @@ const JewelryDetail = () => {
                                   </Styled.OuterMain>
                                 </Styled.ImageContainer>
                                 <Styled.ProductContent>
-                                  <Form.Item
-                                    label="Jewelry ID"
-                                    className="InforLine_Title"
+                                  <Form
+                                    // form={form}
+                                    // layout="vertical"
+                                    // className="AdPageContent_Content"
+
+                                    layout="vertical"
+                                    initialValues={{
+                                      jewelryName: editedProduct?.jewelryName,
+                                      diamondName: editedDiamond?.diamondName,
+                                      price: editedDiamond?.price,
+                                      chargeRateDia: editedDiamond?.chargeRate,
+                                      description: editedDiamond?.description,
+                                      jewelrySettingName:
+                                        editedRingSetting?.jewelrySettingName,
+                                      auxiliaryCost:
+                                        editedRingSetting?.auxiliaryCost,
+                                      chargeRateSet:
+                                        editedRingSetting?.chargeRate,
+                                    }}
+                                    onFinish={(values) => {
+                                      console.log(values);
+                                      setIsEditing(false);
+                                      // Update the editedSetting with new values
+                                      setEditedProduct({
+                                        ...editedProduct!,
+                                        jewelryName: values.jewelryName,
+                                      });
+                                      setEditedDiamond({
+                                        ...editedDiamond!,
+                                        diamondName: values.diamondName,
+                                        price: values.price,
+                                        chargeRate: values.chargeRateDia,
+                                        description: values.description,
+                                      });
+                                      setEditedRingSetting({
+                                        ...editedRingSetting!,
+                                        jewelrySettingName:
+                                          values.jewelrySettingName,
+                                        auxiliaryCost: values.auxiliaryCost,
+                                        chargeRate: values.chargeRateSet,
+                                      });
+                                    }}
                                   >
-                                    <Input
-                                      value={editedProduct?.jewelryID}
-                                      className="InforLine_Title"
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          "jewelryID",
-                                          e.target.value
-                                        )
-                                      }
-                                      disabled
-                                    />
-                                  </Form.Item>
-                                  <Form.Item
-                                      label="Jewelry Name"
+                                    <Form.Item
+                                      label="Jewelry ID"
                                       className="InforLine_Title"
                                     >
                                       <Input
-                                        name="jewelryName"
-                                        value={values?.jewelryName}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
+                                        value={editedProduct?.jewelryID}
+                                        className="InforLine_Title"
+                                        onChange={(e) =>
+                                          handleFieldChange(
+                                            "jewelryID",
+                                            e.target.value
+                                          )
+                                        }
+                                        disabled
                                       />
-                                      {touched.jewelryName &&
-                                        errors.jewelryName && (
-                                          <div className="error">
-                                            {errors.jewelryName}
-                                          </div>
-                                        )}
                                     </Form.Item>
-                                  <Form.Item
-                                    label="Type"
-                                    className="InforLine_Title"
-                                  >
-                                    <Select
-                                      className="formItem"
-                                      placeholder={editedProduct?.type}
-                                      options={JewelryType}
-                                      value={editedProduct?.type}
-                                      onChange={(value) =>
-                                        handleFieldChange("type", value)
-                                      }
-                                      disabled
-                                    />
-                                  </Form.Item>
-                                  <Form.Item
-                                    label="From Collection"
-                                    className="InforLine_Title"
-                                  >
-                                    <Select
-                                      placeholder={
-                                        getCollectionDetails(
-                                          activeProduct.collectionID,
-                                          collectionData
-                                        )?.collectionName
-                                      }
-                                      options={collectionData.map(
-                                        (collection) => ({
-                                          value: collection.collectionID,
-                                          label: collection.collectionName,
-                                        })
-                                      )}
-                                      onChange={(value) =>
-                                        handleFieldChange("collectionID", value)
-                                      }
-                                      value={editedCollection?.collectionID}
-                                    />
-                                  </Form.Item>
-                                  <Form.Item
-                                    label="Discount (%)"
-                                    className="InforLine_Title"
-                                  >
-                                    <Input
-                                      value="15"
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          "discount",
-                                          e.target.value
-                                        )
-                                      }
-                                    />
-                                  </Form.Item>
-                                  {/* </Styled.SignaInfor> */}
-                                  <Form.Item
-                                    label="Diamond Price"
-                                    className="InforLine_Title"
-                                  >
-                                    <Input
-                                      value={editedDiamond?.price}
-                                      onChange={(e) =>
-                                        handleFieldChange(
-                                          "price",
-                                          e.target.value
-                                        )
-                                      }
-                                      disabled
-                                    />
-                                  </Form.Item>
+                                    <Form.Item
+                                      label="Jewelry Name"
+                                      className="InforLine_Title"
+                                      name="jewelryName"
+                                      rules={[
+                                        {
+                                          required: true,
+                                          message: "Jewelry Name is required.",
+                                        },
+                                        {
+                                          pattern: /^[a-zA-Z0-9\s()-.]*$/,
+                                          message:
+                                            "Only alphabet, numbers, (), - and . are allowed.",
+                                        },
+                                        {
+                                          max: 300,
+                                          message:
+                                            "Jewelry Name must be at most 300 characters long.",
+                                        },
+                                      ]}
+                                    >
+                                      <Input
+                                        onChange={(e) =>
+                                          handleFieldChange(
+                                            "jewelryName",
+                                            e.target.value
+                                          )
+                                        }
+                                      />
+                                    </Form.Item>
+                                    <Form.Item
+                                      label="Type"
+                                      className="InforLine_Title"
+                                    >
+                                      <Select
+                                        className="formItem"
+                                        placeholder={editedProduct?.type}
+                                        options={JewelryType}
+                                        value={editedProduct?.type}
+                                        onChange={(value) =>
+                                          handleFieldChange("type", value)
+                                        }
+                                        disabled
+                                      />
+                                    </Form.Item>
+                                    <Form.Item
+                                      label="From Collection"
+                                      className="InforLine_Title"
+                                    >
+                                      <Select
+                                        placeholder={
+                                          getCollectionDetails(
+                                            activeProduct.collectionID,
+                                            collectionData
+                                          )?.collectionName
+                                        }
+                                        options={collectionData.map(
+                                          (collection) => ({
+                                            value: collection.collectionID,
+                                            label: collection.collectionName,
+                                          })
+                                        )}
+                                        onChange={(value) =>
+                                          handleFieldChange(
+                                            "collectionID",
+                                            value
+                                          )
+                                        }
+                                        value={editedCollection?.collectionID}
+                                      />
+                                    </Form.Item>
+                                    <Form.Item
+                                      label="Discount (%)"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        value="15"
+                                        onChange={(e) =>
+                                          handleFieldChange(
+                                            "discount",
+                                            e.target.value
+                                          )
+                                        }
+                                      />
+                                    </Form.Item>
+                                    {/* </Styled.SignaInfor> */}
+                                    <Form.Item
+                                      label="Diamond Price"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        value={editedDiamond?.price}
+                                        onChange={(e) =>
+                                          handleFieldChange(
+                                            "price",
+                                            e.target.value
+                                          )
+                                        }
+                                        disabled
+                                      />
+                                    </Form.Item>
+                                  </Form>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
                               <Styled.MaterialTable>
@@ -951,23 +896,6 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
-                                      label="Diamond Name"
-                                      className="InforLine_Title"
-                                    >
-                                      <Input
-                                        name="diamondName"
-                                        value={values?.diamondName}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                      {touched.diamondName &&
-                                        errors.diamondName && (
-                                          <div className="error">
-                                            {errors.diamondName}
-                                          </div>
-                                        )}
-                                    </Form.Item>
-                                  <Form.Item
                                     label="Price"
                                     className="InforLine_Title"
                                   >
@@ -981,23 +909,6 @@ const JewelryDetail = () => {
                                       }
                                     />
                                   </Form.Item>
-                                  <Form.Item
-                                      label="Price"
-                                      className="InforLine_Title"
-                                    >
-                                      <Input
-                                        name="price"
-                                        value={values?.diamondPrice}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                      {touched.diamondPrice &&
-                                        errors.diamondPrice && (
-                                          <div className="error">
-                                            {errors.diamondPrice}
-                                          </div>
-                                        )}
-                                    </Form.Item>
                                   <Form.Item
                                     label="Shape"
                                     className="InforLine_Title"
@@ -1163,22 +1074,20 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
-                                      label="Description"
-                                      className="InforLine_Title"
-                                    >
-                                      <Input
-                                        name="description"
-                                        value={values?.diamondDescription}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                      {touched.diamondDescription &&
-                                        errors.diamondDescription && (
-                                          <div className="error">
-                                            {errors.diamondDescription}
-                                          </div>
-                                        )}
-                                    </Form.Item>
+                                    label="Description"
+                                    className="InforLine_Title"
+                                  >
+                                    <Input
+                                      name="description"
+                                      value={editedDiamond?.description}
+                                      onChange={(e) =>
+                                        handleFieldChange(
+                                          "description",
+                                          e.target.value
+                                        )
+                                      }
+                                    />
+                                  </Form.Item>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
 
@@ -1272,23 +1181,6 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
-                                      label="Jewelry Setting Name"
-                                      className="InforLine_Title"
-                                    >
-                                      <Input
-                                        name="jewelrySettingName"
-                                        value={values?.jewelrySettingName}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                      {touched.jewelrySettingName &&
-                                        errors.jewelrySettingName && (
-                                          <div className="error">
-                                            {errors.jewelrySettingName}
-                                          </div>
-                                        )}
-                                    </Form.Item>
-                                  <Form.Item
                                     label="Jewelry Setting Type"
                                     className="InforLine_Title"
                                   >
@@ -1304,22 +1196,19 @@ const JewelryDetail = () => {
                                     />
                                   </Form.Item>
                                   <Form.Item
-                                      label="Auxiliary Cost"
-                                      className="InforLine_Title"
-                                    >
-                                      <Input
-                                        name="auxiliaryCost"
-                                        value={values?.auxiliaryCost}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                      {touched.auxiliaryCost &&
-                                        errors.auxiliaryCost && (
-                                          <div className="error">
-                                            {errors.auxiliaryCost}
-                                          </div>
-                                        )}
-                                    </Form.Item>
+                                    label="Auxiliary Cost"
+                                    className="InforLine_Title"
+                                  >
+                                    <Input
+                                      value={activeRingSetting.auxiliaryCost} // chưa chuyển sang dạng editedJewelrySetting
+                                      onChange={(e) =>
+                                        handleFieldChange(
+                                          "auxiliaryCost",
+                                          e.target.value
+                                        )
+                                      }
+                                    />
+                                  </Form.Item>
                                   <Form.Item
                                     label="Charge Rate (%)"
                                     className="InforLine_Title"
@@ -1334,23 +1223,6 @@ const JewelryDetail = () => {
                                       }
                                     />
                                   </Form.Item>
-                                  <Form.Item
-                                      label="Charge Rate (%)"
-                                      className="InforLine_Title"
-                                    >
-                                      <Input
-                                        name="chargeRate"
-                                        value={values?.chargeRate}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                      />
-                                      {touched.chargeRate &&
-                                        errors.chargeRate && (
-                                          <div className="error">
-                                            {errors.chargeRate}
-                                          </div>
-                                        )}
-                                    </Form.Item>
                                 </Styled.ProductContent>
                               </Styled.PageDetail_Infor>
                               <Styled.MaterialTable>
@@ -1371,18 +1243,10 @@ const JewelryDetail = () => {
                               </Styled.MaterialTable>
                             </Styled.PageContent_Bot>
                             <Styled.ActionBtn>
-                            <Button
-                                  type="primary"
-                                  disabled={isSubmitting}
-                                  onClick={() => {
-                                    handleSubmit();
-                                    setIsEditing(false);
-                                  }}
-                                  className="MainBtn"
-                                >
-                                  <SaveOutlined />
-                                  Save Change
-                                </Button>
+                              <Button className="MainBtn" onClick={saveChanges}>
+                                <SaveOutlined />
+                                Save Change
+                              </Button>
 
                               <Link to="/admin/product/jewelry">
                                 <Button
@@ -1793,9 +1657,6 @@ const JewelryDetail = () => {
               <div>Jewelry not found.</div>
             )}
           </Styled.PageContent>
-          </>
-            )}
-          </Formik>
         </Styled.AdminPage>
       </Styled.PageAdminArea>
     </>
