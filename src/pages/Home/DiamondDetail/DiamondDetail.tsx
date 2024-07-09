@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
+import Link from '@/components/Link';
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
@@ -139,14 +140,30 @@ const DiamondDetails: React.FC = () => {
   const [foundProduct, setFoundProduct] = useState<Diamond | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
+  const [sameBrandProducts, setSameBrandProducts] = useState<Diamond[]>([]);
 
 
   useEffect(() => {
     const product = diamonds.find((diamond) => diamond.id === id);
     if (product) {
       setFoundProduct(product);
-      setMainImage(product.image);
+      setMainImage(product.images[0]);
       setSelectedThumb(0);
+      const filteredProducts = diamonds.filter(
+        (p) => p.cutter === product.cutter && p.id !== product.id
+      );
+
+      // Determine how many products to show (up to 4)
+      const maxProductsToShow = 4;
+      const productsToShow =
+        filteredProducts.length <= maxProductsToShow
+          ? filteredProducts
+          : filteredProducts
+              .sort(() => 0.5 - Math.random())
+              .slice(0, maxProductsToShow);
+
+      setSameBrandProducts(productsToShow);
+
     } else {
       setFoundProduct(null);
     }
@@ -156,21 +173,15 @@ const DiamondDetails: React.FC = () => {
     return <div>Diamond not found</div>;
   }
 
-  const thumbnailImages = [
-    foundProduct.image,
-    foundProduct.image1,
-    foundProduct.image2,
-  ].filter((src): src is string => !!src);
+  const thumbnailImages =
+    foundProduct?.images.filter((src): src is string => !!src) || [];
 
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
     setSelectedThumb(index);
   };
 
-  const sameProductIds = ["1", "2", "3", "4"];
-  const sameBrandProducts = diamonds.filter((diamond) =>
-    sameProductIds.includes(diamond.id)
-  );
+
 
   const recentlyProductIds = ["2", "4", "3", "5"];
   const recentlyViewedProducts = diamonds.filter((diamond) =>
@@ -185,6 +196,7 @@ const DiamondDetails: React.FC = () => {
 
   const handleAddToCart = () => {
     if (role) {
+      
       navigate(config.routes.customer.cart);
     } else navigate(config.routes.public.login);
   }
@@ -359,6 +371,7 @@ const DiamondDetails: React.FC = () => {
                     <li>Color: {foundProduct.color}</li>
                     <li>Clarity: {foundProduct.clarity}</li>
                     <li>Cut: {foundProduct.cut}</li>
+                    <li>Cutter: {foundProduct.cutter}</li>
                     <li>Width: {foundProduct.width}</li>
                     <li>Length: {foundProduct.length}</li>
                   </ul>
@@ -439,7 +452,7 @@ const DiamondDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {sameBrandProducts.map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`}>
+                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -448,11 +461,11 @@ const DiamondDetails: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={diamond.image}
+                          src={diamond.images[0]}
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = diamond.image)
+                            (e.currentTarget.src = diamond.images[0])
                           }
                         />
                         {diamond.salePrice && (
@@ -505,7 +518,7 @@ const DiamondDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {recentlyViewedProducts.map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`}>
+                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
@@ -514,11 +527,11 @@ const DiamondDetails: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={diamond.image}
+                          src={diamond.images[0]}
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = diamond.image)
+                            (e.currentTarget.src = diamond.images[0])
                           }
                         />
                         {diamond.salePrice && (

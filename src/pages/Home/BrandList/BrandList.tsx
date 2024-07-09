@@ -135,14 +135,14 @@ const BrandList: React.FC = () => {
                     <>
                       <img
                         style={{ borderRadius: "0" }}
-                        src={product.image}
+                        src={product.images[0]}
                         alt={product.name}
                         className="product-image"
                         onMouseOver={(e) =>
-                          (e.currentTarget.src = product.hoverImage)
+                          (e.currentTarget.src = product.images[0])
                         }
                         onMouseOut={(e) =>
-                          (e.currentTarget.src = product.image)
+                          (e.currentTarget.src = product.images[0])
                         }
                       />
                       {product.salePrice && (

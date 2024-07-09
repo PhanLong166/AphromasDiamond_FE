@@ -4,7 +4,7 @@ import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import { Link } from "react-router-dom";
+import Link from '@/components/Link';
 import { Section, Container, Heading, List } from "./AllProduct.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
@@ -24,7 +24,17 @@ const StyledPagination = styled(Pagination)`
 `;
 
 const AllProduct: React.FC = () => {
-  const [filteredProducts] = useState(products);
+  const excludedCategories = [
+    "wedding-ring",
+    "engagement-ring",
+    "men-engagement-ring",
+    "men-wedding-ring",
+  ];
+
+  const [filteredProducts] = useState(
+    products.filter(product => !excludedCategories.includes(product.categories))
+  );
+
   const [wishList, setWishList] = useState<string[]>([]);
   // const navigate = useNavigate();
 
@@ -82,7 +92,7 @@ const AllProduct: React.FC = () => {
       </div>
       <Container className="wide">
         <Heading>
-          <h2>ALL PRODUCTS</h2>
+          <h2>ALL JEWELRYS</h2>
         </Heading>
         <FilterSortJewelry />
         <hr
@@ -96,7 +106,7 @@ const AllProduct: React.FC = () => {
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`}>
+                <Link to={`/product/${product.id}`} underline zoom scroll>
                   <Card
                     key={product.id}
                     style={{ borderRadius: "0" }}
@@ -106,14 +116,14 @@ const AllProduct: React.FC = () => {
                       <>
                         <img
                           style={{ borderRadius: "0" }}
-                          src={product.image}
+                          src={product.images[0]}
                           alt={product.name}
                           className="product-image"
                           onMouseOver={(e) =>
-                            (e.currentTarget.src = product.hoverImage)
+                            (e.currentTarget.src = product.images[2])
                           }
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = product.image)
+                            (e.currentTarget.src = product.images[0])
                           }
                         />
                         {product.salePrice && (
@@ -160,7 +170,7 @@ const AllProduct: React.FC = () => {
         <StyledPagination
           current={currentPage}
           pageSize={pageSize}
-          total={products.length}
+          total={filteredProducts.length}
           onChange={handleChangePage}
         />
       </Container>

@@ -3,7 +3,7 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "../../../Customer/Checkout/PromoCode";
-import { items } from "../Data/data";
+import { items } from "../../Data/data";
 interface CartItemProps {
   name: string;
   image: string;

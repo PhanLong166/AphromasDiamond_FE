@@ -1064,6 +1064,7 @@ const JewelryDetail = () => {
                                     className="InforLine_Title"
                                   >
                                     <Input
+                                      name="description"
                                       value={editedDiamond?.description}
                                       onChange={(e) =>
                                         handleFieldChange(

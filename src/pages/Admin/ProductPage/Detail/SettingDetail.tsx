@@ -68,7 +68,7 @@ const JewelrySettingDetail = () => {
     : null;
 
   const [isEditing, setIsEditing] = useState(false);
-  const [editedSetting, setEditedSetting] = useState(activeRingSetting);
+  const [editedSetting, setEditedSetting] = useState<RingDataType | undefined>(activeRingSetting);
   const [editedProduct, setEditedProduct] = useState(activeProduct);
   const [data, setData] = useState<RingMaterialDataType[]>([]);
 
@@ -364,8 +364,55 @@ const JewelrySettingDetail = () => {
         <Styled.AdminPage>
           <ProductMenu />
 
+<<<<<<< HEAD
           <Styled.PageContent>
             {activeRingSetting ? (
+=======
+          <Formik
+            initialValues={{
+              jewelrySettingName: editedSetting?.jewelrySettingName || "",
+              auxiliaryCost: editedSetting?.auxiliaryCost || 0,
+              chargeRate: editedSetting?.chargeRate || 1,
+              // other initial values
+            }}
+            validationSchema={validationSchema}
+            onSubmit={(values: any, { setSubmitting }) => {
+              // Update activeRingSetting và activeProduct với các giá trị mới
+              if (editedSetting && editedProduct) {
+                setEditedSetting({
+                  ...editedSetting,
+                  jewelrySettingName: values.jewelrySettingName,
+                  auxiliaryCost: values.auxiliaryCost,
+                  chargeRate: values.chargeRate,
+                  // cập nhật các trường khác tương tự
+                });
+
+                // Cập nhật activeRingSetting và activeProduct nếu cần
+                // Ví dụ:
+                // setActiveRingSetting(updatedSetting);
+                // setActiveProduct(updatedProduct);
+
+                // Cập nhật data nếu có
+                // Ví dụ:
+                // setData(updatedData);
+
+                setIsEditing(false); // Đóng chế độ chỉnh sửa sau khi lưu thành công
+
+                console.log("Form submitted with values:", values);
+              }
+              setSubmitting(false);
+            }}
+          >
+            {({
+              values,
+              errors,
+              touched,
+              handleChange,
+              handleBlur,
+              handleSubmit,
+              isSubmitting,
+            }) => (
+>>>>>>> 59e27e34e6e085d8bee53e2e9ffb497b18645cca
               <>
                 {activeProduct ? (
                   <>
@@ -457,6 +504,7 @@ const JewelrySettingDetail = () => {
                                     )
                                   }
                                 />
+<<<<<<< HEAD
                               </Form.Item>
                               <Form.Item
                                 label="Jewelry Setting Type"
@@ -520,6 +568,93 @@ const JewelrySettingDetail = () => {
                             />
                           </Styled.MaterialTable>
                         </Styled.PageContent_Bot>
+=======
+                              </Form.Item> */}
+                                    <Form.Item
+                                      label="Jewelry Setting Name"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="jewelrySettingName"
+                                        value={values?.jewelrySettingName}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.jewelrySettingName &&
+                                        errors.jewelrySettingName && (
+                                          <div className="error">
+                                            {/* {errors.jewelrySettingName} */}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item
+                                      label="Jewelry Setting Type"
+                                      className="InforLine_Title"
+                                    >
+                                      <Select
+                                        className="formItem"
+                                        placeholder={editedSetting?.type}
+                                        options={JewelryType}
+                                        value={editedSetting?.type}
+                                        onChange={(value) =>
+                                          handleFieldChange("type", value)
+                                        }
+                                      />
+                                    </Form.Item>
+                                    <Form.Item
+                                      label="Auxiliary Cost"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="auxiliaryCost"
+                                        value={values?.auxiliaryCost}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.auxiliaryCost &&
+                                        errors.auxiliaryCost && (
+                                          <div className="error">
+                                            {/* {errors.auxiliaryCost} */}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                    <Form.Item
+                                      label="Charge Rate (%)"
+                                      className="InforLine_Title"
+                                    >
+                                      <Input
+                                        name="chargeRate"
+                                        value={values?.chargeRate}
+                                        onChange={handleChange}
+                                        onBlur={handleBlur}
+                                      />
+                                      {touched.chargeRate &&
+                                        errors.chargeRate && (
+                                          <div className="error">
+                                            {/* {errors.chargeRate} */}
+                                          </div>
+                                        )}
+                                    </Form.Item>
+                                  </Styled.ProductContent>
+                                </Styled.PageDetail_Infor>
+                                <Styled.MaterialTable>
+                                  <Button
+                                    onClick={handleAdd}
+                                    type="primary"
+                                    style={{ marginBottom: 16 }}
+                                  >
+                                    Add a row
+                                  </Button>
+                                  <Table
+                                    dataSource={data}
+                                    columns={columns}
+                                    rowClassName={() => "editable-row"}
+                                    bordered
+                                    pagination={false}
+                                  />
+                                </Styled.MaterialTable>
+                              </Styled.PageContent_Bot>
+>>>>>>> 59e27e34e6e085d8bee53e2e9ffb497b18645cca
 
                         <Styled.ActionBtn>
                           <Button
