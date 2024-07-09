@@ -3,12 +3,11 @@ import styled from "styled-components";
 import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
-import { HeartFilled } from "@ant-design/icons";
+import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import Link from "@/components/Link";
-import { Section, Container, Heading, List } from "./WishListPage.styled";
+import { Section, Container, Heading, List } from "./AllEngagementRing.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
-import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
-import { CloseOutlined } from "@ant-design/icons";
+import FilterSort from "@/components/FilterSort/FilterSort";
 
 const { Title, Text } = Typography;
 
@@ -24,36 +23,17 @@ const StyledPagination = styled(Pagination)`
   margin: 20px auto;
 `;
 
-const CloseButton = styled.button`
-  position: absolute;
-  bottom: 95px;
-  right: 0;
-  background-color: #f0f0f0;
-  border: none;
-  padding: 20px;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
+const AllEngagementRing: React.FC = () => {
+  const includedCategoryKeyword = "engagement-ring";
 
-  &:hover {
-    background-color: #000;
-  }
+  const [filteredProducts] = useState(
+    products.filter((product) =>
+      product.categories.includes(includedCategoryKeyword)
+    )
+  );
 
-  .close-icon-wrapper {
-    color: #000;
-    transition: color 0.3s ease;
-
-    &:hover {
-      color: #fff;
-    }
-  }
-  .ant-card .ant-card-cover > * {
-    display: block;
-    width: 20% !important;
-  }
-`;
-
-const WishListPage: React.FC = () => {
   const [wishList, setWishList] = useState<string[]>([]);
+  // const navigate = useNavigate();
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -74,13 +54,6 @@ const WishListPage: React.FC = () => {
     );
   };
 
-  const getRandomProducts = (productArray: any, numProducts: any) => {
-    const shuffled = productArray.sort(() => 0.5 - Math.random());
-    return shuffled.slice(0, numProducts);
-  };
-
-  const randomProducts = getRandomProducts(products, 6);
-
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
 
@@ -88,8 +61,14 @@ const WishListPage: React.FC = () => {
     setCurrentPage(page);
   };
 
+  // const handleProductClick = (id: any) => {
+  //   navigate(`${config.routes.public.product}/${id}`);
+  // };
+
   return (
     <Section>
+      {/* <Button onClick={() => navigate("/wishlist")}>Go to Wishlist</Button> */}
+
       <div>
         <CustomBreadcrumb
           separator=">"
@@ -99,16 +78,20 @@ const WishListPage: React.FC = () => {
               href: "/",
             },
             {
-              title: "My WishList",
+              title: "Round Ring",
+              href: "/list",
+            },
+            {
+              title: "All Product",
             },
           ]}
         />
       </div>
       <Container className="wide">
         <Heading>
-          <h2>MY WISHLIST</h2>
+          <h2>ALL ENGAGEMENTS RINGS</h2>
         </Heading>
-        <FilterSortJewelry />
+        <FilterSort />
         <hr
           style={{
             maxWidth: "1400px",
@@ -118,7 +101,7 @@ const WishListPage: React.FC = () => {
         />
         <List>
           <Row gutter={[16, 16]}>
-            {randomProducts.map((product: any) => (
+            {filteredProducts.map((product) => (
               <Col key={product.id} span={6}>
                 <Link to={`/product/${product.id}`} underline zoom scroll>
                   <Card
@@ -129,7 +112,7 @@ const WishListPage: React.FC = () => {
                     cover={
                       <>
                         <img
-                          style={{ borderRadius: "0", position: "relative" }}
+                          style={{ borderRadius: "0" }}
                           src={product.images[0]}
                           alt={product.name}
                           className="product-image"
@@ -140,14 +123,6 @@ const WishListPage: React.FC = () => {
                             (e.currentTarget.src = product.images[0])
                           }
                         />
-                        <CloseButton
-                          onClick={() => toggleWishList(product.id)}
-                          aria-label="Close"
-                        >
-                          <div className="close-icon-wrapper">
-                            <CloseOutlined className="close-icon" />
-                          </div>
-                        </CloseButton>
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
@@ -157,10 +132,17 @@ const WishListPage: React.FC = () => {
                     <div className="product-info">
                       <Title level={4} className="product-name">
                         <div>{product.name}</div>
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
+                        {wishList.includes(product.id) ? (
+                          <HeartFilled
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        ) : (
+                          <HeartOutlined
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(product.id)}
+                          />
+                        )}
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
@@ -185,7 +167,7 @@ const WishListPage: React.FC = () => {
         <StyledPagination
           current={currentPage}
           pageSize={pageSize}
-          total={randomProducts.length}
+          total={filteredProducts.length}
           onChange={handleChangePage}
         />
       </Container>
@@ -193,4 +175,4 @@ const WishListPage: React.FC = () => {
   );
 };
 
-export default WishListPage;
+export default AllEngagementRing;

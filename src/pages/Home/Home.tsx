@@ -86,29 +86,29 @@ const categories = [
     title: "Bracelets",
   },
   {
-    href: "#",
+    href: `${config.routes.public.allEngagement}`,
     imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fchokers.png?alt=media&token=87149e42-e447-49f3-a5f1-274054d33ffb",
-    title: "Chokers",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fengagement-home(1)(1).png?alt=media&token=8eac7cdd-3705-4242-9859-c5987f91a1a0",
+    title: "Engagement Ring",
   },
   {
-    href: "/product",
+    href: `${config.routes.public.allWedding}`,
     imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FAnklets.png?alt=media&token=4e1b0051-2862-46d2-bfc4-5063adf2995b",
-    title: "Anklets",
+      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fwedding-home(1)(1).png?alt=media&token=cf3a01fb-63de-4daf-a868-0b99d0b667c4",
+    title: "Wedding Ring",
   },
-  {
-    href: "#",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FBangles.png?alt=media&token=9e311318-1224-4c59-9c64-12a552139b90",
-    title: "Bangles",
-  },
-  {
-    href: "#",
-    imgSrc:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FPendants.png?alt=media&token=952c14cf-4c39-4560-b9e2-79a4ff31258d",
-    title: "Pendants",
-  },
+  // {
+  //   href: "#",
+  //   imgSrc:
+  //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FBangles.png?alt=media&token=9e311318-1224-4c59-9c64-12a552139b90",
+  //   title: "Bangles",
+  // },
+  // {
+  //   href: "#",
+  //   imgSrc:
+  //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FPendants.png?alt=media&token=952c14cf-4c39-4560-b9e2-79a4ff31258d",
+  //   title: "Pendants",
+  // },
 ];
 
 const shapes = [
@@ -371,7 +371,7 @@ const Home: React.FC = () => {
               >
                 SHOP ALL
               </button>
-              <button className="shopSale">SHOP SALE JEWELRY</button>
+              <button className="shopSale"  onClick={() => navigate(config.routes.public.sale)}>SHOP SALE JEWELRY</button>
             </Button>
           </BannerContent>
         </Banner>
@@ -459,7 +459,7 @@ const Home: React.FC = () => {
                     wardrobe, or find the perfect gift, now is the perfect time
                     to save big!
                   </StyledText>
-                  <ButtonSale>
+                  <ButtonSale  onClick={() => navigate(config.routes.public.sale)}>
                     <button>SHOP NOW</button>
                   </ButtonSale>
                 </StyledContent>
