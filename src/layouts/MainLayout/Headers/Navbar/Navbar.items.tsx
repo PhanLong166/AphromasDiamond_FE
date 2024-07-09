@@ -253,23 +253,67 @@ export const items: MenuItem[] = [
     },
     {
         key: 'engagement-ring',
-        label: 'Engagement Ring',
+        label:  (
+            <Link to={config.routes.public.allEngagement} underline zoom scroll>
+               Engagement Ring
+            </Link>
+        ),
         children: [
             {
                 key: 'engagement-ring-shape',
                 label: 'Ring by Shape',
                 type: 'group',
                 children: [
-                    {key: 'engagement-ring-1', label: 'Round'},
-                    {key: 'engagement-ring-2', label: 'Princess'},
-                    {key: 'engagement-ring-3', label: 'Cushion'},
-                    {key: 'engagement-ring-4', label: 'Oval'},
-                    {key: 'engagement-ring-5', label: 'Emerald'},
-                    {key: 'engagement-ring-6', label: 'Pear'},
-                    {key: 'engagement-ring-7', label: 'Asscher'},
-                    {key: 'engagement-ring-8', label: 'Heart'},
-                    {key: 'engagement-ring-9', label: 'Radient'},
-                    {key: 'engagement-ring-10 ', label: 'Marquise'},
+                    {key: 'engagement-ring-1', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "round-engagement-ring")}`}>
+                          Round
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-2', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "princess-engagement-ring")}`}>
+                         Princess
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-3', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "cushion-engagement-ring")}`}>
+                          Cushion
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-4', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "oval-engagement-ring")}`}>
+                          Oval
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-5', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "emerald-engagement-ring")}`}>
+                          Emerald
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-6', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "pear-engagement-ring")}`}>
+                          Pear
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-7', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "asscher-engagement-ring")}`}>
+                         Asscher
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-8', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "heart-engagement-ring")}`}>
+                         Heart
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-9', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "radiant-engagement-ring")}`}>
+                          Radiant
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-10', label: (
+                        <Link to={`${config.routes.public.engagementShape.replace(":ringShape", "marquise-engagement-ring")}`}>
+                          Marquise
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -277,10 +321,26 @@ export const items: MenuItem[] = [
                 label: "Men's Ring",
                 type: 'group',
                 children: [
-                    {key: 'engagement-ring-metal-1', label: 'White Gold'},
-                    {key: 'engagement-ring-metal-2', label: 'Yellow Gold'},
-                    {key: 'engagement-ring-metal-3', label: 'Rose Gold'},
-                    {key: 'engagement-ring-metal-4', label: 'Platinum'},
+                    {key: 'engagement-ring-metal-1', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "white-gold")}`}>
+                         White Gold
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-metal-2', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "yellow-gold")}`}>
+                         Yellow Gold
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-metal-3', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "rose-gold")}`}>
+                         Rose Gold
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-metal-4', label: (
+                        <Link to={`${config.routes.public.menEngagement.replace(":ringMetal", "platinum")}`}>
+                          Platinum
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -288,10 +348,26 @@ export const items: MenuItem[] = [
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'engagement-ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'engagement-ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'engagement-ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'engagement-ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'engagement-ring-designer-1', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "zaczacposen")}`}>
+                          Zac Zac Posen
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-designer-2', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "bellavaughan")}`}>
+                         Bella Vaughan
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-designer-3', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "bluenile")}`}>
+                         Blue Nile Studio
+                        </Link>
+                      )},
+                    {key: 'engagement-ring-designer-4', label: (
+                        <Link to={`${config.routes.public.engagementDesigner.replace(":designer", "thegallerycollection")}`}>
+                         The Gallery Collection
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -319,30 +395,78 @@ export const items: MenuItem[] = [
                             Metal Education
                         </Link>
                     )},
-                    {key: 'learn-engagement-ring-5', label: 'Top 10 Wedding Rings'},
+                    {key: 'learn-engagement-ring-5', label:(
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-engagement-ring")}`} underline zoom scroll>
+                           Top 10 Engagement Rings
+                        </Link>
+                    )},
                 ]
             }
         ]
     },
     {
         key: 'wedding-ring',
-        label: 'Wedding Ring',
+        label:  (
+            <Link to={config.routes.public.allWedding} underline zoom scroll>
+               Wedding Ring
+            </Link>
+        ),
         children: [
             {
                 key: 'wedding-ring-by-shape',
                 label: 'Diamond Ring By Shape',
                 type: 'group',
                 children: [
-                    {key: 'wedding-ring-shape-1', label: 'Round'},
-                    {key: 'wedding-ring-shape-2', label: 'Princess'},
-                    {key: 'wedding-ring-shape-3', label: 'Cushion'},
-                    {key: 'wedding-ring-shape-4', label: 'Oval'},
-                    {key: 'wedding-ring-shape-5', label: 'Emerald'},
-                    {key: 'wedding-ring-shape-6', label: 'Pear'},
-                    {key: 'wedding-ring-shape-7', label: 'Asscher'},
-                    {key: 'wedding-ring-shape-8', label: 'Heart'},
-                    {key: 'wedding-ring-shape-9', label: 'Radient'},
-                    {key: 'wedding-ring-shape-10', label: 'Marquise'},
+                    {key: 'wedding-ring-1', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "round-wedding-ring")}`}>
+                          Round
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-2', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "princess-wedding-ring")}`}>
+                         Princess
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-3', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "cushion-wedding-ring")}`}>
+                          Cushion
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-4', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "oval-wedding-ring")}`}>
+                          Oval
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-5', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "emerald-wedding-ring")}`}>
+                          Emerald
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-6', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "pear-wedding-ring")}`}>
+                          Pear
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-7', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "asscher-wedding-ring")}`}>
+                         Asscher
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-8', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "heart-wedding-ring")}`}>
+                         Heart
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-9', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "radiant-wedding-ring")}`}>
+                          Radiant
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-10', label: (
+                        <Link to={`${config.routes.public.weddingShape.replace(":ringShape", "marquise-wedding-ring")}`}>
+                          Marquise
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -350,10 +474,26 @@ export const items: MenuItem[] = [
                 label: "Men's Rings",
                 type: 'group',
                 children: [
-                    {key: 'wedding-ring-metal-1', label: 'White Gold'},
-                    {key: 'wedding-ring-metal-2', label: 'Yellow Gold'},
-                    {key: 'wedding-ring-metal-3', label: 'Rose Gold'},
-                    {key: 'wedding-ring-metal-4', label: 'Platinum'},
+                    {key: 'wedding-ring-metal-1', label: (
+                        <Link to={`${config.routes.public.menWedding.replace(":ringMetal", "white-gold")}`}>
+                         White Gold
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-metal-2', label: (
+                        <Link to={`${config.routes.public.menWedding.replace(":ringMetal", "yellow-gold")}`}>
+                         Yellow Gold
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-metal-3', label: (
+                        <Link to={`${config.routes.public.menWedding.replace(":ringMetal", "rose-gold")}`}>
+                         Rose Gold
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-metal-4', label: (
+                        <Link to={`${config.routes.public.menWedding.replace(":ringMetal", "platinum")}`}>
+                          Platinum
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -361,10 +501,26 @@ export const items: MenuItem[] = [
                 label: 'Designer Ring',
                 type: 'group',
                 children: [
-                    {key: 'wedding-ring-designer-1', label: 'Zac Zac Posen'},
-                    {key: 'wedding-ring-designer-2', label: 'Bella Vaughan'},
-                    {key: 'wedding-ring-designer-3', label: 'Blue Nile Studio'},
-                    {key: 'wedding-ring-designer-4', label: 'The Gallery Collection'},
+                    {key: 'wedding-ring-designer-1', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "zaczacposen")}`}>
+                          Zac Zac Posen
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-designer-2', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "bellavaughan")}`}>
+                         Bella Vaughan
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-designer-3', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "bluenile")}`}>
+                         Blue Nile Studio
+                        </Link>
+                      )},
+                    {key: 'wedding-ring-designer-4', label: (
+                        <Link to={`${config.routes.public.weddingDesigner.replace(":designer", "thegallerycollection")}`}>
+                         The Gallery Collection
+                        </Link>
+                      )},
                 ]
             },
             {
@@ -392,7 +548,11 @@ export const items: MenuItem[] = [
                             Metal Education
                         </Link>
                     )},
-                    {key: 'learn-wedding-ring-5', label: 'Top 10 Engagement Rings'},
+                    {key: 'learn-wedding-ring-5', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-wedding-ring")}`} underline zoom scroll>
+                           Top 10 Wedding Rings
+                        </Link>
+                    )},
                 ]
             }
         ]
@@ -431,10 +591,6 @@ export const items: MenuItem[] = [
                          Bracelets
                         </Link>
                       )},
-                    {key: 'jewelry-type-5', label: 'Anklets'},
-                    {key: 'jewelry-type-6', label: 'Bangles'},
-                    {key: 'jewelry-type-7', label: 'Chokers'},
-                    {key: 'jewelry-type-8', label: 'Pendants'},
                 ]
             },
             {
@@ -539,10 +695,6 @@ export const items: MenuItem[] = [
                          Bracelet
                         </Link>
                       )},
-                    {key: 'gift-jewelry-type-5', label: 'Anklets'},
-                    {key: 'gift-jewelry-type-6', label: 'Bangles'},
-                    {key: 'gift-jewelry-type-7', label: 'Chokers'},
-                    {key: 'gift-jewelry-type-8', label: 'Pendants'},
                 ]
             },
             {
@@ -550,8 +702,16 @@ export const items: MenuItem[] = [
                 label: 'Gifts By Occasion',
                 type: 'group',
                 children: [
-                    {key: 'gift-ring-1', label: 'Engagement Ring'},
-                    {key: 'gift-ring-2', label: 'Wedding Ring'},
+                    {key: 'gift-ring-1', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-engagement-ring")}`} underline zoom scroll>
+                           Engagement Rings
+                        </Link>
+                    )},
+                    {key: 'gift-ring-2', label: (
+                        <Link to={`${config.routes.public.gift.replace(":jewelryType", "top-ten-wedding-ring")}`} underline zoom scroll>
+                           Wedding Rings
+                        </Link>
+                    )},
                 ]
             },
             {
