@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Link from "@/components/Link";
-import { Card, Col, Row, Typography } from "antd";
+import Link from '@/components/Link';
+import { Card, Col, notification, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 // import { diamonds, Diamond } from "../shared/ListOfDiamond";
@@ -54,6 +54,9 @@ import useAuth from "@/hooks/useAuth";
 import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
 // import { getImage } from "@/services/imageAPI";
+import { createOrderLine, OrderLineBody } from "@/services/orderLineAPI";
+
+type NotificationType = 'success' | 'error';
 
 const DiamondDetails: React.FC = () => {
   //tab description + cmt
@@ -148,10 +151,21 @@ const DiamondDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
+  const getParamsID = id ? parseInt(id) : 0;
   const { role } = useAuth();
   const [foundProduct, setFoundProduct] = useState<any | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
+  
+  const [api, contextHolder] = notification.useNotification();
+
+  const openNotification = async (type: NotificationType, message: string) => {
+    api[type]({
+      message: `${type.charAt(0).toUpperCase() + type.slice(1)} Notification`,
+      description: message
+    })
+  }
+  
   const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
   // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any[]>([]);
 
@@ -216,11 +230,43 @@ const DiamondDetails: React.FC = () => {
     setSelectedThumb(index);
   };
 
-  const handleAddToCart = () => {
+  const recentlyProductIds = ["2", "4", "3", "5"];
+  const recentlyViewedProducts = diamonds.filter((diamond) =>
+    recentlyProductIds.includes(diamond.id.toString())
+  );
+
+
+  //Avg rating
+  const totalReviews = reviewsData.length;
+  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const averageRating = totalRating / totalReviews;
+
+  const handleAddToCart = async () => {
+
     if (role) {
+      try {
+        const OrderLineChild: OrderLineBody = {
+          Quantity: 1,
+          DiamondID: getParamsID,
+          CustomerID: 1,
+        }
+
+        const { data } = await createOrderLine(OrderLineChild);
+        if(data.statusCode === 404) throw new Error('The product is already in the cart')
+        if(data.statusCode !== 200) throw new Error(data.message);
+        else {
+          openNotification('success','The product has been successfully added to the cart');
+        }   
+      } catch (error: any) {
+        await openNotification('error', error.message || 'Server error');
+      }
+
       navigate(config.routes.customer.cart);
-    } else navigate(config.routes.public.login);
-  };
+    } else {
+      navigate(config.routes.public.login)
+    }
+    // navigate(config.routes.customer.cart);
+  }
 
   const handleCheckout = () => {
     if (role) {
@@ -442,24 +488,47 @@ const DiamondDetails: React.FC = () => {
                   <strong>{averageRating.toFixed(1)}</strong>
                   <span>{reviewsData.length} reviews</span>
                 </div>
-              </div>
-              <div className="body-review">
-                {reviewsData.map((review, index) => (
-                  <div key={index} className="profile">
-                    <div className="thumb-name">
-                      <div className="image">
-                        <img src={review.avatar} alt="" />
-                      </div>
-                      <div className="grouping">
-                        <div className="name">{review.name}</div>
-                        <div className="rating">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <StarFilled
-                              key={i}
-                              style={{ color: "#D8A25A", fontSize: "16px" }}
-                            />
-                          ))}
+              </DotGrid>
+            </ProductAbout>
+            <ProductAbout
+              id="product-review"
+              className={activeTab === "product-review" ? "active" : "hide"}
+            >
+              {/* Review content */}
+              <Review>
+                <div className="head-review">
+                  <div className="sum-rating">
+                    <strong>{averageRating.toFixed(1)}</strong>
+                    <span>{reviewsData.length} reviews</span>
+                  </div>
+                </div>
+                <div className="body-review">
+                  {reviewsData.map((review, index) => (
+                    <div key={index} className="profile">
+                      <div className="thumb-name">
+                        <div className="image">
+                          <img src={review.avatar} alt="" />
                         </div>
+                        <div className="grouping">
+                          <div className="name">{review.name}</div>
+                          <div className="rating">
+                            {[...Array(review.rating)].map((_, i) => (
+                              <StarFilled
+                                key={i}
+                                style={{ color: "#D8A25A", fontSize: "16px" }}
+                              />
+                            ))}
+                          </div>
+                          <div className="date grey-color">On {review.date}</div>
+                        </div>
+                      </div>
+                      <div className="comment">
+                        <strong>{review.highlight}</strong>
+                        <p className="grey-color">{review.comment}</p>
+                      </div>
+                      <div className="reply">
+                        <strong>Seller's Feedback</strong>
+                        <p className="grey-color">{review.reply}</p>
                         <div className="date grey-color">On {review.date}</div>
                       </div>
                     </div>
@@ -543,7 +612,12 @@ const DiamondDetails: React.FC = () => {
                           <Text delete className="product-sale-price">
                             ${diamond.Price}
                           </Text>
-                        )}
+                          {diamond.salePrice && (
+                            <Text delete className="product-sale-price">
+                              ${diamond.price}
+                            </Text>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </Card>
@@ -609,20 +683,40 @@ export default DiamondDetails;
                             className="wishlist-icon"
                             onClick={() => toggleWishList(diamond.id)}
                           />
-                        )}
-                      </Title>
-                      <div className="price-container">
-                        <Text className="product-price">
-                          $
-                          {diamond.salePrice
-                            ? diamond.salePrice
-                            : diamond.price}
-                        </Text>
-                        {diamond.salePrice && (
-                          <Text delete className="product-sale-price">
-                            ${diamond.price}
+                          {diamond.salePrice && (
+                            <div className="sale-badge">SALE</div>
+                          )}
+                        </>
+                      }
+                    >
+                      <div className="product-info">
+                        <Title level={4} className="product-name">
+                          {diamond.name}
+                          {wishList.includes(diamond.id.toString()) ? (
+                            <HeartFilled
+                              className="wishlist-icon"
+                              onClick={() => toggleWishList(diamond.id.toString())}
+                            />
+                          ) : (
+                            <HeartOutlined
+                              className="wishlist-icon"
+                              onClick={() => toggleWishList(diamond.id.toString())}
+                            />
+                          )}
+                        </Title>
+                        <div className="price-container">
+                          <Text className="product-price">
+                            $
+                            {diamond.salePrice
+                              ? diamond.salePrice
+                              : diamond.price}
                           </Text>
-                        )}
+                          {diamond.salePrice && (
+                            <Text delete className="product-sale-price">
+                              ${diamond.price}
+                            </Text>
+                          )}
+                        </div>
                       </div>
                     </div>
                   </Card>
