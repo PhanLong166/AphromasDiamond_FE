@@ -1,3 +1,4 @@
+// import { showDiamonds } from "@/services/diamondAPI";
 import { diamonds } from "../../shared/ListOfDiamond";
 
 export const diamondData: Record<string, any> = {
@@ -332,3 +333,21 @@ export const diamondData: Record<string, any> = {
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fsnapedit_1719690260501.jpg?alt=media&token=a445aaed-698e-4696-a34a-39e978168f89",
   },
 };
+
+// const fetchDiamonds = async () => {
+//   try {
+//     const response = await showDiamonds(); // Gọi API để lấy danh sách diamonds
+//     return response.data; // Giả sử response.data chứa danh sách diamonds từ API
+//   } catch (error) {
+//     console.error('Error fetching diamonds:', error);
+//     return []; // Trả về mảng rỗng trong trường hợp lỗi
+//   }
+// };
+
+// // Gọi hàm fetchDiamonds để cập nhật danh sách diamonds trong diamondData
+// fetchDiamonds().then((diamonds) => {
+//   Object.keys(diamondData).forEach((key) => {
+//     const diamondShape = key.replace('-shape', ''); // Lấy hình dạng diamond từ key
+//     diamondData[key].diamonds = diamonds.filter((diamond: any) => diamond.shape === diamondShape);
+//   });
+// });

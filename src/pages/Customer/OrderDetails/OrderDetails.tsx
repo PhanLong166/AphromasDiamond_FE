@@ -1,12 +1,10 @@
-import React, { useEffect, useState } from 'react';
-import styled from 'styled-components';
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
 // import { Button, ConfigProvider, Table } from 'antd';
-import type { ColumnsType } from 'antd/es/table';
-import Table from 'antd/es/table';
-import { Tag, Form } from 'antd';
-import TextArea from 'antd/es/input/TextArea';
-
-
+import type { ColumnsType } from "antd/es/table";
+import Table from "antd/es/table";
+import { Tag, Form, Flex, Rate } from "antd";
+import TextArea from "antd/es/input/TextArea";
 
 interface Product {
   id: string;
@@ -35,47 +33,48 @@ interface OrderProps {
   total: number;
 }
 
-
-
-
 const sampleOrder: OrderProps = {
-  invoiceDate: '14 Dec 2022',
-  dueDate: '14 Dec 2022',
-  status: 'Pending',
-  orderId: '123456',
-  name: 'Ha Thi Huyen Trang',
-  phone: '0937250913',
-  email: 'hthuyentrange@gmail.com',
-  address: '123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam',
+  invoiceDate: "14 Dec 2022",
+  dueDate: "14 Dec 2022",
+  status: "Pending",
+  orderId: "123456",
+  name: "Ha Thi Huyen Trang",
+  phone: "0937250913",
+  email: "hthuyentrange@gmail.com",
+  address: "123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam",
   products: [
     {
-      id: '1',
-      name: 'Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond',
+      id: "1",
+      name: "Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond",
       quantity: 1,
       price: 5030,
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7',
-      size: '8',
-      type: 'ring',
+      imageUrl:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
+      size: "8",
+      type: "ring",
     },
     {
-      id: '2',
-      name: 'Aquamarine Stud Ring In 14k White Gold (7mm)',
+      id: "2",
+      name: "Aquamarine Stud Ring In 14k White Gold (7mm)",
       quantity: 2,
       price: 4000,
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring1.jpg?alt=media&token=1fd5a503-9856-403a-a250-60ab0f42b372',
-      size: '8',
-      type: 'ring',
+      imageUrl:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring1.jpg?alt=media&token=1fd5a503-9856-403a-a250-60ab0f42b372",
+      size: "8",
+      type: "ring",
     },
     {
-      id: '3',
-      name: 'Aquamarine Stud Diamond In 14k White Gold (7mm)',
+      id: "3",
+      name: "Aquamarine Stud Diamond In 14k White Gold (7mm)",
       quantity: 1,
       price: 4000,
-      imageUrl: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2',
-      type: 'diamond',
+      imageUrl:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
+      type: "diamond",
     },
   ],
-  paymentMethod: 'https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579',
+  paymentMethod:
+    "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579",
   discount: 503,
   vat: 503,
   shippingFee: 0,
@@ -112,8 +111,12 @@ const formatPrice = (price: number): string => {
   return `$${price.toFixed(0)}`;
 };
 
+const desc = ["terrible", "bad", "normal", "good", "wonderful"];
+
 const OrderDetail: React.FC = () => {
   const [order, setOrder] = useState<OrderProps | null>(null);
+  const [value, setValue] = useState(3);
+
   // const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
   useEffect(() => {
     // Simulating fetching data from an API
@@ -139,40 +142,42 @@ const OrderDetail: React.FC = () => {
     discount,
     vat,
     shippingFee,
-    
   } = order;
 
   const columns: ColumnsType<Product> = [
     {
-      title: 'Product',
-      dataIndex: 'name',
-      key: 'name',
+      title: "Product",
+      dataIndex: "name",
+      key: "name",
       render: (text, record) => (
-        <div style={{ display: 'flex', alignItems: 'center' }}>
-          <img src={record.imageUrl} alt={text} style={{ width: '70px', marginRight: '10px' }} />
+        <div style={{ display: "flex", alignItems: "center" }}>
+          <img
+            src={record.imageUrl}
+            alt={text}
+            style={{ width: "70px", marginRight: "10px" }}
+          />
           <span>{text}</span>
         </div>
       ),
     },
     {
-      title: 'Quantity',
-      dataIndex: 'quantity',
-      key: 'quantity',
+      title: "Quantity",
+      dataIndex: "quantity",
+      key: "quantity",
     },
     {
-      title: 'Size',
-      dataIndex: 'size',
-      key: 'size',
-      render: (text, record) => record.type === 'ring' ? text : '',
+      title: "Size",
+      dataIndex: "size",
+      key: "size",
+      render: (text, record) => (record.type === "ring" ? text : ""),
     },
-  
-    
+
     {
-      title: 'Price',
-      dataIndex: 'price',
-      key: 'price',
-      render: (_, record) => formatPrice(Number(record.price) * record.quantity),
-      
+      title: "Price",
+      dataIndex: "price",
+      key: "price",
+      render: (_, record) =>
+        formatPrice(Number(record.price) * record.quantity),
     },
   ];
 
@@ -184,68 +189,83 @@ const OrderDetail: React.FC = () => {
     return formatPrice(productsTotal - discount + vat);
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
-  
 
   return (
     <MainContainer>
-    <Container>
-      <OrderWrapper>
-        <OrderTitle>Order Detail</OrderTitle>
-        <OrderDetailsContainer>
-          <OrderDetails>
-            <CustomerInfo>{name}</CustomerInfo>
-            <CustomerInfo>{phone}</CustomerInfo>
-            <CustomerInfo>{email}</CustomerInfo>
-            <CustomerInfo>{address}</CustomerInfo>
-          </OrderDetails>
-          <InvoiceDetails>
-            <InvoiceInfo>Invoice Date: {invoiceDate}</InvoiceInfo>
-            <InvoiceInfo>Due Date: {dueDate}</InvoiceInfo>
-            <InvoiceInfo>
-            Status: <StatusTag status={status} />
+      <Container>
+        <OrderWrapper>
+          <OrderTitle>Order Detail</OrderTitle>
+          <OrderDetailsContainer>
+            <OrderDetails>
+              <CustomerInfo>{name}</CustomerInfo>
+              <CustomerInfo>{phone}</CustomerInfo>
+              <CustomerInfo>{email}</CustomerInfo>
+              <CustomerInfo>{address}</CustomerInfo>
+            </OrderDetails>
+            <InvoiceDetails>
+              <InvoiceInfo>Invoice Date: {invoiceDate}</InvoiceInfo>
+              <InvoiceInfo>Due Date: {dueDate}</InvoiceInfo>
+              <InvoiceInfo>
+                Status: <StatusTag status={status} />
               </InvoiceInfo>
-          </InvoiceDetails>
-        </OrderDetailsContainer>
-      </OrderWrapper>
-      <ProductsWrapper>
-        <OrderID>Order ID #{order.orderId}</OrderID>
-        <Table style={{backgroundColor: '#e8e8e8'}} columns={columns} dataSource={products} pagination={false} rowKey="id" />
-        <Form>
-        {/* checked={componentDisabled} */}
-        
-        <Form.Item label="Feedback">
-          <TextArea 
-          placeholder='Option'
-          // onChange={(e) => setComponentDisabled(e.target.checked)}
-          disabled
-          rows={4}
-          style={{ width: '400px', height: '140px' }}
-          allowClear
-          showCount
-          maxLength={300}
-           />
-        </Form.Item>
-        </Form>
-      </ProductsWrapper>
-      
-      <OrderInfo>
-     
-        <Row>
-          <InfoTitle>Payment method</InfoTitle>
-          <img className="payment-method" src={paymentMethod} alt="Payment method" />
-        </Row>
-        <Column>
-          <InfoText>Discount: {formatPrice(discount)}</InfoText>
-          <InfoText>VAT: {formatPrice(vat)}</InfoText>
-          <InfoText>Shipping: {shippingFee ? formatPrice(shippingFee) : 'Free'}</InfoText>
-          <br/>
-          <InfoText style={{color:"red"}}>
+            </InvoiceDetails>
+          </OrderDetailsContainer>
+        </OrderWrapper>
+        <ProductsWrapper>
+          <OrderID>Order ID #{order.orderId}</OrderID>
+          <Table
+            style={{ backgroundColor: "#e8e8e8" }}
+            columns={columns}
+            dataSource={products}
+            pagination={false}
+            rowKey="id"
+          />
+          <Form>
+            {/* checked={componentDisabled} */}
+            <Flex
+            style={{ margin: "20px 0 20px 0" }}
+            gap="middle" vertical>
+              <Rate tooltips={desc} onChange={setValue} value={value} />
+              {/* {value ? <span>{desc[value - 1]}</span> : null} */}
+            </Flex>
+            <Form.Item>
+              <TextArea
+                placeholder="Tell us how can ưe improve better!"
+                // onChange={(e) => setComponentDisabled(e.target.checked)}
+                // disabled
+                rows={4}
+                style={{ width: "400px", height: "140px" }}
+                allowClear
+                showCount
+                maxLength={300}
+              />
+            </Form.Item>
+          </Form>
+        </ProductsWrapper>
+
+        <OrderInfo>
+          <Row>
+            <InfoTitle>Payment method</InfoTitle>
+            <img
+              className="payment-method"
+              src={paymentMethod}
+              alt="Payment method"
+            />
+          </Row>
+          <Column>
+            <InfoText>Discount: {formatPrice(discount)}</InfoText>
+            <InfoText>VAT: {formatPrice(vat)}</InfoText>
+            <InfoText>
+              Shipping: {shippingFee ? formatPrice(shippingFee) : "Free"}
+            </InfoText>
+            <br />
+            <InfoText style={{ color: "red" }}>
               Total: {calculateTotal()}
-          </InfoText>
-        </Column>
-      </OrderInfo>
-      <EditButton>Comfirm</EditButton>
-    </Container>
+            </InfoText>
+          </Column>
+        </OrderInfo>
+        <EditButton>Comfirm</EditButton>
+      </Container>
     </MainContainer>
   );
 };
@@ -419,12 +439,12 @@ const Column = styled.div`
 `;
 
 const MainContainer = styled.div`
-display: flex;
-justify-content: space-around;
+  display: flex;
+  justify-content: space-around;
 `;
 
 const EditButton = styled.div`
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-size: 16px;
   border: 1px solid #000;
   background-color: #fff;
