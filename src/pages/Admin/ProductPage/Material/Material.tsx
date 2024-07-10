@@ -1,5 +1,5 @@
 import * as Styled from "./Material.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { FormInstance, TableProps } from "antd";
@@ -11,18 +11,19 @@ import {
   Table,
   Typography,
   Button,
+  notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
-import { materialData, MaterialDataType } from "../ProductData"; // Import data here
-
+// import { materialData, MaterialDataType } from "../ProductData"; // Import data here
+import { deleteMaterial, showAllMaterial } from "@/services/materialAPI";
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof MaterialDataType;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: MaterialDataType;
+  record: any;
   index: number;
   // children: React.ReactNode;
 }
@@ -62,6 +63,54 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
 };
 
 
+const Material = () => {
+  const [form] = Form.useForm();
+  const [searchText, setSearchText] = useState("");
+  const [isAdding, setIsAdding] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+  const [materials, setMaterials] = useState<any[]>([]);
+  const [editingKey, setEditingKey] = useState<React.Key>("");
+  const isEditing = (record: any) => record.key === editingKey;
+
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} diamond successfully` : error,
+    });
+  };
+
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllMaterial();
+      console.log("API response:", response);
+      const { data } = response.data;
+      const formattedTypes = data.map((material: any) => ({
+        materialJewelryID: material.MaterialJewelryID,
+        materialName: material.Name,
+        sellPrice: material.SellPrice,
+        updateTime: material.UpdateTime,
+      }));
+      console.log("Formatted Types:", formattedTypes); 
+      setMaterials(formattedTypes);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  
 // SUBMIT FORM
 interface SubmitButtonProps {
   form: FormInstance;
@@ -72,7 +121,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
   children,
 }) => {
   const [submittable, setSubmittable] = React.useState<boolean>(false);
-
+  openNotification("success", "Add", "");
   // Watch all values
   const values = Form.useWatch([], form);
 
@@ -90,19 +139,13 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
   );
 };
 
-
-const Material = () => {
-  const [form] = Form.useForm();
-  const [data, setData] = useState<MaterialDataType[]>(materialData);
-  const [isAdding, setIsAdding] = useState(false);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: MaterialDataType) => record.key === editingKey;
-  const edit = (record: Partial<MaterialDataType> & { key: React.Key }) => {
+  // EDIT
+  const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
-      materialID: "",
+      materialJewelryID: "",
       materialName: "",
-      buyingPrice: "",
-      sellingPrice: "",
+      sellPrice: 0,
+      updateTime: "",
       ...record,
     });
     setEditingKey(record.key);
@@ -112,8 +155,8 @@ const Material = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as MaterialDataType;
-      const newData = [...data];
+      const row = (await form.validateFields()) as any;
+      const newData = [...materials];
       const index = newData.findIndex((item) => key === item.key);
 
       // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
@@ -124,11 +167,11 @@ const Material = () => {
           ...item,
           ...row,
         });
-        setData(newData);
+        setMaterials(newData);
         setEditingKey("");
       } else {
         newData.push(row);
-        setData(newData);
+        setMaterials(newData);
         setEditingKey("");
       }
     } catch (errInfo) {
@@ -136,41 +179,47 @@ const Material = () => {
     }
   };
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
-  };
+  // const handleDelete = (key: React.Key) => {
+  //   const newData = materials.filter((item) => item.key !== key);
+  //   setMaterials(newData);
+  // };
 
   const columns = [
     {
       title: "Material ID",
-      dataIndex: "materialID",
+      dataIndex: "materialJewelryID",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) => a.materialID.localeCompare(b.materialID),
+      sorter: (a: any, b: any) => a.materialJewelryID.localeCompare(b.materialJewelryID),
     },
     {
       title: "Material Name",
       dataIndex: "materialName",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) =>
+      sorter: (a: any, b: any) =>
         a.materialName.length - b.materialName.length,
     },
     {
       title: "Selling Price per Gram",
-      dataIndex: "sellingPrice",
+      dataIndex: "sellPrice",
       editable: true,
-      sorter: (a: MaterialDataType, b: MaterialDataType) => a.sellingPrice - b.sellingPrice,
+      sorter: (a: any, b: any) => a.sellPrice - b.sellPrice,
+    },
+    {
+      title: "Update Time",
+      dataIndex: "updateTime",
+      editable: true,
+      sorter: (a: any, b: any) => a.updateTime - b.updateTime,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: unknown, record: MaterialDataType) => {
+      render: (_: unknown, record: any) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.key)}
+              onClick={() => save(record.materialJewelryID)}
               style={{ marginRight: 8 }}
             >
               Save
@@ -193,11 +242,11 @@ const Material = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: MaterialDataType) =>
-        data.length >= 1 ? (
+      render: (_: unknown, record: any) =>
+        materials.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => deleteMaterial(record.materialJewelryID)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -211,7 +260,7 @@ const Material = () => {
     }
     return {
       ...col,
-      onCell: (record: MaterialDataType) => ({
+      onCell: (record: any) => ({
         record,
         inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -221,8 +270,8 @@ const Material = () => {
     };
   });
 
-  const [searchText, setSearchText] = useState("");
 
+  // SEARCH AREA
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -252,6 +301,7 @@ const Material = () => {
 
   return (
     <>
+      {contextHolder}
       <Styled.GlobalStyle />
       <Styled.AdminArea>
         <Sidebar />
@@ -294,39 +344,68 @@ const Material = () => {
             <Styled.AdminTable>
               {isAdding ? (
                 <>
-                <Form layout="vertical" className="AdPageContent_Content">
-                  <Styled.FormItem>
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    className="AdPageContent_Content"
+                    onFinish={() => console.log("Form submitted")}
+                  >
+                    {/* <Styled.FormItem>
                     <Form.Item label="Jewelry Type ID" name="Jewelry Type ID"
                         rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="D1234" />
                     </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item label="Jewelry Type Name" name="Jewelry Type Name"
-                        rules={[{ required: true }]}>
-                      <Input className="formItem" placeholder="Filled" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                  <Form.Item label="Selling Price per Gram" name="1/6 sales"
-                        rules={[{ required: true }]}>
-                    <InputNumber className="formItem" placeholder="4,080" />
-                  </Form.Item>
-                </Styled.FormItem>
-                </Form>
-                <Styled.ActionBtn>
-                <SubmitButton form={form}>
+                  </Styled.FormItem> */}
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Jewelry Type Name"
+                        name="Jewelry Type Name"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Diamond Name is required.",
+                          },
+                          {
+                            type: "string",
+                            message: "Only alphabet is allowed.",
+                          },
+                          {
+                            max: 100,
+                            message:
+                              "Diamond Name must be at most 300 characters long.",
+                          },
+                          {
+                            whitespace: true,
+                            message: "Not only has whitespace.",
+                          },
+                        ]}
+                      >
+                        <Input className="formItem" placeholder="Filled" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Selling Price per Gram"
+                        name="1/6 sales"
+                        rules={[{ required: true }]}
+                      >
+                        <InputNumber className="formItem" placeholder="4,080" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                  </Form>
+                  <Styled.ActionBtn>
+                    <SubmitButton form={form}>
                       <SaveOutlined />
                       Save
                     </SubmitButton>
-                  <Button
-                    onClick={handleCancel}
-                    style={{ marginLeft: "10px" }}
-                  >
-                    Cancel
-                  </Button>
-                </Styled.ActionBtn>
-              </>
+                    <Button
+                      onClick={handleCancel}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Cancel
+                    </Button>
+                  </Styled.ActionBtn>
+                </>
               ) : (
                 <Form form={form} component={false}>
                   <Table
@@ -336,7 +415,7 @@ const Material = () => {
                       },
                     }}
                     bordered
-                    dataSource={materialData}
+                    dataSource={materials}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
