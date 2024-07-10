@@ -173,7 +173,8 @@ import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond"
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
 import Link from "@/components/Link";
-import { showDiamonds, getDiamondImages } from "@/services/diamondAPI";
+import { showDiamonds } from "@/services/diamondAPI";
+import { getImage } from "@/services/imageAPI";
 
 const { Title, Text } = Typography;
 
@@ -212,7 +213,7 @@ const AllDiamond: React.FC = () => {
     const fetchData = async () => {
       try {
         const response = await showDiamonds({page: 1});
-        console.log("API response:", response);
+        console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
           // Check for response.data.data
@@ -228,30 +229,13 @@ const AllDiamond: React.FC = () => {
             images: item.usingImage.map((image: any) => ({
               id: image.UsingImageID,
               name: image.Name,
-              url: image.url,
+              url: getImage(image.UsingImageID),
             })),
           }));
 
-          const updatedDiamonds = await Promise.all(
-            fetchedDiamonds.map(async (diamond: any) => {
-              try {
-                const imageResponse = await getDiamondImages(diamond.id);
-                return {
-                  ...diamond,
-                  images: imageResponse.data || [],
-                };
-              } catch (error) {
-                console.error(
-                  `Error fetching images for diamond ID ${diamond.id}:`,
-                  error
-                );
-                return diamond;
-              }
-            })
-          );
+          console.log(fetchedDiamonds);
 
-          console.log("Updated diamonds:", updatedDiamonds);
-          setDiamonds(updatedDiamonds);
+          setDiamonds(fetchedDiamonds);
           setLoading(false);
         } else {
           console.error("Unexpected API response format:", response.data);

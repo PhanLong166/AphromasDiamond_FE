@@ -1,4 +1,5 @@
-import { get, put } from "./apiCaller"
+import config from "@/config";
+import { put } from "./apiCaller"
 
 export const uploadImage = () => {
 
@@ -9,5 +10,5 @@ export const updateImage = (id: number, image: object) => {
 }
 
 export const getImage = (id: number) => {
-    return get(`/usingImage/${id}`);
+    return `${config.publicRuntime.API_URL}/usingImage/${id}`;
 }
