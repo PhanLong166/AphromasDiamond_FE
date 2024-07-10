@@ -1,26 +1,26 @@
 import { get, post, put, remove } from "./apiCaller"
 
 export type OrderAPIProps = {
-    OrderID: number;
-    OrderDate: string;
-    CompletetDate: string;
+    OrderID?: number;
+    OrderDate: Date;
+    CompleteDate: Date;
     CustomerID: number;
-    PaymentID: string;
-    IsPaid: boolean;
-    Shippingfee: number;
-    OrderStatus: number;
-    AccountDeliveryID: number;
-    AccountSaleID: number;
-    ReasonReturn: string;
-    Note: string;
+    PaymentID?: string;
+    IsPayed: boolean;
+    Shippingfee?: number;
+    OrderStatus: string;
+    AccountDeliveryID?: number;
+    AccountSaleID?: number;
+    ReasonReturn?: string;
+    Note?: string;
     IsActive: boolean;
 }
 
-export const showAllOrderForAdmin = () => {
+export const showAllOrder = () => {
     return get(`/order/showAll`);
 }
 
-export const showAllOrderForCustomer = () => {
+export const showOrdersPage = () => {
     return get(`/order/showOrders`);
 }
 

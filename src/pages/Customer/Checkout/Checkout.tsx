@@ -6,6 +6,8 @@ import { Steps } from "antd";
 import AddressDetails from "../../../components/Customer/Checkout/AddressDetails"; 
 import { getProvinces, getDistricts, getWards } from "./api";
 import Summary from "@/components/Customer/Checkout/Summary/Summary";
+import { createOrder, OrderAPIProps } from "@/services/orderAPI";
+import { showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
 
 interface ContactInfoProps {
   email: string;
@@ -103,6 +105,48 @@ const Checkout: React.FC = () => {
     fetchProvincesData();
   }, []);
 
+  const onFinish = async (values: any) => {
+    try {
+      const requestBodyOrder: OrderAPIProps = {
+        OrderDate: new Date(),
+        CompleteDate: new Date(),
+        IsPayed: false,
+        CustomerID: 1,
+        OrderStatus: "Pending",
+        IsActive: true,
+        PaymentID: `${values.paymentMethod}`
+      }
+      
+      const responeOrder = await createOrder(requestBodyOrder);
+      if (responeOrder.data.statusCode !== 200) throw new Error();
+
+      const getOrderID = responeOrder.data.data.OrderID;
+      const getOrderLine = await showAllOrderLineForAdmin();
+      getOrderLine.data.data.filter((
+        orderLineItem: {
+          CustomerID: number, 
+          OrderID: number | null, 
+          DiamondID: number | null,
+          ProductID: number | null,
+        }
+      ) => orderLineItem.CustomerID === 1 && 
+           orderLineItem.OrderID === null &&
+           (orderLineItem.DiamondID !== null || orderLineItem.ProductID !== null)
+          )
+      .map(async (item: any) => {
+        const linkOrder = await updateOrderLine(item.OrderLineID, {
+          ...item,
+          OrderID: getOrderID
+        });
+        if(linkOrder.data.statusCode !== 200) throw new Error();
+      });
+      
+      if(!updateOrderLine) throw new Error(); 
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+
   const handleProvinceChange = async (provinceId: unknown ) => {
     setSelectedProvince(provinceId as number);
     setSelectedDistrict(null); // Reset lại quận/huyện khi thay đổi tỉnh/thành phố
@@ -162,9 +206,9 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Formm>
-            <ContactInfo email="loclpse171201@fpt.edu.vn" onEdit={handleEdit} /> 
+            <ContactInfo email="customer1@gmail.com" onEdit={handleEdit} /> 
             <AddressDetails
-              onFinish={() => {}}
+              onFinish={onFinish}
               provinces={provinces}
               districts={districts}
               wards={wards}

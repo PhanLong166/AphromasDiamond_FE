@@ -4,6 +4,8 @@ import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "../../../Customer/Checkout/PromoCode";
 import { items } from "../../Data/data";
+import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
+import { getDiamondDetails } from "@/services/diamondAPI";
 interface CartItemProps {
   name: string;
   image: string;
@@ -32,6 +34,39 @@ const Summary: React.FC = () => {
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
+
+  const fetchData = async () => {
+    try {
+      const { data } = await showAllOrderLineForAdmin();
+      if (data.statusCode !== 200) throw new Error();
+
+      const getOrderLineItems = data.data.filter((
+        OrderLineItem: {
+          CustomerID: number,
+          OrderID: number | null
+          DiamondID: number | null,
+          ProductID: number | null
+        }
+      ) => (
+        OrderLineItem.CustomerID === 1
+        && OrderLineItem.OrderID === null
+        && (OrderLineItem.DiamondID !== null || OrderLineItem.ProductID !== null)
+      )).map(async (item: any) => {
+        if (item.DiamondID !== null) {
+          const diamondDetails = await getDiamondDetails(item.DiamondID);
+          return { ...item, diamondDetails: diamondDetails.data };
+        }
+      })
+
+      console.log(getOrderLineItems);
+    } catch (error: any) {
+      console.error(error);
+    }
+  }
+
+  React.useEffect(() => {
+    fetchData();
+  }, [])
 
   const calculateTotal = (
     subtotal: number,
