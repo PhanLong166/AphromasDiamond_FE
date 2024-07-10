@@ -4,8 +4,8 @@ export const showAllDiamond = () => {
     return get(`/diamond/showAll`);
 }
 
-export const showDiamonds = () => {
-    return get(`/diamond/showDiamonds`);
+export const showDiamonds = (params: any) => {
+    return get(`/diamond/showDiamonds`,params);
 }
 
 export const getDiamondDetails = (diamondID: number) => {
