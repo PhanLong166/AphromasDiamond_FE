@@ -8,7 +8,7 @@ import { useDocumentTitle } from "@/hooks";
 import { items } from "../../../components/Customer/Data/data";
 import { useEffect, useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
-import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
+import { OrderLineBody, showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 
@@ -16,13 +16,14 @@ const fetchCartItemsWithDetails = async () => {
   try {
     // Gọi API để lấy tất cả các dòng đặt hàng
     const { data } = await showAllOrderLineForAdmin();
-    
+    console.log("Check API: ", data.data);
     // Lọc ra các sản phẩm có OrderID là null
     const cartItems = data.data.filter(
-      (cartItem: { OrderID: null }) => cartItem.OrderID === null
+      (cartItem: { OrderID: null, DiamondID: number, ProductID: number }) =>
+        (cartItem.OrderID === null && (cartItem.DiamondID !== null || cartItem.ProductID !== null))
     );
-    
-      
+
+
     // Dùng Promise.all để đảm bảo tất cả các yêu cầu API được thực hiện và trả về đầy đủ trước khi tiếp tục
     const detailedCartItems = await Promise.all(
       cartItems.map(async (item: { DiamondID: number }) => {
@@ -31,30 +32,27 @@ const fetchCartItemsWithDetails = async () => {
         const { data: diamondDetails } = await getDiamondDetails(
           item.DiamondID
         );
-        console.log('a',diamondDetails?.data?.usingImage)
+        console.log('a', diamondDetails?.data?.usingImage)
         // const usingImageID = diamondDetails.data.usingImage[0].usingImageID;
         // console.log(usingImageID)
         // const imagesDiamond = await getImageDiamond(usingImageID);
-        const usingImageID = diamondDetails.data.usingImage[0]
-        // console.log(diamondDetails.data.usingImage[0])
-        // console.log(diamondDetails.data)
-        // console.log('usingImageID',usingImageID)
-        const imageDiamond = await getImage(usingImageID);
-        console.log(imageDiamond)
-        // console.log(diamondDetails.data)
-        // Dùng dữ liệu của diamond để chọn type vì Swagger chưa có type diamond với ring :)
-        const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
-        // Kết hợp thông tin chi tiết vào từng item trong giỏ hàng
-        return { ...item, diamondDetails: diamondDetails.data, type };
+        if (diamondDetails && diamondDetails.data && diamondDetails.data.usingImage) {
+          const usingImageID = diamondDetails.data.usingImage[0];
+          const imageDiamond = getImage(usingImageID.UsingImageID);
+          const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
+          return { ...item, diamondDetails: diamondDetails.data, type, imageDiamond };
+        } else {
+          return { ...item, diamondDetails: diamondDetails?.data, type: "unknown", imageDiamond: null };
+        }
       })
-      
     );
-    
+
     // Trả về danh sách các sản phẩm trong giỏ hàng kèm theo thông tin chi tiết về kim cương
-    console.log('detailedCartItems',detailedCartItems)
+    console.log('detailedCartItems', detailedCartItems)
     return detailedCartItems;
   } catch (error) {
     console.log("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    console.error(error);
   }
 };
 
@@ -67,16 +65,16 @@ const Cart = () => {
   const [cartItems, setCartItems] = useState<any[]>([]);
 
   useEffect(() => {
-    const loadCartItems = async () => {
-      const items = await fetchCartItemsWithDetails();
-      // Check if items is undefined before calling setCartItems
-      if(items){
-        setCartItems(items);
-      }
-    };
-    
     loadCartItems();
   }, []);
+  
+  const loadCartItems = async () => {
+    const items = await fetchCartItemsWithDetails();
+    // Check if items is undefined before calling setCartItems
+    if (items) {
+      setCartItems(items);
+    }
+  };
 
   const [discount, setDiscount] = useState(0);
   const onApplyVoucher = (discount: number) => {
@@ -97,6 +95,27 @@ const Cart = () => {
 
   const shippingCost = items.length < 2 ? 15 : 0;
   const total = calculateTotal(subtotal, discount, shippingCost).toFixed(0);
+
+  const handleRemove = async (OrderLineID: any) => {
+    try {
+      const removeOrderLine: OrderLineBody = {
+        Quantity: 1,
+        CustomerID: 1,
+        DiamondID: null,
+        ProductID: null,
+        OrderID: null
+      }
+
+      const { data } = await updateOrderLine(OrderLineID, removeOrderLine);
+      if(data.statusCode !== 200) throw new Error;
+      else {
+        loadCartItems();
+        console.log(data.message);
+      }
+    } catch (error: any) {
+
+    }
+  }
 
   return (
     <>
@@ -121,32 +140,33 @@ const Cart = () => {
                 {cartItems.map((item, index) => (
                   <CartItem
                     key={index}
+                    OrderLineID={item.OrderLineID}
                     DiamondID={item.DiamondID}
                     description={
-                      item.diamondDetails.Description ||
+                      item.diamondDetails?.Description ||
                       "No description available"
                     }
                     name={
-                      item.diamondDetails.Name || "No description available"
+                      item.diamondDetails?.Name || "No description available"
                     }
-                    price={item.diamondDetails.Price}
-                    images={item.diamondDetails.image}
+                    price={item.diamondDetails?.Price}
+                    images={item.imageDiamond}
                     // image={(item.diamondDetails.usingImage[0].Name )}
                     type={item.type}
-                    // name={item.diamondDetails.Name || "No description available"}
-                    // description={item.diamondDetails.Description || "No description available"}
-
-                    // sku={item.diamondDetails.DiamondID}
-                    // price={item.diamondDetailsPrice}
-                    // type={item.type} // Loại sản phẩm: 'diamond' hoặc 'ring'
-                    // ringOptions={[
-                    //   { value: "1", label: "4" },
-                    //   { value: "2", label: "4.5" },
-                    //   { value: "3", label: "5" },
-                    //   { value: "4", label: "5.5" },
-                    //   { value: "5", label: "6" },
-                    //   { value: "6", label: "6.5" },
-                    // ]}
+                  // name={item.diamondDetails.Name || "No description available"}
+                  // description={item.diamondDetails.Description || "No description available"}
+                     handleRemove={() => handleRemove(item.OrderLineID)}
+                  // sku={item.diamondDetails.DiamondID}
+                  // price={item.diamondDetailsPrice}
+                  // type={item.type} // Loại sản phẩm: 'diamond' hoặc 'ring'
+                  // ringOptions={[
+                  //   { value: "1", label: "4" },
+                  //   { value: "2", label: "4.5" },
+                  //   { value: "3", label: "5" },
+                  //   { value: "4", label: "5.5" },
+                  //   { value: "5", label: "6" },
+                  //   { value: "6", label: "6.5" },
+                  // ]}
                   />
                 ))}
               </CartStyled.Column>
