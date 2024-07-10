@@ -17,22 +17,6 @@ import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { JewelryType_Filter } from "./Jewelry.type";
 
 
-
-
-
-// interface ProductDataType {
-//   key: React.Key;
-//   productID: string;
-//   productImg: string;
-//   productName: string;
-//   price: number;
-//   markupPercentage: number;
-//   type: string;
-//   quantity: number;
-//   exchangeRate: number;
-//   currencyType: string;
-// }
-
 const onChange: TableProps<ProductDataType>["onChange"] = (
   pagination,
   filters,
