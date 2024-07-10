@@ -703,7 +703,7 @@ export const Review = styled.div`
 export const ProductSection = styled.section`
   margin: 60px auto;
   max-width: 1400px;
-  margin-bottom: 0;
+  // margin-bottom: 0;
 `;
 export const ProductSectionViewed = styled.section`
   margin: 60px auto;

@@ -1,5 +1,5 @@
 export interface Diamond {
-  id: string;
+  id: number;
   shape: string;
   star: number;
   name: string;
@@ -19,7 +19,7 @@ export interface Diamond {
 
 export const diamonds: Diamond[] = [
   {
-    id: "1",
+    id: 1,
     shape: "Round",
     star: 5,
     percentSale: "2%",
@@ -42,7 +42,7 @@ export const diamonds: Diamond[] = [
     length: "6.33mm",
   },
   {
-    id: "2",
+    id: 2,
     star: 4,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
@@ -65,7 +65,7 @@ export const diamonds: Diamond[] = [
     ],
   },
   {
-    id: "3",
+    id: 3,
     star: 5,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
@@ -88,7 +88,7 @@ export const diamonds: Diamond[] = [
     ],
   },
   {
-    id: "4",
+    id: 4,
     star: 4,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
@@ -110,7 +110,7 @@ export const diamonds: Diamond[] = [
   },
 
   {
-    id: "5",
+    id: 5,
     star: 4,
     description:
       "Lorem ipsum, dolor sit amet consectetur adipisicing elit. Esse nobis aperiam aliquam alias fuga earum neque iste ipsa nesciunt accusamus possimus ex voluptas, perferendis reiciendis?",
@@ -133,7 +133,7 @@ export const diamonds: Diamond[] = [
     ],
   },
   {
-    id: "6",
+    id: 6,
     shape: "Princess",
     star: 5,
     percentSale: "2%",
@@ -157,7 +157,7 @@ export const diamonds: Diamond[] = [
     length: "6.33mm",
   },
   {
-    id: "7",
+    id: 7,
     shape: "Radiant",
     star: 5,
     percentSale: "2%",
@@ -180,7 +180,7 @@ export const diamonds: Diamond[] = [
     length: "6.33mm",
   },
   {
-    id: "8",
+    id: 8,
     shape: "Marquise",
     star: 5,
     percentSale: "2%",
@@ -203,7 +203,7 @@ export const diamonds: Diamond[] = [
     length: "6.33mm",
   },
   {
-    id: "9",
+    id: 9,
     shape: "Emerald",
     star: 5,
     percentSale: "2%",
@@ -226,7 +226,7 @@ export const diamonds: Diamond[] = [
     length: "6.33mm",
   },
   {
-    id: "10",
+    id: 10,
     shape: "Cushion",
     star: 5,
     percentSale: "2%",
@@ -249,7 +249,7 @@ export const diamonds: Diamond[] = [
     length: "6.33mm",
   },
   {
-    id: "11",
+    id: 11,
     shape: "Asscher",
     star: 5,
     percentSale: "2%",

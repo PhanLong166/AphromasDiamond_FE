@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Breadcrumb } from "antd";
 import { useParams } from "react-router-dom";
-import Link from '@/components/Link';
+import Link from "@/components/Link";
 import { CloseOutlined } from "@ant-design/icons";
 import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
@@ -193,12 +193,10 @@ const ProductDetails: React.FC = () => {
       setMainImage(product.images[0]);
       setSelectedThumb(0);
 
-  
       const filteredProducts = products.filter(
         (p) => p.firm === product.firm && p.id !== product.id
       );
 
-   
       const maxProductsToShow = 4;
       const productsToShow =
         filteredProducts.length <= maxProductsToShow
@@ -293,22 +291,29 @@ const ProductDetails: React.FC = () => {
                     <div className="info-box">{foundProduct.color}</div>
                   </div>
                 </ProductInfo>
-                <ProductMetal>
-                  <span className="fill">Metal Type: {metalType}</span>
-                  <div className="wrap">
-                    {metalData.map((metal) => (
-                      <button
-                        key={metal.id}
-                        className={`metal-button ${metal.id} ${
-                          selectedMetal === metal.id ? "selected" : ""
-                        }`}
-                        onClick={() => handleButtonClick(metal.id, metal.type)}
-                      >
-                        <span>{metal.label}</span>
-                      </button>
-                    ))}
-                  </div>
-                </ProductMetal>
+                {foundProduct.categories.toLowerCase() !==
+                  "men-engagement-ring" &&
+                  foundProduct.categories.toLowerCase() !==
+                    "men-wedding-ring" && (
+                    <ProductMetal>
+                      <span className="fill">Metal Type: {metalType}</span>
+                      <div className="wrap">
+                        {metalData.map((metal) => (
+                          <button
+                            key={metal.id}
+                            className={`metal-button ${metal.id} ${
+                              selectedMetal === metal.id ? "selected" : ""
+                            }`}
+                            onClick={() =>
+                              handleButtonClick(metal.id, metal.type)
+                            }
+                          >
+                            <span>{metal.label}</span>
+                          </button>
+                        ))}
+                      </div>
+                    </ProductMetal>
+                  )}
                 {foundProduct.type.toLowerCase() === "ring" && (
                   <>
                     <div>

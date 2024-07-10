@@ -24,3 +24,10 @@ export enum CustomAction {
     SET_COMPLETED_RING = 'SetCompletedRing'
 }
 
+export enum PaymentMethodEnum {
+    VNPAY = 'VNPay',
+    MOMO = 'Momo',
+    PAYPAL = 'Paypal',
+    COD = 'COD'
+}
+
