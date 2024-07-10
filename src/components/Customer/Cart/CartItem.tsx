@@ -1,6 +1,8 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import { Select, Button, Flex } from 'antd'; // Import Select nếu bạn sử dụng từ ant design
+import { useNavigate } from "react-router-dom";
+import config from "@/config";
 
 // interface CartItemProps {
 //     name: string;
@@ -12,35 +14,48 @@ import { Select, Button, Flex } from 'antd'; // Import Select nếu bạn sử d
 //     // eslint-disable-next-line @typescript-eslint/no-explicit-any
 //     ringOptions: any [];
 //   }
-interface CartItemProps {
-    DiamondID: number;
-    name: string;
-    description: string;
-    price: number;
-    images: { name: string; url: string }[]; 
-    // image: string;
-  
-  // ringOptions: { value: string; label: string }[];
-  type: string; // 'diamond' or 'ring'
+type CartItemProps = {
+  OrderLineID: number;
+  DiamondID: number;
+  name: string;
+  description: string;
+  price: number;
+  images: string;
+  type: string;
+  handleRemove?: () => void
 }
-  const CartItem: React.FC<CartItemProps> = ( {type, name, description, price, images, })=> {
+const CartItem = ({ 
+  type, 
+  name, 
+  description, 
+  price, 
+  images, 
+  DiamondID, 
+  handleRemove
+}: CartItemProps) => {
+  const navigate = useNavigate();
+  
+  const handleView = () => {
+    navigate(config.routes.public.diamondDetail.replace(':id',`${DiamondID}`));
+  }
+
+  
+  
   return (
     <ItemContainer>
       <ActionText>
         <Flex gap="small" wrap>
-          <Button type="text">VIEW</Button>
-          <Button type="text">REMOVE</Button>
+          <Button type="text" onClick={handleView}>VIEW</Button>
+          <Button type="text" onClick={handleRemove}>REMOVE</Button>
         </Flex>
       </ActionText>
-      
+
       <ItemDetails>
         <ItemInfo>
           {/* <ItemImage src={image} alt='default-image.jpg' /> */}
           {images && images.length > 0 && (
-        <ItemImage>
-          <img src={images[0].name} alt={images[0].name} />
-        </ItemImage>
-      )}
+            <ItemImage src={images} alt={images} />
+          )}
         </ItemInfo>
         <ItemDescription>
           <ProductDescription>
@@ -48,7 +63,7 @@ interface CartItemProps {
             <Description>{description}</Description>
             {type === 'diamond' ? (
               <>
-                <div>{price}</div>
+                <div>${price}</div>
                 <AddOptions>
                   <AddOption>
                     <Flex gap="small" wrap>
@@ -68,15 +83,15 @@ interface CartItemProps {
                 <Select
                   placeholder="Ring Size"
                   style={{ width: 120, marginTop: '3rem' }}
-                  // options={ringOptions}
+                // options={ringOptions}
                 />
               </>
             )}
           </ProductDescription>
         </ItemDescription>
-        <ItemPrice>{price}</ItemPrice>
+        <ItemPrice>${price}</ItemPrice>
       </ItemDetails>
-      
+
     </ItemContainer>
   );
 };

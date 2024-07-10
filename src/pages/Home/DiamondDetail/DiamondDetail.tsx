@@ -55,6 +55,7 @@ import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
 // import { getImage } from "@/services/imageAPI";
 import { createOrderLine, OrderLineBody } from "@/services/orderLineAPI";
+import { getImage } from "@/services/imageAPI";
 
 type NotificationType = 'success' | 'error';
 
@@ -177,7 +178,7 @@ const DiamondDetails: React.FC = () => {
           const product = response.data.data;
           setFoundProduct(product);
           if (product.usingImage && product.usingImage.length > 0) {
-            const mainImageUrl = `${config.publicRuntime.API_URL}/${product.usingImage[0].url}/${product.usingImage[0].Name}`;
+            const mainImageUrl = getImage(product.usingImage[0].UsingImageID);
             setMainImage(mainImageUrl);
           } else {
             setMainImage("");
@@ -222,7 +223,7 @@ const DiamondDetails: React.FC = () => {
 
   const thumbnailImages =
     foundProduct?.usingImage?.map(
-      (img: any) => `${config.publicRuntime.API_URL}/${img.url}/${img.Name}`
+      (img: any) => getImage(img.UsingImageID)
     ) || [];
 
   const changeImage = (src: string, index: number) => {
@@ -532,22 +533,22 @@ const DiamondDetails: React.FC = () => {
                       className="product-card"
                       cover={
                         <>
-                          <img
-                            style={{ borderRadius: "0" }}
-                            src={
-                              diamond.images && diamond.images.length > 0
-                                ? diamond.images[0].url
-                                : "/default-image.jpg"
-                            }
-                            alt={diamond.name}
-                            className="product-image"
-                            onMouseOut={(e) =>
-                            (e.currentTarget.src =
-                              diamond.images && diamond.images.length > 0
-                                ? diamond.images[0].url
-                                : "/default-image.jpg")
-                            }
-                          />
+                            <img
+                              style={{ borderRadius: "0" }}
+                              src={
+                                diamond.images && diamond.images.length > 0
+                                  ? diamond.images[0].url
+                                  : "/default-image.jpg"
+                              }
+                              alt={diamond.name}
+                              className="product-image"
+                              onMouseOut={(e) =>
+                              (e.currentTarget.src =
+                                diamond.images && diamond.images.length > 0
+                                  ? diamond.images[0].url
+                                  : "/default-image.jpg")
+                              }
+                            />
                           {diamond.salePrice && (
                             <div className="sale-badge">SALE</div>
                           )}

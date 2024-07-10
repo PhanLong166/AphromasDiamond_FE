@@ -895,3 +895,9 @@ export const CustomBreadcrumb = styled(Breadcrumb)`
   max-width: 1400px;
   margin: 0 auto;
 `;
+
+export const ImageHolder = styled.div`
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+`;
