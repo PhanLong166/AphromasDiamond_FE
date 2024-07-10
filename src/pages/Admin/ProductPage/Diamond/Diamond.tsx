@@ -735,7 +735,7 @@ import TextArea from "antd/es/input/TextArea";
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { createDiamond, showAllDiamond, showDiamonds } from "@/services/diamondAPI";
+import { createDiamond, showDiamonds } from "@/services/diamondAPI";
 import ImgCrop from 'antd-img-crop';
 import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "./Diamond.type";
 
@@ -1004,7 +1004,6 @@ const Diamond = () => {
       onFilter: (value, record) => record.shape.indexOf(value as string) === 0,
       sorter: (a, b) => a.shape.length - b.shape.length,
       // sortDirections: ["descend"],
-      sorter: (a, b) => a.shape.length - b.shape.length,
     },
     {
       title: "Detail",
@@ -1023,14 +1022,14 @@ const Diamond = () => {
 
 
   // Add New
-  const handleAddNew = () => {
-    setIsAdding(true);
-  };
+  // const handleAddNew = () => {
+  //   setIsAdding(true);
+  // };
 
-  const handleSave = () => {
-    fetchData(currentPage, pageSize);
-    setIsAdding(false);
-  };
+  // const handleSave = () => {
+  //   fetchData(currentPage, pageSize);
+  //   setIsAdding(false);
+  // };
 
   const handleCancel = () => {
     setIsAdding(false);

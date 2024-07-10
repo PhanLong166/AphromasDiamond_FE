@@ -686,7 +686,7 @@
 import * as Styled from "./ProductDetail.styled";
 import { useEffect, useState } from "react";
 import { Button, Modal, Form, Input, Select } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { SaveOutlined } from "@ant-design/icons";

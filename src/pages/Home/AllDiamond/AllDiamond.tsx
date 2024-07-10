@@ -211,7 +211,7 @@ const AllDiamond: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showDiamonds();
+        const response = await showDiamonds({page: 1});
         console.log("API response:", response);
 
         if (response && response.data && Array.isArray(response.data.data)) {
@@ -260,6 +260,7 @@ const AllDiamond: React.FC = () => {
         console.error("Error fetching diamonds:", error);
       }
     };
+    console.log(loading);
 
     fetchData();
   }, []);
