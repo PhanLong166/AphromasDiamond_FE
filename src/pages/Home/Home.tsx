@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Typography, Pagination } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
@@ -50,6 +50,9 @@ import { Link, useNavigate } from "react-router-dom";
 import { Carousel } from "antd";
 import config from "@/config";
 import { useDocumentTitle } from "@/hooks";
+import { products } from "./shared/ListOfProducts";
+
+
 
 const categories = [
   {
@@ -234,119 +237,52 @@ const brand = [
   // Add more shapes as needed
 ];
 
-interface Product {
-  id: number;
-  name: string;
-  price: number;
-  salePrice?: number;
-  image: string;
-  hoverImage: string;
-}
-
-const products: Product[] = [
-  {
-    id: 1,
-    name: "SOFIA TWO FINGER RING",
-    price: 100,
-    salePrice: 98,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_1.webp?alt=media&token=a7ebfeca-9fa1-4250-887f-69a7cdd0e11a",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp1_2.webp?alt=media&token=e043514e-f66c-4397-987e-27a44ea87578",
-  },
-  {
-    id: 2,
-    name: "RAIN SOLITARY RING",
-    price: 59,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_1.webp?alt=media&token=8d8f6760-e2ac-45eb-8c6b-880ff64e95bc",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp2_2.webp?alt=media&token=bc0adf15-7ad9-4507-8d17-e8a27d624417",
-  },
-
-  {
-    id: 3,
-    name: "GALA STAMP RING",
-    price: 100,
-    salePrice: 90,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_1.webp?alt=media&token=7dd02d2a-24f9-4b31-a809-bccfa25cefde",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp3_2.webp?alt=media&token=330beb5e-ee10-429c-8b8b-1df54073a294",
-  },
-  {
-    id: 4,
-    name: "THE ROCKS RING SET",
-    price: 185,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_1.webp?alt=media&token=bdc15cce-29cd-401c-bf79-105b6bc66592",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp4_2.webp?alt=media&token=90ee67f1-59c9-42b4-b851-ddc2104a96a4",
-  },
-  {
-    id: 5,
-    name: "DIAMONDS AND GOLD BALANCE RING",
-    price: 520,
-    salePrice: 445,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp5_1.webp?alt=media&token=e29bfcd0-9170-4bd9-ba64-c58326decdaa",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp5_2.webp?alt=media&token=9867ffe1-d125-4ff7-906f-0fc95e993761",
-  },
-  {
-    id: 6,
-    name: "DIAMONDS AND GOLD NORA RING",
-    price: 585,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp6_1.webp?alt=media&token=1239447c-a395-4239-8bde-1e6f7f7730ed",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp6_2.webp?alt=media&token=775559ab-5d42-4b24-9e0b-d95b173c07c6",
-  },
-
-  {
-    id: 7,
-    name: "DIAMONDS ETERNITY MINI RING",
-    price: 900,
-    salePrice: 845,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp7_1.webp?alt=media&token=146832c4-dd52-4901-aae7-49853ac469eb",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp7_2.webp?alt=media&token=932b6133-fe30-46c5-861a-4efed29340fc",
-  },
-  {
-    id: 8,
-    name: "DIAMONDS AND GOLD LOOP RING",
-    price: 585,
-    image:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp8_1.webp?alt=media&token=0b64e6fb-9eed-4acb-b2b5-1fbaa4434458",
-    hoverImage:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ProductUpdate%2Fp8_2.webp?alt=media&token=2011db85-85f2-4c8c-a18b-1ebfabe24965",
-  },
-];
-
 const Home: React.FC = () => {
   useDocumentTitle("Aphromas Diamond");
 
   const pageSize = 4;
   const [current, setCurrent] = useState(1);
+   
 
   const handlePageChange = (page: any) => {
     setCurrent(page);
   };
 
-  const paginatedProducts = products.slice(
+  const excludedCategories = [
+    "wedding-ring",
+    "engagement-ring",
+    "men-engagement-ring",
+    "men-wedding-ring",
+  ];
+
+  const [filteredProducts] = useState(
+    products.filter(product => !excludedCategories.includes(product.categories))
+  );
+
+  const paginatedProducts = filteredProducts.slice(
     (current - 1) * pageSize,
     current * pageSize
   );
   const [wishList, setWishList] = useState<number[]>([]);
 
-  const toggleWishList = (productId: number) => {
-    setWishList((prev) =>
-      prev.includes(productId)
-        ? prev.filter((id) => id !== productId)
-        : [...prev, productId]
-    );
-  };
+  useEffect(() => {
+    const savedWishList = sessionStorage.getItem("wishlist");
+    if (savedWishList) {
+      setWishList(JSON.parse(savedWishList));
+    }
+  }, []);
+
+  useEffect(() => {
+    sessionStorage.setItem("wishlist", JSON.stringify(wishList));
+  }, [wishList]); 
+
+  // const toggleWishList = (productId: number) => {
+  //   setWishList((prev) =>
+  //     prev.includes(productId)
+  //       ? prev.filter((id) => id !== productId)
+  //       : [...prev, productId]
+  //   );
+  // };
 
   const navigate = useNavigate();
 
@@ -505,27 +441,31 @@ const Home: React.FC = () => {
                     className="product-card"
                     cover={
                       <>
+                       <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
-                          src={product.image}
+                          src={product.images[0]}
                           alt={product.name}
                           className="product-image"
                           onMouseOver={(e) =>
-                            (e.currentTarget.src = product.hoverImage)
+                            (e.currentTarget.src = product.images[2])
                           }
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = product.image)
+                            (e.currentTarget.src = product.images[0])
                           }
                         />
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
+                        </Link>
                       </>
                     }
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`} >
                         {product.name}
+                        </Link>
                         {wishList.includes(product.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -577,27 +517,31 @@ const Home: React.FC = () => {
                     className="product-card"
                     cover={
                       <>
+                      <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
-                          src={product.image}
+                          src={product.images[0]}
                           alt={product.name}
                           className="product-image"
                           onMouseOver={(e) =>
-                            (e.currentTarget.src = product.hoverImage)
+                            (e.currentTarget.src = product.images[2])
                           }
                           onMouseOut={(e) =>
-                            (e.currentTarget.src = product.image)
+                            (e.currentTarget.src = product.images[0])
                           }
                         />
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
+                        </Link>
                       </>
                     }
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`} >
                         {product.name}
+                        </Link>
                         {wishList.includes(product.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -639,7 +583,7 @@ const Home: React.FC = () => {
                   <Title level={2} style={{ color: "white" }}>
                     The brilliance of diamond masterpieces!
                   </Title>
-                  <button>SHOP NOW!</button>
+                  <button onClick={() => navigate(config.routes.public.allProduct)}>SHOP NOW!</button>
                 </div>
               </div>
             </Col>
@@ -648,7 +592,7 @@ const Home: React.FC = () => {
                 className="pageBest"
                 current={current}
                 pageSize={pageSize}
-                total={products.length}
+                total={paginatedProducts.length}
                 onChange={handlePageChange}
               />
             </Col>
