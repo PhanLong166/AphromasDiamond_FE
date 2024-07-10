@@ -17,12 +17,13 @@ interface CartItemProps {
     name: string;
     description: string;
     price: number;
-  
+    images: { name: string; url: string }[]; 
+    // image: string;
   
   // ringOptions: { value: string; label: string }[];
   type: string; // 'diamond' or 'ring'
 }
-  const CartItem: React.FC<CartItemProps> = ( {type, name, description, price})=> {
+  const CartItem: React.FC<CartItemProps> = ( {type, name, description, price, images, })=> {
   return (
     <ItemContainer>
       <ActionText>
@@ -34,8 +35,12 @@ interface CartItemProps {
       
       <ItemDetails>
         <ItemInfo>
-          {/* <ItemImage src={diamondDetails.image} alt={diamondDetails.description} /> */}
-          
+          {/* <ItemImage src={image} alt='default-image.jpg' /> */}
+          {images && images.length > 0 && (
+        <ItemImage>
+          <img src={images[0].name} alt={images[0].name} />
+        </ItemImage>
+      )}
         </ItemInfo>
         <ItemDescription>
           <ProductDescription>

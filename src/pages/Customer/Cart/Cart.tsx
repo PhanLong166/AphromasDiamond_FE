@@ -30,7 +30,17 @@ const fetchCartItemsWithDetails = async () => {
         const { data: diamondDetails } = await getDiamondDetails(
           item.DiamondID
         );
-        console.log(diamondDetails.data)
+        console.log('a',diamondDetails?.data?.usingImage)
+        // const usingImageID = diamondDetails.data.usingImage[0].usingImageID;
+        // console.log(usingImageID)
+        // const imagesDiamond = await getImageDiamond(usingImageID);
+        const usingImageID = diamondDetails.data.usingImage[0]
+        // console.log(diamondDetails.data.usingImage[0])
+        // console.log(diamondDetails.data)
+        // console.log('usingImageID',usingImageID)
+        const imageDiamond = await getImageDiamond(usingImageID);
+        console.log(imageDiamond)
+        // console.log(diamondDetails.data)
         // Dùng dữ liệu của diamond để chọn type vì Swagger chưa có type diamond với ring :)
         const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
         // Kết hợp thông tin chi tiết vào từng item trong giỏ hàng
@@ -40,11 +50,14 @@ const fetchCartItemsWithDetails = async () => {
     );
     
     // Trả về danh sách các sản phẩm trong giỏ hàng kèm theo thông tin chi tiết về kim cương
+    console.log('detailedCartItems',detailedCartItems)
     return detailedCartItems;
   } catch (error) {
     console.log("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
   }
 };
+
+
 
 
 const Cart = () => {
@@ -115,7 +128,9 @@ const Cart = () => {
                     name={
                       item.diamondDetails.Name || "No description available"
                     }
-                    price={item.diamondDetailsPrice}
+                    price={item.diamondDetails.Price}
+                    images={item.diamondDetails.image}
+                    // image={(item.diamondDetails.usingImage[0].Name )}
                     type={item.type}
                     // name={item.diamondDetails.Name || "No description available"}
                     // description={item.diamondDetails.Description || "No description available"}
