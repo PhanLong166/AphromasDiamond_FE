@@ -1,11 +1,12 @@
-import { showDiamonds } from "@/services/diamondAPI";
+// import { showDiamonds } from "@/services/diamondAPI";
+import { diamonds } from "../../shared/ListOfDiamond";
 
 export const diamondData: Record<string, any> = {
   "round-shape": {
     title: "Round Diamonds",
     description:
       "Our exquisite round diamond rings are crafted to perfection, showcasing the brilliance of diamonds set in yellow gold, white gold, rose gold, or platinum. Each piece radiates timeless elegance and sophistication, making it a cherished symbol of enduring love and commitment. Whether for a proposal or a milestone anniversary, these rings are designed to captivate hearts and inspire lasting memories.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Round"),
     faqs: [
       {
         key: "1",
@@ -38,7 +39,7 @@ export const diamondData: Record<string, any> = {
     title: "Princess Diamonds",
     description:
       " Discover the allure of our princess-cut diamond rings, characterized by their clean lines and modern elegance. Available in yellow gold, white gold, rose gold, or platinum settings, these rings are meticulously crafted to capture the essence of grace and luxury, making them ideal for celebrating milestones and special moments. Each ring reflects precision craftsmanship and a contemporary aesthetic, perfect for those who appreciate refined beauty with a touch of glamour.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Princess"),
     faqs: [
       {
         key: "1",
@@ -71,7 +72,7 @@ export const diamondData: Record<string, any> = {
     title: "Heart Diamonds",
     description:
       "Symbolizing romance and devotion, our heart-shaped diamond rings are a testament to everlasting love. Expertly set in yellow gold, white gold, rose gold, or platinum, each ring is a blend of artistry and emotion, making it a perfect expression of love and affection. With their timeless design and exquisite detailing, these rings are cherished heirlooms that symbolize the deep bond between two individuals.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Heart"),
     faqs: [
       {
         key: "1",
@@ -104,7 +105,7 @@ export const diamondData: Record<string, any> = {
     title: "Oval Diamonds",
     description:
       "Embrace the distinctive beauty of our oval-shaped diamond rings, known for their timeless appeal and unique charm. Available in yellow gold, white gold, rose gold, or platinum settings, these rings exude sophistication and allure, making them a captivating choice for those who appreciate classic elegance with a modern twist. Each ring is meticulously crafted to enhance the diamond's natural brilliance and fire, creating a piece that stands out with understated elegance and grace.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Oval"),
     faqs: [
       {
         key: "1",
@@ -137,7 +138,7 @@ export const diamondData: Record<string, any> = {
     title: "Cushion Diamonds",
     description:
       "Our cushion-cut diamond rings combine classic charm with contemporary flair. Featuring square-shaped diamonds set in yellow gold, white gold, rose gold, or platinum, these rings are crafted to highlight the diamond's brilliance and fire, making them a stunning choice for those who desire a blend of tradition and luxury. Each ring is designed with meticulous attention to detail, ensuring a piece that is both timeless and distinctive, perfect for making a statement of enduring elegance.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Cushion"),
     faqs: [
       {
         key: "1",
@@ -170,7 +171,7 @@ export const diamondData: Record<string, any> = {
     title: "Emerald Diamonds",
     description:
       "Make a statement with our emerald-cut diamond rings, renowned for their striking beauty and bold presence. Set in yellow gold, white gold, rose gold, or platinum, these rings showcase the diamond's clarity and geometric elegance, offering a timeless and sophisticated look for any occasion. Each ring is crafted with precision to enhance the diamond's natural allure, making it a symbol of luxury and refinement that will be cherished for generations.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Emerald"),
     faqs: [
       {
         key: "1",
@@ -203,7 +204,7 @@ export const diamondData: Record<string, any> = {
     title: "Asscher Diamonds",
     description:
       "Experience luxury with our asscher-cut diamond rings, distinguished by their octagonal shape and Art Deco-inspired design. Crafted in yellow gold, white gold, rose gold, or platinum, these rings exude vintage charm and modern sophistication, making them a captivating choice for those who appreciate classic elegance with a touch of glamour. Each ring is a testament to superior craftsmanship and timeless design, ideal for marking life's most special moments with style and grace.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Asscher"),
     faqs: [
       {
         key: "1",
@@ -236,7 +237,7 @@ export const diamondData: Record<string, any> = {
     title: "Marquise Diamonds",
     description:
       "Celebrate elegance with our marquise-cut diamond rings, distinguished by their elongated shape and graceful curves. Available in yellow gold, white gold, rose gold, or platinum settings, these rings offer a unique blend of vintage charm and contemporary allure, making them an exquisite choice for those who seek timeless beauty and refined craftsmanship. Each ring is crafted with precision to accentuate the diamond's brilliance, creating a piece that embodies sophistication and grace.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Marquise"),
     faqs: [
       {
         key: "1",
@@ -269,7 +270,7 @@ export const diamondData: Record<string, any> = {
     title: "Radiant Diamonds",
     description:
       "Our radiant-cut diamond rings are designed to dazzle and delight. Featuring a rectangular shape that maximizes brilliance, these rings are set in yellow gold, white gold, rose gold, or platinum, capturing the essence of sophistication and luxury with every facet. Each ring is meticulously crafted to reflect the diamond's radiance and fire, creating a piece that stands out as a symbol of elegance and refinement, perfect for celebrating love and achievement.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Radiant"),
     faqs: [
       {
         key: "1",
@@ -302,7 +303,7 @@ export const diamondData: Record<string, any> = {
     title: "Pear Diamonds",
     description:
       "Embrace elegance with our pear-shaped diamond rings, admired for their graceful silhouette and feminine allure. Set in yellow gold, white gold, rose gold, or platinum, these rings are designed to reflect the diamond's natural brilliance and sophistication, making them a perfect symbol of everlasting love and refinement. Each ring is a testament to exceptional craftsmanship and timeless design, ideal for marking life's most cherished moments with elegance and style.",
-    diamonds: [],
+    diamonds: diamonds.filter((diamond) => diamond.shape === "Pear"),
     faqs: [
       {
         key: "1",
@@ -335,27 +336,18 @@ export const diamondData: Record<string, any> = {
 
 // const fetchDiamonds = async () => {
 //   try {
-//     const response = await showDiamonds(); // Call API to fetch diamonds
-//     const diamonds = response.data; // Assume response.data contains diamonds from API
-
-//     // Update diamondData with fetched diamonds
-//     Object.keys(diamondData).forEach((key) => {
-//       const diamondShape = key.replace("-shape", ""); // Extract diamond shape from key
-//       diamondData[key].diamonds = diamonds.filter(
-//         (diamond: any) => diamond.shape === diamondShape
-//       );
-//     });
-
-//     console.log("Updated diamondData:", diamondData);
-
-//     return diamonds; // Return fetched diamonds array
+//     const response = await showDiamonds(); // Gọi API để lấy danh sách diamonds
+//     return response.data; // Giả sử response.data chứa danh sách diamonds từ API
 //   } catch (error) {
-//     console.error("Error fetching diamonds:", error);
-//     return []; // Return empty array on error
+//     console.error('Error fetching diamonds:', error);
+//     return []; // Trả về mảng rỗng trong trường hợp lỗi
 //   }
 // };
 
-// // Call fetchDiamonds to update diamondData and handle the fetched diamonds
+// // Gọi hàm fetchDiamonds để cập nhật danh sách diamonds trong diamondData
 // fetchDiamonds().then((diamonds) => {
-//   // Perform actions with fetched diamonds here if needed
+//   Object.keys(diamondData).forEach((key) => {
+//     const diamondShape = key.replace('-shape', ''); // Lấy hình dạng diamond từ key
+//     diamondData[key].diamonds = diamonds.filter((diamond: any) => diamond.shape === diamondShape);
+//   });
 // });
