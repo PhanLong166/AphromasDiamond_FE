@@ -18,7 +18,7 @@ const Funnel = () => {
             <FunnelStyled.FunnelStep span={8}>
                 {selectedDiamond ?
                     <>
-                        {diamonds.find((diamond) => parseInt(diamond.id) === selectedDiamond)}
+                        {diamonds.find((diamond) => diamond.id === selectedDiamond)}
                     </> :
                     <>
                         <FunnelStyled.FunnelStepTitle level={4} onClick={() => navigate(config.routes.public.diamond)}>

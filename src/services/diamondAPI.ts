@@ -24,6 +24,3 @@ export const deleteDiamond = (id: number) => {
     return remove(`/diamond/update/${id}`);
 }
 
-export const getDiamondImages = (id: number) => {
-    return get(`/usingImage/${id}`); 
-}
