@@ -206,3 +206,43 @@ export const ActionBtn = styled.div`
     background-color: #ffffff;
   }
 `;
+
+
+
+
+// -------------------------------
+
+export const Wrap = styled.div`
+  display: flex;
+`;
+
+export const MenuWrap = styled.div`
+  flex: 1;
+  padding: 20px;
+`;
+
+export const SearchWrap = styled.div`
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+`;
+
+export const Title = styled.h4`
+  font-size: 18px;
+  font-weight: bold;
+`;
+
+export const Search = styled.div`
+  flex: 1;
+  margin-right: 20px;
+`;
+
+export const ButtonWrap = styled.div`
+  display: flex;
+  align-items: center;
+`;
+
+export const FormWrap = styled.div`
+  margin-top: 20px;
+`;
