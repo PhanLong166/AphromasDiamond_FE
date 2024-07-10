@@ -11,3 +11,4 @@ import { get } from "./apiCaller";
 export const getInfoCurrentUser = () => {
     return get(`/account/current`);
 }
+
