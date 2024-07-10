@@ -9,7 +9,8 @@ import { items } from "../../../components/Customer/Data/data";
 import { useEffect, useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
 import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
-import { getDiamondDetails, getImageDiamond } from "@/services/diamondAPI";
+import { getDiamondDetails } from "@/services/diamondAPI";
+import { getImage } from "@/services/imageAPI";
 
 const fetchCartItemsWithDetails = async () => {
   try {
@@ -38,7 +39,7 @@ const fetchCartItemsWithDetails = async () => {
         // console.log(diamondDetails.data.usingImage[0])
         // console.log(diamondDetails.data)
         // console.log('usingImageID',usingImageID)
-        const imageDiamond = await getImageDiamond(usingImageID);
+        const imageDiamond = await getImage(usingImageID);
         console.log(imageDiamond)
         // console.log(diamondDetails.data)
         // Dùng dữ liệu của diamond để chọn type vì Swagger chưa có type diamond với ring :)
