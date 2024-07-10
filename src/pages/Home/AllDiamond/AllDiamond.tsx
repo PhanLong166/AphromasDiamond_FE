@@ -212,11 +212,10 @@ const AllDiamond: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showDiamonds({page: 1});
+        const response = await showDiamonds({ page: 'all' });
         console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
-          // Check for response.data.data
           const fetchedDiamonds = response.data.data.map((item: any) => ({
             id: item.DiamondID,
             name: item.Name,
@@ -295,7 +294,7 @@ const AllDiamond: React.FC = () => {
                             diamond.images && diamond.images.length > 0
                               ? diamond.images[0].url
                               : "/default-image.jpg"
-                          } // Thay '/default-image.jpg' bằng đường dẫn của ảnh mặc định
+                          } 
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
