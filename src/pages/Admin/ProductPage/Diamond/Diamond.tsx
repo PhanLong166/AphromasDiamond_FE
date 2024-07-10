@@ -738,7 +738,7 @@ import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { createDiamond, showDiamonds } from "@/services/diamondAPI";
 import ImgCrop from 'antd-img-crop';
 import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "./Diamond.type";
-
+import { getImage } from "@/services/imageAPI";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -808,10 +808,11 @@ const Diamond = () => {
       // color: "D",
       // shape: "Square",
     };
-
+  
     try {
       const response = await showDiamonds(params);
-      const { data, total } = response.data; // Dữ liệu thực tế từ API
+      console.log('API response:', response); 
+      const { data, total } = response.data; 
       const formattedDiamonds = data.map((diamond: any) => ({
         diamondID: diamond.DiamondID,
         diamondName: diamond.Name,
@@ -820,8 +821,13 @@ const Diamond = () => {
         shape: diamond.Shape,
         exchangeRate: 1,
         chargeRate: diamond.ChargeRate,
-        diamondImg: diamond.usingImage.map((img: any) => img.url),
+        images: diamond.usingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
       }));
+      console.log('Formatted Diamonds:', formattedDiamonds); // Log formatted diamonds
       setDiamonds(formattedDiamonds);
       setTotalDiamonds(total);
     } catch (error) {
@@ -937,7 +943,7 @@ const Diamond = () => {
       render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.diamondImg[0]} // Thay đổi để hiển thị ảnh của kim cương
+            src={record.images[0].url} // Thay đổi để hiển thị ảnh của kim cương
             alt={record.diamondName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -1190,9 +1196,9 @@ const Diamond = () => {
                           {
                             type: "number",
                             min: 1,
-                            max: 100,
+                            max: 300,
                             message:
-                              "Must be a positive number and less than or equal to 100",
+                              "Must be a positive number and less than or equal to 300",
                           },
                           // {
                           //   whitespace: true,
@@ -1461,7 +1467,7 @@ const Diamond = () => {
                     current: currentPage,
                     pageSize,
                     total: totalDiamonds,
-                    onChange: (page, pageSize) => {
+                    onChange: (page) => {
                       setCurrentPage(page);
                       setPageSize(pageSize);
                     },

@@ -22,5 +22,9 @@ export const updateDiamond = (id: number, diamond: object) => {
 
 export const deleteDiamond = (id: number) => {
     return remove(`/diamond/update/${id}`);
+<<<<<<< HEAD
+}
+=======
 }
 
+>>>>>>> 9dcd5b37b7d4afd03894016cddf4de93f2a51e4d
