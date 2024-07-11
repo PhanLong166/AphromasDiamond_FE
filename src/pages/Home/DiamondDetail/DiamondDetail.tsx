@@ -190,14 +190,29 @@ const DiamondDetails: React.FC = () => {
 
           const sameWeightProductsResponse = await showDiamonds(params);
 
-          if (sameWeightProductsResponse.status === 200) {
-            const sameWeightProducts = sameWeightProductsResponse.data.data;
+        if (sameWeightProductsResponse.status === 200) {
+          if (sameWeightProductsResponse.data && Array.isArray(sameWeightProductsResponse.data.data)) {
+            const fetchedDiamonds = sameWeightProductsResponse.data.data.map((item: any) => ({
+              id: item.DiamondID,
+              name: item.Name,
+              cut: item.Cut,
+              price: item.Price,
+              color: item.Color,
+              description: item.Description,
+              isActive: item.IsActive,
+              clarity: item.Clarity,
+              images: item.usingImage.map((image: any) => ({
+                id: image.UsingImageID,
+                name: image.Name,
+                url: getImage(image.UsingImageID),
+              })),
+            }));
 
             const maxProductsToShow = 4;
             const productsToShow =
-              sameWeightProducts.length <= maxProductsToShow
-                ? sameWeightProducts
-                : sameWeightProducts
+              fetchedDiamonds.length <= maxProductsToShow
+                ? fetchedDiamonds
+                : fetchedDiamonds
                   .sort(() => 0.5 - Math.random())
                   .slice(0, maxProductsToShow);
 
@@ -206,16 +221,19 @@ const DiamondDetails: React.FC = () => {
             setSameBrandProducts([]);
           }
         } else {
-          setFoundProduct(null);
+          setSameBrandProducts([]);
         }
-      } catch (error) {
-        console.error("Failed to fetch diamond details:", error);
+      } else {
         setFoundProduct(null);
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch diamond details:", error);
+      setFoundProduct(null);
+    }
+  };
 
-    fetchDiamondDetails();
-  }, [id]);
+  fetchDiamondDetails();
+}, [id]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
@@ -525,8 +543,8 @@ const DiamondDetails: React.FC = () => {
           <List>
             <Row gutter={[16, 16]}>
               {sameBrandProducts.map((diamond) => (
-                <Col key={diamond.DiamondID} span={6}>
-                  <Link to={`/diamond/${diamond.DiamondID}`} underline zoom scroll>
+                <Col key={diamond.id} span={6}>
+                  <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                     <Card
                       style={{ borderRadius: "0" }}
                       hoverable
@@ -557,7 +575,7 @@ const DiamondDetails: React.FC = () => {
                     >
                       <div className="product-info">
                         <Title level={4} className="product-name">
-                          {diamond.Name}
+                          {diamond.name}
                           {wishList.includes(diamond.DiamondID) ? (
                             <HeartFilled
                               className="wishlist-icon"
@@ -575,11 +593,11 @@ const DiamondDetails: React.FC = () => {
                             $
                             {diamond.salePrice
                               ? diamond.salePrice
-                              : diamond.Price}
+                              : diamond.price}
                           </Text>
                           {diamond.salePrice && (
                             <Text delete className="product-sale-price">
-                              ${diamond.Price}
+                              ${diamond.price}
                             </Text>
                           )}
                         </div>
