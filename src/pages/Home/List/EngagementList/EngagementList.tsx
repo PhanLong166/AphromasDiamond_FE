@@ -496,7 +496,7 @@ const EngagementList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentJewelryEngagementData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              <Link to={`/product/${product.id}`} underline zoom scroll>
+             
                 <Card
                   key={product.id}
                   style={{ borderRadius: "0" }}
@@ -504,6 +504,7 @@ const EngagementList: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
+                     <Link to={`/product/${product.id}`} underline zoom scroll>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -516,6 +517,7 @@ const EngagementList: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
+                      </Link>
                       {product.salePrice && (
                         <div className="sale-badge">SALE</div>
                       )}
@@ -524,7 +526,9 @@ const EngagementList: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <div>{product.name}</div>
+                      </Link>
                       {wishList.includes(product.id) ? (
                         <HeartFilled
                           className="wishlist-icon"
@@ -549,7 +553,6 @@ const EngagementList: React.FC = () => {
                     </div>
                   </div>
                 </Card>
-              </Link>
             </Col>
           ))}
           <Col span={6}>

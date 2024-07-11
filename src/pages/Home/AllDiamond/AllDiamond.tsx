@@ -281,13 +281,14 @@ const AllDiamond: React.FC = () => {
             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
             .map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+              
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
                     className="product-card"
                     cover={
                       <>
+                      <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                         <img
                           style={{ borderRadius: "0" }}
                           src={
@@ -304,6 +305,7 @@ const AllDiamond: React.FC = () => {
                                 : "/default-image.jpg")
                           }
                         />
+                        </Link>
                         {diamond.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
@@ -312,7 +314,9 @@ const AllDiamond: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
+                      <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                         {diamond.name}
+                        </Link>
                         {wishList.includes(diamond.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -340,7 +344,7 @@ const AllDiamond: React.FC = () => {
                       </div>
                     </div>
                   </Card>
-                </Link>
+                
               </Col>
             ))}
         </Row>

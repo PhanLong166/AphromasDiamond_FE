@@ -47,7 +47,11 @@ const MenEngagementRing: React.FC = () => {
       title: "Men's White Gold Engagement Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "white gold"),
+      products: products.filter(
+        (product) =>
+          product.categories === "men-engagement-ring" &&
+          product.metal === "white gold"
+      ),
       faqs: [
         {
           key: "1",
@@ -77,10 +81,14 @@ const MenEngagementRing: React.FC = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fbulgari.png?alt=media&token=1897c535-f005-4d37-a106-26bf8426d5ba",
     },
     "yellow-gold": {
-        title: "Men's Yellow Gold Engagement Bands",
+      title: "Men's Yellow Gold Engagement Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "yellow gold"),
+      products: products.filter(
+        (product) =>
+          product.categories === "men-engagement-ring" &&
+          product.metal === "yellow gold"
+      ),
       faqs: [
         {
           key: "1",
@@ -110,10 +118,14 @@ const MenEngagementRing: React.FC = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Flearnaboutbanner.jpeg?alt=media&token=e7168cf6-8434-4cad-95e8-dc5fce8d81af",
     },
     "rose-gold": {
-        title: "Men's Rose Gold Engagement Bands",
+      title: "Men's Rose Gold Engagement Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "rose gold"),
+      products: products.filter(
+        (product) =>
+          product.categories === "men-engagement-ring" &&
+          product.metal === "rose gold"
+      ),
       faqs: [
         {
           key: "1",
@@ -142,11 +154,15 @@ const MenEngagementRing: React.FC = () => {
       bannerImage:
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FDesign%20Your%20Own%20Pendant.jpeg?alt=media&token=9e6ba197-39d3-4b7e-84f3-a185792eb4aa",
     },
-    "platinum": {
-        title: "Men's White Gold Engagement Bands",
+    platinum: {
+      title: "Men's White Gold Engagement Bands",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.categories === "men-engagement-ring" && product.metal === "platinum"),
+      products: products.filter(
+        (product) =>
+          product.categories === "men-engagement-ring" &&
+          product.metal === "platinum"
+      ),
       faqs: [
         {
           key: "1",
@@ -252,12 +268,16 @@ const MenEngagementRing: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentMenEngagementData.bannerImage})` }}
+        style={{
+          backgroundImage: `url(${currentMenEngagementData.bannerImage})`,
+        }}
       >
         <div className="bannerContent">
           <LeftSection>
             <h2>{currentMenEngagementData.title}</h2>
-            <div className="subheading">{currentMenEngagementData.description}</div>
+            <div className="subheading">
+              {currentMenEngagementData.description}
+            </div>
             <button className="consult-button button_slide slide_right">
               <span>CONTACT US FOR CONSULTATION</span>
             </button>
@@ -268,14 +288,14 @@ const MenEngagementRing: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentMenEngagementData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              <Link to={`/product/${product.id}`} underline zoom scroll>
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -288,40 +308,42 @@ const MenEngagementRing: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
+                    </Link>
+                    {product.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <div>{product.name}</div>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${product.salePrice ? product.salePrice : product.price}
+                    </Text>
+                    {product.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${product.price}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
-              </Link>
+                </div>
+              </Card>
             </Col>
           ))}
           <Col span={6}>
@@ -367,4 +389,4 @@ const MenEngagementRing: React.FC = () => {
   );
 };
 
-export default  MenEngagementRing;
+export default MenEngagementRing;

@@ -48,7 +48,8 @@ const WeddingList: React.FC = () => {
       description:
         "Propose with timeless style when you design a handcrafted ring with a round brilliant diamond. Round diamonds are the most popular choice at AD because of their traditional look and incredible sparkle. This shape is also the most versatile, pairing seamlessly with virtually every setting style offered at AD.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "round"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "round"
       ),
       faqs: [
         {
@@ -84,7 +85,8 @@ const WeddingList: React.FC = () => {
       description:
         " Discover the allure of our princess-cut diamond rings, characterized by their clean lines and modern elegance. Available in yellow gold, white gold, rose gold, or platinum settings, these rings are meticulously crafted to capture the essence of grace and luxury, making them ideal for celebrating milestones and special moments. Each ring reflects precision craftsmanship and a contemporary aesthetic, perfect for those who appreciate refined beauty with a touch of glamour.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "princess"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "princess"
       ),
       faqs: [
         {
@@ -120,7 +122,8 @@ const WeddingList: React.FC = () => {
       description:
         "Symbolizing romance and devotion, our heart-shaped diamond rings are a testament to everlasting love. Expertly set in yellow gold, white gold, rose gold, or platinum, each ring is a blend of artistry and emotion, making it a perfect expression of love and affection. With their timeless design and exquisite detailing, these rings are cherished heirlooms that symbolize the deep bond between two individuals.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "heart"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "heart"
       ),
       faqs: [
         {
@@ -156,7 +159,8 @@ const WeddingList: React.FC = () => {
       description:
         "Embrace the distinctive beauty of our oval-shaped diamond rings, known for their timeless appeal and unique charm. Available in yellow gold, white gold, rose gold, or platinum settings, these rings exude sophistication and allure, making them a captivating choice for those who appreciate classic elegance with a modern twist. Each ring is meticulously crafted to enhance the diamond's natural brilliance and fire, creating a piece that stands out with understated elegance and grace.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "oval"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "oval"
       ),
       faqs: [
         {
@@ -192,7 +196,8 @@ const WeddingList: React.FC = () => {
       description:
         "Our cushion-cut diamond rings combine classic charm with contemporary flair. Featuring square-shaped diamonds set in yellow gold, white gold, rose gold, or platinum, these rings are crafted to highlight the diamond's brilliance and fire, making them a stunning choice for those who desire a blend of tradition and luxury. Each ring is designed with meticulous attention to detail, ensuring a piece that is both timeless and distinctive, perfect for making a statement of enduring elegance.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "cushion"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "cushion"
       ),
       faqs: [
         {
@@ -228,7 +233,8 @@ const WeddingList: React.FC = () => {
       description:
         "Make a statement with our emerald-cut diamond rings, renowned for their striking beauty and bold presence. Set in yellow gold, white gold, rose gold, or platinum, these rings showcase the diamond's clarity and geometric elegance, offering a timeless and sophisticated look for any occasion. Each ring is crafted with precision to enhance the diamond's natural allure, making it a symbol of luxury and refinement that will be cherished for generations.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "emerald"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "emerald"
       ),
       faqs: [
         {
@@ -264,7 +270,8 @@ const WeddingList: React.FC = () => {
       description:
         "Experience luxury with our asscher-cut diamond rings, distinguished by their octagonal shape and Art Deco-inspired design. Crafted in yellow gold, white gold, rose gold, or platinum, these rings exude vintage charm and modern sophistication, making them a captivating choice for those who appreciate classic elegance with a touch of glamour. Each ring is a testament to superior craftsmanship and timeless design, ideal for marking life's most special moments with style and grace.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "asscher"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "asscher"
       ),
       faqs: [
         {
@@ -300,7 +307,8 @@ const WeddingList: React.FC = () => {
       description:
         "Celebrate elegance with our marquise-cut diamond rings, distinguished by their elongated shape and graceful curves. Available in yellow gold, white gold, rose gold, or platinum settings, these rings offer a unique blend of vintage charm and contemporary allure, making them an exquisite choice for those who seek timeless beauty and refined craftsmanship. Each ring is crafted with precision to accentuate the diamond's brilliance, creating a piece that embodies sophistication and grace.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "marquise"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "marquise"
       ),
       faqs: [
         {
@@ -336,7 +344,8 @@ const WeddingList: React.FC = () => {
       description:
         "Our radiant-cut diamond rings are designed to dazzle and delight. Featuring a rectangular shape that maximizes brilliance, these rings are set in yellow gold, white gold, rose gold, or platinum, capturing the essence of sophistication and luxury with every facet. Each ring is meticulously crafted to reflect the diamond's radiance and fire, creating a piece that stands out as a symbol of elegance and refinement, perfect for celebrating love and achievement.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "radiant"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "radiant"
       ),
       faqs: [
         {
@@ -372,7 +381,8 @@ const WeddingList: React.FC = () => {
       description:
         "Embrace elegance with our pear-shaped diamond rings, admired for their graceful silhouette and feminine allure. Set in yellow gold, white gold, rose gold, or platinum, these rings are designed to reflect the diamond's natural brilliance and sophistication, making them a perfect symbol of everlasting love and refinement. Each ring is a testament to exceptional craftsmanship and timeless design, ideal for marking life's most cherished moments with elegance and style.",
       products: products.filter(
-        (product) => product.categories === "wedding-ring" && product.shape === "pear"
+        (product) =>
+          product.categories === "wedding-ring" && product.shape === "pear"
       ),
       faqs: [
         {
@@ -405,7 +415,7 @@ const WeddingList: React.FC = () => {
     },
   };
 
-  if (!ringShape|| !jewelryWeddingData[ringShape]) {
+  if (!ringShape || !jewelryWeddingData[ringShape]) {
     return <div>Invalid diamond ring selected.</div>;
   }
 
@@ -480,12 +490,16 @@ const WeddingList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentJewelryWeddingData.bannerImage})` }}
+        style={{
+          backgroundImage: `url(${currentJewelryWeddingData.bannerImage})`,
+        }}
       >
         <div className="bannerContent">
           <LeftSection>
             <h2>{currentJewelryWeddingData.title}</h2>
-            <div className="subheading">{currentJewelryWeddingData.description}</div>
+            <div className="subheading">
+              {currentJewelryWeddingData.description}
+            </div>
             <button className="consult-button button_slide slide_right">
               <span>CONTACT US FOR CONSULTATION</span>
             </button>
@@ -496,14 +510,14 @@ const WeddingList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentJewelryWeddingData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              <Link to={`/product/${product.id}`} underline zoom scroll>
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -516,40 +530,42 @@ const WeddingList: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
+                    </Link>
+                    {product.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <div>{product.name}</div>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${product.salePrice ? product.salePrice : product.price}
+                    </Text>
+                    {product.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${product.price}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
-              </Link>
+                </div>
+              </Card>
             </Col>
           ))}
           <Col span={6}>

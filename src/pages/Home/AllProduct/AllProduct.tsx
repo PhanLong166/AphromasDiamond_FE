@@ -4,7 +4,7 @@ import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
 
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import Link from '@/components/Link';
+import Link from "@/components/Link";
 import { Section, Container, Heading, List } from "./AllProduct.styled";
 import { Card, Col, Row, Typography, Pagination } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
@@ -32,7 +32,9 @@ const AllProduct: React.FC = () => {
   ];
 
   const [filteredProducts] = useState(
-    products.filter(product => !excludedCategories.includes(product.categories))
+    products.filter(
+      (product) => !excludedCategories.includes(product.categories)
+    )
   );
 
   const [wishList, setWishList] = useState<string[]>([]);
@@ -106,14 +108,14 @@ const AllProduct: React.FC = () => {
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`} underline zoom scroll>
-                  <Card
-                    key={product.id}
-                    style={{ borderRadius: "0" }}
-                    hoverable
-                    className="product-card"
-                    cover={
-                      <>
+                <Card
+                  key={product.id}
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
+                      <Link to={`/product/${product.id}`} underline zoom scroll>
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -126,43 +128,42 @@ const AllProduct: React.FC = () => {
                             (e.currentTarget.src = product.images[0])
                           }
                         />
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
-                    }
-                  >
-                    <div className="product-info">
-                      <Title level={4} className="product-name">
+                      </Link>
+                      {product.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`} underline zoom scroll>
                         <div>{product.name}</div>
-                        {wishList.includes(product.id) ? (
-                          <HeartFilled
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
-                          />
-                        ) : (
-                          <HeartOutlined
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
-                          />
-                        )}
-                      </Title>
-                      <div className="price-container">
-                        <Text className="product-price">
-                          $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                      </Link>
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.salePrice ? product.salePrice : product.price}
+                      </Text>
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.price}
                         </Text>
-                        {product.salePrice && (
-                          <Text delete className="product-sale-price">
-                            ${product.price}
-                          </Text>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </Card>
-                </Link>
+                  </div>
+                </Card>
               </Col>
             ))}
           </Row>

@@ -496,14 +496,14 @@ const DiamondRingList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentJewelryData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              <Link to={`/product/${product.id}`} underline zoom scroll>
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -516,40 +516,42 @@ const DiamondRingList: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
+                    </Link>
+                    {product.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`} underline zoom scroll>
                       <div>{product.name}</div>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${product.salePrice ? product.salePrice : product.price}
+                    </Text>
+                    {product.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${product.price}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
-              </Link>
+                </div>
+              </Card>
             </Col>
           ))}
           <Col span={6}>
@@ -561,7 +563,14 @@ const DiamondRingList: React.FC = () => {
                 </Text>
                 <button
                   className="show-all-button"
-                  onClick={() => navigate(config.routes.public.jewelryList.replace(":jewelryType", "ring"))}
+                  onClick={() =>
+                    navigate(
+                      config.routes.public.jewelryList.replace(
+                        ":jewelryType",
+                        "ring"
+                      )
+                    )
+                  }
                 >
                   SHOW ALL
                 </button>

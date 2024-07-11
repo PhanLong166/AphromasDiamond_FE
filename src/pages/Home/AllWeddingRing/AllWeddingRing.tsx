@@ -103,7 +103,7 @@ const AllWeddingRing: React.FC = () => {
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`} underline zoom scroll>
+               
                   <Card
                     key={product.id}
                     style={{ borderRadius: "0" }}
@@ -111,6 +111,7 @@ const AllWeddingRing: React.FC = () => {
                     className="product-card"
                     cover={
                       <>
+                       <Link to={`/product/${product.id}`} underline zoom scroll>
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -123,6 +124,7 @@ const AllWeddingRing: React.FC = () => {
                             (e.currentTarget.src = product.images[0])
                           }
                         />
+                        </Link>
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
@@ -131,7 +133,9 @@ const AllWeddingRing: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`} underline zoom scroll>
                         <div>{product.name}</div>
+                        </Link>
                         {wishList.includes(product.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -159,7 +163,7 @@ const AllWeddingRing: React.FC = () => {
                       </div>
                     </div>
                   </Card>
-                </Link>
+                
               </Col>
             ))}
           </Row>

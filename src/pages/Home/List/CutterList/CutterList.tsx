@@ -244,13 +244,14 @@ const CutterList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentCutterData.diamonds.map((diamond: any) => (
             <Col key={diamond.id} span={6}>
-              <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+             
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable
                 className="product-card"
                 cover={
                   <>
+                     <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                     <img
                       style={{ borderRadius: "0" }}
                       src={diamond.images[0]}
@@ -258,6 +259,7 @@ const CutterList: React.FC = () => {
                       className="product-image"
                       onMouseOut={(e) => (e.currentTarget.src = diamond.images[0])}
                     />
+                    </Link>
                     {diamond.salePrice && (
                       <div className="sale-badge">SALE</div>
                     )}
@@ -266,7 +268,9 @@ const CutterList: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
+                  <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                     {diamond.name}
+                    </Link>
                     {wishList.includes(diamond.id) ? (
                       <HeartFilled
                         className="wishlist-icon"
@@ -291,7 +295,7 @@ const CutterList: React.FC = () => {
                   </div>
                 </div>
               </Card>
-              </Link>
+             
             </Col>
           ))}
           <Col span={6}>

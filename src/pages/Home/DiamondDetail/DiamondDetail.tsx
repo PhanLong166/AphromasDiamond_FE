@@ -544,13 +544,14 @@ const DiamondDetails: React.FC = () => {
             <Row gutter={[16, 16]}>
               {sameBrandProducts.map((diamond) => (
                 <Col key={diamond.id} span={6}>
-                  <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                 
                     <Card
                       style={{ borderRadius: "0" }}
                       hoverable
                       className="product-card"
                       cover={
                         <>
+                         <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                             <img
                               style={{ borderRadius: "0" }}
                               src={
@@ -567,6 +568,7 @@ const DiamondDetails: React.FC = () => {
                                   : "/default-image.jpg")
                               }
                             />
+                            </Link>
                           {diamond.salePrice && (
                             <div className="sale-badge">SALE</div>
                           )}
@@ -575,7 +577,9 @@ const DiamondDetails: React.FC = () => {
                     >
                       <div className="product-info">
                         <Title level={4} className="product-name">
+                        <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                           {diamond.name}
+                          </Link>
                           {wishList.includes(diamond.DiamondID) ? (
                             <HeartFilled
                               className="wishlist-icon"
@@ -603,7 +607,7 @@ const DiamondDetails: React.FC = () => {
                         </div>
                       </div>
                     </Card>
-                  </Link>
+                 
                 </Col>
               ))}
             </Row>
