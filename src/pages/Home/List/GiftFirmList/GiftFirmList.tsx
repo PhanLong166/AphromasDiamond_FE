@@ -11,8 +11,7 @@ import {
   StyledCollapse
 } from "./GiftFirmList.styled";
 
-import { useParams } from "react-router-dom";
-import Link from "@/components/Link";
+import { Link, useParams } from "react-router-dom";
 import { products } from "../../shared/ListOfProducts";
 
 
@@ -282,9 +281,7 @@ const GiftFirmList = () => {
                       <Link
                         to={`/product/${product.id}`}
                         className="link-add"
-                        underline
-                        zoom
-                        scroll
+                  
                       >
                         LEARN MORE
                       </Link>
@@ -300,9 +297,7 @@ const GiftFirmList = () => {
                     <Link
                       to={`/product/${product.id}`}
                       className="link-add"
-                      underline
-                      zoom
-                      scroll
+                     
                     >
                       <div className="gift-button">LEARN MORE</div>
                     </Link>

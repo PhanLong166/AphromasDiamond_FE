@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { useParams } from "react-router-dom";
-import Link from "@/components/Link";
+import { Link, useParams } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -537,7 +536,7 @@ const ProductDetails: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
-                      <Link to={`/product/${product.id}`} underline zoom scroll>
+                      <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -559,7 +558,7 @@ const ProductDetails: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} underline zoom scroll>
+                      <Link to={`/product/${product.id}`} >
                         {product.name}
                       </Link>
                       {wishList.includes(product.id) ? (
@@ -605,7 +604,7 @@ const ProductDetails: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
-                      <Link to={`/product/${product.id}`} underline zoom scroll>
+                      <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -627,7 +626,7 @@ const ProductDetails: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} underline zoom scroll>
+                      <Link to={`/product/${product.id}`} >
                         {product.name}
                       </Link>
                       {wishList.includes(product.id) ? (

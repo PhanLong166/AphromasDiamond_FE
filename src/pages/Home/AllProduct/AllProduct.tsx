@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { products } from "./../shared/ListOfProducts";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import Link from "@/components/Link";
 import { Section, Container, Heading, List,  StyledPagination, CustomBreadcrumb } from "./AllProduct.styled";
 import { Card, Col, Row, Typography } from "antd";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
+import { Link } from "react-router-dom";
 const { Title, Text } = Typography;
 
 const AllProduct: React.FC = () => {
@@ -99,7 +99,7 @@ const AllProduct: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
-                      <Link to={`/product/${product.id}`} underline zoom scroll>
+                      <Link to={`/product/${product.id}`}>
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -121,7 +121,7 @@ const AllProduct: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} underline zoom scroll>
+                      <Link to={`/product/${product.id}`} >
                         <div>{product.name}</div>
                       </Link>
                       {wishList.includes(product.id) ? (

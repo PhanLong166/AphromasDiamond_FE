@@ -172,9 +172,9 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
-import Link from "@/components/Link";
 import { showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
+import { Link } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -288,7 +288,7 @@ const AllDiamond: React.FC = () => {
                     className="product-card"
                     cover={
                       <>
-                      <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                      <Link to={`/diamond/${diamond.id}`}>
                         <img
                           style={{ borderRadius: "0" }}
                           src={
@@ -314,7 +314,7 @@ const AllDiamond: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                      <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                      <Link to={`/diamond/${diamond.id}`} >
                         {diamond.name}
                         </Link>
                         {wishList.includes(diamond.id) ? (

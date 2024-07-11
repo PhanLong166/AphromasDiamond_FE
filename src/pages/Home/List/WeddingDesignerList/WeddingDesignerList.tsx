@@ -18,10 +18,10 @@ import {
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { products } from "./../../shared/ListOfProducts";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-import Link from '@/components/Link';
+
 
 const WeddingDesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
@@ -186,7 +186,7 @@ const WeddingDesignerList: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
-                    <Link to={`/product/${product.id}`} underline zoom scroll>
+                    <Link to={`/product/${product.id}`} >
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -208,7 +208,7 @@ const WeddingDesignerList: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                    <Link to={`/product/${product.id}`} underline zoom scroll>
+                    <Link to={`/product/${product.id}`} >
                       <div>{product.name}</div>
                       </Link>
                       {wishList.includes(product.id) ? (

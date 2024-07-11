@@ -13,11 +13,10 @@ import {
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 // import { diamondData } from "./DiamondList.data";
-import Link from "@/components/Link";
 import { showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 
@@ -486,7 +485,7 @@ const DiamondList: React.FC = () => {
                 className="product-card"
                 cover={
                   <>
-                    <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                    <Link to={`/diamond/${diamond.id}`}>
                       <img
                         style={{ borderRadius: "0" }}
                         src={
@@ -512,7 +511,7 @@ const DiamondList: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                    <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                    <Link to={`/diamond/${diamond.id}`}>
                       {diamond.name}
                     </Link>
                     {wishList.includes(diamond.id) ? (
