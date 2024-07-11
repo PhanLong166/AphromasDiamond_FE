@@ -16,7 +16,7 @@ export const StyledPagination = styled(Pagination)`
 
 export const CloseButton = styled.button`
   position: absolute;
-  bottom: 95px;
+  bottom: 100px;
   right: 0;
   background-color: #000;
   opacity: 0.5;
