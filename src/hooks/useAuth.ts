@@ -17,10 +17,12 @@ type JwtType = {
 }
 
 export type UserType = {
-    emailAddress: string;
-    emailValidationStatus: boolean;
     fullName: string;
+    emailAddress: string;
     phoneNumber: string | null;
+    birthday: string | null;
+    gender: boolean | null;
+    address: string | null;
 }
 
 const getRole = () => {

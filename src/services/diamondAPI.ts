@@ -4,8 +4,8 @@ export const showAllDiamond = () => {
     return get(`/diamond/showAll`);
 }
 
-export const showDiamonds = () => {
-    return get(`/diamond/showDiamonds`);
+export const showDiamonds = (params: any) => {
+    return get(`/diamond/showDiamonds`,params);
 }
 
 export const getDiamondDetails = (diamondID: number) => {
@@ -24,6 +24,11 @@ export const deleteDiamond = (id: number) => {
     return remove(`/diamond/update/${id}`);
 }
 
+<<<<<<< HEAD
 export const getImageDiamond = (id: number) => {
     return get(`/usingImage/${id}`)
+=======
+export const getDiamondImages = (id: number) => {
+    return get(`/usingImage/${id}`); 
+>>>>>>> a7a638898515467ee1c6565b9c1694ea4ba974c4
 }

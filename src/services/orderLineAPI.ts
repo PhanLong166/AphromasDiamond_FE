@@ -1,5 +1,13 @@
 import { get, post, put, remove } from "./apiCaller";
 
+export interface OrderLineBody {
+    Quantity: number;
+    OrderID?: number | null;
+    DiamondID?: number | null;
+    ProductID?: number | null;
+    CustomerID: number;
+}
+
 export const showAllOrderLineForAdmin = () => {
     return get(`/orderLine/showAll`);
 }
@@ -12,7 +20,7 @@ export const OrderLineDetail = (id: number) => {
     return get(`/orderLine/${id}`);
 }
 
-export const createOrderLine = (orderLine: object) => {
+export const createOrderLine = (orderLine: OrderLineBody) => {
     return post(`/orderLine/create`, orderLine);
 }
 
