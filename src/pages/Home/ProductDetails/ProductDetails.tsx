@@ -1,9 +1,7 @@
 import { useState, useEffect } from "react";
-import { Breadcrumb } from "antd";
 import { useParams } from "react-router-dom";
 import Link from "@/components/Link";
 import { CloseOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
@@ -52,23 +50,11 @@ import {
   Space,
   List,
   ProductSectionViewed,
+  StyledPagination,
+  CustomBreadcrumb
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "antd";
-
-const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
-
-//
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
 
 const ProductDetails: React.FC = () => {
   //tab description + cmt

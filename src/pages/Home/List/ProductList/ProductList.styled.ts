@@ -1,6 +1,41 @@
 import { createGlobalStyle } from "styled-components";
 import { theme } from "../../../../themes";
 
+import { Breadcrumb, Pagination, Collapse } from "antd";
+
+export const CustomBreadcrumb = styled(Breadcrumb)`
+  margin-left: 175px;
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 1400px;
+  margin: 0 auto;
+`;
+export const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
+
+export const StyledCollapse = styled(Collapse)`
+.ant-collapse-item {
+  background-color: #ffffff;
+}
+.ant-collapse-header-text {
+  color: ${theme.color.primary};
+}
+.ant-collapse-content {
+  background-color: #f4f2ee;
+  color: #45413e;
+}
+.ant-collapse-expand-icon {
+  color: ${theme.color.primary};
+}
+.ant-collapse-header {
+  border-radius: 8px;
+}
+`;
+
+
 const GlobalStyle = createGlobalStyle`
 @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
 @import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');

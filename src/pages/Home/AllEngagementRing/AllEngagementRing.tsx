@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
-
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import Link from "@/components/Link";
-import { Section, Container, Heading, List } from "./AllEngagementRing.styled";
-import { Card, Col, Row, Typography, Pagination } from "antd";
+import { Section, Container, Heading, List, StyledPagination, CustomBreadcrumb} from "./AllEngagementRing.styled";
+import { Card, Col, Row, Typography } from "antd";
 import FilterSort from "@/components/FilterSort/FilterSort";
 
 const { Title, Text } = Typography;
 
-const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
 
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
 
 const AllEngagementRing: React.FC = () => {
   const includedCategoryKeyword = "engagement-ring";

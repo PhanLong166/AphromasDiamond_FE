@@ -6,38 +6,22 @@ import {
   FAQs,
   LeftFAQ,
   List,
+  StyledPagination,
+  CustomBreadcrumb,
+  StyledCollapse
 } from "./CutterList.styled";
-import styled from "styled-components";
 import {
-  Breadcrumb,
-  Collapse,
   Card,
   Col,
   Row,
   Typography,
-  Pagination,
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../../themes";
-
 import { useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { diamonds } from "../../shared/ListOfDiamond";
 import Link from '@/components/Link';
-
-const CustomBreadcrumb = styled(Breadcrumb)`
-  margin-left: 175px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  max-width: 1400px;
-  margin: 0 auto;
-`;
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
 
 const CutterList: React.FC = () => {
   const { diamondCutter } = useParams<{ diamondCutter: string }>();
@@ -191,25 +175,6 @@ const CutterList: React.FC = () => {
   const onChange = (key: string | string[]) => {
     console.log(key);
   };
-
-  const StyledCollapse = styled(Collapse)`
-    .ant-collapse-item {
-      background-color: #ffffff;
-    }
-    .ant-collapse-header-text {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-content {
-      background-color: #f4f2ee;
-      color: #45413e;
-    }
-    .ant-collapse-expand-icon {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-header {
-      border-radius: 8px;
-    }
-  `;
 
   return (
     <Container>

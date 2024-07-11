@@ -5,7 +5,6 @@ import { Card, Col, notification, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 // import { diamonds, Diamond } from "../shared/ListOfDiamond";
-import styled from "styled-components";
 
 import {
   Body,
@@ -46,10 +45,11 @@ import {
   List,
   // ProductSectionViewed,
   CustomBreadcrumb,
+  StyledPagination
 } from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "antd";
+
 import useAuth from "@/hooks/useAuth";
 import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
@@ -66,13 +66,6 @@ const DiamondDetails: React.FC = () => {
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
   };
-
-  //
-  const StyledPagination = styled(Pagination)`
-    display: block;
-    text-align: center;
-    margin: 20px auto;
-  `;
 
   //data cmt
   const reviewsData = [

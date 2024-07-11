@@ -7,42 +7,17 @@ import {
   GiftSection,
   FAQs,
   LeftFAQ,
+  CustomBreadcrumb,
+  StyledCollapse
 } from "./GiftFirmList.styled";
 
-import {} from "@ant-design/icons";
-import { Collapse } from "antd";
-import styled from "styled-components";
-import { Breadcrumb } from "antd";
-import { theme } from "../../../../themes";
 import { useParams } from "react-router-dom";
 import Link from "@/components/Link";
 import { products } from "../../shared/ListOfProducts";
-const CustomBreadcrumb = styled(Breadcrumb)`
-  padding-top: 10px;
-  padding-bottom: 10px;
-  max-width: 1400px;
-  margin: 0 auto;
-`;
+
 
 const GiftFirmList = () => {
-  const StyledCollapse = styled(Collapse)`
-    .ant-collapse-item {
-      background-color: #ffffff;
-    }
-    .ant-collapse-header-text {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-content {
-      background-color: #f5f2ed;
-      color: #45413e;
-    }
-    .ant-collapse-expand-icon {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-header {
-      border-radius: 8px;
-    }
-  `;
+  
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
   const excludedCategories = [
     "wedding-ring",

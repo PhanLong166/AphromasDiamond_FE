@@ -6,39 +6,23 @@ import {
   FAQs,
   LeftFAQ,
   List,
+  StyledPagination,
+  CustomBreadcrumb,
+  StyledCollapse
 } from "./ProductList.styled";
-import styled from "styled-components";
 import {
-  Breadcrumb,
-  Collapse,
   Card,
   Col,
   Row,
   Typography,
-  Pagination,
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../../themes";
 import { products } from "../../shared/ListOfProducts";
 import { useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import FilterSort from "@/components/FilterSort/FilterSort";
 import Link from "@/components/Link";
-
-const CustomBreadcrumb = styled(Breadcrumb)`
-  margin-left: 175px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  max-width: 1400px;
-  margin: 0 auto;
-`;
-
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
 
 const ProductList: React.FC = () => {
   const { jewelryType } = useParams<{ jewelryType: string }>();
@@ -229,25 +213,6 @@ const ProductList: React.FC = () => {
   const onChange = (key: string | string[]) => {
     console.log(key);
   };
-
-  const StyledCollapse = styled(Collapse)`
-    .ant-collapse-item {
-      background-color: #ffffff;
-    }
-    .ant-collapse-header-text {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-content {
-      background-color: #f4f2ee;
-      color: #45413e;
-    }
-    .ant-collapse-expand-icon {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-header {
-      border-radius: 8px;
-    }
-  `;
 
   return (
     <Container>
