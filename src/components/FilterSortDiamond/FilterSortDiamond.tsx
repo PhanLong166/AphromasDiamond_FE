@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import { Button, InputNumber, Slider, Select, Typography, Image } from "antd";
 const { Title } = Typography;
 import { Col, Row } from "antd";
 const { Option } = Select;
 import { theme } from "../../themes";
+import { showDiamonds } from "@/services/diamondAPI";
+
 const CustomTitle = styled(Title)`
   color: ${theme.color.primary} !important;
 `;
@@ -120,6 +122,32 @@ const formatCutValue = (value?: number): React.ReactNode => {
     setClarityRange([0, 7]);
     setCutRange([0, 3]);
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const params = {
+        Cut: cutRange.map((val) => formatCutValue(val)),
+        Clarity: clarityValue.map((val) => formatClarityValue(val)),
+        maxCarat: caratRange[1],
+        minCarat: caratRange[0],
+        maxPrice: priceRange[1],
+        minPrice: priceRange[0],
+        Color: colorValue.map((val) => formatColorValue(val)),
+        Shape: shapeSelected ? [shapeSelected] : [],
+        page: 1,
+      };
+
+      try {
+        const response = await showDiamonds(params);
+        // Xử lý response từ API
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching diamonds data:", error);
+      }
+    };
+
+    fetchData();
+  }, [shapeSelected, priceRange, caratRange, cutRange, colorValue, clarityValue]);
 
   const shapeButtons = [
     {

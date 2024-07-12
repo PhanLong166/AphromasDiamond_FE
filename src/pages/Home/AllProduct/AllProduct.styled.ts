@@ -1,11 +1,21 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
-
+import { Breadcrumb, Pagination } from "antd";
 export const Section = styled.div`
   margin: 0 auto;
   background-color: ${theme.color.white};
 `;
+export const CustomBreadcrumb = styled(Breadcrumb)`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 20px;
+`;
 
+export const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
 export const Container = styled.div``;
 
 export const Heading = styled.div`

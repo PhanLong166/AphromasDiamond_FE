@@ -5,7 +5,6 @@ import { Card, Col, notification, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 // import { diamonds, Diamond } from "../shared/ListOfDiamond";
-import styled from "styled-components";
 
 import {
   Body,
@@ -46,10 +45,11 @@ import {
   List,
   // ProductSectionViewed,
   CustomBreadcrumb,
+  StyledPagination
 } from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "antd";
+
 import useAuth from "@/hooks/useAuth";
 import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
@@ -66,13 +66,6 @@ const DiamondDetails: React.FC = () => {
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
   };
-
-  //
-  const StyledPagination = styled(Pagination)`
-    display: block;
-    text-align: center;
-    margin: 20px auto;
-  `;
 
   //data cmt
   const reviewsData = [
@@ -190,14 +183,29 @@ const DiamondDetails: React.FC = () => {
 
           const sameWeightProductsResponse = await showDiamonds(params);
 
-          if (sameWeightProductsResponse.status === 200) {
-            const sameWeightProducts = sameWeightProductsResponse.data.data;
+        if (sameWeightProductsResponse.status === 200) {
+          if (sameWeightProductsResponse.data && Array.isArray(sameWeightProductsResponse.data.data)) {
+            const fetchedDiamonds = sameWeightProductsResponse.data.data.map((item: any) => ({
+              id: item.DiamondID,
+              name: item.Name,
+              cut: item.Cut,
+              price: item.Price,
+              color: item.Color,
+              description: item.Description,
+              isActive: item.IsActive,
+              clarity: item.Clarity,
+              images: item.usingImage.map((image: any) => ({
+                id: image.UsingImageID,
+                name: image.Name,
+                url: getImage(image.UsingImageID),
+              })),
+            }));
 
             const maxProductsToShow = 4;
             const productsToShow =
-              sameWeightProducts.length <= maxProductsToShow
-                ? sameWeightProducts
-                : sameWeightProducts
+              fetchedDiamonds.length <= maxProductsToShow
+                ? fetchedDiamonds
+                : fetchedDiamonds
                   .sort(() => 0.5 - Math.random())
                   .slice(0, maxProductsToShow);
 
@@ -206,16 +214,19 @@ const DiamondDetails: React.FC = () => {
             setSameBrandProducts([]);
           }
         } else {
-          setFoundProduct(null);
+          setSameBrandProducts([]);
         }
-      } catch (error) {
-        console.error("Failed to fetch diamond details:", error);
+      } else {
         setFoundProduct(null);
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch diamond details:", error);
+      setFoundProduct(null);
+    }
+  };
 
-    fetchDiamondDetails();
-  }, [id]);
+  fetchDiamondDetails();
+}, [id]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
@@ -525,14 +536,15 @@ const DiamondDetails: React.FC = () => {
           <List>
             <Row gutter={[16, 16]}>
               {sameBrandProducts.map((diamond) => (
-                <Col key={diamond.DiamondID} span={6}>
-                  <Link to={`/diamond/${diamond.DiamondID}`} underline zoom scroll>
+                <Col key={diamond.id} span={6}>
+                 
                     <Card
                       style={{ borderRadius: "0" }}
                       hoverable
                       className="product-card"
                       cover={
                         <>
+                         <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
                             <img
                               style={{ borderRadius: "0" }}
                               src={
@@ -549,6 +561,7 @@ const DiamondDetails: React.FC = () => {
                                   : "/default-image.jpg")
                               }
                             />
+                            </Link>
                           {diamond.salePrice && (
                             <div className="sale-badge">SALE</div>
                           )}
@@ -557,7 +570,9 @@ const DiamondDetails: React.FC = () => {
                     >
                       <div className="product-info">
                         <Title level={4} className="product-name">
-                          {diamond.Name}
+                        <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                          {diamond.name}
+                          </Link>
                           {wishList.includes(diamond.DiamondID) ? (
                             <HeartFilled
                               className="wishlist-icon"
@@ -575,17 +590,17 @@ const DiamondDetails: React.FC = () => {
                             $
                             {diamond.salePrice
                               ? diamond.salePrice
-                              : diamond.Price}
+                              : diamond.price}
                           </Text>
                           {diamond.salePrice && (
                             <Text delete className="product-sale-price">
-                              ${diamond.Price}
+                              ${diamond.price}
                             </Text>
                           )}
                         </div>
                       </div>
                     </Card>
-                  </Link>
+                 
                 </Col>
               ))}
             </Row>
