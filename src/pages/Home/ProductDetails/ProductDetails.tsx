@@ -1,9 +1,6 @@
 import { useState, useEffect } from "react";
-import { Breadcrumb } from "antd";
-import { useParams } from "react-router-dom";
-import Link from "@/components/Link";
+import { Link, useParams } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
-import styled from "styled-components";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
@@ -52,23 +49,11 @@ import {
   Space,
   List,
   ProductSectionViewed,
+  StyledPagination,
+  CustomBreadcrumb
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { Pagination } from "antd";
-
-const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
-
-//
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
 
 const ProductDetails: React.FC = () => {
   //tab description + cmt
@@ -545,13 +530,13 @@ const ProductDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {sameBrandProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`} underline zoom scroll>
-                  <Card
-                    style={{ borderRadius: "0" }}
-                    hoverable
-                    className="product-card"
-                    cover={
-                      <>
+                <Card
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
+                      <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -564,43 +549,42 @@ const ProductDetails: React.FC = () => {
                             (e.currentTarget.src = product.images[0])
                           }
                         />
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
-                    }
-                  >
-                    <div className="product-info">
-                      <Title level={4} className="product-name">
+                      </Link>
+                      {product.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`} >
                         {product.name}
-                        {wishList.includes(product.id) ? (
-                          <HeartFilled
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
-                          />
-                        ) : (
-                          <HeartOutlined
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
-                          />
-                        )}
-                      </Title>
-                      <div className="price-container">
-                        <Text className="product-price">
-                          $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                      </Link>
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.salePrice ? product.salePrice : product.price}
+                      </Text>
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.price}
                         </Text>
-                        {product.salePrice && (
-                          <Text delete className="product-sale-price">
-                            ${product.price}
-                          </Text>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </Card>
-                </Link>
+                  </div>
+                </Card>
               </Col>
             ))}
           </Row>
@@ -614,13 +598,13 @@ const ProductDetails: React.FC = () => {
           <Row gutter={[16, 16]}>
             {recentlyViewedProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`} underline zoom scroll>
-                  <Card
-                    style={{ borderRadius: "0" }}
-                    hoverable
-                    className="product-card"
-                    cover={
-                      <>
+                <Card
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
+                      <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -633,43 +617,42 @@ const ProductDetails: React.FC = () => {
                             (e.currentTarget.src = product.images[0])
                           }
                         />
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
-                    }
-                  >
-                    <div className="product-info">
-                      <Title level={4} className="product-name">
+                      </Link>
+                      {product.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`} >
                         {product.name}
-                        {wishList.includes(product.id) ? (
-                          <HeartFilled
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
-                          />
-                        ) : (
-                          <HeartOutlined
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
-                          />
-                        )}
-                      </Title>
-                      <div className="price-container">
-                        <Text className="product-price">
-                          $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                      </Link>
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.salePrice ? product.salePrice : product.price}
+                      </Text>
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.price}
                         </Text>
-                        {product.salePrice && (
-                          <Text delete className="product-sale-price">
-                            ${product.price}
-                          </Text>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </Card>
-                </Link>
+                  </div>
+                </Card>
               </Col>
             ))}
           </Row>

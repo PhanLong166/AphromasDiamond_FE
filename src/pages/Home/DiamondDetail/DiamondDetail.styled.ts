@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
 import { Breadcrumb } from "antd";
+import { Pagination } from "antd";
+export const StyledPagination = styled(Pagination)`
+display: block;
+text-align: center;
+margin: 20px auto;
+`;
 
 export const Body = styled.div`
   margin: 0;
