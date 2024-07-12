@@ -349,9 +349,8 @@ const Diamond = () => {
     React.useEffect(() => {
       form
         .validateFields({ validateOnly: true })
-        .then(() => setSubmittable(true),
-        // .catch(
-          () => setSubmittable(false));
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
 
     }, [values]);
 
@@ -379,6 +378,7 @@ const Diamond = () => {
         type="primary"
         htmlType="submit"
         disabled={!submittable}
+        onClick={() => addDiamond(diamondValues)}
       >
         {children}
       </Button>
@@ -490,7 +490,6 @@ const Diamond = () => {
                     form={form}
                     layout="vertical"
                     className="AdPageContent_Content"
-                    onFinish={handleAddDiamond}
                   >
                     {/* <Styled.FormItem>
                       <Form.Item
@@ -504,7 +503,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Diamond Name"
-                        name="diamondName"
+                        name="Name"
                         rules={[
                           {
                             required: true,
@@ -532,7 +531,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Charge Rate (%)"
-                        name="chargeRate"
+                        name="ChargeRate"
                         rules={[
                           {
                             required: true,
@@ -557,7 +556,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Price"
-                        name="price"
+                        name="Price"
                         rules={[
                           {
                             required: true,
@@ -576,7 +575,11 @@ const Diamond = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Shape" name="shape" rules={[{ required: true }]}>
+                      <Form.Item 
+                        label="Shape" 
+                        name="Shape" 
+                        rules={[{ required: true }]}
+                      >
                         <Select
                           className="formItem"
                           placeholder="Select Shape"
@@ -586,7 +589,10 @@ const Diamond = () => {
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Color" name="color" rules={[{ required: true }]}>
+                      <Form.Item 
+                        label="Color" 
+                        name="Color" 
+                        rules={[{ required: true }]}>
                         <Select
                           //   defaultValue="Select Color"
                           className="formItem"
@@ -599,7 +605,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Polish"
-                        name="polish"
+                        name="Polish"
                         rules={[{ required: true }]}
                       >
                         <Select
@@ -613,7 +619,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Cut"
-                        name="cut"
+                        name="Cut"
                         rules={[{ required: true }]}
                       >
                         <Select
@@ -627,14 +633,18 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Length/Width Ratio"
-                        name="lengthOnWidthRatio"
+                        name="LengthOnWidthRatio"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="1,01" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
-                      <Form.Item label="Clarity" name="clarity" rules={[{ required: true }]}>
+                      <Form.Item 
+                        label="Clarity" 
+                        name="Clarity" 
+                        rules={[{ required: true }]}
+                      >
                         <Select
                           //   defaultValue="Select Clarity"
                           className="formItem"
@@ -647,7 +657,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Symmetry"
-                        name="symmetry"
+                        name="Symmetry"
                         rules={[{ required: true }]}
                       >
                         <Select
@@ -661,7 +671,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Carat Weight"
-                        name="weightCarat"
+                        name="WeightCarat"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="1,01" />
@@ -670,7 +680,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Table %"
-                        name="percentTable"
+                        name="PercentTable"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="56.0" />
@@ -679,7 +689,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Depth %"
-                        name="percentDepth"
+                        name="PercentDepth"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="63.8" />
@@ -688,7 +698,7 @@ const Diamond = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Fluorescence"
-                        name="fluorescence"
+                        name="Fluorescence"
                         rules={[{ required: true }]}
                       >
                         <Select
@@ -738,7 +748,7 @@ const Diamond = () => {
                     <Styled.FormDescript>
                       <Form.Item
                         label="Description"
-                        name="description"
+                        name="Description"
                         rules={[
                           {
                             required: true,
