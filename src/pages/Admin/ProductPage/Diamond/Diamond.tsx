@@ -191,7 +191,7 @@ const Diamond = () => {
     {
       title: "Diamond ID",
       dataIndex: "diamondID",
-      defaultSortOrder: "descend",
+      // defaultSortOrder: "descend",
       sorter: (a, b) => parseInt(a.diamondID) - parseInt(b.diamondID),
     },
     {
@@ -213,7 +213,7 @@ const Diamond = () => {
       dataIndex: "diamondName",
       showSorterTooltip: { target: "full-header" },
       sorter: (a, b) => a.diamondName.length - b.diamondName.length,
-      sortDirections: ["descend"],
+      // sortDirections: ["descend"],
     },
     // {
     //   title: `Cost Price (${currency})`,

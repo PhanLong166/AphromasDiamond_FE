@@ -77,9 +77,7 @@ export const PageDetail_Infor = styled.div`
   justify-content: space-between;
 `;
 
-export const MaterialTable = styled.div`
-
-`;
+export const MaterialTable = styled.div``;
 
 export const OrderInfor = styled.div`
   width: 30%;
@@ -128,7 +126,7 @@ export const ProductContent = styled.div`
     justify-content: space-between;
 
     label {
-    width: 700px;
+      width: 700px;
     }
 
     input {
@@ -147,23 +145,22 @@ export const SignaInfor = styled.div`
 `;
 
 export const InforLine = styled.div`
-display: flex;
-justify-content: space-between;
-margin-bottom: 20px;
- .InforLine_Title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .InforLine_Title {
     font-weight: 600;
- }
+  }
 `;
 
 export const InforLine_Descrip = styled.div`
-margin-bottom: 20px;
- .InforLine_Title {
+  margin-bottom: 20px;
+  .InforLine_Title {
     font-weight: 600;
     margin-bottom: 10px;
- }
-width: 100%;
+  }
+  width: 100%;
 `;
-
 
 // /* -------------------- BOT DETAIL =============== */
 
@@ -314,8 +311,6 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
   display: flex;
   justify-content: space-between;
-
-
 `;
 
 export const ActionBtn_Left = styled.div`
@@ -331,13 +326,19 @@ export const ActionBtn_Left = styled.div`
 
 export const ActionBtn_Right = styled.div`
   .DeleteBtn {
-    background-color: #DE5353;
+    background-color: #de5353;
     color: #ffffff;
   }
 `;
 
-
-
+export const FormDescript = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  p {
+    margin-bottom: 10px;
+  }
+`;
 
 // -----------------------------------------------------
 
@@ -360,11 +361,10 @@ export const ThumbnailImage = styled.div`
   display: flex;
   flex-direction: column;
   gap: 10px;
-
 `;
 
 export const Item = styled.div`
-   width: 100px;
+  width: 100px;
   height: 100px;
   overflow: hidden;
   cursor: pointer;
@@ -390,16 +390,15 @@ export const OuterMain = styled.div`
 export const MainImage = styled.div`
   display: flex;
   flex-direction: column;
-      align-items: center;
+  align-items: center;
 
   img {
     width: 80%;
     margin-bottom: 10px;
   }
 
-   .GIAExport {
+  .GIAExport {
     width: 20%;
-
   }
 `;
 
@@ -442,8 +441,7 @@ export const ProductMetal = styled.div`
     box-shadow: inset 0 0 0 4px #fff;
   }
   button[disabled] {
-    pointer-events: none; 
-    opacity: 0.5; 
+    pointer-events: none;
+    opacity: 0.5;
   }
 `;
-
