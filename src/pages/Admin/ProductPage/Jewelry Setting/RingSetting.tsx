@@ -277,14 +277,14 @@ const JewelrySetting = () => {
         productID: setting.ProductID,
         productionCost: setting.ProductionCost,
         isActive: setting.IsActive === true,
-        jewelrySettingVariant: setting.jewelrySettingVariant.map((variant: any) => ({
-          id: variant.JewelrySettingVariantID
-        })),
-        images: setting.usingImage.map((image: any) => ({
-          id: image.UsingImageID,
-          name: image.Name,
-          url: getImage(image.UsingImageID),
-        })),
+        // jewelrySettingVariant: setting.jewelrySettingVariant.map((variant: any) => ({
+        //   id: variant.JewelrySettingVariantID
+        // })),
+        // images: setting.usingImage.map((image: any) => ({
+        //   id: image.UsingImageID,
+        //   name: image.Name,
+        //   url: getImage(image.UsingImageID),
+        // })),
       }));
       console.log('Formatted Diamonds:', formattedSettings); // Log formatted diamonds
       setSettings(formattedSettings);
@@ -307,7 +307,7 @@ const JewelrySetting = () => {
     {
       title: "Jewelry Setting ID",
       dataIndex: "jewelrySettingID",
-      // defaultSortOrder: "descend",
+      defaultSortOrder: "descend",
       sorter: (a, b) => parseInt(a.jewelrySettingID) - parseInt(b.jewelrySettingID),
     },
     {
@@ -330,15 +330,15 @@ const JewelrySetting = () => {
       sorter: (a, b) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
     },
-    {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-      defaultSortOrder: "ascend" as SortOrder,
-      filters: JewelryType_Filter,
-      onFilter: (value: boolean | React.Key, record: RingDataType) =>
-        record.type.indexOf(value as string) === 0,
-    },
+    // {
+    //   title: "Type",
+    //   dataIndex: "type",
+    //   key: "type",
+    //   defaultSortOrder: "ascend" as SortOrder,
+    //   filters: JewelryType_Filter,
+    //   onFilter: (value: boolean | React.Key, record: RingDataType) =>
+    //     record.type.indexOf(value as string) === 0,
+    // },
     {
       title: "Detail",
       key: "detail",
@@ -776,13 +776,13 @@ const JewelrySetting = () => {
               ) : (
                 <Form form={form} component={false}>
                   <Table
-                    components={{
-                      body: {
-                        cell: EditableCell,
-                      },
-                    }}
+                    // components={{
+                    //   body: {
+                    //     cell: EditableCell,
+                    //   },
+                    // }}
                     bordered
-                    dataSource={data}
+                    dataSource={settings}
                     columns={columns}
                     rowClassName="editable-row"
                     pagination={{ pageSize: 6 }} // Add pagination here
