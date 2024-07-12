@@ -973,7 +973,7 @@ const Diamond = () => {
           record.exchangeRate,
           currency
         );
-        return `${convertedPrice.toFixed(2)} ${currency}`;
+        return `${convertedPrice} ${currency}`;
       },
     },
     {

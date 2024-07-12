@@ -226,6 +226,7 @@ export const RecentOrders = styled.div`
   background-color: ${theme.color.secondary};
   border-radius: 16px;
   padding: 25px 20px 15px 25px;
+  overflow: auto;
 `;
 
 export const RecentOrders_Title = styled.div`

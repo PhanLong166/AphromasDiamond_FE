@@ -44,7 +44,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
+          name={dataIndex.toString()}
           style={{ margin: 0 }}
           rules={[
             {

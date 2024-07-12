@@ -701,7 +701,7 @@ import {
   updateDiamond,
   deleteDiamond,
 } from "@/services/diamondAPI";
-import { getImage } from "@/services/imageAPI";
+// import { getImage } from "@/services/imageAPI";
 
 const DiamondDetail = () => {
   // const getParamsID = id ? parseInt(id) : 0;

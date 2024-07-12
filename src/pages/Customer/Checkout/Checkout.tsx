@@ -141,8 +141,8 @@ const Checkout: React.FC = () => {
           OrderID: getOrderID
         });
         if(linkOrder.data.statusCode !== 200) throw new Error();
+        else navigate(config.routes.public.success);
       });
-      
       if(!updateOrderLine) throw new Error();
     } catch (error: any) {
       console.error(error);

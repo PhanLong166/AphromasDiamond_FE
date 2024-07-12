@@ -453,15 +453,15 @@ const Home: React.FC = () => {
                       <Link to={`/product/${product.id}`} >
                         {product.name}
                         </Link>
-                        {wishList.includes(product.id) ? (
+                        {wishList.includes(parseInt(product.id)) ? (
                           <HeartFilled
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            // onClick={() => toggleWishList(product.id)}
                           />
                         ) : (
                           <HeartOutlined
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            // onClick={() => toggleWishList(product.id)}
                           />
                         )}
                       </Title>
@@ -529,15 +529,15 @@ const Home: React.FC = () => {
                       <Link to={`/product/${product.id}`} >
                         {product.name}
                         </Link>
-                        {wishList.includes(product.id) ? (
+                        {wishList.includes(parseInt(product.id)) ? (
                           <HeartFilled
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            // onClick={() => toggleWishList(product.id)}
                           />
                         ) : (
                           <HeartOutlined
                             className="wishlist-icon"
-                            onClick={() => toggleWishList(product.id)}
+                            // onClick={() => toggleWishList(product.id)}
                           />
                         )}
                       </Title>

@@ -5,7 +5,7 @@ import { useState } from "react";
 import PromoCodeSection from "../../../Customer/Checkout/PromoCode";
 import { items } from "../../Data/data";
 import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
-import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
+import { showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 interface CartItemProps {
   name: string;
@@ -117,7 +117,7 @@ const Summary: React.FC = () => {
             name={diamond ? diamond.Name : item.name}
             image={diamond ? getImage(diamond.usingImage[0].UsingImageID) : item.image}
             sku={item.sku}
-            price={diamond.Price}
+            price={diamond ? diamond.Price : 0}
           />
         );
       })}
