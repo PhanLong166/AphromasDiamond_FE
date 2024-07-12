@@ -1,6 +1,6 @@
 import * as React from "react";
 import styled from "styled-components";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Steps } from "antd";
 import AddressDetails from "../../../components/Customer/Checkout/AddressDetails"; 
@@ -8,6 +8,7 @@ import { getProvinces, getDistricts, getWards } from "./api";
 import Summary from "@/components/Customer/Checkout/Summary/Summary";
 import { createOrder, OrderAPIProps } from "@/services/orderAPI";
 import { showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
+import config from "@/config";
 
 interface ContactInfoProps {
   email: string;
@@ -91,6 +92,7 @@ const Checkout: React.FC = () => {
   const [wards, setWards] = useState<any[]>([]);
   const [selectedProvince, setSelectedProvince] = useState<number | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
+  const navigate = useNavigate();
 
   React.useEffect(() => {
     const fetchProvincesData = async () => {
@@ -141,7 +143,7 @@ const Checkout: React.FC = () => {
         if(linkOrder.data.statusCode !== 200) throw new Error();
       });
       
-      if(!updateOrderLine) throw new Error(); 
+      if(!updateOrderLine) throw new Error();
     } catch (error: any) {
       console.error(error);
     }

@@ -739,6 +739,7 @@ import { createDiamond, showDiamonds } from "@/services/diamondAPI";
 import ImgCrop from 'antd-img-crop';
 import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "./Diamond.type";
 import { getImage } from "@/services/imageAPI";
+// import { RcFile, UploadChangeParam } from "antd/es/upload";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
 
@@ -785,6 +786,7 @@ const Diamond = () => {
   const [totalDiamonds, setTotalDiamonds] = useState(0);
   const [currentPage, setCurrentPage] = useState(1);
   const [pageSize, setPageSize] = useState(6);
+  // const file = useRef<UploadFile>();
 
   type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
@@ -943,7 +945,7 @@ const Diamond = () => {
       render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.images[0].url} // Thay đổi để hiển thị ảnh của kim cương
+            src={record.images && record.images[0] ? record.images[0].url : "default-image-url"} // Thay đổi để hiển thị ảnh của kim cương
             alt={record.diamondName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -1049,14 +1051,16 @@ const Diamond = () => {
 
 
   // UPLOAD IMAGES
-  const [fileList, setFileList] = useState<UploadFile[]>([
-    // {
-    //   uid: '-1',
-    //   name: 'image.png',
-    //   status: 'done',
-    //   url: 'https://zos.alipayobjects.com/rmsportal/jkjgkEfvpUPVyRjUImniVslZfWPnJuuZ.png',
-    // },
-  ]);
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
+
+  // const beforeUpload = (f: RcFile) => {
+  //   file.current = f;
+  //   return false;
+  // }
+
+  // const handleUploadProductImage = (info: UploadChangeParam<UploadFile<any>>) => {
+
+  // }
 
   const onChangeImg: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -1370,6 +1374,34 @@ const Diamond = () => {
                     </Styled.FormItem>
                     <Styled.FormItem>
                       <Form.Item
+                        label="Diamond Cutter"
+                        name="Cutter"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Diamond Name is required.",
+                          },
+                          {
+                            pattern: /^[a-zA-Z0-9\s()-.]*$/,
+                            message:
+                              "Only alphabet, numbers, (), - and . are allowed.",
+                          },
+                          {
+                            max: 300,
+                            message:
+                              "Diamond Name must be at most 300 characters long.",
+                          },
+                          {
+                            whitespace: true,
+                            message: "Not only has whitespace.",
+                          },
+                        ]}
+                      >
+                        <Input className="formItem" placeholder="Fill Name" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
                         label="Active"
                         name="IsActive"
                       >
@@ -1408,9 +1440,9 @@ const Diamond = () => {
                         label="Upload Images"
                         name="diamondImg"
                       >
-                        <ImgCrop rotationSlider>
+                        <ImgCrop quality={1} rotationSlider aspectSlider showGrid showReset>
                           <Upload
-                            // action="https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload"
+                            name="diamondImage"
                             listType="picture-card"
                             fileList={fileList}
                             onChange={onChangeImg}

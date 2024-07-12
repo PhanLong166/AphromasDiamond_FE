@@ -5,7 +5,8 @@ import { useState } from "react";
 import PromoCodeSection from "../../../Customer/Checkout/PromoCode";
 import { items } from "../../Data/data";
 import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
-import { getDiamondDetails } from "@/services/diamondAPI";
+import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
+import { getImage } from "@/services/imageAPI";
 interface CartItemProps {
   name: string;
   image: string;
@@ -31,6 +32,8 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 const Summary: React.FC = () => {
   const [discount, setDiscount] = useState(0);
   const [shippingCost] = useState(0);
+  const [orderLineItems, setOrderLineItems] = useState<any[]>([]);
+  const [diamondList, setDiamondList] = useState<any[]>([]);
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
@@ -51,13 +54,12 @@ const Summary: React.FC = () => {
         OrderLineItem.CustomerID === 1
         && OrderLineItem.OrderID === null
         && (OrderLineItem.DiamondID !== null || OrderLineItem.ProductID !== null)
-      )).map(async (item: any) => {
-        if (item.DiamondID !== null) {
-          const diamondDetails = await getDiamondDetails(item.DiamondID);
-          return { ...item, diamondDetails: diamondDetails.data };
-        }
-      })
+      ))
+      setOrderLineItems(getOrderLineItems);
 
+      const response = await showDiamonds({page: 1});
+      setDiamondList(response.data.data);
+      console.log(diamondList);
       console.log(getOrderLineItems);
     } catch (error: any) {
       console.error(error);
@@ -107,15 +109,18 @@ const Summary: React.FC = () => {
           </p>
         </Link>
       </ItemNumber>
-      {items.map((item, index) => (
-        <CartItem
-          key={index}
-          name={item.name}
-          image={item.image}
-          sku={item.sku}
-          price={item.price}
-        />
-      ))}
+      {orderLineItems.map((item: any, index: any) => {
+        const diamond = diamondList.find(d => d && d.DiamondID === item.DiamondID);
+        return (
+          <CartItem
+            key={index}
+            name={diamond ? diamond.Name : item.name}
+            image={diamond ? getImage(diamond.usingImage[0].UsingImageID) : item.image}
+            sku={item.sku}
+            price={diamond.Price}
+          />
+        );
+      })}
       <EditTotal>
         {" "}
         {discount > 0 && (
