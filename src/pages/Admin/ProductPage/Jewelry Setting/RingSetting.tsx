@@ -38,67 +38,24 @@ import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
 import { SortOrder } from "antd/es/table/interface";
 import TextArea from "antd/es/input/TextArea";
-import {
-  ringData,
-  RingDataType,
-  productData,
-  RingMaterialDataType,
-  // ringMaterialData,
-  materialData,
-  MaterialDataType,
-  // ProductDataType,
-} from "../ProductData"; // Import data here
+// import {
+//   ringData,
+//   RingDataType,
+//   productData,
+//   RingMaterialDataType,
+//   materialData,
+//   MaterialDataType,
+// } from "../ProductData"; 
 import { Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
 import { JewelryType_Filter } from "./RingSetting.type";
 import { showAllSetting } from "@/services/jewelrySettingAPI";
 import { getImage } from "@/services/imageAPI";
+import { showAllMaterial } from "@/services/materialAPI";
+import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-interface EditableCellProps {
-  editing: boolean;
-  dataIndex: keyof RingDataType;
-  title: React.ReactNode;
-  inputType: "number" | "text";
-  record: RingDataType;
-  index: number;
-  // children: React.ReactNode;
-}
-
-const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  // record,
-  // index,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
 
 // SUBMIT FORM
 interface SubmitButtonProps {
@@ -138,12 +95,12 @@ const calculateJewelrySettingPrice = (
   return weight * pricePerGram + auxiliaryCost + productionCost;
 };
 
-const getMaterialDetails = (
-  materialID: string,
-  materialData: MaterialDataType[]
-) => {
-  return materialData.find((material) => material.materialID === materialID);
-};
+// const getMaterialDetails = (
+//   materialID: string,
+//   materialData: showAllMaterial(),
+// ) => {
+//   return materialData.find((material) => material.materialID === materialID);
+// };
 
 const PriceCalculation = (
   <div>
@@ -174,21 +131,22 @@ const EditableMaterialCell: React.FC<{
   title: React.ReactNode;
   editable: boolean;
   value: any;
-  onChange: (value: any) => void;
-  options?: { value: string; label: string }[];
+  onChange: (id: any) => void;
+  options?: { id: string; name: string }[];
 }> = ({
   editable,
   value,
   onChange,
+  options
 }) => {
   return (
     <td>
       {editable ? (
-        materialOptions ? (
+        options ? (
           <Select placeholder="Select Material" onChange={onChange}>
-            {materialOptions.map((option) => (
-              <Select.Option key={option.value} value={option.value}>
-                {option.label}
+            {options.map((option) => (
+              <Select.Option key={option.id} value={option.name}>
+                {option.name}
               </Select.Option>
             ))}
           </Select>
@@ -206,8 +164,8 @@ const EditableSizeCell: React.FC<{
   title: React.ReactNode;
   editable: boolean;
   value: any;
-  onChange: (value: any) => void;
-  options?: { value: string; label: number }[];
+  onChange: (id: any) => void;
+  options?: { id: string; name: number }[];
 }> = ({
   editable,
   value,
@@ -220,8 +178,8 @@ const EditableSizeCell: React.FC<{
         options ? (
           <Select placeholder="Select Size" onChange={onChange}>
             {options.map((option) => (
-              <Select.Option key={option.value} value={option.value}>
-                {option.label}
+              <Select.Option key={option.id} value={option.name}>
+                {option.name}
               </Select.Option>
             ))}
           </Select>
@@ -260,26 +218,33 @@ const EditableCell_Material: React.FC<{
 
 const JewelrySetting = () => {
   const [form] = Form.useForm();
-  const [data] = useState<RingDataType[]>(ringData);
+  // const [data] = useState<RingDataType[]>(ringData);
   const [isAdding, setIsAdding] = useState(false);
   const [searchText, setSearchText] = useState("");
   const [api, contextHolder] = notification.useNotification();
   const [settings, setSettings] = useState([]);
-
+  const [materials, setMaterials] = useState([]);
+  const [jewelryTypes, setJewelryTypes] = useState([]);
 
   const fetchData = async () => {
     try {
-      const response = await showAllSetting();
-      const { data } = response.data; 
-      const formattedSettings = data.map((setting: any) => ({
+      const responseSetting = await showAllSetting();
+      const responseMaterial = await showAllMaterial();
+      const responseJewelryType = await showAllJewelryType();
+
+      const { data: settingsData } = responseSetting.data; 
+      const { data: materialsData  } = responseMaterial.data; 
+      const { data: jewelryTypesData  } = responseJewelryType.data; 
+
+      const formattedSettings = settingsData.map((setting: any) => ({
         jewelrySettingID: setting.JewelrySettingID,
         jewelrySettingName: setting.Name,
         productID: setting.ProductID,
         productionCost: setting.ProductionCost,
         isActive: setting.IsActive === true,
-        // jewelrySettingVariant: setting.jewelrySettingVariant.map((variant: any) => ({
-        //   id: variant.JewelrySettingVariantID
-        // })),
+        jewelrySettingVariant: setting.JewelrySettingVariant.map((variant: any) => ({
+          variantID: variant.JewelrySettingVariantID
+        })),
         // images: setting.usingImage.map((image: any) => ({
         //   id: image.UsingImageID,
         //   name: image.Name,
@@ -330,15 +295,6 @@ const JewelrySetting = () => {
       sorter: (a, b) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
     },
-    // {
-    //   title: "Type",
-    //   dataIndex: "type",
-    //   key: "type",
-    //   defaultSortOrder: "ascend" as SortOrder,
-    //   filters: JewelryType_Filter,
-    //   onFilter: (value: boolean | React.Key, record: RingDataType) =>
-    //     record.type.indexOf(value as string) === 0,
-    // },
     {
       title: "Detail",
       key: "detail",
@@ -420,11 +376,11 @@ const JewelrySetting = () => {
   };
 
   // MATERIAL TABLE
-  const [dataMaterial, setDataMaterial] = useState<RingMaterialDataType[]>([]);
+  const [dataMaterial, setDataMaterial] = useState<[]>([]); //RingMaterialDataType
 
-  const handleFieldChange = (fieldName: keyof RingMaterialDataType, value: any, key: any) => {
+  const handleFieldChange = (fieldName: keyof any, value: any, id: any) => {  //RingMaterialDataType
     const newData = dataMaterial.map((item) =>
-      item.key === key ? { ...item, [fieldName]: value } : item
+      item.id === id ? { ...item, [fieldName]: value } : item
     );
     setDataMaterial(newData);
   };
@@ -436,8 +392,8 @@ const JewelrySetting = () => {
   //   setDataMaterial(newData);
   // };
 
-  const handleDelete = (key: React.Key) => {
-    const newData = dataMaterial.filter((item) => item.key !== key);
+  const handleDelete = (id: React.Key) => {
+    const newData = dataMaterial.filter((item) => item.id !== id);
     setDataMaterial(newData);
   };
 
@@ -619,28 +575,6 @@ const JewelrySetting = () => {
                         />
                       </Form.Item>
                     </Styled.FormItem>
-                    {/* <Styled.FormItem>
-                      <Form.Item label="Diamond Shape">
-                        <Select
-                          //   defaultValue="Select Shape"
-                          className="formItem"
-                          placeholder="Select Shape"
-                          onChange={handleChange}
-                          options={[
-                            { value: "Round", label: "Round" },
-                            { value: "Princess", label: "Princess" },
-                            { value: "Cushion", label: "Cushion" },
-                            { value: "Oval", label: "Oval" },
-                            { value: "Emerald", label: "Emerald" },
-                            { value: "Pear", label: "Pear" },
-                            { value: "Asscher", label: "Asscher" },
-                            { value: "Heart", label: "Heart" },
-                            { value: "Radiant", label: "Radiant" },
-                            { value: "Marquise", label: "Marquise" },
-                          ]}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item
                         label="Jewelry Setting ID"
@@ -776,16 +710,11 @@ const JewelrySetting = () => {
               ) : (
                 <Form form={form} component={false}>
                   <Table
-                    // components={{
-                    //   body: {
-                    //     cell: EditableCell,
-                    //   },
-                    // }}
                     bordered
                     dataSource={settings}
                     columns={columns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} // Add pagination here
+                    pagination={{ pageSize: 6 }} 
                     onChange={onChangeTable}
                   />
                 </Form>
