@@ -1,5 +1,5 @@
 import * as Styled from "../Jewelry Setting/RingSetting.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
@@ -32,6 +32,7 @@ import {
   Space,
   Popconfirm,
   Popover,
+  notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
@@ -50,6 +51,8 @@ import {
 import { Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
 import { JewelryType_Filter } from "./RingSetting.type";
+import { showAllSetting } from "@/services/jewelrySettingAPI";
+import { getImage } from "@/services/imageAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -182,7 +185,7 @@ const EditableMaterialCell: React.FC<{
     <td>
       {editable ? (
         materialOptions ? (
-          <Select value={value} onChange={onChange}>
+          <Select placeholder="Select Material" onChange={onChange}>
             {materialOptions.map((option) => (
               <Select.Option key={option.value} value={option.value}>
                 {option.label}
@@ -215,7 +218,7 @@ const EditableSizeCell: React.FC<{
     <td>
       {editable ? (
         options ? (
-          <Select value={value} onChange={onChange}>
+          <Select placeholder="Select Size" onChange={onChange}>
             {options.map((option) => (
               <Select.Option key={option.value} value={option.value}>
                 {option.label}
@@ -258,48 +261,63 @@ const EditableCell_Material: React.FC<{
 const JewelrySetting = () => {
   const [form] = Form.useForm();
   const [data] = useState<RingDataType[]>(ringData);
-  // const [currency, setCurrency] = useState<"VND" | "USD">("USD");
   const [isAdding, setIsAdding] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [api, contextHolder] = notification.useNotification();
+  const [settings, setSettings] = useState([]);
 
-  //  Change Currency
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllSetting();
+      const { data } = response.data; 
+      const formattedSettings = data.map((setting: any) => ({
+        jewelrySettingID: setting.JewelrySettingID,
+        jewelrySettingName: setting.Name,
+        productID: setting.ProductID,
+        productionCost: setting.ProductionCost,
+        isActive: setting.IsActive === true,
+        jewelrySettingVariant: setting.jewelrySettingVariant.map((variant: any) => ({
+          id: variant.JewelrySettingVariantID
+        })),
+        images: setting.usingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+      console.log('Formatted Diamonds:', formattedSettings); // Log formatted diamonds
+      setSettings(formattedSettings);
+    } catch (error) {
+      console.error("Failed to fetch diamonds:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+  //  CHANGE 
   const handleChange = (value: string) => {
     console.log(`selected ${value}`);
   };
 
-  // const handleCurrencyChange = (value: "VND" | "USD") => {
-  //   setCurrency(value);
-  // };
-
-  // const convertPrice = (
-  //   price: number,
-  //   exchangeRate: number,
-  //   currency: "VND" | "USD"
-  // ) => {
-  //   if (currency === "VND") {
-  //     return price * exchangeRate;
-  //   }
-  //   return price;
-  // };
-
-  // const sellingPrice = (price: number, markupPercentage: number) => {
-  //   return price * (1 + markupPercentage / 100);
-  // };
-
-  const columns: TableColumnsType<RingDataType> = [
+  const columns: TableColumnsType<any> = [
     {
       title: "Jewelry Setting ID",
       dataIndex: "jewelrySettingID",
-      sorter: (a: RingDataType, b: RingDataType) =>
-        a.jewelrySettingID.localeCompare(b.jewelrySettingID),
+      // defaultSortOrder: "descend",
+      sorter: (a, b) => parseInt(a.jewelrySettingID) - parseInt(b.jewelrySettingID),
     },
     {
       title: "Image",
       key: "jewelrySettingImg",
       className: "TextAlign",
-      render: (_, record: RingDataType) => (
+      render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.jewelrySettingImg[0]}  
+            src={record.images && record.images[0] ? record.images[0].url : "default-image-url"}
             alt={record.jewelrySettingName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -309,37 +327,9 @@ const JewelrySetting = () => {
     {
       title: "Jewelry Setting Name",
       dataIndex: "jewelrySettingName",
-      sorter: (a: RingDataType, b: RingDataType) =>
+      sorter: (a, b) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
     },
-    // {
-    //   title: `Cost Price (${currency})`,
-    //   key: "price",
-    //   sorter: (a: RingDataType, b: RingDataType) =>
-    //     convertPrice(a.price, a.exchangeRate, currency) -
-    //     convertPrice(b.price, b.exchangeRate, currency),
-    //   render: (_: unknown, record: RingDataType) => {
-    //     const convertedPrice = convertPrice(
-    //       record.price,
-    //       record.exchangeRate,
-    //       currency
-    //     );
-    //     return `${convertedPrice.toFixed(2)} ${currency}`;
-    //   },
-    // },
-    // {
-    //   title: `Selling Price (${currency})`,
-    //   key: "sellingPrice",
-    //   render: (_: unknown, record: RingDataType) => {
-    //     const convertedPrice = convertPrice(
-    //       record.price,
-    //       record.exchangeRate,
-    //       currency
-    //     );
-    //     const price = sellingPrice(convertedPrice, record.markupPercentage);
-    //     return `${price.toFixed(2)} ${currency}`;
-    //   },
-    // },
     {
       title: "Type",
       dataIndex: "type",
@@ -365,8 +355,8 @@ const JewelrySetting = () => {
     },
   ];
 
-  const [searchText, setSearchText] = useState("");
 
+  // SEARCH 
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
