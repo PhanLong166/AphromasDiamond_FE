@@ -247,6 +247,7 @@ export const RecentOrders_List = styled.div`
     margin: 0px 0px 20px 0px;
     align-items: center;
 
+
     p {
       font-size: 13px;
       // font-weight: 600;

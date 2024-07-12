@@ -1222,10 +1222,10 @@ const DiamondDetail = () => {
                             <p>Fluorescence</p>
                             <span>{activeDiamond.Fluorescence}</span>
                           </Styled.InforLine>
-                          <Styled.InforLine>
+                          <Styled.FormDescript>
                             <p>Description</p>
                             <span>{activeDiamond.Description}</span>
-                          </Styled.InforLine>
+                          </Styled.FormDescript>
 
                           <Modal
                             title="Confirm Deletion"
