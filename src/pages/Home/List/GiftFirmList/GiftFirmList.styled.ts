@@ -1,6 +1,7 @@
 import styled from "styled-components";
 import { theme } from "../../../../themes";
-
+import { Collapse } from "antd";
+import { Breadcrumb } from "antd";
 const GlobalStyle = `
   @import url('https://fonts.googleapis.com/css2?family=Great+Vibes&display=swap');
   @import url('https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400..900;1,400..900&display=swap');
@@ -12,6 +13,31 @@ const GlobalStyle = `
     font-family: 'Great Vibes', cursive;
     background-color: ${theme.color.white};
   }
+`;
+export const CustomBreadcrumb = styled(Breadcrumb)`
+padding-top: 10px;
+padding-bottom: 10px;
+max-width: 1400px;
+margin: 0 auto;
+`;
+
+export const StyledCollapse = styled(Collapse)`
+.ant-collapse-item {
+  background-color: #ffffff;
+}
+.ant-collapse-header-text {
+  color: ${theme.color.primary};
+}
+.ant-collapse-content {
+  background-color: #f5f2ed;
+  color: #45413e;
+}
+.ant-collapse-expand-icon {
+  color: ${theme.color.primary};
+}
+.ant-collapse-header {
+  border-radius: 8px;
+}
 `;
 
 export default GlobalStyle;

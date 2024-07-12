@@ -1,27 +1,15 @@
 import React, { useState, useEffect } from "react";
-import styled from "styled-components";
-import { Breadcrumb } from "antd";
 import { products } from "./../shared/ListOfProducts";
-
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import Link from "@/components/Link";
-import { Section, Container, Heading, List } from "./AllEngagementRing.styled";
-import { Card, Col, Row, Typography, Pagination } from "antd";
+
+import { Section, Container, Heading, List, StyledPagination, CustomBreadcrumb} from "./AllEngagementRing.styled";
+import { Card, Col, Row, Typography } from "antd";
 import FilterSort from "@/components/FilterSort/FilterSort";
+import { Link } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
-const CustomBreadcrumb = styled(Breadcrumb)`
-  max-width: 1400px;
-  margin: 0 auto;
-  padding-top: 20px;
-`;
 
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
 
 const AllEngagementRing: React.FC = () => {
   const includedCategoryKeyword = "engagement-ring";
@@ -103,7 +91,7 @@ const AllEngagementRing: React.FC = () => {
           <Row gutter={[16, 16]}>
             {filteredProducts.map((product) => (
               <Col key={product.id} span={6}>
-                <Link to={`/product/${product.id}`} underline zoom scroll>
+              
                   <Card
                     key={product.id}
                     style={{ borderRadius: "0" }}
@@ -111,6 +99,7 @@ const AllEngagementRing: React.FC = () => {
                     className="product-card"
                     cover={
                       <>
+                        <Link to={`/product/${product.id}`} >
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -123,6 +112,7 @@ const AllEngagementRing: React.FC = () => {
                             (e.currentTarget.src = product.images[0])
                           }
                         />
+                        </Link>
                         {product.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
@@ -131,7 +121,9 @@ const AllEngagementRing: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`}>
                         <div>{product.name}</div>
+                        </Link>
                         {wishList.includes(product.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -159,7 +151,7 @@ const AllEngagementRing: React.FC = () => {
                       </div>
                     </div>
                   </Card>
-                </Link>
+               
               </Col>
             ))}
           </Row>

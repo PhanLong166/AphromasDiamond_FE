@@ -100,18 +100,6 @@ const categories = [
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fwedding-home(1)(1).png?alt=media&token=cf3a01fb-63de-4daf-a868-0b99d0b667c4",
     title: "Wedding Ring",
   },
-  // {
-  //   href: "#",
-  //   imgSrc:
-  //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FBangles.png?alt=media&token=9e311318-1224-4c59-9c64-12a552139b90",
-  //   title: "Bangles",
-  // },
-  // {
-  //   href: "#",
-  //   imgSrc:
-  //     "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FPendants.png?alt=media&token=952c14cf-4c39-4560-b9e2-79a4ff31258d",
-  //   title: "Pendants",
-  // },
 ];
 
 const shapes = [
@@ -205,7 +193,7 @@ const shapes = [
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fmarquiseshape.jpg?alt=media&token=bb18d51b-1230-4829-a677-2ec98998b215",
     title: "Marquise",
   },
-  // Add more shapes as needed
+
 ];
 
 const brand = [
@@ -234,7 +222,6 @@ const brand = [
     title: "Tiffany & Co.",
   },
 
-  // Add more shapes as needed
 ];
 
 const Home: React.FC = () => {

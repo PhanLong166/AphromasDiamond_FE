@@ -6,186 +6,26 @@ import {
   FAQs,
   LeftFAQ,
   List,
+  StyledPagination,
+  CustomBreadcrumb,
+  StyledCollapse
 } from "./ProductList.styled";
-import styled from "styled-components";
 import {
-  Breadcrumb,
-  Collapse,
   Card,
   Col,
   Row,
   Typography,
-  Pagination,
 } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import { theme } from "../../../../themes";
-import { products } from "../../shared/ListOfProducts";
-import { useNavigate, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import FilterSort from "@/components/FilterSort/FilterSort";
-import Link from "@/components/Link";
-
-const CustomBreadcrumb = styled(Breadcrumb)`
-  margin-left: 175px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-  max-width: 1400px;
-  margin: 0 auto;
-`;
-
-const StyledPagination = styled(Pagination)`
-  display: block;
-  text-align: center;
-  margin: 20px auto;
-`;
+import { jewelryData } from "./ProductList.data";
 
 const ProductList: React.FC = () => {
   const { jewelryType } = useParams<{ jewelryType: string }>();
   const navigate = useNavigate();
-
-  const excludedCategories = [
-    "wedding-ring",
-    "engagement-ring",
-    "men-engagement-ring",
-    "men-wedding-ring",
-  ];
-
-  const jewelryData: Record<string, any> = {
-    bracelet: {
-      title: "Bracelet",
-      description:
-        "Elevate your style with our diamond bracelets, crafted to perfection in yellow gold, white gold, rose gold, or platinum. Each bracelet features meticulously set diamonds that sparkle with every movement, offering a luxurious and timeless accessory for any occasion. Whether worn alone as a statement piece or layered with other jewelry, our bracelets are designed to enhance your beauty and express your individuality with sophistication and grace.",
-      products: products.filter((product) => product.categories === "bracelet"),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $900 to $1000 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Fnecklacelist.jpeg?alt=media&token=e518f32c-79ba-4898-9438-4a294882b4e9",
-    },
-
-    necklace: {
-      title: "Necklace",
-      description:
-        "Adorn yourself with our exquisite diamond necklaces, crafted to capture attention and admiration. Set in yellow gold, white gold, rose gold, or platinum, each necklace showcases the beauty of diamonds in designs that range from classic to contemporary, making them a stunning addition to any jewelry collection. Whether worn as a centerpiece for formal occasions or as an everyday luxury, our necklaces are designed to complement your style and elevate your look with timeless elegance.",
-      products: products.filter((product) => product.categories === "necklace"),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $700 to $800 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FDesign%20Your%20Own%20Pendant.jpeg?alt=media&token=9e6ba197-39d3-4b7e-84f3-a185792eb4aa",
-    },
-    earrings: {
-      title: "Earrings",
-      description:
-        "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
-      products: products.filter((product) => product.categories === "earrings"),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $500 to $600 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20Diamond%20Earring.jpeg?alt=media&token=7fe4d3e5-6894-4b52-90b8-ac1d94b5f588",
-    },
-    ring: {
-      title: "Rings Setting",
-      description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.type === "Ring" && !excludedCategories.includes(product.categories)),
-      faqs: [
-        {
-          key: "1",
-          label: "What is the average cost of a womens diamond wedding ring?",
-          children: (
-            <p>
-              {" "}
-              Our women's diamond rings range from $276 to $56,024 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
-            </p>
-          ),
-        },
-        {
-          key: "2",
-          label: "Can weddings rings be diamond rings?",
-          children: (
-            <p>
-              {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
-            </p>
-          ),
-        },
-      ],
-      bannerImage:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20grown%20diamonds.jpeg?alt=media&token=63d86a3e-c0cb-48ea-a8e7-38e650e17425",
-    },
-  };
 
   if (!jewelryType || !jewelryData[jewelryType]) {
     return <div>Invalid jewelry type selected.</div>;
@@ -225,25 +65,6 @@ const ProductList: React.FC = () => {
   const onChange = (key: string | string[]) => {
     console.log(key);
   };
-
-  const StyledCollapse = styled(Collapse)`
-    .ant-collapse-item {
-      background-color: #ffffff;
-    }
-    .ant-collapse-header-text {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-content {
-      background-color: #f4f2ee;
-      color: #45413e;
-    }
-    .ant-collapse-expand-icon {
-      color: ${theme.color.primary};
-    }
-    .ant-collapse-header {
-      border-radius: 8px;
-    }
-  `;
 
   return (
     <Container>
@@ -287,14 +108,14 @@ const ProductList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentJewelryData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              <Link to={`/product/${product.id}`} underline zoom scroll>
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <Link to={`/product/${product.id}`} >
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -307,40 +128,42 @@ const ProductList: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
+                    </Link>
+                    {product.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`} >
                       <div>{product.name}</div>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${product.salePrice ? product.salePrice : product.price}
+                    </Text>
+                    {product.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${product.price}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
-              </Link>
+                </div>
+              </Card>
             </Col>
           ))}
           <Col span={6}>
