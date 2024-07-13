@@ -31,17 +31,13 @@ const fetchCartItemsWithDetails = async () => {
           item.DiamondID
         );
         console.log('a',diamondDetails?.data?.usingImage)
-        // const usingImageID = diamondDetails.data.usingImage[0].usingImageID;
-        // console.log(usingImageID)
-        // const imagesDiamond = await getImageDiamond(usingImageID);
+        // chỉ lấy 1 ảnh của kim cương 
         const usingImageID = diamondDetails.data.usingImage[0]
-        // console.log(diamondDetails.data.usingImage[0])
-        // console.log(diamondDetails.data)
-        // console.log('usingImageID',usingImageID)
+        // api get image diamond
         const imageDiamond = await getImageDiamond(usingImageID);
-        console.log(imageDiamond)
-        // console.log(diamondDetails.data)
-        // Dùng dữ liệu của diamond để chọn type vì Swagger chưa có type diamond với ring :)
+        console.log(imageDiamond);
+        
+        // Dùng dữ liệu của diamond để chọn type để tùy chọn UI cho kim cương hoặc ring
         const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
         // Kết hợp thông tin chi tiết vào từng item trong giỏ hàng
         return { ...item, diamondDetails: diamondDetails.data, type };
@@ -53,7 +49,7 @@ const fetchCartItemsWithDetails = async () => {
     console.log('detailedCartItems',detailedCartItems)
     return detailedCartItems;
   } catch (error) {
-    console.log("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+    console.log("error");
   }
 };
 
