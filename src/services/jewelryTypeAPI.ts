@@ -1,4 +1,4 @@
-import { get, post, put } from "./apiCaller"
+import { get, post, put, remove } from "./apiCaller"
 
 export const showAllJewelryType = () => {
     return get(`/jewelrytype/showAll`);
@@ -9,5 +9,9 @@ export const createJewelryType = (jewelryType: object) => {
 }
 
 export const updateJewelryType = (id: number, jewelryType: object) => {
-    return put(`/jewelryType/update/${id}`, jewelryType);
+    return put(`/jewelrytype/update/${id}`, jewelryType);
+}
+
+export const deleteJewelryType = (id: number) => {
+    return remove(`/jewelrytype/delete/${id}`);
 }

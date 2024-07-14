@@ -172,9 +172,9 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
-import Link from "@/components/Link";
 import { showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
+import { Link } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -212,11 +212,10 @@ const AllDiamond: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showDiamonds({page: 1});
+        const response = await showDiamonds({ page: 1 });
         console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
-          // Check for response.data.data
           const fetchedDiamonds = response.data.data.map((item: any) => ({
             id: item.DiamondID,
             name: item.Name,
@@ -282,20 +281,21 @@ const AllDiamond: React.FC = () => {
             .slice((currentPage - 1) * pageSize, currentPage * pageSize)
             .map((diamond) => (
               <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+              
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
                     className="product-card"
                     cover={
                       <>
+                      <Link to={`/diamond/${diamond.id}`}>
                         <img
                           style={{ borderRadius: "0" }}
                           src={
                             diamond.images && diamond.images.length > 0
                               ? diamond.images[0].url
                               : "/default-image.jpg"
-                          } // Thay '/default-image.jpg' bằng đường dẫn của ảnh mặc định
+                          } 
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
@@ -305,6 +305,7 @@ const AllDiamond: React.FC = () => {
                                 : "/default-image.jpg")
                           }
                         />
+                        </Link>
                         {diamond.salePrice && (
                           <div className="sale-badge">SALE</div>
                         )}
@@ -313,7 +314,9 @@ const AllDiamond: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
+                      <Link to={`/diamond/${diamond.id}`} >
                         {diamond.name}
+                        </Link>
                         {wishList.includes(diamond.id) ? (
                           <HeartFilled
                             className="wishlist-icon"
@@ -341,7 +344,7 @@ const AllDiamond: React.FC = () => {
                       </div>
                     </div>
                   </Card>
-                </Link>
+                
               </Col>
             ))}
         </Row>

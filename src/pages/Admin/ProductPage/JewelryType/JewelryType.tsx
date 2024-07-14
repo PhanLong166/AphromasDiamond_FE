@@ -1,7 +1,11 @@
 import * as Styled from "./JewelryType.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined, SaveOutlined, } from "@ant-design/icons";
+import {
+  SearchOutlined,
+  PlusCircleOutlined,
+  SaveOutlined,
+} from "@ant-design/icons";
 import type { FormInstance, TableProps } from "antd";
 import {
   Form,
@@ -11,19 +15,19 @@ import {
   Table,
   Typography,
   Button,
+  notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
-import { jewTypeData, JewTypeDataType } from "../ProductData"; // Import data here
-
-
+// import { jewTypeData, JewTypeDataType } from "../ProductData"; // Import data here
+import { deleteJewelryType, showAllJewelryType } from "@/services/jewelryTypeAPI";
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof JewTypeDataType;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: JewTypeDataType;
+  record: any;
   index: number;
   // children: React.ReactNode;
 }
@@ -42,7 +46,7 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
+          name={dataIndex.toString()}
           style={{ margin: 0 }}
           rules={[
             {
@@ -60,45 +64,79 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
-
-
-
 const JewelryType = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<JewTypeDataType[]>(jewTypeData);
+  const [searchText, setSearchText] = useState("");
+  // const [data, setData] = useState<JewTypeDataType[]>(jewTypeData);
   const [isAdding, setIsAdding] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+  const [types, setTypes] = useState<any[]>([]);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: JewTypeDataType) => record.key === editingKey;
-  const edit = (record: Partial<JewTypeDataType> & { key: React.Key }) => {
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} diamond successfully` : error,
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllJewelryType();
+      console.log("API response:", response);
+      const { data } = response.data;
+      const formattedTypes = data.map((type: any) => ({
+        jewelryTypeID: type.JewelryTypeID,
+        jewelryTypeName: type.Name,
+      }));
+      console.log("Formatted Types:", formattedTypes); // Log formatted diamonds
+      setTypes(formattedTypes);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  // SUBMIT FORM
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+    form,
+    children,
+  }) => {
+    const [submittable, setSubmittable] = React.useState<boolean>(false);
+    openNotification("success", "Add", "");
+    // Watch all values
+    const values = Form.useWatch([], form);
+
+    React.useEffect(() => {
+      form
+        .validateFields({ validateOnly: true })
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+    }, [form, values]);
+
+    return (
+      <Button type="primary" htmlType="submit" disabled={!submittable}>
+        {children}
+      </Button>
+    );
+  };
+
+  const isEditing = (record: any) => record.key === editingKey;
+  const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
       jewelryTypeID: "",
       jewelryTypeName: "",
@@ -111,8 +149,8 @@ const JewelryType = () => {
   };
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as JewTypeDataType;
-      const newData = [...data];
+      const row = (await form.validateFields()) as any;
+      const newData = [...types];
       const index = newData.findIndex((item) => key === item.key);
       if (index > -1) {
         const item = newData[index];
@@ -120,11 +158,11 @@ const JewelryType = () => {
           ...item,
           ...row,
         });
-        setData(newData);
+        setTypes(newData);
         setEditingKey("");
       } else {
         newData.push(row);
-        setData(newData);
+        setTypes(newData);
         setEditingKey("");
       }
     } catch (errInfo) {
@@ -132,31 +170,31 @@ const JewelryType = () => {
     }
   };
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
-  };
+  // const handleDelete = (key: React.Key) => {
+  //   const newData = types.filter((item) => item.key !== key);
+  //   setTypes(newData);
+  // };
 
   const columns = [
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
       editable: true,
-      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
+      sorter: (a: any, b: any) =>
         a.jewelryTypeID.localeCompare(b.jewelryTypeID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
       editable: true,
-      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
+      sorter: (a: any, b: any) =>
         a.jewelryTypeName.length - b.jewelryTypeName.length,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign",
-      render: (_: unknown, record: JewTypeDataType) => {
+      render: (_: unknown, record: any) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -184,11 +222,11 @@ const JewelryType = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: JewTypeDataType) =>
-        jewTypeData.length >= 1 ? (
+      render: (_: unknown, record: any) =>
+        types.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => deleteJewelryType(record.jewelryTypeID)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -202,7 +240,7 @@ const JewelryType = () => {
     }
     return {
       ...col,
-      onCell: (record: JewTypeDataType) => ({
+      onCell: (record: any) => ({
         record,
         inputType: col.dataIndex === "price" ? "number" : "text",
         dataIndex: col.dataIndex,
@@ -213,8 +251,7 @@ const JewelryType = () => {
   });
   mergedColumns;
 
-  const [searchText, setSearchText] = useState("");
-
+  // SEARCH AREA
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -250,6 +287,8 @@ const JewelryType = () => {
 
   return (
     <>
+      {contextHolder}
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -292,31 +331,58 @@ const JewelryType = () => {
             <Styled.AdminTable>
               {isAdding ? (
                 <>
-                <Form layout="vertical" className="AdPageContent_Content">
-                  <Styled.FormItem>
+                  <Form
+                    form={form}
+                    layout="vertical"
+                    className="AdPageContent_Content"
+                    onFinish={() => console.log("Form submitted")}
+                  >
+                    {/* <Styled.FormItem>
                     <Form.Item label="Jewelry Type ID"  name="Jewelry Type ID" rules={[{ required: true }]}>
                       <Input className="formItem" placeholder="D1234" />
                     </Form.Item>
-                  </Styled.FormItem>
-                  <Styled.FormItem>
-                    <Form.Item label="Jewelry Type Name" name="Jewelry Type Name" rules={[{ required: true }]}>
-                      <Input className="formItem" placeholder="Filled" />
-                    </Form.Item>
-                  </Styled.FormItem>
-                </Form>
-                <Styled.ActionBtn>
-                <SubmitButton form={form}>
+                  </Styled.FormItem> */}
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Jewelry Type Name"
+                        name="Jewelry Type Name"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Diamond Name is required.",
+                          },
+                          {
+                            type: "string",
+                            message: "Only alphabet is allowed.",
+                          },
+                          {
+                            max: 100,
+                            message:
+                              "Diamond Name must be at most 300 characters long.",
+                          },
+                          {
+                            whitespace: true,
+                            message: "Not only has whitespace.",
+                          },
+                        ]}
+                      >
+                        <Input className="formItem" placeholder="Filled" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                  </Form>
+                  <Styled.ActionBtn>
+                    <SubmitButton form={form}>
                       <SaveOutlined />
                       Save
                     </SubmitButton>
-                  <Button
-                    onClick={handleCancel}
-                    style={{ marginLeft: "10px" }}
-                  >
-                    Cancel
-                  </Button>
-                </Styled.ActionBtn>
-              </>
+                    <Button
+                      onClick={handleCancel}
+                      style={{ marginLeft: "10px" }}
+                    >
+                      Cancel
+                    </Button>
+                  </Styled.ActionBtn>
+                </>
               ) : (
                 <Form form={form} component={false}>
                   <Table
@@ -326,7 +392,7 @@ const JewelryType = () => {
                       },
                     }}
                     bordered
-                    dataSource={jewTypeData}
+                    dataSource={types}
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{

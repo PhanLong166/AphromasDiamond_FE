@@ -1,5 +1,41 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { Breadcrumb, Pagination } from "antd"; 
+
+export const CustomBreadcrumb = styled(Breadcrumb)`
+  max-width: 1400px;
+  margin: 0 auto;
+  padding-top: 20px;
+`;
+
+export const StyledPagination = styled(Pagination)`
+  display: block;
+  text-align: center;
+  margin: 20px auto;
+`;
+
+export const CloseButton = styled.button`
+  position: absolute;
+  bottom: 100px;
+  right: 0;
+  background-color: #000;
+  opacity: 0.5;
+  border: none;
+  padding: 20px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+
+  &:hover {
+    background-color: #000;
+    opacity: 1;
+     transition: background-color 0.3s ease;
+  }
+
+  .close-icon-wrapper {
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+`;
 
 export const Section = styled.div`
   margin: 0 auto;

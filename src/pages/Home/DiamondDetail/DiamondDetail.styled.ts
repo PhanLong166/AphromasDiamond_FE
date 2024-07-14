@@ -1,6 +1,12 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
 import { Breadcrumb } from "antd";
+import { Pagination } from "antd";
+export const StyledPagination = styled(Pagination)`
+display: block;
+text-align: center;
+margin: 20px auto;
+`;
 
 export const Body = styled.div`
   margin: 0;
@@ -703,7 +709,7 @@ export const Review = styled.div`
 export const ProductSection = styled.section`
   margin: 60px auto;
   max-width: 1400px;
-  margin-bottom: 0;
+  // margin-bottom: 0;
 `;
 export const ProductSectionViewed = styled.section`
   margin: 60px auto;
@@ -894,4 +900,10 @@ export const CustomBreadcrumb = styled(Breadcrumb)`
   padding-bottom: 10px;
   max-width: 1400px;
   margin: 0 auto;
+`;
+
+export const ImageHolder = styled.div`
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
 `;
