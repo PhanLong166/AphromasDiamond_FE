@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { get, post, put, remove } from "./apiCaller";
 
 export const showAllDiamond = () => {
@@ -24,3 +25,6 @@ export const deleteDiamond = (id: number) => {
     return remove(`/diamond/update/${id}`);
 }
 
+export const getImageDiamond = (id: number) => {
+    return get(`/usingImage/${id}`)
+}

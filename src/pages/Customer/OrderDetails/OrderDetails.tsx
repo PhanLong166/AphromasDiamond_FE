@@ -1,10 +1,13 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import { Button, ConfigProvider, Table } from 'antd';
 import type { ColumnsType } from "antd/es/table";
 import Table from "antd/es/table";
-import { Tag, Form, Flex, Rate } from "antd";
-import TextArea from "antd/es/input/TextArea";
+import { Tag, notification, Space, Button } from "antd";
+// import TextArea from "antd/es/input/TextArea";
+// import { Link } from "react-router-dom";
+import ReviewForm from "./ReviewForm";
 
 interface Product {
   id: string;
@@ -111,11 +114,11 @@ const formatPrice = (price: number): string => {
   return `$${price.toFixed(0)}`;
 };
 
-const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
 const OrderDetail: React.FC = () => {
   const [order, setOrder] = useState<OrderProps | null>(null);
-  const [value, setValue] = useState(3);
+  // const [value, setValue] = useState(3);
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   // const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
   useEffect(() => {
@@ -179,6 +182,17 @@ const OrderDetail: React.FC = () => {
       render: (_, record) =>
         formatPrice(Number(record.price) * record.quantity),
     },
+    {
+      title: "Action",
+      key: "action",
+      render: () => (
+        <Space style={{ width: 134 }} size="middle">
+          {/* <Link to="/order-details">Feedback</Link> */}
+          <Button type="link" onClick={() => setIsModalVisible(true)}>Feedback</Button>
+        </Space>
+      ),
+      width: 134,
+    },
   ];
 
   const calculateTotal = () => {
@@ -189,6 +203,14 @@ const OrderDetail: React.FC = () => {
     return formatPrice(productsTotal - discount + vat);
   };
   // eslint-disable-next-line react-hooks/rules-of-hooks
+  const handleCreate = (values: any) => {
+    console.log('Received values from form: ', values);
+    setIsModalVisible(false);
+    notification.success({
+      message: 'Đánh giá thành công',
+      description: 'Cảm ơn bạn đã gửi đánh giá!',
+    });
+  };
 
   return (
     <MainContainer>
@@ -220,27 +242,11 @@ const OrderDetail: React.FC = () => {
             pagination={false}
             rowKey="id"
           />
-          <Form>
-            {/* checked={componentDisabled} */}
-            <Flex
-            style={{ margin: "20px 0 20px 0" }}
-            gap="middle" vertical>
-              <Rate tooltips={desc} onChange={setValue} value={value} />
-              {/* {value ? <span>{desc[value - 1]}</span> : null} */}
-            </Flex>
-            <Form.Item>
-              <TextArea
-                placeholder="Tell us how can ưe improve better!"
-                // onChange={(e) => setComponentDisabled(e.target.checked)}
-                // disabled
-                rows={4}
-                style={{ width: "400px", height: "140px" }}
-                allowClear
-                showCount
-                maxLength={300}
-              />
-            </Form.Item>
-          </Form>
+          <ReviewForm
+            visible={isModalVisible}
+            onCreate={handleCreate}
+            onCancel={() => setIsModalVisible(false)}
+          ></ReviewForm>
         </ProductsWrapper>
 
         <OrderInfo>
