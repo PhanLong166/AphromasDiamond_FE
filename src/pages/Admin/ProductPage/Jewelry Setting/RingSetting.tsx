@@ -33,6 +33,7 @@ import {
   Popconfirm,
   Popover,
   notification,
+  Switch,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
@@ -44,6 +45,7 @@ import { showAllSetting } from "@/services/jewelrySettingAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllMaterial } from "@/services/materialAPI";
 import { showAllJewelryType } from "@/services/jewelryTypeAPI";
+import { showAllSize } from "@/services/sizeAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
@@ -107,24 +109,28 @@ const JewelrySetting = () => {
   const [settings, setSettings] = useState([]);
   const [materials, setMaterials] = useState([]);
   const [jewelryTypes, setJewelryTypes] = useState([]);
+  const [sizes, setSizes] = useState([]);
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [selectedJewelryType, setSelectedJewelryType] = useState("");
-  const [settingName, setSettingName] = useState("");
+  const [settingSize, setSelectedSize] = useState("");
 
   const fetchData = async () => {
     try {
       const responseSetting = await showAllSetting();
       const responseMaterial = await showAllMaterial();
       const responseJewelryType = await showAllJewelryType();
+      const responseSize = await showAllSize();
 
       const { data: settingsData } = responseSetting.data;
       const { data: materialsData } = responseMaterial.data;
       const { data: jewelryTypesData } = responseJewelryType.data;
+      const { data: sizeData } = responseSize.data;
 
       const formattedSettings = settingsData.map((setting: any) => ({
         jewelrySettingID: setting.JewelrySettingID,
         jewelrySettingName: setting.Name,
         productID: setting.ProductID,
+        jewelryTypeID: setting.JewelryTypeID,
         productionCost: setting.ProductionCost,
         isActive: setting.IsActive === true,
         jewelrySettingVariant: setting.JewelrySettingVariant.map(
@@ -157,10 +163,16 @@ const JewelrySetting = () => {
         typeName: type.Name,
       }));
 
+      const formattedSizes = sizeData.map((size: any) => ({
+        sizeID: size.SizeID,
+        sizeValue: size.SizeValue,
+      }));
+
       console.log("Formatted Diamonds:", formattedSettings); // Log formatted diamonds
       setSettings(formattedSettings);
       setMaterials(formattedMaterials);
       setJewelryTypes(formattedType);
+      setSizes(formattedSizes);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }
@@ -171,9 +183,9 @@ const JewelrySetting = () => {
   }, []);
 
   //  CHANGE
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
+  // const handleChange = (value: string) => {
+  //   console.log(`selected ${value}`);
+  // };
 
   const columns: TableColumnsType<any> = [
     {
@@ -306,13 +318,6 @@ const JewelrySetting = () => {
   };
 
   // EDIT
-  const [editingKey, setEditingKey] = useState<string>("");
-  const isEditing = (record: any) => record.key === editingKey;
-
-  const handleEdit = (record: any) => {
-    setEditingKey(record.key);
-  };
-
   const handleSave = async (record: any) => {
     try {
       const row = await form.validateFields();
@@ -322,11 +327,9 @@ const JewelrySetting = () => {
         const item = newData[index];
         newData.splice(index, 1, { ...item, ...row });
         setDataMaterial(newData);
-        setEditingKey("");
       } else {
         newData.push(row);
         setDataMaterial(newData);
-        setEditingKey("");
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
@@ -351,64 +354,71 @@ const JewelrySetting = () => {
     setDataMaterial([...dataMaterial, newData]);
   };
 
-  const EditableMaterialCell: React.FC<{
-    title: React.ReactNode;
-    editable: boolean;
-    value: any;
-    onChange: (id: any) => void;
-    options?: { value: string; label: string }[];
-  }> = ({ editable, value, onChange }) => {
-    return (
-      <td>
-        {editable ? (
-          materials ? (
-            <Select placeholder="Select Material" onChange={onChange}>
-              {materials.map((option) => (
-                <Select.Option
-                  key={option.materialID}
-                  value={option.materialName}
-                >
-                  {option.materialName}
-                </Select.Option>
-              ))}
-            </Select>
-          ) : (
-            <Input value={value} onChange={(e) => onChange(e.target.value)} />
-          )
-        ) : (
-          value
-        )}
-      </td>
-    );
-  };
+  // const EditableMaterialCell: React.FC<{
+  //   title: React.ReactNode;
+  //   editable: boolean;
+  //   value: any;
+  //   // onChange: (value: any) => typeof setSelectedMaterial(value);
+  //   options?: { value: any; label: any }[];
+  // }> = ({ editable, value, options }) => {
+  //   return (
+  //     <td>
+  //       {editable ? (
+  //         options ? (
+  //           <Select
+  //             placeholder="Select Material"
+  //             onChange={(value) => setSelectedMaterial(value)}
+  //           >
+  //             {options.map((option) => (
+  //               <Select.Option
+  //                 key={option.value}
+  //                 value={option.value}
+  //                 // name="material"
+  //               >
+  //                 {option.label}
+  //               </Select.Option>
+  //             ))}
+  //           </Select>
+  //         ) : (
+  //           <InputNumber defaultValue={value} />
+  //         )
+  //       ) : (
+  //         value
+  //       )}
+  //     </td>
+  //   );
+  // };
 
-  const EditableSizeCell: React.FC<{
-    title: React.ReactNode;
-    editable: boolean;
-    value: any;
-    onChange: (id: any) => void;
-    options?: { id: string; name: number }[];
-  }> = ({ editable, value, onChange, options }) => {
-    return (
-      <td>
-        {editable ? (
-          options ? (
-            <Select placeholder="Select Size" onChange={onChange}>
-              {options.map((option) => (
-                <Select.Option key={option.id} value={option.name}>
-                  {option.name}
-                </Select.Option>
-              ))}
-            </Select>
-          ) : (
-            <Input value={value} onChange={(e) => onChange(e.target.value)} />
-          )
-        ) : (
-          value
-        )}
-      </td>
-    );
-  };
+  // const EditableSizeCell: React.FC<{
+  //   title: React.ReactNode;
+  //   editable: boolean;
+  //   value: any;
+  //   // onChange: (value);
+  //   options?: { value: any; label: any }[];
+  // }> = ({ editable, value, options }) => {
+  //   return (
+  //     <td>
+  //       {editable ? (
+  //         options ? (
+  //           <Select
+  //             placeholder="Select Size"
+  //             onChange={(value) => setSelectedSize(value)}
+  //           >
+  //             {options.map((option) => (
+  //               <Select.Option key={option.value} value={option.value}>
+  //                 {option.label}
+  //               </Select.Option>
+  //             ))}
+  //           </Select>
+  //         ) : (
+  //           <Input value={value} onChange={(e) => onChange(e.target.value)} />
+  //         )
+  //       ) : (
+  //         value
+  //       )}
+  //     </td>
+  //   );
+  // };
 
   const EditableCell_Material: React.FC<{
     title: React.ReactNode;
@@ -429,42 +439,38 @@ const JewelrySetting = () => {
 
   const columnsMaterial: TableColumnsType<any> = [
     {
-      title: "Material Name",
-      dataIndex: "material",
-      key: "material",
+      title: "Material",
+      dataIndex: "materialID",
+      key: "materialID",
       // editable: true,
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return (
-          <EditableMaterialCell
-            title="material"
-            editable={editable}
-            value={record.material}
-            onChange={(value) =>
-              handleFieldChange("material", value, record.key)
-            }
-          />
-        );
-      },
+      render: () => (
+        <Select
+          placeholder="Select Material"
+          onChange={(value) => setSelectedMaterial(value)}
+        >
+          {materials.map((material) => (
+            <Select.Option key={material.materialID} value={material.materialID}>
+              {material.materialName}
+            </Select.Option>
+          ))}
+        </Select>
+      ),
     },
     {
       title: "Size Value",
       dataIndex: "sizeID",
-      render: (_, record) => {
-        const editable = isEditing(record);
-        return (
-          <EditableSizeCell
-            title="Size Value"
-            editable={editable}
-            value={record.sizeID}
-            onChange={(value) => handleFieldChange("sizeID", value, record.key)}
-            options={materials.map((material) => ({
-              id: material.SizeID,
-              name: material.SizeValue,
-            }))}
-          />
-        );
-      },
+      render: () => (
+        <Select
+          placeholder="Select Size"
+          onChange={(value) => setSelectedSize(value)}
+        >
+          {sizes.map((size) => (
+            <Select.Option key={size.sizeID} value={size.sizeID}>
+              {size.sizeValue}
+            </Select.Option>
+          ))}
+        </Select>
+      ),
     },
     {
       title: "Amount",
@@ -511,7 +517,18 @@ const JewelrySetting = () => {
     //   },
     // },
     {
-      title: "Price",
+      title: (
+            <>
+              Jewelry Setting Price
+              <Popover
+                content={PriceCalculation}
+                title="Price Calculation"
+                trigger="click"
+              >
+                <InfoCircleOutlined style={{ marginLeft: 8, fontSize: "12px" }} />
+              </Popover>
+            </>
+          ),
       dataIndex: "price",
       render: (_, record) => (
         <EditableCell_Material
@@ -536,6 +553,7 @@ const JewelrySetting = () => {
         ) : null,
     },
   ];
+  
 
   return (
     <>
@@ -563,16 +581,6 @@ const JewelrySetting = () => {
                         prefix={<SearchOutlined className="searchIcon" />}
                       />
                     </Styled.SearchArea>
-
-                    {/* <Select
-                      defaultValue="USD"
-                      style={{ width: 120, height: "45px" }}
-                      onChange={handleCurrencyChange}
-                      options={[
-                        { value: "USD", label: "USD" },
-                        { value: "VND", label: "VND" },
-                      ]}
-                    /> */}
                   </Styled.AdPageContent_HeadLeft>
 
                   <Styled.AddButton>
@@ -604,11 +612,23 @@ const JewelrySetting = () => {
                           className="formItem"
                           placeholder="Select Jewelry"
                           onChange={handleChange}
-                          options={settingsData.map((product) => ({
+                          options={productsData.map((product) => ({
                             value: product.jewelryID,
                             label: product.jewelryName,
                           }))}
                         />
+                        <Select
+                          placeholder="Select Jewelry"
+                          onChange={(value) => setSelectedJewelryType(value)}
+                        >
+                          {jewelryTypes.map((material) => (
+                            <Select.Option
+                              key={material.typeID}
+                              value={material.typeID}
+                            >
+                              {material.typeName}
+                            </Select.Option>
+                          ))}
                       </Form.Item>
                     </Styled.FormItem> */}
                     <Styled.FormItem>
@@ -627,6 +647,27 @@ const JewelrySetting = () => {
                         rules={[{ required: true }]}
                       >
                         <Input className="formItem" placeholder="Filled" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item
+                        label="Jewelry Setting Type"
+                        name="Jewelry Setting Type"
+                        rules={[{ required: true }]}
+                      >
+                        <Select
+                          placeholder="Select Type"
+                          onChange={(value) => setSelectedJewelryType(value)}
+                        >
+                          {jewelryTypes.map((material) => (
+                            <Select.Option
+                              key={material.typeID}
+                              value={material.typeID}
+                            >
+                              {material.typeName}
+                            </Select.Option>
+                          ))}
+                        </Select>
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
@@ -657,6 +698,11 @@ const JewelrySetting = () => {
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="150" />
+                      </Form.Item>
+                    </Styled.FormItem>
+                    <Styled.FormItem>
+                      <Form.Item label="Active" name="IsActive">
+                        <Switch />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
