@@ -113,7 +113,7 @@ const Cart = () => {
         console.log(data.message);
       }
     } catch (error: any) {
-
+      console.log(error);
     }
   }
 
