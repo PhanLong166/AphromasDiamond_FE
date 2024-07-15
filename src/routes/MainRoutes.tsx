@@ -63,6 +63,7 @@ import WeddingList from "@/pages/Home/List/WeddingList/WeddingList";
 import MenWeddingRing from "@/pages/Home/List/MenWeddingRing/MenWeddingRing";
 import WeddingDesignerList from "@/pages/Home/List/WeddingDesignerList/WeddingDesignerList";
 import SaleJewelryPage from "@/pages/Home/SaleJewelryPage/SaleJewelryPage";
+import ReviewFB from "@/pages/Customer/ReviewFB/ReviewFB";
 
 
 const MainRouter = () => {
@@ -151,6 +152,7 @@ const customerRoutes = {
     { path: config.routes.customer.voucher, element: <Voucher /> },
     { path: config.routes.customer.notification, element: <NotiPage /> },
     { path: config.routes.customer.orderDetails, element: <OrderDetail /> },
+    { path: config.routes.customer.reviewFeedBack, element: <ReviewFB /> },
   ],
 };
 
