@@ -29,6 +29,7 @@ const AccountCus = () => {
           <StyledNavLink to="/history">History</StyledNavLink>
           <StyledNavLink to="/noti">Notifications</StyledNavLink>
           <StyledNavLink to="/voucher">Voucher</StyledNavLink>
+          <StyledNavLink to="/review-feedback">Review Feedback</StyledNavLink>
         </NavSection>
       </Section>
     </MainContainer>
