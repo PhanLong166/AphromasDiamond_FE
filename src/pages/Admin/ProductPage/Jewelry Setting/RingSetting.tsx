@@ -37,45 +37,19 @@ import {
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
-import { SortOrder } from "antd/es/table/interface";
 import TextArea from "antd/es/input/TextArea";
 import { Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
-import { showAllSetting } from "@/services/jewelrySettingAPI";
+import { showAllSetting, createSetting } from "@/services/jewelrySettingAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllMaterial } from "@/services/materialAPI";
 import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 import { showAllSize } from "@/services/sizeAPI";
+import { showAllProduct } from "@/services/jewelryAPI";
+import { createSettingVariant } from "@/services/settingVariantAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
 
 // MATERIAL TABLE
 const calculateJewelrySettingPrice = (
@@ -87,12 +61,6 @@ const calculateJewelrySettingPrice = (
   return weight * pricePerGram + auxiliaryCost + productionCost;
 };
 
-// const getMaterialDetails = (
-//   materialID: string,
-//   materialData: showAllMaterial(),
-// ) => {
-//   return materialData.find((material) => material.materialID === materialID);
-// };
 
 const PriceCalculation = (
   <div>
@@ -110,9 +78,26 @@ const JewelrySetting = () => {
   const [materials, setMaterials] = useState([]);
   const [jewelryTypes, setJewelryTypes] = useState([]);
   const [sizes, setSizes] = useState([]);
+  const [products, setProducts] = useState([]);
   const [selectedMaterial, setSelectedMaterial] = useState("");
   const [selectedJewelryType, setSelectedJewelryType] = useState("");
-  const [settingSize, setSelectedSize] = useState("");
+  const [selectedSize, setSelectedSize] = useState("");
+  const [selectedProduct, setSelectedProduct] = useState("");
+
+  
+  type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description: type === "success" ? `${method} jewelry setting successfully` : error,
+    });
+  };
+
 
   const fetchData = async () => {
     try {
@@ -120,11 +105,13 @@ const JewelrySetting = () => {
       const responseMaterial = await showAllMaterial();
       const responseJewelryType = await showAllJewelryType();
       const responseSize = await showAllSize();
+      const responseProduct = await showAllProduct();
 
       const { data: settingsData } = responseSetting.data;
       const { data: materialsData } = responseMaterial.data;
       const { data: jewelryTypesData } = responseJewelryType.data;
       const { data: sizeData } = responseSize.data;
+      const { data: productData } = responseProduct.data;
 
       const formattedSettings = settingsData.map((setting: any) => ({
         jewelrySettingID: setting.JewelrySettingID,
@@ -158,7 +145,7 @@ const JewelrySetting = () => {
         sellPrice: material.SellPrice,
       }));
 
-      const formattedType = jewelryTypesData.map((type: any) => ({
+      const formattedTypes = jewelryTypesData.map((type: any) => ({
         typeID: type.JewelryTypeID,
         typeName: type.Name,
       }));
@@ -168,11 +155,17 @@ const JewelrySetting = () => {
         sizeValue: size.SizeValue,
       }));
 
+      const formattedProducts = productData.map((product: any) => ({
+        productID: product.ProductID,
+        productName: product.Name,
+      }));
+
       console.log("Formatted Diamonds:", formattedSettings); // Log formatted diamonds
       setSettings(formattedSettings);
       setMaterials(formattedMaterials);
-      setJewelryTypes(formattedType);
+      setJewelryTypes(formattedTypes);
       setSizes(formattedSizes);
+      setProducts(formattedProducts);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }
@@ -182,10 +175,8 @@ const JewelrySetting = () => {
     fetchData();
   }, []);
 
+
   //  CHANGE
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
 
   const columns: TableColumnsType<any> = [
     {
@@ -318,23 +309,24 @@ const JewelrySetting = () => {
   };
 
   // EDIT
-  const handleSave = async (record: any) => {
-    try {
-      const row = await form.validateFields();
-      const newData = [...dataMaterial];
-      const index = newData.findIndex((item) => record.key === item.key);
-      if (index > -1) {
-        const item = newData[index];
-        newData.splice(index, 1, { ...item, ...row });
-        setDataMaterial(newData);
-      } else {
-        newData.push(row);
-        setDataMaterial(newData);
-      }
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+
+  // const handleSave = async (record: any) => {
+  //   try {
+  //     const row = await form.validateFields();
+  //     const newData = [...dataMaterial];
+  //     const index = newData.findIndex((item) => record.key === item.key);
+  //     if (index > -1) {
+  //       const item = newData[index];
+  //       newData.splice(index, 1, { ...item, ...row });
+  //       setDataMaterial(newData);
+  //     } else {
+  //       newData.push(row);
+  //       setDataMaterial(newData);
+  //     }
+  //   } catch (errInfo) {
+  //     console.log("Validate Failed:", errInfo);
+  //   }
+  // };
 
   const handleAdd = () => {
     const newKey =
@@ -553,10 +545,67 @@ const JewelrySetting = () => {
         ) : null,
     },
   ];
+
+
+  
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  // const [submittable, setSubmittable] = React.useState<boolean>(false);
+  const [submittable, setSubmittable] = useState(false);
+
+  // Watch all values
+  const values = Form.useWatch([], form);
+  React.useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+
+  }, [values]);
+
+  const settingValues: object = {
+    ...values,
+    UpdateTime: new Date(),
+    DiamondShape: null,
+  }
+  console.log(settingValues);
+
+  const addSetting = async (settingValues: object) => {
+    try {
+      const { data } = await createSetting(settingValues);
+      if (data.statusCode !== 200) throw new Error(data.message);
+      fetchData(); // Refresh the table after adding a diamond
+      setIsAdding(false); // Close the add form after successful addition
+      openNotification("success", "Add", "");
+    } catch (error: any) {
+      openNotification("error", "", error.message);
+    }
+  };
+
+  return (
+    <Button
+      type="primary"
+      htmlType="submit"
+      disabled={!submittable}
+      onClick={() => addSetting(settingValues)}
+    >
+      {children}
+    </Button>
+  );
+};
   
 
   return (
     <>
+          {contextHolder}
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -609,26 +658,18 @@ const JewelrySetting = () => {
                         name="Jewelry Name"
                       >
                         <Select
-                          className="formItem"
                           placeholder="Select Jewelry"
-                          onChange={handleChange}
-                          options={productsData.map((product) => ({
-                            value: product.jewelryID,
-                            label: product.jewelryName,
-                          }))}
-                        />
-                        <Select
-                          placeholder="Select Jewelry"
-                          onChange={(value) => setSelectedJewelryType(value)}
+                          onChange={(value) => setSelectedProduct(value)}
                         >
-                          {jewelryTypes.map((material) => (
+                          {products.map((product) => (
                             <Select.Option
-                              key={material.typeID}
-                              value={material.typeID}
+                              key={product.productID}
+                              value={product.productID}
                             >
-                              {material.typeName}
+                              {product.productName}
                             </Select.Option>
                           ))}
+                        </Select>
                       </Form.Item>
                     </Styled.FormItem> */}
                     <Styled.FormItem>
@@ -749,7 +790,7 @@ const JewelrySetting = () => {
                         pagination={false}
                       />
                     </Styled.MaterialTable>
-                  </Form>
+                  
                   <Styled.ActionBtn>
                     <SubmitButton form={form}>
                       <SaveOutlined />
@@ -762,6 +803,7 @@ const JewelrySetting = () => {
                       Cancel
                     </Button>
                   </Styled.ActionBtn>
+                  </Form>
                 </>
               ) : (
                 <Form form={form} component={false}>
