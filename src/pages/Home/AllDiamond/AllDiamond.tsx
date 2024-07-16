@@ -172,11 +172,10 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
-import { showAllDiamond } from "@/services/diamondAPI";
+import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
-
 const { Title, Text } = Typography;
 
 const items = texts.map((text, index) => ({
@@ -197,12 +196,11 @@ const AllDiamond: React.FC = () => {
   const [wishList, setWishList] = useState<string[]>([]);
   // const [currentPage, setCurrentPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(12); // Set your desired page size
+  const [pageSize] = useState(12); // Set   your desired page size
   const location = useLocation();
   const navigate = useNavigate();
 
-  const [diamondData, setDiamondData] = useState([]);
-  // const pageSize = 12;
+  // const [diamondData, setDiamondData] = useState([]);
 
   const toggleWishList = (productId: string) => {
     setWishList((prev) =>
@@ -216,15 +214,55 @@ const AllDiamond: React.FC = () => {
   //   setCurrentPage(page);
   // };
 
-  // const handleChangePage = (page: number) => {
-  //   setCurrentPage(page);
-  //   navigate(`?page=${page}`);
-  // };
+  const handleChangePage = (page: number) => {
+    setCurrentPage(page);
+    navigate(`?page=${page}`);
+  };
 
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await showDiamonds({ page: 1 });
+        console.log("API response:", response.data.data);
+
+        if (response && response.data && Array.isArray(response.data.data)) {
+          const fetchedDiamonds = response.data.data.map((item: any) => ({
+            id: item.DiamondID,
+            name: item.Name,
+            cut: item.Cut,
+            price: item.Price,
+            color: item.Color,
+            description: item.Description,
+            isActive: item.IsActive,
+            clarity: item.Clarity,
+            cutter: item.Cutter,
+            discountPrice: item.DiscountPrice,
+            images: item.usingImage.map((image: any) => ({
+              id: image.UsingImageID,
+              name: image.Name,
+              url: getImage(image.UsingImageID),
+            })),
+          }));
+
+          console.log(fetchedDiamonds);
+
+          setDiamonds(fetchedDiamonds);
+          setLoading(false);
+        } else {
+          console.error("Unexpected API response format:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching diamonds:", error);
+      }
+    };
+    console.log(loading);
+
+    fetchData();
+  }, []);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
-  //       const response = await showDiamonds({ page: 1 });
+  //       const response = await showAllDiamond(); // Call the function to get the promise
   //       console.log("API response:", response.data.data);
 
   //       if (response && response.data && Array.isArray(response.data.data)) {
@@ -255,53 +293,15 @@ const AllDiamond: React.FC = () => {
   //       console.error("Error fetching diamonds:", error);
   //     }
   //   };
-  //   console.log(loading);
+
+  //   const queryParams = new URLSearchParams(location.search);
+  //   const page = queryParams.get("page");
+  //   if (page) {
+  //     setCurrentPage(Number(page));
+  //   }
 
   //   fetchData();
-  // }, []);
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await showAllDiamond(); // Call the function to get the promise
-        console.log("API response:", response.data.data);
-
-        if (response && response.data && Array.isArray(response.data.data)) {
-          const fetchedDiamonds = response.data.data.map((item: any) => ({
-            id: item.DiamondID,
-            name: item.Name,
-            cut: item.Cut,
-            price: item.Price,
-            color: item.Color,
-            description: item.Description,
-            isActive: item.IsActive,
-            clarity: item.Clarity,
-            images: item.usingImage.map((image: any) => ({
-              id: image.UsingImageID,
-              name: image.Name,
-              url: getImage(image.UsingImageID),
-            })),
-          }));
-
-          console.log(fetchedDiamonds);
-
-          setDiamonds(fetchedDiamonds);
-          setLoading(false);
-        } else {
-          console.error("Unexpected API response format:", response.data);
-        }
-      } catch (error) {
-        console.error("Error fetching diamonds:", error);
-      }
-    };
-
-    const queryParams = new URLSearchParams(location.search);
-    const page = queryParams.get("page");
-    if (page) {
-      setCurrentPage(Number(page));
-    }
-
-    fetchData();
-  }, [currentPage, location.search]);
+  // }, [currentPage, location.search]);
 
   return (
     <Section>
@@ -358,7 +358,7 @@ const AllDiamond: React.FC = () => {
                           }
                         />
                       </Link>
-                      {diamond.salePrice && (
+                      {diamond.discountPrice && (
                         <div className="sale-badge">SALE</div>
                       )}
                     </>
@@ -381,9 +381,9 @@ const AllDiamond: React.FC = () => {
                     </Title>
                     <div className="price-container">
                       <Text className="product-price">
-                        ${diamond.salePrice ? diamond.salePrice : diamond.price}
+                        ${diamond.discountPrice ? diamond.discountPrice : diamond.price}
                       </Text>
-                      {diamond.salePrice && (
+                      {diamond.discountPrice && (
                         <Text delete className="product-sale-price">
                           ${diamond.price}
                         </Text>
@@ -395,13 +395,13 @@ const AllDiamond: React.FC = () => {
             ))}
         </Row>
       </List>
-      {/* <StyledPagination
+      <StyledPagination
         current={currentPage}
         pageSize={pageSize}
         total={diamonds.length}
         onChange={handleChangePage}
-      /> */}
-      <StyledPagination
+      />
+      {/* <StyledPagination
         current={currentPage}
         pageSize={pageSize}
         total={diamonds.length}
@@ -409,7 +409,7 @@ const AllDiamond: React.FC = () => {
           setCurrentPage(page);
           navigate(`?page=${page}`);
         }}
-      />
+      /> */}
       <FAQs>
         <LeftFAQ>
           <h2>FAQs ABOUT PRODUCT</h2>
