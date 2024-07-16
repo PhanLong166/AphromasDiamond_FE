@@ -54,9 +54,10 @@ import {
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-import { showAllJewelryType } from "@/services/jewelryTypeAPI";
-import { get } from "@/services/apiCaller";
-
+// import { showAllJewelryType } from "@/services/jewelryTypeAPI";
+// import { get } from "@/services/apiCaller";
+import { showAllMaterial } from "@/services/materialAPI";
+import { showAllSize } from "@/services/sizeAPI";
 
 const ProductDetails: React.FC = () => {
   //tab description + cmt
@@ -127,7 +128,7 @@ const ProductDetails: React.FC = () => {
   useEffect(() => {
     const fetchMetalData = async () => {
       try {
-        const response = await get('/materialjewelry/showAll');
+        const response = await showAllMaterial();
         if (response.status === 200) {
           const apiData = response.data.data; // Accessing the correct data array
           const mappedData = apiData.map((item: any) => ({
@@ -154,13 +155,39 @@ const ProductDetails: React.FC = () => {
   const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
   const averageRating = totalRating / totalReviews;
   //size
-  const sizes = [8, 10, 12, 14, 16, 18];
+  // const sizes = [8, 10, 12, 14, 16, 18];
 
+  // const [selectedSize, setSelectedSize] = useState<number | null>(null);
+
+  // const handleClick = (size: number) => {
+  //   setSelectedSize(size);
+  // };
+  const [sizes, setSizes] = useState<any[]>([]); // Replace 'any' with a more specific type if possible
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
-  const handleClick = (size: number) => {
-    setSelectedSize(size);
+  useEffect(() => {
+    const fetchSizes = async () => {
+      try {
+        const response = await showAllSize(); // Assuming this function fetches sizes from the API
+        if (response.status === 200) {
+          setSizes(response.data.data); // Assuming the sizes array is in 'data' property of the response
+          if (response.data.data.length > 0) {
+            setSelectedSize(response.data.data[0].sizeId); // Assuming 'sizeId' is the property of each size object
+          }
+        }
+      } catch (error) {
+        console.error('Error fetching sizes:', error);
+      }
+    };
+
+    fetchSizes();
+  }, []);
+
+  const handleClick = (sizeId: number) => {
+    setSelectedSize(sizeId);
+    // Handle any other logic related to selecting a size, such as updating UI or making API calls
   };
+
 
   //inscription
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -348,17 +375,18 @@ const ProductDetails: React.FC = () => {
                       <div className="button-container">
                         {sizes.map((size) => (
                           <button
-                            key={size}
+                            key={size.SizeValue}
                             className={`size-button ${
-                              selectedSize === size ? "selected" : ""
+                              selectedSize === size.SizeValue ? "selected" : ""
                             }`}
-                            onClick={() => handleClick(size)}
+                            onClick={() => handleClick(size.SizeValue)}
                           >
-                            {size}
+                            {size.SizeValue}
                           </button>
                         ))}
                       </div>
                     </div>
+                    
                     <div className="inscription-container">
                       {inscription ? (
                         <Space>
