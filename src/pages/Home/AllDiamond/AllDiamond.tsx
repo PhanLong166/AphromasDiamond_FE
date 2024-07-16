@@ -172,9 +172,10 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
-import { showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { Link } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 
 const { Title, Text } = Typography;
 
@@ -194,8 +195,14 @@ const AllDiamond: React.FC = () => {
   const [diamonds, setDiamonds] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [wishList, setWishList] = useState<string[]>([]);
+  // const [currentPage, setCurrentPage] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
+  const [pageSize] = useState(12); // Set your desired page size
+  const location = useLocation();
+  const navigate = useNavigate();
+
+  const [diamondData, setDiamondData] = useState([]);
+  // const pageSize = 12;
 
   const toggleWishList = (productId: string) => {
     setWishList((prev) =>
@@ -205,14 +212,57 @@ const AllDiamond: React.FC = () => {
     );
   };
 
-  const handleChangePage = (page: any) => {
-    setCurrentPage(page);
-  };
+  // const handleChangePage = (page: any) => {
+  //   setCurrentPage(page);
+  // };
 
+  // const handleChangePage = (page: number) => {
+  //   setCurrentPage(page);
+  //   navigate(`?page=${page}`);
+  // };
+
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await showDiamonds({ page: 1 });
+  //       console.log("API response:", response.data.data);
+
+  //       if (response && response.data && Array.isArray(response.data.data)) {
+  //         const fetchedDiamonds = response.data.data.map((item: any) => ({
+  //           id: item.DiamondID,
+  //           name: item.Name,
+  //           cut: item.Cut,
+  //           price: item.Price,
+  //           color: item.Color,
+  //           description: item.Description,
+  //           isActive: item.IsActive,
+  //           clarity: item.Clarity,
+  //           images: item.usingImage.map((image: any) => ({
+  //             id: image.UsingImageID,
+  //             name: image.Name,
+  //             url: getImage(image.UsingImageID),
+  //           })),
+  //         }));
+
+  //         console.log(fetchedDiamonds);
+
+  //         setDiamonds(fetchedDiamonds);
+  //         setLoading(false);
+  //       } else {
+  //         console.error("Unexpected API response format:", response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching diamonds:", error);
+  //     }
+  //   };
+  //   console.log(loading);
+
+  //   fetchData();
+  // }, []);
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showDiamonds({ page: 1 });
+        const response = await showAllDiamond(); // Call the function to get the promise
         console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
@@ -243,10 +293,15 @@ const AllDiamond: React.FC = () => {
         console.error("Error fetching diamonds:", error);
       }
     };
-    console.log(loading);
+
+    const queryParams = new URLSearchParams(location.search);
+    const page = queryParams.get("page");
+    if (page) {
+      setCurrentPage(Number(page));
+    }
 
     fetchData();
-  }, []);
+  }, [currentPage, location.search]);
 
   return (
     <Section>
@@ -277,17 +332,14 @@ const AllDiamond: React.FC = () => {
       />
       <List>
         <Row gutter={[16, 16]}>
-          {diamonds
-            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-            .map((diamond) => (
+          {diamonds.map((diamond) => (
               <Col key={diamond.id} span={6}>
-              
-                  <Card
-                    style={{ borderRadius: "0" }}
-                    hoverable
-                    className="product-card"
-                    cover={
-                      <>
+                <Card
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
                       <Link to={`/diamond/${diamond.id}`}>
                         <img
                           style={{ borderRadius: "0" }}
@@ -295,7 +347,7 @@ const AllDiamond: React.FC = () => {
                             diamond.images && diamond.images.length > 0
                               ? diamond.images[0].url
                               : "/default-image.jpg"
-                          } 
+                          }
                           alt={diamond.name}
                           className="product-image"
                           onMouseOut={(e) =>
@@ -305,55 +357,58 @@ const AllDiamond: React.FC = () => {
                                 : "/default-image.jpg")
                           }
                         />
-                        </Link>
-                        {diamond.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
-                    }
-                  >
-                    <div className="product-info">
-                      <Title level={4} className="product-name">
-                      <Link to={`/diamond/${diamond.id}`} >
-                        {diamond.name}
-                        </Link>
-                        {wishList.includes(diamond.id) ? (
-                          <HeartFilled
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(diamond.id)}
-                          />
-                        ) : (
-                          <HeartOutlined
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(diamond.id)}
-                          />
-                        )}
-                      </Title>
-                      <div className="price-container">
-                        <Text className="product-price">
-                          $
-                          {diamond.salePrice
-                            ? diamond.salePrice
-                            : diamond.price}
+                      </Link>
+                      {diamond.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
+                      {wishList.includes(diamond.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(diamond.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(diamond.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${diamond.salePrice ? diamond.salePrice : diamond.price}
+                      </Text>
+                      {diamond.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${diamond.price}
                         </Text>
-                        {diamond.salePrice && (
-                          <Text delete className="product-sale-price">
-                            ${diamond.price}
-                          </Text>
-                        )}
-                      </div>
+                      )}
                     </div>
-                  </Card>
-                
+                  </div>
+                </Card>
               </Col>
             ))}
         </Row>
       </List>
-      <StyledPagination
+      {/* <StyledPagination
         current={currentPage}
         pageSize={pageSize}
         total={diamonds.length}
         onChange={handleChangePage}
+      /> */}
+      <StyledPagination
+        current={currentPage}
+        pageSize={pageSize}
+        total={diamonds.length}
+        onChange={(page) => {
+          setCurrentPage(page);
+          navigate(`?page=${page}`);
+        }}
       />
       <FAQs>
         <LeftFAQ>
