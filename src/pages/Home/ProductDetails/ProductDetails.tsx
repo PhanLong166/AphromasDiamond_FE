@@ -50,10 +50,13 @@ import {
   List,
   ProductSectionViewed,
   StyledPagination,
-  CustomBreadcrumb
+  CustomBreadcrumb,
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
+import { showAllJewelryType } from "@/services/jewelryTypeAPI";
+import { get } from "@/services/apiCaller";
+
 
 const ProductDetails: React.FC = () => {
   //tab description + cmt
@@ -104,12 +107,47 @@ const ProductDetails: React.FC = () => {
   ];
 
   //Metal
-  const metalData = [
-    { id: "yellow", label: "14k", type: "14K Yellow Gold" },
-    { id: "white", label: "14k", type: "14K White Gold" },
-    { id: "rose", label: "14k", type: "14K Rose Gold" },
-    { id: "platinum", label: "Pt", type: "Platinum" },
-  ];
+  // const metalData = [
+  //   { id: "yellow", label: "14k", type: "14K Yellow Gold" },
+  //   { id: "white", label: "14k", type: "14K White Gold" },
+  //   { id: "rose", label: "14k", type: "14K Rose Gold" },
+  //   { id: "platinum", label: "Pt", type: "Platinum" },
+  // ];
+  // const [selectedMetal, setSelectedMetal] = useState('');
+  // const [metalType, setMetalType] = useState('');
+  interface MetalData {
+    id: string;
+    label: string;
+    type: string;
+  }
+  
+  const [metalData, setMetalData] = useState<MetalData[]>([]);
+  const [selectedMetal, setSelectedMetal] = useState("");
+  const [metalType, setMetalType] = useState("");
+  useEffect(() => {
+    const fetchMetalData = async () => {
+      try {
+        const response = await get('/materialjewelry/showAll');
+        if (response.status === 200) {
+          const apiData = response.data.data; // Accessing the correct data array
+          const mappedData = apiData.map((item: any) => ({
+            id: item.Name.toLowerCase().replace(/ /g, ""),
+            label: item.Name.includes("14K") ? "14k" : "Pt",
+            type: item.Name,
+          }));
+          setMetalData(mappedData);
+          if (mappedData.length > 0) {
+            setSelectedMetal(mappedData[0].id);
+            setMetalType(mappedData[0].type);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching metal data:", error);
+      }
+    };
+
+    fetchMetalData();
+  }, []);
 
   //Avg rating
   const totalReviews = reviewsData.length;
@@ -167,8 +205,7 @@ const ProductDetails: React.FC = () => {
   const [foundProduct, setFoundProduct] = useState<Product | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
-  const [selectedMetal, setSelectedMetal] = useState(metalData[0].id);
-  const [metalType, setMetalType] = useState(metalData[0].type);
+
   const [sameBrandProducts, setSameBrandProducts] = useState<Product[]>([]);
 
   useEffect(() => {
@@ -536,7 +573,7 @@ const ProductDetails: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
-                      <Link to={`/product/${product.id}`} >
+                      <Link to={`/product/${product.id}`}>
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -558,9 +595,7 @@ const ProductDetails: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} >
-                        {product.name}
-                      </Link>
+                      <Link to={`/product/${product.id}`}>{product.name}</Link>
                       {wishList.includes(product.id) ? (
                         <HeartFilled
                           className="wishlist-icon"
@@ -604,7 +639,7 @@ const ProductDetails: React.FC = () => {
                   className="product-card"
                   cover={
                     <>
-                      <Link to={`/product/${product.id}`} >
+                      <Link to={`/product/${product.id}`}>
                         <img
                           style={{ borderRadius: "0" }}
                           src={product.images[0]}
@@ -626,9 +661,7 @@ const ProductDetails: React.FC = () => {
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} >
-                        {product.name}
-                      </Link>
+                      <Link to={`/product/${product.id}`}>{product.name}</Link>
                       {wishList.includes(product.id) ? (
                         <HeartFilled
                           className="wishlist-icon"
