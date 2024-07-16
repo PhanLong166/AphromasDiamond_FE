@@ -65,43 +65,43 @@ const DiamondList: React.FC = () => {
   //   fetchData();
   // }, []);
 
-  //  useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await showAllDiamond(); // Call the function to get the promise
-  //       console.log("API response:", response.data.data);
+   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await showAllDiamond(); // Call the function to get the promise
+        console.log("API response:", response.data.data);
 
-  //       if (response && response.data && Array.isArray(response.data.data)) {
-  //         const fetchedDiamonds = response.data.data.map((item: any) => ({
-  //           id: item.DiamondID,
-  //           name: item.Name,
-  //           cut: item.Cut,
-  //           price: item.Price,
-  //           color: item.Color,
-  //           description: item.Description,
-  //           isActive: item.IsActive,
-  //           clarity: item.Clarity,
-  //           shape: item.Shape,
-  //           images: item.usingImage.map((image: any) => ({
-  //             id: image.UsingImageID,
-  //             name: image.Name,
-  //             url: getImage(image.UsingImageID),
-  //           })),
-  //         }));
+        if (response && response.data && Array.isArray(response.data.data)) {
+          const fetchedDiamonds = response.data.data.map((item: any) => ({
+            id: item.DiamondID,
+            name: item.Name,
+            cut: item.Cut,
+            price: item.Price,
+            color: item.Color,
+            description: item.Description,
+            isActive: item.IsActive,
+            clarity: item.Clarity,
+            shape: item.Shape,
+            images: item.usingImage.map((image: any) => ({
+              id: image.UsingImageID,
+              name: image.Name,
+              url: getImage(image.UsingImageID),
+            })),
+          }));
 
-  //         console.log(fetchedDiamonds);
+          console.log(fetchedDiamonds);
 
-  //         setDiamonds(fetchedDiamonds);
-  //         setLoading(false);
-  //       } else {
-  //         console.error("Unexpected API response format:", response.data);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching diamonds:", error);
-  //     }
-  //   };
-  //   fetchData();
-  // }, []);
+          setDiamonds(fetchedDiamonds);
+          setLoading(false);
+        } else {
+          console.error("Unexpected API response format:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching diamonds:", error);
+      }
+    };
+    fetchData();
+  }, []);
 
   const diamondData: Record<string, any> = {
     "round-shape": {
