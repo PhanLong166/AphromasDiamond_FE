@@ -194,6 +194,7 @@ const DiamondDetails: React.FC = () => {
               description: item.Description,
               isActive: item.IsActive,
               clarity: item.Clarity,
+              cutter: item.Cutter,
               images: item.usingImage.map((image: any) => ({
                 id: image.UsingImageID,
                 name: image.Name,
@@ -367,14 +368,14 @@ const DiamondDetails: React.FC = () => {
                       <div className="product-price">
                         <CurrentPrice>
                           $
-                          {foundProduct.salePrice
-                            ? foundProduct.salePrice
+                          {foundProduct.DiscountPrice
+                            ? foundProduct.DiscountPrice
                             : foundProduct.Price}
                         </CurrentPrice>
-                        {foundProduct.salePrice && (
+                        {foundProduct.DiscountPrice && (
                           <div className="wrap">
                             <BeforePrice>${foundProduct.Price}</BeforePrice>
-                            <Discount>- {foundProduct.percentSale}</Discount>
+                            <Discount>- {foundProduct.DiscountID.PercentDiscount}</Discount>
                           </div>
                         )}
                       </div>
@@ -443,7 +444,6 @@ const DiamondDetails: React.FC = () => {
               <TextBlock>
                 <h3>{foundProduct.Name}</h3>
                 <p>{foundProduct.Description}</p>
-                <p>{foundProduct.Description}</p>
               </TextBlock>
               <DotGrid>
                 <div className="wrapper2">
@@ -457,8 +457,8 @@ const DiamondDetails: React.FC = () => {
                       <li>Clarity: {foundProduct.Clarity}</li>
                       <li>Cut: {foundProduct.Cut}</li>
                       <li>Cutter: {foundProduct.Cutter}</li>
-                      <li>Width: {foundProduct.Width}</li>
-                      <li>Length: {foundProduct.Length}</li>
+                      <li>Percent Depth: {foundProduct.PercentDepth}</li>
+                      <li>Length: {foundProduct.LengthOnWidthRatio}</li>
                     </ul>
                   </ListBlock>
                   <ListBlock>
@@ -544,7 +544,7 @@ const DiamondDetails: React.FC = () => {
                       className="product-card"
                       cover={
                         <>
-                         <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                         <Link to={`/diamond/${diamond.id}`} >
                             <img
                               style={{ borderRadius: "0" }}
                               src={
@@ -570,18 +570,18 @@ const DiamondDetails: React.FC = () => {
                     >
                       <div className="product-info">
                         <Title level={4} className="product-name">
-                        <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+                        <Link to={`/diamond/${diamond.id}`} >
                           {diamond.name}
                           </Link>
-                          {wishList.includes(diamond.DiamondID) ? (
+                          {wishList.includes(diamond.id) ? (
                             <HeartFilled
                               className="wishlist-icon"
-                              onClick={() => toggleWishList(diamond.DiamondID)}
+                              onClick={() => toggleWishList(diamond.id)}
                             />
                           ) : (
                             <HeartOutlined
                               className="wishlist-icon"
-                              onClick={() => toggleWishList(diamond.DiamondID)}
+                              onClick={() => toggleWishList(diamond.id)}
                             />
                           )}
                         </Title>

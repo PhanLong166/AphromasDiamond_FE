@@ -90,21 +90,22 @@ const FilterSortDiamond = () => {
   const [cutRange, setCutRange] = useState<[number, number]>([0, 3]);
   const [colorValue, setColorRange] = useState<[number, number]>([0, 7]);
   const [clarityValue, setClarityRange] = useState<[number, number]>([0, 7]);
+  const [diamondData, setDiamondData] = useState([]);
 
   const formatColorValue = (value?: number): React.ReactNode => {
     const labels = ["D", "E", "F", "G", "H", "I", "J", "K"];
     return value !== undefined ? labels[value] : null;
-};
+  };
 
-const formatClarityValue = (value?: number): React.ReactNode => {
+  const formatClarityValue = (value?: number): React.ReactNode => {
     const labels = ["FL", "IF", "VVS1", "VVS2", "VS1", "VS2", "SI1", "SI2"];
     return value !== undefined ? labels[value] : null;
-};
+  };
 
-const formatCutValue = (value?: number): React.ReactNode => {
+  const formatCutValue = (value?: number): React.ReactNode => {
     const labels = ["Good", "Very Good", "Ideal", "Astor Ideal"];
     return value !== undefined ? labels[value] : null;
-};
+  };
 
   const handleShapeSelect = (shape: string) => {
     if (shape === shapeSelected) {
@@ -139,7 +140,8 @@ const formatCutValue = (value?: number): React.ReactNode => {
 
       try {
         const response = await showDiamonds(params);
-        // Xử lý response từ API
+        // Handle response from API
+        setDiamondData(response.data);
         console.log(response);
       } catch (error) {
         console.error("Error fetching diamonds data:", error);
@@ -147,48 +149,93 @@ const formatCutValue = (value?: number): React.ReactNode => {
     };
 
     fetchData();
-  }, [shapeSelected, priceRange, caratRange, cutRange, colorValue, clarityValue]);
+  }, [
+    shapeSelected,
+    priceRange,
+    caratRange,
+    cutRange,
+    colorValue,
+    clarityValue,
+  ]);
 
   const shapeButtons = [
     {
       shape: "Round",
-      svg: <Image src='./src/assets/svg/diamondShape/round.svg' preview={false} />
+      svg: (
+        <Image src="./src/assets/svg/diamondShape/round.svg" preview={false} />
+      ),
     },
     {
       shape: "Oval",
-      svg: <Image src='./src/assets/svg/diamondShape/oval.svg' preview={false} />
+      svg: (
+        <Image src="./src/assets/svg/diamondShape/oval.svg" preview={false} />
+      ),
     },
     {
       shape: "Princess",
-      svg: <Image src='./src/assets/svg/diamondShape/princess.svg' preview={false} />
+      svg: (
+        <Image
+          src="./src/assets/svg/diamondShape/princess.svg"
+          preview={false}
+        />
+      ),
     },
     {
       shape: "Cushion",
-      svg: <Image src='./src/assets/svg/diamondShape/cushion.svg' preview={false} />
+      svg: (
+        <Image
+          src="./src/assets/svg/diamondShape/cushion.svg"
+          preview={false}
+        />
+      ),
     },
     {
       shape: "Emerald",
-      svg: <Image src='./src/assets/svg/diamondShape/emerald.svg' preview={false} />,
+      svg: (
+        <Image
+          src="./src/assets/svg/diamondShape/emerald.svg"
+          preview={false}
+        />
+      ),
     },
     {
       shape: "Asscher",
-      svg: <Image src='./src/assets/svg/diamondShape/asscher.svg' preview={false} />,
+      svg: (
+        <Image
+          src="./src/assets/svg/diamondShape/asscher.svg"
+          preview={false}
+        />
+      ),
     },
     {
       shape: "Marquise",
-      svg: <Image src='./src/assets/svg/diamondShape/marquise.svg' preview={false} />,
+      svg: (
+        <Image
+          src="./src/assets/svg/diamondShape/marquise.svg"
+          preview={false}
+        />
+      ),
     },
     {
       shape: "Radiant",
-      svg: <Image src='./src/assets/svg/diamondShape/radient.svg' preview={false} />
+      svg: (
+        <Image
+          src="./src/assets/svg/diamondShape/radient.svg"
+          preview={false}
+        />
+      ),
     },
     {
       shape: "Heart",
-      svg: <Image src='./src/assets/svg/diamondShape/heart.svg' preview={false} />
+      svg: (
+        <Image src="./src/assets/svg/diamondShape/heart.svg" preview={false} />
+      ),
     },
     {
       shape: "Pear",
-      svg: <Image src='./src/assets/svg/diamondShape/pear.svg' preview={false} />,
+      svg: (
+        <Image src="./src/assets/svg/diamondShape/pear.svg" preview={false} />
+      ),
     },
   ];
   return (
