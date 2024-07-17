@@ -120,14 +120,9 @@ const Material = () => {
   // EDIT
   const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
-      // materialJewelryID: "",
-      // materialName: "",
-      // sellPrice: 0,
-      // updateTime: "",
-      // ...record,
+      materialName: "",
+      sellPrice: 0,
       ...record,
-          UpdateTime: new Date(),
-          BuyPrice: 0,
     });
     setEditingKey(record.key);
   };
@@ -197,7 +192,7 @@ const Material = () => {
     {
       title: "Update Time",
       dataIndex: "updateTime",
-      sorter: (a: any, b: any) => a.updateTime - b.updateTime,
+      sorter: (a: any, b: any) => new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime(),
     },
     {
       title: "Edit",
@@ -235,7 +230,7 @@ const Material = () => {
         materials.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => handleDelete(record.materialJewelryID)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -270,6 +265,7 @@ const Material = () => {
     }
   };
 
+
   // MOVE ADD NEW
 
   const handleAddNew = () => {
@@ -280,6 +276,7 @@ const Material = () => {
   const handleCancel = () => {
     setIsAdding(false);
   };
+
 
   // SUBMIT FORM
   interface SubmitButtonProps {
@@ -294,7 +291,7 @@ const Material = () => {
     const [submittable, setSubmittable] = useState(false);
     const values = Form.useWatch([], form);
 
-    React.useEffect(() => {
+    useEffect(() => {
       form
         .validateFields({ validateOnly: true })
         .then(() => setSubmittable(true))
@@ -385,7 +382,7 @@ const Material = () => {
                   >
                     <Styled.FormItem>
                       <Form.Item
-                        label="Jewelry Type Name"
+                        label="Material Name"
                         name="Name"
                         rules={[
                           {
