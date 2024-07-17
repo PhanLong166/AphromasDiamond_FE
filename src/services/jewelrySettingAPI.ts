@@ -17,6 +17,6 @@ export const updateSetting = (id: number, jewelrySetting: object) => {
 }
 
 export const deleteSetting = (id: number) => {
-    return remove(`/jewelrySetting/update/${id}`);
+    return remove(`/jewelrySetting/delete/${id}`);
 }
 

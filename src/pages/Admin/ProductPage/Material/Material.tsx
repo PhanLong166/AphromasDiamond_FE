@@ -1,8 +1,12 @@
 import * as Styled from "./Material.styled";
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
-import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
-import type { FormInstance, TableProps } from "antd";
+import {
+  SearchOutlined,
+  PlusCircleOutlined,
+  SaveOutlined,
+} from "@ant-design/icons";
+import type { FormInstance } from "antd";
 import {
   Form,
   Input,
@@ -15,8 +19,12 @@ import {
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
-// import { materialData, MaterialDataType } from "../ProductData"; // Import data here
-import { deleteMaterial, showAllMaterial } from "@/services/materialAPI";
+import {
+  createMaterial,
+  deleteMaterial,
+  showAllMaterial,
+  updateMaterial,
+} from "@/services/materialAPI";
 
 interface EditableCellProps {
   editing: boolean;
@@ -62,7 +70,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-
 const Material = () => {
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
@@ -83,23 +90,23 @@ const Material = () => {
     api[type]({
       message: type === "success" ? "Notification" : "Error",
       description:
-        type === "success" ? `${method} diamond successfully` : error,
+        type === "success" ? `${method} material successfully` : error,
     });
   };
-
 
   const fetchData = async () => {
     try {
       const response = await showAllMaterial();
-      console.log("API response:", response);
+      // console.log("API response:", response);
       const { data } = response.data;
       const formattedTypes = data.map((material: any) => ({
+        key: material.MaterialJewelryID,
         materialJewelryID: material.MaterialJewelryID,
         materialName: material.Name,
         sellPrice: material.SellPrice,
         updateTime: material.UpdateTime,
       }));
-      console.log("Formatted Types:", formattedTypes); 
+      // console.log("Formatted Types:", formattedTypes);
       setMaterials(formattedTypes);
     } catch (error) {
       console.error("Failed to fetch types:", error);
@@ -110,65 +117,43 @@ const Material = () => {
     fetchData();
   }, []);
 
-  
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-  openNotification("success", "Add", "");
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
   // EDIT
   const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
-      materialJewelryID: "",
-      materialName: "",
-      sellPrice: 0,
-      updateTime: "",
+      // materialJewelryID: "",
+      // materialName: "",
+      // sellPrice: 0,
+      // updateTime: "",
+      // ...record,
       ...record,
+          UpdateTime: new Date(),
+          BuyPrice: 0,
     });
     setEditingKey(record.key);
   };
+
   const cancel = () => {
     setEditingKey("");
   };
+
   const save = async (key: React.Key) => {
     try {
       const row = (await form.validateFields()) as any;
       const newData = [...materials];
       const index = newData.findIndex((item) => key === item.key);
 
-      // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
-
       if (index > -1) {
         const item = newData[index];
-        newData.splice(index, 1, {
+        const updatedMaterial = {
           ...item,
           ...row,
-        });
+          updateTime: new Date().toISOString(),
+        };
+        await updateMaterial(item.materialJewelryID, updatedMaterial);
+        newData.splice(index, 1, updatedMaterial);
         setMaterials(newData);
         setEditingKey("");
+        openNotification("success", "Update", "");
       } else {
         newData.push(row);
         setMaterials(newData);
@@ -176,27 +161,32 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
       }
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
+      openNotification("error", "Update", errInfo.message);
     }
   };
 
-  // const handleDelete = (key: React.Key) => {
-  //   const newData = materials.filter((item) => item.key !== key);
-  //   setMaterials(newData);
-  // };
+  const handleDelete = async (materialJewelryID: number) => {
+    try {
+      await deleteMaterial(materialJewelryID);
+      openNotification("success", "Delete", "");
+      await fetchData();
+    } catch (error) {
+      console.error("Failed to delete material:", error);
+      openNotification("error", "Delete", error.message);
+    }
+  };
 
   const columns = [
     {
       title: "Material ID",
       dataIndex: "materialJewelryID",
-      editable: true,
-      sorter: (a: any, b: any) => a.materialJewelryID.localeCompare(b.materialJewelryID),
+      sorter: (a: any, b: any) => parseInt(a.materialJewelryID) - parseInt(b.materialJewelryID),
     },
     {
       title: "Material Name",
       dataIndex: "materialName",
       editable: true,
-      sorter: (a: any, b: any) =>
-        a.materialName.length - b.materialName.length,
+      sorter: (a: any, b: any) => a.materialName.length - b.materialName.length,
     },
     {
       title: "Selling Price per Gram",
@@ -207,19 +197,18 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     {
       title: "Update Time",
       dataIndex: "updateTime",
-      editable: true,
       sorter: (a: any, b: any) => a.updateTime - b.updateTime,
     },
     {
       title: "Edit",
-      dataIndex: "edit",
+      dataIndex: "materialJewelryID",
       className: "TextAlign SmallSize",
       render: (_: unknown, record: any) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.materialJewelryID)}
+              onClick={() => save(record.key)}
               style={{ marginRight: 8 }}
             >
               Save
@@ -240,13 +229,13 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     },
     {
       title: "Delete",
-      dataIndex: "delete",
+      dataIndex: "materialJewelryID",
       className: "TextAlign",
-      render: (_: unknown, record: any) =>
+      render: (record: any) =>
         materials.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => deleteMaterial(record.materialJewelryID)}
+            onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -254,7 +243,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     },
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
+  const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
@@ -262,14 +251,13 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
       ...col,
       onCell: (record: any) => ({
         record,
-        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
+        inputType: col.dataIndex === "sellPrice" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
-
 
   // SEARCH AREA
   const onSearch = (value: string) => {
@@ -282,21 +270,66 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     }
   };
 
-  // Add New
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
+  // MOVE ADD NEW
 
   const handleAddNew = () => {
     setIsAdding(true);
+    form.resetFields();
   };
-
-  // const handleSave = () => {
-  //   setIsAdding(false);
-  // };
 
   const handleCancel = () => {
     setIsAdding(false);
+  };
+
+  // SUBMIT FORM
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+    form,
+    children,
+  }) => {
+    // const [submittable, setSubmittable] = React.useState<boolean>(false);
+    const [submittable, setSubmittable] = useState(false);
+    const values = Form.useWatch([], form);
+
+    React.useEffect(() => {
+      form
+        .validateFields({ validateOnly: true })
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+    }, [values]);
+
+    const addMaterial = async () => {
+      try {
+        const materialValues = await form.validateFields();
+        const newMaterial = {
+          ...materialValues,
+          UpdateTime: new Date(),
+          BuyPrice: 0,
+        };
+
+        const { data } = await createMaterial(newMaterial);
+        if (data.statusCode !== 200) throw new Error(data.message);
+        fetchData();
+        setIsAdding(false);
+        openNotification("success", "Add", "");
+      } catch (error) {
+        openNotification("error", "", error.message);
+      }
+    };
+
+    return (
+      <Button
+        type="primary"
+        htmlType="submit"
+        disabled={!submittable}
+        onClick={addMaterial}
+      >
+        {children}
+      </Button>
+    );
   };
 
   return (
@@ -348,18 +381,12 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                     form={form}
                     layout="vertical"
                     className="AdPageContent_Content"
-                    onFinish={() => console.log("Form submitted")}
+                    // onFinish={() => console.log("Form submitted")}
                   >
-                    {/* <Styled.FormItem>
-                    <Form.Item label="Jewelry Type ID" name="Jewelry Type ID"
-                        rules={[{ required: true }]}>
-                      <Input className="formItem" placeholder="D1234" />
-                    </Form.Item>
-                  </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item
                         label="Jewelry Type Name"
-                        name="Jewelry Type Name"
+                        name="Name"
                         rules={[
                           {
                             required: true,
@@ -380,31 +407,42 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                           },
                         ]}
                       >
-                        <Input className="formItem" placeholder="Filled" />
+                        <Input
+                          className="formItem"
+                          placeholder="Enter Material Name"
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
                       <Form.Item
                         label="Selling Price per Gram"
-                        name="1/6 sales"
-                        rules={[{ required: true }]}
+                        name="SellPrice"
+                        rules={[
+                          { required: true },
+                          {
+                            type: "number",
+                            message: "Only number is allowed.",
+                          },
+                        ]}
                       >
                         <InputNumber className="formItem" placeholder="4,080" />
                       </Form.Item>
                     </Styled.FormItem>
+
+
+                    <Styled.ActionBtn>
+                      <SubmitButton form={form}>
+                        <SaveOutlined />
+                        Save
+                      </SubmitButton>
+                      <Button
+                        onClick={handleCancel}
+                        style={{ marginLeft: "10px" }}
+                      >
+                        Cancel
+                      </Button>
+                    </Styled.ActionBtn>
                   </Form>
-                  <Styled.ActionBtn>
-                    <SubmitButton form={form}>
-                      <SaveOutlined />
-                      Save
-                    </SubmitButton>
-                    <Button
-                      onClick={handleCancel}
-                      style={{ marginLeft: "10px" }}
-                    >
-                      Cancel
-                    </Button>
-                  </Styled.ActionBtn>
                 </>
               ) : (
                 <Form form={form} component={false}>
