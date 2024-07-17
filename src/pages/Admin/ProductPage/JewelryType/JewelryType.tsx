@@ -14,7 +14,6 @@ import {
   Typography,
   Button,
   notification,
-  TableProps,
   FormInstance,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
