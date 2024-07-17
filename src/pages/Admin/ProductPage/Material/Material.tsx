@@ -139,24 +139,26 @@ const Material = () => {
 
       if (index > -1) {
         const item = newData[index];
-        const updatedMaterial = {
+        const updatedItem = {
+          Name: row.materialJewelryID,
+          SellPrice: row.sellPrice,
+          UpdateTime: new Date().toISOString(),
+        };
+        newData.splice(index, 1, {
           ...item,
           ...row,
-          updateTime: new Date().toISOString(),
-        };
-        await updateMaterial(item.materialJewelryID, updatedMaterial);
-        newData.splice(index, 1, updatedMaterial);
+        });
         setMaterials(newData);
-        setEditingKey("");
+        await updateMaterial(item.materialJewelryID, updatedItem);
         openNotification("success", "Update", "");
       } else {
         newData.push(row);
         setMaterials(newData);
-        setEditingKey("");
+        openNotification("error", "Update", "Failed to update type");
       }
+      setEditingKey("");
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
-      openNotification("error", "Update", errInfo.message);
     }
   };
 
@@ -164,7 +166,7 @@ const Material = () => {
     try {
       await deleteMaterial(materialJewelryID);
       openNotification("success", "Delete", "");
-      await fetchData();
+      fetchData();
     } catch (error) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
@@ -196,7 +198,7 @@ const Material = () => {
     },
     {
       title: "Edit",
-      dataIndex: "materialJewelryID",
+      dataIndex: "edit",
       className: "TextAlign SmallSize",
       render: (_: unknown, record: any) => {
         const editable = isEditing(record);

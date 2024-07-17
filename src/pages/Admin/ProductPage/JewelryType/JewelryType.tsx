@@ -68,7 +68,9 @@ const JewelryType = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [types, setTypes] = useState<any[]>([]);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
+  // const [types, setTypes] = useState([]);
+  // const [editingKey, setEditingKey] = useState<React.Key>("");
+  const [editingKey, setEditingKey] = useState("");
   const isEditing = (record: any) => record.key === editingKey;
 
   type NotificationType = "success" | "info" | "warning" | "error";
@@ -122,15 +124,20 @@ const JewelryType = () => {
       const row = (await form.validateFields()) as any;
       const newData = [...types];
       const index = newData.findIndex((item) => key === item.key);
-
+  
       if (index > -1) {
         const item = newData[index];
-        await updateJewelryType(item.jewelryTypeID, row);
+        const updatedItem = {
+          Name: row.jewelryTypeName
+        };
         newData.splice(index, 1, {
           ...item,
           ...row,
         });
         setTypes(newData);
+  
+        // Call the API with the correct data format
+        await updateJewelryType(item.jewelryTypeID, updatedItem);
         openNotification("success", "Update", "");
       } else {
         newData.push(row);
@@ -145,21 +152,25 @@ const JewelryType = () => {
 
   const handleDelete = async (key: number) => {
     try {
-      await deleteJewelryType(key);
+      const itemToDelete = types.find((item) => item.key === key);
+      await deleteJewelryType(itemToDelete.jewelryTypeID);
       const newData = types.filter((item) => item.key !== key);
       setTypes(newData);
+      fetchData();
       openNotification("success", "Delete", "");
     } catch (error) {
       openNotification("error", "Delete", "Failed to delete type");
     }
   };
+  
 
   const columns = [
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
+      editable: true,
       sorter: (a: any, b: any) =>
-        a.jewelryTypeID.localeCompare(b.jewelryTypeID),
+        parseInt(a.materialJewelryID) - parseInt(b.materialJewelryID),
     },
     {
       title: "Jewelry Type Name",
@@ -212,7 +223,7 @@ const JewelryType = () => {
     },
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
+  const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
