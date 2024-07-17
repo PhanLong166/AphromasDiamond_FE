@@ -17,7 +17,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 // import { diamondData } from "./DiamondList.data";
-import { showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 
 const DiamondList: React.FC = () => {
@@ -25,10 +25,50 @@ const DiamondList: React.FC = () => {
   const navigate = useNavigate();
   const [diamonds, setDiamonds] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
-  useEffect(() => {
+  // useEffect(() => {
+  //   const fetchData = async () => {
+  //     try {
+  //       const response = await showDiamonds({ page: 1 });
+  //       console.log("API response:", response.data.data);
+
+  //       if (response && response.data && Array.isArray(response.data.data)) {
+  //         const fetchedDiamonds = response.data.data.map((item: any) => ({
+  //           id: item.DiamondID,
+  //           name: item.Name,
+  //           cut: item.Cut,
+  //           shape: item.Shape,
+  //           price: item.Price,
+  //           color: item.Color,
+  //           description: item.Description,
+  //           isActive: item.IsActive,
+  //           clarity: item.Clarity,
+  //           images: item.usingImage.map((image: any) => ({
+  //             id: image.UsingImageID,
+  //             name: image.Name,
+  //             url: getImage(image.UsingImageID),
+  //           })),
+  //         }));
+
+  //         console.log(fetchedDiamonds);
+
+  //         setDiamonds(fetchedDiamonds);
+  //         setLoading(false);
+  //       } else {
+  //         console.error("Unexpected API response format:", response.data);
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching diamonds:", error);
+  //     }
+  //   };
+  //   console.log(loading);
+
+  //   fetchData();
+  // }, []);
+
+   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showDiamonds({ page: 1 });
+        const response = await showAllDiamond(); // Call the function to get the promise
         console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
@@ -36,12 +76,12 @@ const DiamondList: React.FC = () => {
             id: item.DiamondID,
             name: item.Name,
             cut: item.Cut,
-            shape: item.Shape,
             price: item.Price,
             color: item.Color,
             description: item.Description,
             isActive: item.IsActive,
             clarity: item.Clarity,
+            shape: item.Shape,
             images: item.usingImage.map((image: any) => ({
               id: image.UsingImageID,
               name: image.Name,
@@ -60,8 +100,6 @@ const DiamondList: React.FC = () => {
         console.error("Error fetching diamonds:", error);
       }
     };
-    console.log(loading);
-
     fetchData();
   }, []);
 
