@@ -1,88 +1,25 @@
+/* eslint-disable react-hooks/exhaustive-deps */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 // import { Button, ConfigProvider, Table } from 'antd';
-import type { ColumnsType } from "antd/es/table";
+// import type { ColumnsType } from "antd/es/table";
 import Table from "antd/es/table";
-import { Tag, notification, Space, Button } from "antd";
-// import TextArea from "antd/es/input/TextArea";
-// import { Link } from "react-router-dom";
+import { Button, Space, TableColumnsType, Tag, notification } from "antd";
 import ReviewForm from "./ReviewForm";
+import { useLocation } from "react-router-dom";
+import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
+import { getDiamondDetails } from "@/services/diamondAPI";
+import { getImage } from "@/services/imageAPI";
 
-interface Product {
-  id: string;
-  name: string;
-  quantity: number;
-  price: number;
-  imageUrl: string;
-  type: string;
-  size?: string;
+interface DiamondDetail {
+  DiamondID: number;
+  Name: string;
+  Description: string;
+  Carat: number;
+  Price: number;
+  UsingImage?: string;
 }
-
-interface OrderProps {
-  invoiceDate: string;
-  dueDate: string;
-  status: string;
-  orderId: string;
-  name: string;
-  phone: string;
-  email: string;
-  address: string;
-  products: Product[];
-  paymentMethod: string;
-  discount: number;
-  vat: number;
-  shippingFee: number;
-  total: number;
-}
-
-const sampleOrder: OrderProps = {
-  invoiceDate: "14 Dec 2022",
-  dueDate: "14 Dec 2022",
-  status: "Pending",
-  orderId: "123456",
-  name: "Ha Thi Huyen Trang",
-  phone: "0937250913",
-  email: "hthuyentrange@gmail.com",
-  address: "123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam",
-  products: [
-    {
-      id: "1",
-      name: "Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond",
-      quantity: 1,
-      price: 5030,
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring.jpg?alt=media&token=17427822-c905-4e96-a881-25ea17ce2fa7",
-      size: "8",
-      type: "ring",
-    },
-    {
-      id: "2",
-      name: "Aquamarine Stud Ring In 14k White Gold (7mm)",
-      quantity: 2,
-      price: 4000,
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FRing%2Fring1.jpg?alt=media&token=1fd5a503-9856-403a-a250-60ab0f42b372",
-      size: "8",
-      type: "ring",
-    },
-    {
-      id: "3",
-      name: "Aquamarine Stud Diamond In 14k White Gold (7mm)",
-      quantity: 1,
-      price: 4000,
-      imageUrl:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FDiamond%2Fdiamond.jpg?alt=media&token=2ec444c6-4d86-4c57-a126-34e12c6231b2",
-      type: "diamond",
-    },
-  ],
-  paymentMethod:
-    "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579",
-  discount: 503,
-  vat: 503,
-  shippingFee: 0,
-  total: 9033,
-};
 
 const StatusTag = ({ status }: { status: string }) => {
   let color = "green";
@@ -110,105 +47,131 @@ const StatusTag = ({ status }: { status: string }) => {
     </Tag>
   );
 };
-const formatPrice = (price: number): string => {
-  return `$${price.toFixed(0)}`;
-};
-
+// const formatPrice = (price: number): string => {
+//   return `$${price.toFixed(0)}`;
+// };
 
 const OrderDetail: React.FC = () => {
-  const [order, setOrder] = useState<OrderProps | null>(null);
+  const [order, setOrder] = useState([]);
+  const [diamondDetails, setDiamondDetails] = useState<{ [key: string]: any }>(
+    {}
+  );
+  console.log(order)
   // const [value, setValue] = useState(3);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const location = useLocation();
+  const searchParams = new URLSearchParams(location.search);
+  const orderId = searchParams.get("orderId");
 
-  // const [componentDisabled, setComponentDisabled] = useState<boolean>(true);
+  const fetchAllOrderLine = async () => {
+    try {
+      const res = await showAllOrderLineForAdmin();
+
+      if (Array.isArray(res.data.data)) {
+        const filteredOrders = res.data.data.filter(
+          (order: { OrderID: number }) =>
+            order.OrderID === parseInt(orderId || "", 10)
+        );
+
+        if (filteredOrders.length > 0) {
+          setOrder(filteredOrders);
+          fetchDiamondDetails(filteredOrders);
+        } else {
+          console.log("No orders found with OrderID:", orderId);
+        }
+      } else {
+        console.error("Expected an array but received:", res.data);
+      }
+    } catch (error) {
+      console.error("Error fetching order lines:", error);
+    }
+  };
+  const fetchDiamondDetails = async (orders: any) => {
+    try {
+      const details: { [key: string]: any } = {};
+      for (const order of orders) {
+        if (order.DiamondID) {
+          const res = await getDiamondDetails(order.DiamondID);
+          details[order.DiamondID] = res.data.data;
+          if (order.usingImageID && order.usingImageID.length > 0) {
+            const imageID = order.usingImageID[0];
+            const imageRes = getImage(imageID.UsingImageID);
+            details[order.DiamondID].image = imageRes;
+          } // Lưu thông tin ảnh vào chi tiết của kim cương
+        }
+      }
+      setDiamondDetails(details);
+      console.log("Diamond Details with Images:", details);
+    } catch (error) {
+      console.error("Error fetching diamond details:", error);
+    }
+  };
+
   useEffect(() => {
-    // Simulating fetching data from an API
-    setTimeout(() => {
-      setOrder(sampleOrder);
-    }, 1000);
-  }, []);
+    if (orderId) {
+      fetchAllOrderLine();
+    }
+  }, [orderId]); // Chạy khi orderId thay đổi
+  
 
-  if (!order) {
-    return <div>Loading...</div>;
-  }
-
-  const {
-    invoiceDate,
-    dueDate,
-    status,
-    name,
-    phone,
-    email,
-    address,
-    products,
-    paymentMethod,
-    discount,
-    vat,
-    shippingFee,
-  } = order;
-
-  const columns: ColumnsType<Product> = [
+  const columns: TableColumnsType<DiamondDetail> = [
     {
-      title: "Product",
-      dataIndex: "name",
-      key: "name",
-      render: (text, record) => (
-        <div style={{ display: "flex", alignItems: "center" }}>
-          <img
-            src={record.imageUrl}
-            alt={text}
-            style={{ width: "70px", marginRight: "10px" }}
-          />
-          <span>{text}</span>
-        </div>
-      ),
+      title: "DiamondID",
+      dataIndex: "DiamondID",
+      key: "DiamondID",
+      sorter: (a, b) => a.DiamondID - b.DiamondID,
+      sortDirections: ["descend", "ascend"],
     },
     {
-      title: "Quantity",
-      dataIndex: "quantity",
-      key: "quantity",
+      title: "Name",
+      dataIndex: "Name",
+      key: "Name",
     },
     {
-      title: "Size",
-      dataIndex: "size",
-      key: "size",
-      render: (text, record) => (record.type === "ring" ? text : ""),
+      title: "Descriptions",
+      dataIndex: "Description",
+      key: "Description",
+      // sorter: (a, b) => a.Carat - b.Carat,
+      // sortDirections: ["descend", "ascend"],
     },
-
     {
       title: "Price",
-      dataIndex: "price",
-      key: "price",
-      render: (_, record) =>
-        formatPrice(Number(record.price) * record.quantity),
+      dataIndex: "Price",
+      key: "Price",
+      sorter: (a, b) => a.Price - b.Price,
+      sortDirections: ["descend", "ascend"],
     },
+    {
+    title: " Image",
+    dataIndex: "UsingImage",
+    key: "UsingImage",
+    render: (usingImage: string | undefined) => (
+      usingImage ? (
+        <img src={usingImage} alt="Using Image" style={{ width: "100px", height: "auto" }} />
+      ) : (
+        "No  Image"
+      )
+    ),
+  },
     {
       title: "Action",
       key: "action",
       render: () => (
-        <Space style={{ width: 134 }} size="middle">
-          {/* <Link to="/order-details">Feedback</Link> */}
-          <Button type="link" onClick={() => setIsModalVisible(true)}>Feedback</Button>
+        <Space size="middle">
+          <Button type="link" onClick={() => setIsModalVisible(true)}>
+            Feedback
+          </Button>
         </Space>
       ),
-      width: 134,
     },
   ];
 
-  const calculateTotal = () => {
-    const productsTotal = products.reduce((acc, product) => {
-      return acc + product.price * product.quantity;
-    }, 0);
-
-    return formatPrice(productsTotal - discount + vat);
-  };
-  // eslint-disable-next-line react-hooks/rules-of-hooks
   const handleCreate = (values: any) => {
-    console.log('Received values from form: ', values);
+    console.log("Received values from form: ", values);
     setIsModalVisible(false);
     notification.success({
-      message: 'Đánh giá thành công',
-      description: 'Cảm ơn bạn đã gửi đánh giá!',
+      message: "Đánh giá thành công",
+      description: "Cảm ơn bạn đã gửi đánh giá!",
     });
   };
 
@@ -219,26 +182,28 @@ const OrderDetail: React.FC = () => {
           <OrderTitle>Order Detail</OrderTitle>
           <OrderDetailsContainer>
             <OrderDetails>
-              <CustomerInfo>{name}</CustomerInfo>
-              <CustomerInfo>{phone}</CustomerInfo>
-              <CustomerInfo>{email}</CustomerInfo>
-              <CustomerInfo>{address}</CustomerInfo>
+              <CustomerInfo>Hà Thị Huyền Trang</CustomerInfo>
+              <CustomerInfo>0354033629</CustomerInfo>
+              <CustomerInfo>tranghthuy@fpt.edu.vn</CustomerInfo>
+              <CustomerInfo>
+                123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam
+              </CustomerInfo>
             </OrderDetails>
             <InvoiceDetails>
-              <InvoiceInfo>Invoice Date: {invoiceDate}</InvoiceInfo>
-              <InvoiceInfo>Due Date: {dueDate}</InvoiceInfo>
+              <InvoiceInfo>Invoice Date: 14 Dec 2022</InvoiceInfo>
+              <InvoiceInfo>Due Date: 14 Dec 2022</InvoiceInfo>
               <InvoiceInfo>
-                Status: <StatusTag status={status} />
+                Status: <StatusTag status={"Completed"} />
               </InvoiceInfo>
             </InvoiceDetails>
           </OrderDetailsContainer>
         </OrderWrapper>
         <ProductsWrapper>
-          <OrderID>Order ID #{order.orderId}</OrderID>
+          <OrderID>Order ID #{orderId}</OrderID>
           <Table
             style={{ backgroundColor: "#e8e8e8" }}
             columns={columns}
-            dataSource={products}
+            dataSource={Object.values(diamondDetails)}
             pagination={false}
             rowKey="id"
           />
@@ -254,20 +219,16 @@ const OrderDetail: React.FC = () => {
             <InfoTitle>Payment method</InfoTitle>
             <img
               className="payment-method"
-              src={paymentMethod}
+              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
               alt="Payment method"
             />
           </Row>
           <Column>
-            <InfoText>Discount: {formatPrice(discount)}</InfoText>
-            <InfoText>VAT: {formatPrice(vat)}</InfoText>
-            <InfoText>
-              Shipping: {shippingFee ? formatPrice(shippingFee) : "Free"}
-            </InfoText>
+            <InfoText>Discount: 10%</InfoText>
+            <InfoText>VAT: 10%</InfoText>
+            <InfoText>Shipping: Free</InfoText>
             <br />
-            <InfoText style={{ color: "red" }}>
-              Total: {calculateTotal()}
-            </InfoText>
+            <InfoText style={{ color: "red" }}>Total: None</InfoText>
           </Column>
         </OrderInfo>
         <EditButton>Comfirm</EditButton>
