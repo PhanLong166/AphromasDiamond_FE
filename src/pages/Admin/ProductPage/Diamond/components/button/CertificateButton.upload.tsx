@@ -30,7 +30,7 @@ const CertificateUploadButton: React.FC<React.PropsWithChildren<SubmitButtonProp
     const uploadDiamondCertificate = async () => {
         try {
             const { data } = await createCertificate(certificateValues);
-            if(data.statusCode !== 201) throw new Error(data);
+            if(data.statusCode !== 200) throw new Error(data);
             await uploadImage(fileUploadList, undefined, undefined, undefined, data?.data?.CertificateID);
             api.success({
                 message: 'Notification',
