@@ -63,6 +63,7 @@ const routes = {
     notification: "/noti",
     // orderDetails:'/order-details'
     orderDetails: "/order-details",
+    reviewFeedBack: "/review-feedback",
   },
   admin: {
     dashboard: "/admin",

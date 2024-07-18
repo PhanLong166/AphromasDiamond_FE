@@ -1,9 +1,9 @@
 import styled from "styled-components";
 import { Space, Table, Modal, TableColumnsType, Tag, TableProps } from "antd";
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { showAllOrder } from "@/services/orderAPI";
+import { orderRelation, showAllOrder } from "@/services/orderAPI";
 // import DropdownButton from './DropdownButton';
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -24,22 +24,48 @@ interface DataType {
   IsActive: boolean;
   AccountDeliveryID: string | null;
   AccountSaleID: string | null;
+  TotalPrice?: string;
 }
 
+const formatPrice = (price: number | bigint) => {
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+  }).format(price)}`;
+};
 const fetchAllOrder = async () => {
   try {
     const { data } = await showAllOrder();
     console.log("Check API: ", data.data);
 
-    // Lọc và lấy ra những đơn hàng có trạng thái là "Completed" hoặc "Canceled"
+    // Filter orders with status "Completed" or "Canceled"
     const filteredOrders = data.data.filter(
       (order: DataType) =>
         order.OrderStatus === "Completed" || order.OrderStatus === "Canceled"
     );
 
-    console.log("Check filteredOrders: ", filteredOrders);
+    // Fetch detailed info for each filtered order
+    const detailedOrders = await Promise.all(
+      filteredOrders.map(async (order: DataType) => {
+        const detailedOrder = await fetchOrderRelation(order.OrderID);
+        return { ...order, TotalPrice: detailedOrder.TotalPrice };
+      })
+    );
 
-    return filteredOrders;
+    console.log("Check detailedOrders: ", detailedOrders);
+
+    return detailedOrders;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const fetchOrderRelation = async (id: number) => {
+  try {
+    const { data } = await orderRelation(id);
+    console.log("Check API: ", data.data);
+    return data.data;
   } catch (error) {
     console.error(error);
     return [];
@@ -49,16 +75,15 @@ const fetchAllOrder = async () => {
 const History = () => {
   const [showModal, setShowModal] = useState(false);
   const [orders, setOrders] = useState<DataType[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
-      const filteredOrders = await fetchAllOrder();
-      setOrders(filteredOrders);
+      const detailedOrders = await fetchAllOrder();
+      setOrders(detailedOrders);
     };
 
     fetchData();
   }, []);
-
   const handleOk = () => {
     setShowModal(false);
     // Handle the actual cancel logic here
@@ -69,7 +94,6 @@ const History = () => {
   };
 
   const columns: TableColumnsType<DataType> = [
-    // { title: "No", dataIndex: "No" },
     {
       title: "OrderID",
       dataIndex: "OrderID",
@@ -78,17 +102,16 @@ const History = () => {
     {
       title: "Order Date",
       dataIndex: "OrderDate",
-      // defaultSortOrder: "descend",
       sorter: (a: DataType, b: DataType) =>
         a.OrderDate.localeCompare(b.OrderDate),
     },
-
-    // {
-    //   title: "Price",
-    //   dataIndex: "price",
-    //   // defaultSortOrder: "descend",
-    //   sorter: (a: DataType, b: DataType) => a.Price - b.price,
-    // },
+    {
+      title: "Total Price",
+      dataIndex: "TotalPrice",
+      render: (text) => formatPrice(text),
+      sorter: (a: DataType, b: DataType) =>
+        parseFloat(a.TotalPrice || "0") - parseFloat(b.TotalPrice || "0"),
+    },
     {
       title: "Status",
       dataIndex: "OrderStatus",
@@ -97,12 +120,7 @@ const History = () => {
         if (OrderStatus === "Pending") {
           color = "grey";
         } else if (OrderStatus === "Completed") {
-          //   color = "#32CD32";
-          // } else if (OrderStatus === "Delivering") {
-          //   color = "geekblue";
-          // } else if (OrderStatus === "Delivered") {
-          //   color = "green";
-          // }
+          color = "#32CD32";
         } else if (OrderStatus === "Canceled") {
           color = "volcano";
         }
@@ -113,11 +131,8 @@ const History = () => {
         );
       },
       filters: [
-        // { text: "Pending", value: "Pending" },
-        // { text: "Delivered", value: "Delivered" },
-        // { text: "Delivering", value: "Delivering" },
         { text: "Completed", value: "Completed" },
-        { text: "Cancelled", value: "Cancelled" },
+        { text: "Cancelled", value: "Canceled" },
       ],
       onFilter: (value, record) =>
         record.OrderStatus.indexOf(value as string) === 0,
@@ -125,9 +140,13 @@ const History = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <Space style={{ width: 134 }} size="middle">
-          <Link to="/order-details">View</Link>
+          <a
+            onClick={() => navigate(`/order-details?orderId=${record.OrderID}`)}
+          >
+            View
+          </a>
           <a>Review FB</a>
         </Space>
       ),

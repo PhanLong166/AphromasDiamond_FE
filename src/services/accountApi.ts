@@ -12,3 +12,6 @@ export const getInfoCurrentUser = () => {
     return get(`/account/current`);
 }
 
+export const showAllAccounts = () => {
+    return get('/auth/ShowAllAccounts');
+}
