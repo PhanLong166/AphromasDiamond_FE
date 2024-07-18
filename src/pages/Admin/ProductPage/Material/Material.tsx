@@ -120,14 +120,9 @@ const Material = () => {
   // EDIT
   const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
-      // materialJewelryID: "",
-      // materialName: "",
-      // sellPrice: 0,
-      // updateTime: "",
-      // ...record,
+      materialName: "",
+      sellPrice: 0,
       ...record,
-          UpdateTime: new Date(),
-          BuyPrice: 0,
     });
     setEditingKey(record.key);
   };
@@ -144,24 +139,26 @@ const Material = () => {
 
       if (index > -1) {
         const item = newData[index];
-        const updatedMaterial = {
+        const updatedItem = {
+          Name: row.materialJewelryID,
+          SellPrice: row.sellPrice,
+          UpdateTime: new Date().toISOString(),
+        };
+        newData.splice(index, 1, {
           ...item,
           ...row,
-          updateTime: new Date().toISOString(),
-        };
-        await updateMaterial(item.materialJewelryID, updatedMaterial);
-        newData.splice(index, 1, updatedMaterial);
+        });
         setMaterials(newData);
-        setEditingKey("");
+        await updateMaterial(item.materialJewelryID, updatedItem);
         openNotification("success", "Update", "");
       } else {
         newData.push(row);
         setMaterials(newData);
-        setEditingKey("");
+        openNotification("error", "Update", "Failed to update type");
       }
+      setEditingKey("");
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
-      openNotification("error", "Update", errInfo.message);
     }
   };
 
@@ -169,7 +166,7 @@ const Material = () => {
     try {
       await deleteMaterial(materialJewelryID);
       openNotification("success", "Delete", "");
-      await fetchData();
+      fetchData();
     } catch (error) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
@@ -197,11 +194,11 @@ const Material = () => {
     {
       title: "Update Time",
       dataIndex: "updateTime",
-      sorter: (a: any, b: any) => a.updateTime - b.updateTime,
+      sorter: (a: any, b: any) => new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime(),
     },
     {
       title: "Edit",
-      dataIndex: "materialJewelryID",
+      dataIndex: "edit",
       className: "TextAlign SmallSize",
       render: (_: unknown, record: any) => {
         const editable = isEditing(record);
@@ -235,7 +232,7 @@ const Material = () => {
         materials.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => handleDelete(record.materialJewelryID)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -270,6 +267,7 @@ const Material = () => {
     }
   };
 
+
   // MOVE ADD NEW
 
   const handleAddNew = () => {
@@ -280,6 +278,7 @@ const Material = () => {
   const handleCancel = () => {
     setIsAdding(false);
   };
+
 
   // SUBMIT FORM
   interface SubmitButtonProps {
@@ -294,7 +293,7 @@ const Material = () => {
     const [submittable, setSubmittable] = useState(false);
     const values = Form.useWatch([], form);
 
-    React.useEffect(() => {
+    useEffect(() => {
       form
         .validateFields({ validateOnly: true })
         .then(() => setSubmittable(true))
@@ -385,7 +384,7 @@ const Material = () => {
                   >
                     <Styled.FormItem>
                       <Form.Item
-                        label="Jewelry Type Name"
+                        label="Material Name"
                         name="Name"
                         rules={[
                           {

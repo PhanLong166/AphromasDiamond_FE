@@ -41,26 +41,17 @@ import TextArea from "antd/es/input/TextArea";
 import { Link } from "react-router-dom";
 import ImgCrop from "antd-img-crop";
 import { showAllSetting, createSetting } from "@/services/jewelrySettingAPI";
-import { getImage } from "@/services/imageAPI";
+// import { getImage } from "@/services/imageAPI";
 import { showAllMaterial } from "@/services/materialAPI";
 import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 import { showAllSize } from "@/services/sizeAPI";
 import { showAllProduct } from "@/services/jewelryAPI";
-import { createSettingVariant } from "@/services/settingVariantAPI";
+// import { createSettingVariant } from "@/services/settingVariantAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 
 // MATERIAL TABLE
-const calculateJewelrySettingPrice = (
-  weight: number,
-  pricePerGram: number,
-  auxiliaryCost: number,
-  productionCost: number
-) => {
-  return weight * pricePerGram + auxiliaryCost + productionCost;
-};
-
 
 const PriceCalculation = (
   <div>
@@ -78,12 +69,10 @@ const JewelrySetting = () => {
   const [materials, setMaterials] = useState([]);
   const [jewelryTypes, setJewelryTypes] = useState([]);
   const [sizes, setSizes] = useState([]);
-  const [products, setProducts] = useState([]);
-  const [selectedMaterial, setSelectedMaterial] = useState("");
-  const [selectedJewelryType, setSelectedJewelryType] = useState("");
-  const [selectedSize, setSelectedSize] = useState("");
-  const [selectedProduct, setSelectedProduct] = useState("");
-
+  const [setProducts] = useState([]);
+  const [setSelectedMaterial] = useState("");
+  const [setSelectedJewelryType] = useState("");
+  const [setSelectedSize] = useState("");
   
   type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
@@ -105,13 +94,11 @@ const JewelrySetting = () => {
       const responseMaterial = await showAllMaterial();
       const responseJewelryType = await showAllJewelryType();
       const responseSize = await showAllSize();
-      const responseProduct = await showAllProduct();
 
       const { data: settingsData } = responseSetting.data;
       const { data: materialsData } = responseMaterial.data;
       const { data: jewelryTypesData } = responseJewelryType.data;
       const { data: sizeData } = responseSize.data;
-      const { data: productData } = responseProduct.data;
 
       const formattedSettings = settingsData.map((setting: any) => ({
         jewelrySettingID: setting.JewelrySettingID,
@@ -155,17 +142,11 @@ const JewelrySetting = () => {
         sizeValue: size.SizeValue,
       }));
 
-      const formattedProducts = productData.map((product: any) => ({
-        productID: product.ProductID,
-        productName: product.Name,
-      }));
-
       console.log("Formatted Diamonds:", formattedSettings); // Log formatted diamonds
       setSettings(formattedSettings);
       setMaterials(formattedMaterials);
       setJewelryTypes(formattedTypes);
       setSizes(formattedSizes);
-      setProducts(formattedProducts);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }
@@ -476,38 +457,6 @@ const JewelrySetting = () => {
         />
       ),
     },
-    // {
-    //   title: (
-    //     <>
-    //       Jewelry Setting Price
-    //       <Popover
-    //         content={PriceCalculation}
-    //         title="Price Calculation"
-    //         trigger="click"
-    //       >
-    //         <InfoCircleOutlined style={{ marginLeft: 8, fontSize: "12px" }} />
-    //       </Popover>
-    //     </>
-    //   ),
-    //   dataIndex: "price",
-    //   render: (_: unknown, record: RingMaterialDataType) => {
-    //     const materialDetail = getMaterialDetails(
-    //       record.materialID,
-    //       materialData
-    //     );
-    //     if (materialDetail) {
-    //       const pricePerGram = materialDetail.sellingPrice;
-    //       const jewelrySettingPrice = calculateJewelrySettingPrice(
-    //         record.amount,
-    //         pricePerGram,
-    //         0,
-    //         0
-    //       );
-    //       return jewelrySettingPrice;
-    //     }
-    //     return 0;
-    //   },
-    // },
     {
       title: (
             <>
@@ -652,26 +601,6 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
               {isAdding ? (
                 <>
                   <Form layout="vertical" className="AdPageContent_Content">
-                    {/* <Styled.FormItem>
-                      <Form.Item
-                        label="Jewelry Name"
-                        name="Jewelry Name"
-                      >
-                        <Select
-                          placeholder="Select Jewelry"
-                          onChange={(value) => setSelectedProduct(value)}
-                        >
-                          {products.map((product) => (
-                            <Select.Option
-                              key={product.productID}
-                              value={product.productID}
-                            >
-                              {product.productName}
-                            </Select.Option>
-                          ))}
-                        </Select>
-                      </Form.Item>
-                    </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item
                         label="Jewelry Setting ID"
