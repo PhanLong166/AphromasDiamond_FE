@@ -7,6 +7,7 @@ import { NotificationInstance } from "antd/es/notification/interface";
 import DiamondImageUpload from "../upload/DiamondImage.upload";
 import UploadButton from "../button/DiamondButton.upload";
 import DiamondCertificateUpload from "../upload/DiamonCertificate.upload";
+import CertificateUploadButton from "../button/CertificateButton.upload";
 
 type DiamondStepsType = {
     title: string;
@@ -80,7 +81,7 @@ const DiamondSteps = ({
         }
     ];
 
-    const next = () => setCurrent(current + 1);
+    // const next = () => setCurrent(current + 1);
 
     const prev = () => setCurrent(current - 1);
 
@@ -129,9 +130,14 @@ const DiamondSteps = ({
                     )}
                 {current < steps.length - 1 &&
                     steps[current].title === "Certificate" && (
-                        <Button type="primary" onClick={next}>
+                        <CertificateUploadButton
+                            form={certificateForm}
+                            current={current}
+                            setCurrent={setCurrent}
+                            api={api}
+                        >
                             Next
-                        </Button>
+                        </CertificateUploadButton>
                     )}
                 {current === steps.length - 1 && (
                     <Button type="primary" onClick={() => setIsAdding(false)}>

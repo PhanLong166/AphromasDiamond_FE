@@ -2,12 +2,10 @@ import { Form, FormInstance, Select, Upload, UploadFile, UploadProps } from "ant
 import { NotificationInstance } from "antd/es/notification/interface";
 import * as Styled from '../../Diamond.styled';
 import { InboxOutlined } from "@ant-design/icons";
-import { useAppDispatch, useAppSelector } from "@/hooks";
+import { useAppDispatch } from "@/hooks";
 import { SetStateAction, useCallback } from "react";
 import uploadSlice from "../slice";
 import { CertificateType_Option } from "../../Diamond.type";
-import { createCertificate } from "@/services/certificateAPI";
-import { uploadImage } from "@/services/imageAPI";
 
 const { Dragger } = Upload
 
@@ -25,10 +23,6 @@ const DiamondCertificateUpload = ({
     api
 }: CertificateUploadProps) => {
     const dispatch = useAppDispatch();
-
-    const DiamondID = useAppSelector((state) => state.upload.DiamondID);
-    const fileUploadList = useAppSelector((state) => state.upload.docsUploadList);
-    const values = Form.useWatch([], form);
 
     // const props: UploadProps = {
     //     name: "file",
@@ -65,17 +59,6 @@ const DiamondCertificateUpload = ({
             const docsList = newFileList.map((file) => file.originFileObj);
             setDocsList(newFileList);
             dispatch(uploadSlice.actions.setDocsUploadList(docsList));
-            console.log(fileUploadList);
-            const { data } = await createCertificate({
-                ...values,
-                DiamondID: DiamondID
-            });
-            if(data.statusCode !== 201) throw new Error(data.error);
-            await uploadImage(fileUploadList, undefined, undefined, undefined, data?.data?.CertificateID);
-            api.success({
-                message: 'Notification',
-                description: 'Add certificate successfully'
-            });
         } catch (error: any) {
             api.error({
                 message: 'Error',

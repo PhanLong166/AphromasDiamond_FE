@@ -29,9 +29,19 @@ const CertificateUploadButton: React.FC<React.PropsWithChildren<SubmitButtonProp
     console.log(certificateValues);
     const uploadDiamondCertificate = async () => {
         try {
-            // const { data } = await createCertificate()
-        } catch (error) {
-            
+            const { data } = await createCertificate(certificateValues);
+            if(data.statusCode !== 201) throw new Error(data);
+            await uploadImage(fileUploadList, undefined, undefined, undefined, data?.data?.CertificateID);
+            api.success({
+                message: 'Notification',
+                description: 'Upload certificate successfully!'
+            });
+            setCurrent(current + 1);
+        } catch (error: any) {
+            api.error({
+                message: 'Error',
+                description: error ? error.message : 'An error occurred'
+            });
         }
     }
     
@@ -39,7 +49,7 @@ const CertificateUploadButton: React.FC<React.PropsWithChildren<SubmitButtonProp
         <Button
             type="primary"
             htmlType="submit"
-            
+            onClick={uploadDiamondCertificate}
         >
             {children}
         </Button>
