@@ -7,7 +7,6 @@ import { Navigate, Outlet } from "react-router-dom"
 const AuthRouter = () => {
     const { role } = useAuth();
     return !role ? <Outlet/> : <Navigate to='/' />;
-    
 }
 
 const AuthRoutes = {

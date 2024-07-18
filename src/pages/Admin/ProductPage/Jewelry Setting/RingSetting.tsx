@@ -32,7 +32,7 @@ import {
   Space,
   Popconfirm,
   Popover,
-  notification,
+  // notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import ProductMenu from "../../../../components/Admin/ProductMenu/ProductMenu";
@@ -263,7 +263,7 @@ const JewelrySetting = () => {
   const [data] = useState<RingDataType[]>(ringData);
   const [isAdding, setIsAdding] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [api, contextHolder] = notification.useNotification();
+  // const [api, contextHolder] = notification.useNotification();
   const [settings, setSettings] = useState([]);
 
 
@@ -288,6 +288,7 @@ const JewelrySetting = () => {
       }));
       console.log('Formatted Diamonds:', formattedSettings); // Log formatted diamonds
       setSettings(formattedSettings);
+      console.log(settings);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }
