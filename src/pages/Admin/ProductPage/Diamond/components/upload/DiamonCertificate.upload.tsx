@@ -3,10 +3,10 @@ import { NotificationInstance } from "antd/es/notification/interface";
 import * as Styled from '../../Diamond.styled';
 import { InboxOutlined } from "@ant-design/icons";
 import { useAppDispatch, useAppSelector } from "@/hooks";
-import { SetStateAction, useCallback, useEffect } from "react";
+import { SetStateAction, useCallback } from "react";
 import uploadSlice from "../slice";
 import { CertificateType_Option } from "../../Diamond.type";
-import { createCertificate, updateCertificate } from "@/services/certificateAPI";
+import { createCertificate } from "@/services/certificateAPI";
 import { uploadImage } from "@/services/imageAPI";
 
 const { Dragger } = Upload
