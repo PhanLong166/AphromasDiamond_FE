@@ -81,12 +81,8 @@ const MainRouter = () => {
 };
 
 const CustomerRouter = () => {
-  //Use when you have database
-  // const { role } = useAuth();
-  // return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
-
-  //Use when you don't have database
-  return <Outlet />;
+  const { role } = useAuth();
+  return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
 };
 
 const publicRoutes = {

@@ -45,7 +45,7 @@ import { showAllSetting, createSetting } from "@/services/jewelrySettingAPI";
 import { showAllMaterial } from "@/services/materialAPI";
 import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 import { showAllSize } from "@/services/sizeAPI";
-import { showAllProduct } from "@/services/jewelryAPI";
+// import { showAllProduct } from "@/services/jewelryAPI";
 // import { createSettingVariant } from "@/services/settingVariantAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
@@ -66,13 +66,13 @@ const JewelrySetting = () => {
   const [searchText, setSearchText] = useState("");
   const [api, contextHolder] = notification.useNotification();
   const [settings, setSettings] = useState([]);
-  const [materials, setMaterials] = useState([]);
-  const [jewelryTypes, setJewelryTypes] = useState([]);
+  const [materials, setMaterials] = useState<any>([]);
+  const [jewelryTypes, setJewelryTypes] = useState<any>([]);
   const [sizes, setSizes] = useState([]);
-  const [setProducts] = useState([]);
-  const [setSelectedMaterial] = useState("");
-  const [setSelectedJewelryType] = useState("");
-  const [setSelectedSize] = useState("");
+  // const [setProducts] = useState([]);
+  const [setSelectedMaterial] = useState<any>();
+  const [setSelectedJewelryType] = useState<any>("");
+  const [setSelectedSize] = useState<any>("");
   
   type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
@@ -421,7 +421,7 @@ const JewelrySetting = () => {
           placeholder="Select Material"
           onChange={(value) => setSelectedMaterial(value)}
         >
-          {materials.map((material) => (
+          {materials.map((material: any) => (
             <Select.Option key={material.materialID} value={material.materialID}>
               {material.materialName}
             </Select.Option>
@@ -437,7 +437,7 @@ const JewelrySetting = () => {
           placeholder="Select Size"
           onChange={(value) => setSelectedSize(value)}
         >
-          {sizes.map((size) => (
+          {sizes.map((size: any) => (
             <Select.Option key={size.sizeID} value={size.sizeID}>
               {size.sizeValue}
             </Select.Option>
@@ -629,7 +629,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                           placeholder="Select Type"
                           onChange={(value) => setSelectedJewelryType(value)}
                         >
-                          {jewelryTypes.map((material) => (
+                          {jewelryTypes.map((material: any) => (
                             <Select.Option
                               key={material.typeID}
                               value={material.typeID}
