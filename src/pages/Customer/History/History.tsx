@@ -1,7 +1,7 @@
 import styled from "styled-components";
 import { Space, Table, Modal, TableColumnsType, Tag, TableProps } from "antd";
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { orderRelation, showAllOrder } from "@/services/orderAPI";
 // import DropdownButton from './DropdownButton';
@@ -28,8 +28,8 @@ interface DataType {
 }
 
 const formatPrice = (price: number | bigint) => {
-  return `$ ${new Intl.NumberFormat('en-US', {
-    style: 'decimal',
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
     minimumFractionDigits: 0,
   }).format(price)}`;
 };
@@ -75,7 +75,7 @@ const fetchOrderRelation = async (id: number) => {
 const History = () => {
   const [showModal, setShowModal] = useState(false);
   const [orders, setOrders] = useState<DataType[]>([]);
-
+  const navigate = useNavigate();
   useEffect(() => {
     const fetchData = async () => {
       const detailedOrders = await fetchAllOrder();
@@ -140,9 +140,13 @@ const History = () => {
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <Space style={{ width: 134 }} size="middle">
-          <Link to="/order-details">View</Link>
+          <a
+            onClick={() => navigate(`/order-details?orderId=${record.OrderID}`)}
+          >
+            View
+          </a>
           <a>Review FB</a>
         </Space>
       ),
