@@ -92,7 +92,7 @@ const routes = {
     discountDetail: "/admin/marketing/discount/detail/:id",
     voucher: "/admin/marketing/voucher",
     clientCaring: "/admin/client-caring",
-    feedback: "/admin/client-caring/feedback",
+    // feedback: "/admin/client-caring/feedback",
     customer: "/admin/customer",
     customerDetail: "/admin/customer/detail/:id",
     salesStaff: "/admin/sales-staff",
