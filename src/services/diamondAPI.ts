@@ -4,7 +4,7 @@ import { get, post, put, remove } from "./apiCaller";
 export const showAllDiamond = () => {
     return get(`/diamond/showAll`);
 }
-
+    
 export const showDiamonds = (params: any) => {
     return get(`/diamond/showDiamonds`,params);
 }
