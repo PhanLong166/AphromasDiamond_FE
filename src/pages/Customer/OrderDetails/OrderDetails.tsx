@@ -37,6 +37,9 @@ const StatusTag = ({ status }: { status: string }) => {
     case "Canceled":
       color = "volcano";
       break;
+    case "Completed":
+      color = "#32CD32";
+      break;
     default:
       color = "default";
   }
@@ -47,9 +50,13 @@ const StatusTag = ({ status }: { status: string }) => {
     </Tag>
   );
 };
-// const formatPrice = (price: number): string => {
-//   return `$${price.toFixed(0)}`;
-// };
+
+const formatPrice = (price: number) => {
+  return new Intl.NumberFormat("en-US", {
+    style: "currency",
+    currency: "USD",
+  }).format(price);
+};
 
 const OrderDetail: React.FC = () => {
   // const [order, setOrder] = useState([]);
@@ -70,7 +77,7 @@ const OrderDetail: React.FC = () => {
     try {
       const res = await showAllOrderLineForAdmin();
 
-      if (Array.isArray(res.data.data)) {
+      if (res.data.data) {
         const filteredOrders = res.data.data.filter(
           (order: { OrderID: number }) =>
             order.OrderID === parseInt(orderId || "", 10)
@@ -82,8 +89,6 @@ const OrderDetail: React.FC = () => {
         } else {
           console.log("No orders found with OrderID:", orderId);
         }
-      } else {
-        console.error("Expected an array but received:", res.data);
       }
     } catch (error) {
       console.error("Error fetching order lines:", error);
@@ -92,15 +97,38 @@ const OrderDetail: React.FC = () => {
   const fetchDiamondDetails = async (orders: any) => {
     try {
       const details: { [key: string]: any } = {};
+      console.log(orders);
       for (const order of orders) {
         if (order.DiamondID) {
           const res = await getDiamondDetails(order.DiamondID);
-          details[order.DiamondID] = res.data.data;
-          if (order.usingImageID && order.usingImageID.length > 0) {
-            const imageID = order.usingImageID[0];
-            const imageRes = getImage(imageID.UsingImageID);
-            details[order.DiamondID].image = imageRes;
-          } // Lưu thông tin ảnh vào chi tiết của kim cương
+          const diamond = res.data.data;
+
+          // Initialize diamond image with a default value
+          let diamondImage = "https://via.placeholder.com/150";
+
+          // Fetch image URL from the usingImage array
+          if (diamond.usingImage && diamond.usingImage.length > 0) {
+            const imageIDPromises = diamond.usingImage.map(
+              async (image: any) => {
+                try {
+                  const imageRes = await getImage(image.UsingImageID);
+                  return imageRes || image.url; // Fallback to image.url if API fails
+                } catch (error) {
+                  console.error("Error fetching image:", error);
+                  return image.url; // Fallback to image.url if API fails
+                }
+              }
+            );
+
+            // Get the first image URL from the promises
+            const imageURLs = await Promise.all(imageIDPromises);
+            diamondImage = imageURLs[0]; // Use the first image URL
+          }
+
+          details[order.DiamondID] = {
+            ...diamond,
+            UsingImage: diamondImage,
+          };
         }
       }
       setDiamondDetails(details);
@@ -115,15 +143,29 @@ const OrderDetail: React.FC = () => {
       fetchAllOrderLine();
     }
   }, [orderId]); // Chạy khi orderId thay đổi
-  
 
   const columns: TableColumnsType<DiamondDetail> = [
+    // {
+    //   title: "DiamondID",
+    //   dataIndex: "DiamondID",
+    //   key: "DiamondID",
+    //   sorter: (a, b) => a.DiamondID - b.DiamondID,
+    //   sortDirections: ["descend", "ascend"],
+    // },
     {
-      title: "DiamondID",
-      dataIndex: "DiamondID",
-      key: "DiamondID",
-      sorter: (a, b) => a.DiamondID - b.DiamondID,
-      sortDirections: ["descend", "ascend"],
+      title: " Product",
+      dataIndex: "UsingImage",
+      key: "UsingImage",
+      render: (usingImage: string | undefined) =>
+        usingImage ? (
+          <img
+            src={usingImage}
+            alt="Using Image"
+            style={{ width: "100px", height: "auto" }}
+          />
+        ) : (
+          "No  Image"
+        ),
     },
     {
       title: "Name",
@@ -141,24 +183,11 @@ const OrderDetail: React.FC = () => {
       title: "Price",
       dataIndex: "Price",
       key: "Price",
+      render: (price: number) => formatPrice(price),
       sorter: (a, b) => a.Price - b.Price,
       sortDirections: ["descend", "ascend"],
     },
-    {
-      title: " Image",
-      dataIndex: "UsingImage",
-      key: "UsingImage",
-      render: (usingImage: string | undefined) =>
-        usingImage ? (
-          <img
-            src={usingImage}
-            alt="Using Image"
-            style={{ width: "100px", height: "auto" }}
-          />
-        ) : (
-          "No  Image"
-        ),
-    },
+
     {
       title: "Action",
       key: "action",
