@@ -5,7 +5,7 @@ export interface OrderLineBody {
     OrderID?: number | null;
     DiamondID?: number | null;
     ProductID?: number | null;
-    CustomerID: number;
+    CustomerID?: number | null;
 }
 
 export const showAllOrderLineForAdmin = () => {

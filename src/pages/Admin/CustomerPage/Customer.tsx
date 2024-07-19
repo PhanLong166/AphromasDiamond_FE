@@ -2,7 +2,7 @@ import * as Styled from "./Customer.styled";
 import React, { useEffect, useState } from "react";
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Form, Input, InputNumber, Popconfirm, Space, Table } from "antd";
+import { Form, Input, InputNumber, Space, Table } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 // import { customerData, CustomerDataType } from "./CustomerData";
 import { Link } from "react-router-dom";

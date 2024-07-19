@@ -2,18 +2,19 @@ import * as Styled from "./Manager.styled";
 import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
-import type { TableProps, FormInstance } from "antd";
+import type { FormInstance } from "antd";
 import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Space, notification } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { SortOrder } from "antd/es/table/interface";
 import { deleteAccount, register, showAllAccounts, updateAccount } from "@/services/authAPI";
+import { ItemType } from "antd/es/menu/interface";
 
 interface EditableCellProps {
   editing: boolean;
   dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: ANY;
+  record: any;
   index: number;
   children: React.ReactNode;
 }
@@ -102,7 +103,7 @@ const Manager = () => {
 
 
   // EDIT
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const edit = (record: Partial<ItemType> & { key: React.Key }) => {
     form.setFieldsValue({
       managerName: "",
       email: "",
@@ -150,7 +151,7 @@ const Manager = () => {
       await deleteAccount(managerID);
       openNotification("success", "Delete", "");
       fetchData();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
     }
@@ -294,7 +295,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
       fetchData();
       setIsAdding(false);
       openNotification("success", "Add", "");
-    } catch (error) {
+    } catch (error: any) {
       openNotification("error", "", error.message);
     }
   };

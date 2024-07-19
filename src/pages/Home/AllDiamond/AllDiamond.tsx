@@ -172,7 +172,7 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
-import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
+import { showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { Link } from "react-router-dom";
 import { useNavigate, useLocation } from "react-router-dom";
@@ -199,6 +199,8 @@ const AllDiamond: React.FC = () => {
   const [pageSize] = useState(12); // Set   your desired page size
   const location = useLocation();
   const navigate = useNavigate();
+
+  console.log(location);
 
   // const [diamondData, setDiamondData] = useState([]);
 
