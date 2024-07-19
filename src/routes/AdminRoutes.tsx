@@ -36,18 +36,14 @@ import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff/DeliveryStaff"
 import DeliStaffDetail from "@/pages/Admin/StaffPage/DeliveryStaff/DeliStaffDetail"
 import Manager from "@/pages/Admin/ManagerPage/Manager"
 
-//Open it when you have database
-// import useAuth from "@/hooks/useAuth"
-// import { Role } from "@/utils/enum"
-// import { Navigate } from "react-router-dom"
+import useAuth from "@/hooks/useAuth"
+import { Role } from "@/utils/enum"
+import { Navigate } from "react-router-dom"
 
 const AdminRouter = () => {
     //Use database
-    // const { role } = useAuth();
-    // return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
-
-    //No database
-    return <AdminLayout/>;
+    const { role } = useAuth();
+    return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
 }
 
 const AdminRoutes = {
