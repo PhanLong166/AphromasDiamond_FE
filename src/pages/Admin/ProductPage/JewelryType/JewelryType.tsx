@@ -111,7 +111,7 @@ const JewelryType = () => {
       jewelryTypeName: "",
       ...record,
     });
-    setEditingKey(record.key);
+    setEditingKey(String(record.key));
   };
 
   const cancel = () => {
@@ -286,7 +286,7 @@ const JewelryType = () => {
         fetchData();
         setIsAdding(false);
         openNotification("success", "Add", "");
-      } catch (error) {
+      } catch (error: any) {
         openNotification("error", "", error.message);
       }
     };

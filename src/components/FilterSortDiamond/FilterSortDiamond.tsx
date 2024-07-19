@@ -138,6 +138,8 @@ const FilterSortDiamond = () => {
         page: 1,
       };
 
+      console.log(diamondData);
+
       try {
         const response = await showDiamonds(params);
         // Handle response from API

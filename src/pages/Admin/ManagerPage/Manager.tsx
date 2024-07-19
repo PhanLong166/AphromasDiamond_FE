@@ -7,13 +7,14 @@ import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, notifi
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { SortOrder } from "antd/es/table/interface";
 import { deleteAccount, register, showAllAccounts, updateAccount } from "@/services/authAPI";
+import { ItemType } from "antd/es/menu/interface";
 
 interface EditableCellProps {
   editing: boolean;
   dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: ANY;
+  record: any;
   index: number;
   children: React.ReactNode;
 }
@@ -154,7 +155,7 @@ const Manager = () => {
       await deleteAccount(managerID);
       openNotification("success", "Delete", "");
       fetchData();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
     }
@@ -298,7 +299,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
       fetchData();
       setIsAdding(false);
       openNotification("success", "Add", "");
-    } catch (error) {
+    } catch (error: any) {
       openNotification("error", "", error.message);
     }
   };

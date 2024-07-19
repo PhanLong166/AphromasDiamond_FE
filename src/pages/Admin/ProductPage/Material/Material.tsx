@@ -167,7 +167,7 @@ const Material = () => {
       await deleteMaterial(materialJewelryID);
       openNotification("success", "Delete", "");
       fetchData();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
     }
@@ -314,7 +314,7 @@ const Material = () => {
         fetchData();
         setIsAdding(false);
         openNotification("success", "Add", "");
-      } catch (error) {
+      } catch (error: any) {
         openNotification("error", "", error.message);
       }
     };

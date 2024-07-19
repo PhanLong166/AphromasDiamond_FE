@@ -52,13 +52,16 @@ const StatusTag = ({ status }: { status: string }) => {
 // };
 
 const OrderDetail: React.FC = () => {
-  const [order, setOrder] = useState([]);
+  // const [order, setOrder] = useState([]);
   const [diamondDetails, setDiamondDetails] = useState<{ [key: string]: any }>(
     {}
   );
-  console.log(order)
+
   // const [value, setValue] = useState(3);
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const [selectedDiamondId, setSelectedDiamondId] = useState<number | null>(
+    null
+  );
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get("orderId");
@@ -74,7 +77,7 @@ const OrderDetail: React.FC = () => {
         );
 
         if (filteredOrders.length > 0) {
-          setOrder(filteredOrders);
+          // setOrder(filteredOrders);
           fetchDiamondDetails(filteredOrders);
         } else {
           console.log("No orders found with OrderID:", orderId);
@@ -142,23 +145,32 @@ const OrderDetail: React.FC = () => {
       sortDirections: ["descend", "ascend"],
     },
     {
-    title: " Image",
-    dataIndex: "UsingImage",
-    key: "UsingImage",
-    render: (usingImage: string | undefined) => (
-      usingImage ? (
-        <img src={usingImage} alt="Using Image" style={{ width: "100px", height: "auto" }} />
-      ) : (
-        "No  Image"
-      )
-    ),
-  },
+      title: " Image",
+      dataIndex: "UsingImage",
+      key: "UsingImage",
+      render: (usingImage: string | undefined) =>
+        usingImage ? (
+          <img
+            src={usingImage}
+            alt="Using Image"
+            style={{ width: "100px", height: "auto" }}
+          />
+        ) : (
+          "No  Image"
+        ),
+    },
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <Space size="middle">
-          <Button type="link" onClick={() => setIsModalVisible(true)}>
+          <Button
+            type="link"
+            onClick={() => {
+              setSelectedDiamondId(record.DiamondID);
+              setIsModalVisible(true);
+            }}
+          >
             Feedback
           </Button>
         </Space>
@@ -166,12 +178,12 @@ const OrderDetail: React.FC = () => {
     },
   ];
 
-  const handleCreate = (values: any) => {
-    console.log("Received values from form: ", values);
+  const handleFeedbackCreate = (values: any) => {
+    console.log("Feedback submitted: ", values);
     setIsModalVisible(false);
     notification.success({
-      message: "Đánh giá thành công",
-      description: "Cảm ơn bạn đã gửi đánh giá!",
+      message: "Feedback Submitted",
+      description: "Thank you for your feedback!",
     });
   };
 
@@ -209,9 +221,12 @@ const OrderDetail: React.FC = () => {
           />
           <ReviewForm
             visible={isModalVisible}
-            onCreate={handleCreate}
+            onCreate={handleFeedbackCreate}
             onCancel={() => setIsModalVisible(false)}
-          ></ReviewForm>
+            orderId={orderId}
+            accountId={null}
+            diamondId={selectedDiamondId}
+          />
         </ProductsWrapper>
 
         <OrderInfo>
@@ -237,11 +252,7 @@ const OrderDetail: React.FC = () => {
   );
 };
 
-const App: React.FC = () => {
-  return <OrderDetail />;
-};
-
-export default App;
+export default OrderDetail;
 
 const Container = styled.div`
   background-color: #fff;

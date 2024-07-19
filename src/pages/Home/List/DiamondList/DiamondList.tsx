@@ -17,7 +17,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 // import { diamondData } from "./DiamondList.data";
-import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 
 const DiamondList: React.FC = () => {
@@ -25,6 +25,7 @@ const DiamondList: React.FC = () => {
   const navigate = useNavigate();
   const [diamonds, setDiamonds] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
+  console.log(loading);
   // useEffect(() => {
   //   const fetchData = async () => {
   //     try {
