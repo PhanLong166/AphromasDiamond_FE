@@ -70,6 +70,8 @@ const MainRouter = () => {
   const { role } = useAuth();
   if (role?.includes(Role.ADMIN))
     return <Navigate to={config.routes.admin.dashboard} />;
+  if (role?.includes(Role.MANAGER))
+    return <Navigate to={config.routes.admin.dashboard} />;
   if (role?.includes(Role.SALES_STAFF))
     return <Navigate to={config.routes.salesStaff.acceptedOrder} />;
   if (role?.includes(Role.DELI_STAFF))

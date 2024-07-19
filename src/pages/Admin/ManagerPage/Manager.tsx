@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { FormInstance } from "antd";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Space, notification } from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, notification } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { SortOrder } from "antd/es/table/interface";
 import { deleteAccount, register, showAllAccounts, updateAccount } from "@/services/authAPI";
@@ -55,9 +55,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const Manager = () => {
   const [form] = Form.useForm();
   const [managers, setManagers] = useState<any[]>([]);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
+  const [editingName, setEditingName] = useState<string>("");
   const [isAdding, setIsAdding] = useState(false);
-  const isEditing = (record: any) => record.key === editingKey;
   const [api, contextHolder] = notification.useNotification();
   const [searchText, setSearchText] = useState("");
 
@@ -103,44 +102,49 @@ const Manager = () => {
 
 
   // EDIT
-  const edit = (record: Partial<ItemType> & { key: React.Key }) => {
+  const isEditing = (record: any) => record.managerName === editingName;
+
+  const edit = (record: Partial<any> & { managerName: string }) => {
     form.setFieldsValue({
       managerName: "",
       email: "",
       ...record,
     });
-    setEditingKey(record.key);
+    setEditingName(record.managerName);
   };
 
   const cancel = () => {
-    setEditingKey("");
+    setEditingName("");
   };
 
-  const save = async (key: React.Key) => {
+  const save = async (managerName: string) => {
     try {
       const row = (await form.validateFields()) as any;
       const newData = [...managers];
-      const index = newData.findIndex((item) => key === item.key);
-      
+      const index = newData.findIndex((item) => managerName === item.managerName);
+
       if (index > -1) {
         const item = newData[index];
         const updatedItem = {
           Name: row.managerName,
           Email: row.email,
+          PhoneNumber: item.phoneNumber,
+          CustomerID: item.CustomerID,
+          Role: item.role
         };
         newData.splice(index, 1, {
           ...item,
           ...row,
         });
         setManagers(newData);
-        await updateAccount(item.managerID, updatedItem);
+        await updateAccount(item.managerName, updatedItem);
         openNotification("success", "Update", "");
       } else {
         newData.push(row);
         setManagers(newData);
-        openNotification("error", "Update", "Failed to update type");
+        openNotification("error", "Update", "Failed to update manager");
       }
-      setEditingKey("");
+      setEditingName("");
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
@@ -175,7 +179,6 @@ const Manager = () => {
       title: "Email",
       dataIndex: "email",
       editable: true,
-      // sorter: (a: any, b: any) => a.email.length - b.email.length,
     },
     {
       title: "Edit",
@@ -186,7 +189,7 @@ const Manager = () => {
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.key)}
+              onClick={() => save(record.managerName)}
               style={{ marginRight: 8 }}
             >
               Save
@@ -197,7 +200,7 @@ const Manager = () => {
           </span>
         ) : (
           <Typography.Link
-            disabled={editingKey !== ""}
+            disabled={editingName !== ""}
             onClick={() => edit(record)}
           >
             Edit
@@ -287,7 +290,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
       const newManager = {
         ...managerValues,
         PhoneNumber: "",
-        CustomerID: null
+        CustomerID: null,
+        Role: "ROLE_MANAGER"
       };
 
       const { data } = await register(newManager);
@@ -373,8 +377,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                     </Styled.FormItem>
                     <Styled.FormItem>
                     <Form.Item
-                      name="Email"
                       label="E-mail"
+                      name="Email"
                       rules={[
                         {
                           type: "string",
@@ -406,8 +410,6 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                   
 
                   <Styled.ActionBtn>
-                    <Form.Item>
-                      <Space>
                         <SubmitButton form={form}>
                           <SaveOutlined />
                           Save
@@ -418,8 +420,6 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                         >
                           Cancel
                         </Button>
-                      </Space>
-                    </Form.Item>
                   </Styled.ActionBtn>
                   </Form>
                 </>
