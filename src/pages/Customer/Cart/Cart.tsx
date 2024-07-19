@@ -15,70 +15,66 @@ import {
 } from "@/services/orderLineAPI";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
-
-const fetchCartItemsWithDetails = async () => {
-  try {
-    // Gọi API để lấy tất cả các dòng đặt hàng
-    const { data } = await showAllOrderLineForAdmin();
-    console.log("Check API: ", data.data);
-    // Lọc ra các sản phẩm có OrderID là null
-    const cartItems = data.data.filter(
-      (cartItem: { OrderID: null; DiamondID: number; ProductID: number }) =>
-        cartItem.OrderID === null &&
-        (cartItem.DiamondID !== null || cartItem.ProductID !== null)
-    );
-
-    // Dùng Promise.all để đảm bảo tất cả các yêu cầu API được thực hiện và trả về đầy đủ trước khi tiếp tục
-    const detailedCartItems = await Promise.all(
-      cartItems.map(async (item: { DiamondID: number }) => {
-        // Gọi API để lấy thông tin chi tiết về kim cương dựa vào DiamondID
-        // console.log(item)
-        const { data: diamondDetails } = await getDiamondDetails(
-          item.DiamondID
-        );
-        console.log("a", diamondDetails?.data?.usingImage);
-        // const usingImageID = diamondDetails.data.usingImage[0].usingImageID;
-        // console.log(usingImageID)
-        // const imagesDiamond = await getImageDiamond(usingImageID);
-        if (
-          diamondDetails &&
-          diamondDetails.data &&
-          diamondDetails.data.usingImage
-        ) {
-          const usingImageID = diamondDetails.data.usingImage[0];
-          const imageDiamond = getImage(usingImageID.UsingImageID);
-          const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
-
-          return {
-            ...item,
-            diamondDetails: diamondDetails.data,
-            type,
-            imageDiamond,
-          };
-        } else {
-          return {
-            ...item,
-            diamondDetails: diamondDetails?.data,
-            type: "unknown",
-            imageDiamond: null,
-          };
-        }
-      })
-    );
-
-    // Trả về danh sách các sản phẩm trong giỏ hàng kèm theo thông tin chi tiết về kim cương
-    console.log("detailedCartItems", detailedCartItems);
-    return detailedCartItems;
-  } catch (error) {
-    console.log("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
-    console.error(error);
-  }
-};
+import useAuth from "@/hooks/useAuth";
+import { getCustomer } from "@/services/accountApi";
 
 const Cart = () => {
   useDocumentTitle("Cart | Aphromas Diamond");
 
   const [cartItems, setCartItems] = useState<any[]>([]);
+  const { AccountID } = useAuth();
+
+  const fetchCartItemsWithDetails = async () => {
+    try {
+      // Gọi API để lấy tất cả các dòng đặt hàng
+      const { data } = await showAllOrderLineForAdmin();
+      console.log("Check API: ", data.data);
+
+      //Get customer info
+      const customer = await getCustomer(AccountID ? AccountID : 0);
+      const customerID = customer.data.data.CustomerID;
+      console.log('Customer ID: ', customer.data.data.CustomerID);
+
+      // Lọc ra các sản phẩm có OrderID là null
+      const cartItems = data.data.filter(
+        (cartItem: { OrderID: null, DiamondID: number, ProductID: number, CustomerID: number }) =>
+          (cartItem.OrderID === null 
+            && (cartItem.DiamondID !== null || cartItem.ProductID !== null))
+            && cartItem.CustomerID === customerID
+      );
+      console.log('Cart: ', cartItems);
+
+      // Dùng Promise.all để đảm bảo tất cả các yêu cầu API được thực hiện và trả về đầy đủ trước khi tiếp tục
+      const detailedCartItems = await Promise.all(
+        cartItems.map(async (item: { DiamondID: number }) => {
+          // Gọi API để lấy thông tin chi tiết về kim cương dựa vào DiamondID
+          // console.log(item)
+          const { data: diamondDetails } = await getDiamondDetails(
+            item.DiamondID
+          );
+          console.log('a', diamondDetails?.data?.usingImage)
+          // const usingImageID = diamondDetails.data.usingImage[0].usingImageID;
+          // console.log(usingImageID)
+          // const imagesDiamond = await getImageDiamond(usingImageID);
+          if (diamondDetails && diamondDetails.data && diamondDetails.data.usingImage) {
+            const usingImageID = diamondDetails.data.usingImage[0];
+            const imageDiamond = getImage(usingImageID.UsingImageID ? usingImageID.UsingImageID : 0);
+            const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
+            return { ...item, diamondDetails: diamondDetails.data, type, imageDiamond };
+          } else {
+            return { ...item, diamondDetails: diamondDetails?.data, type: "unknown", imageDiamond: null };
+          }
+        })
+      );
+
+      // Trả về danh sách các sản phẩm trong giỏ hàng kèm theo thông tin chi tiết về kim cương
+      console.log('detailedCartItems', detailedCartItems)
+      return detailedCartItems;
+    } catch (error) {
+      console.log("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
+      console.error(error);
+    }
+  };
 
   useEffect(() => {
     loadCartItems();
@@ -116,14 +112,15 @@ const Cart = () => {
     try {
       const removeOrderLine: OrderLineBody = {
         Quantity: 1,
-        CustomerID: 1,
+        CustomerID: null,
         DiamondID: null,
         ProductID: null,
         OrderID: null,
       };
 
       const { data } = await updateOrderLine(OrderLineID, removeOrderLine);
-      if (data.statusCode !== 200) throw new Error();
+      if (data.statusCode !== 200) throw new Error;
+
       else {
         loadCartItems();
         console.log(data.message);
@@ -172,17 +169,17 @@ const Cart = () => {
                     // name={item.diamondDetails.Name || "No description available"}
                     // description={item.diamondDetails.Description || "No description available"}
                     handleRemove={() => handleRemove(item.OrderLineID)}
-                    // sku={item.diamondDetails.DiamondID}
-                    // price={item.diamondDetailsPrice}
-                    // type={item.type} // Loại sản phẩm: 'diamond' hoặc 'ring'
-                    // ringOptions={[
-                    //   { value: "1", label: "4" },
-                    //   { value: "2", label: "4.5" },
-                    //   { value: "3", label: "5" },
-                    //   { value: "4", label: "5.5" },
-                    //   { value: "5", label: "6" },
-                    //   { value: "6", label: "6.5" },
-                    // ]}
+                  // sku={item.diamondDetails.DiamondID}
+                  // price={item.diamondDetailsPrice}
+                  // type={item.type} // Loại sản phẩm: 'diamond' hoặc 'ring'
+                  // ringOptions={[
+                  //   { value: "1", label: "4" },
+                  //   { value: "2", label: "4.5" },
+                  //   { value: "3", label: "5" },
+                  //   { value: "4", label: "5.5" },
+                  //   { value: "5", label: "6" },
+                  //   { value: "6", label: "6.5" },
+                  // ]}
                   />
                 ))}
               </CartStyled.Column>

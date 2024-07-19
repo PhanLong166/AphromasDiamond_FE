@@ -70,6 +70,8 @@ const MainRouter = () => {
   const { role } = useAuth();
   if (role?.includes(Role.ADMIN))
     return <Navigate to={config.routes.admin.dashboard} />;
+  if (role?.includes(Role.MANAGER))
+    return <Navigate to={config.routes.admin.dashboard} />;
   if (role?.includes(Role.SALES_STAFF))
     return <Navigate to={config.routes.salesStaff.acceptedOrder} />;
   if (role?.includes(Role.DELI_STAFF))
@@ -79,12 +81,8 @@ const MainRouter = () => {
 };
 
 const CustomerRouter = () => {
-  //Use when you have database
-  // const { role } = useAuth();
-  // return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
-
-  //Use when you don't have database
-  return <Outlet />;
+  const { role } = useAuth();
+  return role?.includes(Role.CUSTOMER) ? <Outlet /> : <Navigate to={config.routes.public.login} />;
 };
 
 const publicRoutes = {

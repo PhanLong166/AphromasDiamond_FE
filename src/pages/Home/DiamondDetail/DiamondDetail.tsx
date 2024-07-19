@@ -146,7 +146,7 @@ const DiamondDetails: React.FC = () => {
   //PARAM
   const { id } = useParams<{ id: string }>();
   const getParamsID = id ? parseInt(id) : 0;
-  const { role } = useAuth();
+  const { role, user } = useAuth();
   const [foundProduct, setFoundProduct] = useState<any | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
@@ -183,50 +183,51 @@ const DiamondDetails: React.FC = () => {
 
           const sameWeightProductsResponse = await showDiamonds(params);
 
-        if (sameWeightProductsResponse.status === 200) {
-          if (sameWeightProductsResponse.data && Array.isArray(sameWeightProductsResponse.data.data)) {
-            const fetchedDiamonds = sameWeightProductsResponse.data.data.map((item: any) => ({
-              id: item.DiamondID,
-              name: item.Name,
-              cut: item.Cut,
-              price: item.Price,
-              color: item.Color,
-              description: item.Description,
-              isActive: item.IsActive,
-              clarity: item.Clarity,
-              images: item.usingImage.map((image: any) => ({
-                id: image.UsingImageID,
-                name: image.Name,
-                url: getImage(image.UsingImageID),
-              })),
-            }));
+          if (sameWeightProductsResponse.status === 200) {
+            if (sameWeightProductsResponse.data && Array.isArray(sameWeightProductsResponse.data.data)) {
+              const fetchedDiamonds = sameWeightProductsResponse.data.data.map((item: any) => ({
+                id: item.DiamondID,
+                name: item.Name,
+                cut: item.Cut,
+                price: item.Price,
+                color: item.Color,
+                description: item.Description,
+                isActive: item.IsActive,
+                clarity: item.Clarity,
+                cutter: item.Cutter,
+                images: item.usingImage.map((image: any) => ({
+                  id: image.UsingImageID,
+                  name: image.Name,
+                  url: getImage(image.UsingImageID),
+                })),
+              }));
 
-            const maxProductsToShow = 4;
-            const productsToShow =
-              fetchedDiamonds.length <= maxProductsToShow
-                ? fetchedDiamonds
-                : fetchedDiamonds
-                  .sort(() => 0.5 - Math.random())
-                  .slice(0, maxProductsToShow);
+              const maxProductsToShow = 4;
+              const productsToShow =
+                fetchedDiamonds.length <= maxProductsToShow
+                  ? fetchedDiamonds
+                  : fetchedDiamonds
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, maxProductsToShow);
 
-            setSameBrandProducts(productsToShow);
+              setSameBrandProducts(productsToShow);
+            } else {
+              setSameBrandProducts([]);
+            }
           } else {
             setSameBrandProducts([]);
           }
         } else {
-          setSameBrandProducts([]);
+          setFoundProduct(null);
         }
-      } else {
+      } catch (error) {
+        console.error("Failed to fetch diamond details:", error);
         setFoundProduct(null);
       }
-    } catch (error) {
-      console.error("Failed to fetch diamond details:", error);
-      setFoundProduct(null);
-    }
-  };
+    };
 
-  fetchDiamondDetails();
-}, [id]);
+    fetchDiamondDetails();
+  }, [id]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
@@ -249,7 +250,9 @@ const DiamondDetails: React.FC = () => {
         const OrderLineChild: OrderLineBody = {
           Quantity: 1,
           DiamondID: getParamsID,
-          CustomerID: 1,
+          CustomerID: user?.CustomerID,
+          ProductID: null,
+          OrderID: null
         }
 
         const { data } = await createOrderLine(OrderLineChild);
@@ -257,12 +260,12 @@ const DiamondDetails: React.FC = () => {
         if (data.statusCode !== 200) throw new Error(data.message);
         else {
           openNotification('success', 'The product has been successfully added to the cart');
+          navigate(config.routes.customer.cart);
         }
       } catch (error: any) {
         await openNotification('error', error.message || 'Server error');
       }
 
-      navigate(config.routes.customer.cart);
     } else {
       navigate(config.routes.public.login)
     }
@@ -367,14 +370,14 @@ const DiamondDetails: React.FC = () => {
                       <div className="product-price">
                         <CurrentPrice>
                           $
-                          {foundProduct.salePrice
-                            ? foundProduct.salePrice
+                          {foundProduct.DiscountPrice
+                            ? foundProduct.DiscountPrice
                             : foundProduct.Price}
                         </CurrentPrice>
-                        {foundProduct.salePrice && (
+                        {foundProduct.DiscountPrice && (
                           <div className="wrap">
                             <BeforePrice>${foundProduct.Price}</BeforePrice>
-                            <Discount>- {foundProduct.percentSale}</Discount>
+                            <Discount>- {foundProduct.DiscountID.PercentDiscount}</Discount>
                           </div>
                         )}
                       </div>
@@ -443,7 +446,6 @@ const DiamondDetails: React.FC = () => {
               <TextBlock>
                 <h3>{foundProduct.Name}</h3>
                 <p>{foundProduct.Description}</p>
-                <p>{foundProduct.Description}</p>
               </TextBlock>
               <DotGrid>
                 <div className="wrapper2">
@@ -457,8 +459,8 @@ const DiamondDetails: React.FC = () => {
                       <li>Clarity: {foundProduct.Clarity}</li>
                       <li>Cut: {foundProduct.Cut}</li>
                       <li>Cutter: {foundProduct.Cutter}</li>
-                      <li>Width: {foundProduct.Width}</li>
-                      <li>Length: {foundProduct.Length}</li>
+                      <li>Percent Depth: {foundProduct.PercentDepth}</li>
+                      <li>Length: {foundProduct.LengthOnWidthRatio}</li>
                     </ul>
                   </ListBlock>
                   <ListBlock>
@@ -537,70 +539,70 @@ const DiamondDetails: React.FC = () => {
             <Row gutter={[16, 16]}>
               {sameBrandProducts.map((diamond) => (
                 <Col key={diamond.id} span={6}>
-                 
-                    <Card
-                      style={{ borderRadius: "0" }}
-                      hoverable
-                      className="product-card"
-                      cover={
-                        <>
-                         <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
-                            <img
-                              style={{ borderRadius: "0" }}
-                              src={
-                                diamond.images && diamond.images.length > 0
-                                  ? diamond.images[0].url
-                                  : "/default-image.jpg"
-                              }
-                              alt={diamond.name}
-                              className="product-image"
-                              onMouseOut={(e) =>
-                              (e.currentTarget.src =
-                                diamond.images && diamond.images.length > 0
-                                  ? diamond.images[0].url
-                                  : "/default-image.jpg")
-                              }
-                            />
-                            </Link>
-                          {diamond.salePrice && (
-                            <div className="sale-badge">SALE</div>
-                          )}
-                        </>
-                      }
-                    >
-                      <div className="product-info">
-                        <Title level={4} className="product-name">
-                        <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
+
+                  <Card
+                    style={{ borderRadius: "0" }}
+                    hoverable
+                    className="product-card"
+                    cover={
+                      <>
+                        <Link to={`/diamond/${diamond.id}`} >
+                          <img
+                            style={{ borderRadius: "0" }}
+                            src={
+                              diamond.images && diamond.images.length > 0
+                                ? diamond.images[0].url
+                                : "/default-image.jpg"
+                            }
+                            alt={diamond.name}
+                            className="product-image"
+                            onMouseOut={(e) =>
+                            (e.currentTarget.src =
+                              diamond.images && diamond.images.length > 0
+                                ? diamond.images[0].url
+                                : "/default-image.jpg")
+                            }
+                          />
+                        </Link>
+                        {diamond.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
+                    }
+                  >
+                    <div className="product-info">
+                      <Title level={4} className="product-name">
+                        <Link to={`/diamond/${diamond.id}`} >
                           {diamond.name}
-                          </Link>
-                          {wishList.includes(diamond.DiamondID) ? (
-                            <HeartFilled
-                              className="wishlist-icon"
-                              onClick={() => toggleWishList(diamond.DiamondID)}
-                            />
-                          ) : (
-                            <HeartOutlined
-                              className="wishlist-icon"
-                              onClick={() => toggleWishList(diamond.DiamondID)}
-                            />
-                          )}
-                        </Title>
-                        <div className="price-container">
-                          <Text className="product-price">
-                            $
-                            {diamond.salePrice
-                              ? diamond.salePrice
-                              : diamond.price}
+                        </Link>
+                        {wishList.includes(diamond.id) ? (
+                          <HeartFilled
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(diamond.id)}
+                          />
+                        ) : (
+                          <HeartOutlined
+                            className="wishlist-icon"
+                            onClick={() => toggleWishList(diamond.id)}
+                          />
+                        )}
+                      </Title>
+                      <div className="price-container">
+                        <Text className="product-price">
+                          $
+                          {diamond.salePrice
+                            ? diamond.salePrice
+                            : diamond.price}
+                        </Text>
+                        {diamond.salePrice && (
+                          <Text delete className="product-sale-price">
+                            ${diamond.price}
                           </Text>
-                          {diamond.salePrice && (
-                            <Text delete className="product-sale-price">
-                              ${diamond.price}
-                            </Text>
-                          )}
-                        </div>
+                        )}
                       </div>
-                    </Card>
-                 
+                    </div>
+                  </Card>
+
                 </Col>
               ))}
             </Row>

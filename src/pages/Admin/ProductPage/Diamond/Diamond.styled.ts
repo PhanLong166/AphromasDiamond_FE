@@ -190,7 +190,7 @@ export const FormDescript = styled.div`
 `;
 
 export const UploadFile = styled.div`
-width: 48%;
+// width: 48%;
 `;
 
 
