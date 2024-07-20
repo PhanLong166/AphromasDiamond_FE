@@ -5,7 +5,7 @@ import {
   PlusCircleOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
-import type { TableProps, FormInstance } from "antd";
+import type { FormInstance } from "antd";
 import {
   Form,
   Input,
@@ -14,8 +14,6 @@ import {
   Table,
   Typography,
   Button,
-  Space,
-  Radio,
   notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
@@ -349,6 +347,7 @@ const SalesStaff = () => {
 
   return (
     <>
+    {contextHolder}
       <Styled.GlobalStyle />
       <Styled.AdminArea>
         <Sidebar />

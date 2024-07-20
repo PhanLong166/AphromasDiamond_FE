@@ -26,7 +26,7 @@ import type {
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
 import { ColorType, ShapeType } from "./Diamond.type";
 import { getImage } from "@/services/imageAPI";
 import { useDocumentTitle } from "@/hooks";
@@ -53,25 +53,25 @@ const Diamond = () => {
   const [api, contextHolder] = notification.useNotification();
   // const [diamonds, setDiamonds] = useState<any[]>([]);
   const [diamonds, setDiamonds] = useState([]);
-  const [totalDiamonds, setTotalDiamonds] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
+  // const [totalDiamonds, setTotalDiamonds] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(1);
   // const [pageSize, setPageSize] = useState(6);
   // const file = useRef<UploadFile>();
 
-  const fetchData = async (page: number) => {
-    const params = {
-      page,
-      // pageSize,
-      // sortBy: "Price",
-      // sortOrder: "asc",
-      // color: "D",
-      // shape: "Square",
-    };
+  const fetchData = async () => {
+    // const params = {
+    //   page,
+    //   // pageSize,
+    //   // sortBy: "Price",
+    //   // sortOrder: "asc",
+    //   // color: "D",
+    //   // shape: "Square",
+    // };
 
     try {
-      const response = await showDiamonds(params);
+      const response = await showAllDiamond();
       console.log('API response:', response);
-      const { data, total } = response.data;
+      const { data } = response.data;
       const formattedDiamonds = data.map((diamond: any) => ({
         diamondID: diamond.DiamondID,
         diamondName: diamond.Name,
@@ -98,15 +98,14 @@ const Diamond = () => {
       }));
       console.log('Formatted Diamonds:', formattedDiamonds); // Log formatted diamonds
       setDiamonds(formattedDiamonds);
-      setTotalDiamonds(total);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }
   };
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage]);
+    fetchData();
+  }, []);
 
 
   // SEARCH 
@@ -155,7 +154,7 @@ const Diamond = () => {
       render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.images && record.images[0] ? record.images[0].url : "default-image-url"} // Thay đổi để hiển thị ảnh của kim cương
+            src={record.images && record.images[0] ? record.images[0].url : "default-image-url"} 
             alt={record.diamondName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -361,15 +360,7 @@ const Diamond = () => {
                   columns={columns}
                   dataSource={diamonds}
                   onChange={onChange}
-                  pagination={{
-                    current: currentPage,
-                    // pageSize,
-                    total: totalDiamonds,
-                    onChange: (page) => {
-                      setCurrentPage(page);
-                      // setPageSize(pageSize);
-                    },
-                  }}
+                  pagination={{ pageSize: 6 }}
                 />
               )}
             </Styled.AdminTable>
