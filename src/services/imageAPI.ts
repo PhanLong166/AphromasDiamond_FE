@@ -15,7 +15,7 @@ export const uploadImage = (
     });
     formData.append('ProductID', productID ? productID.toString() : '');
     formData.append('DiamondID', diamondID ? diamondID.toString() : '');
-    formData.append('JewelryID', jewelryID ? jewelryID.toString() : '');
+    formData.append('JewelrySettingID', jewelryID ? jewelryID.toString() : '');
     formData.append('CertificateID', certificateID ? certificateID.toString() : '');
     return post(
         `/usingImage/upload-entity`, 

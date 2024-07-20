@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { showAllFeedback } from "@/services/feedBackAPI";
@@ -11,7 +12,6 @@ const { Meta } = Card;
 interface Feedback {
   AccountID: number | null;
   DiamondID: number;
-  images: string;
   title: string;
   Comment: string;
   Stars: number;
@@ -22,37 +22,45 @@ interface FeedbackWithDetails extends Feedback {
   diamondName: string;
   diamondImage: string;
 }
+
 const ReviewFB = () => {
   const [feedBackData, setFeedBackData] = useState<FeedbackWithDetails[]>([]);
-  // console.log(feedBackData);
+
   const fetchFeedBackData = async () => {
     try {
       const res = await showAllFeedback({});
-      // console.log(res.data);
-
       if (res.data && res.data.data) {
         const filterFeedBackAccount = res.data.data.filter(
           (feedback: Feedback) => feedback.AccountID === null
         );
-
         const feedbackWithDetails = await Promise.all(
           filterFeedBackAccount.map(async (feedback: Feedback) => {
             try {
               const diamondDetails = await getDiamondDetails(
                 feedback.DiamondID
               );
-              console.log(diamondDetails.data);
+              // console.log(diamondDetails.data.data);
               if (diamondDetails.data && diamondDetails.data.data) {
-                const diamondName =
-                  diamondDetails.data.data.Name || "Unknown Diamond";
+                const diamond = diamondDetails.data.data;
+                const diamondName = diamond.Name || "Unknown Diamond";
 
-                let diamondImage = "https://via.placeholder.com/150"; // Default image
-                if (diamondDetails.data.data.UsingImage?.length > 0) {
-                  const imageID = diamondDetails.data.data.UsingImage.Name;
-                  const imageRes = await getImage(imageID.UsingImageID);
+                let diamondImage = "https://via.placeholder.com/150";
 
-                  diamondImage = imageRes || diamondImage;
-                  console.log("Image response:", diamondImage);
+                if (diamond.usingImage && diamond.usingImage.length > 0) {
+                  const imageURLPromises = diamond.usingImage.map(
+                    async (image: any) => {
+                      try {
+                        const imageRes = getImage(image.UsingImageID);
+                        return imageRes || image.url;
+                      } catch (error) {
+                        console.error("Error fetching image:", error);
+                        return image.url;
+                      }
+                    }
+                  );
+
+                  const imageURLs = await Promise.all(imageURLPromises);
+                  diamondImage = imageURLs[0];
                 }
 
                 return {
@@ -80,6 +88,7 @@ const ReviewFB = () => {
               };
             }
           })
+          
         );
 
         setFeedBackData(feedbackWithDetails);
@@ -130,6 +139,7 @@ const CartContainer = styled.div`
   display: flex;
   justify-content: center;
 `;
+
 const Content = styled.div`
   width: 1400px;
   display: inline-grid;

@@ -13,7 +13,7 @@ export const registerCustomer = (account: object) => {
 }
 
 export const showAllAccounts = () => {
-    return get(`/auth/accounts`);
+    return get(`/auth/ShowAllAccounts`);
 }
 
 export const updateAccount = (name: string, account: object) => {

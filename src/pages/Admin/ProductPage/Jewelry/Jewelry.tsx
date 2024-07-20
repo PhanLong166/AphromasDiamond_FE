@@ -1,6 +1,6 @@
 import * as Styled from "./Jewelry.styled";
-import { useState } from "react";
-import { Space, Table, Input, Button } from "antd";
+import { useEffect, useState } from "react";
+import { Space, Table, Input, Button, notification } from "antd";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
@@ -11,29 +11,135 @@ import type { TableColumnsType, TableProps } from "antd";
 // import { Link } from "react-router-dom";
 import { Modal } from "antd"; // Add this line
 import { Link, useNavigate } from "react-router-dom"; 
-import { productData, ProductDataType } from "../ProductData"; // Import data here
+// import { productData, ProductDataType } from "../ProductData"; // Import data here
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { JewelryType_Filter } from "./Jewelry.type";
+import { getImage } from "@/services/imageAPI";
+import { showAllSetting } from "@/services/jewelrySettingAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
+import { showAllProduct } from "@/services/jewelryAPI";
 
 
-const onChange: TableProps<ProductDataType>["onChange"] = (
-  pagination,
-  filters,
-  sorter,
-  extra
-) => {
-  console.log("params", pagination, filters, sorter, extra);
-};
-
-onChange;
 const Jewelry = () => {
+  const [isAdding, setIsAdding] = useState(false);
   const [searchText, setSearchText] = useState("");
-  // const [currency, setCurrency] = useState<"VND" | "USD">("VND");
-  const [isModalVisible, setIsModalVisible] = useState(false); // Add this line
-  const navigate = useNavigate(); // Update this line
+  const [api, contextHolder] = notification.useNotification();
+  const [jewelrys, setJewelrys] = useState([]);
+  const [diamonds, setDiamonds] = useState([]);
+  const [settings, setSettings] = useState([]);
+  const [isModalVisible, setIsModalVisible] = useState(false); 
+  const navigate = useNavigate(); 
+
+  
+  type NotificationType = 'success' | 'info' | 'warning' | 'error';
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description: type === "success" ? `${method} jewelry setting successfully` : error,
+    });
+  };
 
 
+  const fetchData = async () => {
+    try {
+      const responseDiamonds = await showAllDiamond();
+      const responseSetting = await showAllSetting();
+      const responseJewelrys = await showAllProduct();
+
+      const { data: diamondsData } = responseDiamonds.data;
+      const { data: settingsData } = responseSetting.data;
+      const { data: jewelrysData } = responseJewelrys.data;
+
+      const formattedDiamonds = diamondsData.map((diamond: any) => ({
+        diamondID: diamond.DiamondID,
+        diamondName: diamond.Name,
+        price: diamond.Price,
+        color: diamond.Color,
+        shape: diamond.Shape,
+        polish: diamond.Polish,
+        cut: diamond.Cut,
+        lengthOnWidthRatio: diamond.LengthOnWidthRatio,
+        clarity: diamond.Clarity,
+        symmetry: diamond.Symmetry,
+        weightCarat: diamond.WeightCarat,
+        percentTable: diamond.PercentTable,
+        percentDepth: diamond.PercentDepth,
+        fluorescence: diamond.Fluorescence,
+        description: diamond.Description,
+        exchangeRate: 1,
+        chargeRate: diamond.ChargeRate,
+        images: diamond.usingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+
+      const formattedSettings = settingsData.map((setting: any) => ({
+        jewelrySettingID: setting.JewelrySettingID,
+        jewelrySettingName: setting.Name,
+        productID: setting.ProductID,
+        jewelryTypeID: setting.JewelryTypeID,
+        productionCost: setting.ProductionCost,
+        isActive: setting.IsActive === true,
+        jewelrySettingVariant: setting.JewelrySettingVariant.map(
+          (variant: any) => ({
+            variantID: variant.JewelrySettingVariantID,
+            amount: variant.Amount,
+            totalPriceVariant: variant.TotalPriceVariant,
+            size: {
+              sizeID: variant.SizeID,
+              sizeValue: variant.SizeValue,
+              unitOfMeasure: variant.UnitOfMeasure,
+            },
+          })
+        ),
+        images: setting.UsingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+
+      const formattedJewelrys = jewelrysData.map((jewelry: any) => ({
+        jewelryID: jewelry.ProductID,
+        jewelryName: jewelry.Name,
+        inscription: jewelry.Inscription,
+        inscriptionFont: jewelry.InscriptionFont,
+        brand: jewelry.Brand,
+        jewelrySettingID_Jewelry: jewelry.JewelrySettingID,
+        accountID: jewelry.AccountID,
+        totalDiamondPrice: jewelry.TotalDiamondPrice,
+        collectionID: jewelry.CollectionID,
+        discountID: jewelry.DiscountID,
+        totalQuantitySettingVariants: jewelry.TotalQuantityJewelrySettingVariants,
+        images: jewelry.UsingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+
+      console.log("Formatted Diamonds:", formattedJewelrys); 
+      setDiamonds(formattedDiamonds);
+      setSettings(formattedSettings);
+      setJewelrys(formattedJewelrys);
+    } catch (error) {
+      console.error("Failed to fetch diamonds:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+// SEARCH
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -44,44 +150,25 @@ const Jewelry = () => {
     }
   };
 
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
-
-  // const handleCurrencyChange = (value: "VND" | "USD") => {
-  //   setCurrency(value);
-  // };
-
-  // const convertPrice = (
-  //   price: number,
-  //   exchangeRate: number,
-  //   currency: "VND" | "USD"
-  // ) => {
-  //   if (currency === "USD") {
-  //     return price * exchangeRate;
-  //   }
-  //   return price;
-  // };
-
-  // const sellingPrice = (price: number, markupPercentage: number) => {
-  //   return price * (1 + markupPercentage / 100);
-  // };
-
-  const columns: TableColumnsType<ProductDataType> = [
+  const columns: TableColumnsType<any> = [
     {
       title: "Jewelry ID",
       dataIndex: "jewelryID",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.jewelryID.localeCompare(b.jewelryID),
+      sorter: (a, b) => parseInt(a.jewelryID) - parseInt(b.jewelryID),
     },
     {
       title: "Image",
       key: "jewelryImg",
       className: "TextAlign",
-      render: (_, record: ProductDataType) => (
+      render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.jewelryImg[0]}  
+            src={
+              record.images && record.images[0]
+                ? record.images[0].url
+                : "default-image-url"
+            }
             alt={record.jewelryName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -97,27 +184,12 @@ const Jewelry = () => {
       sorter: (a, b) => a.jewelryName.length - b.jewelryName.length,
       sortDirections: ["descend"],
     },
-    // {
-    //   title: `Cost Price (${currency})`,
-    //   key: "price",
-    //   sorter: (a, b) =>
-    //     convertPrice(a.price, a.exchangeRate, currency) -
-    //     convertPrice(b.price, b.exchangeRate, currency),
-    //   render: (_, record) => {
-    //     const convertedPrice = convertPrice(
-    //       record.price,
-    //       record.exchangeRate,
-    //       currency
-    //     );
-    //     return `${convertedPrice.toFixed(2)} ${currency}`;
-    //   },
-    // },
     {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-      filters: JewelryType_Filter,
-      onFilter: (value, record) => record.type.indexOf(value as string) === 0,
+      title: "Brand",
+      dataIndex: "brand",
+      key: "brand",
+      // filters: JewelryType_Filter,
+      onFilter: (value, record) => record.brand.indexOf(value as string) === 0,
       sortDirections: ["descend"],
     },
     {
@@ -153,6 +225,15 @@ const Jewelry = () => {
     navigate("/admin/product/jewelry/add/diamond-jewelry"); // Update this line
   };
 
+  const onChangeTable: TableProps<any>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
+
   return (
     <>
       <Styled.GlobalStyle />
@@ -176,16 +257,6 @@ const Jewelry = () => {
                     prefix={<SearchOutlined className="searchIcon" />}
                   />
                 </Styled.SearchArea>
-
-                {/* <Select
-                  defaultValue="VND"
-                  style={{ width: 120, height: "45px" }}
-                  onChange={handleCurrencyChange}
-                  options={[
-                    { value: "USD", label: "USD" },
-                    { value: "VND", label: "VND" },
-                  ]}
-                /> */}
               </Styled.AdPageContent_HeadLeft>
 
               <Styled.AddButton>
@@ -200,9 +271,9 @@ const Jewelry = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={productData}
+                dataSource={jewelrys}
                 pagination={{ pageSize: 6 }}
-                onChange={onChange}
+                onChange={onChangeTable}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
             </Styled.AdminTable>
