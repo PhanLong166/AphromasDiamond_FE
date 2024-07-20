@@ -7,7 +7,6 @@ import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, notifi
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { SortOrder } from "antd/es/table/interface";
 import { deleteAccount, register, showAllAccounts, updateAccount } from "@/services/authAPI";
-import { ItemType } from "antd/es/menu/interface";
 
 interface EditableCellProps {
   editing: boolean;
@@ -106,7 +105,7 @@ const Manager = () => {
 
   const edit = (record: Partial<any> & { managerName: string }) => {
     form.setFieldsValue({
-      managerName: "",
+      // managerName: "",
       email: "",
       ...record,
     });

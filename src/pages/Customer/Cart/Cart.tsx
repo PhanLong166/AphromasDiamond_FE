@@ -8,11 +8,7 @@ import { useDocumentTitle } from "@/hooks";
 import { items } from "../../../components/Customer/Data/data";
 import { useEffect, useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
-import {
-  OrderLineBody,
-  showAllOrderLineForAdmin,
-  updateOrderLine,
-} from "@/services/orderLineAPI";
+import { OrderLineBody, showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import useAuth from "@/hooks/useAuth";
@@ -43,6 +39,7 @@ const Cart = () => {
             && cartItem.CustomerID === customerID
       );
       console.log('Cart: ', cartItems);
+
 
       // Dùng Promise.all để đảm bảo tất cả các yêu cầu API được thực hiện và trả về đầy đủ trước khi tiếp tục
       const detailedCartItems = await Promise.all(
@@ -115,12 +112,11 @@ const Cart = () => {
         CustomerID: null,
         DiamondID: null,
         ProductID: null,
-        OrderID: null,
-      };
+        OrderID: null
+      }
 
       const { data } = await updateOrderLine(OrderLineID, removeOrderLine);
       if (data.statusCode !== 200) throw new Error;
-
       else {
         loadCartItems();
         console.log(data.message);
@@ -128,7 +124,7 @@ const Cart = () => {
     } catch (error: any) {
       console.log(error);
     }
-  };
+  }
 
   return (
     <>

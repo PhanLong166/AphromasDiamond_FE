@@ -5,7 +5,7 @@ import {
   PlusCircleOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
-import type { TableProps, FormInstance } from "antd";
+import type { FormInstance } from "antd";
 import {
   Form,
   Input,
@@ -14,8 +14,6 @@ import {
   Table,
   Typography,
   Button,
-  Space,
-  Radio,
   notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
@@ -124,7 +122,7 @@ const SalesStaff = () => {
 
   const edit = (record: Partial<any> & { staffName: string }) => {
     form.setFieldsValue({
-      staffName: "",
+      // staffName: "",
       email: "",
       ...record,
     });
@@ -175,7 +173,7 @@ const SalesStaff = () => {
       await deleteAccount(staffID);
       openNotification("success", "Delete", "");
       fetchData();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
     }
@@ -330,7 +328,7 @@ const SalesStaff = () => {
         fetchData();
         setIsAdding(false);
         openNotification("success", "Add", "");
-      } catch (error) {
+      } catch (error: any) {
         openNotification("error", "", error.message);
       }
     };
@@ -349,6 +347,7 @@ const SalesStaff = () => {
 
   return (
     <>
+      {contextHolder}
       <Styled.GlobalStyle />
       <Styled.AdminArea>
         <Sidebar />

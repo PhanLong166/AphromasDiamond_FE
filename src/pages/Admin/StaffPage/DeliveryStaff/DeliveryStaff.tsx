@@ -555,7 +555,7 @@ const SalesStaff = () => {
 
   const edit = (record: Partial<any> & { staffName: string }) => {
     form.setFieldsValue({
-      staffName: "",
+      // staffName: "",
       email: "",
       ...record,
     });
@@ -606,7 +606,7 @@ const SalesStaff = () => {
       await deleteAccount(staffID);
       openNotification("success", "Delete", "");
       fetchData();
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
     }
@@ -635,7 +635,7 @@ const SalesStaff = () => {
             title: "Detail",
             key: "detail",
             className: "TextAlign",
-            render: (_, staffID: any ) => (
+            render: (_: any, staffID: any ) => (
               <Space size="middle">
                 <Link to={`/admin/staff/delivery-staff/detail/${staffID}`}>
                 <EyeOutlined />
@@ -773,7 +773,7 @@ const SalesStaff = () => {
         fetchData();
         setIsAdding(false);
         openNotification("success", "Add", "");
-      } catch (error) {
+      } catch (error: any) {
         openNotification("error", "", error.message);
       }
     };
