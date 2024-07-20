@@ -26,7 +26,7 @@ import type {
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
 import { ColorType, ShapeType } from "./Diamond.type";
 import { getImage } from "@/services/imageAPI";
 import { useDocumentTitle } from "@/hooks";
@@ -352,6 +352,7 @@ const Diamond = () => {
                     setIsAdding={setIsAdding}
                     docsList={docsList}
                     setDocsList={setDocsList}
+                    fetchData={fetchData}
                   />
                 </>
               ) : (

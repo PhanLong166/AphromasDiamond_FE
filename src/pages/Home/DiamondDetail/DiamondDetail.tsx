@@ -54,7 +54,7 @@ import useAuth from "@/hooks/useAuth";
 import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
 // import { getImage } from "@/services/imageAPI";
-import { createOrderLine, OrderLineBody } from "@/services/orderLineAPI";
+import { createOrderLine, OrderLineBody, showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { getImage } from "@/services/imageAPI";
 
 type NotificationType = 'success' | 'error';
@@ -150,6 +150,7 @@ const DiamondDetails: React.FC = () => {
   const [foundProduct, setFoundProduct] = useState<any | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
+  const [cartList, setCartList] = useState<any[]>([]);
 
   const [api, contextHolder] = notification.useNotification();
 
@@ -227,6 +228,15 @@ const DiamondDetails: React.FC = () => {
     };
 
     fetchDiamondDetails();
+
+    const fetchCart = async () => {
+      const orderlines = await showAllOrderLineForAdmin();
+      const cartItems = orderlines.data.data.filter((item: any) => item.OrderID === null && item.CustomerID === user?.CustomerID);
+      setCartList(cartItems);
+    }
+    console.log('Cart: ', cartList);
+
+    fetchCart();
   }, [id]);
 
   if (!foundProduct) {
@@ -255,13 +265,21 @@ const DiamondDetails: React.FC = () => {
           OrderID: null
         }
 
-        const { data } = await createOrderLine(OrderLineChild);
-        if (data.statusCode === 404) throw new Error('The product is already in the cart')
-        if (data.statusCode !== 200) throw new Error(data.message);
+
+        if (cartList.find((cart) => cart.DiamondID === getParamsID)) {
+          api.warning({
+            message: 'Notification',
+            description: 'The product is already in your cart'
+          })
+        }
         else {
-          openNotification('success', 'The product has been successfully added to the cart');
+          const { data } = await createOrderLine(OrderLineChild);
+          if (data.statusCode === 404) throw new Error('Network error');
+          if (data.statusCode !== 200) throw new Error(data.message);
+          await openNotification('success', 'The product has been successfully added to the cart');
           navigate(config.routes.customer.cart);
         }
+
       } catch (error: any) {
         await openNotification('error', error.message || 'Server error');
       }

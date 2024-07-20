@@ -4,7 +4,7 @@ export type OrderAPIProps = {
     OrderID?: number;
     OrderDate: Date;
     CompleteDate: Date;
-    CustomerID: number;
+    CustomerID: number | null;
     PaymentID?: string;
     IsPayed: boolean;
     Shippingfee?: number;
