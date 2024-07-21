@@ -4,6 +4,8 @@ import AccountCus from "@/components/Customer/Account Details/AccountCus";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { orderRelation, showAllOrder } from "@/services/orderAPI";
+import { showAllAccounts } from "@/services/accountApi";
+import useAuth from "@/hooks/useAuth";
 // import DropdownButton from './DropdownButton';
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -33,21 +35,35 @@ const formatPrice = (price: number | bigint) => {
     minimumFractionDigits: 0,
   }).format(price)}`;
 };
-const fetchAllOrder = async () => {
+const fetchAllOrder = async (AccountID: number) => {
   try {
     const { data } = await showAllOrder();
     console.log("Check API: ", data.data);
 
-    // Filter orders with status "Completed" or "Canceled"
-    // const filteredOrders = data.data.filter(
-    //   (order: DataType) =>
-    //     order.OrderStatus === "Completed" || order.OrderStatus === "Canceled"
-    // );
     const res = data.data;
+    // Get all accounts
+    const getAllAccounts = await showAllAccounts();
+    console.log(getAllAccounts.data.data);
+    // Find AccountID
+    const account = getAllAccounts.data.data.find(
+      (acc: { AccountID: number }) => acc.AccountID === AccountID
+    );
+    if (!account) {
+      console.log("Account not found");
+      return [];
+    }
+    // Get CustomerID
+    const customerID = account.CustomerID;
+    console.log("Customer ID: ", customerID);
+    // Get all orders have CustomerID===
+    const customerOrders = res.filter(
+      (order: { CustomerID: number }) => order.CustomerID === customerID
+    );
+    console.log("Check customerOrders: ", customerOrders);
 
     // Fetch detailed info for each filtered order
     const detailedOrders = await Promise.all(
-      res.map(async (order: DataType) => {
+      customerOrders.map(async (order: DataType) => {
         const detailedOrder = await fetchOrderRelation(order.OrderID);
         return { ...order, TotalPrice: detailedOrder.TotalPrice };
       })
@@ -77,14 +93,18 @@ const OrderList = () => {
   const [showModal, setShowModal] = useState(false);
   const [orders, setOrders] = useState<DataType[]>([]);
   const navigate = useNavigate();
+  const { AccountID } = useAuth();
+
   useEffect(() => {
     const fetchData = async () => {
-      const detailedOrders = await fetchAllOrder();
-      setOrders(detailedOrders);
+      if (AccountID) {
+        const detailedOrders = await fetchAllOrder(AccountID);
+        setOrders(detailedOrders);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [AccountID]);
   const handleOk = () => {
     setShowModal(false);
     // Handle the actual cancel logic here
@@ -124,8 +144,8 @@ const OrderList = () => {
           color = "#32CD32";
         } else if (OrderStatus === "Canceled") {
           color = "volcano";
-        } else if( OrderStatus === "Delivered") {
-          color ="blue"
+        } else if (OrderStatus === "Delivered") {
+          color = "blue";
         }
 
         return (
@@ -136,7 +156,7 @@ const OrderList = () => {
       },
       filters: [
         { text: "Completed", value: "Completed" },
-        { text: "Cancelled", value: "Canceled" },
+        { text: "Canceled", value: "Canceled" },
         { text: "Delivering", value: "Delivering" },
         { text: "Pending", value: "Pending" },
       ],
