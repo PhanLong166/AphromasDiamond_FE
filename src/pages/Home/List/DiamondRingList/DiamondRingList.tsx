@@ -3,26 +3,18 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./DiamondRingList.styled";
 
-import {
- 
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { jewelryData } from "./DiamondRingList.data";
+import FAQ from "@/components/FAQs/FAQs";
 
 const DiamondRingList: React.FC = () => {
   const { ringType } = useParams<{ ringType: string }>();
@@ -62,12 +54,6 @@ const DiamondRingList: React.FC = () => {
   };
 
   const faqs = jewelryData[ringType]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
-  
 
   return (
     <Container>
@@ -192,20 +178,7 @@ const DiamondRingList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentJewelryData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentJewelryData.title} faqs={faqs} />
     </Container>
   );
 };

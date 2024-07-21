@@ -3,30 +3,21 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./CutterList.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { cutterData } from "./CutterList.data";
-
+import FAQ from "@/components/FAQs/FAQs";
 
 const CutterList: React.FC = () => {
   const { diamondCutter } = useParams<{ diamondCutter: string }>();
   const navigate = useNavigate();
-  
 
   if (!diamondCutter || !cutterData[diamondCutter]) {
     return <div>Invalid cutter selected.</div>;
@@ -62,13 +53,10 @@ const CutterList: React.FC = () => {
 
   const faqs = cutterData[diamondCutter]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
 
   return (
     <Container>
-     <div>
+      <div>
         <CustomBreadcrumb
           separator=">"
           items={[
@@ -99,21 +87,22 @@ const CutterList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentCutterData.diamonds.map((diamond: any) => (
             <Col key={diamond.id} span={6}>
-             
               <Card
                 style={{ borderRadius: "0" }}
                 hoverable
                 className="product-card"
                 cover={
                   <>
-                     <Link to={`/diamond/${diamond.id}`}>
-                    <img
-                      style={{ borderRadius: "0" }}
-                      src={diamond.images[0]}
-                      alt={diamond.name}
-                      className="product-image"
-                      onMouseOut={(e) => (e.currentTarget.src = diamond.images[0])}
-                    />
+                    <Link to={`/diamond/${diamond.id}`}>
+                      <img
+                        style={{ borderRadius: "0" }}
+                        src={diamond.images[0]}
+                        alt={diamond.name}
+                        className="product-image"
+                        onMouseOut={(e) =>
+                          (e.currentTarget.src = diamond.images[0])
+                        }
+                      />
                     </Link>
                     {diamond.salePrice && (
                       <div className="sale-badge">SALE</div>
@@ -123,9 +112,7 @@ const CutterList: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                  <Link to={`/diamond/${diamond.id}`}>
-                    {diamond.name}
-                    </Link>
+                    <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
                     {wishList.includes(diamond.id) ? (
                       <HeartFilled
                         className="wishlist-icon"
@@ -150,7 +137,6 @@ const CutterList: React.FC = () => {
                   </div>
                 </div>
               </Card>
-             
             </Col>
           ))}
           <Col span={6}>
@@ -178,20 +164,7 @@ const CutterList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentCutterData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={['1']}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentCutterData.title} faqs={faqs} />
     </Container>
   );
 };

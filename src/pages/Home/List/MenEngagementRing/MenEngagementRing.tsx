@@ -3,25 +3,17 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./MenEngagementRing.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { menEngagementData } from "./MenEngagementRing.data";
-
+import FAQ from "@/components/FAQs/FAQs";
 
 const MenEngagementRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
@@ -61,10 +53,6 @@ const MenEngagementRing: React.FC = () => {
   };
 
   const faqs = menEngagementData[ringMetal]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
 
   return (
     <Container>
@@ -110,7 +98,7 @@ const MenEngagementRing: React.FC = () => {
                 className="product-card"
                 cover={
                   <>
-                    <Link to={`/product/${product.id}`} >
+                    <Link to={`/product/${product.id}`}>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -132,7 +120,7 @@ const MenEngagementRing: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                    <Link to={`/product/${product.id}`} >
+                    <Link to={`/product/${product.id}`}>
                       <div>{product.name}</div>
                     </Link>
                     {wishList.includes(product.id) ? (
@@ -186,20 +174,7 @@ const MenEngagementRing: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentMenEngagementData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentMenEngagementData.title} faqs={faqs} />
     </Container>
   );
 };

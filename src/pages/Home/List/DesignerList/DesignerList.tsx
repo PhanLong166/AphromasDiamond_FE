@@ -3,29 +3,21 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./DesignerList.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { designerData } from "./DesignerList.data";
+import FAQ from "@/components/FAQs/FAQs";
 
 const DesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
   const navigate = useNavigate();
-
 
   if (!designer || !designerData[designer]) {
     return <div>Invalid jewelry type selected.</div>;
@@ -61,10 +53,6 @@ const DesignerList: React.FC = () => {
   };
 
   const faqs = designerData[designer]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
 
   return (
     <Container>
@@ -189,20 +177,7 @@ const DesignerList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentDesignerData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentDesignerData.title} faqs={faqs} />
     </Container>
   );
 };

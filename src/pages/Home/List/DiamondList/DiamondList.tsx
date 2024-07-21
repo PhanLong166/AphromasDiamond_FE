@@ -3,12 +3,9 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
-  StyledCollapse,
-  CustomBreadcrumb,
   StyledPagination,
+  CustomBreadcrumb,
 } from "./DiamondList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -19,6 +16,7 @@ import config from "@/config";
 // import { diamondData } from "./DiamondList.data";
 import { showAllDiamond, showDiamonds } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
+import FAQ from "@/components/FAQs/FAQs";
 
 const DiamondList: React.FC = () => {
   const { diamondShape } = useParams<{ diamondShape: string }>();
@@ -65,7 +63,7 @@ const DiamondList: React.FC = () => {
   //   fetchData();
   // }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await showAllDiamond(); // Call the function to get the promise
@@ -480,10 +478,6 @@ const DiamondList: React.FC = () => {
 
   const faqs = diamondData[diamondShape]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <Container>
       <div>
@@ -549,9 +543,7 @@ const DiamondList: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                    <Link to={`/diamond/${diamond.id}`}>
-                      {diamond.name}
-                    </Link>
+                    <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
                     {wishList.includes(diamond.id) ? (
                       <HeartFilled
                         className="wishlist-icon"
@@ -603,20 +595,7 @@ const DiamondList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentDiamondData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentDiamondData.title} faqs={faqs} />
     </Container>
   );
 };

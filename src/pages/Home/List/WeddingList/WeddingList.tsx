@@ -3,24 +3,17 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./WeddingList.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { jewelryWeddingData } from "./WeddingList.data";
+import FAQ from "@/components/FAQs/FAQs";
 
 const WeddingList: React.FC = () => {
   const { ringShape } = useParams<{ ringShape: string }>();
@@ -60,10 +53,6 @@ const WeddingList: React.FC = () => {
   };
 
   const faqs = jewelryWeddingData[ringShape]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
 
   return (
     <Container>
@@ -109,7 +98,7 @@ const WeddingList: React.FC = () => {
                 className="product-card"
                 cover={
                   <>
-                    <Link to={`/product/${product.id}`} >
+                    <Link to={`/product/${product.id}`}>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -131,7 +120,7 @@ const WeddingList: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                    <Link to={`/product/${product.id}`} >
+                    <Link to={`/product/${product.id}`}>
                       <div>{product.name}</div>
                     </Link>
                     {wishList.includes(product.id) ? (
@@ -185,20 +174,7 @@ const WeddingList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentJewelryWeddingData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentJewelryWeddingData.title} faqs={faqs} />
     </Container>
   );
 };

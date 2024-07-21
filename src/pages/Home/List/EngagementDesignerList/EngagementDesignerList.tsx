@@ -3,30 +3,23 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./EngagementDesignerList.styled";
-import {
 
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { designerData } from "./EngagementDesignerList.data";
+import FAQ from "@/components/FAQs/FAQs";
 
 const EngagementDesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
   const navigate = useNavigate();
- 
+
   if (!designer || !designerData[designer]) {
     return <div>Invalid jewelry type selected.</div>;
   }
@@ -60,14 +53,7 @@ const EngagementDesignerList: React.FC = () => {
     );
   };
 
- 
   const faqs = designerData[designer]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
-
 
   return (
     <Container>
@@ -85,7 +71,9 @@ const EngagementDesignerList: React.FC = () => {
           ]}
         />
       </div>
-      <Banner style={{ backgroundImage: `url(${currentDesignerData.bannerImage})` }}>
+      <Banner
+        style={{ backgroundImage: `url(${currentDesignerData.bannerImage})` }}
+      >
         <div className="bannerContent">
           <LeftSection>
             <h2>{currentDesignerData.title}</h2>
@@ -100,14 +88,13 @@ const EngagementDesignerList: React.FC = () => {
         <Row gutter={[16, 16]}>
           {currentDesignerData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-              
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
                     <Link to={`/product/${product.id}`}>
                       <img
                         style={{ borderRadius: "0" }}
@@ -121,42 +108,42 @@ const EngagementDesignerList: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
-                      </Link>
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
+                    </Link>
+                    {product.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
                     <Link to={`/product/${product.id}`}>
                       <div>{product.name}</div>
-                      </Link>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${product.salePrice ? product.salePrice : product.price}
+                    </Text>
+                    {product.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${product.price}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
+                </div>
+              </Card>
             </Col>
           ))}
           <Col span={6}>
@@ -184,20 +171,7 @@ const EngagementDesignerList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentDesignerData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={['1']}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentDesignerData.title} faqs={faqs} />
     </Container>
   );
 };

@@ -3,12 +3,9 @@ import {
   Container,
   Banner,
   LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./FirmList.styled";
 
 import {
@@ -22,6 +19,7 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { firmData } from "./FirmList.data";
+import FAQ from "@/components/FAQs/FAQs";
 
 const FirmList: React.FC = () => {
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
@@ -61,10 +59,6 @@ const FirmList: React.FC = () => {
   };
 
   const faqs = firmData[jewelryFirm]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
 
   return (
     <Container>
@@ -183,7 +177,7 @@ const FirmList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
+      {/* <FAQs>
         <LeftFAQ>
           <h2>FAQs about {currentFirmData.title}</h2>
         </LeftFAQ>
@@ -196,7 +190,8 @@ const FirmList: React.FC = () => {
           defaultActiveKey={["1"]}
           onChange={onChange}
         />
-      </FAQs>
+      </FAQs> */}
+        <FAQ title={currentFirmData.title} faqs={faqs} />
     </Container>
   );
 };

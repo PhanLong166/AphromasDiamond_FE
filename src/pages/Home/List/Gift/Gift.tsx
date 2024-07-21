@@ -1,3 +1,4 @@
+import FAQ from "@/components/FAQs/FAQs";
 import { jewelryData } from "./Gift.data";
 import {
   Container,
@@ -6,10 +7,7 @@ import {
   InfoSection,
   Overlay,
   GiftSection,
-  FAQs,
-  LeftFAQ,
   CustomBreadcrumb,
-  StyledCollapse
 } from "./Gift.styled";
 
 import { Link, useParams } from "react-router-dom";
@@ -25,10 +23,6 @@ const Gift = () => {
   const currentJewelryData = jewelryData[jewelryType];
 
   const faqs = jewelryData[jewelryType]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
 
   return (
     <>
@@ -110,20 +104,7 @@ const Gift = () => {
             )}
           </div>
         </GiftSection>
-        <FAQs>
-          <LeftFAQ>
-            <h2>FAQs about {currentJewelryData.title}</h2>
-          </LeftFAQ>
-          <StyledCollapse
-            items={faqs.map((faq: any) => ({
-              key: faq.key,
-              label: faq.label,
-              children: <p>{faq.children}</p>,
-            }))}
-            defaultActiveKey={["1"]}
-            onChange={onChange}
-          />
-        </FAQs>
+        <FAQ title={currentJewelryData.title} faqs={faqs} />
       </Container>
     </>
   );
