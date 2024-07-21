@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  List,
-  StyledPagination,
-} from "./MenEngagementRing.styled";
+import { Container, List, StyledPagination } from "./MenEngagementRing.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -14,6 +8,7 @@ import config from "@/config";
 import { menEngagementData } from "./MenEngagementRing.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const MenEngagementRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
@@ -57,7 +52,7 @@ const MenEngagementRing: React.FC = () => {
   return (
     <Container>
       <div>
-      <Breadcrumb
+        <Breadcrumb
           items={[
             { title: "Home", href: "/" },
             { title: currentMenEngagementData.title },
@@ -65,22 +60,10 @@ const MenEngagementRing: React.FC = () => {
         />
       </div>
       <Banner
-        style={{
-          backgroundImage: `url(${currentMenEngagementData.bannerImage})`,
-        }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentMenEngagementData.title}</h2>
-            <div className="subheading">
-              {currentMenEngagementData.description}
-            </div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentMenEngagementData.bannerImage}
+        title={currentMenEngagementData.title}
+        description={currentMenEngagementData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentMenEngagementData.products.map((product: any) => (

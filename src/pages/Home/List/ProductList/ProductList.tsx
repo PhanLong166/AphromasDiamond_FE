@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Banner,
-  LeftSection,
   List,
   StyledPagination,
 } from "./ProductList.styled";
@@ -15,6 +13,7 @@ import FilterSort from "@/components/FilterSort/FilterSort";
 import { jewelryData } from "./ProductList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const ProductList: React.FC = () => {
   const { jewelryType } = useParams<{ jewelryType: string }>();
@@ -66,18 +65,10 @@ const ProductList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentJewelryData.title}</h2>
-            <div className="subheading">{currentJewelryData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+      bannerImage={currentJewelryData.bannerImage}
+      title={currentJewelryData.title}
+      description={currentJewelryData.description}
+    />
       <FilterSort />
       <hr
         style={{

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Banner,
-  LeftSection,
   List,
   StyledPagination,
 } from "./WeddingList.styled";
@@ -14,6 +12,7 @@ import config from "@/config";
 import { jewelryWeddingData } from "./WeddingList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const WeddingList: React.FC = () => {
   const { ringShape } = useParams<{ ringShape: string }>();
@@ -65,22 +64,10 @@ const WeddingList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{
-          backgroundImage: `url(${currentJewelryWeddingData.bannerImage})`,
-        }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentJewelryWeddingData.title}</h2>
-            <div className="subheading">
-              {currentJewelryWeddingData.description}
-            </div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+      bannerImage={currentJewelryWeddingData.bannerImage}
+      title={currentJewelryWeddingData.title}
+      description={currentJewelryWeddingData.description}
+    />
       <List>
         <Row gutter={[16, 16]}>
           {currentJewelryWeddingData.products.map((product: any) => (

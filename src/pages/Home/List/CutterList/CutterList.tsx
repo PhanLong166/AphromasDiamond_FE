@@ -1,8 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Banner,
-  LeftSection,
+  // Banner,
+  // LeftSection,
   List,
   StyledPagination,
   // CustomBreadcrumb,
@@ -15,6 +15,7 @@ import config from "@/config";
 import { cutterData } from "./CutterList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const CutterList: React.FC = () => {
   const { diamondCutter } = useParams<{ diamondCutter: string }>();
@@ -54,7 +55,6 @@ const CutterList: React.FC = () => {
 
   const faqs = cutterData[diamondCutter]?.faqs || [];
 
-
   return (
     <Container>
       <div>
@@ -70,14 +70,14 @@ const CutterList: React.FC = () => {
             },
           ]}
         /> */}
-         <Breadcrumb
+        <Breadcrumb
           items={[
             { title: "Home", href: "/" },
             { title: currentCutterData.title },
           ]}
         />
       </div>
-      <Banner
+      {/* <Banner
         style={{ backgroundImage: `url(${currentCutterData.bannerImage})` }}
       >
         <div className="bannerContent">
@@ -89,7 +89,12 @@ const CutterList: React.FC = () => {
             </button>
           </LeftSection>
         </div>
-      </Banner>
+      </Banner> */}
+      <Banner
+        bannerImage={currentCutterData.bannerImage}
+        title={currentCutterData.title}
+        description={currentCutterData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentCutterData.diamonds.map((diamond: any) => (

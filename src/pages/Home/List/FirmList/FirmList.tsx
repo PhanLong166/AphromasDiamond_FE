@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Banner,
-  LeftSection,
   List,
   StyledPagination,
 } from "./FirmList.styled";
@@ -20,6 +18,7 @@ import config from "@/config";
 import { firmData } from "./FirmList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const FirmList: React.FC = () => {
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
@@ -71,18 +70,10 @@ const FirmList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentFirmData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentFirmData.title}</h2>
-            <div className="subheading">{currentFirmData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+      bannerImage={currentFirmData.bannerImage}
+      title={currentFirmData.title}
+      description={currentFirmData.description}
+    />
       <List>
         <Row gutter={[16, 16]}>
           {currentFirmData.products.map((product: any) => (

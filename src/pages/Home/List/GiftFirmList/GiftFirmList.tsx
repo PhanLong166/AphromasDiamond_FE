@@ -2,14 +2,13 @@ import FAQ from "@/components/FAQs/FAQs";
 import { jewelryData } from "./GiftFirm.data";
 import {
   Container,
-  LeftSection,
-  Banner,
   InfoSection,
   Overlay,
   GiftSection,
 } from "./GiftFirmList.styled";
 import { Link, useParams } from "react-router-dom";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const GiftFirmList = () => {
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
@@ -26,23 +25,18 @@ const GiftFirmList = () => {
     <>
       <Container>
         <div>
-        <Breadcrumb
-          items={[
-            { title: "Home", href: "/" },
-            { title: currentJewelryData.title },
-          ]}
-        />
+          <Breadcrumb
+            items={[
+              { title: "Home", href: "/" },
+              { title: currentJewelryData.title },
+            ]}
+          />
         </div>
         <Banner
-          style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}
-        >
-          <div className="bannerContent">
-            <LeftSection>
-              <h2>{currentJewelryData.title}</h2>
-              <div className="subheading">{currentJewelryData.description}</div>
-            </LeftSection>
-          </div>
-        </Banner>
+          bannerImage={currentJewelryData.bannerImage}
+          title={currentJewelryData.title}
+          description={currentJewelryData.description}
+        />
         <InfoSection>
           <Overlay>
             <h2>{currentJewelryData.overlay}</h2>

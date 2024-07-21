@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  List,
-  StyledPagination,
-} from "./MenWeddingRing.styled";
+import { Container, List, StyledPagination } from "./MenWeddingRing.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -14,6 +8,7 @@ import config from "@/config";
 import { menWeddingData } from "./MenWeddingRing.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const MenWeddingRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
@@ -57,7 +52,7 @@ const MenWeddingRing: React.FC = () => {
   return (
     <Container>
       <div>
-      <Breadcrumb
+        <Breadcrumb
           items={[
             { title: "Home", href: "/" },
             { title: currentMenWeddingData.title },
@@ -65,20 +60,10 @@ const MenWeddingRing: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentMenWeddingData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentMenWeddingData.title}</h2>
-            <div className="subheading">
-              {currentMenWeddingData.description}
-            </div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentMenWeddingData.bannerImage}
+        title={currentMenWeddingData.title}
+        description={currentMenWeddingData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentMenWeddingData.products.map((product: any) => (

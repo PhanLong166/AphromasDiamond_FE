@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Banner,
-  LeftSection,
   List,
   StyledPagination,
 } from "./EngagementDesignerList.styled";
@@ -15,6 +13,7 @@ import config from "@/config";
 import { designerData } from "./EngagementDesignerList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const EngagementDesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
@@ -58,7 +57,7 @@ const EngagementDesignerList: React.FC = () => {
   return (
     <Container>
       <div>
-      <Breadcrumb
+        <Breadcrumb
           items={[
             { title: "Home", href: "/" },
             { title: currentDesignerData.title },
@@ -66,18 +65,10 @@ const EngagementDesignerList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentDesignerData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentDesignerData.title}</h2>
-            <div className="subheading">{currentDesignerData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentDesignerData.bannerImage}
+        title={currentDesignerData.title}
+        description={currentDesignerData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentDesignerData.products.map((product: any) => (

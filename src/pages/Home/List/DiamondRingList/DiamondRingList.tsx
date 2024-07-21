@@ -1,11 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  List,
-  StyledPagination,
-} from "./DiamondRingList.styled";
+import { Container, List, StyledPagination } from "./DiamondRingList.styled";
 
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -15,7 +9,7 @@ import config from "@/config";
 import { jewelryData } from "./DiamondRingList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
-
+import Banner from "@/components/Banner/Banner";
 
 const DiamondRingList: React.FC = () => {
   const { ringType } = useParams<{ ringType: string }>();
@@ -59,7 +53,7 @@ const DiamondRingList: React.FC = () => {
   return (
     <Container>
       <div>
-      <Breadcrumb
+        <Breadcrumb
           items={[
             { title: "Home", href: "/" },
             { title: currentJewelryData.title },
@@ -67,18 +61,10 @@ const DiamondRingList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentJewelryData.title}</h2>
-            <div className="subheading">{currentJewelryData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentJewelryData.bannerImage}
+        title={currentJewelryData.title}
+        description={currentJewelryData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentJewelryData.products.map((product: any) => (

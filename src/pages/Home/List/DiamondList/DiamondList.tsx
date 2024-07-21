@@ -1,14 +1,7 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  List,
-  StyledPagination,
-} from "./DiamondList.styled";
+import { Container, List, StyledPagination } from "./DiamondList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
@@ -17,6 +10,7 @@ import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const DiamondList: React.FC = () => {
   const { diamondShape } = useParams<{ diamondShape: string }>();
@@ -490,18 +484,10 @@ const DiamondList: React.FC = () => {
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentDiamondData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentDiamondData.title}</h2>
-            <div className="subheading">{currentDiamondData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentDiamondData.bannerImage}
+        title={currentDiamondData.title}
+        description={currentDiamondData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentDiamondData.diamonds.map((diamond: any) => (
