@@ -27,7 +27,7 @@ import ProductPromotion from "@/pages/Admin/MarketingPage/ProductPromotion/Produ
 import ProductPromotionDetail from "@/pages/Admin/MarketingPage/Detail/ProductPromotionDetail"
 import BillPromotion from "@/pages/Admin/MarketingPage/BillPromotion/BillPromotion"
 
-import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
+// import ClientCaring from "@/pages/Admin/ClientCaringPage/Message"
 import Feedback from "@/pages/Admin/ClientCaringPage/Feedback"
 import Customer from "@/pages/Admin/CustomerPage/Customer"
 import CustomerDetail from "@/pages/Admin/CustomerPage/CustomerDetail"
@@ -36,18 +36,14 @@ import DeliveryStaff from "@/pages/Admin/StaffPage/DeliveryStaff/DeliveryStaff"
 import DeliStaffDetail from "@/pages/Admin/StaffPage/DeliveryStaff/DeliStaffDetail"
 import Manager from "@/pages/Admin/ManagerPage/Manager"
 
-//Open it when you have database
-// import useAuth from "@/hooks/useAuth"
-// import { Role } from "@/utils/enum"
-// import { Navigate } from "react-router-dom"
+import useAuth from "@/hooks/useAuth"
+import { Role } from "@/utils/enum"
+import { Navigate } from "react-router-dom"
 
 const AdminRouter = () => {
     //Use database
-    // const { role } = useAuth();
-    // return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
-
-    //No database
-    return <AdminLayout/>;
+    const { role } = useAuth();
+    return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
 }
 
 const AdminRoutes = {
@@ -84,8 +80,8 @@ const AdminRoutes = {
         { path: config.routes.admin.discountDetail, element: <ProductPromotionDetail /> },
         { path: config.routes.admin.voucher, element: <BillPromotion /> },
 
-        { path: config.routes.admin.clientCaring, element: <ClientCaring /> },
-        { path: config.routes.admin.feedback, element: <Feedback /> },
+        { path: config.routes.admin.clientCaring, element: <Feedback /> },
+        // { path: config.routes.admin.feedback, element: <Feedback /> },
 
         { path: config.routes.admin.customer, element: <Customer /> },
         { path: config.routes.admin.customerDetail, element: <CustomerDetail /> },

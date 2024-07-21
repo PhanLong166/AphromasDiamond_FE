@@ -10,16 +10,35 @@ import {
   TeamOutlined,
   CustomerServiceOutlined,
   KeyOutlined,
-  // LayoutOutlined,
   SmileOutlined,
   LogoutOutlined,
 } from "@ant-design/icons";
 import config from "@/config";
 import cookieUtils from "@/services/cookieUtils";
+import { showAllAccounts } from "@/services/authAPI";
 
 const Sidebar = () => {
   const location = useLocation();
   const [active, setActive] = useState<string>("");
+  const [userInfo, setUserInfo] = useState<{ name: string, role: string } | null>(null);
+
+  useEffect(() => {
+    const fetchUserInfo = async () => {
+      try {
+        const response = await showAllAccounts();
+        const account = response.data; // Thay đổi cách lấy tài khoản tùy theo cấu trúc thực tế của response
+        setUserInfo({
+          name: account.Name,
+          role: account.Role,
+        });
+      } catch (error) {
+        console.error("Failed to fetch user info:", error);
+      }
+    };
+
+    fetchUserInfo();
+  }, []);
+
   useEffect(() => {
     const path = location.pathname;
     if (path === "/admin") {
@@ -174,43 +193,30 @@ const Sidebar = () => {
               </div>
             </Styled.SBContent>
 
-            <Styled.SBContent>
-              <div
-                className={`btn ${active === "Manager" ? "active-line" : ""}`}
-                onClick={() => handleSetActive("Manager")}
-              ></div>
-              <div className={active === "Manager" ? "active" : ""}>
-                <Styled.MenuElement className="activeContent">
-                  <KeyOutlined />
-                  <Link to="/admin/manager">
-                    <p>Manager</p>
-                  </Link>
-                </Styled.MenuElement>
-              </div>
-            </Styled.SBContent>
-
-            {/* <Styled.SBContent>
-              <div
-                className={`btn ${active === "Theme" ? "active-line" : ""}`}
-                onClick={() => handleSetActive("Theme")}
-              ></div>
-              <div className={active === "Theme" ? "active" : ""}>
-                <Styled.MenuElement className="activeContent">
-                  <LayoutOutlined />
-                  <Link to="/admin/theme">
-                    <p>Theme</p>
-                  </Link>
-                </Styled.MenuElement>
-              </div>
-            </Styled.SBContent> */}
+            {userInfo?.role !== "ROLE_MANAGER" && (
+              <Styled.SBContent>
+                <div
+                  className={`btn ${active === "Manager" ? "active-line" : ""}`}
+                  onClick={() => handleSetActive("Manager")}
+                ></div>
+                <div className={active === "Manager" ? "active" : ""}>
+                  <Styled.MenuElement className="activeContent">
+                    <KeyOutlined />
+                    <Link to="/admin/manager">
+                      <p>Manager</p>
+                    </Link>
+                  </Styled.MenuElement>
+                </div>
+              </Styled.SBContent>
+            )}
           </Styled.SBMenu>
         </Styled.SidebarTop>
         <Styled.AccOut>
           <Styled.Account>
             <SmileOutlined />
             <Styled.AccInfor>
-              <p className="accInfor_name">Trang.admin</p>
-              <p className="accOut_role">Admin</p>
+              <p className="accInfor_name">{userInfo?.name}</p>
+              <p className="accOut_role">{userInfo?.role}</p>
             </Styled.AccInfor>
           </Styled.Account>
           <Link to={config.routes.public.login} onClick={() => cookieUtils.clear()}>

@@ -4,7 +4,6 @@ import { post, put, remove } from "./apiCaller"
 
 export const uploadImage = (
     fileList: any[], 
-    imageType: string, 
     productID?: number,
     diamondID?: number,
     jewelryID?: number,
@@ -14,10 +13,9 @@ export const uploadImage = (
     fileList.map((file) => {
         formData.append('files', file);
     });
-    formData.append('type', imageType);
     formData.append('ProductID', productID ? productID.toString() : '');
     formData.append('DiamondID', diamondID ? diamondID.toString() : '');
-    formData.append('JewelryID', jewelryID ? jewelryID.toString() : '');
+    formData.append('JewelrySettingID', jewelryID ? jewelryID.toString() : '');
     formData.append('CertificateID', certificateID ? certificateID.toString() : '');
     return post(
         `/usingImage/upload-entity`, 

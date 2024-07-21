@@ -1,90 +1,20 @@
 import * as Styled from "./Manager.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
-import type { TableProps, FormInstance } from "antd";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, Space } from "antd";
+import type { FormInstance } from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, notification } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { SortOrder } from "antd/es/table/interface";
-
-interface Item {
-  key: React.Key;
-  managerID: string;
-  managerName: string;
-  email: string;
-}
-
-const originData: Item[] = [
-  {
-    key: "1",
-    managerID: "12345121",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "2",
-    managerID: "12345122",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "3",
-    managerID: "12345123",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "4",
-    managerID: "12345124",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "5",
-    managerID: "12345125",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "6",
-    managerID: "12345126",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "7",
-    managerID: "12345127",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "8",
-    managerID: "12345128",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "9",
-    managerID: "12345129",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-  {
-    key: "10",
-    managerID: "12345130",
-    managerName: "Ajmal Abdul Rahiman",
-    email: "xinchao@gmail.com",
-  },
-];
+import { deleteAccount, register, showAllAccounts, updateAccount } from "@/services/authAPI";
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: string;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: any;
   index: number;
-
   children: React.ReactNode;
 }
 
@@ -102,7 +32,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
+          name={dataIndex.toString()}
           style={{ margin: 0 }}
           rules={[
             {
@@ -120,93 +50,121 @@ const EditableCell: React.FC<EditableCellProps> = ({
   );
 };
 
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
 
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
-
-const Customer = () => {
+const Manager = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
-  const [editingKey, setEditingKey] = useState<React.Key>("");
+  const [managers, setManagers] = useState<any[]>([]);
+  const [editingName, setEditingName] = useState<string>("");
   const [isAdding, setIsAdding] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+  const [searchText, setSearchText] = useState("");
+
+  
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} manager successfully` : error,
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllAccounts();
+      const { data } = response.data;
+      const filteredManagers = data.filter((customer: any) => customer.Role === "ROLE_MANAGER");
+
+      const formattedManagers = filteredManagers.map((manager: any) => ({
+        key: manager.AccountID,
+        managerID: manager.AccountID,
+        managerName: manager.Name,
+        phoneNumber: manager.PhoneNumber,
+        email: manager.Email,
+        password: manager.Password,
+        role: manager.Role,
+      }));
+      setManagers(formattedManagers);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
-  const isEditing = (record: Item) => record.key === editingKey;
+  // EDIT
+  const isEditing = (record: any) => record.managerName === editingName;
 
-  const edit = (record: Partial<Item> & { key: React.Key }) => {
+  const edit = (record: Partial<any> & { managerName: string }) => {
     form.setFieldsValue({
-      managerID: "",
-      managerName: "",
+      // managerName: "",
       email: "",
       ...record,
     });
-    setEditingKey(record.key);
+    setEditingName(record.managerName);
   };
 
   const cancel = () => {
-    setEditingKey("");
+    setEditingName("");
   };
 
-  const save = async (key: React.Key) => {
+  const save = async (managerName: string) => {
     try {
-      const row = (await form.validateFields()) as Item;
+      const row = (await form.validateFields()) as any;
+      const newData = [...managers];
+      const index = newData.findIndex((item) => managerName === item.managerName);
 
-      const newData = [...data];
-      const index = newData.findIndex((item) => key === item.key);
       if (index > -1) {
         const item = newData[index];
+        const updatedItem = {
+          Name: row.managerName,
+          Email: row.email,
+          PhoneNumber: item.phoneNumber,
+          CustomerID: item.CustomerID,
+          Role: item.role
+        };
         newData.splice(index, 1, {
           ...item,
           ...row,
         });
-        setData(newData);
-        setEditingKey("");
+        setManagers(newData);
+        await updateAccount(item.managerName, updatedItem);
+        openNotification("success", "Update", "");
       } else {
         newData.push(row);
-        setData(newData);
-        setEditingKey("");
+        setManagers(newData);
+        openNotification("error", "Update", "Failed to update manager");
       }
+      setEditingName("");
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
   };
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
+  const handleDelete = async (managerID: number) => {
+    try {
+      await deleteAccount(managerID);
+      openNotification("success", "Delete", "");
+      fetchData();
+    } catch (error: any) {
+      console.error("Failed to delete material:", error);
+      openNotification("error", "Delete", error.message);
+    }
   };
 
   const columns = [
     {
       title: "Manager ID",
       dataIndex: "managerID",
-      editable: true,
-      sorter: (a: Item, b: Item) =>
+      sorter: (a: any, b: any) =>
         parseInt(a.managerID) - parseInt(b.managerID),
     },
     {
@@ -214,24 +172,23 @@ const Customer = () => {
       dataIndex: "managerName",
       defaultSortOrder: "descend" as SortOrder,
       editable: true,
-      sorter: (a: Item, b: Item) => a.managerName.length - b.managerName.length,
+      sorter: (a: any, b: any) => a.managerName.length - b.managerName.length,
     },
     {
       title: "Email",
       dataIndex: "email",
       editable: true,
-      // sorter: (a: Item, b: Item) => a.email.length - b.email.length,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: unknown, record: Item) => {
+      render: (_: unknown, record: any) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
             <Typography.Link
-              onClick={() => save(record.key)}
+              onClick={() => save(record.managerName)}
               style={{ marginRight: 8 }}
             >
               Save
@@ -242,7 +199,7 @@ const Customer = () => {
           </span>
         ) : (
           <Typography.Link
-            disabled={editingKey !== ""}
+            disabled={editingName !== ""}
             onClick={() => edit(record)}
           >
             Edit
@@ -254,8 +211,8 @@ const Customer = () => {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_: unknown, record: Item) =>
-        originData.length >= 1 ? (
+      render: (_: unknown, record: any) =>
+        managers.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.key)}
@@ -266,15 +223,15 @@ const Customer = () => {
     },
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
+  const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
     return {
       ...col,
-      onCell: (record: Item) => ({
+      onCell: (record: any) => ({
         record,
-        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
+        inputType: col.dataIndex === "phoneNumber" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -282,8 +239,8 @@ const Customer = () => {
     };
   });
 
-  const [searchText, setSearchText] = useState("");
 
+// SEARCH
   const onSearch = (value: string) => {
     console.log("Search:", value);
     // Thực hiện logic tìm kiếm ở đây
@@ -296,23 +253,72 @@ const Customer = () => {
   };
 
 
-  // Add New
+  // MOVE ADD NEW
 
   const handleAddNew = () => {
     setIsAdding(true);
   };
 
-  // const handleSave = () => {
-  //   // Logic để lưu dữ liệu mới
-  //   setIsAdding(false);
-  // };
-
   const handleCancel = () => {
     setIsAdding(false);
   };
 
+  
+// SUBMIT FORM
+interface SubmitButtonProps {
+  form: FormInstance;
+}
+
+const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+  form,
+  children,
+}) => {
+  const [submittable, setSubmittable] = useState(false);
+  const values = Form.useWatch([], form);
+
+  useEffect(() => {
+    form
+      .validateFields({ validateOnly: true })
+      .then(() => setSubmittable(true))
+      .catch(() => setSubmittable(false));
+  }, [values]);
+
+  const addManager = async () => {
+    try {
+      const managerValues = await form.validateFields();
+      const newManager = {
+        ...managerValues,
+        PhoneNumber: "",
+        CustomerID: null,
+        Role: "ROLE_MANAGER"
+      };
+
+      const { data } = await register(newManager);
+      if (data.statusCode !== 200) throw new Error(data.message);
+      fetchData();
+      setIsAdding(false);
+      openNotification("success", "Add", "");
+    } catch (error: any) {
+      openNotification("error", "", error.message);
+    }
+  };
+
+  return (
+    <Button
+      type="primary"
+      htmlType="submit"
+      disabled={!submittable}
+      onClick={addManager}
+    >
+      {children}
+    </Button>
+  );
+};
+
   return (
     <>
+          {contextHolder}
+
     <Styled.GlobalStyle/>
       <Styled.AdminArea>
         <Sidebar />
@@ -359,32 +365,22 @@ const Customer = () => {
             {isAdding ? (
                   <>
                   <Form
-                    className="AdPageContent_Content"
                     form={form}
-                    name="register"
                     layout="vertical"
-                    autoComplete="off"
-                    // onFinish={onFinish}
-                    // scrollToFirstError
+                    className="AdPageContent_Content"
                   >
-                    
                     <Styled.FormItem>
-                      <Form.Item name="Manager ID" label="Manager ID" rules={[{ required: true }]}>
-                        <Input placeholder="D1234" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item name="Manager Name" label="Manager Name" rules={[{ required: true }]}>
-                        <Input placeholder="trang.mnr" />
+                      <Form.Item name="Name" label="Manager Name" rules={[{ required: true }]}>
+                        <Input placeholder="trang.staff" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
                     <Form.Item
-                      name="email"
                       label="E-mail"
+                      name="Email"
                       rules={[
                         {
-                          type: 'email',
+                          type: "string",
                           message: 'The input is not valid E-mail!',
                         },
                         {
@@ -398,18 +394,21 @@ const Customer = () => {
                     </Styled.FormItem>
                     <Styled.FormItem>
                     <Form.Item
+                      name="Password"
                       label="Password"
-                      name="password"
-                      rules={[{ required: true, message: 'Please input your password!' }]}
+                      rules={[
+                        {
+                          required: true,
+                          message: 'Please input your Password!',
+                        }
+                      ]}
                     >
-                      <Input.Password />
+                      <Input />
                     </Form.Item>
                     </Styled.FormItem>
-                  </Form>
+                  
 
                   <Styled.ActionBtn>
-                    <Form.Item>
-                      <Space>
                         <SubmitButton form={form}>
                           <SaveOutlined />
                           Save
@@ -420,9 +419,8 @@ const Customer = () => {
                         >
                           Cancel
                         </Button>
-                      </Space>
-                    </Form.Item>
                   </Styled.ActionBtn>
+                  </Form>
                 </>
               ) : (
               <Form form={form} component={false}>
@@ -433,7 +431,7 @@ const Customer = () => {
                     },
                   }}
                   bordered
-                  dataSource={data}
+                  dataSource={managers}
                   columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
@@ -450,4 +448,4 @@ const Customer = () => {
     </>
   );
 };
-export default Customer;
+export default Manager;

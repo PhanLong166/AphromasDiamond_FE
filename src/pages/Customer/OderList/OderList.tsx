@@ -1,9 +1,10 @@
 import styled from "styled-components";
 import { Space, Table, Modal, TableColumnsType, Tag, TableProps } from "antd";
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
-import { Link } from "react-router-dom";
-import { useState } from "react";
-import { initialData, DataType } from "./data";
+import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { orderRelation, showAllOrder } from "@/services/orderAPI";
+// import DropdownButton from './DropdownButton';
 
 const onChange: TableProps<DataType>["onChange"] = (
   pagination,
@@ -14,14 +15,76 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
+interface DataType {
+  OrderID: number;
+  OrderDate: string;
+  CompleteDate: string;
+  CustomerID: string | null;
+  OrderStatus: string; // Thêm OrderStatus vào đây nếu chưa có
+  IsActive: boolean;
+  AccountDeliveryID: string | null;
+  AccountSaleID: string | null;
+  TotalPrice?: string;
+}
+
+const formatPrice = (price: number | bigint) => {
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+  }).format(price)}`;
+};
+const fetchAllOrder = async () => {
+  try {
+    const { data } = await showAllOrder();
+    console.log("Check API: ", data.data);
+
+    // Filter orders with status "Completed" or "Canceled"
+    // const filteredOrders = data.data.filter(
+    //   (order: DataType) =>
+    //     order.OrderStatus === "Completed" || order.OrderStatus === "Canceled"
+    // );
+    const res = data.data;
+
+    // Fetch detailed info for each filtered order
+    const detailedOrders = await Promise.all(
+      res.map(async (order: DataType) => {
+        const detailedOrder = await fetchOrderRelation(order.OrderID);
+        return { ...order, TotalPrice: detailedOrder.TotalPrice };
+      })
+    );
+
+    console.log("Check detailedOrders: ", detailedOrders);
+
+    return detailedOrders;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
+const fetchOrderRelation = async (id: number) => {
+  try {
+    const { data } = await orderRelation(id);
+    console.log("Check API: ", data.data);
+    return data.data;
+  } catch (error) {
+    console.error(error);
+    return [];
+  }
+};
+
 const OrderList = () => {
   const [showModal, setShowModal] = useState(false);
-  `
-`;
-  const handleCancelClick = () => {
-    setShowModal(true);
-  };
+  const [orders, setOrders] = useState<DataType[]>([]);
+  const navigate = useNavigate();
+  useEffect(() => {
+    const fetchData = async () => {
+      const detailedOrders = await fetchAllOrder();
+      setOrders(detailedOrders);
+    };
 
+    fetchData();
+  }, []);
   const handleOk = () => {
     setShowModal(false);
     // Handle the actual cancel logic here
@@ -32,70 +95,71 @@ const OrderList = () => {
   };
 
   const columns: TableColumnsType<DataType> = [
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    { title: "No", dataIndex: "No" },
-    {
-      title: "Order Date",
-      dataIndex: "orderDate",
-      // defaultSortOrder: "descend",
-      sorter: (a: DataType, b: DataType) =>
-        a.orderDate.localeCompare(b.orderDate),
-    },
     {
       title: "OrderID",
-      dataIndex: "orderID",
-      sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
-     
+      dataIndex: "OrderID",
+      sorter: (a: DataType, b: DataType) => a.OrderID - b.OrderID,
     },
-
     {
-      title: "Price",
-      dataIndex: "price",
-      // defaultSortOrder: "descend",
-      sorter: (a: DataType, b: DataType) => a.price - b.price,
+      title: "Order Date",
+      dataIndex: "OrderDate",
+      sorter: (a: DataType, b: DataType) =>
+        a.OrderDate.localeCompare(b.OrderDate),
+    },
+    {
+      title: "Total Price",
+      dataIndex: "TotalPrice",
+      render: (text) => formatPrice(text),
+      sorter: (a: DataType, b: DataType) =>
+        parseFloat(a.TotalPrice || "0") - parseFloat(b.TotalPrice || "0"),
     },
     {
       title: "Status",
-      dataIndex: "status",
-      render: (_, { status }) => {
+      dataIndex: "OrderStatus",
+      render: (_, { OrderStatus }) => {
         let color = "green";
-        if (status === "Pending") {
-          color = "yellow";
-        } else if (status === "Delivering") {
-          color = "geekblue";
-        } else if (status === "Delivered") {
-          color = "green";
-        } else if (status === "Completed") {
+        if (OrderStatus === "Pending") {
+          color = "grey";
+        } else if (OrderStatus === "Completed") {
           color = "#32CD32";
-        } else if (status === "Canceled") {
+        } else if (OrderStatus === "Canceled") {
           color = "volcano";
+        } else if( OrderStatus === "Delivered") {
+          color ="blue"
         }
+
         return (
-          <Tag color={color} key={status}>
-            {status.toUpperCase()}
+          <Tag color={color} key={OrderStatus}>
+            {OrderStatus.toUpperCase()}
           </Tag>
         );
       },
       filters: [
-        { text: "Pending", value: "Pending" },
-        { text: "Confirmed", value: "Delivered" },
+        { text: "Completed", value: "Completed" },
+        { text: "Cancelled", value: "Canceled" },
         { text: "Delivering", value: "Delivering" },
-        { text: "Cancelled", value: "Cancelled" },
+        { text: "Pending", value: "Pending" },
       ],
-      onFilter: (value, record) => record.status.indexOf(value as string) === 0,
+      onFilter: (value, record) =>
+        record.OrderStatus.indexOf(value as string) === 0,
     },
     {
       title: "Action",
       key: "action",
-      render: () => (
+      render: (_, record) => (
         <Space style={{ width: 134 }} size="middle">
-          <Link to="/order-details">View</Link>
-          <a onClick={handleCancelClick}>Cancel</a>
+          <a
+            onClick={() => navigate(`/order-details?orderId=${record.OrderID}`)}
+          >
+            View
+          </a>
+          <a>Review FB</a>
         </Space>
       ),
       width: 134,
     },
   ];
+
   return (
     <main>
       <AccountCus />
@@ -104,7 +168,7 @@ const OrderList = () => {
         <TableContainer>
           <Table
             columns={columns}
-            dataSource={initialData}
+            dataSource={orders}
             pagination={{ pageSize: 6 }}
             onChange={onChange}
           />
@@ -112,7 +176,7 @@ const OrderList = () => {
       </Section>
       <Modal
         title="Cancel Order"
-        open={showModal}
+        visible={showModal}
         onOk={handleOk}
         onCancel={handleCancel}
       >
@@ -129,14 +193,6 @@ const Section = styled.section`
   margin-top: 29px;
   background: #fff;
 `;
-
-// const Text = styled.span`
-//   font-family: 'Poppins', sans-serif;
-//   display: flex;
-//   gap: 5px;
-//   margin-top: 35px;
-//   border-radius: 7px;
-// `;
 
 const Title = styled.h1`
   color: #000;

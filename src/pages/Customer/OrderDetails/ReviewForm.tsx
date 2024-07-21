@@ -1,70 +1,77 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-
-import { Modal, Form, Input, Rate } from "antd";
-import { useState } from "react";
+import React from "react";
+import { Modal, Form, Input, Rate, Button } from "antd";
+import { createFeedback } from "@/services/feedBackAPI";
 
 interface ReviewFormProps {
   visible: boolean;
-  onCreate: (values: any) => void; // Update with the correct type
-  onCancel: (e: React.MouseEvent<HTMLButtonElement, MouseEvent>) => void;
+  onCreate: (values: any) => void;
+  onCancel: () => void;
+  orderId: string | null; 
+  accountId: number | null; 
+  diamondId: number | null; 
 }
-
-const desc = ["terrible", "bad", "normal", "good", "wonderful"];
 
 const ReviewForm: React.FC<ReviewFormProps> = ({
   visible,
   onCreate,
   onCancel,
+  orderId,
+  accountId,
+  diamondId,
 }) => {
   const [form] = Form.useForm();
-  const [value, setValue] = useState(3);
+
+  const handleSubmit = async () => {
+    try {
+      const values = await form.validateFields();
+      const feedbackData = {
+        Stars: values.stars,
+        Comment: values.comment,
+        CommentTime: new Date().toISOString(),
+        IsActive: true,
+        DiamondID: diamondId,
+        JewelrySettingID: null, 
+        OrderID: orderId,
+        AccountID: accountId,
+        ProductID: null, 
+      };
+
+      await createFeedback(feedbackData);
+      onCreate(feedbackData);
+    } catch (error) {
+      console.error("Error submitting feedback:", error);
+    }
+  };
 
   return (
     <Modal
       visible={visible}
-      title="Rate Product"
-      okText="Rate"
-      cancelText="Cancel"
+      title="Submit Your Feedback"
       onCancel={onCancel}
-      onOk={() => {
-        form
-          .validateFields()
-          .then((values) => {
-            form.resetFields();
-            onCreate(values);
-          })
-          .catch((info) => {
-            console.log("Validate Failed:", info);
-          });
-      }}
+      footer={[
+        <Button key="back" onClick={onCancel}>
+          Cancel
+        </Button>,
+        <Button key="submit" type="primary" onClick={handleSubmit}>
+          Submit
+        </Button>,
+      ]}
     >
-      <Form
-        form={form}
-        layout="vertical"
-        name="review_form"
-        initialValues={{ modifier: "public" }}
-      >
+      <Form form={form} layout="vertical" name="review_form">
         <Form.Item
           name="stars"
-          label="Rate"
-          rules={[{ required: true, message: "Please select number of stars!" }]}
+          label="Rating"
+          rules={[{ required: true, message: "Please rate the product" }]}
         >
-          <Rate tooltips={desc} onChange={setValue} value={value} />
+          <Rate />
         </Form.Item>
-
         <Form.Item
           name="comment"
           label="Comment"
-          rules={[{ required: true, message: "Please enter comments!" }]}
+          rules={[{ required: true, message: "Please write a comment" }]}
         >
-          <Input.TextArea
-            allowClear
-            showCount
-            maxLength={300}
-            placeholder="Tell us how can ưe improve better!"
-            rows={4}
-            // disabled
-          />
+          <Input.TextArea rows={4} />
         </Form.Item>
       </Form>
     </Modal>

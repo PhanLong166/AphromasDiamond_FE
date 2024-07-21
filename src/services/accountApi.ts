@@ -1,4 +1,4 @@
-import { get } from "./apiCaller";
+import { get, post } from "./apiCaller";
 
 // interface UpdateAccount {
 //     fullName: string;
@@ -8,7 +8,10 @@ import { get } from "./apiCaller";
 //     address: string;
 // }
 
-export const getInfoCurrentUser = () => {
-    return get(`/account/current`);
+export const getCustomer = (id: number) => {
+    return post(`/auth/getCustomer/${id}`);
 }
 
+export const showAllAccounts = () => {
+    return get('/auth/ShowAllAccounts');
+}

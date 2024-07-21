@@ -4,25 +4,17 @@ import React, { useEffect, useState } from "react";
 import {
   Table,
   Input,
-  Form,
   Button,
-  InputNumber,
   Select,
   Space,
-  Upload,
-  message,
-  Switch,
   notification,
 } from "antd";
 import {
   SearchOutlined,
   PlusCircleOutlined,
-  InboxOutlined,
   EyeOutlined,
-  SaveOutlined,
 } from "@ant-design/icons";
 import type {
-  FormInstance,
   TableColumnsType,
   TableProps,
   GetProp,
@@ -30,15 +22,15 @@ import type {
   UploadProps
 } from "antd";
 // import Dragger from "antd/es/upload/Dragger";
-import TextArea from "antd/es/input/TextArea";
 // import { diamondData, DiamondDataType } from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { createDiamond, showDiamonds } from "@/services/diamondAPI";
-import ImgCrop from 'antd-img-crop';
-import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "./Diamond.type";
+import { showAllDiamond } from "@/services/diamondAPI";
+import { ColorType, ShapeType } from "./Diamond.type";
 import { getImage } from "@/services/imageAPI";
+import { useDocumentTitle } from "@/hooks";
+import DiamondSteps from "./components/steps/DiamondSteps";
 // import { RcFile, UploadChangeParam } from "antd/es/upload";
 
 type FileType = Parameters<GetProp<UploadProps, 'beforeUpload'>>[0];
@@ -52,70 +44,34 @@ const onChange: TableProps<any>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-// DESCRIPTION INPUT
-
-const { Dragger } = Upload;
-
-const props: UploadProps = {
-  name: "file",
-  multiple: true,
-  action: "https://660d2bd96ddfa2943b33731c.mockapi.io/api/upload",
-  onChange(info) {
-    const { status } = info.file;
-    if (status !== "uploading") {
-      console.log(info.file, info.fileList);
-    }
-    if (status === "done") {
-      message.success(`${info.file.name} file uploaded successfully.`);
-    } else if (status === "error") {
-      message.error(`${info.file.name} file upload failed.`);
-    }
-  },
-  onDrop(e) {
-    console.log("Dropped files", e.dataTransfer.files);
-  },
-};
-
 const Diamond = () => {
-  const [form] = Form.useForm();
+  useDocumentTitle('Diamond | Aphromas Diamond');
+
   const [searchText, setSearchText] = useState("");
   const [currency, setCurrency] = useState<"VND" | "USD">("VND");
   const [isAdding, setIsAdding] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   // const [diamonds, setDiamonds] = useState<any[]>([]);
   const [diamonds, setDiamonds] = useState([]);
-  const [totalDiamonds, setTotalDiamonds] = useState(0);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize, setPageSize] = useState(6);
+  // const [totalDiamonds, setTotalDiamonds] = useState(0);
+  // const [currentPage, setCurrentPage] = useState(1);
+  // const [pageSize, setPageSize] = useState(6);
   // const file = useRef<UploadFile>();
 
-  type NotificationType = 'success' | 'info' | 'warning' | 'error';
+  const fetchData = async () => {
+    // const params = {
+    //   page,
+    //   // pageSize,
+    //   // sortBy: "Price",
+    //   // sortOrder: "asc",
+    //   // color: "D",
+    //   // shape: "Square",
+    // };
 
-  const openNotification = (
-    type: NotificationType,
-    method: string,
-    error: string
-  ) => {
-    api[type]({
-      message: type === "success" ? "Notification" : "Error",
-      description: type === "success" ? `${method} diamond successfully` : error,
-    });
-  };
-
-  const fetchData = async (page: number) => {
-    const params = {
-      page,
-      // pageSize,
-      // sortBy: "Price",
-      // sortOrder: "asc",
-      // color: "D",
-      // shape: "Square",
-    };
-  
     try {
-      const response = await showDiamonds(params);
-      console.log('API response:', response); 
-      const { data, total } = response.data; 
+      const response = await showAllDiamond();
+      console.log('API response:', response);
+      const { data } = response.data;
       const formattedDiamonds = data.map((diamond: any) => ({
         diamondID: diamond.DiamondID,
         diamondName: diamond.Name,
@@ -142,15 +98,14 @@ const Diamond = () => {
       }));
       console.log('Formatted Diamonds:', formattedDiamonds); // Log formatted diamonds
       setDiamonds(formattedDiamonds);
-      setTotalDiamonds(total);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }
   };
 
   useEffect(() => {
-    fetchData(currentPage);
-  }, [currentPage]);
+    fetchData();
+  }, []);
 
 
   // SEARCH 
@@ -166,10 +121,6 @@ const Diamond = () => {
 
 
   // Change Currency
-  const handleChange = (value: string) => {
-    console.log(`selected ${value}`);
-  };
-
   const handleCurrencyChange = (value: "VND" | "USD") => {
     setCurrency(value);
   };
@@ -203,7 +154,7 @@ const Diamond = () => {
       render: (_, record) => (
         <a href="#" target="_blank" rel="noopener noreferrer">
           <img
-            src={record.images && record.images[0] ? record.images[0].url : "default-image-url"} // Thay đổi để hiển thị ảnh của kim cương
+            src={record.images && record.images[0] ? record.images[0].url : "default-image-url"} 
             alt={record.diamondName}
             style={{ width: "50px", height: "50px" }}
           />
@@ -306,103 +257,9 @@ const Diamond = () => {
     },
   ];
 
-
-
-  // Add New
-  const handleCancel = () => {
-    setIsAdding(false);
-  };
-
-  const onChangeAdd = (
-    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>
-  ) => {
-    console.log(e);
-  };
-
-  const handleAddDiamond = async (diamondValues: object) => {
-    try {
-      const { data } = await createDiamond(diamondValues);
-      if (data.statusCode !== 200) throw new Error(data.message);
-      fetchData(currentPage);
-      setIsAdding(false);
-      openNotification("success", "Add", "");
-    } catch (error: any) {
-      openNotification("error", "", error.message);
-    }
-  };
-
-
-  // SUBMIT FORM
-  interface SubmitButtonProps {
-    form: FormInstance;
-  }
-
-  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-    form,
-    children,
-  }) => {
-    // const [submittable, setSubmittable] = React.useState<boolean>(false);
-    const [submittable, setSubmittable] = useState(false);
-
-    // Watch all values
-    const values = Form.useWatch([], form);
-    React.useEffect(() => {
-      form
-        .validateFields({ validateOnly: true })
-        .then(() => setSubmittable(true))
-        .catch(() => setSubmittable(false));
-
-    }, [values]);
-
-    const diamondValues: object = {
-      ...values,
-      UpdateTime: new Date(),
-      JewelrySettingID: null,
-    }
-    console.log(diamondValues);
-
-    const addDiamond = async (diamondValues: object) => {
-      try {
-        const { data } = await createDiamond(diamondValues);
-        if (data.statusCode !== 200) throw new Error(data.message);
-        fetchData(currentPage); // Refresh the table after adding a diamond
-        setIsAdding(false); // Close the add form after successful addition
-        openNotification("success", "Add", "");
-      } catch (error: any) {
-        openNotification("error", "", error.message);
-      }
-    };
-
-    return (
-      <Button
-        type="primary"
-        htmlType="submit"
-        disabled={!submittable}
-        onClick={() => addDiamond(diamondValues)}
-      >
-        {children}
-      </Button>
-    );
-  };
-
-  const handleSave = () => {
-    fetchData(currentPage);
-    setIsAdding(false);
-  };
-
-
-
   // UPLOAD IMAGES
   const [fileList, setFileList] = useState<UploadFile[]>([]);
-
-  // const beforeUpload = (f: RcFile) => {
-  //   file.current = f;
-  //   return false;
-  // }
-
-  // const handleUploadProductImage = (info: UploadChangeParam<UploadFile<any>>) => {
-
-  // }
+  const [docsList, setDocsList] = useState<UploadFile[]>([]);
 
   const onChangeImg: UploadProps['onChange'] = ({ fileList: newFileList }) => {
     setFileList(newFileList);
@@ -430,7 +287,7 @@ const Diamond = () => {
   return (
     <>
       {contextHolder}
-      
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -486,348 +343,17 @@ const Diamond = () => {
             <Styled.AdminTable>
               {isAdding ? (
                 <>
-                  <Form
-                    form={form}
-                    layout="vertical"
-                    className="AdPageContent_Content"
-                  >
-                    {/* <Styled.FormItem>
-                      <Form.Item
-                        label="Diamond ID"
-                        name="Diamond ID"
-                        rules={[{ required: true }]}
-                      >
-                        <Input className="formItem" placeholder="D1234" />
-                      </Form.Item>
-                    </Styled.FormItem> */}
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Diamond Name"
-                        name="Name"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Diamond Name is required.",
-                          },
-                          {
-                            pattern: /^[a-zA-Z0-9\s()-.]*$/,
-                            message:
-                              "Only alphabet, numbers, (), - and . are allowed.",
-                          },
-                          {
-                            max: 300,
-                            message:
-                              "Diamond Name must be at most 300 characters long.",
-                          },
-                          {
-                            whitespace: true,
-                            message: "Not only has whitespace.",
-                          },
-                        ]}
-                      >
-                        <Input className="formItem" placeholder="Fill Name" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Charge Rate (%)"
-                        name="ChargeRate"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Rate is required.",
-                          },
-                          {
-                            type: "number",
-                            min: 1,
-                            max: 300,
-                            message:
-                              "Must be a positive number and less than or equal to 300",
-                          },
-                          // {
-                          //   whitespace: true,
-                          //   message: "Not only has whitespace.",
-                          // },
-                        ]}
-                      >
-                        <InputNumber className="formItem" placeholder="150" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Price"
-                        name="Price"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Price is required.",
-                          },
-                          {
-                            type: "number",
-                            min: 0,
-                            max: 1000000,
-                            message:
-                              "Must be a positive number and less than or equal to $1,000,000 USD.",
-                          },
-                        ]}
-                      >
-                        <InputNumber className="formItem" placeholder="4,080" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item 
-                        label="Shape" 
-                        name="Shape" 
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Shape"
-                          onChange={handleChange}
-                          options={ShapeType}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item 
-                        label="Color" 
-                        name="Color" 
-                        rules={[{ required: true }]}>
-                        <Select
-                          //   defaultValue="Select Color"
-                          className="formItem"
-                          placeholder="Select Color"
-                          onChange={handleChange}
-                          options={ColorType}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Polish"
-                        name="Polish"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Polish"
-                          onChange={handleChange}
-                          options={RateType_Option}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Cut"
-                        name="Cut"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Cut"
-                          onChange={handleChange}
-                          options={RateType_Option}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Length/Width Ratio"
-                        name="LengthOnWidthRatio"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="1,01" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item 
-                        label="Clarity" 
-                        name="Clarity" 
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          //   defaultValue="Select Clarity"
-                          className="formItem"
-                          placeholder="Select Clarity"
-                          onChange={handleChange}
-                          options={ClarityType_Option}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Symmetry"
-                        name="Symmetry"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Symmetry"
-                          onChange={handleChange}
-                          options={RateType_Option}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Carat Weight"
-                        name="WeightCarat"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="1,01" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Table %"
-                        name="PercentTable"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="56.0" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Depth %"
-                        name="PercentDepth"
-                        rules={[{ required: true }]}
-                      >
-                        <InputNumber className="formItem" placeholder="63.8" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Fluorescence"
-                        name="Fluorescence"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          placeholder="Select Symmetry"
-                          onChange={handleChange}
-                          options={FluorescenceType_Option}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Diamond Cutter"
-                        name="Cutter"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Diamond Name is required.",
-                          },
-                          {
-                            pattern: /^[a-zA-Z0-9\s()-.]*$/,
-                            message:
-                              "Only alphabet, numbers, (), - and . are allowed.",
-                          },
-                          {
-                            max: 300,
-                            message:
-                              "Diamond Name must be at most 300 characters long.",
-                          },
-                          {
-                            whitespace: true,
-                            message: "Not only has whitespace.",
-                          },
-                        ]}
-                      >
-                        <Input className="formItem" placeholder="Fill Name" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
-                        label="Active"
-                        name="IsActive"
-                      >
-                        <Switch />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormDescript>
-                      <Form.Item
-                        label="Description"
-                        name="Description"
-                        rules={[
-                          {
-                            required: true,
-                            message: "Description is required.",
-                          },
-                          {
-                            pattern: /^[a-zA-Z0-9\s()-.]*$/,
-                            message:
-                              "Only alphabet, numbers, (), - and . are allowed.",
-                          },
-                          {
-                            whitespace: true,
-                            message: "Not only has whitespace.",
-                          },
-                        ]}
-                      >
-                        <TextArea
-                          placeholder="Description"
-                          allowClear
-                          onChange={onChangeAdd}
-                        />
-                      </Form.Item>
-                    </Styled.FormDescript>
-                    <Styled.UploadFile>
-                      <Form.Item
-                        label="Upload Images"
-                        name="diamondImg"
-                      >
-                        <ImgCrop quality={1} rotationSlider aspectSlider showGrid showReset>
-                          <Upload
-                            name="diamondImage"
-                            listType="picture-card"
-                            fileList={fileList}
-                            onChange={onChangeImg}
-                            onPreview={onPreview}
-                          >
-                            {fileList.length < 5 && "+ Upload"}
-                          </Upload>
-                        </ImgCrop>
-                      </Form.Item>
-                    </Styled.UploadFile>
-
-                    <Styled.UploadFile>
-                      <Form.Item
-                        label="Upload GIA"
-                        rules={[{ required: true }]}
-                      >
-                        <Dragger {...props}>
-                          <p className="ant-upload-drag-icon">
-                            <InboxOutlined />
-                          </p>
-                          <p className="ant-upload-text">
-                            Click or drag file to this area to upload
-                          </p>
-                          <p className="ant-upload-hint">
-                            Support for a single or bulk upload. Strictly
-                            prohibited from uploading company data or other
-                            banned files.
-                          </p>
-                        </Dragger>
-                      </Form.Item>
-                    </Styled.UploadFile>
-
-                    <Styled.ActionBtn>
-                    <SubmitButton
-                    form={form}
-                    >
-                      <SaveOutlined />
-                      Save
-                    </SubmitButton>
-                      <Button
-                        onClick={handleCancel}
-                        className="CancelBtn"
-                        style={{ marginLeft: "10px" }}
-                      >
-                        Cancel
-                      </Button>
-                    </Styled.ActionBtn>
-                  </Form>
+                  <DiamondSteps
+                    api={api}
+                    fileList={fileList}
+                    setFileList={setFileList}
+                    onChangeImg={onChangeImg}
+                    onPreview={onPreview}
+                    setIsAdding={setIsAdding}
+                    docsList={docsList}
+                    setDocsList={setDocsList}
+                    fetchData={fetchData}
+                  />
                 </>
               ) : (
                 <Table
@@ -835,17 +361,9 @@ const Diamond = () => {
                   columns={columns}
                   dataSource={diamonds}
                   onChange={onChange}
-                  pagination={{
-                    current: currentPage,
-                    // pageSize,
-                    total: totalDiamonds,
-                    onChange: (page) => {
-                      setCurrentPage(page);
-                      // setPageSize(pageSize);
-                    },
-                  }}
+                  pagination={{ pageSize: 6 }}
                 />
-             )} 
+              )}
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>

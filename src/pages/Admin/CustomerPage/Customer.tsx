@@ -1,21 +1,21 @@
 import * as Styled from "./Customer.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Form, Input, InputNumber, Popconfirm, Space, Table } from "antd";
+import { Form, Input, InputNumber, Space, Table } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import { customerData, CustomerDataType } from "./CustomerData";
+// import { customerData, CustomerDataType } from "./CustomerData";
 import { Link } from "react-router-dom";
+import { showAllAccounts } from "@/services/authAPI";
 
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: string;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: CustomerDataType;
+  record: any;
   index: number;
-
   children: React.ReactNode;
 }
 
@@ -33,8 +33,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
+        name={dataIndex.toString()}
+        style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -53,34 +53,55 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
 const Customer = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<CustomerDataType[]>(customerData);
+  const [searchText, setSearchText] = useState("");
+  const [customers, setCustomers] = useState<any[]>();
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
+  const fetchData = async () => {
+    try {
+      const response = await showAllAccounts();
+      const { data } = response.data;
+      const filteredCustomers = data.filter((customer: any) => customer.Role === "ROLE_CUSTOMER");
+
+      const formattedCustomers = filteredCustomers.map((customer: any) => ({
+        key: customer.AccountID,
+        accountID: customer.AccountID,
+        customerName: customer.Name,
+        phoneNumber: customer.PhoneNumber,
+        email: customer.Email,
+        role: customer.Role,
+        customerID: customer.CustomerID
+      }));
+      setCustomers(formattedCustomers);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
   };
 
-  const columns: TableColumnsType<CustomerDataType> = [
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const columns: TableColumnsType<any> = [
     {
       title: "Customer ID",
       dataIndex: "customerID",
       // editable: true,
-      sorter: (a: CustomerDataType, b: CustomerDataType) =>
-        a.customerID.localeCompare(b.customerID),
+      sorter: (a, b) =>
+        parseInt(a.customerID) - parseInt(b.customerID),
     },
     {
       title: "Customer Name",
       dataIndex: "customerName",
       defaultSortOrder: "descend",
       // editable: true,
-      sorter: (a: CustomerDataType, b: CustomerDataType) =>
+      sorter: (a, b) =>
         a.customerName.length - b.customerName.length,
     },
     {
       title: "Email",
       dataIndex: "email",
       // editable: true,
-      sorter: (a: CustomerDataType, b: CustomerDataType) => a.email.length - b.email.length,
+      sorter: (a, b) => a.email.length - b.email.length,
     },
     {
       title: "Detail",
@@ -94,24 +115,24 @@ const Customer = () => {
         </Space>
       ),
     },
-    {
-      title: "Delete",
-      dataIndex: "delete",
-      className: "TextAlign",
-      render: (_: unknown, record: CustomerDataType) =>
-        customerData.length >= 1 ? (
-          <Popconfirm
-            title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
-          >
-            <a>Delete</a>
-          </Popconfirm>
-        ) : null,
-    },
+    // {
+    //   title: "Delete",
+    //   dataIndex: "delete",
+    //   className: "TextAlign",
+    //   render: (_: unknown, record: CustomerDataType) =>
+    //     customerData.length >= 1 ? (
+    //       <Popconfirm
+    //         title="Sure to delete?"
+    //         onConfirm={() => handleDelete(record.key)}
+    //       >
+    //         <a>Delete</a>
+    //       </Popconfirm>
+    //     ) : null,
+    // },
   ];
 
-  const [searchText, setSearchText] = useState("");
 
+  // SEARCH 
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -159,11 +180,10 @@ const Customer = () => {
                     },
                   }}
                   bordered
-                  dataSource={data}
+                  dataSource={customers}
                   columns={columns}
                   rowClassName="editable-row"
                   pagination={{
-                    // onChange: cancel,
                     pageSize: 6,
                   }}
                 />
