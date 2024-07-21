@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./FirmList.styled";
 
 import {
@@ -20,6 +19,7 @@ const { Title, Text } = Typography;
 import config from "@/config";
 import { firmData } from "./FirmList.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const FirmList: React.FC = () => {
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
@@ -63,16 +63,10 @@ const FirmList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentFirmData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentFirmData.title },
           ]}
         />
       </div>

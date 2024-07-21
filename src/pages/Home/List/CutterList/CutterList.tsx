@@ -5,7 +5,7 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
+  // CustomBreadcrumb,
 } from "./CutterList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -14,6 +14,7 @@ const { Title, Text } = Typography;
 import config from "@/config";
 import { cutterData } from "./CutterList.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const CutterList: React.FC = () => {
   const { diamondCutter } = useParams<{ diamondCutter: string }>();
@@ -57,7 +58,7 @@ const CutterList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
+        {/* <CustomBreadcrumb
           separator=">"
           items={[
             {
@@ -67,6 +68,12 @@ const CutterList: React.FC = () => {
             {
               title: currentCutterData.title,
             },
+          ]}
+        /> */}
+         <Breadcrumb
+          items={[
+            { title: "Home", href: "/" },
+            { title: currentCutterData.title },
           ]}
         />
       </div>

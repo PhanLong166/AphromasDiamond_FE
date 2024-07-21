@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./DiamondList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -17,6 +16,7 @@ import config from "@/config";
 import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const DiamondList: React.FC = () => {
   const { diamondShape } = useParams<{ diamondShape: string }>();
@@ -482,16 +482,10 @@ const DiamondList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+        <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentDiamondData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentDiamondData.title },
           ]}
         />
       </div>

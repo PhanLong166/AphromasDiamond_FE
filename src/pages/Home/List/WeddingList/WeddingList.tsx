@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./WeddingList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -14,6 +13,7 @@ const { Title, Text } = Typography;
 import config from "@/config";
 import { jewelryWeddingData } from "./WeddingList.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const WeddingList: React.FC = () => {
   const { ringShape } = useParams<{ ringShape: string }>();
@@ -57,16 +57,10 @@ const WeddingList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentJewelryWeddingData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentJewelryWeddingData.title },
           ]}
         />
       </div>

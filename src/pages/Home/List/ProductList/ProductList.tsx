@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./ProductList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -15,6 +14,7 @@ import config from "@/config";
 import FilterSort from "@/components/FilterSort/FilterSort";
 import { jewelryData } from "./ProductList.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const ProductList: React.FC = () => {
   const { jewelryType } = useParams<{ jewelryType: string }>();
@@ -58,16 +58,10 @@ const ProductList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentJewelryData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentJewelryData.title },
           ]}
         />
       </div>

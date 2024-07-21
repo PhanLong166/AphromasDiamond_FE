@@ -1,20 +1,19 @@
+// components/Breadcrumb.tsx
 import React from "react";
-import { Breadcrumb } from "antd";
+import { CustomBreadcrumb } from "./Breadcrumb.styled";
 import { Link } from "react-router-dom";
 
 interface BreadcrumbProps {
   items: { title: string; href?: string }[];
-  separator?: string;
 }
 
-const CustomBreadcrumb: React.FC<BreadcrumbProps> = ({ items, separator }) => (
-  <Breadcrumb separator={separator}>
-    {items.map((item, index) => (
-      <Breadcrumb.Item key={index}>
-        {item.href ? <Link to={item.href}>{item.title}</Link> : item.title}
-      </Breadcrumb.Item>
-    ))}
-  </Breadcrumb>
+const Breadcrumb: React.FC<BreadcrumbProps> = ({ items }) => (
+  <CustomBreadcrumb
+    separator=">"
+    items={items.map(item => ({
+      title: item.href ? <Link to={item.href}>{item.title}</Link> : item.title,
+    }))}
+  />
 );
 
-export default CustomBreadcrumb;
+export default Breadcrumb;

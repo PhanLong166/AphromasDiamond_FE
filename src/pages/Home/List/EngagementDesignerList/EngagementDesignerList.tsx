@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./EngagementDesignerList.styled";
 
 import { Card, Col, Row, Typography } from "antd";
@@ -15,6 +14,7 @@ const { Title, Text } = Typography;
 import config from "@/config";
 import { designerData } from "./EngagementDesignerList.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const EngagementDesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
@@ -58,16 +58,10 @@ const EngagementDesignerList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentDesignerData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentDesignerData.title },
           ]}
         />
       </div>

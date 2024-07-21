@@ -7,10 +7,10 @@ import {
   InfoSection,
   Overlay,
   GiftSection,
-  CustomBreadcrumb,
 } from "./Gift.styled";
 
 import { Link, useParams } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const Gift = () => {
  
@@ -28,18 +28,12 @@ const Gift = () => {
     <>
       <Container>
         <div>
-          <CustomBreadcrumb
-            separator=">"
-            items={[
-              {
-                title: "Home",
-                href: "/",
-              },
-              {
-                title: currentJewelryData.title,
-              },
-            ]}
-          />
+        <Breadcrumb
+          items={[
+            { title: "Home", href: "/" },
+            { title: currentJewelryData.title },
+          ]}
+        />
         </div>
         <Banner
           style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}

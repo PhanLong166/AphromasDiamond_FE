@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./MenEngagementRing.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -14,6 +13,7 @@ const { Title, Text } = Typography;
 import config from "@/config";
 import { menEngagementData } from "./MenEngagementRing.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 
 const MenEngagementRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
@@ -57,16 +57,10 @@ const MenEngagementRing: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentMenEngagementData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentMenEngagementData.title },
           ]}
         />
       </div>

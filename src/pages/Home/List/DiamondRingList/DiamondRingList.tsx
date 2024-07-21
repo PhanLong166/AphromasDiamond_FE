@@ -5,7 +5,6 @@ import {
   LeftSection,
   List,
   StyledPagination,
-  CustomBreadcrumb,
 } from "./DiamondRingList.styled";
 
 import { Card, Col, Row, Typography } from "antd";
@@ -15,6 +14,8 @@ const { Title, Text } = Typography;
 import config from "@/config";
 import { jewelryData } from "./DiamondRingList.data";
 import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+
 
 const DiamondRingList: React.FC = () => {
   const { ringType } = useParams<{ ringType: string }>();
@@ -58,16 +59,10 @@ const DiamondRingList: React.FC = () => {
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentJewelryData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentJewelryData.title },
           ]}
         />
       </div>
