@@ -23,6 +23,7 @@ type DiamondStepsProps = {
     onChangeImg: (value: any) => void;
     onPreview: (value: any) => void;
     setIsAdding: (values: any) => void;
+    fetchData: () => Promise<void>
 }
 
 const DiamondSteps = ({
@@ -33,7 +34,8 @@ const DiamondSteps = ({
     setDocsList,
     onChangeImg,
     onPreview,
-    setIsAdding
+    setIsAdding,
+    fetchData
 }: DiamondStepsProps) => {
     const { token } = theme.useToken();
     const [current, setCurrent] = useState(0);
@@ -140,7 +142,10 @@ const DiamondSteps = ({
                         </CertificateUploadButton>
                     )}
                 {current === steps.length - 1 && (
-                    <Button type="primary" onClick={() => setIsAdding(false)}>
+                    <Button type="primary" onClick={() => {
+                        setIsAdding(false);
+                        fetchData();
+                    }}>
                         Done
                     </Button>
                 )}

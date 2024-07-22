@@ -1,24 +1,32 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 // import * as React from 'react';
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import * as CartStyled from "./Cart.styled";
 // import { Button, Flex, Select } from "antd";
 import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
-import { useDocumentTitle } from "@/hooks";
-import { items } from "../../../components/Customer/Data/data";
+import { useAppDispatch, useDocumentTitle } from "@/hooks";
 import { useEffect, useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
 import { OrderLineBody, showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
-import { getDiamondDetails } from "@/services/diamondAPI";
+import { getDiamondDetails, showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
+import config from "@/config";
+import { notification } from "antd";
+import { cartSlice } from "@/layouts/MainLayout/slice/cartSlice";
+import { showAllProduct } from "@/services/jewelryAPI";
 
 const Cart = () => {
   useDocumentTitle("Cart | Aphromas Diamond");
 
   const [cartItems, setCartItems] = useState<any[]>([]);
   const { AccountID } = useAuth();
+  const navigate = useNavigate();
+  const [api, contextHolder] = notification.useNotification();
+  const dispatch = useAppDispatch();
+  const [diamondList, setDiamondList] = useState<any[]>([]);
+  const [productList, setProductList] = useState<any[]>([]);
 
   const fetchCartItemsWithDetails = async () => {
     try {
@@ -31,12 +39,22 @@ const Cart = () => {
       const customerID = customer.data.data.CustomerID;
       console.log('Customer ID: ', customer.data.data.CustomerID);
 
+      //Get diamond list
+      const diamonds = await showAllDiamond();
+      setDiamondList(diamonds.data.data);
+      console.log('Diamond List: ', diamondList);
+
+      //Get product list
+      const products = await showAllProduct();
+      setProductList(products.data.data);
+      console.log('Product List: ', productList);
+
       // Lọc ra các sản phẩm có OrderID là null
       const cartItems = data.data.filter(
         (cartItem: { OrderID: null, DiamondID: number, ProductID: number, CustomerID: number }) =>
-          (cartItem.OrderID === null 
+          (cartItem.OrderID === null
             && (cartItem.DiamondID !== null || cartItem.ProductID !== null))
-            && cartItem.CustomerID === customerID
+          && cartItem.CustomerID === customerID
       );
       console.log('Cart: ', cartItems);
 
@@ -75,7 +93,7 @@ const Cart = () => {
 
   useEffect(() => {
     loadCartItems();
-  }, []);
+  }, [cartItems]);
 
   const loadCartItems = async () => {
     const items = await fetchCartItemsWithDetails();
@@ -83,6 +101,7 @@ const Cart = () => {
     if (items) {
       setCartItems(items);
     }
+    dispatch(cartSlice.actions.setLength(cartItems.length));
   };
 
   const [discount, setDiscount] = useState(0);
@@ -98,12 +117,24 @@ const Cart = () => {
     return subtotal - (subtotal * discount) / 100 + shippingCost;
   };
 
-  const subtotal = items.reduce((acc, item) => {
-    return acc + parseFloat(item.price.replace(/[$,]/g, ""));
-  }, 0);
+  // const subtotal = items.reduce((acc, item) => {
+  //   return acc + parseFloat(item.price.replace(/[$,]/g, ""));
+  // }, 0);
 
-  const shippingCost = items.length < 2 ? 15 : 0;
-  const total = calculateTotal(subtotal, discount, shippingCost).toFixed(0);
+  const subtotal = () => {
+    let total = 0;
+    cartItems.map((item) => {
+      const findProduct = productList.find((product) => product.ProductID === item.ProductID);
+      const findDiamond = diamondList.find((diamond) => diamond.DiamondID === item.DiamondID);
+      if (!findProduct) {
+        total += parseFloat(findDiamond.Price);
+      }
+    })
+    return total;
+  }
+
+  const shippingCost = cartItems.length < 2 ? 15 : 0;
+  const total = calculateTotal(subtotal(), discount, shippingCost).toFixed(2)
 
   const handleRemove = async (OrderLineID: any) => {
     try {
@@ -124,11 +155,21 @@ const Cart = () => {
     } catch (error: any) {
       console.log(error);
     }
+  };
+
+  const handleCheckout = () => {
+    cartItems.length === 0 ? (
+      api.warning({
+        message: 'Notification',
+        description: "Your cart doesn't have any products!"
+      })
+    ) : navigate(config.routes.customer.checkout);
   }
 
   return (
     <>
       <main>
+        {contextHolder}
         <CartStyled.ContainerHeader>
           <CartStyled.Header>Shopping Cart</CartStyled.Header>
         </CartStyled.ContainerHeader>
@@ -160,22 +201,8 @@ const Cart = () => {
                     }
                     price={item.diamondDetails?.Price}
                     images={item.imageDiamond}
-                    // image={(item.diamondDetails.usingImage[0].Name )}
                     type={item.type}
-                    // name={item.diamondDetails.Name || "No description available"}
-                    // description={item.diamondDetails.Description || "No description available"}
                     handleRemove={() => handleRemove(item.OrderLineID)}
-                  // sku={item.diamondDetails.DiamondID}
-                  // price={item.diamondDetailsPrice}
-                  // type={item.type} // Loại sản phẩm: 'diamond' hoặc 'ring'
-                  // ringOptions={[
-                  //   { value: "1", label: "4" },
-                  //   { value: "2", label: "4.5" },
-                  //   { value: "3", label: "5" },
-                  //   { value: "4", label: "5.5" },
-                  //   { value: "5", label: "6" },
-                  //   { value: "6", label: "6.5" },
-                  // ]}
                   />
                 ))}
               </CartStyled.Column>
@@ -185,9 +212,9 @@ const Cart = () => {
                     {" "}
                     {discount > 0 && (
                       <CartStyled.AppliedPromo>
-                        Discount:
+                        Discount {`(-${discount}%)`}:
                         <CartStyled.AppliedPromoValuve>
-                          {discount}%
+                          {`-$${subtotal() * discount / 100}`}
                         </CartStyled.AppliedPromoValuve>
                       </CartStyled.AppliedPromo>
                     )}
@@ -196,7 +223,7 @@ const Cart = () => {
                         Shipping
                       </CartStyled.SummaryLabel>
                       <CartStyled.SummaryValue>
-                        {items.length < 2 ? "15$" : "Free"}
+                        {cartItems.length < 2 ? "$15" : "Free"}
                       </CartStyled.SummaryValue>
                     </CartStyled.SummaryRow>
                     <CartStyled.SummaryRow>
@@ -204,7 +231,7 @@ const Cart = () => {
                         Subtotal
                       </CartStyled.SummaryLabel>
                       <CartStyled.SummaryValue>
-                        ${subtotal}
+                        ${subtotal()}
                       </CartStyled.SummaryValue>
                     </CartStyled.SummaryRow>
                     <PromoCodeSection onApplyVoucher={onApplyVoucher} />
@@ -213,11 +240,11 @@ const Cart = () => {
                       <CartStyled.TotalValue>${total}</CartStyled.TotalValue>
                     </CartStyled.SummaryTotal>
                   </CartStyled.SummaryDetails>
-                  <Link to="/checkout">
-                    <CartStyled.CheckoutButton>
-                      CHECKOUT
-                    </CartStyled.CheckoutButton>
-                  </Link>
+                  <CartStyled.CheckoutButton
+                    onClick={handleCheckout}
+                  >
+                    CHECKOUT
+                  </CartStyled.CheckoutButton>
                   <CartStyled.OrDivider>OR</CartStyled.OrDivider>
                   <Link to="/thanks-page">
                     <CartStyled.PaymentMethodImage

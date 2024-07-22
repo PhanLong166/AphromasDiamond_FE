@@ -3,12 +3,14 @@ import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { Steps } from "antd";
-import AddressDetails from "../../../components/Customer/Checkout/AddressDetails"; 
+import AddressDetails from "../../../components/Customer/Checkout/AddressDetails";
 import { getProvinces, getDistricts, getWards } from "./api";
 import Summary from "@/components/Customer/Checkout/Summary/Summary";
 import { createOrder, OrderAPIProps } from "@/services/orderAPI";
 import { showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
 import config from "@/config";
+import useAuth from "@/hooks/useAuth";
+import { getCustomer } from "@/services/accountApi";
 
 interface ContactInfoProps {
   email: string;
@@ -83,6 +85,9 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
 
 const description = "This is a description";
 const Checkout: React.FC = () => {
+  const { AccountID } = useAuth();
+  const [CustomerID, setCustomerID] = useState<number>();
+  const [Customer, setCustomer] = useState<any>(null);
   // const [form] = Form.useForm();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [provinces, setProvinces] = useState<any[]>([]);
@@ -93,17 +98,26 @@ const Checkout: React.FC = () => {
   const [selectedProvince, setSelectedProvince] = useState<number | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
   const navigate = useNavigate();
+  
+
+  const fetchProvincesData = async () => {
+    try {
+      const data = await getProvinces();
+      setProvinces(data);
+    } catch (error) {
+      console.error("Error fetching provinces:", error);
+    }
+  };
+
+  const getCustomerDetail = async () => {
+    const customer = await getCustomer(AccountID ? AccountID : 0);
+    setCustomer(customer ? customer.data.data : null);
+    console.log('Customer: ', Customer.Email);
+    setCustomerID(customer ? customer.data.data.CustomerID : 0);
+  }
 
   React.useEffect(() => {
-    const fetchProvincesData = async () => {
-      try {
-        const data = await getProvinces();
-        setProvinces(data);
-      } catch (error) {
-        console.error("Error fetching provinces:", error);
-      }
-    };
-
+    getCustomerDetail();
     fetchProvincesData();
   }, []);
 
@@ -113,12 +127,12 @@ const Checkout: React.FC = () => {
         OrderDate: new Date(),
         CompleteDate: new Date(),
         IsPayed: false,
-        CustomerID: 1,
+        CustomerID: CustomerID ? CustomerID : null,
         OrderStatus: "Pending",
         IsActive: true,
         PaymentID: `${values.paymentMethod}`
       }
-      
+
       const responeOrder = await createOrder(requestBodyOrder);
       if (responeOrder.data.statusCode !== 200) throw new Error();
 
@@ -126,39 +140,39 @@ const Checkout: React.FC = () => {
       const getOrderLine = await showAllOrderLineForAdmin();
       getOrderLine.data.data.filter((
         orderLineItem: {
-          CustomerID: number, 
-          OrderID: number | null, 
+          CustomerID: number,
+          OrderID: number | null,
           DiamondID: number | null,
           ProductID: number | null,
         }
-      ) => orderLineItem.CustomerID === 1 && 
-           orderLineItem.OrderID === null &&
-           (orderLineItem.DiamondID !== null || orderLineItem.ProductID !== null)
-          )
-      .map(async (item: any) => {
-        const linkOrder = await updateOrderLine(item.OrderLineID, {
-          ...item,
-          OrderID: getOrderID
+      ) => orderLineItem.CustomerID === CustomerID &&
+      orderLineItem.OrderID === null &&
+        (orderLineItem.DiamondID !== null || orderLineItem.ProductID !== null)
+      )
+        .map(async (item: any) => {
+          const linkOrder = await updateOrderLine(item.OrderLineID, {
+            ...item,
+            OrderID: getOrderID
+          });
+          if (linkOrder.data.statusCode !== 200) throw new Error();
+          else navigate(config.routes.public.success);
         });
-        if(linkOrder.data.statusCode !== 200) throw new Error();
-        else navigate(config.routes.public.success);
-      });
-      if(!updateOrderLine) throw new Error();
+      if (!updateOrderLine) throw new Error();
     } catch (error: any) {
       console.error(error);
     }
   }
 
-  const handleProvinceChange = async (provinceId: unknown ) => {
+  const handleProvinceChange = async (provinceId: unknown) => {
     setSelectedProvince(provinceId as number);
     setSelectedDistrict(null); // Reset lại quận/huyện khi thay đổi tỉnh/thành phố
     try {
-        const data = await getDistricts(provinceId as number);
-        setDistricts(data);
+      const data = await getDistricts(provinceId as number);
+      setDistricts(data);
     } catch (error) {
-        console.error("Error fetching districts:", error);
+      console.error("Error fetching districts:", error);
     }
-};
+  };
 
   const handleDistrictChange = async (districtId: unknown) => {
     setSelectedDistrict(districtId as number);
@@ -208,7 +222,7 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Formm>
-            <ContactInfo email="customer1@gmail.com" onEdit={handleEdit} /> 
+            <ContactInfo email={Customer ? Customer.Email : ""} onEdit={handleEdit} />
             <AddressDetails
               onFinish={onFinish}
               provinces={provinces}
@@ -220,11 +234,9 @@ const Checkout: React.FC = () => {
               onDistrictChange={handleDistrictChange}
             />
           </Formm>
-          <StyledSummary 
-          
-          ></StyledSummary>
+          <StyledSummary/>
         </Content>
-      </Wrapper>  
+      </Wrapper>
     </main>
   );
 };

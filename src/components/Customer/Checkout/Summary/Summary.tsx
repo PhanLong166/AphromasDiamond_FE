@@ -3,10 +3,10 @@ import styled from "styled-components";
 import { Link } from "react-router-dom";
 import { useState } from "react";
 import PromoCodeSection from "../../../Customer/Checkout/PromoCode";
-import { items } from "../../Data/data";
 import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
-import { showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
+import { showAllProduct } from "@/services/jewelryAPI";
 interface CartItemProps {
   name: string;
   image: string;
@@ -25,7 +25,7 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
       <ItemName>{name}</ItemName>
       <ItemSku>{sku}</ItemSku>
     </ItemInfo>
-    <ItemPrice>{price}</ItemPrice>
+    <ItemPrice>${price}</ItemPrice>
   </CartItemContainer>
 );
 
@@ -34,6 +34,7 @@ const Summary: React.FC = () => {
   const [shippingCost] = useState(0);
   const [orderLineItems, setOrderLineItems] = useState<any[]>([]);
   const [diamondList, setDiamondList] = useState<any[]>([]);
+  const [productList, setProductList] = useState<any[]>([]);
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
@@ -57,10 +58,18 @@ const Summary: React.FC = () => {
       ))
       setOrderLineItems(getOrderLineItems);
 
-      const response = await showDiamonds({page: 1});
+      //Get diamond list
+      const response = await showAllDiamond();
       setDiamondList(response.data.data);
-      console.log(diamondList);
-      console.log(getOrderLineItems);
+
+      //Get product list
+      const productResponse = await showAllProduct();
+      setProductList(productResponse.data.data);
+
+      //Display result
+      console.log('Diamond List:', diamondList);
+      console.log('Orderline', getOrderLineItems);
+      console.log('Product List: ', productList);
     } catch (error: any) {
       console.error(error);
     }
@@ -76,7 +85,7 @@ const Summary: React.FC = () => {
     shippingCost: number
   ) => {
     let newShippingCost = shippingCost;
-    if (items.length < 2) {
+    if (orderLineItems.length < 2) {
       newShippingCost = 15;
       console.log(shippingCost);
     } else {
@@ -85,18 +94,28 @@ const Summary: React.FC = () => {
 
     return subtotal - (subtotal * discount) / 100 + newShippingCost;
   };
+  // const subtotalNumber = items.reduce((acc, item) => {
+  //   return acc + parseFloat(item.price.replace(/[$,]/g, ""));
+  // }, 0);
 
-  const subtotalNumber = items.reduce((acc, item) => {
-    return acc + parseFloat(item.price.replace(/[$,]/g, ""));
-  }, 0);
-  const total = calculateTotal(subtotalNumber, discount, shippingCost).toFixed(
-    0
-  );
+  const subtotalNumber = () => {
+    let temp = 0;
+    orderLineItems.map(async (item) => {
+      const currentProduct = productList.find((product) => product.ProductID === item.ProductID);
+      if (!currentProduct) {
+        const currentDiamond = diamondList.find((diamond) => diamond.DiamondID === item.DiamondID);
+        temp += parseFloat(currentDiamond.Price);
+      }
+    })
+    return temp;
+  }
+
+  const total = calculateTotal(subtotalNumber(), discount, shippingCost).toFixed(2);
 
   return (
     <SummarySection>
       <ItemNumber>
-        <NumberItem>{items.length} ITEMS</NumberItem>
+        <NumberItem>{orderLineItems.length} ITEMS</NumberItem>
         <Link to="/cart">
           <p
             style={{
@@ -124,31 +143,31 @@ const Summary: React.FC = () => {
       <EditTotal>
         {" "}
         {discount > 0 && (
-          <AppliedPromo>
-            <p>Discount: {discount}%</p>
-          </AppliedPromo>
+          <>
+            <p>Discount {`(${discount}%)`}: </p>
+            <p>{`-$${(subtotalNumber() * discount / 100).toFixed(2)}`}</p>
+          </>
         )}
       </EditTotal>
       <EditTotal>
-        <p>Shipping: {items.length < 2 ? "$15" : "Free"}</p>
+        <p>Shipping: </p>
+        <p>{orderLineItems.length < 2 ? "$15" : "Free"}</p>
       </EditTotal>
       <EditTotal>
-        <p>Subtotal: ${subtotalNumber}</p>
+        <p>Subtotal: </p>
+        <p>${subtotalNumber().toFixed(2)}</p>
       </EditTotal>
 
       <PromoCodeSection onApplyVoucher={onApplyVoucher} />
       <EditTotal1>
-        <p>Total: ${total}</p>
+        <p>Total:</p>
+        <p> ${total}</p>
       </EditTotal1>
     </SummarySection>
   );
 };
 
 export default Summary;
-
-const AppliedPromo = styled.div`
-  margin-top: 10px;
-`;
 
 const SummarySection = styled.section`
   display: flex;
@@ -173,7 +192,6 @@ const NumberItem = styled.p`
 const EditTotal = styled.div`
   display: flex;
   justify-content: space-between;
-  word-spacing: 290px;
   font-size: 17px;
 `;
 
