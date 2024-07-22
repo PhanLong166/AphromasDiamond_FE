@@ -1,6 +1,6 @@
 import styled from "styled-components";
-
-// import { theme } from "../../../themes";
+import Link from "@/components/Link";
+import { theme } from "@/themes";
 
 
 export const OrderAdminArea = styled.table`
@@ -23,7 +23,7 @@ export const OrderAdminArea = styled.table`
     } */
 
 `;
-export const TitlePage = styled.div `
+export const TitlePage = styled.div`
     h1 {
         font-size: 22px;
         font-weight: 36px;
@@ -47,6 +47,50 @@ export const TitlePage = styled.div `
         } */
     }
    
+`;
+
+export const DeliveryStaff = styled.div`
+    text-align: right;
+
+    h1 {
+        font-size: 22px;
+        font-weight: 600;
+        color: #151542;
+        margin: 30px 0px 0px 0px;
+        padding-bottom: 7px;
+        text-align: right;
+        /* @media (max-width: 991px){
+            display: flex;
+            justify-content: center;
+        } */
+        
+    }
+
+    p {
+        color: #92929D;
+        font-size: 13px;
+        margin: 0px 0px 0px 0px;
+         /* @media (max-width: 991px){
+            display: flex;
+            justify-content: center;
+        } */
+    }
+`;
+
+export const Logout = styled(Link)`
+    
+    font-size: 16px;
+    font-weight: 300;
+    color: ${theme.color.error};
+
+    ::after {
+    border-color: ${theme.color.error};
+    }
+`;
+
+export const HeaderContainer = styled.div`
+    display: flex;
+    justify-content: space-between;
 `;
 
 
