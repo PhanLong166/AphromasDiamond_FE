@@ -211,7 +211,7 @@ const AllProduct: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             salePrice: jewelry.SalePrice, // Assuming there's a salePrice field
-            jewelryType: jewelry.JewelrySetting?.JewelryType?.Name, // Ensure correct nesting
+            jewelryType: jewelry.JewelrySetting?.jewelryType?.Name, // Ensure correct nesting
             images: jewelry.UsingImage.map((image: any) => ({
               id: image.UsingImageID,
               url: getImage(image.UsingImageID),
@@ -307,29 +307,33 @@ const AllProduct: React.FC = () => {
                     hoverable
                     className="product-card"
                     cover={
-                      <>
-                        <Link to={`/product/${product.id}`}>
-                          <img
-                            style={{ borderRadius: "0" }}
-                            src={product.images[0]?.url || ""}
-                            alt={product.name}
-                            className="product-image"
-                            onMouseOver={(e) =>
-                              (e.currentTarget.src =
-                                product.images[1]?.url ||
-                                product.images[0]?.url ||
-                                "")
-                            }
-                            onMouseOut={(e) =>
-                              (e.currentTarget.src =
-                                product.images[0]?.url || "")
-                            }
-                          />
-                        </Link>
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
+                      product.images.length > 0 ? (
+                        <>
+                          <Link to={`/product/${product.id}`}>
+                            <img
+                              style={{ borderRadius: "0" }}
+                              src={product.images[0]?.url || ""}
+                              alt={product.name}
+                              className="product-image"
+                              onMouseOver={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[1]?.url ||
+                                  product.images[0]?.url ||
+                                  "")
+                              }
+                              onMouseOut={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[0]?.url || "")
+                              }
+                            />
+                          </Link>
+                          {product.salePrice && (
+                            <div className="sale-badge">SALE</div>
+                          )}
+                        </>
+                      ) : (
+                        <div>No Image Available</div>
+                      )
                     }
                   >
                     <div className="product-info">
@@ -380,4 +384,5 @@ const AllProduct: React.FC = () => {
 };
 
 export default AllProduct;
+
 
