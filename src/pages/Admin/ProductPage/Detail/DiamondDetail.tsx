@@ -1,7 +1,7 @@
 import * as Styled from "./ProductDetail.styled";
 import { useEffect, useState } from "react";
 import { Button, Modal, Form, Input, Select, notification } from "antd";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import { SaveOutlined } from "@ant-design/icons";
@@ -23,6 +23,7 @@ const DiamondDetail = () => {
   // const getParamsID = id ? parseInt(id) : 0;
   // const { role } = useAuth();
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [activeDiamond, setActiveDiamond] = useState<any | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [editedDiamond, setEditedDiamond] = useState<any | null>(null);
@@ -102,24 +103,42 @@ const DiamondDetail = () => {
 
   const saveChanges = async () => {
     try {
-      await updateDiamond(activeDiamond.DiamondID, editedDiamond);
-      setIsEditing(false);
-      const response = await getDiamondDetails(Number(id));
-      setActiveDiamond(response.data.data);
-      openNotification("success", "Update", "");
+      const updateData = { ...editedDiamond };
+      console.log(`Updating diamond with ID: ${activeDiamond.DiamondID}`);
+      console.log("Update Data:", updateData);
+      const response = await updateDiamond(editedDiamond.DiamondID, editedDiamond);
+      console.log("Update Response:", response);
+  
+      // Check if the update was successful
+      if (response.status === 200) {
+        // Fetch the updated diamond details
+        const updatedDiamondResponse = await getDiamondDetails(editedDiamond.DiamondID);
+        setActiveDiamond(updatedDiamondResponse.data.data);
+        setEditedDiamond(updatedDiamondResponse.data.data);
+        openNotification("success", "Update", "");
+        setIsEditing(false);
+      } else {
+        openNotification("error", "Update", "Failed to update diamond.");
+      }
     } catch (error: any) {
       console.error("Error updating diamond:", error);
       openNotification("error", "Update", error.message);
     }
   };
+  
 
   // DELETE
   const handleDelete = async () => {
     try {
-      await deleteDiamond(activeDiamond.DiamondID);
-      openNotification("success", "Delete", "");
-      setIsModalVisible(false);
-      // history.push("/admin/product");
+      const response = await deleteDiamond(activeDiamond.DiamondID);
+      console.log("Delete Response:", response.data);
+        if (response.status === 200) {
+        openNotification("success", "Delete", "");
+        setIsModalVisible(false);
+        navigate("/admin/product");
+      } else {
+        openNotification("error", "Delete", "Failed to delete diamond.");
+      }
     } catch (error: any) {
       console.error("Failed to delete diamond:", error);
       openNotification("error", "Delete", error.message);
@@ -129,16 +148,6 @@ const DiamondDetail = () => {
   const showModal = () => {
     setIsModalVisible(true);
   };
-
-  // const handleOk = async () => {
-  //   try {
-  //     await deleteDiamond(Number(id));
-  //     setIsModalVisible(false);
-  //   } catch (error) {
-  //     console.error("Error deleting diamond:", error);
-  //   }
-  //   setIsModalVisible(false);
-  // };
 
   const handleCancel = () => {
     setIsModalVisible(false);
@@ -225,8 +234,10 @@ const DiamondDetail = () => {
                             initialValues={{
                               diamondName: editedDiamond?.Name,
                               price: editedDiamond?.Price,
+                              discountPrice: editedDiamond?.DiscountPrice,
                               chargeRate: editedDiamond?.ChargeRate,
                               description: editedDiamond?.Description,
+                              weightCarat: editedDiamond?.WeightCarat,
                               shape: editedDiamond?.Shape,
                               color: editedDiamond?.Color,
                               polish: editedDiamond?.Polish,
@@ -234,15 +245,21 @@ const DiamondDetail = () => {
                               symmetry: editedDiamond?.Symmetry,
                               clarity: editedDiamond?.Clarity,
                               fluorescence: editedDiamond?.Fluorescence,
+                              percentDepth: editedDiamond?.PercentDepth,
+                              percentTable: editedDiamond?.PercentTable,
+                              lengthOnWidthRatio: editedDiamond?.LengthOnWidthRatio,
+                              designer: editedDiamond?.Designer,
+                              cutter: editedDiamond?.Cutter,
                             }}
                             onFinish={saveChanges}
                           >
                             <Form.Item
                               label="Diamond ID"
                               className="InforLine_Title"
+                              name="DiamondID"
                             >
                               <Input
-                                value={editedDiamond?.DiamondID}
+                                value={activeDiamond?.DiamondID}
                                 onChange={(e) =>
                                   handleFieldChange("DiamondID", e.target.value)
                                 }
@@ -284,6 +301,24 @@ const DiamondDetail = () => {
                               />
                             </Form.Item>
                             <Form.Item
+                              label="DiscountPrice"
+                              className="InforLine_Title"
+                              name="discountPrice"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Discount is required.",
+                                },
+                              ]}
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("DiscountPrice", e.target.value)
+                                }
+                                disabled
+                              />
+                            </Form.Item>
+                            <Form.Item
                               label="Charge Rate (%)"
                               className="InforLine_Title"
                               name="chargeRate"
@@ -306,88 +341,218 @@ const DiamondDetail = () => {
                             <Form.Item
                               label="Shape"
                               className="InforLine_Title"
+                              name="shape"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Shape is required.",
+                                },
+                              ]}
                             >
                               <Select
-                                placeholder={editedDiamond?.Shape}
-                                options={ShapeType_Option}
-                                value={editedDiamond?.Shape}
                                 onChange={(value) =>
                                   handleFieldChange("Shape", value)
                                 }
-                              />
+                              >
+                                {ShapeType_Option.map((option) => (
+                                  <Select.Option
+                                    key={option.value}
+                                    value={option.value}
+                                  >
+                                    {option.label}
+                                  </Select.Option>
+                                ))}
+                              </Select>
                             </Form.Item>
                             <Form.Item
                               label="Color"
                               className="InforLine_Title"
+                              name="color"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Color is required.",
+                                },
+                              ]}
                             >
                               <Select
-                                placeholder={editedDiamond?.Color}
-                                options={ColorType_Option}
-                                value={editedDiamond?.Color}
                                 onChange={(value) =>
                                   handleFieldChange("Color", value)
+                                }
+                              >
+                                {ColorType_Option.map((option) => (
+                                  <Select.Option
+                                    key={option.value}
+                                    value={option.value}
+                                  >
+                                    {option.label}
+                                  </Select.Option>
+                                ))}
+                              </Select>
+                            </Form.Item>
+                            <Form.Item
+                              label="Weight (Carat)"
+                              className="InforLine_Title"
+                              name="weightCarat"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Weight (Carat) is required.",
+                                },
+                              ]}
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("WeightCarat", e.target.value)
                                 }
                               />
                             </Form.Item>
                             <Form.Item
                               label="Polish"
                               className="InforLine_Title"
+                              name="polish"
                             >
-                              <Select
-                                placeholder={editedDiamond?.Polish}
-                                options={RateType_Option}
-                                value={editedDiamond?.Polish}
-                                onChange={(value) =>
-                                  handleFieldChange("Polish", value)
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("Polish", e.target.value)
                                 }
                               />
                             </Form.Item>
-                            <Form.Item label="Cut" className="InforLine_Title">
-                              <Select
-                                placeholder={editedDiamond?.Cut}
-                                options={RateType_Option}
-                                value={editedDiamond?.Cut}
-                                onChange={(value) =>
-                                  handleFieldChange("Cut", value)
+                            <Form.Item
+                              label="Cut"
+                              className="InforLine_Title"
+                              name="cut"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Cut is required.",
+                                },
+                              ]}
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("Cut", e.target.value)
                                 }
                               />
                             </Form.Item>
                             <Form.Item
                               label="Symmetry"
                               className="InforLine_Title"
+                              name="symmetry"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Symmetry is required.",
+                                },
+                              ]}
                             >
-                              <Select
-                                placeholder={editedDiamond?.Symmetry}
-                                options={RateType_Option}
-                                value={editedDiamond?.Symmetry}
-                                onChange={(value) =>
-                                  handleFieldChange("Symmetry", value)
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("Symmetry", e.target.value)
                                 }
                               />
                             </Form.Item>
                             <Form.Item
                               label="Clarity"
                               className="InforLine_Title"
+                              name="clarity"
+                              rules={[
+                                {
+                                  required: true,
+                                  message: "Clarity is required.",
+                                },
+                              ]}
                             >
                               <Select
-                                placeholder={editedDiamond?.Clarity}
-                                options={ClarityType_Option}
-                                value={editedDiamond?.Clarity}
                                 onChange={(value) =>
                                   handleFieldChange("Clarity", value)
                                 }
-                              />
+                              >
+                                {ClarityType_Option.map((option) => (
+                                  <Select.Option
+                                    key={option.value}
+                                    value={option.value}
+                                  >
+                                    {option.label}
+                                  </Select.Option>
+                                ))}
+                              </Select>
                             </Form.Item>
                             <Form.Item
                               label="Fluorescence"
                               className="InforLine_Title"
+                              name="fluorescence"
                             >
                               <Select
-                                placeholder={editedDiamond?.Fluorescence}
-                                options={FluorescenceType_Option}
-                                value={editedDiamond?.Fluorescence}
                                 onChange={(value) =>
                                   handleFieldChange("Fluorescence", value)
+                                }
+                              >
+                                {FluorescenceType_Option.map((option) => (
+                                  <Select.Option
+                                    key={option.value}
+                                    value={option.value}
+                                  >
+                                    {option.label}
+                                  </Select.Option>
+                                ))}
+                              </Select>
+                            </Form.Item>
+                            <Form.Item
+                              label="Percent Depth"
+                              className="InforLine_Title"
+                              name="percentDepth"
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("PercentDepth", e.target.value)
+                                }
+                              />
+                            </Form.Item>
+                            <Form.Item
+                              label="Percent Table"
+                              className="InforLine_Title"
+                              name="percentTable"
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("PercentTable", e.target.value)
+                                }
+                              />
+                            </Form.Item>
+                            <Form.Item
+                              label="Length on Width Ratio"
+                              className="InforLine_Title"
+                              name="lengthOnWidthRatio"
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange(
+                                    "LengthOnWidthRatio",
+                                    e.target.value
+                                  )
+                                }
+                              />
+                            </Form.Item>
+                            <Form.Item
+                              label="Designer"
+                              className="InforLine_Title"
+                              name="designer"
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("Designer", e.target.value)
+                                }
+                              />
+                            </Form.Item>
+                            <Form.Item
+                              label="Cutter"
+                              className="InforLine_Title"
+                              name="cutter"
+                            >
+                              <Input
+                                onChange={(e) =>
+                                  handleFieldChange("Cutter", e.target.value)
                                 }
                               />
                             </Form.Item>
@@ -505,11 +670,15 @@ const DiamondDetail = () => {
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p>Diamond Name</p>
-                            <span>{editedDiamond.Name}</span>
+                            <span>{activeDiamond.Name}</span>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p>Price</p>
                             <span>{activeDiamond.Price}</span>
+                          </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>Discount Price</p>
+                            <span>{activeDiamond.DiscountPrice}</span>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p>Charge Rate (%)</p>
@@ -517,11 +686,19 @@ const DiamondDetail = () => {
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p>Shape</p>
-                            <span>{activeDiamond.Shape}</span>
+                            <span>{ShapeType_Option.find(
+                                  (option) => option.value === activeDiamond.Shape
+                                )?.label ?? "N/A"}</span>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p>Color</p>
-                            <span>{activeDiamond.Color}</span>
+                            <span>{ColorType_Option.find(
+                                  (option) => option.value === activeDiamond.Color
+                                )?.label ?? "N/A"}</span>
+                          </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>Weight (Carat)</p>
+                            <span>{activeDiamond.WeightCarat}</span>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p>Polish</p>
@@ -547,6 +724,26 @@ const DiamondDetail = () => {
                             <p>Fluorescence</p>
                             <span>{activeDiamond.Fluorescence}</span>
                           </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>% Depth</p>
+                            <span>{activeDiamond.PercentDepth}</span>
+                          </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>% Table</p>
+                            <span>{activeDiamond.PercentTable}</span>
+                          </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>Length On Width Ratio</p>
+                            <span>{activeDiamond.LengthOnWidthRatio}</span>
+                          </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>Designer</p>
+                            <span>{activeDiamond.Designer}</span>
+                          </Styled.InforLine>
+                          <Styled.InforLine>
+                            <p>Cutter</p>
+                            <span>{activeDiamond.Cutter}</span>
+                          </Styled.InforLine>
                           <Styled.FormDescript>
                             <p>Description</p>
                             <span>{activeDiamond.Description}</span>
@@ -555,7 +752,7 @@ const DiamondDetail = () => {
                           <Modal
                             title="Confirm Deletion"
                             visible={isModalVisible}
-                            onOk={() => handleDelete(activeDiamond.DiamondID)}
+                            onOk={handleDelete}
                             onCancel={handleCancel}
                           >
                             <p>Are you sure you want to delete this diamond?</p>
