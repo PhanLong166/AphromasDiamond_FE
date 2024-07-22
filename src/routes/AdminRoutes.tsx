@@ -43,7 +43,7 @@ import { Navigate } from "react-router-dom"
 const AdminRouter = () => {
     //Use database
     const { role } = useAuth();
-    return role === Role.ADMIN ? <AdminLayout /> : <Navigate to='/' />
+    return role === Role.ADMIN || role === Role.MANAGER ? <AdminLayout /> : <Navigate to='/' />
 }
 
 const AdminRoutes = {
