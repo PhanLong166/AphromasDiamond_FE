@@ -1,3 +1,4 @@
+// Banner.tsx
 import React from "react";
 import { LeftSection, Banner as StyledBanner } from "./Banner.styled";
 

@@ -1,14 +1,8 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  Banner,
-  LeftSection,
-  FAQs,
-  LeftFAQ,
   List,
   StyledPagination,
-  CustomBreadcrumb,
-  StyledCollapse
 } from "./FirmList.styled";
 
 import {
@@ -22,6 +16,9 @@ import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { firmData } from "./FirmList.data";
+import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const FirmList: React.FC = () => {
   const { jewelryFirm } = useParams<{ jewelryFirm: string }>();
@@ -62,39 +59,21 @@ const FirmList: React.FC = () => {
 
   const faqs = firmData[jewelryFirm]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+      <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentFirmData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentFirmData.title },
           ]}
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentFirmData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentFirmData.title}</h2>
-            <div className="subheading">{currentFirmData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+      bannerImage={currentFirmData.bannerImage}
+      title={currentFirmData.title}
+      description={currentFirmData.description}
+    />
       <List>
         <Row gutter={[16, 16]}>
           {currentFirmData.products.map((product: any) => (
@@ -183,7 +162,7 @@ const FirmList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
+      {/* <FAQs>
         <LeftFAQ>
           <h2>FAQs about {currentFirmData.title}</h2>
         </LeftFAQ>
@@ -196,7 +175,8 @@ const FirmList: React.FC = () => {
           defaultActiveKey={["1"]}
           onChange={onChange}
         />
-      </FAQs>
+      </FAQs> */}
+        <FAQ title={currentFirmData.title} faqs={faqs} />
     </Container>
   );
 };

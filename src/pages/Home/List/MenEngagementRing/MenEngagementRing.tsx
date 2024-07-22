@@ -1,27 +1,14 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  FAQs,
-  LeftFAQ,
-  List,
-  StyledPagination,
-  CustomBreadcrumb,
-  StyledCollapse
-} from "./MenEngagementRing.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Container, List, StyledPagination } from "./MenEngagementRing.styled";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { menEngagementData } from "./MenEngagementRing.data";
-
+import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const MenEngagementRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
@@ -62,43 +49,21 @@ const MenEngagementRing: React.FC = () => {
 
   const faqs = menEngagementData[ringMetal]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+        <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentMenEngagementData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentMenEngagementData.title },
           ]}
         />
       </div>
       <Banner
-        style={{
-          backgroundImage: `url(${currentMenEngagementData.bannerImage})`,
-        }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentMenEngagementData.title}</h2>
-            <div className="subheading">
-              {currentMenEngagementData.description}
-            </div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentMenEngagementData.bannerImage}
+        title={currentMenEngagementData.title}
+        description={currentMenEngagementData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentMenEngagementData.products.map((product: any) => (
@@ -110,7 +75,7 @@ const MenEngagementRing: React.FC = () => {
                 className="product-card"
                 cover={
                   <>
-                    <Link to={`/product/${product.id}`} >
+                    <Link to={`/product/${product.id}`}>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -132,7 +97,7 @@ const MenEngagementRing: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                    <Link to={`/product/${product.id}`} >
+                    <Link to={`/product/${product.id}`}>
                       <div>{product.name}</div>
                     </Link>
                     {wishList.includes(product.id) ? (
@@ -186,20 +151,7 @@ const MenEngagementRing: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentMenEngagementData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentMenEngagementData.title} faqs={faqs} />
     </Container>
   );
 };
