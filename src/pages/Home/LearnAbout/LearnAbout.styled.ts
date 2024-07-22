@@ -1,11 +1,19 @@
 import styled from "styled-components";
 import { theme } from "../../../themes";
+import { Breadcrumb } from "antd";
+import { Card } from "antd";
 
-const GlobalStyle = `
-  
+export const CardWrapper = styled(Card)`
+  background-color: #f1f1f1;
 `;
 
-export default GlobalStyle;
+export const CustomBreadcrumb = styled(Breadcrumb)`
+  padding-top: 10px;
+  padding-bottom: 10px;
+  max-width: 1400px;
+  margin: 0 auto;
+`;
+
 
 export const Container = styled.div`
   background-color: #ffffff;
@@ -13,16 +21,19 @@ export const Container = styled.div`
 
 export const Banner = styled.section`
   background: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Learn%2Flearnaboutbanner.jpeg?alt=media&token=8fe62efb-f5a7-4620-87ec-c1b9896e2d3c")
-    no-repeat center center;
+   no-repeat center center;
   background-size: cover;
   display: flex;
-  height: 450px;
+  .bannerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  }
 `;
 
 export const LeftSection = styled.div`
-  width: 50%;
+ width: 50%;
   max-width: 1600px;
-  margin: 120px 60px;
+  margin: 100px 0;
 
   h2 {
     font-size: 50px;

@@ -19,3 +19,7 @@ export const getAccountDetail = (id: number) => {
 export const showAllAccounts = () => {
     return get('/auth/ShowAllAccounts');
 }
+
+export const detailsAccounts = (id: number) => {
+    return post(`/auth/detailAccount/${id}`);
+}

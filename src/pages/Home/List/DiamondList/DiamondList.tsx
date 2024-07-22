@@ -1,24 +1,16 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  FAQs,
-  LeftFAQ,
-  List,
-  StyledCollapse,
-  CustomBreadcrumb,
-  StyledPagination,
-} from "./DiamondList.styled";
+import { Container, List, StyledPagination } from "./DiamondList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 // import { diamondData } from "./DiamondList.data";
 import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
+import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const DiamondList: React.FC = () => {
   const { diamondShape } = useParams<{ diamondShape: string }>();
@@ -66,7 +58,7 @@ const DiamondList: React.FC = () => {
   //   fetchData();
   // }, []);
 
-   useEffect(() => {
+  useEffect(() => {
     const fetchData = async () => {
       try {
         const response = await showAllDiamond(); // Call the function to get the promise
@@ -481,39 +473,21 @@ const DiamondList: React.FC = () => {
 
   const faqs = diamondData[diamondShape]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+        <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentDiamondData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentDiamondData.title },
           ]}
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentDiamondData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentDiamondData.title}</h2>
-            <div className="subheading">{currentDiamondData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentDiamondData.bannerImage}
+        title={currentDiamondData.title}
+        description={currentDiamondData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentDiamondData.diamonds.map((diamond: any) => (
@@ -550,9 +524,7 @@ const DiamondList: React.FC = () => {
               >
                 <div className="product-info">
                   <Title level={4} className="product-name">
-                    <Link to={`/diamond/${diamond.id}`}>
-                      {diamond.name}
-                    </Link>
+                    <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
                     {wishList.includes(diamond.id) ? (
                       <HeartFilled
                         className="wishlist-icon"
@@ -604,20 +576,7 @@ const DiamondList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentDiamondData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentDiamondData.title} faqs={faqs} />
     </Container>
   );
 };

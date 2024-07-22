@@ -4,6 +4,8 @@ import AccountCus from "@/components/Customer/Account Details/AccountCus";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import { orderRelation, showAllOrder } from "@/services/orderAPI";
+import useAuth from "@/hooks/useAuth";
+import { showAllAccounts } from "@/services/accountApi";
 // import DropdownButton from './DropdownButton';
 
 const onChange: TableProps<DataType>["onChange"] = (
@@ -33,20 +35,42 @@ const formatPrice = (price: number | bigint) => {
     minimumFractionDigits: 0,
   }).format(price)}`;
 };
-const fetchAllOrder = async () => {
+const fetchAllOrder = async (AccountID: number) => {
   try {
     const { data } = await showAllOrder();
     console.log("Check API: ", data.data);
+    const res = data.data;
 
+    // Get all accounts
+    const getAllAccounts = await showAllAccounts();
+    console.log(getAllAccounts.data.data);
+    // Find AccountID
+    const account = getAllAccounts.data.data.find(
+      (acc: { AccountID: number }) => acc.AccountID === AccountID
+    );
+    if (!account) {
+      console.log("Account not found");
+      return [];
+    }
+    console.log(account);
+    // Get CustomerID
+    const customerID = account.CustomerID;
+    console.log("Customer ID: ", customerID);
+    // Get all orders have CustomerID===
+    const customerOrders = res.filter(
+      (order: { CustomerID: number }) => order.CustomerID === customerID
+    );
+    console.log("Check customerOrders: ", customerOrders);
     // Filter orders with status "Completed" or "Canceled"
-    const filteredOrders = data.data.filter(
+    const customerOrdersFilter = customerOrders.filter(
       (order: DataType) =>
         order.OrderStatus === "Completed" || order.OrderStatus === "Canceled"
     );
+    console.log(customerOrdersFilter);
 
     // Fetch detailed info for each filtered order
     const detailedOrders = await Promise.all(
-      filteredOrders.map(async (order: DataType) => {
+      customerOrdersFilter.map(async (order: DataType) => {
         const detailedOrder = await fetchOrderRelation(order.OrderID);
         return { ...order, TotalPrice: detailedOrder.TotalPrice };
       })
@@ -76,14 +100,17 @@ const History = () => {
   const [showModal, setShowModal] = useState(false);
   const [orders, setOrders] = useState<DataType[]>([]);
   const navigate = useNavigate();
+  const { AccountID } = useAuth();
   useEffect(() => {
     const fetchData = async () => {
-      const detailedOrders = await fetchAllOrder();
-      setOrders(detailedOrders);
+      if (AccountID) {
+        const detailedOrders = await fetchAllOrder(AccountID);
+        setOrders(detailedOrders);
+      }
     };
 
     fetchData();
-  }, []);
+  }, [AccountID]);
   const handleOk = () => {
     setShowModal(false);
     // Handle the actual cancel logic here
@@ -147,7 +174,6 @@ const History = () => {
           >
             View
           </a>
-          <a>Review FB</a>
         </Space>
       ),
       width: 134,

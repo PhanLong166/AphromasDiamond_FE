@@ -1,4 +1,4 @@
-// import React, { useState } from 'react';
+
 import { 
   Container,
   LeftSection,
@@ -7,21 +7,13 @@ import {
   ContentWrapper,
   LearnItem,
   Section,
+  CustomBreadcrumb,
+  CardWrapper
 } from "./LearnAbout.styled";
-import {} from "@ant-design/icons";
-import styled from "styled-components";
-import { Breadcrumb } from "antd";
 import config from "@/config";
-const CustomBreadcrumb = styled(Breadcrumb)`
-  margin-left: 175px;
-  padding-top: 10px;
-  padding-bottom: 10px;
-`;
-import { Row, Col, Card } from "antd";
+import { Row, Col } from "antd";
 import { Link } from "react-router-dom";
-const CardWrapper = styled(Card)`
-  background-color: #f1f1f1;
-`;
+
 
 const LearnAbout = () => {
   const learnItems = [
@@ -104,6 +96,7 @@ const LearnAbout = () => {
           />
         </div>
         <Banner>
+        <div className="bannerContent">
           <LeftSection>
             <h2>Become An Expert.</h2>
             <div className="subheading">
@@ -117,6 +110,7 @@ const LearnAbout = () => {
               understanding of these timeless treasures.
             </div>
           </LeftSection>
+          </div>
         </Banner>
         <Section>
           <LearnItem>

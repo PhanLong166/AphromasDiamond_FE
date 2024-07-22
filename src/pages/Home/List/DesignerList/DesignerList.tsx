@@ -1,31 +1,18 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  FAQs,
-  LeftFAQ,
-  List,
-  StyledPagination,
-  CustomBreadcrumb,
-  StyledCollapse
-} from "./DesignerList.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Container, List, StyledPagination } from "./DesignerList.styled";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { designerData } from "./DesignerList.data";
+import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const DesignerList: React.FC = () => {
   const { designer } = useParams<{ designer: string }>();
   const navigate = useNavigate();
-
 
   if (!designer || !designerData[designer]) {
     return <div>Invalid jewelry type selected.</div>;
@@ -62,39 +49,21 @@ const DesignerList: React.FC = () => {
 
   const faqs = designerData[designer]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+        <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentDesignerData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentDesignerData.title },
           ]}
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentDesignerData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentDesignerData.title}</h2>
-            <div className="subheading">{currentDesignerData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentDesignerData.bannerImage}
+        title={currentDesignerData.title}
+        description={currentDesignerData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentDesignerData.products.map((product: any) => (
@@ -189,20 +158,7 @@ const DesignerList: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentDesignerData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentDesignerData.title} faqs={faqs} />
     </Container>
   );
 };
