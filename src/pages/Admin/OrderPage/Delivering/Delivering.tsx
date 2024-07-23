@@ -1,18 +1,62 @@
 import * as Styled from "./Delivering.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { orderData, OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
+import { showAllOrder } from "@/services/orderAPI";
+
+const DeliveringOrder = () => {
+  const [searchText, setSearchText] = useState("");
+  const [orders, setOrders] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllOrder();
+      console.log('API response:', response);
+      const { data } = response.data;
+      const formattedOrders = data
+      .filter((order: any) => (order.IsActive && order.OrderStatus === "Delivering"))
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        orderDate: order.OrderDate,
+        customerID: order.CustomerID,
+        orderStatus: order.OrderStatus,
+        completeDate: order.CompleteDate,
+        isPayed: order.IsPayed,
+        shippingfee: order.Shippingfee,
+        note: order.Note,
+        isActive: order.IsActive,
+        accountDeliveryID: order.AccountDeliveryID,
+        accountSaleID: order.AccountSaleID,
+        voucherID: order.VoucherID,
+      }));
+      console.log('Formatted Orders:', formattedOrders); // Log formatted diamonds
+      setOrders(formattedOrders);
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
 
+  const onSearch = (value: string) => {
+    console.log("Search:", value);
+  };
 
-const filteredData = orderData.filter((item) => item.status === "Delivering");
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch(searchText);
+    }
+  };
 
-const columns: TableColumnsType<OrderDataType> = [
+
+const columns: TableColumnsType<any> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
@@ -21,48 +65,54 @@ const columns: TableColumnsType<OrderDataType> = [
   },
   {
     title: "Date",
-    dataIndex: "date",
+    dataIndex: "orderDate",
     defaultSortOrder: "descend",
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
+    sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
   },
   {
     title: "Customer",
-    dataIndex: "cusName",
+    dataIndex: "customerID",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a, b) => a.cusName.length - b.cusName.length,
+    sorter: (a, b) => a.customerID.length - b.customerID.length,
     sortDirections: ["descend"],
   },
   {
     title: "Delivery Staff",
-    dataIndex: "deliveryStaff",
+    dataIndex: "AccountDeliveryID",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
+    sorter: (a, b) => a.AccountDeliveryID.length - b.AccountDeliveryID.length,
     sortDirections: ["descend"],
   },
+  // {
+  //   title: "Total",
+  //   dataIndex: "total",
+  //   defaultSortOrder: "descend",
+  //   sorter: (a, b) => a.total - b.total,
+  // },
   {
     title: "Status",
-    key: "status",
-    dataIndex: "status",
-    render: (_, { status }) => {
+    key: "orderStatus",
+    dataIndex: "orderStatus",
+    render: (_, { orderStatus }) => {
       let color = "green";
-      if (status === "Pending") {
-        color = "volcano";
-      } else if (status === "Accepted") {
+      if (orderStatus === "Pending") {
+        color = "red";
+      } else if (orderStatus === "Accepted") {
         color = "yellow";
-      } else if (status === "Assigned") {
+      } else if (orderStatus === "Assigned") {
         color = "orange";
-      } else if (status === "Delivering") {
+      } else if (orderStatus === "Delivering") {
         color = "blue";
-      } else if (status === "Delivered") {
+      } else if (orderStatus === "Delivered") {
         color = "purple";
-      } else if (status === "Completed") {
+      } else if (orderStatus === "Completed") {
         color = "green";
-      } else if (status === "Cancelled") {
+      } else if (orderStatus === "Cancelled") {
         color = "grey";
       }
       return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
+        <Tag color={color} key={orderStatus}>
+          {orderStatus.toUpperCase()}
         </Tag>
       );
     },
@@ -81,7 +131,7 @@ const columns: TableColumnsType<OrderDataType> = [
   },
 ];
 
-const onChange: TableProps<OrderDataType>["onChange"] = (
+const onChange: TableProps<any>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -89,20 +139,6 @@ const onChange: TableProps<OrderDataType>["onChange"] = (
 ) => {
   console.log("params", pagination, filters, sorter, extra);
 };
-
-const DeliveringOrder = () => {
-  const [searchText, setSearchText] = useState("");
-
-  const onSearch = (value: string) => {
-    console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onSearch(searchText);
-    }
-  };
 
   return (
     <>
@@ -133,8 +169,8 @@ const DeliveringOrder = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={filteredData}
-                pagination={{ pageSize: 7 }} // Add pagination here
+                dataSource={orders}
+                pagination={{ pageSize: 6 }}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />

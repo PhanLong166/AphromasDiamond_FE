@@ -59,20 +59,13 @@ const Diamond = () => {
   // const file = useRef<UploadFile>();
 
   const fetchData = async () => {
-    // const params = {
-    //   page,
-    //   // pageSize,
-    //   // sortBy: "Price",
-    //   // sortOrder: "asc",
-    //   // color: "D",
-    //   // shape: "Square",
-    // };
-
     try {
       const response = await showAllDiamond();
       console.log('API response:', response);
       const { data } = response.data;
-      const formattedDiamonds = data.map((diamond: any) => ({
+      const formattedDiamonds = data
+      .filter((diamond: any) => (diamond.IsActive && diamond.ProductID === null))
+      .map((diamond: any) => ({
         diamondID: diamond.DiamondID,
         diamondName: diamond.Name,
         price: diamond.Price,
@@ -168,21 +161,6 @@ const Diamond = () => {
       sorter: (a, b) => a.diamondName.length - b.diamondName.length,
       // sortDirections: ["descend"],
     },
-    // {
-    //   title: `Cost Price (${currency})`,
-    //   key: "price",
-    //   sorter: (a, b) =>
-    //     convertPrice(a.price, a.exchangeRate, currency) -
-    //     convertPrice(b.price, b.exchangeRate, currency),
-    //   render: (_, record) => {
-    //     const convertedPrice = convertPrice(
-    //       record.price,
-    //       record.exchangeRate,
-    //       currency
-    //     );
-    //     return `${convertedPrice.toFixed(2)} ${currency}`;
-    //   },
-    // },
     {
       title: `Cost Price (${currency})`,
       key: "price",
@@ -204,19 +182,6 @@ const Diamond = () => {
       key: "chargeRate",
       render: (_, record) => `${record.chargeRate}%`,
     },
-    // {
-    //   title: `Selling Price (${currency})`,
-    //   key: "sellingPrice",
-    //   render: (_, record) => {
-    //     const convertedPrice = convertPrice(
-    //       record.price,
-    //       record.exchangeRate,
-    //       currency
-    //     );
-    //     const price = sellingPrice(convertedPrice, record.chargeRate);
-    //     return `${price.toFixed(2)} ${currency}`;
-    //   },
-    // },
     {
       title: `Selling Price (${currency})`,
       key: "sellingPrice",

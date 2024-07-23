@@ -1,5 +1,5 @@
 import * as Styled from "./ProductPromotion.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
@@ -24,23 +24,22 @@ import {
   Space,
   DatePicker,
   Select,
+  Popconfirm,
+  Typography,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
 import { Link } from "react-router-dom";
-import { promotionData, PromotionDataType } from "../MarketingData";
-import { productData } from "../../ProductPage/ProductData";
-
-// const originData = createInitialData();
+import { showAllDiscount, createDiscount, updateDiscount, deleteDiscount } from "@/services/discountAPI";
+import { showAllProduct } from "@/services/productAPI";
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof PromotionDataType;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: PromotionDataType;
+  record: any;
   index: number;
-  // children: React.ReactNode;
 }
 
 const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
@@ -48,8 +47,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   dataIndex,
   title,
   inputType,
-  // record,
-  // index,
   children,
   ...restProps
 }) => {
@@ -59,8 +56,8 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
+        name={dataIndex.toString()}
+        style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -74,34 +71,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
         children
       )}
     </td>
-  );
-};
-
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
   );
 };
 
@@ -120,68 +89,251 @@ const handleChange = (value: string[]) => {
 
 const ProductPromotion = () => {
   const [form] = Form.useForm();
-  const [data] = useState<PromotionDataType[]>(promotionData);
   const [isAdding, setIsAdding] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [discounts, setDiscounts] = useState<any[]>([]);
+  const [editingKey, setEditingKey] = useState<React.Key>("");
+  const isEditing = (record: any) => record.key === editingKey;
+  const [products, setProducts] = useState<any[]>([]);
+  const [api, contextHolder] = notification.useNotification();
+  
+  type NotificationType = "success" | "info" | "warning" | "error";
 
-  const columns: TableColumnsType<PromotionDataType> = [
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} promotion successfully` : error,
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllDiscount();
+      const responseProduct = await showAllProduct();
+
+      const { data } = response.data;
+      const { data: productData } = responseProduct.data;
+
+      const formattedDiscounts = data.map((discount: any) => ({
+        key: discount.DiscountID,
+        discountID: discount.DiscountID,
+        discountName: discount.Name,
+        percentDiscounts: discount.PercentDiscounts,
+        startDate: discount.StartDate,
+        endDate: discount.EndDate,
+        description: discount.Description,
+      }));
+
+      const formattedProducts = productData
+      .filter((product: any) => (product.DiscountID !== null))
+      .map((product: any) => ({
+        productName: product.Name,
+      }));
+
+      setDiscounts(formattedDiscounts);
+      setProducts(formattedProducts);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  
+  // EDIT
+  const edit = (record: Partial<any> & { key: React.Key }) => {
+    form.setFieldsValue({
+      discountName: "",
+      percentDiscounts: 0,
+      startDate: "",
+      endDate: "",
+      description: "",
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey("");
+  };
+
+  const save = async (key: React.Key) => {
+    try {
+      const row = (await form.validateFields()) as any;
+      const newData = [...discounts];
+      const index = newData.findIndex((item) => key === item.key);
+
+      if (index > -1) {
+        const item = newData[index];
+        const updatedItem = {
+          Name: row.discountName,
+          PercentDiscounts: row.percentDiscounts,
+          StartDate: row.startDate,
+          EndDate: row.endDate,
+          Description: row.description,
+          // UpdateTime: new Date().toISOString(),
+        };
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setDiscounts(newData);
+        await updateDiscount(item.discountID, updatedItem);
+        openNotification("success", "Update", "");
+      } else {
+        newData.push(row);
+        setDiscounts(newData);
+        openNotification("error", "Update", "Failed to update type");
+      }
+      setEditingKey("");
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
+
+  const handleDelete = async (discountID: number) => {
+    try {
+      await deleteDiscount(discountID);
+      openNotification("success", "Delete", "");
+      fetchData();
+    } catch (error: any) {
+      console.error("Failed to delete promotion:", error);
+      openNotification("error", "Delete", error.message);
+    }
+  };
+
+  const columns = [
     {
       title: "Promotion ID",
-      dataIndex: "promotionID",
-      sorter: (a: PromotionDataType, b: PromotionDataType) =>
-        a.promotionID.localeCompare(b.promotionID),
+      dataIndex: "discountID",
+      sorter: (a: any, b: any) =>
+        a.discountID.localeCompare(b.discountID),
     },
     {
       title: "Promotion Name",
-      dataIndex: "promotionName",
-      sorter: (a: PromotionDataType, b: PromotionDataType) =>
-        a.promotionName.length - b.promotionName.length,
+      dataIndex: "discountName",
+      sorter: (a: any, b: any) =>
+        a.discountName.length - b.discountName.length,
     },
     {
       title: "% discount",
-      dataIndex: "discountPercent",
-      sorter: (a: PromotionDataType, b: PromotionDataType) =>
-        a.discountPercent - b.discountPercent,
+      dataIndex: "percentDiscounts",
+      sorter: (a: any, b: any) =>
+        a.percentDiscounts - b.percentDiscounts,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
-      sorter: (a: PromotionDataType, b: PromotionDataType) =>
+      onChange:{onChangeDate},
+      sorter: (a: any, b: any) =>
         a.startDate.length - b.startDate.length,
     },
     {
       title: "End Date",
       dataIndex: "endDate",
-      sorter: (a: PromotionDataType, b: PromotionDataType) =>
+      onChange:{onChangeDate},
+      sorter: (a: any, b: any) =>
         a.endDate.length - b.endDate.length,
     },
     {
       title: "Product Quantity",
-      dataIndex: "promotionID",
-      render: (_, { promotionID }) => {
+      dataIndex: "discountID",
+      render: (_, record: any) => {
         let count = 0;
-        productData.forEach((promotion) => {
-          if (promotion.promotionID === promotionID) {
+        products.forEach((discount) => {
+          if (discount.discountID === record.discountID) {
             count++;
           }
         });
         return count;
       },
+      sorter: (a: any, b: any) => a.count.length - b.count.length,
     },
     {
-      title: "Detail",
-      key: "detail",
+      title: "Description",
+      dataIndex: "description",
+      editable: true,
+    },
+    // {
+    //   title: "Detail",
+    //   key: "detail",
+    //   className: "TextAlign",
+    //   render: (_: unknown, { promotionID }) => (
+    //     <Space size="middle">
+    //       <Link to={`/admin/marketing/discount/detail/${promotionID}`}>
+    //         <EyeOutlined />
+    //       </Link>
+    //     </Space>
+    //   ),
+    // },
+    {
+      title: "Edit",
+      dataIndex: "edit",
+      className: "TextAlign SmallSize",
+      render: (_: unknown, record: any) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{ marginRight: 8 }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
+        );
+      },
+    },
+    {
+      title: "Delete",
+      dataIndex: "discountID",
       className: "TextAlign",
-      render: (_: unknown, { promotionID }) => (
-        <Space size="middle">
-          <Link to={`/admin/marketing/discount/detail/${promotionID}`}>
-            <EyeOutlined />
-          </Link>
-        </Space>
-      ),
+      render: (record: any) =>
+        discounts.length >= 1 ? (
+          <Popconfirm
+            title="Sure to delete?"
+            onConfirm={() => handleDelete(record.discountID)}
+          >
+            <a>Delete</a>
+          </Popconfirm>
+        ) : null,
     },
   ];
 
-  const onChangeTable: TableProps<PromotionDataType>["onChange"] = (
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record: any) => ({
+        record,
+        inputType: col.dataIndex === "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+
+  const onChangeTable: TableProps<any>["onChange"] = (
     pagination,
     filters,
     sorter,
@@ -190,8 +342,8 @@ const ProductPromotion = () => {
     console.log("params", pagination, filters, sorter, extra);
   };
 
+
   // SEARCH AREA
-  const [searchText, setSearchText] = useState("");
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -203,16 +355,72 @@ const ProductPromotion = () => {
     }
   };
 
+
+  // MOVE ADD NEW
   const handleAddNew = () => {
     setIsAdding(true);
+    form.resetFields();
   };
 
   const handleCancel = () => {
     setIsAdding(false);
   };
+  
+  
+  // SUBMIT FORM
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+    form,
+    children,
+  }) => {
+    // const [submittable, setSubmittable] = React.useState<boolean>(false);
+    const [submittable, setSubmittable] = useState(false);
+    const values = Form.useWatch([], form);
+
+    useEffect(() => {
+      form
+        .validateFields({ validateOnly: true })
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+    }, [values]);
+
+    const addDiscount = async () => {
+      try {
+        const discountValues = await form.validateFields();
+        const newDiscount = {
+          ...discountValues,
+        };
+
+        const { data } = await createDiscount(newDiscount);
+        if (data.statusCode !== 200) throw new Error(data.message);
+        fetchData();
+        setIsAdding(false);
+        openNotification("success", "Add", "");
+      } catch (error: any) {
+        openNotification("error", "", error.message);
+      }
+    };
+
+    return (
+      <Button
+        type="primary"
+        htmlType="submit"
+        disabled={!submittable}
+        onClick={addDiscount}
+      >
+        {children}
+      </Button>
+    );
+  };
+
 
   return (
     <>
+              {contextHolder}
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -256,26 +464,34 @@ const ProductPromotion = () => {
               {isAdding ? (
                 <>
                   <Form
-                    className="AdPageContent_Content"
                     form={form}
-                    name="validateOnly"
                     layout="vertical"
-                    autoComplete="off"
+                    className="AdPageContent_Content"
+                    // autoComplete="off"
                   >
                     <Styled.FormItem>
                       <Form.Item
-                        label="Promotion ID"
-                        name="Promotion ID"
-                        rules={[{ required: true }]}
-                      >
-                        <Input className="formItem" placeholder="D1234" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
                         label="Promotion Name"
-                        name="Promotion Name"
-                        rules={[{ required: true }]}
+                        name="Name"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Promotion Name is required.",
+                          },
+                          {
+                            type: "string",
+                            message: "Only alphabet is allowed.",
+                          },
+                          {
+                            max: 100,
+                            message:
+                              "Promotion Name must be at most 300 characters long.",
+                          },
+                          {
+                            whitespace: true,
+                            message: "Not only has whitespace.",
+                          },
+                        ]}
                       >
                         <Input className="formItem" placeholder="Rose" />
                       </Form.Item>
@@ -283,16 +499,16 @@ const ProductPromotion = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="% discount"
-                        name="Discount"
+                        name="PercentDiscounts"
                         rules={[{ required: true }]}
                       >
-                        <Input className="formItem" placeholder="15" />
+                        <InputNumber className="formItem" placeholder="15" />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
                       <Form.Item
                         label="Start Date"
-                        name="Start Date"
+                        name="StartDate"
                         rules={[{ required: true }]}
                       >
                         <DatePicker
@@ -304,7 +520,7 @@ const ProductPromotion = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="End Date"
-                        name="End Date"
+                        name="EndDate"
                         rules={[{ required: true }]}
                       >
                         <DatePicker
@@ -322,7 +538,7 @@ const ProductPromotion = () => {
                         <Input.TextArea className="formItem" />
                       </Form.Item>
                     </Styled.FormDescript>
-                    <Styled.FormItem>
+                    {/* <Styled.FormItem>
                       <Form.Item
                         label="Product in Promotion"
                         name="Product"
@@ -341,8 +557,8 @@ const ProductPromotion = () => {
                           onChange={handleChange}
                         />
                       </Form.Item>
-                    </Styled.FormItem>
-                  </Form>
+                    </Styled.FormItem> */}
+                  
 
                   <Styled.ActionBtn>
                     <Form.Item>
@@ -361,6 +577,7 @@ const ProductPromotion = () => {
                       </Space>
                     </Form.Item>
                   </Styled.ActionBtn>
+                  </Form>
                 </>
               ) : (
                 <Form form={form} component={false}>
@@ -371,10 +588,10 @@ const ProductPromotion = () => {
                       },
                     }}
                     bordered
-                    dataSource={data}
+                    dataSource={mergedColumns}
                     columns={columns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} // Add pagination here
+                    pagination={{ pageSize: 6 }} 
                     onChange={onChangeTable}
                   />
                 </Form>

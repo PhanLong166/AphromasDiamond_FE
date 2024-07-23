@@ -68,3 +68,15 @@ export const Fluorescence = [
   { value: "Faint", label: "Faint" },
   { value: "None", label: "None" },
 ];
+
+export const Brand_Option = [
+  { value: "Van Cleef & Arpels", label: "Van Cleef & Arpels" },
+  { value: "Harry Winston", label: "Harry Winston" },
+  { value: "Cartier", label: "Cartier" },
+  { value: "Tiffany & Co", label: "Tiffany & Co" },
+  { value: "Bvlgari", label: "Bvlgari" },
+  { value: "Zac Zac Posen", label: "Zac Zac Posen" },
+  { value: "Bella Vaughan", label: "Bella Vaughan" },
+  { value: "Blue Nile Studio", label: "Blue Nile Studio" },
+  { value: "The Gallery Collection", label: "The Gallery Collection" },
+];

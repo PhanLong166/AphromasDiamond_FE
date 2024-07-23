@@ -1,6 +1,5 @@
 import * as Styled from "./BillPromotion.styled";
-import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { TableProps, FormInstance } from "antd";
 import {
@@ -13,19 +12,19 @@ import {
   Button,
   Space,
   DatePicker,
+  notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
-import { voucherData, VoucherDataType } from "../MarketingData";
-
-
+import { createVoucher, deleteVoucher, showAllVoucher, updateVoucher } from "@/services/voucherAPI";
+import { DatePickerProps } from "antd/lib";
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof VoucherDataType;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: VoucherDataType;
+  record: any;
   index: number;
   // children: React.ReactNode;
 }
@@ -46,8 +45,8 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
+        name={dataIndex.toString()}
+        style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -64,124 +63,165 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
 
 // DATE PICK
-
-const { RangePicker } = DatePicker;
+const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
+  console.log(date, dateString);
+};
 
 const BillPromotion = () => {
   const [form] = Form.useForm();
-  const [data, setData] = useState<VoucherDataType[]>(voucherData);
+  const [searchText, setSearchText] = useState("");
   const [isAdding, setIsAdding] = useState(false);
   const [editingKey, setEditingKey] = useState<React.Key>("");
-  const isEditing = (record: VoucherDataType) => record.key === editingKey;
-  const edit = (record: Partial<VoucherDataType> & { key: React.Key }) => {
+  const isEditing = (record: any) => record.key === editingKey;
+  const [vouchers, setVouchers] = useState<any[]>([]);
+  const [api, contextHolder] = notification.useNotification();
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} material successfully` : error,
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllVoucher();
+      const { data } = response.data;
+      const formattedVoucher = data.map((voucher: any) => ({
+        key: voucher.VoucherID,
+        voucherID: voucher.VoucherID,
+        voucherCode: voucher.VoucherCode,
+        percentDiscounts: voucher.PercentDiscounts,
+        startDate: voucher.StartDate,
+        endDate: voucher.EndDate,
+        description: voucher.Description,
+      }));
+      setVouchers(formattedVoucher);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  
+  // EDIT
+  const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
-      promotionID: "",
-      discountPercent: "",
+      voucherCode: "",
+      percentDiscounts: 0,
       startDate: "",
       endDate: "",
+      description: "",
       ...record,
     });
     setEditingKey(record.key);
   };
+
   const cancel = () => {
     setEditingKey("");
   };
+
   const save = async (key: React.Key) => {
     try {
-      const row = (await form.validateFields()) as VoucherDataType;
-      const newData = [...data];
+      const row = (await form.validateFields()) as any;
+      const newData = [...vouchers];
       const index = newData.findIndex((item) => key === item.key);
-
-      // row.sellingPrice = calculateSellingPrice(row.buyingPrice);
 
       if (index > -1) {
         const item = newData[index];
+        const updatedItem = {
+          VoucherCode: row.voucherCode,
+          PercentDiscounts: row.percentDiscounts,
+          StartDate: row.startDate,
+          EndDate: row.endDate,
+          Description: row.description,
+          // UpdateTime: new Date().toISOString(),
+        };
         newData.splice(index, 1, {
           ...item,
           ...row,
         });
-        setData(newData);
-        setEditingKey("");
+        setVouchers(newData);
+        await updateVoucher(item.voucherID, updatedItem);
+        openNotification("success", "Update", "");
       } else {
         newData.push(row);
-        setData(newData);
-        setEditingKey("");
+        setVouchers(newData);
+        openNotification("error", "Update", "Failed to update type");
       }
+      setEditingKey("");
     } catch (errInfo) {
       console.log("Validate Failed:", errInfo);
     }
   };
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
+  const handleDelete = async (voucherID: number) => {
+    try {
+      await deleteVoucher(voucherID);
+      openNotification("success", "Delete", "");
+      fetchData();
+    } catch (error: any) {
+      console.error("Failed to delete collection:", error);
+      openNotification("error", "Delete", error.message);
+    }
   };
+
 
   const columns = [
     {
       title: "Voucher ID",
       dataIndex: "voucherID",
       editable: true,
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.voucherID.localeCompare(b.voucherID),
+      sorter: (a: any, b: any) => parseInt(a.voucherID) - parseInt(b.voucherID),
     },
     {
-      title: "Voucher Name",
+      title: "Voucher Code",
       dataIndex: "voucherCode",
       editable: true,
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.voucherCode.length - b.voucherCode.length,
+      sorter: (a: any, b: any) => a.voucherCode.length - b.voucherCode.length,
     },
     {
       title: "% discount",
-      dataIndex: "discountPercent",
+      dataIndex: "percentDiscounts",
       editable: true,
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.discountPercent - b.discountPercent,
+      sorter: (a: any, b: any) => a.percentDiscounts - b.percentDiscounts,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
       editable: true,
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.startDate.length - b.startDate.length,
+      onChange:{onChangeDate},
+      sorter: (a: any, b: any) => a.startDate.length - b.startDate.length,
     },
     {
       title: "End Date",
       dataIndex: "endDate",
       editable: true,
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.endDate.length - b.endDate.length,
+      onChange:{onChangeDate},
+      sorter: (a: any, b: any) => a.endDate.length - b.endDate.length,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      editable: true,
     },
     {
       title: "Edit",
       dataIndex: "edit",
       className: "TextAlign SmallSize",
-      render: (_: unknown, record: VoucherDataType) => {
+      render: (_: unknown, record: any) => {
         const editable = isEditing(record);
         return editable ? (
           <span>
@@ -207,13 +247,13 @@ const BillPromotion = () => {
     },
     {
       title: "Delete",
-      dataIndex: "delete",
+      dataIndex: "voucherID",
       className: "TextAlign",
-      render: (_: unknown, record: VoucherDataType) =>
-        data.length >= 1 ? (
+      render: (record: any) =>
+        vouchers.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => handleDelete(record.voucherID)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -221,15 +261,15 @@ const BillPromotion = () => {
     },
   ];
 
-  const mergedColumns: TableProps["columns"] = columns.map((col) => {
+  const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
     }
     return {
       ...col,
-      onCell: (record: VoucherDataType) => ({
+      onCell: (record: any) => ({
         record,
-        inputType: col.dataIndex === "buyingPrice" ? "number" : "text",
+        inputType: col.dataIndex === "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
@@ -237,11 +277,18 @@ const BillPromotion = () => {
     };
   });
 
-  const [searchText, setSearchText] = useState("");
+  const onChangeTable: TableProps<any>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
 
+  // SEARCH AREA
   const onSearch = (value: string) => {
     console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
   };
 
   const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
@@ -250,22 +297,65 @@ const BillPromotion = () => {
     }
   };
 
-  // Add New
-  // const handleChange = (value: string) => {
-  //   console.log(`selected ${value}`);
-  // };
-
+  // MOVE ADD NEW
   const handleAddNew = () => {
     setIsAdding(true);
+    form.resetFields();
   };
-
-  // const handleSave = () => {
-  //   // Logic để lưu dữ liệu mới
-  //   setIsAdding(false);
-  // };
 
   const handleCancel = () => {
     setIsAdding(false);
+  };
+  
+
+  
+  // SUBMIT FORM
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+    form,
+    children,
+  }) => {
+    // const [submittable, setSubmittable] = React.useState<boolean>(false);
+    const [submittable, setSubmittable] = useState(false);
+    const values = Form.useWatch([], form);
+
+    useEffect(() => {
+      form
+        .validateFields({ validateOnly: true })
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+    }, [values]);
+
+    const addVoucher = async () => {
+      try {
+        const voucherValues = await form.validateFields();
+        const newVoucher = {
+          ...voucherValues,
+        };
+
+        const { data } = await createVoucher(newVoucher);
+        if (data.statusCode !== 200) throw new Error(data.message);
+        fetchData();
+        setIsAdding(false);
+        openNotification("success", "Add", "");
+      } catch (error: any) {
+        openNotification("error", "", error.message);
+      }
+    };
+
+    return (
+      <Button
+        type="primary"
+        htmlType="submit"
+        disabled={!submittable}
+        onClick={addVoucher}
+      >
+        {children}
+      </Button>
+    );
   };
 
   return (
@@ -313,25 +403,15 @@ const BillPromotion = () => {
               {isAdding ? (
                 <>
                   <Form
-                    className="AdPageContent_Content"
                     form={form}
-                    name="validateOnly"
                     layout="vertical"
-                    autoComplete="off"
+                    className="AdPageContent_Content"
+                    // autoComplete="off"
                   >
                     <Styled.FormItem>
                       <Form.Item
-                        label="Voucher ID"
-                        name="voucherID"
-                        rules={[{ required: true }]}
-                      >
-                        <Input className="formItem" placeholder="D1234" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
                         label="Voucher Code"
-                        name="voucherCode"
+                        name="VoucherCode"
                         rules={[{ required: true }]}
                       >
                         <Input className="formItem" placeholder="Sophia" />
@@ -340,7 +420,7 @@ const BillPromotion = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="% discount"
-                        name="sale"
+                        name="PercentDiscounts"
                         rules={[{ required: true }]}
                       >
                         <InputNumber className="formItem" placeholder="15" />
@@ -349,19 +429,25 @@ const BillPromotion = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Start Time"
-                        name="startTime"
+                        name="StartDate"
                         rules={[{ required: true }]}
                       >
-                        <RangePicker showTime className="formItem"/>
+                        <DatePicker
+                          onChange={onChangeDate}
+                          className="formItem"
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormItem>
                       <Form.Item
                         label="End Time"
-                        name="endTime"
+                        name="EndDate"
                         rules={[{ required: true }]}
                       >
-                        <RangePicker showTime className="formItem"/>
+                        <DatePicker
+                          onChange={onChangeDate}
+                          className="formItem"
+                        />
                       </Form.Item>
                     </Styled.FormItem>
                     <Styled.FormDescript>
@@ -402,8 +488,8 @@ const BillPromotion = () => {
                       },
                     }}
                     bordered
-                    dataSource={data}
-                    columns={mergedColumns}
+                    dataSource={mergedColumns}
+                    columns={columns}
                     rowClassName="editable-row"
                     pagination={{
                       onChange: cancel,

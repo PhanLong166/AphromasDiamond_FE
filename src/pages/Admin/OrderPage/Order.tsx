@@ -1,106 +1,48 @@
 // Order.tsx
 import * as Styled from "./Order.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { orderData, OrderDataType } from "./OrderData";
 import { Link } from "react-router-dom";
-
-// (rest of your Order.tsx code)
-
-
-const columns: TableColumnsType<OrderDataType> = [
-  {
-    title: "Order ID",
-    dataIndex: "orderID",
-    defaultSortOrder: "descend",
-    sorter: (a: OrderDataType, b: OrderDataType) => a.orderID.localeCompare(b.orderID),
-  },
-  {
-    title: "Date",
-    dataIndex: "date",
-    defaultSortOrder: "descend",
-    sorter: (a: OrderDataType, b: OrderDataType) => a.date.localeCompare(b.date),
-  },
-  {
-    title: "Customer",
-    dataIndex: "cusName",
-    showSorterTooltip: { target: "full-header" },
-    sorter: (a: OrderDataType, b: OrderDataType) => a.cusName.length - b.cusName.length,
-    sortDirections: ["descend"],
-  },
-  {
-    title: "Total",
-    dataIndex: "total",
-    defaultSortOrder: "descend",
-    sorter: (a: OrderDataType, b: OrderDataType) => a.total - b.total,
-  },
-  {
-    title: "Status",
-    key: "status",
-    dataIndex: "status",
-    render: (_, { status }) => {
-      let color = "green";
-      if (status === "Pending") {
-        color = "red";
-      } else if (status === "Accepted") {
-        color = "yellow";
-      } else if (status === "Assigned") {
-        color = "orange";
-      } else if (status === "Delivering") {
-        color = "blue";
-      } else if (status === "Delivered") {
-        color = "purple";
-      } else if (status === "Completed") {
-        color = "green";
-      } else if (status === "Cancelled") {
-        color = "default";
-      }
-      return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
-        </Tag>
-      );
-    },
-    filters: [
-      { text: "Pending", value: "Pending" },
-      { text: "Accepted", value: "Accepted" },
-      { text: "Assigned", value: "Assigned" },
-      { text: "Delivering", value: "Delivering" },
-      { text: "Delivered", value: "Delivered" },
-      { text: "Completed", value: "Completed" },
-      { text: "Cancelled", value: "Cancelled" },
-    ],
-    onFilter: (value, record) => record.status.indexOf(value as string) === 0,
-  },
-  {
-    title: "Detail",
-    key: "detail",
-    className: "TextAlign",
-    render: (_, { orderID }) => (
-      <Space size="middle">
-        <Link to={`/admin/order/detail/${orderID}`}>
-          <EyeOutlined />
-        </Link>
-      </Space>
-    ),
-  },
-];
-
-const onChange: TableProps<OrderDataType>["onChange"] = (
-  pagination,
-  filters,
-  sorter,
-  extra
-) => {
-  console.log("params", pagination, filters, sorter, extra);
-};
+import { showAllOrder } from "@/services/orderAPI";
 
 const Order = () => {
   const [searchText, setSearchText] = useState("");
+  const [orders, setOrders] = useState([]);
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllOrder();
+      console.log('API response:', response);
+      const { data } = response.data;
+      const formattedOrders = data
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        orderDate: order.OrderDate,
+        customerID: order.CustomerID,
+        orderStatus: order.OrderStatus,
+        completeDate: order.CompleteDate,
+        isPayed: order.IsPayed,
+        shippingfee: order.Shippingfee,
+        note: order.Note,
+        isActive: order.IsActive,
+        accountDeliveryID: order.AccountDeliveryID,
+        accountSaleID: order.AccountSaleID,
+        voucherID: order.VoucherID,
+      }));
+      console.log('Formatted Orders:', formattedOrders); // Log formatted diamonds
+      setOrders(formattedOrders);
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -110,6 +52,93 @@ const Order = () => {
     if (e.key === "Enter") {
       onSearch(searchText);
     }
+  };
+
+  const columns: TableColumnsType<any> = [
+    {
+      title: "Order ID",
+      dataIndex: "orderID",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => parseInt(a.orderID) - parseInt(b.orderID),
+    },
+    {
+      title: "Date",
+      dataIndex: "orderDate",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
+    },
+    {
+      title: "Customer",
+      dataIndex: "customerID",
+      showSorterTooltip: { target: "full-header" },
+      sorter: (a, b) => a.customerID.length - b.customerID.length,
+      sortDirections: ["descend"],
+    },
+    // {
+    //   title: "Total",
+    //   dataIndex: "total",
+    //   defaultSortOrder: "descend",
+    //   sorter: (a, b) => a.total - b.total,
+    // },
+    {
+      title: "Status",
+      key: "orderStatus",
+      dataIndex: "orderStatus",
+      render: (_, { orderStatus }) => {
+        let color = "green";
+        if (orderStatus === "Pending") {
+          color = "red";
+        } else if (orderStatus === "Accepted") {
+          color = "yellow";
+        } else if (orderStatus === "Assigned") {
+          color = "orange";
+        } else if (orderStatus === "Delivering") {
+          color = "blue";
+        } else if (orderStatus === "Delivered") {
+          color = "purple";
+        } else if (orderStatus === "Completed") {
+          color = "green";
+        } else if (orderStatus === "Cancelled") {
+          color = "default";
+        }
+        return (
+          <Tag color={color} key={orderStatus}>
+            {orderStatus.toUpperCase()}
+          </Tag>
+        );
+      },
+      filters: [
+        { text: "Pending", value: "Pending" },
+        { text: "Accepted", value: "Accepted" },
+        { text: "Assigned", value: "Assigned" },
+        { text: "Delivering", value: "Delivering" },
+        { text: "Delivered", value: "Delivered" },
+        { text: "Completed", value: "Completed" },
+        { text: "Cancelled", value: "Cancelled" },
+      ],
+      onFilter: (value, record) => record.orderStatus.indexOf(value as string) === 0,
+    },
+    {
+      title: "Detail",
+      key: "detail",
+      className: "TextAlign",
+      render: (_, { orderID }) => (
+        <Space size="middle">
+          <Link to={`/admin/order/detail/${orderID}`}>
+            <EyeOutlined />
+          </Link>
+        </Space>
+      ),
+    },
+  ];
+  
+  const onChange: TableProps<any>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
   };
 
   return (
@@ -139,7 +168,7 @@ const Order = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={orderData}
+                dataSource={orders}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />
