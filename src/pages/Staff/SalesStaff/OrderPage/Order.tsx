@@ -7,6 +7,7 @@ import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
 import { data, DataType } from "./OrderData";
 import { Link } from "react-router-dom";
+import { OrderStatus } from "@/utils/enum";
 // import { Col, Row } from "antd";
 
 
@@ -44,19 +45,19 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "status",
     render: (_, { status }) => {
       let color = "green";
-      if (status === "Pending") {
+      if (status === OrderStatus.PENDING) {
         color = "volcano";
-      } else if (status === "Accepted") {
+      } else if (status === OrderStatus.ACCEPTED) {
         color = "yellow";
-      } else if (status === "Assigned") {
+      } else if (status === OrderStatus.ASSIGNED) {
         color = "orange";
-      } else if (status === "Delivering") {
+      } else if (status === OrderStatus.DELIVERING) {
         color = "blue";
-      } else if (status === "Delivered") {
+      } else if (status === OrderStatus.DELIVERED) {
         color = "purple";
-      } else if (status === "Completed") {
+      } else if (status === OrderStatus.COMPLETED) {
         color = "green";
-      } else if (status === "Cancelled") {
+      } else if (status === OrderStatus.CANCELLED) {
         color = "grey";
       }
       return (

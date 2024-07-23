@@ -66,7 +66,7 @@ export const ProductDescription = styled.div`
   font: 400 15px/1.5 Poppins, sans-serif;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 20px;
 `;
 
 export const ItemType = styled.div`
