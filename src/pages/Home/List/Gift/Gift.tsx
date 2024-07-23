@@ -1,21 +1,12 @@
+import FAQ from "@/components/FAQs/FAQs";
 import { jewelryData } from "./Gift.data";
-import {
-  Container,
-  LeftSection,
-  Banner,
-  InfoSection,
-  Overlay,
-  GiftSection,
-  FAQs,
-  LeftFAQ,
-  CustomBreadcrumb,
-  StyledCollapse
-} from "./Gift.styled";
+import { Container, InfoSection, Overlay, GiftSection } from "./Gift.styled";
 
 import { Link, useParams } from "react-router-dom";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const Gift = () => {
- 
   const { jewelryType } = useParams<{ jewelryType: string }>();
 
   if (!jewelryType || !jewelryData[jewelryType]) {
@@ -26,37 +17,22 @@ const Gift = () => {
 
   const faqs = jewelryData[jewelryType]?.faqs || [];
 
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
-
   return (
     <>
       <Container>
         <div>
-          <CustomBreadcrumb
-            separator=">"
+          <Breadcrumb
             items={[
-              {
-                title: "Home",
-                href: "/",
-              },
-              {
-                title: currentJewelryData.title,
-              },
+              { title: "Home", href: "/" },
+              { title: currentJewelryData.title },
             ]}
           />
         </div>
         <Banner
-          style={{ backgroundImage: `url(${currentJewelryData.bannerImage})` }}
-        >
-          <div className="bannerContent">
-            <LeftSection>
-              <h2>{currentJewelryData.title}</h2>
-              <div className="subheading">{currentJewelryData.description}</div>
-            </LeftSection>
-          </div>
-        </Banner>
+          bannerImage={currentJewelryData.bannerImage}
+          title={currentJewelryData.title}
+          description={currentJewelryData.description}
+        />
         <InfoSection>
           <Overlay>
             <h2>{currentJewelryData.overlay}</h2>
@@ -77,11 +53,7 @@ const Gift = () => {
 
                     <p>{product.description}</p>
                     <div className="gift-button1">
-                      <Link
-                        to={`/product/${product.id}`}
-                        className="link-add"
-                       
-                      >
+                      <Link to={`/product/${product.id}`} className="link-add">
                         LEARN MORE
                       </Link>
                     </div>
@@ -93,11 +65,7 @@ const Gift = () => {
                     <h2 className="title">{product.name}</h2>
 
                     <p>{product.description}</p>
-                    <Link
-                      to={`/product/${product.id}`}
-                      className="link-add"
-                    
-                    >
+                    <Link to={`/product/${product.id}`} className="link-add">
                       <div className="gift-button">LEARN MORE</div>
                     </Link>
                   </div>
@@ -110,20 +78,7 @@ const Gift = () => {
             )}
           </div>
         </GiftSection>
-        <FAQs>
-          <LeftFAQ>
-            <h2>FAQs about {currentJewelryData.title}</h2>
-          </LeftFAQ>
-          <StyledCollapse
-            items={faqs.map((faq: any) => ({
-              key: faq.key,
-              label: faq.label,
-              children: <p>{faq.children}</p>,
-            }))}
-            defaultActiveKey={["1"]}
-            onChange={onChange}
-          />
-        </FAQs>
+        <FAQ title={currentJewelryData.title} faqs={faqs} />
       </Container>
     </>
   );

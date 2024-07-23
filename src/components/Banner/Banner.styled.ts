@@ -5,12 +5,16 @@ export const Banner = styled.section`
     no-repeat center center;
   background-size: cover;
   display: flex;
+  .bannerContent {
+  max-width: 1400px;
+  margin: 0 auto;
+  }
 `;
 
 export const LeftSection = styled.div`
   width: 50%;
   max-width: 1600px;
-  margin: 100px 60px;
+  margin: 100px 0;
 
   h2 {
     font-size: 50px;

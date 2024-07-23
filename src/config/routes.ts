@@ -101,6 +101,7 @@ const routes = {
     manager: "/admin/manager",
   },
   salesStaff: {
+    dashboard: "/sales-staff",
     order: "/sales-staff/order",
     pendingOrder: "/sales-staff/order/pending",
     acceptedOrder: "/sales-staff/order/accepted",
@@ -128,7 +129,7 @@ const routes = {
     feedbackCompleted: "/sales-staff/client-caring/feedback-completed",
   },
   deliStaff: {
-    // dashboard: '/delistaff',
+    dashboard: '/delivery-staff',
     deliveryPending: "/delivery-staff/delivery-pending",
     deliveryDelivering: "/delivery-staff/delivery-delivering",
     deliveryDelivered: "/delivery-staff/delivery-delivered",

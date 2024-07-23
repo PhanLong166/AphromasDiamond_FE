@@ -719,28 +719,28 @@ export const items: MenuItem[] = [
                 label: 'Jewelry Firm',
                 type: 'group',
                 children: [
-                    {key: 'jewelry-firm-1',  label: (
+                    {key: 'jewelry-gift-firm-1',  label: (
                         <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-vancleef&arpels")}`}>
                         Van Cleef & Arpels
                         </Link>
                       )
                     },
-                    {key: 'jewelry-firm-2',  label: (
+                    {key: 'jewelry-gift-firm-2',  label: (
                         <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-harrywinston")}`}>
                          Harry Winston
                         </Link>
                       )},
-                    {key: 'jewelry-firm-3',  label: (
+                    {key: 'jewelry-gift-firm-3',  label: (
                         <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-cartier")}`}>
                         Cartier
                         </Link>
                       )},
-                    {key: 'jewelry-firm-4',  label: (
+                    {key: 'jewelry-gift-firm-4',  label: (
                         <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-tiffany&co")}`}>
                          Tiffany & Co
                         </Link>
                       )},
-                    {key: 'jewelry-firm-5',  label: (
+                    {key: 'jewelry-gift-firm-5',  label: (
                         <Link to={`${config.routes.public. giftFirm.replace(":jewelryFirm", "top-ten-bvlgari")}`}>
                         Bvlgari
                         </Link>
@@ -752,32 +752,32 @@ export const items: MenuItem[] = [
                 label: 'Learn About',
                 type: 'group',
                 children: [
-                    {key: 'learn-jewelry-1', label: (
+                    {key: 'learn-jewelry-gift-1', label: (
                         <Link to={config.routes.public.buying} underline zoom scroll>
                             Buying Guide
                         </Link>
                     )},
-                    {key: 'learn-jewelry-2', label: (
+                    {key: 'learn-jewelry-gift-2', label: (
                         <Link to={config.routes.public.cs} underline zoom scroll>
                             Learn About the 4Cs
                         </Link>
                     )},
-                    {key: 'learn-jewelry-3', label: (
+                    {key: 'learn-jewelry-gift-3', label: (
                         <Link to={config.routes.public.size} underline zoom scroll>
                             Find your ring size
                         </Link>
                     )},
-                    {key: 'learn-jewelry-4', label: (
+                    {key: 'learn-jewelry-gift-4', label: (
                         <Link to={config.routes.public.necklaceEdu} underline zoom scroll>
                             Necklace Education
                         </Link>
                     )},
-                    {key: 'learn-jewelry-5', label: (
+                    {key: 'learn-jewelry-gift-5', label: (
                         <Link to={config.routes.public.braceletEdu} underline zoom scroll>
                             Bracelet Education
                         </Link>
                     )},
-                    {key: 'learn-jewelry-6', label: (
+                    {key: 'learn-jewelry-gift-6', label: (
                         <Link to={config.routes.public.earringEdu} underline zoom scroll>
                            Earrings Education
                         </Link>

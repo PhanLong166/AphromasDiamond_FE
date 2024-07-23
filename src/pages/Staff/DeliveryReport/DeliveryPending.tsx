@@ -1,9 +1,13 @@
 import * as Styled from "./DeliveryPendingstyled";
 import { useState, useEffect } from "react";
 import { Button, Space, Table, Tag } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { PoweroffOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import OrderMenu from "@/components/Staff/Deli/OrderDeli/OrderMenu";
+import useAuth from "@/hooks/useAuth";
+import { getAccountDetail } from "@/services/accountApi";
+import config from "@/config";
+import cookieUtils from "@/services/cookieUtils";
 
 interface DataType {
   key: React.Key;
@@ -127,10 +131,21 @@ const initialData: DataType[] = [
 
 
 const DeliveryPending = () => {
+  const { AccountID } = useAuth();
+  const [user, setUser] = useState<any>(null);
+  
   const [searchText, setSearchText] = useState("");
   const [filteredData, setFilteredData] = useState(initialData);
 
   useEffect(() => {
+    const fetchData = async () => {
+      const user = await getAccountDetail(AccountID ? AccountID : 0);
+      console.log(user.data.data);
+      setUser(user.data.data);
+    }
+
+    fetchData();
+    
     if (searchText.trim() === "") { //nếu search k có value sẽ giá trị bảng ban đầu
       setFilteredData(initialData);
       return;
@@ -153,6 +168,7 @@ const DeliveryPending = () => {
     });
 
     setFilteredData(sortedFilteredData);
+
   }, [searchText]);
 
   const onChange: TableProps<DataType>["onChange"] = (
@@ -174,10 +190,21 @@ const DeliveryPending = () => {
     <>
       <Styled.OrderAdminArea>
         <Styled.AdminPage>
-          <Styled.TitlePage>
-            <h1>Delivery</h1>
-            <p>View and manage Delivery</p>
-          </Styled.TitlePage>
+        <Styled.HeaderContainer>
+            <Styled.TitlePage>
+              <h1>Delivery</h1>
+              <p>View and manage Delivery</p>
+            </Styled.TitlePage>
+            <Styled.DeliveryStaff>
+              <h1>Hello, {user ? user.Name : null}</h1>
+              <Styled.Logout 
+                to={config.routes.public.login} 
+                onClick={() => cookieUtils.clear()}
+              >
+                <PoweroffOutlined/> Logout
+              </Styled.Logout>
+            </Styled.DeliveryStaff>
+          </Styled.HeaderContainer>
           <OrderMenu />
           <Styled.OrderContent>
             <Styled.OrderContent_Head>

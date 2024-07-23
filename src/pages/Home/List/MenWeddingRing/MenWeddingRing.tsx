@@ -1,37 +1,24 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  Banner,
-  LeftSection,
-  FAQs,
-  LeftFAQ,
-  List,
-  StyledPagination,
-  CustomBreadcrumb,
-  StyledCollapse
-} from "./MenWeddingRing.styled";
-import {
-  Card,
-  Col,
-  Row,
-  Typography,
-} from "antd";
+import { Container, List, StyledPagination } from "./MenWeddingRing.styled";
+import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
 import { menWeddingData } from "./MenWeddingRing.data";
-
+import FAQ from "@/components/FAQs/FAQs";
+import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
+import Banner from "@/components/Banner/Banner";
 
 const MenWeddingRing: React.FC = () => {
   const { ringMetal } = useParams<{ ringMetal: string }>();
   const navigate = useNavigate();
 
-  if (!ringMetal || ! menWeddingData[ringMetal]) {
+  if (!ringMetal || !menWeddingData[ringMetal]) {
     return <div>Invalid jewelry type selected.</div>;
   }
 
-  const currentMenWeddingData =  menWeddingData[ringMetal];
+  const currentMenWeddingData = menWeddingData[ringMetal];
 
   const [wishList, setWishList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -60,54 +47,35 @@ const MenWeddingRing: React.FC = () => {
     );
   };
 
-  const faqs =  menWeddingData[ringMetal]?.faqs || [];
-
-  const onChange = (key: string | string[]) => {
-    console.log(key);
-  };
+  const faqs = menWeddingData[ringMetal]?.faqs || [];
 
   return (
     <Container>
       <div>
-        <CustomBreadcrumb
-          separator=">"
+        <Breadcrumb
           items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentMenWeddingData.title,
-            },
+            { title: "Home", href: "/" },
+            { title: currentMenWeddingData.title },
           ]}
         />
       </div>
       <Banner
-        style={{ backgroundImage: `url(${currentMenWeddingData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentMenWeddingData.title}</h2>
-            <div className="subheading">{currentMenWeddingData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner>
+        bannerImage={currentMenWeddingData.bannerImage}
+        title={currentMenWeddingData.title}
+        description={currentMenWeddingData.description}
+      />
       <List>
         <Row gutter={[16, 16]}>
           {currentMenWeddingData.products.map((product: any) => (
             <Col key={product.id} span={6}>
-             
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
-                     <Link to={`/product/${product.id}`} >
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <Link to={`/product/${product.id}`}>
                       <img
                         style={{ borderRadius: "0" }}
                         src={product.images[0]}
@@ -120,42 +88,42 @@ const MenWeddingRing: React.FC = () => {
                           (e.currentTarget.src = product.images[0])
                         }
                       />
-                      </Link>
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
-                    <Link to={`/product/${product.id}`} >
+                    </Link>
+                    {product.salePrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`}>
                       <div>{product.name}</div>
-                      </Link>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      ${product.salePrice ? product.salePrice : product.price}
+                    </Text>
+                    {product.salePrice && (
+                      <Text delete className="product-sale-price">
+                        ${product.price}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
+                </div>
+              </Card>
             </Col>
           ))}
           <Col span={6}>
@@ -183,20 +151,7 @@ const MenWeddingRing: React.FC = () => {
         onChange={handleChangePage}
       />
 
-      <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentMenWeddingData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs>
+      <FAQ title={currentMenWeddingData.title} faqs={faqs} />
     </Container>
   );
 };
