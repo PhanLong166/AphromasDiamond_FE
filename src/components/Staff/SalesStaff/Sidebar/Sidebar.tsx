@@ -159,12 +159,23 @@ import {
 } from "@ant-design/icons";
 import config from "@/config";
 import cookieUtils from "@/services/cookieUtils";
+import useAuth from "@/hooks/useAuth";
+import { getAccountDetail } from "@/services/accountApi";
 
 const Sidebar = () => {
   const location = useLocation();
   const [active, setActive] = useState<string>("");
+  const { AccountID } = useAuth();
+  const [staff, setStaff] = useState<any>(null);
 
   useEffect(() => {
+    //Get staff info
+    const getInfo = async () => {
+      const { data } = await getAccountDetail(AccountID ? AccountID : 0);
+      setStaff(data.data);
+    }
+    getInfo();
+    
     const path = location.pathname;
 
     if (path.startsWith("/sales-staff/order")) {
@@ -256,8 +267,8 @@ const Sidebar = () => {
         <Styled.Account>
           <SmileOutlined />
           <Styled.AccInfor>
-            <p className="accInfor_name">Trang.staff</p>
-            <p className="accOut_role">Staff</p>
+            <p className="accInfor_name">{staff ? staff.Name : null}</p>
+            <p className="accOut_role">{staff ? staff.Role.substring(5) : null}</p>
           </Styled.AccInfor>
         </Styled.Account>
         <Link to={config.routes.public.login} onClick={() => cookieUtils.clear()}>
