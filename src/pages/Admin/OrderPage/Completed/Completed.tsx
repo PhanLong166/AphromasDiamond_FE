@@ -1,17 +1,76 @@
 import * as Styled from "./Completed.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { orderData, OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
+import { showAllOrder } from "@/services/orderAPI";
+import { showAllAccounts } from "@/services/accountApi";
 
 
-const filteredData = orderData.filter((item) => item.status === "Completed");
+const CompletedOrder = () => {
+  const [searchText, setSearchText] = useState("");
+  const [orders, setOrders] = useState([]);
+  const [accounts, setAccounts] = useState([]);
 
-const columns: TableColumnsType<OrderDataType> = [
+  const fetchData = async () => {
+    try {
+      const response = await showAllOrder();
+      const responseAccounts = await showAllAccounts();
+
+      const { data } = response.data;
+      const { data: accountData } = responseAccounts.data;
+
+      const formattedOrders = data
+      .filter((order: any) => (order.IsActive && order.OrderStatus === "Completed"))
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        orderDate: order.OrderDate,
+        customerID: order.CustomerID,
+        orderStatus: order.OrderStatus,
+        completeDate: order.CompleteDate,
+        isPayed: order.IsPayed,
+        shippingfee: order.Shippingfee,
+        note: order.Note,
+        isActive: order.IsActive,
+        accountDeliveryID: order.AccountDeliveryID,
+        accountSaleID: order.AccountSaleID,
+        voucherID: order.VoucherID,
+      }));
+
+      const formattedAccounts = accountData
+      .map((account: any) => ({
+        accountID: account.AccountID,
+        accountName: account.Name,
+        customerID_Acc: account.CustomerID
+      }));
+
+      console.log('Formatted Orders:', formattedOrders); 
+      setOrders(formattedOrders);
+      setAccounts(formattedAccounts);
+
+    } catch (error) {
+      console.error("Failed to fetch orders:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+  const onSearch = (value: string) => {
+    console.log("Search:", value);
+  };
+
+  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === "Enter") {
+      onSearch(searchText);
+    }
+  };
+
+const columns: TableColumnsType<any> = [
   {
     title: "Order ID",
     dataIndex: "orderID",
@@ -20,48 +79,52 @@ const columns: TableColumnsType<OrderDataType> = [
   },
   {
     title: "Date",
-    dataIndex: "date",
+    dataIndex: "orderDate",
     defaultSortOrder: "descend",
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
   },
   {
     title: "Customer",
-    dataIndex: "cusName",
+    dataIndex: "customerID",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a, b) => a.cusName.length - b.cusName.length,
+    sorter: (a, b) => a.customerID.length - b.customerID.length,
     sortDirections: ["descend"],
+    render: (_, record) => {
+      const customerAccount = accounts.find(account => account.customerID_Acc === record.customerID);
+      return customerAccount ? customerAccount.accountName : null;
+    },
   },
   {
     title: "Delivery Staff",
-    dataIndex: "deliveryStaff",
+    dataIndex: "AccountDeliveryID",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
+    sorter: (a, b) => a.AccountDeliveryID.length - b.AccountDeliveryID.length,
     sortDirections: ["descend"],
   },
   {
     title: "Status",
-    key: "status",
-    dataIndex: "status",
-    render: (_, { status }) => {
+    key: "orderStatus",
+    dataIndex: "orderStatus",
+    render: (_, { orderStatus }) => {
       let color = "green";
-      if (status === "Pending") {
+      if (orderStatus === "Pending") {
         color = "volcano";
-      } else if (status === "Accepted") {
+      } else if (orderStatus === "Accepted") {
         color = "yellow";
-      } else if (status === "Assigned") {
+      } else if (orderStatus === "Assigned") {
         color = "orange";
-      } else if (status === "Delivering") {
+      } else if (orderStatus === "Delivering") {
         color = "blue";
-      } else if (status === "Delivered") {
+      } else if (orderStatus === "Delivered") {
         color = "purple";
-      } else if (status === "Completed") {
+      } else if (orderStatus === "Completed") {
         color = "green";
-      } else if (status === "Cancelled") {
+      } else if (orderStatus === "Cancelled") {
         color = "grey";
       }
       return (
-        <Tag color={color} key={status}>
-          {status.toUpperCase()}
+        <Tag color={color} key={orderStatus}>
+          {orderStatus.toUpperCase()}
         </Tag>
       );
     },
@@ -80,7 +143,7 @@ const columns: TableColumnsType<OrderDataType> = [
   },
 ];
 
-const onChange: TableProps<OrderDataType>["onChange"] = (
+const onChange: TableProps<any>["onChange"] = (
   pagination,
   filters,
   sorter,
@@ -89,19 +152,6 @@ const onChange: TableProps<OrderDataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-const CompletedOrder = () => {
-  const [searchText, setSearchText] = useState("");
-
-  const onSearch = (value: string) => {
-    console.log("Search:", value);
-    // Thực hiện logic tìm kiếm ở đây
-  };
-
-  const handleKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
-    if (e.key === "Enter") {
-      onSearch(searchText);
-    }
-  };
 
   return (
     <>
@@ -132,8 +182,8 @@ const CompletedOrder = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={filteredData}
-                pagination={{ pageSize: 7 }} // Add pagination here
+                dataSource={orders}
+                pagination={{ pageSize: 7 }}
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
               />

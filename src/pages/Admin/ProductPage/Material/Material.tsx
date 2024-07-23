@@ -41,8 +41,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   dataIndex,
   title,
   inputType,
-  // record,
-  // index,
   children,
   ...restProps
 }) => {
@@ -140,7 +138,7 @@ const Material = () => {
       if (index > -1) {
         const item = newData[index];
         const updatedItem = {
-          Name: row.materialJewelryID,
+          Name: row.materialName,
           SellPrice: row.sellPrice,
           UpdateTime: new Date().toISOString(),
         };
