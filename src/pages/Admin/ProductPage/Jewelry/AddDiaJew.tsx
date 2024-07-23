@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as Styled from "./Jewelry.styled";
 import { notification } from "antd";
 import type { UploadProps, GetProp, UploadFile } from "antd";
@@ -41,6 +41,7 @@ const AddProduct = () => {
 
       console.log("Formatted Jewelry:", formattedJewelrys);
       setProducts(formattedJewelrys);
+      console.log(products);
     } catch (error) {
       console.error("Failed to fetch Jewelrys:", error);
     }

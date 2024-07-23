@@ -74,9 +74,9 @@ const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
 };
 
 // MULTI JEWELRY PICK
-const handleChange = (value: string[]) => {
-  console.log(`selected ${value}`);
-};
+// const handleChange = (value: string[]) => {
+//   console.log(`selected ${value}`);
+// };
 
 const Collection = () => {
   const [form] = Form.useForm();
@@ -218,7 +218,7 @@ const Collection = () => {
     {
       title: "Product Quantity",
       dataIndex: "collectionID",
-      render: (_, record: any) => {
+      render: (_: any, record: any) => {
         let count = 0;
         products.forEach((collection) => {
           if (collection.collectionID === record.collectionID) {

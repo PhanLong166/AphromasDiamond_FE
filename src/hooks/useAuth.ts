@@ -85,10 +85,10 @@ const useAuth = () => {
 
             const getInfo = async () => {
                 if (role === Role.CUSTOMER) {
-                    const { data } = await getCustomer(AccountID ? AccountID : 0);
+                    const { data } = await getCustomer(AccountID || 0);
                     setUser(data.data);
                 } else {
-                    const { data } = await getAccountDetail(AccountID ? AccountID : 0);
+                    const { data } = await getAccountDetail(AccountID || 0);
                     setAccount(data.data);
                 }
             };

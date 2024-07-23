@@ -1,9 +1,7 @@
 import { FieldType } from "@/components/AuthForm/AuthForm.fields";
-import { Input, InputNumber, Select, Switch } from "antd";
-import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "../../Diamond.type";
+import { Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Brand_Option } from "../../../Jewelry.type";
-import { showAllDiamond } from "@/services/diamondAPI";
 
 export const ProductField: FieldType[] = [
     {
@@ -61,7 +59,7 @@ export const ProductField: FieldType[] = [
             <Select
                 className="formItem"
                 placeholder="Select Color"
-                options={}
+                // options={}
             />
     },
     {
@@ -77,7 +75,7 @@ export const ProductField: FieldType[] = [
             <Select
                 className="formItem"
                 placeholder="Select Discount"
-                options={}
+                // options={}
             />
     },
     {

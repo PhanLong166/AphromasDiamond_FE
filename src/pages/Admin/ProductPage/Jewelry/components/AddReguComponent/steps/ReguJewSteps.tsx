@@ -15,11 +15,11 @@ type ProductStepsProps = {
     api: NotificationInstance;
     fileList: UploadFile[];
     setFileList: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
-    docsList: UploadFile[];
-    setDocsList: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
+    docsList?: UploadFile[];
+    setDocsList?: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
     onChangeImg: (value: any) => void;
     onPreview: (value: any) => void;
-    setIsAdding: (values: any) => void;
+    setIsAdding?: (values: any) => void;
     fetchData: () => Promise<void>
 }
 

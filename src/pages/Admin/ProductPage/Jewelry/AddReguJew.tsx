@@ -1,48 +1,23 @@
-import React, { useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import * as Styled from "./Jewelry.styled";
 // import { useState } from "react";
 import {
-  Select,
-  Input,
-  Form,
-  Button,
-  InputNumber,
-  Upload,
-  Popover,
-  Popconfirm,
-  Table,
+  // Form,
   notification,
 } from "antd";
 // import { Link } from "react-router-dom";
-import {
-  DeleteOutlined,
-  InfoCircleOutlined,
-} from "@ant-design/icons";
-import type { FormInstance, UploadProps, GetProp, UploadFile } from "antd";
-import { Link } from "react-router-dom";
-import TextArea from "antd/es/input/TextArea";
+
+import type { UploadProps, GetProp, UploadFile } from "antd";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import {
-  MaterialDataType,
-  RingDataType,
-  RingMaterialDataType,
-  materialData,
-  ringData,
-  ringSizeData,
-} from "../ProductData";
-import ImgCrop from "antd-img-crop";
-import {
-  JewelryType,
-} from "./Jewelry.type";
-import { Option } from "antd/es/mentions";
 import { getImage } from "@/services/imageAPI";
 import ProductSteps from "./components/AddReguComponent/steps/ReguJewSteps";
+import { showAllProduct } from "@/services/jewelryAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 const AddProduct = () => {
-  const [form] = Form.useForm();
+  // const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
   const [products, setProducts] = useState<any>([]); 
 
@@ -73,6 +48,7 @@ const AddProduct = () => {
 
       console.log("Formatted Jewelry:", formattedJewelrys);
       setProducts(formattedJewelrys);
+      console.log(products);
     } catch (error) {
       console.error("Failed to fetch Jewelrys:", error);
     }
@@ -122,6 +98,7 @@ const onPreview = async (file: UploadFile) => {
               onChangeImg={onChangeImg}
               onPreview={onPreview}
               fetchData={fetchData}
+              
             />
           </Styled.AdPageArea>
         </Styled.AdminPage>

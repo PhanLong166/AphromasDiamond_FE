@@ -53,8 +53,8 @@ const JewelryDetail = () => {
   const [isModalVisibleGIA, setIsModalVisibleGIA] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [api, contextHolder] = notification.useNotification();
-  const [selectedMaterial, setSelectedMaterial] = useState<any>();
-  const [selectedSize, setSelectedSize] = useState<any>("");
+  // const [selectedMaterial, setSelectedMaterial] = useState<any>();
+  // const [selectedSize, setSelectedSize] = useState<any>("");
   const [allDiamonds, setAllDiamonds] = useState<any[]>([]);
   const [allSettings, setAllSettings] = useState<any[]>([]);
   const [allTypes, setAllTypes] = useState<any[]>([]);
@@ -275,27 +275,27 @@ const JewelryDetail = () => {
     }
   };
 
-  const handleAdd = () => {
-    const newMaterialID = selectedMaterial || "";
-    const newWeight = 1;
-    const newPricePerGram = allMaterials.find(material => material.materialID === newMaterialID)?.sellPrice || 1;
-    const newJewelrySettingPrice = newWeight * newPricePerGram;
+  // const handleAdd = () => {
+  //   const newMaterialID = selectedMaterial || "";
+  //   const newWeight = 1;
+  //   const newPricePerGram = allMaterials.find(material => material.materialID === newMaterialID)?.sellPrice || 1;
+  //   const newJewelrySettingPrice = newWeight * newPricePerGram;
 
-    const newData: any = {
-      key: String(dataMaterial.length + 1),
-      JewelrySettingID: activeProduct?.JewelrySetting?.JewelrySettingID || "",
-      JewelrySettingVariantID: "",
-      MaterialJewelryID: newMaterialID,
-      Weight: newWeight,
-      SizeID: selectedSize || "defaultSize",
-      Quantity: 1,
-      Price: newJewelrySettingPrice,
-      materialJewelry: allMaterials.find(material => material.materialID === newMaterialID) || {},
-      size: allSizes.find(size => size.sizeID === selectedSize) || {},
-    };
+  //   const newData: any = {
+  //     key: String(dataMaterial.length + 1),
+  //     JewelrySettingID: activeProduct?.JewelrySetting?.JewelrySettingID || "",
+  //     JewelrySettingVariantID: "",
+  //     MaterialJewelryID: newMaterialID,
+  //     Weight: newWeight,
+  //     SizeID: selectedSize || "defaultSize",
+  //     Quantity: 1,
+  //     Price: newJewelrySettingPrice,
+  //     materialJewelry: allMaterials.find(material => material.materialID === newMaterialID) || {},
+  //     size: allSizes.find(size => size.sizeID === selectedSize) || {},
+  //   };
 
-    setDataMaterial([...dataMaterial, newData]);
-  };
+  //   setDataMaterial([...dataMaterial, newData]);
+  // };
 
   const EditableCell: React.FC<{
     editable: boolean;
@@ -370,7 +370,7 @@ const JewelryDetail = () => {
       title: "Weight",
       dataIndex: "Weight",
       key: "Weight",
-      render: (text: string, record: any) => (
+      render: (record: any) => (
         <EditableCell
           editable={true}
           value={record.Weight}
@@ -383,7 +383,7 @@ const JewelryDetail = () => {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
-      render: (text: string, record: any) => (
+      render: (record: any) => (
         <EditableCell
           editable={true}
           value={record.Quantity}
@@ -407,7 +407,7 @@ const JewelryDetail = () => {
       ),
       dataIndex: "Price",
       key: "Price",
-      render: (text: string, record: any) => (
+      render: (record: any) => (
         <EditableCell
           editable={true}
           value={record.Price}
@@ -448,7 +448,7 @@ const JewelryDetail = () => {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
-      render: (text: string, record: any) =>
+      render: (record: any) =>
         record.Quantity,
     },
     {
@@ -523,6 +523,7 @@ const JewelryDetail = () => {
 
   return (
     <>
+      {contextHolder}
       <Styled.GlobalStyle />
       <Styled.PageAdminArea>
         <Sidebar />

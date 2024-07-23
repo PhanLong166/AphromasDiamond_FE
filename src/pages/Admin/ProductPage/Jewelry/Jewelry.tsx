@@ -366,7 +366,7 @@ const Jewelry = () => {
       console.log("Formatted Diamonds:", formattedJewelryList); 
       setDiamonds(formattedDiamonds);
       setSettings(formattedSettings);
-      setJewelrys(formattedJewelrys);
+      setJewelrys(formattedJewelryList);
       console.log(diamonds);
       console.log(settings);
 

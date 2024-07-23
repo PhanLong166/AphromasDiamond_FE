@@ -21,7 +21,7 @@ import {
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import {
-  deleteSetting,
+  // deleteSetting,
   getSettingDetails,
   showAllSetting,
   updateSetting,
@@ -45,8 +45,8 @@ const JewelrySettingDetail = () => {
   const [settingMainImage, setSettingMainImage] = useState("");
   const [settingSelectedThumb, setSettingSelectedThumb] = useState(0);
   const [api, contextHolder] = notification.useNotification();
-  const [selectedMaterial, setSelectedMaterial] = useState<any>();
-  const [selectedSize, setSelectedSize] = useState<any>("");
+  const [selectedMaterial] = useState<any>();
+  const [selectedSize] = useState<any>("");
   const [dataMaterial, setDataMaterial] = useState<any[]>([]);
   const [isEditing, setIsEditing] = useState(false);
   const [editedSetting, setEditedSetting] = useState<any | null>(null);
@@ -256,7 +256,7 @@ const JewelrySettingDetail = () => {
       title: "Weight",
       dataIndex: "Weight",
       key: "Weight",
-      render: (text: string, record: any) => (
+      render: (record: any) => (
         <EditableCell
           editable={true}
           value={record.Weight}
@@ -269,7 +269,7 @@ const JewelrySettingDetail = () => {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
-      render: (text: string, record: any) => (
+      render: (record: any) => (
         <EditableCell
           editable={true}
           value={record.Quantity}
@@ -293,7 +293,7 @@ const JewelrySettingDetail = () => {
       ),
       dataIndex: "Price",
       key: "Price",
-      render: (text: string, record: any) => (
+      render: (record: any) => (
         <EditableCell
           editable={true}
           value={record.Price}
