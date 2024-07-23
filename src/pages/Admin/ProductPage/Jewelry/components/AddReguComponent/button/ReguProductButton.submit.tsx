@@ -2,8 +2,8 @@ import { useAppDispatch } from "@/hooks";
 import { Button, Form, FormInstance } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import React, { useState } from "react";
-import { uploadSliceSetting } from "../slice";
-import { createSetting } from "@/services/jewelrySettingAPI";
+import uploadSlice from "../slice";
+import { createProduct } from "@/services/jewelryAPI";
 
 interface SubmitButtonProps {
     form: FormInstance;
@@ -33,16 +33,14 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
     }, [values]);
 
-    const settingValues: object = {
-        ...values,
-        UpdateTime: new Date(),
-        JewelrySettingVariant: null,
+    const productValues: object = {
+        ...values
     }
-    console.log(settingValues);
+    console.log(productValues);
 
-    const addSetting = async (settingValues: object) => {
+    const addProduct = async (productValues: object) => {
         try {
-            const { data } = await createSetting(settingValues);
+            const { data } = await createProduct(productValues);
             if (data.statusCode !== 200) throw new Error(data.message);
             else {
                 api.success({
@@ -51,7 +49,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                         'Create information successfully!'
                 })
                 setCurrent(current + 1);
-                dispatch(uploadSliceSetting.actions.setJewelryID(data?.data?.JewelrySettingID));
+                dispatch(uploadSlice.actions.setProductID(data?.data?.ProductID));
             }
         } catch (error: any) {
             api.error({
@@ -66,7 +64,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
             type="primary"
             htmlType="submit"
             disabled={!submittable}
-            onClick={() => addSetting(settingValues)}
+            onClick={() => addProduct(productValues)}
         >
             {children}
         </Button>
