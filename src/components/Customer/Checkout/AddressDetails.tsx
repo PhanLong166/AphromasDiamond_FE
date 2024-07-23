@@ -148,7 +148,7 @@ const AddressDetails: React.FC<{
           <InputGroup>
             <Form.Item
               label="Phone Number"
-              name="phoneNumber"
+              name="PhoneNumber"
               rules={[
                 { required: true, message: 'Phone Number is required' },
                 { pattern: /^0\d{9}$/, message: 'Phone Number must be 10 digits and start with 0' }
@@ -161,7 +161,7 @@ const AddressDetails: React.FC<{
 
         <Form.Item
           label="Payment Method"
-          name="paymentMethod"
+          name="Method"
           rules={[{ required: true, message: 'Payment Method is required' }]}
         >
           <StyledSelect placeholder="Select Payment Method" onChange={handlePaymentChange}>

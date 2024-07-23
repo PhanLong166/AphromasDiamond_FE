@@ -85,7 +85,7 @@ const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
 
 const description = "This is a description";
 const Checkout: React.FC = () => {
-  const { AccountID } = useAuth();
+  const { AccountID, user } = useAuth();
   const [CustomerID, setCustomerID] = useState<number>();
   const [Customer, setCustomer] = useState<any>(null);
   // const [form] = Form.useForm();
@@ -112,7 +112,7 @@ const Checkout: React.FC = () => {
   const getCustomerDetail = async () => {
     const customer = await getCustomer(AccountID ? AccountID : 0);
     setCustomer(customer ? customer.data.data : null);
-    console.log('Customer: ', Customer.Email);
+    // console.log('Customer: ', Customer);
     setCustomerID(customer ? customer.data.data.CustomerID : 0);
   }
 
@@ -145,7 +145,7 @@ const Checkout: React.FC = () => {
           DiamondID: number | null,
           ProductID: number | null,
         }
-      ) => orderLineItem.CustomerID === CustomerID &&
+      ) => orderLineItem.CustomerID === user?.CustomerID &&
       orderLineItem.OrderID === null &&
         (orderLineItem.DiamondID !== null || orderLineItem.ProductID !== null)
       )
@@ -222,7 +222,7 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Formm>
-            <ContactInfo email={Customer ? Customer.Email : ""} onEdit={handleEdit} />
+            <ContactInfo email={Customer ? Customer?.Email : ""} onEdit={handleEdit} />
             <AddressDetails
               onFinish={onFinish}
               provinces={provinces}

@@ -7,6 +7,7 @@ import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllProduct } from "@/services/jewelryAPI";
+import useAuth from "@/hooks/useAuth";
 interface CartItemProps {
   name: string;
   image: string;
@@ -35,6 +36,8 @@ const Summary: React.FC = () => {
   const [orderLineItems, setOrderLineItems] = useState<any[]>([]);
   const [diamondList, setDiamondList] = useState<any[]>([]);
   const [productList, setProductList] = useState<any[]>([]);
+  const { user } = useAuth();
+
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
@@ -52,7 +55,7 @@ const Summary: React.FC = () => {
           ProductID: number | null
         }
       ) => (
-        OrderLineItem.CustomerID === 1
+        OrderLineItem.CustomerID === user?.CustomerID
         && OrderLineItem.OrderID === null
         && (OrderLineItem.DiamondID !== null || OrderLineItem.ProductID !== null)
       ))
@@ -67,9 +70,7 @@ const Summary: React.FC = () => {
       setProductList(productResponse.data.data);
 
       //Display result
-      console.log('Diamond List:', diamondList);
-      console.log('Orderline', getOrderLineItems);
-      console.log('Product List: ', productList);
+      console.log('Cart: ', orderLineItems);
     } catch (error: any) {
       console.error(error);
     }
@@ -85,9 +86,8 @@ const Summary: React.FC = () => {
     shippingCost: number
   ) => {
     let newShippingCost = shippingCost;
-    if (orderLineItems.length < 2) {
+    if (orderLineItems.length === 1) {
       newShippingCost = 15;
-      console.log(shippingCost);
     } else {
       newShippingCost = 0;
     }
@@ -151,7 +151,7 @@ const Summary: React.FC = () => {
       </EditTotal>
       <EditTotal>
         <p>Shipping: </p>
-        <p>{orderLineItems.length < 2 ? "$15" : "Free"}</p>
+        <p>{orderLineItems.length === 2 ? "$15.00" : "Free"}</p>
       </EditTotal>
       <EditTotal>
         <p>Subtotal: </p>
