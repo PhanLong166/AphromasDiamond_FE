@@ -555,7 +555,7 @@ const DiamondDetail = () => {
                           <Modal
                             title="Confirm Deletion"
                             visible={isModalVisible}
-                            onOk={() => handleDelete(activeDiamond.DiamondID)}
+                            onOk={() => handleDelete()}
                             onCancel={handleCancel}
                           >
                             <p>Are you sure you want to delete this diamond?</p>

@@ -10,7 +10,7 @@ type CartItemProps = {
   OrderLineID: number;
   DiamondID: number;
   name: string;
-  description: string;
+  designer: string;
   price: number;
   images: string;
   type: string;
@@ -19,7 +19,7 @@ type CartItemProps = {
 const CartItem = ({
   type,
   name,
-  description,
+  designer,
   price,
   images,
   DiamondID,
@@ -54,13 +54,13 @@ const CartItem = ({
         <Styled.ItemInfo>
           {/* <ItemImage src={image} alt='default-image.jpg' /> */}
           {images && images.length > 0 && (
-            <Styled.ItemImage src={images} alt={images} />
+            <Styled.ItemImage src={images} alt='Image.png' />
           )}
         </Styled.ItemInfo>
         <Styled.ItemDescription>
           <Styled.ProductDescription>
             <Styled.ItemType>{name}</Styled.ItemType>
-            <Styled.Description>{description}</Styled.Description>
+            <Styled.Description>By {designer}</Styled.Description>
             {type === 'diamond' ? (
               <div>
                 {diamond ? (

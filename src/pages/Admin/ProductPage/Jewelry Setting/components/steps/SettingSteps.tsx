@@ -6,7 +6,7 @@ import SubmitButton from "../button/SettingButton.submit";
 import { NotificationInstance } from "antd/es/notification/interface";
 import DiamondImageUpload from "../upload/DiamondImage.upload";
 import UploadButton from "../button/SettingButton.upload";
-import MaterialTable from "../form/SettingVariant";
+// import MaterialTable from "../form/SettingVariant";
 
 type SettingStepsType = {
   title: string;
@@ -35,7 +35,7 @@ const SettingSteps = ({
   const { token } = theme.useToken();
   const [current, setCurrent] = useState(0);
   const [form] = Form.useForm();
-  const [tableForm] = Form.useForm();
+  // const [tableForm] = Form.useForm();
   const [imageForm] = Form.useForm();
 
   const steps: SettingStepsType[] = [

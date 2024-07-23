@@ -1,6 +1,6 @@
 import * as Styled from "./Jewelry.styled";
 import { useEffect, useState } from "react";
-import { Space, Table, Input, Button, notification } from "antd";
+import { Space, Table, Input, Button } from "antd";
 // import { Link } from "react-router-dom";
 import {
   SearchOutlined,
@@ -14,7 +14,7 @@ import { Link, useNavigate } from "react-router-dom";
 // import { productData, ProductDataType } from "../ProductData"; // Import data here
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
-import { JewelryType_Filter } from "./Jewelry.type";
+// import { JewelryType_Filter } from "./Jewelry.type";
 import { getImage } from "@/services/imageAPI";
 import { showAllSetting } from "@/services/jewelrySettingAPI";
 import { showAllDiamond } from "@/services/diamondAPI";
@@ -22,9 +22,9 @@ import { showAllProduct } from "@/services/jewelryAPI";
 
 
 const Jewelry = () => {
-  const [isAdding, setIsAdding] = useState(false);
+  // const [isAdding, setIsAdding] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [api, contextHolder] = notification.useNotification();
+  // const [api, contextHolder] = notification.useNotification();
   const [jewelrys, setJewelrys] = useState([]);
   const [diamonds, setDiamonds] = useState([]);
   const [settings, setSettings] = useState([]);
@@ -32,18 +32,18 @@ const Jewelry = () => {
   const navigate = useNavigate(); 
 
   
-  type NotificationType = 'success' | 'info' | 'warning' | 'error';
+  // type NotificationType = 'success' | 'info' | 'warning' | 'error';
 
-  const openNotification = (
-    type: NotificationType,
-    method: string,
-    error: string
-  ) => {
-    api[type]({
-      message: type === "success" ? "Notification" : "Error",
-      description: type === "success" ? `${method} jewelry setting successfully` : error,
-    });
-  };
+  // const openNotification = (
+  //   type: NotificationType,
+  //   method: string,
+  //   error: string
+  // ) => {
+  //   api[type]({
+  //     message: type === "success" ? "Notification" : "Error",
+  //     description: type === "success" ? `${method} jewelry setting successfully` : error,
+  //   });
+  // };
 
 
   const fetchData = async () => {
@@ -130,6 +130,8 @@ const Jewelry = () => {
       setDiamonds(formattedDiamonds);
       setSettings(formattedSettings);
       setJewelrys(formattedJewelrys);
+      console.log(diamonds);
+      console.log(settings);
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }

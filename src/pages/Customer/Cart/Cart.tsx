@@ -73,7 +73,7 @@ const Cart = () => {
           // const imagesDiamond = await getImageDiamond(usingImageID);
           if (diamondDetails && diamondDetails.data && diamondDetails.data.usingImage) {
             const usingImageID = diamondDetails.data.usingImage[0];
-            const imageDiamond = getImage(usingImageID.UsingImageID ? usingImageID.UsingImageID : 0);
+            const imageDiamond = getImage(usingImageID?.UsingImageID ? usingImageID.UsingImageID : null);
             const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
             return { ...item, diamondDetails: diamondDetails.data, type, imageDiamond };
           } else {
@@ -93,7 +93,7 @@ const Cart = () => {
 
   useEffect(() => {
     loadCartItems();
-  }, [cartItems]);
+  }, []);
 
   const loadCartItems = async () => {
     const items = await fetchCartItemsWithDetails();
@@ -124,12 +124,8 @@ const Cart = () => {
   const subtotal = () => {
     let total = 0;
     cartItems.map((item) => {
-      const findProduct = productList.find((product) => product.ProductID === item.ProductID);
-      const findDiamond = diamondList.find((diamond) => diamond.DiamondID === item.DiamondID);
-      if (!findProduct) {
-        total += parseFloat(findDiamond.Price);
-      }
-    })
+        total += parseFloat(item?.diamondDetails?.Price);
+    });
     return total;
   }
 
@@ -192,8 +188,8 @@ const Cart = () => {
                     key={index}
                     OrderLineID={item.OrderLineID}
                     DiamondID={item.DiamondID}
-                    description={
-                      item.diamondDetails?.Description ||
+                    designer={
+                      item.diamondDetails?.Designer ||
                       "No description available"
                     }
                     name={
@@ -223,7 +219,7 @@ const Cart = () => {
                         Shipping
                       </CartStyled.SummaryLabel>
                       <CartStyled.SummaryValue>
-                        {cartItems.length < 2 ? "$15" : "Free"}
+                        {cartItems.length === 1 ? "$15.00" : "Free"}
                       </CartStyled.SummaryValue>
                     </CartStyled.SummaryRow>
                     <CartStyled.SummaryRow>
@@ -231,7 +227,7 @@ const Cart = () => {
                         Subtotal
                       </CartStyled.SummaryLabel>
                       <CartStyled.SummaryValue>
-                        ${subtotal()}
+                        ${subtotal().toFixed(2)}
                       </CartStyled.SummaryValue>
                     </CartStyled.SummaryRow>
                     <PromoCodeSection onApplyVoucher={onApplyVoucher} />
