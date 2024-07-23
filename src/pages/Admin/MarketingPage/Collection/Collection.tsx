@@ -1,46 +1,39 @@
 import * as Styled from "./Collection.styled";
-import React, { useState } from "react";
-// import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
 import {
   SearchOutlined,
   PlusCircleOutlined,
-  EyeOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
 import type {
   TableProps,
   FormInstance,
-  TableColumnsType,
   DatePickerProps,
 } from "antd";
 import {
   Form,
   Input,
   InputNumber,
-  // Popconfirm,
   Table,
-  // Typography,
   Button,
   Space,
   DatePicker,
-  Select,
+  notification,
+  Typography,
+  Popconfirm,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
-import { Link } from "react-router-dom";
-import { collectionData, CollectionDataType } from "../MarketingData";
-import { productData } from "../../ProductPage/ProductData";
-
-// const originData = createInitialData();
+import { createCollection, deleteCollection, showAllCollection, updateCollection } from "@/services/collectionAPI";
+import { showAllProduct } from "@/services/productAPI";
 
 interface EditableCellProps {
   editing: boolean;
-  dataIndex: keyof CollectionDataType;
+  dataIndex: keyof any;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: CollectionDataType;
+  record: any;
   index: number;
-  // children: React.ReactNode;
 }
 
 const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
@@ -48,8 +41,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   dataIndex,
   title,
   inputType,
-  // record,
-  // index,
   children,
   ...restProps
 }) => {
@@ -59,8 +50,8 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
+        name={dataIndex.toString()}
+        style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -77,34 +68,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   );
 };
 
-// SUBMIT FORM
-interface SubmitButtonProps {
-  form: FormInstance;
-}
-
-const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
-  form,
-  children,
-}) => {
-  const [submittable, setSubmittable] = React.useState<boolean>(false);
-
-  // Watch all values
-  const values = Form.useWatch([], form);
-
-  React.useEffect(() => {
-    form
-      .validateFields({ validateOnly: true })
-      .then(() => setSubmittable(true))
-      .catch(() => setSubmittable(false));
-  }, [form, values]);
-
-  return (
-    <Button type="primary" htmlType="submit" disabled={!submittable}>
-      {children}
-    </Button>
-  );
-};
-
 // DATE PICK
 const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
   console.log(date, dateString);
@@ -117,57 +80,234 @@ const handleChange = (value: string[]) => {
 
 const Collection = () => {
   const [form] = Form.useForm();
-  const [data] = useState<CollectionDataType[]>(collectionData);
+  const [searchText, setSearchText] = useState("");
   const [isAdding, setIsAdding] = useState(false);
+  const [api, contextHolder] = notification.useNotification();
+  const [collections, setCollections] = useState<any[]>([]);
+  const [editingKey, setEditingKey] = useState<React.Key>("");
+  const isEditing = (record: any) => record.key === editingKey;
+  const [products, setProducts] = useState<any[]>([]);
 
-  const columns: TableColumnsType<CollectionDataType> = [
+  
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} collection successfully` : error,
+    });
+  };
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllCollection();
+      const responseProduct = await showAllProduct();
+
+      const { data } = response.data;
+      const { data: productData } = responseProduct.data;
+
+      const formattedCollections = data.map((collection: any) => ({
+        key: collection.CollectionID,
+        collectionID: collection.CollectionID,
+          collectionName: collection.CollectionName,
+          description: collection.Description,
+          debutTime: collection.DebutTime,
+      }));
+
+      const formattedProducts = productData
+      .filter((product: any) => (product.CollectionID !== null))
+      .map((product: any) => ({
+        productName: product.Name,
+      }));
+
+      setCollections(formattedCollections);
+      setProducts(formattedProducts);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+  // EDIT
+  const edit = (record: Partial<any> & { key: React.Key }) => {
+    form.setFieldsValue({
+      collectionName: "",
+      ...record,
+    });
+    setEditingKey(record.key);
+  };
+
+  const cancel = () => {
+    setEditingKey("");
+  };
+
+  const save = async (key: React.Key) => {
+    try {
+      const row = (await form.validateFields()) as any;
+      const newData = [...collections];
+      const index = newData.findIndex((item) => key === item.key);
+
+      if (index > -1) {
+        const item = newData[index];
+        const updatedItem = {
+          CollectionName: row.collectionName,
+          Description: row.description,
+          DebutTime: row.debutTime,
+          // UpdateTime: new Date().toISOString(),
+        };
+        newData.splice(index, 1, {
+          ...item,
+          ...row,
+        });
+        setCollections(newData);
+        await updateCollection(item.collectionID, updatedItem);
+        openNotification("success", "Update", "");
+      } else {
+        newData.push(row);
+        setCollections(newData);
+        openNotification("error", "Update", "Failed to update type");
+      }
+      setEditingKey("");
+    } catch (errInfo) {
+      console.log("Validate Failed:", errInfo);
+    }
+  };
+
+  const handleDelete = async (collectionID: number) => {
+    try {
+      await deleteCollection(collectionID);
+      openNotification("success", "Delete", "");
+      fetchData();
+    } catch (error: any) {
+      console.error("Failed to delete collection:", error);
+      openNotification("error", "Delete", error.message);
+    }
+  };
+
+  const columns = [
     {
       title: "Collection ID",
       dataIndex: "collectionID",
-      sorter: (a: CollectionDataType, b: CollectionDataType) =>
-        a.collectionID.localeCompare(b.collectionID),
+      sorter: (a: any, b: any) =>
+        parseInt(a.collectionID) - parseInt(b.collectionID),
     },
     {
       title: "Collection Name",
       dataIndex: "collectionName",
-      sorter: (a: CollectionDataType, b: CollectionDataType) =>
+      editable: true,
+      sorter: (a: any, b: any) =>
         a.collectionName.length - b.collectionName.length,
     },
     {
       title: "Debut Date",
       dataIndex: "debutDate",
-      sorter: (a: CollectionDataType, b: CollectionDataType) =>
+      editable: true,
+      onChange:{onChangeDate},
+      sorter: (a: any, b: any) =>
         a.debutDate.length - b.debutDate.length,
     },
     {
       title: "Product Quantity",
       dataIndex: "collectionID",
-      render: (_, { collectionID }) => {
+      render: (_, record: any) => {
         let count = 0;
-        productData.forEach((collection) => {
-          if (collection.collectionID === collectionID) {
+        products.forEach((collection) => {
+          if (collection.collectionID === record.collectionID) {
             count++;
           }
         });
         return count;
       },
-      sorter: (a, b) => a.collectionID.length - b.collectionID.length,
+      sorter: (a: any, b: any) => a.count.length - b.count.length,
     },
     {
-      title: "Detail",
-      key: "detail",
+      title: "Description",
+      dataIndex: "description",
+      editable: true,
+    },
+    // {
+    //   title: "Detail",
+    //   key: "detail",
+    //   className: "TextAlign",
+    //   render: (_: unknown, { collectionID }) => (
+    //     <Space size="middle">
+    //       <Link to={`/admin/marketing/collection/detail/${collectionID}`}>
+    //         <EyeOutlined />
+    //       </Link>
+    //     </Space>
+    //   ),
+    // },
+    {
+      title: "Edit",
+      dataIndex: "edit",
+      className: "TextAlign SmallSize",
+      render: (_: unknown, record: any) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{ marginRight: 8 }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingKey !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
+        );
+      },
+    },
+    {
+      title: "Delete",
+      dataIndex: "collectionID",
       className: "TextAlign",
-      render: (_: unknown, { collectionID }) => (
-        <Space size="middle">
-          <Link to={`/admin/marketing/collection/detail/${collectionID}`}>
-            <EyeOutlined />
-          </Link>
-        </Space>
-      ),
+      render: (record: any) =>
+        collections.length >= 1 ? (
+          <Popconfirm
+            title="Sure to delete?"
+            onConfirm={() => handleDelete(record.collectionID)}
+          >
+            <a>Delete</a>
+          </Popconfirm>
+        ) : null,
     },
   ];
 
-  const onChangeTable: TableProps<CollectionDataType>["onChange"] = (
+  
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record: any) => ({
+        record,
+        inputType: col.dataIndex === "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
+
+  const onChangeTable: TableProps<any>["onChange"] = (
     pagination,
     filters,
     sorter,
@@ -176,9 +316,8 @@ const Collection = () => {
     console.log("params", pagination, filters, sorter, extra);
   };
 
-  // SEARCH AREA
-  const [searchText, setSearchText] = useState("");
 
+  // SEARCH AREA
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -189,16 +328,72 @@ const Collection = () => {
     }
   };
 
+
+  // MOVE ADD NEW
   const handleAddNew = () => {
     setIsAdding(true);
+    form.resetFields();
   };
 
   const handleCancel = () => {
     setIsAdding(false);
   };
+  
+  
+  // SUBMIT FORM
+  interface SubmitButtonProps {
+    form: FormInstance;
+  }
+
+  const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
+    form,
+    children,
+  }) => {
+    // const [submittable, setSubmittable] = React.useState<boolean>(false);
+    const [submittable, setSubmittable] = useState(false);
+    const values = Form.useWatch([], form);
+
+    useEffect(() => {
+      form
+        .validateFields({ validateOnly: true })
+        .then(() => setSubmittable(true))
+        .catch(() => setSubmittable(false));
+    }, [values]);
+
+    const addCollection = async () => {
+      try {
+        const collectionValues = await form.validateFields();
+        const newCollection = {
+          ...collectionValues,
+        };
+
+        const { data } = await createCollection(newCollection);
+        if (data.statusCode !== 200) throw new Error(data.message);
+        fetchData();
+        setIsAdding(false);
+        openNotification("success", "Add", "");
+      } catch (error: any) {
+        openNotification("error", "", error.message);
+      }
+    };
+
+    return (
+      <Button
+        type="primary"
+        htmlType="submit"
+        disabled={!submittable}
+        onClick={addCollection}
+      >
+        {children}
+      </Button>
+    );
+  };
+
 
   return (
     <>
+          {contextHolder}
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -242,26 +437,33 @@ const Collection = () => {
               {isAdding ? (
                 <>
                   <Form
-                    className="AdPageContent_Content"
                     form={form}
-                    name="validateOnly"
                     layout="vertical"
-                    autoComplete="off"
+                    className="AdPageContent_Content"
                   >
                     <Styled.FormItem>
                       <Form.Item
-                        label="Collection ID"
-                        name="Collection ID"
-                        rules={[{ required: true }]}
-                      >
-                        <Input className="formItem" placeholder="D1234" />
-                      </Form.Item>
-                    </Styled.FormItem>
-                    <Styled.FormItem>
-                      <Form.Item
                         label="Collection Name"
-                        name="Collection Name"
-                        rules={[{ required: true }]}
+                        name="CollectionName"
+                        rules={[
+                          {
+                            required: true,
+                            message: "Collection Name is required.",
+                          },
+                          {
+                            type: "string",
+                            message: "Only alphabet is allowed.",
+                          },
+                          {
+                            max: 100,
+                            message:
+                              "Collection Name must be at most 300 characters long.",
+                          },
+                          {
+                            whitespace: true,
+                            message: "Not only has whitespace.",
+                          },
+                        ]}
                       >
                         <Input className="formItem" placeholder="15" />
                       </Form.Item>
@@ -269,7 +471,7 @@ const Collection = () => {
                     <Styled.FormItem>
                       <Form.Item
                         label="Debut Date"
-                        name="Debut Date"
+                        name="DebutTime"
                         rules={[{ required: true }]}
                       >
                         <DatePicker
@@ -282,17 +484,34 @@ const Collection = () => {
                       <Form.Item
                         label="Description"
                         name="Description"
-                        rules={[{ required: true }]}
+                        rules={[
+                          {
+                            required: true,
+                            message: "Description is required.",
+                          },
+                          {
+                            type: "string",
+                            message: "Only alphabet is allowed.",
+                          },
+                          {
+                            max: 500,
+                            message:
+                              "Description must be at most 300 characters long.",
+                          },
+                          {
+                            whitespace: true,
+                            message: "Not only has whitespace.",
+                          },
+                        ]}
                       >
                         <Input.TextArea
                           placeholder="Description"
                           className="formItem"
                           allowClear
-                          // onChange={onChangeAdd}
                         />
                       </Form.Item>
                     </Styled.FormDescript>
-                    <Styled.FormItem>
+                    {/* <Styled.FormItem>
                       <Form.Item
                         label="Product in Collection"
                         name="Product in Collection"
@@ -311,18 +530,16 @@ const Collection = () => {
                           onChange={handleChange}
                         />
                       </Form.Item>
-                    </Styled.FormItem>
-                  </Form>
+                    </Styled.FormItem> */}
+                  
 
                   <Styled.ActionBtn>
                     <Form.Item>
                       <Space>
-                      {/* <Link to="/admin/product/diamond/detail/D0001">   */}
                       <SubmitButton form={form}> 
                         <SaveOutlined />
                         Save
                       </SubmitButton>
-                    {/* </Link> */}
                         <Button
                           onClick={handleCancel}
                           className="CancelBtn"
@@ -333,6 +550,7 @@ const Collection = () => {
                       </Space>
                     </Form.Item>
                   </Styled.ActionBtn>
+                  </Form>
                 </>
               ) : (
                 <Form form={form} component={false}>
@@ -343,10 +561,10 @@ const Collection = () => {
                       },
                     }}
                     bordered
-                    dataSource={data}
+                    dataSource={mergedColumns}
                     columns={columns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} // Add pagination here
+                    pagination={{ pageSize: 6 }} 
                     onChange={onChangeTable}
                   />
                 </Form>
