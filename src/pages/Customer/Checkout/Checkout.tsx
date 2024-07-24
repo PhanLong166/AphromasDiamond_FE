@@ -12,6 +12,8 @@ import config from "@/config";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
 import { OrderStatus } from "@/utils/enum";
+import { useAppDispatch } from "@/hooks";
+import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 
 interface ContactInfoProps {
   email: string;
@@ -99,6 +101,7 @@ const Checkout: React.FC = () => {
   const [selectedProvince, setSelectedProvince] = useState<number | null>(null);
   const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
   const navigate = useNavigate();
+  const dispatch = useAppDispatch();
   
 
   const fetchProvincesData = async () => {
@@ -144,6 +147,7 @@ const Checkout: React.FC = () => {
       if (responeOrder.data.statusCode !== 200) throw new Error();
 
       const getOrderID = responeOrder.data.data.OrderID;
+      dispatch(orderSlice.actions.setOrderID(getOrderID));
       console.log(getOrderID);
       const getOrderLine = await showAllOrderLineForAdmin();
       getOrderLine.data.data.filter((

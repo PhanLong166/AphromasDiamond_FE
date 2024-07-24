@@ -1,5 +1,6 @@
 import { cartSlice } from "@/layouts/MainLayout/slice/cartSlice";
 import { customSlice } from "@/layouts/MainLayout/slice/customRingSlice";
+import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 import uploadSlice from "@/pages/Admin/ProductPage/Diamond/components/slice";
 import uploadSliceSetting from "@/pages/Admin/ProductPage/Jewelry Setting/components/slice";
 import { uploadSliceProduct } from "@/pages/Admin/ProductPage/Jewelry/components/AddDiaJewComponent/slice";
@@ -12,6 +13,7 @@ export const store = configureStore({
         upload: uploadSlice.reducer,
         uploadSetting: uploadSliceSetting.reducer,
         uploadProduct: uploadSliceProduct.reducer,
+        order: orderSlice.reducer,
     },
     middleware: (getDefaultMiddleWare) => 
         getDefaultMiddleWare({

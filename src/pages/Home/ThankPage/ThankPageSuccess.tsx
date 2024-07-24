@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Row, Col } from "antd";
 import {
   CheckCircleFilled,
@@ -9,15 +9,29 @@ import {
 import { Container } from "./ThankPage.styled";
 import { Link } from "react-router-dom";
 import config from "@/config";
-import { orderDetail } from "./orderDetail";
+import { useAppSelector } from "@/hooks";
+import { orderDetail } from "@/services/orderAPI";
 
 const ThankPageSuccess: React.FC = () => {
+  const orderID = useAppSelector((state) => state.order.OrderID);
+  const [order, setOrder] = useState<any>(null);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      //Get order info
+      const orderResponse = await orderDetail(orderID);
+      setOrder(orderResponse.data.data);
+    }
+    
+    fetchData();
+  }, [])
+  
   return (
     <Container>
       <div className="thank-page-success-container">
         <div className="thank-page-success-box">
           <CheckCircleFilled className="thank-page-success-icon" />
-          <h1>PAYMENT SUCCESS!</h1>
+          <h1>ORDER SUCCESS!</h1>
           <img
             src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/ThankPage%2Fcoworking-lettering-thank-you-with-decorative-elements-text.png?alt=media&token=c0d352fe-d89e-43e0-a7ee-e02306ccf231"
             alt="Success"
@@ -38,32 +52,27 @@ const ThankPageSuccess: React.FC = () => {
                     <Col span={18} className="thank-page-summary-details">
                       <div className="content main">
                         <p className="label">ORDER ID </p>
-                        <p className="info">{orderDetail.orderId}</p>
+                        <p className="info">{order?.OrderID}</p>
                       </div>
 
                       <div className="content">
                         <p className="label">DATE</p>
-                        <p className="info">{orderDetail.date}</p>
+                        <p className="info">{order?.OrderDate.replace("T", " ").replace(".000Z", " ")}</p>
                       </div>
 
                       <div className="content">
                         <p className="label"> CUSTOMER</p>
-                        <p className="info"> {orderDetail.customer}</p>
-                      </div>
-
-                      <div className="content">
-                        <p className="label">TOTAL ITEMS</p>
-                        <p className="info">{orderDetail.totalItems}</p>
+                        <p className="info"> {order?.NameReceived}</p>
                       </div>
 
                       <div className="content">
                         <p className="label">AMOUNT</p>
-                        <p className="info">{orderDetail.amount}</p>
+                        <p className="info">${order?.TotalPrice}</p>
                       </div>
 
                       <div className="content end">
                         <p className="label">PAYMENT METHOD</p>
-                        <p className="info">{orderDetail.paymentMethod}</p>
+                        <p className="info">{order?.PaymentID}</p>
                       </div>
                     </Col>
                   </Row>

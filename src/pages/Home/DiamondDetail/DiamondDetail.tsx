@@ -236,7 +236,7 @@ const DiamondDetails: React.FC = () => {
     }
 
     fetchCart();
-  }, [id, cartList]);
+  }, [id]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;

@@ -1,13 +1,14 @@
 import * as Styled from "./Order.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
-import { data, DataType } from "./OrderData";
+import { DataType } from "./OrderData";
 import { Link } from "react-router-dom";
 import { OrderStatus } from "@/utils/enum";
+import { showAllOrder } from "@/services/orderAPI";
 // import { Col, Row } from "antd";
 
 
@@ -18,13 +19,24 @@ const columns: TableColumnsType<DataType> = [
     title: "Order ID",
     dataIndex: "orderID",
     defaultSortOrder: "descend",
-    sorter: (a: DataType, b: DataType) => a.orderID.localeCompare(b.orderID),
+    sorter: (a: DataType, b: DataType) => {
+      if (typeof a.orderID === 'string' && typeof b.orderID === 'string') {
+        return a.orderID.localeCompare(b.orderID);
+      } else if (typeof a.orderID === 'number' && typeof b.orderID === 'number') {
+        return a.orderID - b.orderID;
+      } else {
+        return 0;
+      }
+    },
   },
   {
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
     sorter: (a: DataType, b: DataType) => a.date.localeCompare(b.date),
+    render: (_, { date }) => {
+      return <>{date.replace("T", " ").replace(".000Z", " ")}</>
+    }
   },
   {
     title: "Customer",
@@ -102,6 +114,7 @@ const onChange: TableProps<DataType>["onChange"] = (
 
 const Order = () => {
   const [searchText, setSearchText] = useState("");
+  const [order, setOrder] = useState<any[]>([]);
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -112,6 +125,24 @@ const Order = () => {
       onSearch(searchText);
     }
   };
+
+  useEffect(() => {
+    const fetchData = async () => {
+      // Get order list
+      const orderList = await showAllOrder();
+      const formatOrderList = orderList.data.data
+        .map((order: any) => ({
+          orderID: order.OrderID,
+          date: order.OrderDate,
+          cusName: order.NameReceived,
+          total: order.Price,
+          status: order.OrderStatus,
+        }))
+      setOrder(formatOrderList);
+    };
+
+    fetchData();
+  }, [])
 
   return (
     <>
@@ -141,7 +172,7 @@ const Order = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={data}
+                dataSource={order}
                 // pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
