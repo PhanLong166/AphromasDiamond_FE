@@ -11,6 +11,7 @@ import { showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineA
 import config from "@/config";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
+import { OrderStatus } from "@/utils/enum";
 
 interface ContactInfoProps {
   email: string;
@@ -110,16 +111,18 @@ const Checkout: React.FC = () => {
   };
 
   const getCustomerDetail = async () => {
+    if(AccountID === null) return;
     const customer = await getCustomer(AccountID ? AccountID : 0);
-    setCustomer(customer ? customer.data.data : null);
+    setCustomer(customer?.data?.data);
     // console.log('Customer: ', Customer);
     setCustomerID(customer ? customer.data.data.CustomerID : 0);
+    console.log('Customer ID: ', CustomerID);
   }
 
   React.useEffect(() => {
     getCustomerDetail();
     fetchProvincesData();
-  }, []);
+  }, [Customer?.CustomerID, AccountID]);
 
   const onFinish = async (values: any) => {
     try {
@@ -128,15 +131,20 @@ const Checkout: React.FC = () => {
         CompleteDate: new Date(),
         IsPayed: false,
         CustomerID: CustomerID ? CustomerID : null,
-        OrderStatus: "Pending",
+        OrderStatus: OrderStatus.PENDING,
         IsActive: true,
-        PaymentID: `${values.paymentMethod}`
+        PaymentID: `${values.Method}`,
+        NameReceived: values.Name,
+        PhoneNumber: values.PhoneNumber,
+        Email: Customer?.Email,
+        Address: `${values.addressDetails}, ${values.ward}, ${values.district}, ${values.province}`
       }
 
       const responeOrder = await createOrder(requestBodyOrder);
       if (responeOrder.data.statusCode !== 200) throw new Error();
 
       const getOrderID = responeOrder.data.data.OrderID;
+      console.log(getOrderID);
       const getOrderLine = await showAllOrderLineForAdmin();
       getOrderLine.data.data.filter((
         orderLineItem: {
@@ -205,7 +213,7 @@ const Checkout: React.FC = () => {
               description,
             },
             {
-              title: "Payment",
+              title: "Order",
 
               description,
             },
@@ -222,7 +230,7 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Formm>
-            <ContactInfo email={Customer ? Customer?.Email : ""} onEdit={handleEdit} />
+            <ContactInfo email={Customer?.Email} onEdit={handleEdit} />
             <AddressDetails
               onFinish={onFinish}
               provinces={provinces}
