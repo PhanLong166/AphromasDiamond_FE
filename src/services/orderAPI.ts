@@ -29,7 +29,7 @@ export const orderDetail = (id: number) => {
 }
 
 export const orderRelation = (id: number) => {
-    return get(`/order/relations/${id}`);
+    return get(`/order/detail/${id}`);
 }
 
 export const createOrder = (order: object) => {

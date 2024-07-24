@@ -35,6 +35,15 @@ const formatPrice = (price: number | bigint) => {
     minimumFractionDigits: 0,
   }).format(price)}`;
 };
+
+const formatDateTime = (dateTime: string) => {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+
+  }).format(new Date(dateTime));
+};
 const fetchAllOrder = async (AccountID: number) => {
   try {
     const { data } = await showAllOrder();
@@ -129,6 +138,7 @@ const History = () => {
     {
       title: "Order Date",
       dataIndex: "OrderDate",
+      render : (text) => formatDateTime(text),
       sorter: (a: DataType, b: DataType) =>
         a.OrderDate.localeCompare(b.OrderDate),
     },
