@@ -1,6 +1,10 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import styled from "styled-components";
 import { ChangeEvent, FormEvent, useState, useRef, useEffect } from "react";
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
+import useAuth from "@/hooks/useAuth";
+import { getCustomer } from "@/services/accountApi";
 
 interface Address {
   street: string;
@@ -16,6 +20,17 @@ interface Account {
   email: string;
   password: string;
 }
+
+const fetchCustomerInfo = async (AccountID: number) => {
+  try {
+    const { data } = await getCustomer(AccountID);
+    console.log(data.data);
+    return data.data;
+  } catch (error) {
+    console.log("Error fetching customer info:", error);
+    return null;
+  }
+};
 
 const Account = () => {
   const [isAddressModalOpen, setAddressModalOpen] = useState(false);
@@ -91,15 +106,15 @@ const Account = () => {
     return re.test(email);
   };
 
-  const handleAddressEdit = () => {
-    setTempAddress({ ...address });
-    setAddressModalOpen(true);
-  };
+  // const handleAddressEdit = () => {
+  //   setTempAddress({ ...address });
+  //   setAddressModalOpen(true);
+  // };
 
-  const handleAccountEdit = () => {
-    setTempAccount({ ...account });
-    setAccountModalOpen(true);
-  };
+  // const handleAccountEdit = () => {
+  //   setTempAccount({ ...account });
+  //   setAccountModalOpen(true);
+  // };
 
   const closeModal = () => {
     resetFormValues();
@@ -164,7 +179,6 @@ const Account = () => {
     if (tempAccount.phone.length !== 10 || !tempAccount.phone.startsWith("0")) {
       errors.phone = "Phone number must be exactly 10 digits and start with 0";
     }
-   
 
     if (Object.keys(errors).length === 0) {
       setAccount(tempAccount);
@@ -199,8 +213,28 @@ const Account = () => {
     }
   };
 
-  
+  const formatDate = (dateString: string) => {
+    const date = new Date(dateString);
+    return new Intl.DateTimeFormat("en-GB", {
+      year: "numeric",
+      month: "2-digit",
+      day: "2-digit",
+    }).format(date);
+  };
 
+  const { AccountID } = useAuth();
+  const [customerInfo, setCustomerInfo] = useState<any>(null);
+  useEffect(() => {
+    if (AccountID) {
+      const getCustomerInfo = async () => {
+        const info = await fetchCustomerInfo(AccountID);
+        if (info) {
+          setCustomerInfo(info);
+        }
+      };
+      getCustomerInfo();
+    }
+  }, [AccountID]);
   return (
     <div>
       <AccountCus />
@@ -212,66 +246,66 @@ const Account = () => {
               <Column>
                 <Row>
                   <InfoTitle>Address Delivery</InfoTitle>
-                  <EditButton onClick={handleAddressEdit}>Edit</EditButton>
+                  {/* <EditButton onClick={handleAddressEdit}>Edit</EditButton> */}
                 </Row>
-               <form action="" >
+
                 <Row>
                   <Column>
                     <DetailGroup>
                       <Label>STREET ADDRESS</Label>
-                      <Detail>{address.street}</Detail>
+                     {customerInfo &&( <Detail>{customerInfo.Address}</Detail>)}
                     </DetailGroup>
-                    <DetailGroup>
+                    {/* <DetailGroup>
                       <Label>CITY</Label>
                       <Detail>{address.city}</Detail>
                     </DetailGroup>
                     <DetailGroup>
                       <Label>DISTRICT</Label>
                       <Detail>{address.district}</Detail>
-                    </DetailGroup>
+                    </DetailGroup> */}
                   </Column>
-                  <Column>
+                  {/* <Column>
                     <DetailGroup>
                       <Label>WARD</Label>
                       <Detail>{address.ward}</Detail>
                     </DetailGroup>
-                  </Column>
+                  </Column> */}
                 </Row>
-                </form>
               </Column>
               <Column>
                 <Row>
                   <InfoTitle>Account Details</InfoTitle>
-                  <EditButton onClick={handleAccountEdit}>Edit</EditButton>
+                  {/* <EditButton onClick={handleAccountEdit}>Edit</EditButton> */}
                 </Row>
-                <form>
-                <Row>
-                  <Column>
-                    <DetailGroup>
-                      <Label>FIRST NAME</Label>
-                      <Detail>{account.firstName}</Detail>
-                    </DetailGroup>
-                    <DetailGroup>
-                      <Label>PHONE</Label>
-                      <Detail>{account.phone}</Detail>
-                    </DetailGroup>
-                    <DetailGroup>
-                      <Label>EMAIL</Label>
-                      <Detail>{account.email}</Detail>
-                    </DetailGroup>
-                  </Column>
-                  <Column>
-                    <DetailGroup>
-                      <Label>LAST NAME</Label>
-                      <Detail>{account.lastName}</Detail>
-                    </DetailGroup>
-                    <DetailGroup>
-                      <Label>CURRENT PASSWORD</Label>
-                      <Detail>{account.password}</Detail>
-                    </DetailGroup>
-                  </Column>
-                </Row>
-                </form>
+
+                {customerInfo && (
+                  <Row>
+                    <Column>
+                      {/* <DetailGroup>
+                        <Label>FIRST NAME</Label>
+                        <Detail>{account.firstName}</Detail>
+                      </DetailGroup> */}
+                      <DetailGroup>
+                        <Label>FULL NAME</Label>
+                        <Detail>{customerInfo.Name}</Detail>
+                      </DetailGroup>
+                      <DetailGroup>
+                        <Label>EMAIL</Label>
+                        <Detail>{customerInfo.Email}</Detail>
+                      </DetailGroup>
+                    </Column>
+                    <Column>
+                      <DetailGroup>
+                        <Label>PHONE NUMBER</Label>
+                        <Detail>{customerInfo.PhoneNumber}</Detail>
+                      </DetailGroup>
+                      <DetailGroup>
+                        <Label>Birthday</Label>
+                        <Detail>{formatDate(customerInfo.Birthday)}</Detail>
+                      </DetailGroup>
+                    </Column>
+                  </Row>
+                )}
               </Column>
             </InfoContainer>
           </InfoSection>
@@ -324,13 +358,17 @@ const Account = () => {
                   value={tempAddress.ward}
                   onChange={handleAddressChange}
                 />
-                {addressErrors.ward && (
-                  <Error>{addressErrors.ward}</Error>
-                )}
+                {addressErrors.ward && <Error>{addressErrors.ward}</Error>}
               </label>
               <ModalActions>
-                <button className="save-button" type="submit">Save</button>
-                <button className="cancel-button" type="button" onClick={closeModal}>
+                <button className="save-button" type="submit">
+                  Save
+                </button>
+                <button
+                  className="cancel-button"
+                  type="button"
+                  onClick={closeModal}
+                >
                   Cancel
                 </button>
               </ModalActions>
@@ -405,8 +443,16 @@ const Account = () => {
                 )}
               </label>
               <ModalActions>
-                <button className="save-button" type="submit">Save</button>
-                <button className="cancel-button" type="button" onClick={closeModal}>Cancel</button>
+                <button className="save-button" type="submit">
+                  Save
+                </button>
+                <button
+                  className="cancel-button"
+                  type="button"
+                  onClick={closeModal}
+                >
+                  Cancel
+                </button>
               </ModalActions>
             </form>
           </ModalContent>
@@ -518,33 +564,33 @@ const Label = styled.label`
   font-size: 17px;
 `;
 
-const EditButton = styled.button`
-  font-size: 12px;
-  padding: 10px 20px;
-  background-color: #fff9f7;
-  color: #151542;
-  border: none;
-  border: 1px solid #151542;
-  cursor: pointer;
-  transition: background-color 0.3s ease;
-  font-family: "Gantari", sans-serif;
-  font-weight: 600;
-  align-self: flex-end;
-  transition: all 0.45s ease;
-  cursor: pointer;
-  transition: background-color 0.3s ease, color 0.3s ease;
+// const EditButton = styled.button`
+//   font-size: 12px;
+//   padding: 10px 20px;
+//   background-color: #fff9f7;
+//   color: #151542;
+//   border: none;
+//   border: 1px solid #151542;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease;
+//   font-family: "Gantari", sans-serif;
+//   font-weight: 600;
+//   align-self: flex-end;
+//   transition: all 0.45s ease;
+//   cursor: pointer;
+//   transition: background-color 0.3s ease, color 0.3s ease;
 
-  &:hover {
-    background-color: #102c57;
-    color: #fff;
-    transition: all 0.45s ease;
-  }
+//   &:hover {
+//     background-color: #102c57;
+//     color: #fff;
+//     transition: all 0.45s ease;
+//   }
 
-  @media (max-width: 991px) {
-    padding: 6px 20px;
-    width: auto;
-  }
-`;
+//   @media (max-width: 991px) {
+//     padding: 6px 20px;
+//     width: auto;
+//   }
+// `;
 
 const Modal = styled.div`
   position: fixed;
@@ -618,12 +664,12 @@ const ModalActions = styled.div`
     width: 100%;
 
     &:hover {
-      background-color: #218838;;
+      background-color: #218838;
       color: #fff;
       transition: all 0.45s ease;
     }
   }
-  .cancel-button{
+  .cancel-button {
     font-size: 12px;
     padding: 10px 20px;
     background-color: #ff4757;
@@ -638,14 +684,11 @@ const ModalActions = styled.div`
     width: 100%;
 
     &:hover {
-      background-color: #c0392b;;
+      background-color: #c0392b;
       color: #fff;
       transition: all 0.45s ease;
     }
-
   }
-    
-  
 `;
 
 const Error = styled.span`
