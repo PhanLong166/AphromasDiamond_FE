@@ -234,10 +234,9 @@ const DiamondDetails: React.FC = () => {
       const cartItems = orderlines.data.data.filter((item: any) => item.OrderID === null && item.CustomerID === user?.CustomerID);
       setCartList(cartItems);
     }
-    console.log('Cart: ', cartList);
 
     fetchCart();
-  }, [id]);
+  }, [id, cartList]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
@@ -395,7 +394,7 @@ const DiamondDetails: React.FC = () => {
                         {foundProduct.DiscountPrice && (
                           <div className="wrap">
                             <BeforePrice>${foundProduct.Price}</BeforePrice>
-                            <Discount>- {foundProduct.DiscountID.PercentDiscount}</Discount>
+                            <Discount>- {foundProduct?.DiscountID?.PercentDiscount}</Discount>
                           </div>
                         )}
                       </div>

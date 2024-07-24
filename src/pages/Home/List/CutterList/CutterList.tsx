@@ -50,7 +50,7 @@ const CutterList: React.FC = () => {
           }));
 
           console.log(fetchedDiamonds);
-
+          console.log(loading);
           setDiamonds(fetchedDiamonds);
           setLoading(false);
         } else {

@@ -31,3 +31,13 @@ export enum PaymentMethodEnum {
     COD = 'COD'
 }
 
+export enum OrderStatus {
+    PENDING = 'Pending',
+    ACCEPTED = 'Accepted',
+    ASSIGNED = 'Assigned',
+    DELIVERING = 'Delivering',
+    DELIVERED = 'Delivered',
+    COMPLETED = 'Completed',
+    CANCELLED = 'Cancelled'
+}
+

@@ -47,24 +47,6 @@ const getAccountID = () => {
     return decoded.AccountID;
 }
 
-const getCustomerDetail = async () => {
-    const accID = getAccountID();
-
-    const { data } = await getCustomer(accID ? accID : 0);
-    const user = data.data as UserType;
-
-    return user;
-}
-
-const getAccountInfo = async () => {
-    const accID = getAccountID();
-
-    const { data } = await getAccountDetail(accID ? accID : 0);
-    const account = data.data as AccountType;
-    
-    return account;
-}
-
 const useAuth = () => {
     const [role, setRole] = useState<string | null>(getRole());
     const [AccountID, setAccountID] = useState<number | null>(getAccountID());
@@ -94,27 +76,28 @@ const useAuth = () => {
             return;
         }
 
-        const fetchUser = async () => {
-            try {
-                setLoading(true);
+        try {
+            setLoading(true);
 
-                setRole(getRole());
+            setRole(getRole());
 
-                setAccountID(getAccountID());
+            setAccountID(getAccountID());
 
+            const getInfo = async () => {
                 if (role === Role.CUSTOMER) {
-                    const user = await getCustomerDetail();
-                    setUser(user);
+                    const { data } = await getCustomer(AccountID ? AccountID : 0);
+                    setUser(data.data);
                 } else {
-                    const account = await getAccountInfo();
-                    setAccount(account);
+                    const { data } = await getAccountDetail(AccountID ? AccountID : 0);
+                    setAccount(data.data);
                 }
-            } finally {
-                setLoading(false);
-            }
-        };
+            };
 
-        fetchUser();
+            getInfo();
+
+        } finally {
+            setLoading(false);
+        }
 
         const intervalId = setInterval(checkTokenExpiration, 5000);
 

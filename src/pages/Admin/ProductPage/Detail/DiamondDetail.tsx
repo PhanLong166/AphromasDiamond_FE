@@ -778,7 +778,11 @@ const DiamondDetail = () => {
                           <Modal
                             title="Confirm Deletion"
                             visible={isModalVisible}
+<<<<<<< HEAD
                             onOk={handleDelete}
+=======
+                            onOk={() => handleDelete()}
+>>>>>>> 8caf947f8ea3b2387dfcd367e2d7ac5cea1ff6d4
                             onCancel={handleCancel}
                           >
                             <p>Are you sure you want to delete this diamond?</p>
