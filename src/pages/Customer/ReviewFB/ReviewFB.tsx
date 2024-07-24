@@ -23,6 +23,17 @@ interface FeedbackWithDetails extends Feedback {
   diamondImage: string;
 }
 
+const formatDateTime = (dateTime: string) => {
+  return new Intl.DateTimeFormat("en-US", {
+    year: "numeric",
+    month: "long",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+  }).format(new Date(dateTime));
+};
+
 const ReviewFB = () => {
   const [feedBackData, setFeedBackData] = useState<FeedbackWithDetails[]>([]);
 
@@ -111,13 +122,13 @@ const ReviewFB = () => {
       <CartContainer>
         <Content>
           {feedBackData.map((feedback, index) => (
-            <Card key={index} style={{ width: 300, marginTop: 16 }}>
+            <Card key={index} style={{ width: 430, marginTop: 16 }}>
               <Meta
                 avatar={<Avatar src={feedback.diamondImage} />}
                 title={
                   <div>
                     <Rate disabled defaultValue={feedback.Stars} />
-                    <p>{feedback.CommentTime}</p>
+                    <p>{formatDateTime(feedback.CommentTime)}</p>
                     <p>{feedback.diamondName}</p>
                   </div>
                 }
@@ -145,4 +156,5 @@ const Content = styled.div`
   display: inline-grid;
   grid-template-columns: repeat(4, 1fr);
   align-items: center;
+  margin-bottom: 3rem;
 `;
