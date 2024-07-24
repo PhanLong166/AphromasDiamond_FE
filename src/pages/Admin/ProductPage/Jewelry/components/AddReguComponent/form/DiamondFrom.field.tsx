@@ -1,6 +1,6 @@
 import { FieldType } from "@/components/AuthForm/AuthForm.fields";
+import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "@/pages/Admin/ProductPage/Diamond/Diamond.type";
 import { Input, InputNumber, Select, Switch } from "antd";
-import { ClarityType_Option, ColorType, FluorescenceType_Option, RateType_Option, ShapeType } from "../../Diamond.type";
 import TextArea from "antd/es/input/TextArea";
 
 export const DiamondField: FieldType[] = [

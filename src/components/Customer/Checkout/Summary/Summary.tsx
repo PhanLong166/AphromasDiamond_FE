@@ -7,6 +7,8 @@ import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllProduct } from "@/services/jewelryAPI";
+import useAuth from "@/hooks/useAuth";
+import { getCustomer } from "@/services/accountApi";
 interface CartItemProps {
   name: string;
   image: string;
@@ -18,7 +20,7 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
   <CartItemContainer>
     <div>
       <ImageContainer>
-        <img src={image} alt={name} />
+        <img src={image} alt="Image" />
       </ImageContainer>
     </div>
     <ItemInfo>
@@ -31,16 +33,21 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 
 const Summary: React.FC = () => {
   const [discount, setDiscount] = useState(0);
-  const [shippingCost] = useState(0);
   const [orderLineItems, setOrderLineItems] = useState<any[]>([]);
   const [diamondList, setDiamondList] = useState<any[]>([]);
   const [productList, setProductList] = useState<any[]>([]);
+  const { AccountID } = useAuth();
+  const [customer, setCustomer] = useState<any>();
+
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
 
-  const fetchData = async () => {
+  const fetchData = React.useCallback(async () => {
     try {
+      const customerResponse = await getCustomer(AccountID || 0);
+      setCustomer(customerResponse.data.data);
+      
       const { data } = await showAllOrderLineForAdmin();
       if (data.statusCode !== 200) throw new Error();
 
@@ -52,10 +59,10 @@ const Summary: React.FC = () => {
           ProductID: number | null
         }
       ) => (
-        OrderLineItem.CustomerID === 1
+        OrderLineItem.CustomerID === customer?.CustomerID
         && OrderLineItem.OrderID === null
         && (OrderLineItem.DiamondID !== null || OrderLineItem.ProductID !== null)
-      ))
+      ));
       setOrderLineItems(getOrderLineItems);
 
       //Get diamond list
@@ -67,36 +74,28 @@ const Summary: React.FC = () => {
       setProductList(productResponse.data.data);
 
       //Display result
-      console.log('Diamond List:', diamondList);
-      console.log('Orderline', getOrderLineItems);
-      console.log('Product List: ', productList);
+      console.log('Cart: ', orderLineItems);
     } catch (error: any) {
       console.error(error);
     }
-  }
+  }, [AccountID, customer?.CustomerID]);
 
   React.useEffect(() => {
     fetchData();
-  }, [])
+  }, [fetchData]);
 
   const calculateTotal = (
     subtotal: number,
     discount: number,
     shippingCost: number
   ) => {
-    let newShippingCost = shippingCost;
-    if (orderLineItems.length < 2) {
-      newShippingCost = 15;
-      console.log(shippingCost);
-    } else {
-      newShippingCost = 0;
-    }
-
-    return subtotal - (subtotal * discount) / 100 + newShippingCost;
+    return subtotal - (subtotal * discount) / 100 + shippingCost;
   };
   // const subtotalNumber = items.reduce((acc, item) => {
   //   return acc + parseFloat(item.price.replace(/[$,]/g, ""));
   // }, 0);
+
+  const shippingCost = orderLineItems.length === 2 ? 15 : 0;
 
   const subtotalNumber = () => {
     let temp = 0;
@@ -104,7 +103,7 @@ const Summary: React.FC = () => {
       const currentProduct = productList.find((product) => product.ProductID === item.ProductID);
       if (!currentProduct) {
         const currentDiamond = diamondList.find((diamond) => diamond.DiamondID === item.DiamondID);
-        temp += parseFloat(currentDiamond.Price);
+        temp += parseFloat(currentDiamond?.Price);
       }
     })
     return temp;
@@ -134,7 +133,7 @@ const Summary: React.FC = () => {
           <CartItem
             key={index}
             name={diamond ? diamond.Name : item.name}
-            image={diamond ? getImage(diamond.usingImage[0].UsingImageID) : item.image}
+            image={diamond ? getImage(diamond.usingImage[0]?.UsingImageID) : item.image}
             sku={item.sku}
             price={diamond ? diamond.Price : 0}
           />
@@ -151,7 +150,7 @@ const Summary: React.FC = () => {
       </EditTotal>
       <EditTotal>
         <p>Shipping: </p>
-        <p>{orderLineItems.length < 2 ? "$15" : "Free"}</p>
+        <p>{orderLineItems.length === 2 ? "$15.00" : "Free"}</p>
       </EditTotal>
       <EditTotal>
         <p>Subtotal: </p>

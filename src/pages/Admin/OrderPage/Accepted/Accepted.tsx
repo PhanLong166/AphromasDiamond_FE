@@ -12,11 +12,12 @@ import { showAllAccounts } from "@/services/accountApi";
 const AcceptedOrder = () => {
   const [searchText, setSearchText] = useState("");
   const [orders, setOrders] = useState([]);
-  const [accounts, setAccounts] = useState([]);
-
+  const [accounts, setAccounts] = useState<any>([]);
+  // const [account, setAccount] = useState<any>();
 
   const fetchData = async () => {
     try {
+      
       const response = await showAllOrder();
       const responseAccounts = await showAllAccounts();
 
@@ -91,7 +92,7 @@ const columns: TableColumnsType<any> = [
     sorter: (a, b) => a.customerID.length - b.customerID.length,
     sortDirections: ["descend"],
     render: (_, record) => {
-      const customerAccount = accounts.find(account => account.customerID_Acc === record.customerID);
+      const customerAccount = accounts.find((account: any) => account.customerID_Acc === record.customerID);
       return customerAccount ? customerAccount.accountName : null;
     },
   },

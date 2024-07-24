@@ -1,7 +1,7 @@
 import * as Styled from "./BillPromotion.styled";
 import React, { useEffect, useState } from "react";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
-import type { TableProps, FormInstance } from "antd";
+import type { FormInstance } from "antd";
 import {
   Form,
   Input,
@@ -277,14 +277,14 @@ const BillPromotion = () => {
     };
   });
 
-  const onChangeTable: TableProps<any>["onChange"] = (
-    pagination,
-    filters,
-    sorter,
-    extra
-  ) => {
-    console.log("params", pagination, filters, sorter, extra);
-  };
+  // const onChangeTable: TableProps<any>["onChange"] = (
+  //   pagination,
+  //   filters,
+  //   sorter,
+  //   extra
+  // ) => {
+  //   console.log("params", pagination, filters, sorter, extra);
+  // };
 
   // SEARCH AREA
   const onSearch = (value: string) => {
@@ -360,6 +360,7 @@ const BillPromotion = () => {
 
   return (
     <>
+      {contextHolder}
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />

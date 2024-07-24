@@ -4,13 +4,13 @@ import React, { useEffect, useState } from "react";
 import {
   SearchOutlined,
   PlusCircleOutlined,
-  EyeOutlined,
+  // EyeOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
 import type {
   TableProps,
   FormInstance,
-  TableColumnsType,
+  // TableColumnsType,
   DatePickerProps,
 } from "antd";
 import {
@@ -23,13 +23,14 @@ import {
   Button,
   Space,
   DatePicker,
-  Select,
+  // Select,
   Popconfirm,
   Typography,
+  notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
-import { Link } from "react-router-dom";
+// import { Link } from "react-router-dom";
 import { showAllDiscount, createDiscount, updateDiscount, deleteDiscount } from "@/services/discountAPI";
 import { showAllProduct } from "@/services/productAPI";
 
@@ -82,9 +83,9 @@ const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
 
 
 // MULTI JEWELRY PICK
-const handleChange = (value: string[]) => {
-  console.log(`selected ${value}`);
-};
+// const handleChange = (value: string[]) => {
+//   console.log(`selected ${value}`);
+// };
 
 
 const ProductPromotion = () => {
@@ -245,7 +246,7 @@ const ProductPromotion = () => {
     {
       title: "Product Quantity",
       dataIndex: "discountID",
-      render: (_, record: any) => {
+      render: (_: any, record: any) => {
         let count = 0;
         products.forEach((discount) => {
           if (discount.discountID === record.discountID) {

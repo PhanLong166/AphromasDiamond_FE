@@ -5,7 +5,7 @@ import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { orderData, OrderDataType } from "../OrderData";
+import { OrderDataType } from "../OrderData";
 import { Link } from "react-router-dom";
 import { showAllOrder } from "@/services/orderAPI";
 import { showAllAccounts } from "@/services/accountApi";
@@ -14,7 +14,7 @@ import { showAllAccounts } from "@/services/accountApi";
 const CancelledOrder = () => {
   const [searchText, setSearchText] = useState("");
   const [orders, setOrders] = useState([]);
-  const [accounts, setAccounts] = useState([]);
+  const [accounts, setAccounts] = useState<any>([]);
   
   const fetchData = async () => {
     try {
@@ -92,7 +92,7 @@ const columns: TableColumnsType<any> = [
     sorter: (a, b) => a.customerID.length - b.customerID.length,
     sortDirections: ["descend"],
     render: (_, record) => {
-      const customerAccount = accounts.find(account => account.customerID === record.customerID);
+      const customerAccount = accounts.find((account: any) => account.customerID === record.customerID);
       return customerAccount ? customerAccount.accountName : null;
     },
   },

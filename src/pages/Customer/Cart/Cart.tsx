@@ -129,7 +129,7 @@ const Cart = () => {
     return total;
   }
 
-  const shippingCost = cartItems.length < 2 ? 15 : 0;
+  const shippingCost = cartItems.length === 2 ? 15 : 0;
   const total = calculateTotal(subtotal(), discount, shippingCost).toFixed(2)
 
   const handleRemove = async (OrderLineID: any) => {

@@ -260,17 +260,11 @@ import { showAllProduct } from "@/services/jewelryAPI";
 const Jewelry = () => {
   // const [isAdding, setIsAdding] = useState(false);
   const [searchText, setSearchText] = useState("");
-<<<<<<< HEAD
-  const [api, contextHolder] = notification.useNotification();
-  const [jewelrys, setJewelrys] = useState<any[]>([]);
-  const [diamonds, setDiamonds] = useState<any[]>([]);
-  const [settings, setSettings] = useState<any[]>([]);
-=======
+
   // const [api, contextHolder] = notification.useNotification();
   const [jewelrys, setJewelrys] = useState([]);
   const [diamonds, setDiamonds] = useState([]);
   const [settings, setSettings] = useState([]);
->>>>>>> 8caf947f8ea3b2387dfcd367e2d7ac5cea1ff6d4
   const [isModalVisible, setIsModalVisible] = useState(false); 
   const navigate = useNavigate(); 
 
@@ -372,13 +366,13 @@ const Jewelry = () => {
       console.log("Formatted Diamonds:", formattedJewelryList); 
       setDiamonds(formattedDiamonds);
       setSettings(formattedSettings);
-<<<<<<< HEAD
-      setJewelrys(formattedJewelryList);
-=======
+<<<<<<<<< Temporary merge branch 1
       setJewelrys(formattedJewelrys);
       console.log(diamonds);
       console.log(settings);
->>>>>>> 8caf947f8ea3b2387dfcd367e2d7ac5cea1ff6d4
+=========
+      setJewelrys(formattedJewelryList);
+>>>>>>>>> Temporary merge branch 2
     } catch (error) {
       console.error("Failed to fetch diamonds:", error);
     }

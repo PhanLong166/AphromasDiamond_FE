@@ -12,8 +12,8 @@ import { showAllAccounts } from "@/services/accountApi";
 const DeliveredOrder = () => {
   const [searchText, setSearchText] = useState("");
   const [orders, setOrders] = useState([]);
-  const [accounts, setAccounts] = useState([]);
-  const [delistaffs, setDelistaffs] = useState([]);
+  const [accounts, setAccounts] = useState<any>([]);
+  const [delistaffs, setDelistaffs] = useState<any>([]);
 
   const fetchData = async () => {
     try {
@@ -100,7 +100,7 @@ const columns: TableColumnsType<any> = [
     sorter: (a, b) => a.customerID.length - b.customerID.length,
     sortDirections: ["descend"],
     render: (_, record) => {
-      const customerAccount = accounts.find(account => account.customerID_Acc === record.customerID);
+      const customerAccount = accounts.find((account: any) => account.customerID_Acc === record.customerID);
       return customerAccount ? customerAccount.accountName : null;
     },
   },
@@ -111,7 +111,7 @@ const columns: TableColumnsType<any> = [
     sorter: (a, b) => a.accountDeliveryID.length - b.accountDeliveryID.length,
     sortDirections: ["descend"],
     render: (_, record) => {
-      const customerAccount = delistaffs.find(account => account.accountID === record.accountID);
+      const customerAccount = delistaffs.find((account: any) => account.accountID === record.accountID);
       return customerAccount ? customerAccount.accountName : null;
     },
   },
