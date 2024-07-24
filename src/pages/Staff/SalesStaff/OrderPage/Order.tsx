@@ -142,7 +142,7 @@ const Order = () => {
     };
 
     fetchData();
-  }, [])
+  }, []);
 
   return (
     <>

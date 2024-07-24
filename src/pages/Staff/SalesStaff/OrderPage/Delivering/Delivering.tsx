@@ -1,16 +1,14 @@
 import * as Styled from "./Delivering.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import { data, DataType } from "../OrderData";
+import { DataType } from "../OrderData";
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
-
-
-
-const filteredData = data.filter((item) => item.status === "Delivering");
+import { showAllOrder } from "@/services/orderAPI";
+import { OrderStatus } from "@/utils/enum";
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -23,7 +21,10 @@ const columns: TableColumnsType<DataType> = [
     title: "Date",
     dataIndex: "date",
     defaultSortOrder: "descend",
-    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(), 
+    sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
+    render: (_, { date }) => {
+      return <>{date.replace("T", " ").replace(".000Z", " ")}</>
+    } 
   },
   {
     title: "Customer",
@@ -102,6 +103,7 @@ const onChange: TableProps<DataType>["onChange"] = (
 
 const DeliveringOrder = () => {
   const [searchText, setSearchText] = useState("");
+  const [order, setOrder] = useState<any[]>([]);
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -113,6 +115,25 @@ const DeliveringOrder = () => {
       onSearch(searchText);
     }
   };
+
+  const fetchData = async () => {
+    // Get order list
+    const orderList = await showAllOrder();
+    const formatOrderList = orderList.data.data
+      .filter((order: any) => order.OrderStatus === OrderStatus.DELIVERING)
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        date: order.OrderDate,
+        cusName: order.NameReceived,
+        total: order.Price,
+        status: order.OrderStatus,
+      }))
+    setOrder(formatOrderList);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -143,7 +164,7 @@ const DeliveringOrder = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={filteredData}
+                dataSource={order}
                 pagination={{ pageSize: 7 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
