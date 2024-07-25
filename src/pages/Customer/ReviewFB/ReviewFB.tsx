@@ -1,5 +1,6 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
+import useAuth from "@/hooks/useAuth";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { showAllFeedback } from "@/services/feedBackAPI";
 import { getImage } from "@/services/imageAPI";
@@ -36,14 +37,16 @@ const formatDateTime = (dateTime: string) => {
 
 const ReviewFB = () => {
   const [feedBackData, setFeedBackData] = useState<FeedbackWithDetails[]>([]);
-
+  const { AccountID } = useAuth();
+  console.log(AccountID);
   const fetchFeedBackData = async () => {
     try {
       const res = await showAllFeedback({});
       if (res.data && res.data.data) {
         const filterFeedBackAccount = res.data.data.filter(
-          (feedback: Feedback) => feedback.AccountID === null
+          (feedback: Feedback) => feedback.AccountID === AccountID
         );
+        console.log(filterFeedBackAccount)
         const feedbackWithDetails = await Promise.all(
           filterFeedBackAccount.map(async (feedback: Feedback) => {
             try {
@@ -99,7 +102,6 @@ const ReviewFB = () => {
               };
             }
           })
-          
         );
 
         setFeedBackData(feedbackWithDetails);
@@ -122,7 +124,10 @@ const ReviewFB = () => {
       <CartContainer>
         <Content>
           {feedBackData.map((feedback, index) => (
-            <Card key={index} style={{ width: 430, marginTop: 16 }}>
+            <Card
+              key={index}
+              style={{ width: 430, marginTop: 16, marginRight: 20 }}
+            >
               <Meta
                 avatar={<Avatar src={feedback.diamondImage} />}
                 title={
