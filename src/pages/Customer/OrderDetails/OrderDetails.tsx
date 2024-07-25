@@ -2,21 +2,19 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
-// import { Button, ConfigProvider, Table } from 'antd';
-// import type { ColumnsType } from "antd/es/table";
 import Table from "antd/es/table";
 import { Button, Space, TableColumnsType, Tag, notification } from "antd";
 import ReviewForm from "./ReviewForm";
-import { useLocation } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
+import { showAllOrder } from "@/services/orderAPI";
 
 interface DiamondDetail {
   DiamondID: number;
   Name: string;
   Description: string;
-  Carat: number;
   Price: number;
   UsingImage?: string;
 }
@@ -51,11 +49,20 @@ const StatusTag = ({ status }: { status: string }) => {
   );
 };
 
-const formatPrice = (price: number) => {
-  return new Intl.NumberFormat("en-US", {
-    style: "currency",
-    currency: "USD",
-  }).format(price);
+const formatPrice = (price: number | bigint) => {
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+  }).format(price)}`;
+};
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+  }).format(date);
 };
 
 const OrderDetail: React.FC = () => {
@@ -63,6 +70,7 @@ const OrderDetail: React.FC = () => {
   const [diamondDetails, setDiamondDetails] = useState<{ [key: string]: any }>(
     {}
   );
+  const [order, setOrder] = useState<any>(null);
 
   // const [value, setValue] = useState(3);
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -72,7 +80,30 @@ const OrderDetail: React.FC = () => {
   const location = useLocation();
   const searchParams = new URLSearchParams(location.search);
   const orderId = searchParams.get("orderId");
+  const fetchCustomerInfo = async () => {
+    try {
+      const { data } = await showAllOrder();
+      const res = data.data;
+      console.log(res);
 
+      // Check if orderId exists in fetched orders
+      const order = res.find((order: { OrderID: number }) => order.OrderID === parseInt(orderId || "", 10));
+
+      if (order) {
+        console.log("Order found:", order);
+        setOrder(order);
+      } else {
+        console.log("No order found with OrderID:", orderId);
+      }
+    } catch (error) {
+      console.error("Error fetching customer info:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchCustomerInfo();
+  }, []);
+  
   const fetchAllOrderLine = async () => {
     try {
       const res = await showAllOrderLineForAdmin();
@@ -103,26 +134,23 @@ const OrderDetail: React.FC = () => {
           const res = await getDiamondDetails(order.DiamondID);
           const diamond = res.data.data;
 
-          // Initialize diamond image with a default value
+          // Initialize diamond image
           let diamondImage = "https://via.placeholder.com/150";
 
-          // Fetch image URL from the usingImage array
           if (diamond.usingImage && diamond.usingImage.length > 0) {
             const imageIDPromises = diamond.usingImage.map(
               async (image: any) => {
                 try {
                   const imageRes = await getImage(image.UsingImageID);
-                  return imageRes || image.url; // Fallback to image.url if API fails
+                  return imageRes || image.url;
                 } catch (error) {
                   console.error("Error fetching image:", error);
-                  return image.url; // Fallback to image.url if API fails
+                  return image.url;
                 }
               }
             );
-
-            // Get the first image URL from the promises
             const imageURLs = await Promise.all(imageIDPromises);
-            diamondImage = imageURLs[0]; // Use the first image URL
+            diamondImage = imageURLs[0];
           }
 
           details[order.DiamondID] = {
@@ -144,6 +172,19 @@ const OrderDetail: React.FC = () => {
     }
   }, [orderId]); // Chạy khi orderId thay đổi
 
+  const totalDiamondPrice = Object.values(diamondDetails).reduce(
+    (sum, diamond: any) => sum + parseFloat(diamond.Price),
+    0
+  );
+  console.log("Diamond Details:", diamondDetails);
+  console.log("Total diamond price:", totalDiamondPrice);
+
+  // Determine shipping cost
+  const shippingCost = Object.keys(diamondDetails).length === 1 ? 15 : 0;
+  console.log("Shipping cost:", shippingCost);
+  // Calculate total cost
+  const totalCost = totalDiamondPrice + shippingCost;
+  console.log("Total cost:", totalCost);
   const columns: TableColumnsType<DiamondDetail> = [
     // {
     //   title: "DiamondID",
@@ -171,6 +212,7 @@ const OrderDetail: React.FC = () => {
       title: "Name",
       dataIndex: "Name",
       key: "Name",
+      width: "10%",
     },
     {
       title: "Descriptions",
@@ -186,24 +228,26 @@ const OrderDetail: React.FC = () => {
       render: (price: number) => formatPrice(price),
       sorter: (a, b) => a.Price - b.Price,
       sortDirections: ["descend", "ascend"],
+      width: "8%",
     },
 
     {
       title: "Action",
       key: "action",
-      render: (_, record) => (
-        <Space size="middle">
-          <Button
-            type="link"
-            onClick={() => {
-              setSelectedDiamondId(record.DiamondID);
-              setIsModalVisible(true);
-            }}
-          >
-            Feedback
-          </Button>
-        </Space>
-      ),
+      render: (_, record) =>
+        order?.OrderStatus === "Completed" ? ( // Check order status is "Completed"
+          <Space size="middle">
+            <Button
+              type="link"
+              onClick={() => {
+                setSelectedDiamondId(record.DiamondID);
+                setIsModalVisible(true);
+              }}
+            >
+              Feedback
+            </Button>
+          </Space>
+        ) : null, 
     },
   ];
 
@@ -221,23 +265,27 @@ const OrderDetail: React.FC = () => {
       <Container>
         <OrderWrapper>
           <OrderTitle>Order Detail</OrderTitle>
-          <OrderDetailsContainer>
-            <OrderDetails>
-              <CustomerInfo>Hà Thị Huyền Trang</CustomerInfo>
-              <CustomerInfo>0354033629</CustomerInfo>
-              <CustomerInfo>tranghthuy@fpt.edu.vn</CustomerInfo>
+          
+            {order && (
+              <OrderDetailsContainer>
+               <OrderDetails>
+              <CustomerInfo>{order.NameReceived}</CustomerInfo>
+              <CustomerInfo>{order.PhoneNumber || "0354033629"}</CustomerInfo>
+              <CustomerInfo>{order.Email || "Hqz0M@example.com"}</CustomerInfo>
               <CustomerInfo>
-                123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam
+                {order.Address || "123 Main Street"}
               </CustomerInfo>
             </OrderDetails>
             <InvoiceDetails>
-              <InvoiceInfo>Invoice Date: 14 Dec 2022</InvoiceInfo>
-              <InvoiceInfo>Due Date: 14 Dec 2022</InvoiceInfo>
+              <InvoiceInfo>Invoice Date: {formatDate(order.OrderDate)}</InvoiceInfo>
+              <InvoiceInfo>Due Date: {formatDate(order.CompleteDate)}</InvoiceInfo>
               <InvoiceInfo>
-                Status: <StatusTag status={"Completed"} />
+                Status: <StatusTag status={order.OrderStatus} />
               </InvoiceInfo>
             </InvoiceDetails>
-          </OrderDetailsContainer>
+            </OrderDetailsContainer>
+          )}
+          
         </OrderWrapper>
         <ProductsWrapper>
           <OrderID>Order ID #{orderId}</OrderID>
@@ -261,21 +309,26 @@ const OrderDetail: React.FC = () => {
         <OrderInfo>
           <Row>
             <InfoTitle>Payment method</InfoTitle>
-            <img
+            <img style={{width: "150px", objectFit: "contain", maxWidth: "100%"}}
               className="payment-method"
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
+              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2F122290830_132545211952745_2371548508191512996_n.jpg?alt=media&token=13186094-eb53-4e6c-98a0-1e7fe06b3664"
               alt="Payment method"
             />
           </Row>
           <Column>
-            <InfoText>Discount: 10%</InfoText>
-            <InfoText>VAT: 10%</InfoText>
-            <InfoText>Shipping: Free</InfoText>
+            {/* <InfoText>Discount: 10%</InfoText>
+            <InfoText>VAT: 10%</InfoText> */}
+            <InfoText>
+            Shipping:{" "}
+            {shippingCost > 0 ? formatPrice(shippingCost) : "Free"}
+              </InfoText>
             <br />
-            <InfoText style={{ color: "red" }}>Total: None</InfoText>
+            <InfoText style={{ color: "red" }}>
+            Total: {formatPrice(totalCost)}
+              </InfoText>
           </Column>
         </OrderInfo>
-        <EditButton>Comfirm</EditButton>
+        <EditButton><Link to={`/history`}>Back </Link></EditButton>
       </Container>
     </MainContainer>
   );

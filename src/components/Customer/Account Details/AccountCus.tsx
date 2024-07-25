@@ -1,9 +1,37 @@
 import styled from "styled-components";
-import { Link, NavLink as RouterNavLink } from 'react-router-dom';
+import { Link, NavLink as RouterNavLink } from "react-router-dom";
 import config from "@/config";
 import cookieUtils from "@/services/cookieUtils";
-
+import useAuth from "@/hooks/useAuth";
+import { useEffect, useState } from "react";
+import { getCustomer } from "@/services/accountApi";
+const fetchCustomerInfo = async (AccountID: number) => {
+  try {
+    const { data } = await getCustomer(AccountID);
+    console.log(data.data);
+    return data.data;
+  } catch (error) {
+    console.log("Error fetching customer info:", error);
+    return null;
+  }
+};
 const AccountCus = () => {
+  const { AccountID } = useAuth();
+  console.log(AccountID);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const [customerInfo, setCustomerInfo] = useState<any>(null);
+  useEffect(() => {
+    
+    if (AccountID) {
+      const getCustomerInfo = async () => {
+        const info = await fetchCustomerInfo(AccountID);
+        if (info) {
+          setCustomerInfo(info);
+        }
+      };
+      getCustomerInfo();
+    }
+  }, [AccountID]);
   return (
     <MainContainer>
       <EditHeader>
@@ -11,16 +39,31 @@ const AccountCus = () => {
       </EditHeader>
       <Section>
         <AccountActions>
-          <Text><span><i className="fa-solid fa-heart"></i></span>Wishlist</Text>
-          <Text><span><i className="fa-solid fa-arrow-right-from-bracket"></i></span>
-            <Link to={config.routes.public.home} onClick={() => cookieUtils.clear()}>
+          <Text>
+            <span>
+              <i className="fa-solid fa-heart"></i>
+            </span>
+            Wishlist
+          </Text>
+          <Text>
+            <span>
+              <i className="fa-solid fa-arrow-right-from-bracket"></i>
+            </span>
+            <Link
+              to={config.routes.public.home}
+              onClick={() => cookieUtils.clear()}
+            >
               Sign Out
             </Link>
           </Text>
         </AccountActions>
         <ProfileSection>
-          <ProfileImage loading="lazy" src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FAccount%2Fbanner.png?alt=media&token=7726f33e-43c5-49e3-88de-ff6ad1a3d334" alt="Profile Background" />
-          <UserName>Le Phuoc Loc</UserName>
+          <ProfileImage
+            loading="lazy"
+            src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FAccount%2Fbanner.png?alt=media&token=7726f33e-43c5-49e3-88de-ff6ad1a3d334"
+            alt="Profile Background"
+          />
+          { customerInfo && (<UserName>{customerInfo.Name}</UserName>)}
           <ProfileTitle>My Account</ProfileTitle>
         </ProfileSection>
         <NavSection>
@@ -48,12 +91,12 @@ const Header = styled.header`
   width: 100%;
   max-width: 1400px;
   color: #818594;
-  font: 14px / 150% 'Crimson Text', sans-serif;
+  font: 14px / 150% "Crimson Text", sans-serif;
   border-bottom: 1px solid #e4e4e4;
   border-top: 1px solid #e4e4e4;
   display: flex;
   padding: 10px 0;
-  
+
   /* @media (max-width: 991px) {
     padding: 0 20px;
     margin-top: 40px;
@@ -63,7 +106,7 @@ const Header = styled.header`
 const EditHeader = styled.div`
   display: flex;
   justify-content: center;
-  background-color: #FFFFFF;
+  background-color: #ffffff;
   padding: 10px;
   font-family: "Poppins", san-serif;
   width: 100%;
@@ -80,7 +123,7 @@ const Section = styled.section`
 `;
 
 const Text = styled.span`
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   display: flex;
   gap: 5px;
   margin-top: 35px;
@@ -106,7 +149,7 @@ const AccountActions = styled.div`
 `;
 
 const StyledNavLink = styled(RouterNavLink)`
-  font-family: 'Poppins', sans-serif;
+  font-family: "Poppins", sans-serif;
   font-weight: 400;
   color: #000;
   text-decoration: none;
@@ -138,7 +181,7 @@ const NavSection = styled.nav`
   font-weight: 275;
   line-height: 150%;
   padding: 33px 20px 6px;
-  
+
   /* @media (max-width: 991px) {
     max-width: 100%;
     flex-wrap: wrap;
@@ -160,7 +203,8 @@ const ProfileImage = styled.img`
 const UserName = styled.h2`
   position: relative;
   margin-top: 152px;
-  font: italic 400 25px 'Crimson Text', -apple-system, Roboto, Helvetica, sans-serif;
+  font: italic 400 25px "Crimson Text", -apple-system, Roboto, Helvetica,
+    sans-serif;
   padding-left: 15px;
   /* @media (max-width: 991px) {
     margin-top: 40px;
@@ -188,7 +232,7 @@ const ProfileSection = styled.section`
 const ProfileTitle = styled.h3`
   position: relative;
   margin: 15px 0 87px;
-  font: 600 21px 'Crimson Text', sans-serif;
+  font: 600 21px "Crimson Text", sans-serif;
   padding-left: 15px;
   /* @media (max-width: 991px) {
     margin-bottom: 40px;

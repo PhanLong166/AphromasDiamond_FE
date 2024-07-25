@@ -7,13 +7,13 @@ import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 import { useAppDispatch, useDocumentTitle } from "@/hooks";
 import { useEffect, useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
-import { OrderLineBody, showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineAPI";
+import { deleteOrderLine, showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { getDiamondDetails, showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
 import config from "@/config";
-import { notification } from "antd";
+import { Empty, notification } from "antd";
 import { cartSlice } from "@/layouts/MainLayout/slice/cartSlice";
 import { showAllProduct } from "@/services/jewelryAPI";
 
@@ -86,7 +86,6 @@ const Cart = () => {
       console.log('detailedCartItems', detailedCartItems)
       return detailedCartItems;
     } catch (error) {
-      console.log("errorrrrrrrrrrrrrrrrrrrrrrrrrrrrrr");
       console.error(error);
     }
   };
@@ -124,27 +123,23 @@ const Cart = () => {
   const subtotal = () => {
     let total = 0;
     cartItems.map((item) => {
-        total += parseFloat(item?.diamondDetails?.Price);
+      total += parseFloat(item?.diamondDetails?.Price);
     });
     return total;
   }
 
-  const shippingCost = cartItems.length === 2 ? 15 : 0;
+  const shippingCost = cartItems.length === 1 ? 15 : 0;
   const total = calculateTotal(subtotal(), discount, shippingCost).toFixed(2)
 
   const handleRemove = async (OrderLineID: any) => {
     try {
-      const removeOrderLine: OrderLineBody = {
-        Quantity: 1,
-        CustomerID: null,
-        DiamondID: null,
-        ProductID: null,
-        OrderID: null
-      }
-
-      const { data } = await updateOrderLine(OrderLineID, removeOrderLine);
+      const { data } = await deleteOrderLine(OrderLineID);
       if (data.statusCode !== 200) throw new Error;
       else {
+        api.success({
+          message: 'Notification',
+          description: 'Remove product successfully!'
+        })
         loadCartItems();
         console.log(data.message);
       }
@@ -183,24 +178,31 @@ const Cart = () => {
 
             <CartStyled.MainSection>
               <CartStyled.Column>
-                {cartItems.map((item, index) => (
-                  <CartItem
-                    key={index}
-                    OrderLineID={item.OrderLineID}
-                    DiamondID={item.DiamondID}
-                    designer={
-                      item.diamondDetails?.Designer ||
-                      "No description available"
-                    }
-                    name={
-                      item.diamondDetails?.Name || "No description available"
-                    }
-                    price={item.diamondDetails?.Price}
-                    images={item.imageDiamond}
-                    type={item.type}
-                    handleRemove={() => handleRemove(item.OrderLineID)}
-                  />
-                ))}
+                {cartItems.length === 0 ?
+                  <Empty
+                    description="Your cart doesn't have nothing here"
+                  /> :
+                  <>
+                    {cartItems.map((item, index) => (
+                      <CartItem
+                        key={index}
+                        OrderLineID={item.OrderLineID}
+                        DiamondID={item.DiamondID}
+                        designer={
+                          item.diamondDetails?.Designer ||
+                          "No description available"
+                        }
+                        name={
+                          item.diamondDetails?.Name || "No description available"
+                        }
+                        price={item.diamondDetails?.Price}
+                        images={item.imageDiamond}
+                        type={item.type}
+                        handleRemove={() => handleRemove(item.OrderLineID)}
+                      />
+                    ))}
+                  </>
+                }
               </CartStyled.Column>
               <CartStyled.Sidebar>
                 <CartStyled.SummaryContainer>
@@ -215,12 +217,17 @@ const Cart = () => {
                       </CartStyled.AppliedPromo>
                     )}
                     <CartStyled.SummaryRow>
-                      <CartStyled.SummaryLabel>
-                        Shipping
-                      </CartStyled.SummaryLabel>
-                      <CartStyled.SummaryValue>
-                        {cartItems.length === 1 ? "$15.00" : "Free"}
-                      </CartStyled.SummaryValue>
+
+                      {cartItems.length === 0 ? <></> :
+                        <>
+                          <CartStyled.SummaryLabel>
+                            Shipping
+                          </CartStyled.SummaryLabel>
+                          <CartStyled.SummaryValue>
+                            {cartItems.length === 1 ? "$15.00" : "Free"}
+                          </CartStyled.SummaryValue>
+                        </>
+                      }
                     </CartStyled.SummaryRow>
                     <CartStyled.SummaryRow>
                       <CartStyled.SummaryLabel>
@@ -241,7 +248,7 @@ const Cart = () => {
                   >
                     CHECKOUT
                   </CartStyled.CheckoutButton>
-                  <CartStyled.OrDivider>OR</CartStyled.OrDivider>
+                  {/* <CartStyled.OrDivider>OR</CartStyled.OrDivider>
                   <Link to="/thanks-page">
                     <CartStyled.PaymentMethodImage
                       src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCart%2Fvnpay-logo-vinadesign-25-12-57-55.jpg?alt=media&token=5c8bd77d-6a86-478e-83d7-44d4e1227e5c"
@@ -253,7 +260,7 @@ const Cart = () => {
                       src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCart%2Fimage%2022%20(1).png?alt=media&token=086cc881-2091-4405-8a2e-6fc25d6e6c77"
                       alt="Credit card icons"
                     />
-                  </Link>
+                  </Link> */}
                 </CartStyled.SummaryContainer>
               </CartStyled.Sidebar>
             </CartStyled.MainSection>

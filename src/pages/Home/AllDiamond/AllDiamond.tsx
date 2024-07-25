@@ -165,17 +165,17 @@ import {
   LeftFAQ,
   CustomBreadcrumb,
   StyledCollapse,
-  StyledPagination,
+  // StyledPagination,
 } from "./AllDiamond.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
+// import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
-import { showDiamonds } from "@/services/diamondAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { Link } from "react-router-dom";
-import { useNavigate, useLocation } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 const { Title, Text } = Typography;
 
 const items = texts.map((text, index) => ({
@@ -195,10 +195,9 @@ const AllDiamond: React.FC = () => {
   const [loading, setLoading] = useState<boolean>(true);
   const [wishList, setWishList] = useState<string[]>([]);
   // const [currentPage, setCurrentPage] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const [pageSize] = useState(12); // Set   your desired page size
+  // const [pageSize] = useState(12); // Set your desired page size
   const location = useLocation();
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   console.log(location);
 
@@ -216,19 +215,21 @@ const AllDiamond: React.FC = () => {
   //   setCurrentPage(page);
   // };
 
-  const handleChangePage = (page: number) => {
-    setCurrentPage(page);
-    navigate(`?page=${page}`);
-  };
+  // const handleChangePage = (page: number) => {
+  //   setCurrentPage(page);
+  //   navigate(`?page=${page}`);
+  // };
 
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showDiamonds({ page: 1 });
+        const response = await showAllDiamond();
         console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
-          const fetchedDiamonds = response.data.data.map((item: any) => ({
+          const fetchedDiamonds = response.data.data
+          .filter((item: any) => item.IsActive === true)
+          .map((item: any) => ({
             id: item.DiamondID,
             name: item.Name,
             cut: item.Cut,
@@ -324,7 +325,7 @@ const AllDiamond: React.FC = () => {
       <Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>
-      <FilterSortDiamond />
+      {/* <FilterSortDiamond /> */}
       <hr
         style={{
           maxWidth: "1400px",
@@ -397,20 +398,11 @@ const AllDiamond: React.FC = () => {
             ))}
         </Row>
       </List>
-      <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={diamonds.length}
-        onChange={handleChangePage}
-      />
       {/* <StyledPagination
         current={currentPage}
         pageSize={pageSize}
         total={diamonds.length}
-        onChange={(page) => {
-          setCurrentPage(page);
-          navigate(`?page=${page}`);
-        }}
+        onChange={handleChangePage}
       /> */}
       <FAQs>
         <LeftFAQ>

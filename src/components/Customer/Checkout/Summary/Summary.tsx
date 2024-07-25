@@ -95,7 +95,7 @@ const Summary: React.FC = () => {
   //   return acc + parseFloat(item.price.replace(/[$,]/g, ""));
   // }, 0);
 
-  const shippingCost = orderLineItems.length === 2 ? 15 : 0;
+  const shippingCost = orderLineItems.length === 1 ? 15 : 0;
 
   const subtotalNumber = () => {
     let temp = 0;
