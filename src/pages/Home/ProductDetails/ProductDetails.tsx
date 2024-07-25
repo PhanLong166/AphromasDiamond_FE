@@ -48,7 +48,7 @@ import {
   ButtonAdd,
   Space,
   List,
-  ProductSectionViewed,
+  // ProductSectionViewed,
   StyledPagination,
   CustomBreadcrumb,
 } from "./ProductDetails.styled";
@@ -56,8 +56,8 @@ import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
 // import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 // import { get } from "@/services/apiCaller";
-import { showAllMaterial } from "@/services/materialAPI";
-import { showAllSize } from "@/services/sizeAPI";
+// import { showAllMaterial } from "@/services/materialAPI";
+// import { showAllSize } from "@/services/sizeAPI";
 
 const ProductDetails: React.FC = () => {
   //tab description + cmt
@@ -108,86 +108,86 @@ const ProductDetails: React.FC = () => {
   ];
 
   //Metal
-  // const metalData = [
-  //   { id: "yellow", label: "14k", type: "14K Yellow Gold" },
-  //   { id: "white", label: "14k", type: "14K White Gold" },
-  //   { id: "rose", label: "14k", type: "14K Rose Gold" },
-  //   { id: "platinum", label: "Pt", type: "Platinum" },
-  // ];
-  // const [selectedMetal, setSelectedMetal] = useState('');
-  // const [metalType, setMetalType] = useState('');
-  interface MetalData {
-    id: string;
-    label: string;
-    type: string;
-  }
-  
-  const [metalData, setMetalData] = useState<MetalData[]>([]);
+  const metalData = [
+    { id: "yellow", label: "14k", type: "14K Yellow Gold" },
+    { id: "white", label: "14k", type: "14K White Gold" },
+    { id: "rose", label: "14k", type: "14K Rose Gold" },
+    { id: "platinum", label: "Pt", type: "Platinum" },
+  ];
   const [selectedMetal, setSelectedMetal] = useState("");
   const [metalType, setMetalType] = useState("");
-  useEffect(() => {
-    const fetchMetalData = async () => {
-      try {
-        const response = await showAllMaterial();
-        if (response.status === 200) {
-          const apiData = response.data.data; // Accessing the correct data array
-          const mappedData = apiData.map((item: any) => ({
-            id: item.Name.toLowerCase().replace(/ /g, ""),
-            label: item.Name.includes("14K") ? "14k" : "Pt",
-            type: item.Name,
-          }));
-          setMetalData(mappedData);
-          if (mappedData.length > 0) {
-            setSelectedMetal(mappedData[0].id);
-            setMetalType(mappedData[0].type);
-          }
-        }
-      } catch (error) {
-        console.error("Error fetching metal data:", error);
-      }
-    };
 
-    fetchMetalData();
-  }, []);
+  // interface MetalData {
+  //   id: string;
+  //   label: string;
+  //   type: string;
+  // }
+
+  // const [metalData, setMetalData] = useState<MetalData[]>([]);
+  // const [selectedMetal, setSelectedMetal] = useState("");
+  // const [metalType, setMetalType] = useState("");
+  // useEffect(() => {
+  //   const fetchMetalData = async () => {
+  //     try {
+  //       const response = await showAllMaterial();
+  //       if (response.status === 200) {
+  //         const apiData = response.data.data; // Accessing the correct data array
+  //         const mappedData = apiData.map((item: any) => ({
+  //           id: item.Name.toLowerCase().replace(/ /g, ""),
+  //           label: item.Name.includes("14K") ? "14k" : "Pt",
+  //           type: item.Name,
+  //         }));
+  //         setMetalData(mappedData);
+  //         if (mappedData.length > 0) {
+  //           setSelectedMetal(mappedData[0].id);
+  //           setMetalType(mappedData[0].type);
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error("Error fetching metal data:", error);
+  //     }
+  //   };
+
+  //   fetchMetalData();
+  // }, []);
 
   //Avg rating
   const totalReviews = reviewsData.length;
   const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
   const averageRating = totalRating / totalReviews;
   //size
-  // const sizes = [8, 10, 12, 14, 16, 18];
+  const sizes = [8, 10, 12, 14, 16, 18];
 
-  // const [selectedSize, setSelectedSize] = useState<number | null>(null);
-
-  // const handleClick = (size: number) => {
-  //   setSelectedSize(size);
-  // };
-  const [sizes, setSizes] = useState<any[]>([]); // Replace 'any' with a more specific type if possible
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
-  useEffect(() => {
-    const fetchSizes = async () => {
-      try {
-        const response = await showAllSize(); // Assuming this function fetches sizes from the API
-        if (response.status === 200) {
-          setSizes(response.data.data); // Assuming the sizes array is in 'data' property of the response
-          if (response.data.data.length > 0) {
-            setSelectedSize(response.data.data[0].sizeId); // Assuming 'sizeId' is the property of each size object
-          }
-        }
-      } catch (error) {
-        console.error('Error fetching sizes:', error);
-      }
-    };
-
-    fetchSizes();
-  }, []);
-
-  const handleClick = (sizeId: number) => {
-    setSelectedSize(sizeId);
-    // Handle any other logic related to selecting a size, such as updating UI or making API calls
+  const handleClick = (size: number) => {
+    setSelectedSize(size);
   };
+  // const [sizes, setSizes] = useState<any[]>([]); // Replace 'any' with a more specific type if possible
+  // const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
+  // useEffect(() => {
+  //   const fetchSizes = async () => {
+  //     try {
+  //       const response = await showAllSize(); // Assuming this function fetches sizes from the API
+  //       if (response.status === 200) {
+  //         setSizes(response.data.data); // Assuming the sizes array is in 'data' property of the response
+  //         if (response.data.data.length > 0) {
+  //           setSelectedSize(response.data.data[0].sizeId); // Assuming 'sizeId' is the property of each size object
+  //         }
+  //       }
+  //     } catch (error) {
+  //       console.error('Error fetching sizes:', error);
+  //     }
+  //   };
+
+  //   fetchSizes();
+  // }, []);
+
+  // const handleClick = (sizeId: number) => {
+  //   setSelectedSize(sizeId);
+  //   // Handle any other logic related to selecting a size, such as updating UI or making API calls
+  // };
 
   //inscription
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -278,10 +278,10 @@ const ProductDetails: React.FC = () => {
 
   //2 same
 
-  const recentlyProductIds = ["20", "3", "16", "2"];
-  const recentlyViewedProducts = products.filter((product) =>
-    recentlyProductIds.includes(product.id)
-  );
+  // const recentlyProductIds = ["20", "3", "16", "2"];
+  // const recentlyViewedProducts = products.filter((product) =>
+  //   recentlyProductIds.includes(product.id)
+  // );
 
   return (
     <Body>
@@ -290,7 +290,6 @@ const ProductDetails: React.FC = () => {
           separator=">"
           items={[
             { title: "Home", href: "/" },
-            { title: "Round Ring", href: "/product" },
             { title: "All Product", href: "/all" },
             { title: `${foundProduct.type} - #${foundProduct.id}` },
           ]}
@@ -375,18 +374,18 @@ const ProductDetails: React.FC = () => {
                       <div className="button-container">
                         {sizes.map((size) => (
                           <button
-                            key={size.SizeValue}
+                            key={size}
                             className={`size-button ${
-                              selectedSize === size.SizeValue ? "selected" : ""
+                              selectedSize === size ? "selected" : ""
                             }`}
-                            onClick={() => handleClick(size.SizeValue)}
+                            onClick={() => handleClick(size)}
                           >
-                            {size.SizeValue}
+                            {size}
                           </button>
                         ))}
                       </div>
                     </div>
-                    
+
                     <div className="inscription-container">
                       {inscription ? (
                         <Space>
@@ -653,7 +652,7 @@ const ProductDetails: React.FC = () => {
           </Row>
         </List>
       </ProductSection>
-      <ProductSectionViewed>
+      {/* <ProductSectionViewed>
         <Title>
           <h2>RECENTLY VIEWED</h2>
         </Title>
@@ -718,7 +717,7 @@ const ProductDetails: React.FC = () => {
             ))}
           </Row>
         </List>
-      </ProductSectionViewed>
+      </ProductSectionViewed> */}
     </Body>
   );
 };
