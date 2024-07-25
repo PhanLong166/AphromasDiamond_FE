@@ -344,7 +344,7 @@ const Jewelry = () => {
         })),
       }));
 
-      const formattedJewelryList = jewelryListData.map((jewelry: any) => ({
+      const formattedJewelryList = jewelryListData?.map((jewelry: any) => ({
         jewelryID: jewelry.ProductID,
         jewelryName: jewelry.Name,
         inscription: jewelry.Inscription,
@@ -363,18 +363,16 @@ const Jewelry = () => {
         })),
       }));
 
-      console.log("Formatted Diamonds:", formattedJewelryList); 
+      // console.log("Formatted Diamonds:", formattedJewelryList); 
       setDiamonds(formattedDiamonds);
       setSettings(formattedSettings);
-<<<<<<<<< Temporary merge branch 1
-      setJewelrys(formattedJewelrys);
-      console.log(diamonds);
-      console.log(settings);
-=========
+      // setJewelrys(formattedJewelrys);
       setJewelrys(formattedJewelryList);
->>>>>>>>> Temporary merge branch 2
+      // console.log(diamonds);
+      // console.log(settings);
+
     } catch (error) {
-      console.error("Failed to fetch diamonds:", error);
+      console.error("Failed to fetch jewelry:", error);
     }
   };
 

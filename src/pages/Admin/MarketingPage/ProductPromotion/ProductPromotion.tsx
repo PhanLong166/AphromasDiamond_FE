@@ -589,8 +589,8 @@ const ProductPromotion = () => {
                       },
                     }}
                     bordered
-                    dataSource={mergedColumns}
-                    columns={columns}
+                    dataSource={discounts}
+                    columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{ pageSize: 6 }} 
                     onChange={onChangeTable}

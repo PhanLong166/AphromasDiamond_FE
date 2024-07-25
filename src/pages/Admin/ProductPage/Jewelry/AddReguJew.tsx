@@ -27,27 +27,30 @@ const AddProduct = () => {
       const responseJewelrys = await showAllProduct();
       const jewelrysData = responseJewelrys.data;
 
-      const formattedJewelrys = await Promise.all(jewelrysData?.map(async (jewelry: any) => ({
-        jewelryID: jewelry.ProductID,
-        jewelryName: jewelry.Name,
-        inscription: jewelry.Inscription,
-        inscriptionFont: jewelry.InscriptionFont,
-        brand: jewelry.Brand,
-        jewelrySettingID_Jewelry: jewelry.JewelrySettingID,
-        accountID: jewelry.AccountID,
-        totalDiamondPrice: jewelry.TotalDiamondPrice,
-        collectionID: jewelry.CollectionID,
-        discountID: jewelry.DiscountID,
-        totalQuantitySettingVariants: jewelry.TotalQuantityJewelrySettingVariants,
-        images: await Promise.all(jewelry.UsingImage.map(async (image: any) => ({
-          id: image.UsingImageID,
-          name: image.Name,
-          url: await getImage(image.UsingImageID),
-        }))),
-      })));
+      // const formattedJewelrys = await Promise.all(jewelrysData?.map(async (jewelry: any) => ({
+      //   jewelryID: jewelry.ProductID,
+      //   jewelryName: jewelry.Name,
+      //   inscription: jewelry.Inscription,
+      //   inscriptionFont: jewelry.InscriptionFont,
+      //   brand: jewelry.Brand,
+      //   jewelrySettingID_Jewelry: jewelry.JewelrySettingID,
+      //   accountID: jewelry.AccountID,
+      //   totalDiamondPrice: jewelry.TotalDiamondPrice,
+      //   collectionID: jewelry.CollectionID,
+      //   discountID: jewelry.DiscountID,
+      //   totalQuantitySettingVariants: jewelry.TotalQuantityJewelrySettingVariants,
+      //   images: await Promise.all(jewelry.UsingImage.map(async (image: any) => ({
+      //     id: image.UsingImageID,
+      //     name: image.Name,
+      //     url: await getImage(image.UsingImageID),
+      //   }))),
+      // })));
 
-      console.log("Formatted Jewelry:", formattedJewelrys);
-      setProducts(formattedJewelrys);
+      // console.log("Formatted Jewelry:", formattedJewelrys);
+      // setProducts(formattedJewelrys);
+
+      console.log("Formatted Jewelry:", jewelrysData);
+      setProducts(jewelrysData);
       console.log(products);
     } catch (error) {
       console.error("Failed to fetch Jewelrys:", error);
