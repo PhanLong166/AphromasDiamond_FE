@@ -1,16 +1,14 @@
 import * as Styled from "./Cancelled.styled";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import { data, DataType } from "../OrderData";
+import { DataType } from "../OrderData";
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
-
-
-
-const filteredData = data.filter((item) => item.status === "Cancelled");
+import { showAllOrder } from "@/services/orderAPI";
+import { OrderStatus } from "@/utils/enum";
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -18,6 +16,9 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "orderID",
     defaultSortOrder: "descend",
     sorter: (a: DataType, b: DataType) => parseInt(a.orderID) - parseInt(b.orderID),
+    render: (_, { date }) => {
+      return <>{date.replace("T", " ").replace(".000Z", " ")}</>
+    }
   },
   {
     title: "Date",
@@ -91,6 +92,7 @@ const onChange: TableProps<DataType>["onChange"] = (
 
 const CancelledOrder = () => {
   const [searchText, setSearchText] = useState("");
+  const [order, setOrder] = useState<any[]>([]);
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -101,6 +103,25 @@ const CancelledOrder = () => {
       onSearch(searchText);
     }
   };
+
+  const fetchData = async () => {
+    // Get order list
+    const orderList = await showAllOrder();
+    const formatOrderList = orderList.data.data
+      .filter((order: any) => order.OrderStatus === OrderStatus.CANCELLED)
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        date: order.OrderDate,
+        cusName: order.NameReceived,
+        total: order.Price,
+        status: order.OrderStatus,
+      }))
+    setOrder(formatOrderList);
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   return (
     <>
@@ -131,7 +152,7 @@ const CancelledOrder = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={filteredData}
+                dataSource={order}
                 pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}

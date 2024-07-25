@@ -1,10 +1,11 @@
 import * as Styled from "./OrderDetail.styled";
-import { useState } from "react";
-import { Button, Modal, Tag } from "antd";
+import { useEffect, useState } from "react";
+import { Button, Empty, Modal, Tag } from "antd";
 // import OrderMenu from "../../../components/Admin/OrderMenu/OrderMenu";
-import { data } from "./OrderData";
+// import { data } from "./OrderData";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
+import { orderDetail } from "@/services/orderAPI";
 
 // const { Option } = Select;
 
@@ -65,9 +66,19 @@ const orderLineData: OrderLine[] = [
 
 const OrderDetail = () => {
   const { id } = useParams<{ id: string }>();
-  const activeOrder = data.find((order) => order.orderID === id);
+  // const activeOrder = data.find((order) => order.orderID === id);
+  const [activeOrder, setActiveOrder] = useState<any>(null);
 
   const [orderStatus, setOrderStatus] = useState(activeOrder?.status || "");
+
+  useEffect(() => {
+    const fetchData = async () => {
+      const orderResponse = await orderDetail(Number(id));
+      setActiveOrder(orderResponse.data.data);
+      console.log(activeOrder);
+    };
+    fetchData();
+  }, [])
 
   // Calculate the total price of the order lines
   const totalPrice = orderLineData.reduce(
@@ -236,7 +247,7 @@ const OrderDetail = () => {
                 </Styled.ActionBtn>
               </>
             ) : (
-              <div>Order not found.</div>
+              <Empty/>
             )}
           </Styled.PageContent>
         </Styled.AdminPage>
