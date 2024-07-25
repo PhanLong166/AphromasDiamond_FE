@@ -139,9 +139,9 @@ const DiamondDetails: React.FC = () => {
   // );
 
   //Avg rating
-  // const totalReviews = reviewsData.length;
-  // const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
-  // const averageRating = totalRating / totalReviews;
+  const totalReviews = reviewsData.length;
+  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const averageRating = totalRating / totalReviews;
 
   //PARAM
   const { id } = useParams<{ id: string }>();
@@ -504,10 +504,10 @@ const DiamondDetails: React.FC = () => {
               className={activeTab === "product-review" ? "active" : "hide"}
             >
               {/* Review content */}
-              <Review>
+              <Review >
                 <div className="head-review">
                   <div className="sum-rating">
-                    {/* <strong>{averageRating.toFixed(1)}</strong> */}
+                    <strong>{averageRating.toFixed(1)}</strong>
                     <span>{reviewsData.length} reviews</span>
                   </div>
                 </div>
@@ -531,14 +531,9 @@ const DiamondDetails: React.FC = () => {
                           <div className="date grey-color">On {review.date}</div>
                         </div>
                       </div>
-                      <div className="comment">
+                      <div className="comment reply">
                         <strong>{review.highlight}</strong>
                         <p className="grey-color">{review.comment}</p>
-                      </div>
-                      <div className="reply">
-                        <strong>Seller's Feedback</strong>
-                        <p className="grey-color">{review.reply}</p>
-                        <div className="date grey-color">On {review.date}</div>
                       </div>
                     </div>
                   ))}
