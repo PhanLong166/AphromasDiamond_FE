@@ -290,7 +290,6 @@ const ProductDetails: React.FC = () => {
           separator=">"
           items={[
             { title: "Home", href: "/" },
-            { title: "Round Ring", href: "/product" },
             { title: "All Product", href: "/all" },
             { title: `${foundProduct.type} - #${foundProduct.id}` },
           ]}
