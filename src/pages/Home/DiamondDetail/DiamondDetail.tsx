@@ -32,7 +32,7 @@ import {
   ShippingItem,
   CurrentPrice,
   BeforePrice,
-  Discount,
+  // Discount,
   Contain,
   Tabbed,
   ProductAbout,

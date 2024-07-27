@@ -1,12 +1,12 @@
 import * as Styled from "./Pending.styled";
 import { useEffect, useState } from "react";
-import { Button, Space, Table, Tag, Input } from "antd";
-import { SearchOutlined } from "@ant-design/icons";
+import { Table, Tag, Input, Space } from "antd";
+import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
-import { Link } from "react-router-dom";
 import { showAllOrder } from "@/services/orderAPI";
+import { Link } from "react-router-dom";
 
 
 const Pending = () => {
@@ -33,6 +33,8 @@ const Pending = () => {
         accountDeliveryID: order.AccountDeliveryID,
         accountSaleID: order.AccountSaleID,
         voucherID: order.VoucherID,
+        receiver: order.NameReceived,
+        total: order.VoucherPrice
       }));
       console.log('Formatted Orders:', formattedOrders); // Log formatted diamonds
       setOrders(formattedOrders);
@@ -69,20 +71,27 @@ const columns: TableColumnsType<any> = [
     dataIndex: "orderDate",
     defaultSortOrder: "descend",
     sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
+    render: (_, { orderDate }) => {
+      return <>{orderDate.replace("T", " ").replace(".000Z", " ")}</>
+    }, 
   },
   {
     title: "Customer",
-    dataIndex: "customerID",
+    dataIndex: "receiver",
     showSorterTooltip: { target: "full-header" },
-    sorter: (a, b) => a.customerID.length - b.customerID.length,
+    sorter: (a, b) => a.receiver.length - b.receiver.length,
     sortDirections: ["descend"],
   },
-  // {
-  //   title: "Total",
-  //   dataIndex: "total",
-  //   defaultSortOrder: "descend",
-  //   sorter: (a, b) => a.total - b.total,
-  // },
+  
+  {
+    title: "Total",
+    dataIndex: "total",
+    defaultSortOrder: "descend",
+    sorter: (a, b) => a.total - b.total,
+    render: (_, { total }) => {
+      return <>${total.toFixed(2)}</>
+    }, 
+  },
   {
     title: "Status",
     key: "orderStatus",
@@ -111,17 +120,19 @@ const columns: TableColumnsType<any> = [
       );
     },
   },
-  // {
-  //   title: "Action",
-  //   key: "action",
-  //   render: (_, { orderID }) => (
-  //     <Space size="middle">
-  //       <Link to={`/admin/order/detail/${orderID}`}>
-  //       <Button className="confirmBtn">Accept</Button>
-  //       </Link>
-  //     </Space>
-  //   ),
-  // },
+  {
+    title: "Detail",
+    key: "detail",
+    dataIndex: "orderID",
+    className: "TextAlign",
+    render: (_, { orderID }) => (
+      <Space size="middle">
+        <Link to={`/admin/order/detail/${orderID}`}>
+          <EyeOutlined />
+        </Link>
+      </Space>
+    ),
+  },
 ];
 
 const onChange: TableProps<any>["onChange"] = (
