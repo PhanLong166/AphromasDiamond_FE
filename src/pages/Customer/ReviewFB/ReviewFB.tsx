@@ -2,7 +2,7 @@
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
 import useAuth from "@/hooks/useAuth";
 import { getDiamondDetails } from "@/services/diamondAPI";
-import { showAllFeedback } from "@/services/feedBackAPI";
+import { showAllFeedback, showFeedback } from "@/services/feedBackAPI";
 import { getImage } from "@/services/imageAPI";
 import { Avatar, Card, Rate } from "antd";
 import { useEffect, useState } from "react";
@@ -35,17 +35,29 @@ const formatDateTime = (dateTime: string) => {
   }).format(new Date(dateTime));
 };
 
+const filter = {
+  AccountID: '1',
+  page: '1'
+}
+
 const ReviewFB = () => {
   const [feedBackData, setFeedBackData] = useState<FeedbackWithDetails[]>([]);
   const { AccountID } = useAuth();
   console.log(AccountID);
+  const queryString = new URLSearchParams(filter).toString();
   const fetchFeedBackData = async () => {
     try {
-      const res = await showAllFeedback({});
+      const res = await showFeedback(queryString);
       if (res.data && res.data.data) {
+        const feedRes = res.data?.data.map((fb: any)=>({
+          FeedbackID: fb?.FeedbackID,
+          Stars: fb?.Stars,
+          Comment: fb?.Comment
+        }))
         const filterFeedBackAccount = res.data.data.filter(
           (feedback: Feedback) => feedback.AccountID === AccountID
         );
+        console.log('Real feedback ', feedRes)
         console.log(filterFeedBackAccount)
         const feedbackWithDetails = await Promise.all(
           filterFeedBackAccount.map(async (feedback: Feedback) => {

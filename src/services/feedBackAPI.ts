@@ -5,6 +5,12 @@ export const showAllFeedback = (params: any) => {
     return get(`/feedback/showAll`, params);
 }
 
+export const showFeedback = (params: string) => {
+    console.log('filter',params)
+    return get(`/feedback/showFeedback?${params}` );
+}
+
+
 export const createFeedback = (feedback: object) => {
     return post(`/feedback/create`, feedback);
 }

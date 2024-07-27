@@ -39,6 +39,7 @@ import Manager from "@/pages/Admin/ManagerPage/Manager"
 import useAuth from "@/hooks/useAuth"
 import { Role } from "@/utils/enum"
 import { Navigate } from "react-router-dom"
+import ReviewFB from "@/pages/Customer/ReviewFB/ReviewFB"
 
 const AdminRouter = () => {
     //Use database
@@ -80,7 +81,7 @@ const AdminRoutes = {
         { path: config.routes.admin.discountDetail, element: <ProductPromotionDetail /> },
         { path: config.routes.admin.voucher, element: <BillPromotion /> },
 
-        { path: config.routes.admin.clientCaring, element: <Feedback /> },
+        { path: config.routes.admin.clientCaring, element: <ReviewFB /> },
         // { path: config.routes.admin.feedback, element: <Feedback /> },
 
         { path: config.routes.admin.customer, element: <Customer /> },
