@@ -1,76 +1,130 @@
-import React from 'react';
-import styled from 'styled-components';
-import 'font-awesome/css/font-awesome.min.css';
-// import { diamondvouchers} from './data';
-import { diamondvouchers } from "../Data/data";
+import React, { useEffect, useState } from "react";
+import styled from "styled-components";
+import "font-awesome/css/font-awesome.min.css";
+import { showAllVoucher } from "@/services/voucherAPI";
+import { Pagination } from "antd";
+
+interface Voucher {
+  VoucherID: number;
+  VoucherCode: string;
+  Description: string;
+  StartDate: string;
+  EndDate: string;
+  PercentDiscounts: string;
+}
+
+const formatDate = (dateString: string) => {
+  const date = new Date(dateString);
+  return new Intl.DateTimeFormat("en-GB", {
+    year: "numeric",
+    month: "2-digit",
+    day: "2-digit",
+    hour: "2-digit",
+    minute: "2-digit",
+    second: "2-digit",
+    hour12: false, // Use 24-hour time format
+    timeZone: "UTC", // Specify time zone if necessary
+  }).format(date);
+};
+
+const formatPercent = (percentString: string) => {
+  const percent = parseFloat(percentString);
+  // Format the number to remove trailing zeros
+  return percent.toFixed(2).replace(/\.00$/, '');
+};
 
 const App = () => {
- 
-  const availableVouchers = diamondvouchers.filter(diamond => !diamond.used);
+  const [vouchersList, setVoucherList] = useState<Voucher[]>([]); 
+  const [currentPage, setCurrentPage] = useState(1);
+  const [itemsPerPage] = useState(6); 
+  const getAllVouchers = async () => {
+    try {
+      const { data } = await showAllVoucher();
+      const filteredVouchers = filterValidVouchers(data.data);
+      setVoucherList(filteredVouchers);
+      console.log(filteredVouchers);
+    } catch (error) {
+      console.error(error);
+    }
+  };
+  useEffect(() => {
+    getAllVouchers();
+  }, []);
 
+  const filterValidVouchers = (vouchers: Voucher[]) => {
+    const currentDate = new Date();
+    return vouchers.filter((voucher) => new Date(voucher.EndDate) > currentDate);
+  };
+  // const availableVouchers = vouchersList;
+  const indexOfLastItem = currentPage * itemsPerPage;
+  const indexOfFirstItem = indexOfLastItem - itemsPerPage;
+  const currentItems = vouchersList.slice(indexOfFirstItem, indexOfLastItem);
+
+  // Handle page change
+  const handlePageChange = (page: number) => {
+    setCurrentPage(page);
+  };
   return (
+    <div>
     <Container>
-      
-      {availableVouchers.map((diamond, index) => (
-        <GigItem key={index} {...diamond} />
-      ))}
-    </Container>
+    {currentItems.map((voucher) => (
+      <GigItem key={voucher.VoucherID} {...voucher} />
+    ))}
+   
+  </Container>
+    <Pagination 
+    style={{ marginTop: "45px",display:"flex",justifyContent:"center" }}
+    current={currentPage}
+    pageSize={itemsPerPage}
+    total={vouchersList.length}
+    onChange={handlePageChange}
+  />
+  </div>
   );
 };
 
 interface GigProps {
-  price: string;
-  character: string;
-  eventTitle: string;
-  eventName: string;
-  startDate: string;
-  endDate: string;
-  location: string;
-  locationDetails: string;
-  buttonLabel: string;
-  buttonLabeles: string;
-  used: boolean;
+  VoucherCode: string;
+  Description: string;
+  StartDate: string;
+  EndDate: string;
+  PercentDiscounts: string;
+  
 }
 
 const GigItem: React.FC<GigProps> = ({
-  price,
-  character,
-  eventTitle,
-  eventName,
-  startDate,
-  endDate,
-  location,
-  locationDetails,
-  buttonLabel,
- 
+  VoucherCode,
+  Description,
+  StartDate,
+  EndDate,
+  PercentDiscounts,
 }) => (
   <Item>
     <ItemRight>
-      <Number>{price}</Number>
-      <Character>{character}</Character>
+      <Number>{formatPercent(PercentDiscounts)}</Number>
+      <Character>%</Character>
       <UpBorder />
       <DownBorder />
     </ItemRight>
     <ItemLeft>
-      <Event>{eventTitle}</Event>
-      <Title>{eventName}</Title>
+      {/* <Event>{Description}</Event> */}
+      <Title>{Description}</Title>
       <Schedule>
         <Icon className="fa fa-table" />
         <Text>
-          {startDate} <br /> {endDate}
+          {formatDate(StartDate)} <br /> <br />  {formatDate(EndDate)}
         </Text>
       </Schedule>
       <Fix />
-      <Location>
+      {/* <Location>
         <Icon className="fa fa-map-marker" />
         <Text>
           {location} <br /> {locationDetails}
         </Text>
-      </Location>
+      </Location> */}
       <Fix />
       <Row>
-        <Buttons>{buttonLabel}</Buttons>
-        {/* <Button>{buttonLabeles}</Button> */}
+        <Buttons>{VoucherCode}</Buttons>
       </Row>
     </ItemLeft>
   </Item>
@@ -116,7 +170,7 @@ const UpBorder = styled.span`
   background-color: #ddd;
   border-radius: 50%;
   position: relative;
-  top: -150px;
+  top: -127px;
   left: 100%;
   transform: translateX(-50%);
 `;
@@ -126,7 +180,7 @@ const DownBorder = styled.span`
   background-color: #ddd;
   border-radius: 50%;
   position: relative;
-  bottom: -90px;
+  bottom: -65px;
   left: 50%;
   transform: translateX(-50%);
 `;
@@ -136,11 +190,11 @@ const ItemLeft = styled.div`
   padding: 10px 0 10px 34px;
 `;
 
-const Event = styled.p`
-  color: #102c57;
-  font-size: 15px;
-  margin-bottom: 9px;
-`;
+// const Event = styled.p`
+//   color: #102c57;
+//   font-size: 15px;
+//   margin-bottom: 9px;
+// `;
 
 const Title = styled.h2`
   color: #102c57;
@@ -170,12 +224,12 @@ const Fix = styled.div`
   clear: both;
 `;
 
-const Location = styled.div`
-  display: flex;
-  align-items: center;
-  margin-bottom: 10px;
-  font-size: 15px;
-`;
+// const Location = styled.div`
+//   display: flex;
+//   align-items: center;
+//   margin-bottom: 10px;
+//   font-size: 15px;
+// `;
 
 const Row = styled.div`
   display: flex;
@@ -184,17 +238,15 @@ const Row = styled.div`
 
 const Buttons = styled.div`
   font-size: 12px;
-    padding: 10px 20px;
-    background-color: #fff9f7;
-    color: #151542;
-    border: 1px solid #151542;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: "Gantari", sans-serif;
-    font-weight: 600;
-    transition: all 0.45s ease;
-    
+  padding: 10px 20px;
+  background-color: #fff9f7;
+  color: #151542;
+  border: 1px solid #151542;
+  /* cursor: pointer; */
+  transition: background-color 0.3s ease;
+  font-family: "Gantari", sans-serif;
+  font-weight: 600;
+  transition: all 0.45s ease;
 `;
-
 
 export default App;
