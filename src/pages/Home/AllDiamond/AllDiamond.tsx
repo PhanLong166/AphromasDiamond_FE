@@ -228,6 +228,7 @@ const AllDiamond: React.FC = () => {
 
         if (response && response.data && Array.isArray(response.data.data)) {
           const fetchedDiamonds = response.data.data
+
           .filter((item: any) => item.IsActive === true && item.Quantity === 1)
           .map((item: any) => ({
             id: item.DiamondID,
