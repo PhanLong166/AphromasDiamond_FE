@@ -10,6 +10,7 @@ import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { getDiamondDetails } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllOrder } from "@/services/orderAPI";
+import useAuth from "@/hooks/useAuth";
 
 interface DiamondDetail {
   DiamondID: number;
@@ -71,8 +72,9 @@ const OrderDetail: React.FC = () => {
     {}
   );
   const [order, setOrder] = useState<any>(null);
+  const { AccountID } = useAuth();
 
-  // const [value, setValue] = useState(3);
+  const [reviewedDiamonds, setReviewedDiamonds] = useState<Set<number>>(new Set());
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [selectedDiamondId, setSelectedDiamondId] = useState<number | null>(
     null
@@ -234,8 +236,9 @@ const OrderDetail: React.FC = () => {
     {
       title: "Action",
       key: "action",
-      render: (_, record) =>
-        order?.OrderStatus === "Completed" ? ( // Check order status is "Completed"
+      render: (_, record) => {
+        const isReviewed = reviewedDiamonds.has(record.DiamondID);
+        return order?.OrderStatus === "Completed" && !isReviewed ? (
           <Space size="middle">
             <Button
               type="link"
@@ -247,13 +250,17 @@ const OrderDetail: React.FC = () => {
               Feedback
             </Button>
           </Space>
-        ) : null, 
+        ) : isReviewed ? (
+          <span>Feedback Given</span>
+        ) : null;
+      },
     },
   ];
 
   const handleFeedbackCreate = (values: any) => {
     console.log("Feedback submitted: ", values);
     setIsModalVisible(false);
+    setReviewedDiamonds(prev => new Set(prev).add(selectedDiamondId!));
     notification.success({
       message: "Feedback Submitted",
       description: "Thank you for your feedback!",
@@ -301,7 +308,7 @@ const OrderDetail: React.FC = () => {
             onCreate={handleFeedbackCreate}
             onCancel={() => setIsModalVisible(false)}
             orderId={orderId}
-            accountId={null}
+            accountId={AccountID}
             diamondId={selectedDiamondId}
           />
         </ProductsWrapper>
