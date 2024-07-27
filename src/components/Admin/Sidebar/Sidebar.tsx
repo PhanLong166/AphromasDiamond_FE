@@ -15,21 +15,23 @@ import {
 } from "@ant-design/icons";
 import config from "@/config";
 import cookieUtils from "@/services/cookieUtils";
-import { showAllAccounts } from "@/services/authAPI";
+import useAuth from "@/hooks/useAuth";
+import { getAccountDetail } from "@/services/accountApi";
 
 const Sidebar = () => {
+  const { AccountID, role } = useAuth();
   const location = useLocation();
   const [active, setActive] = useState<string>("");
-  const [userInfo, setUserInfo] = useState<{ name: string, role: string } | null>(null);
+  const [userInfo, setUserInfo] = useState<{ name: string | undefined, role: string | null } | null>(null);
 
   useEffect(() => {
     const fetchUserInfo = async () => {
       try {
-        const response = await showAllAccounts();
-        const account = response.data; // Thay đổi cách lấy tài khoản tùy theo cấu trúc thực tế của response
+        const response = await getAccountDetail(AccountID ? AccountID : 0);
+        const account = response.data.data; // Thay đổi cách lấy tài khoản tùy theo cấu trúc thực tế của response
         setUserInfo({
-          name: account.Name,
-          role: account.Role,
+          name: account?.Name,
+          role: role ? role.substring(5) : "",
         });
       } catch (error) {
         console.error("Failed to fetch user info:", error);
@@ -37,7 +39,7 @@ const Sidebar = () => {
     };
 
     fetchUserInfo();
-  }, []);
+  }, [AccountID]);
 
   useEffect(() => {
     const path = location.pathname;
