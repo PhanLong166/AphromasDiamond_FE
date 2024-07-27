@@ -198,6 +198,7 @@ const DiamondDetails: React.FC = () => {
                   id: item.DiamondID,
                   name: item.Name,
                   cut: item.Cut,
+                  stars: item.Stars,
                   price: item.Price,
                   color: item.Color,
                   description: item.Description,
@@ -377,8 +378,9 @@ const DiamondDetails: React.FC = () => {
                 <Entry>
                   <Heading>
                     <Title className="main-title">{foundProduct.Name}</Title>
+
                     <ProductRating>
-                      {[...Array(foundProduct.Star)].map((_, i) => (
+                      {Array.from({ length: foundProduct.Stars }, (_, i) => (
                         <StarFilled key={i} />
                       ))}
                     </ProductRating>
