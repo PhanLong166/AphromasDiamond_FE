@@ -3,9 +3,9 @@ import { theme } from "../../../themes";
 import { Breadcrumb } from "antd";
 import { Pagination } from "antd";
 export const StyledPagination = styled(Pagination)`
-display: block;
-text-align: center;
-margin: 20px auto;
+  display: block;
+  text-align: center;
+  margin: 20px auto;
 `;
 
 export const Body = styled.div`
@@ -95,7 +95,6 @@ export const MainImage = styled.div`
     width: 100%;
     max-width: 550px;
   }
-
 `;
 
 export const ProductDetail = styled.div`
@@ -104,6 +103,46 @@ export const ProductDetail = styled.div`
   width: 50%;
   padding: 20px;
   padding-top: 0;
+`;
+
+export const GIA = styled.div`
+  display: flex;
+  flex-direction: column;
+  text-align: center;
+  .giaLogo img {
+    width: 35px;
+    height: 35px;
+    margin-bottom: 8px;
+    cursor: pointer;
+  }
+  .logo {
+    font-size: 14px;
+    color: ${theme.color.primary};
+    cursor: pointer;
+  }
+`;
+export const Condition = styled.div`
+  padding-bottom: 20px;
+  .payment-options-box {
+    background-color: #d9d9d9;
+    padding: 20px;
+  }
+
+  .payment-options-box h3 {
+    margin: 0;
+    font-size: 16px;
+    color: ${theme.color.primary};
+    font-weight: 500;
+    font-family: "Gantari", sans-serif;
+  }
+
+  .payment-options-box li {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #555;
+    font-weight: 300;
+    font-family: "Gantari", sans-serif;
+  }
 `;
 
 export const Entry = styled.div`
@@ -171,6 +210,11 @@ export const ProductRating = styled.span`
 `;
 
 export const ProductInfo = styled.div`
+  .container {
+    display: flex;
+    justify-content: space-between; /* Đặt các phần tử ở 2 đầu */
+    align-items: center; /* Canh giữa các phần tử theo chiều dọc */
+  }
   span {
     color: ${theme.color.primary};
     font-family: "Gantari", sans-serif;
@@ -418,7 +462,7 @@ export const CurrentPrice = styled.span`
   font-family: "Gantari", sans-serif;
   font-weight: 500;
   font-style: italic;
-  color: #DC143C;
+  color: #dc143c;
 `;
 
 export const BeforePrice = styled.span`
@@ -432,7 +476,7 @@ export const Discount = styled.span`
   display: inline-block;
   font-size: 18px;
   padding: 8px;
-  background-color: #DC143C;
+  background-color: #dc143c;
   color: ${theme.color.white};
   margin-left: -10px;
   text-align: center;
