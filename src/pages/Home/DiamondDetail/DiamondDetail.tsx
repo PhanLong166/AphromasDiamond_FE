@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
-import Link from '@/components/Link';
+import Link from "@/components/Link";
 import { Card, Col, notification, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
@@ -45,7 +45,7 @@ import {
   List,
   // ProductSectionViewed,
   CustomBreadcrumb,
-  StyledPagination
+  StyledPagination,
 } from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -54,10 +54,14 @@ import useAuth from "@/hooks/useAuth";
 import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
 // import { getImage } from "@/services/imageAPI";
-import { createOrderLine, OrderLineBody, showAllOrderLineForAdmin } from "@/services/orderLineAPI";
+import {
+  createOrderLine,
+  OrderLineBody,
+  showAllOrderLineForAdmin,
+} from "@/services/orderLineAPI";
 import { getImage } from "@/services/imageAPI";
 
-type NotificationType = 'success' | 'error';
+type NotificationType = "success" | "error";
 
 const DiamondDetails: React.FC = () => {
   //tab description + cmt
@@ -157,9 +161,9 @@ const DiamondDetails: React.FC = () => {
   const openNotification = async (type: NotificationType, message: string) => {
     api[type]({
       message: `${type.charAt(0).toUpperCase() + type.slice(1)} Notification`,
-      description: message
-    })
-  }
+      description: message,
+    });
+  };
 
   const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
   // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any[]>([]);
@@ -185,31 +189,37 @@ const DiamondDetails: React.FC = () => {
           const sameWeightProductsResponse = await showDiamonds(params);
 
           if (sameWeightProductsResponse.status === 200) {
-            if (sameWeightProductsResponse.data && Array.isArray(sameWeightProductsResponse.data.data)) {
-              const fetchedDiamonds = sameWeightProductsResponse.data.data.map((item: any) => ({
-                id: item.DiamondID,
-                name: item.Name,
-                cut: item.Cut,
-                price: item.Price,
-                color: item.Color,
-                description: item.Description,
-                isActive: item.IsActive,
-                clarity: item.Clarity,
-                cutter: item.Cutter,
-                images: item.usingImage.map((image: any) => ({
-                  id: image.UsingImageID,
-                  name: image.Name,
-                  url: getImage(image.UsingImageID),
-                })),
-              }));
+            if (
+              sameWeightProductsResponse.data &&
+              Array.isArray(sameWeightProductsResponse.data.data)
+            ) {
+              const fetchedDiamonds = sameWeightProductsResponse.data.data.map(
+                (item: any) => ({
+                  id: item.DiamondID,
+                  name: item.Name,
+                  cut: item.Cut,
+                  stars: item.Stars,
+                  price: item.Price,
+                  color: item.Color,
+                  description: item.Description,
+                  isActive: item.IsActive,
+                  clarity: item.Clarity,
+                  cutter: item.Cutter,
+                  images: item.usingImage.map((image: any) => ({
+                    id: image.UsingImageID,
+                    name: image.Name,
+                    url: getImage(image.UsingImageID),
+                  })),
+                })
+              );
 
               const maxProductsToShow = 4;
               const productsToShow =
                 fetchedDiamonds.length <= maxProductsToShow
                   ? fetchedDiamonds
                   : fetchedDiamonds
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, maxProductsToShow);
+                      .sort(() => 0.5 - Math.random())
+                      .slice(0, maxProductsToShow);
 
               setSameBrandProducts(productsToShow);
             } else {
@@ -231,21 +241,23 @@ const DiamondDetails: React.FC = () => {
 
     const fetchCart = async () => {
       const orderlines = await showAllOrderLineForAdmin();
-      const cartItems = orderlines.data.data.filter((item: any) => item.OrderID === null && item.CustomerID === user?.CustomerID);
+      const cartItems = orderlines.data.data.filter(
+        (item: any) =>
+          item.OrderID === null && item.CustomerID === user?.CustomerID
+      );
       setCartList(cartItems);
-    }
+    };
 
     fetchCart();
-  }, [id, cartList]);
+  }, [id]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
   }
 
   const thumbnailImages =
-    foundProduct?.usingImage?.map(
-      (img: any) => getImage(img.UsingImageID)
-    ) || [];
+    foundProduct?.usingImage?.map((img: any) => getImage(img.UsingImageID)) ||
+    [];
 
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
@@ -253,7 +265,6 @@ const DiamondDetails: React.FC = () => {
   };
 
   const handleAddToCart = async () => {
-
     if (role) {
       try {
         const OrderLineChild: OrderLineBody = {
@@ -261,57 +272,36 @@ const DiamondDetails: React.FC = () => {
           DiamondID: getParamsID,
           CustomerID: user?.CustomerID,
           ProductID: null,
-          OrderID: null
-        }
+          OrderID: null,
+        };
 
         if (cartList.find((cart) => cart.DiamondID === getParamsID)) {
           api.warning({
-            message: 'Notification',
-            description: 'The product is already in your cart'
-          })
-        }
-        else {
+            message: "Notification",
+            description: "The product is already in your cart",
+          });
+        } else {
           const { data } = await createOrderLine(OrderLineChild);
-          if (data.statusCode === 404) throw new Error('Network error');
+          if (data.statusCode === 404) throw new Error("Network error");
           if (data.statusCode !== 200) throw new Error(data.message);
-          await openNotification('success', 'The product has been successfully added to the cart');
+          await openNotification(
+            "success",
+            "The product has been successfully added to the cart"
+          );
           navigate(config.routes.customer.cart);
         }
-
       } catch (error: any) {
-        await openNotification('error', error.message || 'Server error');
+        await openNotification("error", error.message || "Server error");
       }
-
     } else {
-      navigate(config.routes.public.login)
+      navigate(config.routes.public.login);
     }
     // navigate(config.routes.customer.cart);
-  }
+  };
 
-  const handleCheckout = async () => {
+  const handleCheckout = () => {
     if (role) {
-      
-      const OrderLineChild: OrderLineBody = {
-        Quantity: 1,
-        DiamondID: getParamsID,
-        CustomerID: user?.CustomerID,
-        ProductID: null,
-        OrderID: null
-      }
-
-      if (cartList.find((cart) => cart.DiamondID === getParamsID)) {
-        api.warning({
-          message: 'Notification',
-          description: 'The product is already in your cart'
-        })
-      }
-      else {
-        const { data } = await createOrderLine(OrderLineChild);
-        if (data.statusCode === 404) throw new Error('Network error');
-        if (data.statusCode !== 200) throw new Error(data.message);
-        await openNotification('success', 'The product has been successfully added to the cart');
-        navigate(config.routes.customer.checkout);
-      }
+      navigate(config.routes.customer.checkout);
     } else navigate(config.routes.public.login);
   };
   // useEffect(() => {
@@ -366,7 +356,9 @@ const DiamondDetails: React.FC = () => {
                         {thumbnailImages.map((src: any, index: any) => (
                           <Item
                             key={index}
-                            className={selectedThumb === index ? "selected" : ""}
+                            className={
+                              selectedThumb === index ? "selected" : ""
+                            }
                             onClick={() => changeImage(src, index)}
                           >
                             <img src={src} alt={`Thumb ${index + 1}`} />
@@ -386,8 +378,9 @@ const DiamondDetails: React.FC = () => {
                 <Entry>
                   <Heading>
                     <Title className="main-title">{foundProduct.Name}</Title>
+
                     <ProductRating>
-                      {[...Array(foundProduct.Star)].map((_, i) => (
+                      {Array.from({ length: foundProduct.Stars }, (_, i) => (
                         <StarFilled key={i} />
                       ))}
                     </ProductRating>
@@ -402,7 +395,7 @@ const DiamondDetails: React.FC = () => {
                     </div>
                   </ProductInfo>
                   <hr style={{ borderTop: "1px solid #d9d9d9" }}></hr>
-                  <ProductPrice>
+                  {/* <ProductPrice>
                     <div className="product-group">
                       <div className="product-price">
                         <CurrentPrice>
@@ -414,9 +407,31 @@ const DiamondDetails: React.FC = () => {
                         {foundProduct.DiscountPrice && (
                           <div className="wrap">
                             <BeforePrice>${foundProduct.Price}</BeforePrice>
-                            {/* <Discount>- {foundProduct?.DiscountID?.PercentDiscount}</Discount> */}
+                            <Discount>- {foundProduct?.DiscountID?.PercentDiscount}</Discount>
                           </div>
                         )}
+                      </div>
+                    </div>
+                  </ProductPrice> */}
+                  <ProductPrice>
+                    <div className="product-group">
+                      <div className="product-price">
+                        <CurrentPrice>
+                          $
+                          {foundProduct.DiscountPrice &&
+                          foundProduct.DiscountPrice !== foundProduct.Price
+                            ? foundProduct.DiscountPrice
+                            : foundProduct.Price}
+                        </CurrentPrice>
+                        {foundProduct.DiscountPrice &&
+                          foundProduct.DiscountPrice !== foundProduct.Price && (
+                            <div className="wrap">
+                              <BeforePrice>${foundProduct.Price}</BeforePrice>
+                              {/* <Discount>
+                                - {foundProduct?.DiscountID?.PercentDiscount}
+                              </Discount> */}
+                            </div>
+                          )}
                       </div>
                     </div>
                   </ProductPrice>
@@ -437,6 +452,10 @@ const DiamondDetails: React.FC = () => {
                     <ShippingList>
                       <ShippingItem>
                         <span>Free shipping & return</span>
+                      </ShippingItem>
+                      <ShippingItem>
+                        <span>Estimate delivery: &#160;</span>
+                        <span className="delivery"> 01 - 07 Jan, 2024</span>
                       </ShippingItem>
                     </ShippingList>
                   </Shipping>
@@ -473,7 +492,9 @@ const DiamondDetails: React.FC = () => {
             </Tabbed>
             <ProductAbout
               id="product-description"
-              className={activeTab === "product-description" ? "active" : "hide"}
+              className={
+                activeTab === "product-description" ? "active" : "hide"
+              }
             >
               {/* Product detail content */}
               <TextBlock>
@@ -520,7 +541,7 @@ const DiamondDetails: React.FC = () => {
               className={activeTab === "product-review" ? "active" : "hide"}
             >
               {/* Review content */}
-              <Review >
+              <Review>
                 <div className="head-review">
                   <div className="sum-rating">
                     <strong>{averageRating.toFixed(1)}</strong>
@@ -544,7 +565,9 @@ const DiamondDetails: React.FC = () => {
                               />
                             ))}
                           </div>
-                          <div className="date grey-color">On {review.date}</div>
+                          <div className="date grey-color">
+                            On {review.date}
+                          </div>
                         </div>
                       </div>
                       <div className="comment reply">
@@ -567,14 +590,13 @@ const DiamondDetails: React.FC = () => {
             <Row gutter={[16, 16]}>
               {sameBrandProducts.map((diamond) => (
                 <Col key={diamond.id} span={6}>
-
                   <Card
                     style={{ borderRadius: "0" }}
                     hoverable
                     className="product-card"
                     cover={
                       <>
-                        <Link to={`/diamond/${diamond.id}`} >
+                        <Link to={`/diamond/${diamond.id}`}>
                           <img
                             style={{ borderRadius: "0" }}
                             src={
@@ -585,10 +607,10 @@ const DiamondDetails: React.FC = () => {
                             alt={diamond.name}
                             className="product-image"
                             onMouseOut={(e) =>
-                            (e.currentTarget.src =
-                              diamond.images && diamond.images.length > 0
-                                ? diamond.images[0].url
-                                : "/default-image.jpg")
+                              (e.currentTarget.src =
+                                diamond.images && diamond.images.length > 0
+                                  ? diamond.images[0].url
+                                  : "/default-image.jpg")
                             }
                           />
                         </Link>
@@ -600,7 +622,7 @@ const DiamondDetails: React.FC = () => {
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                        <Link to={`/diamond/${diamond.id}`} >
+                        <Link to={`/diamond/${diamond.id}`}>
                           {diamond.name}
                         </Link>
                         {wishList.includes(diamond.id) ? (
@@ -630,19 +652,19 @@ const DiamondDetails: React.FC = () => {
                       </div>
                     </div>
                   </Card>
-
                 </Col>
               ))}
             </Row>
           </List>
-        </ProductSection >
-      </Body >
+        </ProductSection>
+      </Body>
     </>
   );
 };
 
 export default DiamondDetails;
-{/* <ProductSectionViewed>
+{
+  /* <ProductSectionViewed>
         <Title>
           <h2>RECENTLY VIEWED</h2>
         </Title>
@@ -734,5 +756,5 @@ export default DiamondDetails;
             ))}
           </Row>
         </List>
-      </ProductSectionViewed> */}
-
+      </ProductSectionViewed> */
+}

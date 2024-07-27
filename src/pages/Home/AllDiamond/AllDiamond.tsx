@@ -169,7 +169,7 @@ import {
 } from "./AllDiamond.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-// import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
+import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
 import { showAllDiamond } from "@/services/diamondAPI";
@@ -228,6 +228,7 @@ const AllDiamond: React.FC = () => {
 
         if (response && response.data && Array.isArray(response.data.data)) {
           const fetchedDiamonds = response.data.data
+
           .filter((item: any) => item.IsActive === true && item.Quantity === 1)
           .map((item: any) => ({
             id: item.DiamondID,
@@ -325,7 +326,7 @@ const AllDiamond: React.FC = () => {
       <Heading>
         <h2>ALL DIAMONDS</h2>
       </Heading>
-      {/* <FilterSortDiamond /> */}
+      <FilterSortDiamond />
       <hr
         style={{
           maxWidth: "1400px",
@@ -336,66 +337,71 @@ const AllDiamond: React.FC = () => {
       <List>
         <Row gutter={[16, 16]}>
           {diamonds.map((diamond) => (
-              <Col key={diamond.id} span={6}>
-                <Card
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
-                      <Link to={`/diamond/${diamond.id}`}>
-                        <img
-                          style={{ borderRadius: "0" }}
-                          src={
+            <Col key={diamond.id} span={6}>
+              <Card
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  <>
+                    <Link to={`/diamond/${diamond.id}`}>
+                      <img
+                        style={{ borderRadius: "0" }}
+                        src={
+                          diamond.images && diamond.images.length > 0
+                            ? diamond.images[0].url
+                            : "/default-image.jpg"
+                        }
+                        alt={diamond.name}
+                        className="product-image"
+                        onMouseOut={(e) =>
+                          (e.currentTarget.src =
                             diamond.images && diamond.images.length > 0
                               ? diamond.images[0].url
-                              : "/default-image.jpg"
-                          }
-                          alt={diamond.name}
-                          className="product-image"
-                          onMouseOut={(e) =>
-                            (e.currentTarget.src =
-                              diamond.images && diamond.images.length > 0
-                                ? diamond.images[0].url
-                                : "/default-image.jpg")
-                          }
-                        />
-                      </Link>
-                      {diamond.discountPrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
-                      <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
-                      {wishList.includes(diamond.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(diamond.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(diamond.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${diamond.discountPrice ? diamond.discountPrice : diamond.price}
-                      </Text>
-                      {diamond.discountPrice && (
+                              : "/default-image.jpg")
+                        }
+                      />
+                    </Link>
+                    {diamond.discountPrice && (
+                      <div className="sale-badge">SALE</div>
+                    )}
+                  </>
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
+                    {wishList.includes(diamond.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(diamond.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(diamond.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    <Text className="product-price">
+                      $
+                      {diamond.discountPrice &&
+                      diamond.discountPrice !== diamond.price
+                        ? diamond.discountPrice
+                        : diamond.price}
+                    </Text>
+                    {diamond.discountPrice &&
+                      diamond.discountPrice !== diamond.price && (
                         <Text delete className="product-sale-price">
                           ${diamond.price}
                         </Text>
                       )}
-                    </div>
                   </div>
-                </Card>
-              </Col>
-            ))}
+                </div>
+              </Card>
+            </Col>
+          ))}
         </Row>
       </List>
       {/* <StyledPagination
