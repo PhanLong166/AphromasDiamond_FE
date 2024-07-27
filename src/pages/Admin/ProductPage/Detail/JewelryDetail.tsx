@@ -33,9 +33,13 @@ import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 
 const calculateProductPrice = (
   diamondPrice: number,
-  jewelrySettingPrice: number
+  jewelrySettingVariants: any[]
 ): number => {
-  return jewelrySettingPrice + diamondPrice;
+  const totalJewelrySettingPrice = jewelrySettingVariants.reduce(
+    (total: number, variant: any) => total + Number(variant.Price),
+    0
+  );
+  return totalJewelrySettingPrice + diamondPrice;
 };
 
 const PriceCalculation = (
@@ -452,22 +456,10 @@ const JewelryDetail = () => {
           </Popover>
         </>
       ),
-      // dataIndex: "jewelryPrice",
-      // render: (_: unknown, record: any) => {
-      //   // if (!activeProduct) {
-      //   //   return 0;
-      //   // }
-      //   const jewelryPrice = calculateProductPrice(
-      //     activeProduct.Diamond?.Price,
-      //     record.Price
-      //   );
-      //   return jewelryPrice.toFixed(2);
-      // },
       dataIndex: calculateProductPrice(
-        activeProduct?.TotalDiamondPrice,
-        activeProduct?.JewelrySetting?.jewelrySettingVariant?.Price
+        activeProduct?.TotalDiamondPrice || 0,
+        activeProduct?.JewelrySetting?.jewelrySettingVariant?.Price || []
       ),
-
     },
   ];
 
