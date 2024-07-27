@@ -111,17 +111,17 @@ const columns: TableColumnsType<any> = [
       );
     },
   },
-  {
-    title: "Action",
-    key: "action",
-    render: (_, { orderID }) => (
-      <Space size="middle">
-        <Link to={`/admin/order/detail/${orderID}`}>
-        <Button className="confirmBtn">Accept</Button>
-        </Link>
-      </Space>
-    ),
-  },
+  // {
+  //   title: "Action",
+  //   key: "action",
+  //   render: (_, { orderID }) => (
+  //     <Space size="middle">
+  //       <Link to={`/admin/order/detail/${orderID}`}>
+  //       <Button className="confirmBtn">Accept</Button>
+  //       </Link>
+  //     </Space>
+  //   ),
+  // },
 ];
 
 const onChange: TableProps<any>["onChange"] = (

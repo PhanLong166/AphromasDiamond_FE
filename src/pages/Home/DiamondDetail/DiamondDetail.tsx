@@ -236,7 +236,7 @@ const DiamondDetails: React.FC = () => {
     }
 
     fetchCart();
-  }, [id]);
+  }, [id, cartList]);
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
@@ -264,7 +264,6 @@ const DiamondDetails: React.FC = () => {
           OrderID: null
         }
 
-
         if (cartList.find((cart) => cart.DiamondID === getParamsID)) {
           api.warning({
             message: 'Notification',
@@ -289,9 +288,30 @@ const DiamondDetails: React.FC = () => {
     // navigate(config.routes.customer.cart);
   }
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (role) {
-      navigate(config.routes.customer.checkout);
+      
+      const OrderLineChild: OrderLineBody = {
+        Quantity: 1,
+        DiamondID: getParamsID,
+        CustomerID: user?.CustomerID,
+        ProductID: null,
+        OrderID: null
+      }
+
+      if (cartList.find((cart) => cart.DiamondID === getParamsID)) {
+        api.warning({
+          message: 'Notification',
+          description: 'The product is already in your cart'
+        })
+      }
+      else {
+        const { data } = await createOrderLine(OrderLineChild);
+        if (data.statusCode === 404) throw new Error('Network error');
+        if (data.statusCode !== 200) throw new Error(data.message);
+        await openNotification('success', 'The product has been successfully added to the cart');
+        navigate(config.routes.customer.checkout);
+      }
     } else navigate(config.routes.public.login);
   };
   // useEffect(() => {
@@ -394,7 +414,7 @@ const DiamondDetails: React.FC = () => {
                         {foundProduct.DiscountPrice && (
                           <div className="wrap">
                             <BeforePrice>${foundProduct.Price}</BeforePrice>
-                            <Discount>- {foundProduct?.DiscountID?.PercentDiscount}</Discount>
+                            {/* <Discount>- {foundProduct?.DiscountID?.PercentDiscount}</Discount> */}
                           </div>
                         )}
                       </div>
@@ -417,10 +437,6 @@ const DiamondDetails: React.FC = () => {
                     <ShippingList>
                       <ShippingItem>
                         <span>Free shipping & return</span>
-                      </ShippingItem>
-                      <ShippingItem>
-                        <span>Estimate delivery: &#160;</span>
-                        <span className="delivery"> 01 - 07 Jan, 2024</span>
                       </ShippingItem>
                     </ShippingList>
                   </Shipping>

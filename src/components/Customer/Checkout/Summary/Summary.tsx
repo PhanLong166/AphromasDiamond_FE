@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -42,6 +43,7 @@ const Summary: React.FC = () => {
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
+  console.log(discount);
 
   const fetchData = React.useCallback(async () => {
     try {

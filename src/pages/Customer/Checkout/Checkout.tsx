@@ -182,7 +182,7 @@ const Checkout: React.FC = () => {
       const data = await getDistricts(provinceId as number);
       setDistricts(data);
     } catch (error) {
-      console.error("Error fetching districts:", error);w
+      console.error("Error fetching districts:", error);
     }
   };
 

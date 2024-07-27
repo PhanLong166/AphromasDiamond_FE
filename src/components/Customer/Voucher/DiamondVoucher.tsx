@@ -40,8 +40,9 @@ const App = () => {
   const getAllVouchers = async () => {
     try {
       const { data } = await showAllVoucher();
-      setVoucherList(data.data);
-      console.log(data.data);
+      const filteredVouchers = filterValidVouchers(data.data);
+      setVoucherList(filteredVouchers);
+      console.log(filteredVouchers);
     } catch (error) {
       console.error(error);
     }
@@ -49,6 +50,11 @@ const App = () => {
   useEffect(() => {
     getAllVouchers();
   }, []);
+
+  const filterValidVouchers = (vouchers: Voucher[]) => {
+    const currentDate = new Date();
+    return vouchers.filter((voucher) => new Date(voucher.EndDate) > currentDate);
+  };
   // const availableVouchers = vouchersList;
   const indexOfLastItem = currentPage * itemsPerPage;
   const indexOfFirstItem = indexOfLastItem - itemsPerPage;
