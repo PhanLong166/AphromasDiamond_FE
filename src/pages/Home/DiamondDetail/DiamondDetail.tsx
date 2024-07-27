@@ -4,7 +4,6 @@ import Link from "@/components/Link";
 import { Card, Col, notification, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-// import { diamonds, Diamond } from "../shared/ListOfDiamond";
 
 import {
   Body,
@@ -27,9 +26,9 @@ import {
   ProductPrice,
   ButtonContainer,
   Button,
-  Shipping,
-  ShippingList,
-  ShippingItem,
+  // Shipping,
+  // ShippingList,
+  // ShippingItem,
   CurrentPrice,
   BeforePrice,
   // Discount,
@@ -46,6 +45,8 @@ import {
   // ProductSectionViewed,
   CustomBreadcrumb,
   StyledPagination,
+  Condition,
+  GIA,
 } from "./DiamondDetail.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
@@ -60,6 +61,7 @@ import {
   showAllOrderLineForAdmin,
 } from "@/services/orderLineAPI";
 import { getImage } from "@/services/imageAPI";
+import { Modal } from "antd";
 
 type NotificationType = "success" | "error";
 
@@ -69,6 +71,15 @@ const DiamondDetails: React.FC = () => {
 
   const showTab = (tabId: string) => {
     setActiveTab(tabId);
+  };
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
+  const handleCancel = () => {
+    setIsModalVisible(false);
   };
 
   //data cmt
@@ -166,7 +177,6 @@ const DiamondDetails: React.FC = () => {
   };
 
   const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
-  // const [recentlyViewedProducts, setRecentlyViewedProducts] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchDiamondDetails = async () => {
@@ -304,24 +314,6 @@ const DiamondDetails: React.FC = () => {
       navigate(config.routes.customer.checkout);
     } else navigate(config.routes.public.login);
   };
-  // useEffect(() => {
-  //   const addToRecentlyViewed = (productId: string) => {
-  //     if (!recentlyViewedProducts.some((product) => product.DiamondID === productId)) {
-  //       // Create a new list with the updated product added
-  //       const updatedList = [
-  //         { ...foundProduct, id: foundProduct.DiamondID },
-  //         ...recentlyViewedProducts.slice(0, 3) // Keep up to 4 items
-  //       ];
-  //       // Update state with the new list
-  //       setRecentlyViewedProducts(updatedList);
-  //     }
-  //   };
-
-  //   // Add current product to recently viewed on load if foundProduct is defined
-  //   if (foundProduct) {
-  //     addToRecentlyViewed(foundProduct.DiamondID);
-  //   }
-  // }, [foundProduct, recentlyViewedProducts]);
 
   return (
     <>
@@ -386,33 +378,45 @@ const DiamondDetails: React.FC = () => {
                     </ProductRating>
                   </Heading>
                   <ProductInfo>
-                    <div className="wrap">
-                      <div className="info-box">{foundProduct.Clarity}</div>
-                      <div className="info-box">{foundProduct.WeightCarat}</div>
-                      <div className="info-box">{foundProduct.Color}</div>
-                      <div className="info-box">{foundProduct.Shape}</div>
-                      <div className="info-box">{foundProduct.Cut}</div>
+                    <div className="container">
+                      <div className="wrap">
+                        <div className="info-box">{foundProduct.Clarity}</div>
+                        <div className="info-box">
+                          {foundProduct.WeightCarat}
+                        </div>
+                        <div className="info-box">{foundProduct.Color}</div>
+                        <div className="info-box">{foundProduct.Shape}</div>
+                        <div className="info-box">{foundProduct.Cut}</div>
+                      </div>
+                      <GIA>
+                        <div>
+                          <div onClick={showModal} className="logo">
+                            <img
+                              className="giaLogo"
+                              src="https://ecommo--ion.bluenile.com/static-diamonds-bn/GIALogo.df3f5.png"
+                              alt="GIA Logo"
+                            />
+                            <div>GIA Report</div>
+                          </div>
+                          <Modal
+                            visible={isModalVisible}
+                            onCancel={handleCancel}
+                            footer={null}
+                            centered
+                            width={600}
+                            closeIcon={<span>✕</span>}
+                          >
+                            <img
+                              src={getImage(foundProduct?.certificate[0]?.usingImages[0]?.UsingImageID)}
+                              alt="GIA img"
+                              style={{ width: "100%", height: "auto" }}
+                            />
+                          </Modal>
+                        </div>
+                      </GIA>
                     </div>
                   </ProductInfo>
                   <hr style={{ borderTop: "1px solid #d9d9d9" }}></hr>
-                  {/* <ProductPrice>
-                    <div className="product-group">
-                      <div className="product-price">
-                        <CurrentPrice>
-                          $
-                          {foundProduct.DiscountPrice
-                            ? foundProduct.DiscountPrice
-                            : foundProduct.Price}
-                        </CurrentPrice>
-                        {foundProduct.DiscountPrice && (
-                          <div className="wrap">
-                            <BeforePrice>${foundProduct.Price}</BeforePrice>
-                            <Discount>- {foundProduct?.DiscountID?.PercentDiscount}</Discount>
-                          </div>
-                        )}
-                      </div>
-                    </div>
-                  </ProductPrice> */}
                   <ProductPrice>
                     <div className="product-group">
                       <div className="product-price">
@@ -436,7 +440,14 @@ const DiamondDetails: React.FC = () => {
                     </div>
                   </ProductPrice>
                 </Entry>
+
                 <div className="outlet">
+                  <Condition>
+                    <div className="payment-options-box">
+                      <h3>Tip for Free Shipping:</h3>
+                      <li>Free shipping on orders of 2 or more items</li>
+                    </div>
+                  </Condition>
                   <ButtonContainer>
                     <ButtonAdd className="add" onClick={handleAddToCart}>
                       ADD TO CART
@@ -448,17 +459,13 @@ const DiamondDetails: React.FC = () => {
                       <span>CHECKOUT</span>
                     </Button>
                   </ButtonContainer>
-                  <Shipping>
+                  {/* <Shipping>
                     <ShippingList>
                       <ShippingItem>
                         <span>Free shipping & return</span>
                       </ShippingItem>
-                      <ShippingItem>
-                        <span>Estimate delivery: &#160;</span>
-                        <span className="delivery"> 01 - 07 Jan, 2024</span>
-                      </ShippingItem>
                     </ShippingList>
-                  </Shipping>
+                  </Shipping> */}
                 </div>
               </ProductDetail>
             </Wrap>
@@ -663,98 +670,3 @@ const DiamondDetails: React.FC = () => {
 };
 
 export default DiamondDetails;
-{
-  /* <ProductSectionViewed>
-        <Title>
-          <h2>RECENTLY VIEWED</h2>
-        </Title>
-        <List>
-          <Row gutter={[16, 16]}>
-            {recentlyViewedProducts.map((diamond) => (
-              <Col key={diamond.id} span={6}>
-                <Link to={`/diamond/${diamond.id}`} underline zoom scroll>
-                  <Card
-                    style={{ borderRadius: "0" }}
-                    hoverable
-                    className="product-card"
-                    cover={
-                      <>
-                        <img
-                          style={{ borderRadius: "0" }}
-                          src={
-                            diamond.images && diamond.images.length > 0
-                              ? diamond.images[0].url
-                              : "/default-image.jpg"
-                          } 
-                          alt={diamond.name}
-                          className="product-image"
-                          onMouseOut={(e) =>
-                            (e.currentTarget.src =
-                              diamond.images && diamond.images.length > 0
-                                ? diamond.images[0].url
-                                : "/default-image.jpg")
-                          }
-                        />
-                        {diamond.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
-                    }
-                  >
-                    <div className="product-info">
-                      <Title level={4} className="product-name">
-                        {diamond.name}
-                        {wishList.includes(diamond.id) ? (
-                          <HeartFilled
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(diamond.id)}
-                          />
-                        ) : (
-                          <HeartOutlined
-                            className="wishlist-icon"
-                            onClick={() => toggleWishList(diamond.id)}
-                          />
-                          {diamond.salePrice && (
-                            <div className="sale-badge">SALE</div>
-                          )}
-                        </>
-                      }
-                    >
-                      <div className="product-info">
-                        <Title level={4} className="product-name">
-                          {diamond.name}
-                          {wishList.includes(diamond.id.toString()) ? (
-                            <HeartFilled
-                              className="wishlist-icon"
-                              onClick={() => toggleWishList(diamond.id.toString())}
-                            />
-                          ) : (
-                            <HeartOutlined
-                              className="wishlist-icon"
-                              onClick={() => toggleWishList(diamond.id.toString())}
-                            />
-                          )}
-                        </Title>
-                        <div className="price-container">
-                          <Text className="product-price">
-                            $
-                            {diamond.salePrice
-                              ? diamond.salePrice
-                              : diamond.price}
-                          </Text>
-                          {diamond.salePrice && (
-                            <Text delete className="product-sale-price">
-                              ${diamond.price}
-                            </Text>
-                          )}
-                        </div>
-                      </div>
-                    </div>
-                  </Card>
-                </Link>
-              </Col>
-            ))}
-          </Row>
-        </List>
-      </ProductSectionViewed> */
-}
