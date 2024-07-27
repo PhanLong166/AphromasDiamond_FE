@@ -24,6 +24,10 @@ export const DiamondField: FieldType[] = [
                     "Diamond Name must be at most 300 characters long.",
             },
             {
+                min: 2,
+                message: "Diamond Name must be at least 2 characters"
+            },
+            {
                 whitespace: true,
                 message: "Not only has whitespace.",
             },
@@ -138,7 +142,12 @@ export const DiamondField: FieldType[] = [
         name: "LengthOnWidthRatio",
         rules: [
             {
-                required: true
+                required: true,
+            },
+            {
+                min: 0.1,
+                max: 2, 
+                type: 'number'
             }
         ],
         children: <InputNumber className="formItem" placeholder="1,01" />,
@@ -150,7 +159,7 @@ export const DiamondField: FieldType[] = [
         rules: [
             {
                 required: true
-            }
+            },
         ],
         children:
             <Select
@@ -182,6 +191,11 @@ export const DiamondField: FieldType[] = [
         rules: [
             {
                 required: true
+            },
+            {
+                min: 0.5,
+                max: 10,
+                type: 'number',
             }
         ],
         children: <InputNumber className="formItem" placeholder="1,01" />,
@@ -231,7 +245,7 @@ export const DiamondField: FieldType[] = [
         rules: [
             {
                 required: true,
-                message: "Diamond Name is required.",
+                message: "Diamond Cutter is required.",
             },
             {
                 pattern: /^[a-zA-Z0-9\s()-.]*$/,
@@ -241,7 +255,7 @@ export const DiamondField: FieldType[] = [
             {
                 max: 300,
                 message:
-                    "Diamond Name must be at most 300 characters long.",
+                    "Diamond Cutter must be at most 300 characters long.",
             },
             {
                 whitespace: true,

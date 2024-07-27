@@ -28,8 +28,8 @@ const ProductList: React.FC = () => {
   ];
 
   const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
-  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  // const [loading, setLoading] = useState(true);
+  // const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -54,7 +54,6 @@ const ProductList: React.FC = () => {
           console.log(fetchedProducts);
 
           setProducts(fetchedProducts);
-          setLoading(false);
         } else {
           console.error("Unexpected API response format:", response.data);
         }

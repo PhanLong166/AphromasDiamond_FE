@@ -228,24 +228,25 @@ const AllDiamond: React.FC = () => {
 
         if (response && response.data && Array.isArray(response.data.data)) {
           const fetchedDiamonds = response.data.data
-            .filter((item: any) => item.IsActive === true)
-            .map((item: any) => ({
-              id: item.DiamondID,
-              name: item.Name,
-              cut: item.Cut,
-              price: item.Price,
-              color: item.Color,
-              description: item.Description,
-              isActive: item.IsActive,
-              clarity: item.Clarity,
-              cutter: item.Cutter,
-              discountPrice: item.DiscountPrice,
-              images: item.usingImage.map((image: any) => ({
-                id: image.UsingImageID,
-                name: image.Name,
-                url: getImage(image.UsingImageID),
-              })),
-            }));
+
+          .filter((item: any) => item.IsActive === true && item.Quantity === 1)
+          .map((item: any) => ({
+            id: item.DiamondID,
+            name: item.Name,
+            cut: item.Cut,
+            price: item.Price,
+            color: item.Color,
+            description: item.Description,
+            isActive: item.IsActive,
+            clarity: item.Clarity,
+            cutter: item.Cutter,
+            discountPrice: item.DiscountPrice,
+            images: item.usingImage.map((image: any) => ({
+              id: image.UsingImageID,
+              name: image.Name,
+              url: getImage(image.UsingImageID),
+            })),
+          }));
 
           console.log(fetchedDiamonds);
 
