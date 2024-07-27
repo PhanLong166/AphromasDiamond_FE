@@ -7,7 +7,7 @@ import {
   EyeFilled,
 } from "@ant-design/icons";
 import { Container } from "./ThankPage.styled";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import config from "@/config";
 import { useAppSelector } from "@/hooks";
 import { orderDetail } from "@/services/orderAPI";
@@ -15,6 +15,7 @@ import { orderDetail } from "@/services/orderAPI";
 const ThankPageSuccess: React.FC = () => {
   const orderID = useAppSelector((state) => state.order.OrderID);
   const [order, setOrder] = useState<any>(null);
+  const navigate = useNavigate();
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,7 +125,12 @@ const ThankPageSuccess: React.FC = () => {
             <Link to={config.routes.public.home}>
               <button className="home">HOME</button>
             </Link>
-            <button className="track">TRACK ORDER</button>
+            <button 
+              className="track"
+              onClick={() => navigate(`${config.routes.customer.orderDetails}?orderId=${orderID}`)}
+            >
+              TRACK ORDER
+            </button>
           </div>
         </div>
       </div>
