@@ -42,7 +42,6 @@ import {
   ProductSection,
   ButtonAdd,
   List,
-  // ProductSectionViewed,
   CustomBreadcrumb,
   StyledPagination,
   Condition,
@@ -54,7 +53,6 @@ import { useNavigate } from "react-router-dom";
 import useAuth from "@/hooks/useAuth";
 import config from "@/config";
 import { getDiamondDetails, showDiamonds } from "@/services/diamondAPI";
-// import { getImage } from "@/services/imageAPI";
 import {
   createOrderLine,
   OrderLineBody,
@@ -62,6 +60,7 @@ import {
 } from "@/services/orderLineAPI";
 import { getImage } from "@/services/imageAPI";
 import { Modal } from "antd";
+import { showAllFeedback } from "@/services/feedBackAPI";
 
 type NotificationType = "success" | "error";
 
@@ -73,7 +72,7 @@ const DiamondDetails: React.FC = () => {
     setActiveTab(tabId);
   };
   const [isModalVisible, setIsModalVisible] = useState(false);
-
+  const [reviewsData, setReviewsData] = useState<any[]>([]);
   const showModal = () => {
     setIsModalVisible(true);
   };
@@ -82,59 +81,6 @@ const DiamondDetails: React.FC = () => {
     setIsModalVisible(false);
   };
 
-  //data cmt
-  const reviewsData = [
-    {
-      name: "Olivia Williams",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt1.jpg?alt=media&token=fda03330-bebc-42a9-a7aa-568f2f9cdb9f",
-      rating: 5,
-      date: "November 10, 2021",
-      highlight: "Awesome Product",
-      comment:
-        "Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-    {
-      name: "Phoenix Knight",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt2.jpg?alt=media&token=31ba6ae3-17f5-4f7e-b1b3-d316d7019068",
-      rating: 5,
-      date: "March 7, 2022",
-      highlight: "Awesome Product",
-      comment:
-        "This diamond ring is truly magnificent and captivating, capturing attention with its radiant brilliance and undeniable allure.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-    {
-      name: "Serena Sterling",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
-      rating: 5,
-      date: "October 16, 2022",
-      highlight: "Awesome Product",
-      comment:
-        "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-    {
-      name: "Serena Sterling",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
-      rating: 4,
-      date: "October 16, 2022",
-      highlight: "Awesome Product",
-      comment:
-        "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-  ];
-
-  //
   const navigate = useNavigate();
 
   //wishlist
@@ -148,15 +94,6 @@ const DiamondDetails: React.FC = () => {
     );
   };
 
-  // const recentlyProductIds = ["2", "4", "3", "5"];
-  // const recentlyViewedProducts = diamonds.filter((diamond) =>
-  //   recentlyProductIds.includes(diamond.id)
-  // );
-
-  //Avg rating
-  const totalReviews = reviewsData.length;
-  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
-  const averageRating = totalRating / totalReviews;
 
   //PARAM
   const { id } = useParams<{ id: string }>();
@@ -166,7 +103,7 @@ const DiamondDetails: React.FC = () => {
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
   const [cartList, setCartList] = useState<any[]>([]);
-
+  const [isLoading, setIsLoading] = useState(true);
   const [api, contextHolder] = notification.useNotification();
 
   const openNotification = async (type: NotificationType, message: string) => {
@@ -178,13 +115,18 @@ const DiamondDetails: React.FC = () => {
 
   const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
 
+  const [diamondId, setDiamondId] = useState<number | null>(null);
+
   useEffect(() => {
     const fetchDiamondDetails = async () => {
       try {
+        console.log("Fetching diamond details...");
         const response = await getDiamondDetails(Number(id));
         if (response.status === 200) {
           const product = response.data.data;
           setFoundProduct(product);
+          setDiamondId(product.DiamondID); // Lưu diamondId từ API
+
           if (product.usingImage && product.usingImage.length > 0) {
             const mainImageUrl = getImage(product.usingImage[0].UsingImageID);
             setMainImage(mainImageUrl);
@@ -195,7 +137,6 @@ const DiamondDetails: React.FC = () => {
 
           const weightCarat = product.WeightCarat;
           const params = { weightCarat };
-
           const sameWeightProductsResponse = await showDiamonds(params);
 
           if (sameWeightProductsResponse.status === 200) {
@@ -238,17 +179,50 @@ const DiamondDetails: React.FC = () => {
           } else {
             setSameBrandProducts([]);
           }
+
+          // Call fetchFeedbackDetail if diamondId is set
+          if (diamondId !== null) {
+            await fetchFeedbackDetail(diamondId);
+          }
         } else {
           setFoundProduct(null);
         }
       } catch (error) {
         console.error("Failed to fetch diamond details:", error);
         setFoundProduct(null);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    const fetchFeedbackDetail = async (diamondId: number) => {
+      try {
+        console.log("Fetching feedback details for diamond ID:", diamondId);
+        const response = await showAllFeedback(diamondId);
+        if (response.status === 200) {
+          setReviewsData(
+            response.data.data.map((feedback: any) => ({
+              name: feedback.account ? feedback.account.Name : "Anonymous",
+              rating: feedback.Stars,
+              date: new Date(feedback.CommentTime).toLocaleDateString(),
+              highlight: "For AD",
+              comment: feedback.Comment,
+            }))
+          );
+        } else {
+          console.error("Error fetching feedback:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch feedback details:", error);
+      } finally {
+        setIsLoading(false);
       }
     };
 
     fetchDiamondDetails();
+  }, [id, diamondId]);
 
+  useEffect(() => {
     const fetchCart = async () => {
       const orderlines = await showAllOrderLineForAdmin();
       const cartItems = orderlines.data.data.filter(
@@ -260,6 +234,10 @@ const DiamondDetails: React.FC = () => {
 
     fetchCart();
   }, [id]);
+
+  if (isLoading) {
+    return <div>Loading...</div>;
+  }
 
   if (!foundProduct) {
     return <div>Diamond not found</div>;
@@ -273,6 +251,11 @@ const DiamondDetails: React.FC = () => {
     setMainImage(src);
     setSelectedThumb(index);
   };
+
+  //Avg rating
+  const totalReviews = reviewsData.length;
+  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const averageRating = totalRating / totalReviews;
 
   const handleAddToCart = async () => {
     if (role) {
@@ -407,7 +390,10 @@ const DiamondDetails: React.FC = () => {
                             closeIcon={<span>✕</span>}
                           >
                             <img
-                              src={getImage(foundProduct?.certificate[0]?.usingImages[0]?.UsingImageID)}
+                              src={getImage(
+                                foundProduct?.certificate[0]?.usingImages[0]
+                                  ?.UsingImageID
+                              )}
                               alt="GIA img"
                               style={{ width: "100%", height: "auto" }}
                             />
@@ -549,7 +535,7 @@ const DiamondDetails: React.FC = () => {
             >
               {/* Review content */}
               <Review>
-                <div className="head-review">
+              <div className="head-review">
                   <div className="sum-rating">
                     <strong>{averageRating.toFixed(1)}</strong>
                     <span>{reviewsData.length} reviews</span>
@@ -560,26 +546,26 @@ const DiamondDetails: React.FC = () => {
                     <div key={index} className="profile">
                       <div className="thumb-name">
                         <div className="image">
-                          <img src={review.avatar} alt="" />
+                          <img src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2FRemove-bg.ai_1722105671395.png?alt=media&token=441a4bb8-0da2-4426-ad91-cdbfd9c9115c" alt="" />
                         </div>
                         <div className="grouping">
                           <div className="name">{review.name}</div>
                           <div className="rating">
-                            {[...Array(review.rating)].map((_, i) => (
-                              <StarFilled
-                                key={i}
-                                style={{ color: "#D8A25A", fontSize: "16px" }}
-                              />
+                            {Array.from({ length: review.rating }, (_, i) => (
+                             <StarFilled
+                             key={i}
+                             style={{ color: "#D8A25A", fontSize: "16px" }}
+                           />
                             ))}
-                          </div>
-                          <div className="date grey-color">
-                            On {review.date}
                           </div>
                         </div>
                       </div>
                       <div className="comment reply">
                         <strong>{review.highlight}</strong>
                         <p className="grey-color">{review.comment}</p>
+                        <div className="date grey-color">
+                            On {review.date}
+                          </div>
                       </div>
                     </div>
                   ))}
