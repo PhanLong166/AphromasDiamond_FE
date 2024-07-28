@@ -33,6 +33,7 @@ const Order = () => {
         accountDeliveryID: order.AccountDeliveryID,
         accountSaleID: order.AccountSaleID,
         voucherID: order.VoucherID,
+        receiver: order.NameReceived
       }));
       console.log('Formatted Orders:', formattedOrders); // Log formatted diamonds
       setOrders(formattedOrders);
@@ -67,12 +68,15 @@ const Order = () => {
       dataIndex: "orderDate",
       defaultSortOrder: "descend",
       sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
+      render: (_, { orderDate }) => {
+        return <>{orderDate.replace("T", " ").replace(".000Z", " ")}</>
+      } 
     },
     {
       title: "Customer",
-      dataIndex: "customerID",
+      dataIndex: "receiver",
       showSorterTooltip: { target: "full-header" },
-      sorter: (a, b) => a.customerID.length - b.customerID.length,
+      sorter: (a, b) => a.receiver.length - b.receiver.length,
       sortDirections: ["descend"],
     },
     {
@@ -122,6 +126,7 @@ const Order = () => {
     {
       title: "Detail",
       key: "detail",
+      dataIndex: "orderID",
       className: "TextAlign",
       render: (_, { orderID }) => (
         <Space size="middle">

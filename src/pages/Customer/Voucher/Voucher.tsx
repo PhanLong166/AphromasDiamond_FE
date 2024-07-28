@@ -1,26 +1,19 @@
 // import React from 'react';
-import styled from 'styled-components';
+import styled from "styled-components";
 // import 'font-awesome/css/font-awesome.min.css';
-import AccountCus from '@/components/Customer/Account Details/AccountCus';
-import DiamondVoucher from '@/components/Customer/Voucher/DiamondVoucher';
+import AccountCus from "@/components/Customer/Account Details/AccountCus";
+import DiamondVoucher from "@/components/Customer/Voucher/DiamondVoucher";
 const Voucher = () => {
   return (
     <Main>
       <AccountCus />
       <Titles>Voucher</Titles>
       <Section>
-        {/* <TypeVoucher>Ring Voucher</TypeVoucher>
-        <RingVoucher/> */}
-        {/* <TypeVoucher>Diamond Voucher</TypeVoucher> */}
-        <DiamondVoucher/>
-        {/* <TypeVoucher>Combin Voucher</TypeVoucher>
-        <CombinVoucher /> */}
+        <DiamondVoucher />
       </Section>
     </Main>
   );
 };
-
-
 export default Voucher;
 
 const Main = styled.div`
@@ -28,12 +21,11 @@ const Main = styled.div`
 `;
 
 const Section = styled.div`
-  margin: 0 11rem 0 10rem;
-  
+  margin: 0 2rem 0 2rem;
 `;
 const Titles = styled.h1`
   color: #000;
-  font: 600 32px 'Crimson Text', sans-serif;
+  font: 600 32px "Crimson Text", sans-serif;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -43,9 +35,4 @@ const Titles = styled.h1`
   }
 `;
 
-// const TypeVoucher = styled.div`
-//   font-size: 28px;
-//   display: flex;
-//   justify-content: space-around;
-//   padding: 2rem 0 0.5rem 1rem;
-// `;
+

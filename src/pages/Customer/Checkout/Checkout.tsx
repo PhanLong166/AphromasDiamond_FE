@@ -2,7 +2,7 @@ import * as React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { Steps } from "antd";
+import { notification, Steps } from "antd";
 import AddressDetails from "../../../components/Customer/Checkout/AddressDetails";
 import { getProvinces, getDistricts, getWards } from "./api";
 import Summary from "@/components/Customer/Checkout/Summary/Summary";
@@ -11,80 +11,10 @@ import { showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineA
 import config from "@/config";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
-import { OrderStatus } from "@/utils/enum";
-import { useAppDispatch } from "@/hooks";
+import { OrderStatus, PaymentMethodEnum } from "@/utils/enum";
+import { useAppDispatch, useAppSelector } from "@/hooks";
 import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
-
-interface ContactInfoProps {
-  email: string;
-  onEdit: (newEmail: string) => void;
-}
-
-const ContactInfo: React.FC<ContactInfoProps> = ({ email, onEdit }) => {
-  const [isEditing, setIsEditing] = useState(false);
-  const [currentEmail, setCurrentEmail] = useState(email);
-  const [emailError, setEmailError] = useState<string | null>(null);
-  const handEditClick = () => {
-    setIsEditing(true);
-  };
-
-  const handleSaveClick = () => {
-    if (validateEmail(currentEmail)) {
-      setIsEditing(false);
-      onEdit(currentEmail);
-      setEmailError(null);
-    } else {
-      setEmailError("Invalid email format or email is empty");
-    }
-  };
-
-  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setCurrentEmail(e.target.value);
-    if (emailError) {
-      setEmailError(
-        validateEmail(e.target.value)
-          ? null
-          : "Invalid email format or email is empty"
-      );
-    }
-  };
-
-  const validateEmail = (email: string) => {
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    return emailRegex.test(email) && email.trim() !== "";
-  };
-
-  return (
-    <Section>
-      <TextContact>
-        <h2>Contact Information</h2>
-        {!isEditing && (
-          <Buttons>
-            <button style={{ border: "none", cursor: "pointer" }} onClick={handEditClick}>
-              EDIT
-            </button>
-          </Buttons>
-        )}
-      </TextContact>
-      <p>Email address</p>
-      {isEditing ? (
-        <div>
-          <StyledInput
-            type="email"
-            value={currentEmail}
-            onChange={handleEmailChange}
-          />
-          <SaveButton onClick={handleSaveClick} disabled={!!emailError}>
-            SAVE
-          </SaveButton>
-          {emailError && <ErrorText>{emailError}</ErrorText>}
-        </div>
-      ) : (
-        <p>{currentEmail}</p>
-      )}
-    </Section>
-  );
-};
+import { createOrderPaypal } from "@/services/paymentAPI";
 
 const description = "This is a description";
 const Checkout: React.FC = () => {
@@ -102,7 +32,11 @@ const Checkout: React.FC = () => {
   const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
-  
+  const VoucherID = useAppSelector((state) => state.order.VoucherID);
+  const ShippingFee = useAppSelector((state) => state.order.Shippingfee);
+  const TotalPrice = useAppSelector((state) => state.order.Total);
+  const [api, contextHolder] = notification.useNotification();
+
 
   const fetchProvincesData = async () => {
     try {
@@ -114,7 +48,7 @@ const Checkout: React.FC = () => {
   };
 
   const getCustomerDetail = async () => {
-    if(AccountID === null) return;
+    if (AccountID === null) return;
     const customer = await getCustomer(AccountID ? AccountID : 0);
     setCustomer(customer?.data?.data);
     // console.log('Customer: ', Customer);
@@ -129,6 +63,16 @@ const Checkout: React.FC = () => {
 
   const onFinish = async (values: any) => {
     try {
+      //Convert address
+      const provinceData = await getProvinces();
+      const provinceName = provinceData.find((province: any) => province.id === values.province).name;
+      
+      const districtData = await getDistricts(values.province);
+      const districtName = districtData.find((district: any) => district.id === values.district).name;
+
+      const wardData = await getWards(values.district);
+      const wardName = wardData.find((ward: any) => ward.id === values.ward).name;
+      
       const requestBodyOrder: OrderAPIProps = {
         OrderDate: new Date(),
         CompleteDate: new Date(),
@@ -140,11 +84,13 @@ const Checkout: React.FC = () => {
         NameReceived: values.Name,
         PhoneNumber: values.PhoneNumber,
         Email: Customer?.Email,
-        Address: `${values.addressDetails}, ${values.ward}, ${values.district}, ${values.province}`
+        Address: `${values.addressDetails}, ${wardName}, ${districtName}, ${provinceName}`,
+        Shippingfee: ShippingFee,
+        VoucherID: VoucherID !== 0 ? VoucherID : undefined
       }
 
       const responeOrder = await createOrder(requestBodyOrder);
-      if (responeOrder.data.statusCode !== 200) throw new Error();
+      if (responeOrder.data.statusCode !== 200) throw new Error(responeOrder.data.message);
 
       const getOrderID = responeOrder.data.data.OrderID;
       dispatch(orderSlice.actions.setOrderID(getOrderID));
@@ -166,12 +112,21 @@ const Checkout: React.FC = () => {
             ...item,
             OrderID: getOrderID
           });
-          if (linkOrder.data.statusCode !== 200) throw new Error();
-          else navigate(config.routes.public.success);
+          if (linkOrder.data.statusCode !== 200) throw new Error(linkOrder.data.message);
         });
       if (!updateOrderLine) throw new Error();
+
+      if (values.Method === PaymentMethodEnum.PAYPAL) {
+          const createPayment = await createOrderPaypal(TotalPrice);
+          window.location.href = createPayment.data.links[1].href;
+      } else {
+        navigate(config.routes.public.success);
+      }
     } catch (error: any) {
-      console.error(error);
+      api.error({
+        message: 'Error',
+        description: error.message || 'An error occured'
+      });
     }
   }
 
@@ -196,13 +151,9 @@ const Checkout: React.FC = () => {
     }
   };
 
-  const handleEdit = () => {
-    console.log("Edit Contact Info");
-  };
-
-
   return (
     <main>
+      {contextHolder}
       <ContainerHeader>
         <Header>Checkout</Header>
       </ContainerHeader>
@@ -234,7 +185,7 @@ const Checkout: React.FC = () => {
         </StyledLink>
         <Content>
           <Formm>
-            <ContactInfo email={Customer?.Email} onEdit={handleEdit} />
+            {/* <ContactInfo email={Customer?.Email} onEdit={handleEdit} /> */}
             <AddressDetails
               onFinish={onFinish}
               provinces={provinces}
@@ -246,7 +197,7 @@ const Checkout: React.FC = () => {
               onDistrictChange={handleDistrictChange}
             />
           </Formm>
-          <StyledSummary/>
+          <StyledSummary />
         </Content>
       </Wrapper>
     </main>
@@ -258,11 +209,6 @@ export default Checkout;
 const StyledSummary = styled(Summary)`
   flex: 1;
   line-height: 40px;
-`;
-
-const ErrorText = styled.p`
-  color: red;
-  margin-top: 5px;
 `;
 
 const StepEdit = styled.div`
@@ -292,11 +238,6 @@ const Header = styled.header`
     padding: 0 20px 0 30px;
     margin-top: 40px;
   }
-`;
-
-const TextContact = styled.div`
-  display: flex;
-  justify-content: space-between;
 `;
 
 const Wrapper = styled.div`
@@ -339,55 +280,6 @@ const Formm = styled.div`
   display: flex;
   flex-direction: column;
   gap: 20px;
-`;
-
-const Section = styled.section`
-  box-shadow: rgba(27, 27, 27, 0.17) 0px 2px 5px;
-  border: 1px solid #e8e2e2;
-  border-radius: 8px;
-  background-color: #fff;
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  padding: 35px 40px;
-  font-weight: 400;
-  font-size: 16px;
-`;
-
-const Buttons = styled.button`
-  font-family: Poppins, sans-serif;
-  color: #000;
-  border: none;
-  background-color: #fff;
-  align-self: flex-end;
-  cursor: pointer;
-`;
-
-const SaveButton = styled.button`
-  font-family: Poppins, sans-serif;
-  color: #000;
-  border: none;
-  background-color: #fff;
-  margin-top: 1.5rem;
-  font-size: 15px;
-  cursor: pointer;
-`;
-
-
-const StyledInput = styled.input`
-  padding: 9px;
-  border-radius: 10px;
-  font-size: 16px;
-  width: 100%;
-  border: 1px solid;
-  transition: border-color 0.3s, background-color 0.3s;
-  &:hover {
-    border-color: #1677ff;
-  }
-  &:focus {
-    border-color: #1677ff;
-    outline: none;
-  }
 `;
 
 

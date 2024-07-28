@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
@@ -9,6 +10,8 @@ import { getImage } from "@/services/imageAPI";
 import { showAllProduct } from "@/services/jewelryAPI";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
+import { useAppDispatch } from "@/hooks";
+import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 interface CartItemProps {
   name: string;
   image: string;
@@ -38,10 +41,12 @@ const Summary: React.FC = () => {
   const [productList, setProductList] = useState<any[]>([]);
   const { AccountID } = useAuth();
   const [customer, setCustomer] = useState<any>();
+  const dispatch = useAppDispatch()
 
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
   };
+  console.log(discount);
 
   const fetchData = React.useCallback(async () => {
     try {
@@ -96,6 +101,7 @@ const Summary: React.FC = () => {
   // }, 0);
 
   const shippingCost = orderLineItems.length === 1 ? 15 : 0;
+  dispatch(orderSlice.actions.setShippingfee(shippingCost));
 
   const subtotalNumber = () => {
     let temp = 0;
@@ -110,7 +116,7 @@ const Summary: React.FC = () => {
   }
 
   const total = calculateTotal(subtotalNumber(), discount, shippingCost).toFixed(2);
-
+  dispatch(orderSlice.actions.setTotal(Number(total)));
   return (
     <SummarySection>
       <ItemNumber>
@@ -150,7 +156,7 @@ const Summary: React.FC = () => {
       </EditTotal>
       <EditTotal>
         <p>Shipping: </p>
-        <p>{orderLineItems.length === 2 ? "$15.00" : "Free"}</p>
+        <p>{orderLineItems.length === 1 ? "$15.00" : "Free"}</p>
       </EditTotal>
       <EditTotal>
         <p>Subtotal: </p>
