@@ -6,95 +6,187 @@ import { useEffect, useState } from "react";
 import StatistiBox from "./StatistiBox";
 import LineChart from "./LineChart";
 import { Link } from "react-router-dom";
+import { showAllDiamond } from "@/services/diamondAPI";
+import { showAllProduct } from "@/services/productAPI";
+import { showAllOrder, showReveneSummary } from "@/services/orderAPI";
+import { showAllAccounts } from "@/services/authAPI";
+import { getImage } from "@/services/imageAPI";
+import { showAllDiscount } from "@/services/discountAPI";
 
-// import { IonIcon } from '@ionic/react'
+// interface Chat {
+//   name: string;
+//   imgSrc: string;
+// }
 
-interface Chat {
-  name: string;
-  imgSrc: string;
-}
+// interface ShellElement {
+//   name: string;
+// }
 
-interface ShellElement {
-  name: string;
-}
+// interface OrderElement {
+//   orderID: string;
+//   cusID: string;
+//   date: string;
+//   price: number;
+// }
 
-interface OrderElement {
-  orderID: string;
-  cusID: string;
-  date: string;
-  price: number;
-}
+// const shellElements: ShellElement[] = [
+//   { name: "AphromasDiamond" },
+//   { name: "AphromasDiamond" },
+//   { name: "AphromasDiamond" },
+//   { name: "AphromasDiamond" },
+// ];
+
+// const ringShellElements: ShellElement[] = [
+//   { name: "Emerald Cut Diamond" },
+//   { name: "Petite Micropavé Diamond Ring" },
+//   { name: "Petite Halo Solitaire Diamond Ring" },
+//   { name: "Twisted Halo Diamond Ring" },
+// ];
+
+// const orderElement: OrderElement[] = [
+//   { orderID: "12345122", cusID: "JimGreen", date: "2023-01-02", price: 890 },
+//   { orderID: "12345121", cusID: "JoeBlack", date: "2023-01-03", price: 560 },
+//   { orderID: "12345123", cusID: "JimRed", date: "2023-01-04", price: 700 },
+//   { orderID: "12345124", cusID: "JoeBlack", date: "2023-01-06", price: 701 },
+// ];
+
+// const [data, setData] = useState({
+//   customers: 678,
+//   customers_Total: 1000,
+//   orders: 1024,
+//   orders_Total: 2000,
+//   cancel_Orders: 143,
+//   revene: 19460,
+//   chats: [],
+//   shellElements: [],
+//   jewelryElements: [],
+//   ringShellElements: [],
+// });
+
+const calculateKpiTotal = (startYear: any, increasePerYear: any) => {
+  const currentYear = new Date().getFullYear();
+  const yearsPassed = currentYear - startYear;
+  return yearsPassed * increasePerYear;
+};
 
 const Dashboard = () => {
-  const chats: Chat[] = [
-    {
-      name: "Aphromas Diamond",
-      imgSrc:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/z2997477598872_57e3387a49bd183f37bfcce959c1cf29.jpg?alt=media&token=c6ac8714-1739-4c0e-95b5-9f366fd81048",
-    },
-    {
-      name: "Aphromas Diamond",
-      imgSrc:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/%3BNCT%20chatroom%20-%20ended%3B.jpg?alt=media&token=e1cafd80-754a-431f-81c9-0d514f938dc0",
-    },
-    {
-      name: "Aphromas Diamond",
-      imgSrc:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/248671492_405943994418474_7837095966314867087_n.jpg?alt=media&token=d0100107-c017-4601-bbc7-51da0ffbec57",
-    },
-  ];
+  const [orders, setOrders] = useState([]);
+  const [cancelOrders, setCancelOrders] = useState([]);
+  const [customers, setCustomers] = useState([]);
+  const [discounts, setDiscounts] = useState([]);
+  const [diamonds, setDiamonds] = useState([]);
+  const [jewelrys, setJewelrys] = useState([]);
+  const [customersTotal, setCustomersTotal] = useState(0);
+  const [ordersTotal, setOrdersTotal] = useState(0);
+  const [cancelOrdersTotal, setCancelOrdersTotal] = useState(0);
+  const [revenes, setRevenes] = useState([]);
 
-  const shellElements: ShellElement[] = [
-    { name: "AphromasDiamond" },
-    { name: "AphromasDiamond" },
-    { name: "AphromasDiamond" },
-    { name: "AphromasDiamond" },
-  ];
+  const fetchData = async () => {
+    try {
+      const responseCustomers = await showAllAccounts();
+      const responseOrders = await showAllOrder();
+      const responseDiamonds = await showAllDiamond();
+      const responseJewelry = await showAllProduct();
+      const responseDiscount = await showAllDiscount();
+      const responseRevenes = await showReveneSummary();
 
-  //   const jewelryElements: ShellElement[] = [
-  //     { name: "Rings" },
-  //     { name: "Necklaces" },
-  //     { name: "Earrings" },
-  //     { name: "Bracelets" },
-  //   ];
+      const { data: customersData } = responseCustomers.data;
+      const { data: ordersData } = responseOrders.data;
+      const { data: reveneData } = responseRevenes.data;
+      const { data: diamondsData } = responseDiamonds.data;
+      const { data: jewelryData } = responseJewelry.data;
+      const { data: discountsData } = responseDiscount.data;
 
-  const ringShellElements: ShellElement[] = [
-    { name: "Emerald Cut Diamond" },
-    { name: "Petite Micropavé Diamond Ring" },
-    { name: "Petite Halo Solitaire Diamond Ring" },
-    { name: "Twisted Halo Diamond Ring" },
-  ];
+      const formattedCustomers = customersData
+      .filter((customer: any) => (customer.CustomerID !== null && customer.Role === "ROLE_CUSTOMER"))
+      .map((customer: any) => ({
+        accountID: customer.AccountID,
+        customerName: customer.Name,
+        role: customer.Role,
+        customerID: customer.CustomerID
+      }));
 
-  const orderElement: OrderElement[] = [
-    { orderID: "12345122", cusID: "JimGreen", date: "2023-01-02", price: 890 },
-    { orderID: "12345121", cusID: "JoeBlack", date: "2023-01-03", price: 560 },
-    { orderID: "12345123", cusID: "JimRed", date: "2023-01-04", price: 700 },
-    { orderID: "12345124", cusID: "JoeBlack", date: "2023-01-06", price: 701 },
-  ];
+      const formattedOrders = ordersData
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        orderDate: order.OrderDate,
+        price: order.Price,
+        customerID: order.CustomerID,
+      }));
 
-  const [data, setData] = useState({
-    customers: 678,
-    customers_Total: 1000,
-    orders: 1024,
-    orders_Total: 2000,
-    cancel_Orders: 143,
-    revene: 19460,
-    chats: [],
-    shellElements: [],
-    jewelryElements: [],
-    ringShellElements: [],
-  });
+      const formattedCancelOrders = ordersData
+      .filter((order: any) => (order.OrderStatus === "Cancelled"))
+      .map((order: any) => ({
+        orderID: order.OrderID,
+        orderDate: order.OrderDate,
+        price: order.Price,
+        orderStatus: order.OrderStatus,
+      }));
+
+      const formattedDiamonds = diamondsData.map((diamond: any) => ({
+        diamondID: diamond.DiamondID,
+        diamondName: diamond.Name,
+        price: diamond.Price,
+        images: diamond.usingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+
+      const formattedJewelryList = jewelryData?.map((jewelry: any) => ({
+        jewelryID: jewelry.ProductID,
+        jewelryName: jewelry.Name,
+        totalQuantitySettingVariants: jewelry.TotalQuantityJewelrySettingVariants,
+        images: jewelry.UsingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+
+      const formattedDiscounts = discountsData
+      .map((discount: any) => ({
+        discountID: discount.DiscountID,
+        discountName: discount.Name,
+        percentDiscounts: discount.PercentDiscounts,
+      }));
+
+      const formattedRevene = reveneData
+        .map((revene: any) => ({
+          startDate: revene.StartDate,
+          endDate: revene.EndDate,
+          mostRevenueInTime: revene.MostRevenueInTime,
+          mostQuantiyInTime: revene.MostQuantiyInTime,
+        }));
+
+      setCustomers(formattedCustomers);
+      setOrders(formattedOrders);
+      setDiamonds(formattedDiamonds);
+      setJewelrys(formattedJewelryList);
+      setDiscounts(formattedDiscounts);
+      setCancelOrders(formattedCancelOrders);
+      setRevenes(formattedRevene);
+
+      const startYear = 2024; 
+      const increaseCustomer = 50; 
+      const increaseOrder = 100; 
+      const increaseCancelOrder = 50; 
+      const totalCustomerKpi = calculateKpiTotal(startYear, increaseCustomer);
+      const totalOrderKpi = calculateKpiTotal(startYear, increaseOrder);
+      const totalCancelOrderKpi = calculateKpiTotal(startYear, increaseCancelOrder);
+      setCustomersTotal(totalCustomerKpi);
+      setOrdersTotal(totalOrderKpi);
+      setCancelOrdersTotal(totalCancelOrderKpi);
+    } catch (error) {
+      console.error("Failed to fetch infor:", error);
+    }
+  };
 
   useEffect(() => {
-    // Simulate fetching data from an API
-    const fetchData = async () => {
-      const response = await fetch("/path-to-your-data-source");
-      const result = await response.json();
-      setData(result);
-    };
-
     fetchData();
   }, []);
+
   return (
     <>
     <Styled.GlobalStyle/>
@@ -110,53 +202,34 @@ const Dashboard = () => {
             </Styled.TitlePage>
             <Styled.DBContent>
               <Styled.DBContent_1>
-                {/* <Styled.StatistiBox>
-                                <p className="statistics">678</p>
-                                <p className="statistics_explain">Total Customers</p>
-                            </Styled.StatistiBox>
-                            <Styled.StatistiBox>
-                                <p className="statistics">1,024</p>
-                                <p className="statistics_explain">Total Orders</p>
-                            </Styled.StatistiBox>
-                            <Styled.StatistiBox>
-                                <p className="statistics">$19,217</p>
-                                <p className="statistics_explain">Annual revenue</p>
-                            </Styled.StatistiBox> */}
-
                 <StatistiBox
-                  value={data.customers}
+                  value={customers.length}
                   label="Total Customers"
-                  total={(data.customers * 100 / data.customers_Total).toFixed(2)}
+                  total={(customers.length * 100 / customersTotal).toFixed(2)}
                 />
                 <StatistiBox
-                  value={data.orders}
+                  value={orders.length}
                   label="Total Orders"
-                  total={(data.orders * 100 / data.orders_Total).toFixed(2)}
+                  total={(orders.length * 100 / ordersTotal).toFixed(2)}
                 />
                 <StatistiBox
-                  value={data.cancel_Orders}
+                  value={cancelOrders.length}
                   label="Cancel Orders"
-                  total={(data.cancel_Orders * 100 / data.orders).toFixed(2)}
+                  total={(cancelOrders.length * 100 / cancelOrdersTotal).toFixed(2)}
                 />
                 <Styled.TopMonth>
                   <p className="topMonth_title">Top month</p>
                   <h2>November 2023</h2>
                   <p className="topMonth-statisti">96K sold so far</p>
                 </Styled.TopMonth>
-                {/* <Styled.TopTime>
-                    <Styled.TopYear>
-                    <p className="topYear_title">Top year</p>
-                    <h2>2023</h2>
-                    <p className="topYear-Detail">96K sold so far</p>
-                    </Styled.TopYear>
-                </Styled.TopTime> */}
               </Styled.DBContent_1>
 
               <Styled.DBContent_2>
                 <Styled.Revenue>
                   <Styled.Revenue_Title>
                     <h2>Revenue Report</h2>
-                    <p className="revenueTotal">{`$${data.revene}`}</p>
+                    {/* <p className="revenueTotal">{`$${data.revene}`}</p> */}
+                    <p className="revenueTotal">1222</p>
                   </Styled.Revenue_Title>
                   <Styled.Revenue_Content>
                     <LineChart isDashboard={true} />
@@ -176,20 +249,23 @@ const Dashboard = () => {
                     </Link>
                   </Styled.RecentOrders_Title>
                   <Styled.RecentOrders_List>
-                    {orderElement.map((OrderElement, index) => (
-                      <div className="order_ele" key={index}>
-                        <div className="order_eleInfor">
-                          <p className="order_eleID">{OrderElement.orderID}</p>
-                          <p className="order_eleCusName">
-                            {OrderElement.cusID}
-                          </p>
+                    {orders
+                      .sort((a: any, b: any) => new Date(b.orderDate).getTime() - new Date(a.orderDate).getTime())
+                      .slice(0, 4)
+                      .map((order: any) => (
+                        <div className="order_ele" key={order.orderID}>
+                          <div className="order_eleInfor">
+                            <p className="order_eleID">{order.orderID}</p>
+                            <p className="order_eleCusName">
+                              {order.customerID}
+                            </p>
+                          </div>
+                          <p className="order_eleDate">{order.orderDate}</p>
+                          <div className="order_elePrice">
+                            ${order.price}
+                          </div>
                         </div>
-                        <p className="order_eleDate">{OrderElement.date}</p>
-                        <div className="order_elePrice">
-                          ${OrderElement.price}
-                        </div>
-                      </div>
-                    ))}
+                      ))}
                   </Styled.RecentOrders_List>
                 </Styled.RecentOrders>
               </Styled.DBContent_2>
@@ -198,8 +274,7 @@ const Dashboard = () => {
                 <Styled.ChatGene>
                   <Styled.ChatGene_Title>
                     <Styled.MainTitle>
-                      <h2>Chats</h2>
-                      <p>0 unread messages</p>
+                      <h2>Diamonds</h2>
                     </Styled.MainTitle>
                     <Link to="/admin/client-caring">
                       <Styled.ViewAll>
@@ -209,17 +284,21 @@ const Dashboard = () => {
                     </Link>
                   </Styled.ChatGene_Title>
                   <Styled.ChatGene_Content>
-                    {chats.map((chat, index) => (
-                      <div className="cusChat" key={index}>
-                        <div className="cusChat_ava-name">
-                          <img src={chat.imgSrc} alt={chat.name} />
-                          <p>{chat.name}</p>
+                    {diamonds
+                      .slice(0, 4)
+                      .map((diamond: any) => (
+                        <div className="cusChat" key={diamond.diamondID}>
+                          <div className="cusChat_ava-name">
+                            <img
+                              src={diamond.images && diamond.images[0] ? diamond.images[0].url : "default-image-url"}
+                              alt={diamond.diamondName} />
+                            <p>{diamond.diamondName}</p>
+                          </div>
+                          <Link to={`/admin/product/diamond/detail/${diamond.diamondID}`}>
+                            <button className="shell_eleButton">View</button>
+                          </Link>
                         </div>
-                        <div className="cusChat_link">
-                          <SendOutlined />
-                        </div>
-                      </div>
-                    ))}
+                      ))}
                   </Styled.ChatGene_Content>
                   <div className="chatNofi_content"></div>
                 </Styled.ChatGene>
@@ -235,10 +314,6 @@ const Dashboard = () => {
                     </Link>
                   </Styled.Ele_Title>
                   <Styled.Ele_Content>
-                    {/* <Styled.Ele_TableTitle>
-                            <p>Name</p>
-                            <p>Action</p>
-                        </Styled.Ele_TableTitle> */}
                     {shellElements.map((ShellElement, index) => (
                       <div className="shell_ele" key={index}>
                         <div className="shell_eleName">

@@ -27,6 +27,7 @@ const Order = () => {
         completeDate: order.CompleteDate,
         isPayed: order.IsPayed,
         shippingfee: order.Shippingfee,
+        price: order.Price,
         note: order.Note,
         isActive: order.IsActive,
         accountDeliveryID: order.AccountDeliveryID,
@@ -74,12 +75,12 @@ const Order = () => {
       sorter: (a, b) => a.customerID.length - b.customerID.length,
       sortDirections: ["descend"],
     },
-    // {
-    //   title: "Total",
-    //   dataIndex: "total",
-    //   defaultSortOrder: "descend",
-    //   sorter: (a, b) => a.total - b.total,
-    // },
+    {
+      title: "Total",
+      dataIndex: "price",
+      defaultSortOrder: "descend",
+      sorter: (a, b) => a.price - b.price,
+    },
     {
       title: "Status",
       key: "orderStatus",

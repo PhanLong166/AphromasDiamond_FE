@@ -1,36 +1,29 @@
 import * as Styled from "./ProductPromotion.styled";
 import React, { useEffect, useState } from "react";
-// import { Link } from "react-router-dom";
 import {
   SearchOutlined,
   PlusCircleOutlined,
-  // EyeOutlined,
   SaveOutlined,
 } from "@ant-design/icons";
 import type {
   TableProps,
   FormInstance,
-  // TableColumnsType,
   DatePickerProps,
 } from "antd";
 import {
   Form,
   Input,
   InputNumber,
-  // Popconfirm,
   Table,
-  // Typography,
   Button,
   Space,
   DatePicker,
-  // Select,
   Popconfirm,
   Typography,
   notification,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
-// import { Link } from "react-router-dom";
 import { showAllDiscount, createDiscount, updateDiscount, deleteDiscount } from "@/services/discountAPI";
 import { showAllProduct } from "@/services/productAPI";
 

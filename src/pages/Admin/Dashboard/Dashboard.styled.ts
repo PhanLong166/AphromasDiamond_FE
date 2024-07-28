@@ -336,7 +336,7 @@ export const ChatGene_Content = styled.div`
   .cusChat_ava-name img {
     width: 32px;
     height: 32px;
-    border-radius: 100%;
+    // border-radius: 100%;
     margin-right: 10px;
   }
   .cusChat_link {

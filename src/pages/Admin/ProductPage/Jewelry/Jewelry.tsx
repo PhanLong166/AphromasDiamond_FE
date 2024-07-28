@@ -264,7 +264,6 @@ const Jewelry = () => {
   // const [api, contextHolder] = notification.useNotification();
   const [jewelrys, setJewelrys] = useState([]);
   const [diamonds, setDiamonds] = useState([]);
-  const [settings, setSettings] = useState([]);
   const [isModalVisible, setIsModalVisible] = useState(false); 
   const navigate = useNavigate(); 
 
@@ -286,11 +285,10 @@ const Jewelry = () => {
   const fetchData = async () => {
     try {
       const responseDiamonds = await showAllDiamond();
-      const responseSetting = await showAllSetting();
+      // const responseSetting = await showAllSetting();
       const responseJewelryList = await showAllProduct();
 
       const { data: diamondsData } = responseDiamonds.data;
-      const { data: settingsData } = responseSetting.data;
       const { data: jewelryListData } = responseJewelryList.data;
 
       const formattedDiamonds = diamondsData.map((diamond: any) => ({
@@ -318,31 +316,31 @@ const Jewelry = () => {
         })),
       }));
 
-      const formattedSettings = settingsData.map((setting: any) => ({
-        jewelrySettingID: setting.JewelrySettingID,
-        jewelrySettingName: setting.Name,
-        productID: setting.ProductID,
-        jewelryTypeID: setting.JewelryTypeID,
-        productionCost: setting.ProductionCost,
-        isActive: setting.IsActive === true,
-        jewelrySettingVariant: setting.JewelrySettingVariant.map(
-          (variant: any) => ({
-            variantID: variant.JewelrySettingVariantID,
-            amount: variant.Amount,
-            totalPriceVariant: variant.TotalPriceVariant,
-            size: {
-              sizeID: variant.SizeID,
-              sizeValue: variant.SizeValue,
-              unitOfMeasure: variant.UnitOfMeasure,
-            },
-          })
-        ),
-        images: setting.UsingImage.map((image: any) => ({
-          id: image.UsingImageID,
-          name: image.Name,
-          url: getImage(image.UsingImageID),
-        })),
-      }));
+      // const formattedSettings = settingsData.map((setting: any) => ({
+      //   jewelrySettingID: setting.JewelrySettingID,
+      //   jewelrySettingName: setting.Name,
+      //   productID: setting.ProductID,
+      //   jewelryTypeID: setting.JewelryTypeID,
+      //   productionCost: setting.ProductionCost,
+      //   isActive: setting.IsActive === true,
+      //   jewelrySettingVariant: setting.JewelrySettingVariant.map(
+      //     (variant: any) => ({
+      //       variantID: variant.JewelrySettingVariantID,
+      //       amount: variant.Amount,
+      //       totalPriceVariant: variant.TotalPriceVariant,
+      //       size: {
+      //         sizeID: variant.SizeID,
+      //         sizeValue: variant.SizeValue,
+      //         unitOfMeasure: variant.UnitOfMeasure,
+      //       },
+      //     })
+      //   ),
+      //   images: setting.UsingImage.map((image: any) => ({
+      //     id: image.UsingImageID,
+      //     name: image.Name,
+      //     url: getImage(image.UsingImageID),
+      //   })),
+      // }));
 
       const formattedJewelryList = jewelryListData?.map((jewelry: any) => ({
         jewelryID: jewelry.ProductID,
@@ -363,13 +361,8 @@ const Jewelry = () => {
         })),
       }));
 
-      // console.log("Formatted Diamonds:", formattedJewelryList); 
       setDiamonds(formattedDiamonds);
-      setSettings(formattedSettings);
-      // setJewelrys(formattedJewelrys);
       setJewelrys(formattedJewelryList);
-      // console.log(diamonds);
-      // console.log(settings);
 
     } catch (error) {
       console.error("Failed to fetch jewelry:", error);

@@ -28,6 +28,10 @@ export const showOrdersPage = () => {
     return get(`/order/showOrders`);
 }
 
+export const showReveneSummary = () => {
+    return post(`/order/summarize`);
+}
+
 export const orderDetail = (id: number) => {
     return get(`/order/detail/${id}`);
 }

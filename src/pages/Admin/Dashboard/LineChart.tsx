@@ -1,7 +1,11 @@
 // import React from "react";
 import { ResponsiveLine } from "@nivo/line";
+import mockLineData from "./data";
 // import * as Styled from "./Dashboard.styled";
-import { mockLineData } from "./data";
+// import { mockLineData } from "./data";
+import { showReveneSummary } from "@/services/orderAPI";
+import { useEffect, useState } from "react";
+
 
 const addNewMonthData = (lineData: any) => {
     const currentDate = new Date();
@@ -25,6 +29,40 @@ const addNewMonthData = (lineData: any) => {
 };
 
 const LineChart = ({ isDashboard = false }) => {
+    const [revenes, setRevenes] = useState<any[]>([]);
+    const fetchData = async () => {
+        try {
+          const responseRevenes = await showReveneSummary();
+          const reveneData = responseRevenes.data.data;
+          const formattedOrders = reveneData.OrderResults.map((order: any) => ({
+            month: order.month,
+            revenue: order.revenue,
+          }));
+    
+          setRevenes(formattedOrders);
+        } catch (error) {
+          console.error("Failed to fetch info:", error);
+        }
+      };
+    
+      useEffect(() => {
+        fetchData();
+      }, []);
+    
+      const lineColors = { green: "#15F5BA", pink: "#FF9EAA", purple: "#912BBC" };
+    
+      const mockLineData = [
+        {
+          id: "Product",
+          color: lineColors.purple,
+          data: revenes.map((revene: any) => ({
+            x: revene.month,
+            y: revene.revenue,
+          })),
+        },
+      ];
+
+
     const colors = { primary: "#151542" };
     const data = addNewMonthData(mockLineData);
 
