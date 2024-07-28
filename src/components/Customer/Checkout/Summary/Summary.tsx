@@ -152,7 +152,7 @@ const Summary: React.FC = () => {
       </EditTotal>
       <EditTotal>
         <p>Shipping: </p>
-        <p>{orderLineItems.length === 2 ? "$15.00" : "Free"}</p>
+        <p>{orderLineItems.length === 1 ? "$15.00" : "Free"}</p>
       </EditTotal>
       <EditTotal>
         <p>Subtotal: </p>

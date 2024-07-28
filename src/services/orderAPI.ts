@@ -18,7 +18,7 @@ export type OrderAPIProps = {
     ReasonReturn?: string;
     Note?: string;
     IsActive: boolean;
-    // VoucherID?: number;
+    VoucherID?: number;
 }
 
 export const showAllOrder = () => {
