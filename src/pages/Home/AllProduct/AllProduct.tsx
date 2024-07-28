@@ -212,6 +212,7 @@ const AllProduct: React.FC = () => {
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
             salePrice: jewelry.SalePrice, 
+            type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name, 
             images: jewelry.UsingImage.map((image: any) => ({
               id: image.UsingImageID,
@@ -236,7 +237,7 @@ const AllProduct: React.FC = () => {
 
   useEffect(() => {
     const filtered = products.filter(
-      (product) => !excludedCategories.includes(product.jewelryType)
+      (product) => !excludedCategories.includes(product.type)
     );
     setFilteredProducts(filtered);
   }, [products]);
