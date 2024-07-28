@@ -20,7 +20,6 @@ const Checkout: React.FC = () => {
   const { AccountID, user } = useAuth();
   const [CustomerID, setCustomerID] = useState<number>();
   const [Customer, setCustomer] = useState<any>(null);
-  const [orderLineItems, setOrderLineItems] = useState<any[]>([]);
   // const [form] = Form.useForm();
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   const [provinces, setProvinces] = useState<any[]>([]);
@@ -33,6 +32,7 @@ const Checkout: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const VoucherID = useAppSelector((state) => state.order.VoucherID);
+  const ShippingFee = useAppSelector((state) => state.order.Shippingfee);
   const [api, contextHolder] = notification.useNotification();
 
 
@@ -54,38 +54,24 @@ const Checkout: React.FC = () => {
     console.log('Customer ID: ', CustomerID);
   }
 
-  const orderLineData = React.useCallback(async () => {
-    try {
-      const { data } = await showAllOrderLineForAdmin();
-      if (data.statusCode !== 200) throw new Error();
-
-      const getOrderLineItems = data.data.filter((
-        OrderLineItem: {
-          CustomerID: number,
-          OrderID: number | null
-          DiamondID: number | null,
-          ProductID: number | null
-        }
-      ) => (
-        OrderLineItem.CustomerID === CustomerID
-        && OrderLineItem.OrderID === null
-        && (OrderLineItem.DiamondID !== null || OrderLineItem.ProductID !== null)
-      ));
-      setOrderLineItems(getOrderLineItems);
-      console.log('OrderLine: ', getOrderLineItems);
-    } catch (error: any) {
-      console.log(error || 'An error occurred');
-    }
-  }, [])
-
   React.useEffect(() => {
     getCustomerDetail();
     fetchProvincesData();
-    orderLineData();
-  }, [Customer?.CustomerID, AccountID, orderLineData]);
+  }, [Customer?.CustomerID, AccountID]);
 
   const onFinish = async (values: any) => {
     try {
+      //Convert address
+      const provinceData = await getProvinces();
+      const provinceName = provinceData.find((province: any) => province.id === values.province).name;
+      
+      const districtData = await getDistricts(values.province);
+      const districtName = districtData.find((district: any) => district.id === values.district).name;
+
+      const wardData = await getWards(values.district);
+      
+      const wardName = wardData.find((ward: any) => ward.id === values.ward).name;
+      
       const requestBodyOrder: OrderAPIProps = {
         OrderDate: new Date(),
         CompleteDate: new Date(),
@@ -97,8 +83,8 @@ const Checkout: React.FC = () => {
         NameReceived: values.Name,
         PhoneNumber: values.PhoneNumber,
         Email: Customer?.Email,
-        Address: `${values.addressDetails}, ${values.ward}, ${values.district}, ${values.province}`,
-        Shippingfee: orderLineItems.length === 1 ? 15 : 0,
+        Address: `${values.addressDetails}, ${wardName}, ${districtName}, ${provinceName}`,
+        Shippingfee: ShippingFee,
         VoucherID: VoucherID !== 0 ? VoucherID : undefined
       }
 

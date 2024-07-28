@@ -10,6 +10,8 @@ import { getImage } from "@/services/imageAPI";
 import { showAllProduct } from "@/services/jewelryAPI";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
+import { useAppDispatch } from "@/hooks";
+import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 interface CartItemProps {
   name: string;
   image: string;
@@ -39,6 +41,7 @@ const Summary: React.FC = () => {
   const [productList, setProductList] = useState<any[]>([]);
   const { AccountID } = useAuth();
   const [customer, setCustomer] = useState<any>();
+  const dispatch = useAppDispatch()
 
   const onApplyVoucher = (discount: number) => {
     setDiscount(discount);
@@ -98,6 +101,7 @@ const Summary: React.FC = () => {
   // }, 0);
 
   const shippingCost = orderLineItems.length === 1 ? 15 : 0;
+  dispatch(orderSlice.actions.setShippingfee(shippingCost));
 
   const subtotalNumber = () => {
     let temp = 0;
