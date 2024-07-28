@@ -244,7 +244,7 @@ export const ProductInfo = styled.div`
   }
 
   .info-box {
-    width: 60px;
+    width: 200px;
     height: 35px;
     display: flex;
     align-items: center;

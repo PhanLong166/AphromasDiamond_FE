@@ -104,6 +104,8 @@ const DiamondDetails: React.FC = () => {
   const [cartList, setCartList] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [api, contextHolder] = notification.useNotification();
+  const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
+  const [diamondId, setDiamondId] = useState<number | null>(null);
 
   const openNotification = async (type: NotificationType, message: string) => {
     api[type]({
@@ -111,10 +113,6 @@ const DiamondDetails: React.FC = () => {
       description: message,
     });
   };
-
-  const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
-
-  const [diamondId, setDiamondId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchDiamondDetails = async () => {
