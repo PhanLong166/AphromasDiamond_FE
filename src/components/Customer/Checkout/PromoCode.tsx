@@ -5,7 +5,7 @@ import styled from "styled-components";
 import { Select } from "antd";
 import { showAllVoucher } from "@/services/voucherAPI";
 interface PromoCodeSectionProps {
-  onApplyVoucher: (discount: number) => void;
+  onApplyVoucher: (discount: number, voucherID: number) => void;
 }
 
 const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) => {
@@ -13,6 +13,12 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
   const [selectedVoucher, setSelectedVoucher] = useState<Voucher | null>(null);
   const [error, setError] = useState("");
   const [availableVouchers, setAvailableVouchers] = useState<any[]>([]);
+
+  // const handleSelectVoucher = (voucher: Voucher) => {
+  //   localStorage.setItem("selectedVoucher", JSON.stringify(voucher));
+  // }
+  // console.log(selectedVoucher);
+  // console.log(handleSelectVoucher);
 
   interface Voucher {
     buttonLabel: string | null;
@@ -48,26 +54,6 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
     return vouchers.filter((voucher) => new Date(voucher.EndDate) > currentDate);
   };
 
-  
-
-//   const handleApplyClick = () => {
-//     const voucher = availableVouchers.find(voucher => voucher.Description   === selectedVoucher);
-//     if (voucher) {
-//       const discount = parseFloat("voucher.PercentDiscounts");
-      
-//       onApplyVoucher(discount);
-
-    
-//   }
-// }
-// const handleApplyClick = () => {
-//   if (selectedVoucher) {
-//     const discount = parseFloat(selectedVoucher.PercentDiscounts);
-//     onApplyVoucher(discount);
-//   } else {
-//     setError("Please select a valid promo code");
-//   }
-// };
 const handleApplyClick = () => {
   if (selectedVoucher) {
     const discount = parseFloat(selectedVoucher.PercentDiscounts);
@@ -76,8 +62,9 @@ const handleApplyClick = () => {
 
    
     if (!isNaN(discount) && discount > 0) {
-      onApplyVoucher(discount);
+      onApplyVoucher(discount, selectedVoucher.VoucherID);
       setError(""); 
+      localStorage.setItem("selectedVoucher", JSON.stringify(selectedVoucher));
     } else {
       setError("Invalid discount value");
     }
@@ -103,7 +90,7 @@ const handleApplyClick = () => {
               setSelectedVoucher(voucher || null);
               if (!voucher) {
                 setError("");
-                onApplyVoucher(0); 
+                onApplyVoucher(0, 0); 
               }
             }}
           >
