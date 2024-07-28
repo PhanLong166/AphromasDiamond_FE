@@ -613,11 +613,11 @@ export const Review = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
-    border-bottom: 1px solid ${theme.color.primary};
+    // border-bottom: 1px solid ${theme.color.primary};
     padding-top: 10px;
     padding-bottom: 5px;
     justify-content: space-between;
+    text-align: center;
 
     .view-all-button {
       background-color: ${theme.color.primary};
@@ -662,12 +662,14 @@ export const Review = styled.div`
     }
   }
 
+
+
   .body-review {
     margin: 0 auto;
     max-width: 800px;
 
     .profile {
-      margin-top: 30px;
+      margin-top: 15px;
 
       .thumb-name {
         display: flex;
