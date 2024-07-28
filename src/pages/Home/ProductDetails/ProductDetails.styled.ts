@@ -244,7 +244,7 @@ export const ProductInfo = styled.div`
   }
 
   .info-box {
-    width: 200px;
+    width: 130px;
     height: 35px;
     display: flex;
     align-items: center;
@@ -302,6 +302,30 @@ export const RingSize = styled.div`
   color: ${theme.color.primary};
   font-weight: 400;
   font-size: 14px;
+`;
+
+export const Condition = styled.div`
+  padding-bottom: 20px;
+  .payment-options-box {
+    background-color: #d9d9d9;
+    padding: 20px;
+  }
+
+  .payment-options-box h3 {
+    margin: 0;
+    font-size: 16px;
+    color: ${theme.color.primary};
+    font-weight: 500;
+    font-family: "Gantari", sans-serif;
+  }
+
+  .payment-options-box li {
+    margin: 5px 0 0;
+    font-size: 16px;
+    color: #555;
+    font-weight: 300;
+    font-family: "Gantari", sans-serif;
+  }
 `;
 
 // export const SelectButton = styled.div`
