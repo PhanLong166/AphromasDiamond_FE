@@ -4,12 +4,14 @@ interface OrderState {
     OrderID: number;
     VoucherID: number;
     Shippingfee: number;
+    Total: number;
 }
 
 const initialOrderState: OrderState = {
     OrderID: 0,
     VoucherID: 0,
     Shippingfee: 0,
+    Total: 0,
 };
 
 export const orderSlice = createSlice({
@@ -24,10 +26,13 @@ export const orderSlice = createSlice({
         },
         setShippingfee: (state, action: PayloadAction<number>) => {
             state.Shippingfee = action.payload;
+        },
+        setTotal: (state, action: PayloadAction<number>) => {
+            state.Total = action.payload;
         }
     }
 });
 
-export const { setOrderID, setVoucherID, setShippingfee } = orderSlice.actions;
+export const { setOrderID, setVoucherID, setShippingfee, setTotal } = orderSlice.actions;
 
 export default orderSlice.reducer;

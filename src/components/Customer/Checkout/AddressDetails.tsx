@@ -2,6 +2,8 @@
 import React, { useState } from 'react';
 import styled from 'styled-components';
 import { Form, Input, Select } from 'antd';
+import paypal from '@/assets/logo/payment/paypal.png';
+import cod from '@/assets/logo/payment/cod.jpg';
 
 const { Option } = Select;
 
@@ -58,8 +60,6 @@ const AddressDetails: React.FC<{
           layout="vertical"
           onFinish={handleFormSubmit}
         >
-
-
           <InputRow>
             <InputGroup>
               <Form.Item
@@ -185,9 +185,9 @@ const AddressDetails: React.FC<{
                 name="PhoneNumber"
                 rules={[
                   { required: true, message: 'Phone Number is required' },
-                  { 
-                    pattern: /^(0|\+?84)(3|5|7|8|9)[0-9]{8}$/, 
-                    message: 'Please enter the correct phone number format' 
+                  {
+                    pattern: /^(0|\+?84)(3|5|7|8|9)[0-9]{8}$/,
+                    message: 'Please enter the correct phone number format'
                   }
                 ]}
               >
@@ -202,8 +202,6 @@ const AddressDetails: React.FC<{
             rules={[{ required: true, message: 'Payment Method is required' }]}
           >
             <StyledSelect placeholder="Select Payment Method" onChange={handlePaymentChange}>
-              <Option value="VNPay">VnPay</Option>
-              <Option value="Momo">Momo</Option>
               <Option value="Paypal">Paypal</Option>
               <Option value="COD">COD</Option>
             </StyledSelect>
@@ -212,30 +210,19 @@ const AddressDetails: React.FC<{
           {selectedPaymentMethod && (
             <PaymentImage
               src={
-                selectedPaymentMethod === "vnpay"
-                  ? "https://vinadesign.vn/uploads/images/2023/05/vnpay-logo-vinadesign-25-12-57-55.jpg"
-                  : selectedPaymentMethod === "momo"
-                    ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2Fimage%2022.png?alt=media&token=1220c865-58a2-48d2-9112-e52cc3c11579"
-                    : "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2F122290830_132545211952745_2371548508191512996_n.jpg?alt=media&token=13186094-eb53-4e6c-98a0-1e7fe06b3664"
+                selectedPaymentMethod === "Paypal" ? paypal : cod
               }
               alt={
-                selectedPaymentMethod === "vnpay"
-                  ? "VnPay"
-                  : selectedPaymentMethod === "momo"
-                    ? "Momo"
-                    : "COD"
+                selectedPaymentMethod === "Paypal" ? "Paypal" : "COD"
               }
             />
           )}
 
           <Form.Item>
             <Editbtn>
-
               <Btn className='btn' type="submit">
-
                 Continue
               </Btn>
-
             </Editbtn>
           </Form.Item>
         </Form>

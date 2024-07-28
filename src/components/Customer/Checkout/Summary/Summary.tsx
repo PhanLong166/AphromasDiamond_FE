@@ -116,7 +116,7 @@ const Summary: React.FC = () => {
   }
 
   const total = calculateTotal(subtotalNumber(), discount, shippingCost).toFixed(2);
-
+  dispatch(orderSlice.actions.setTotal(Number(total)));
   return (
     <SummarySection>
       <ItemNumber>

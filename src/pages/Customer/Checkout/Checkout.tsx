@@ -11,9 +11,10 @@ import { showAllOrderLineForAdmin, updateOrderLine } from "@/services/orderLineA
 import config from "@/config";
 import useAuth from "@/hooks/useAuth";
 import { getCustomer } from "@/services/accountApi";
-import { OrderStatus } from "@/utils/enum";
+import { OrderStatus, PaymentMethodEnum } from "@/utils/enum";
 import { useAppDispatch, useAppSelector } from "@/hooks";
 import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
+import { createOrderPaypal } from "@/services/paymentAPI";
 
 const description = "This is a description";
 const Checkout: React.FC = () => {
@@ -33,6 +34,7 @@ const Checkout: React.FC = () => {
   const dispatch = useAppDispatch();
   const VoucherID = useAppSelector((state) => state.order.VoucherID);
   const ShippingFee = useAppSelector((state) => state.order.Shippingfee);
+  const TotalPrice = useAppSelector((state) => state.order.Total);
   const [api, contextHolder] = notification.useNotification();
 
 
@@ -69,7 +71,6 @@ const Checkout: React.FC = () => {
       const districtName = districtData.find((district: any) => district.id === values.district).name;
 
       const wardData = await getWards(values.district);
-      
       const wardName = wardData.find((ward: any) => ward.id === values.ward).name;
       
       const requestBodyOrder: OrderAPIProps = {
@@ -112,9 +113,15 @@ const Checkout: React.FC = () => {
             OrderID: getOrderID
           });
           if (linkOrder.data.statusCode !== 200) throw new Error(linkOrder.data.message);
-          else navigate(config.routes.public.success);
         });
       if (!updateOrderLine) throw new Error();
+
+      if (values.Method === PaymentMethodEnum.PAYPAL) {
+          const createPayment = await createOrderPaypal(TotalPrice);
+          window.location.href = createPayment.data.links[1].href;
+      } else {
+        navigate(config.routes.public.success);
+      }
     } catch (error: any) {
       api.error({
         message: 'Error',
