@@ -2,7 +2,7 @@ import { useAppDispatch } from "@/hooks";
 import { Button, Form, FormInstance } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import React, { useState } from "react";
-import { uploadSliceProduct } from "../slice";
+import { uploadSliceDiaProduct } from "../slice";
 import { createProduct } from "@/services/jewelryAPI";
 
 interface SubmitButtonProps {
@@ -49,7 +49,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                         'Create information successfully!'
                 })
                 setCurrent(current + 1);
-                dispatch(uploadSliceProduct.actions.setProductID(data?.data?.ProductID));
+                dispatch(uploadSliceDiaProduct.actions.setProductID(data?.data?.ProductID));
             }
         } catch (error: any) {
             api.error({

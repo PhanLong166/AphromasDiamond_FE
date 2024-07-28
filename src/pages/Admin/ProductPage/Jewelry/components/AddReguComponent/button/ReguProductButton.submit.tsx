@@ -3,7 +3,7 @@ import { Button, Form, FormInstance } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import React, { useState } from "react";
 import uploadSlice from "../slice";
-import { createProduct } from "@/services/jewelryAPI";
+import { createProduct } from "@/services/productAPI";
 
 interface SubmitButtonProps {
     form: FormInstance;

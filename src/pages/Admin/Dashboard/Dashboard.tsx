@@ -1,7 +1,6 @@
 import * as Styled from "./Dashboard.styled";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-// import { Link } from 'react-router-dom';
-import { ArrowRightOutlined, SendOutlined } from "@ant-design/icons";
+import { ArrowRightOutlined } from "@ant-design/icons";
 import { useEffect, useState } from "react";
 import StatistiBox from "./StatistiBox";
 import LineChart from "./LineChart";
@@ -13,60 +12,11 @@ import { showAllAccounts } from "@/services/authAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllDiscount } from "@/services/discountAPI";
 
-// interface Chat {
-//   name: string;
-//   imgSrc: string;
-// }
-
-// interface ShellElement {
-//   name: string;
-// }
-
-// interface OrderElement {
-//   orderID: string;
-//   cusID: string;
-//   date: string;
-//   price: number;
-// }
-
-// const shellElements: ShellElement[] = [
-//   { name: "AphromasDiamond" },
-//   { name: "AphromasDiamond" },
-//   { name: "AphromasDiamond" },
-//   { name: "AphromasDiamond" },
-// ];
-
-// const ringShellElements: ShellElement[] = [
-//   { name: "Emerald Cut Diamond" },
-//   { name: "Petite Micropavé Diamond Ring" },
-//   { name: "Petite Halo Solitaire Diamond Ring" },
-//   { name: "Twisted Halo Diamond Ring" },
-// ];
-
-// const orderElement: OrderElement[] = [
-//   { orderID: "12345122", cusID: "JimGreen", date: "2023-01-02", price: 890 },
-//   { orderID: "12345121", cusID: "JoeBlack", date: "2023-01-03", price: 560 },
-//   { orderID: "12345123", cusID: "JimRed", date: "2023-01-04", price: 700 },
-//   { orderID: "12345124", cusID: "JoeBlack", date: "2023-01-06", price: 701 },
-// ];
-
-// const [data, setData] = useState({
-//   customers: 678,
-//   customers_Total: 1000,
-//   orders: 1024,
-//   orders_Total: 2000,
-//   cancel_Orders: 143,
-//   revene: 19460,
-//   chats: [],
-//   shellElements: [],
-//   jewelryElements: [],
-//   ringShellElements: [],
-// });
-
-const calculateKpiTotal = (startYear: any, increasePerYear: any) => {
-  const currentYear = new Date().getFullYear();
-  const yearsPassed = currentYear - startYear;
-  return yearsPassed * increasePerYear;
+const calculateKpiTotal = (startYear: any, startMonth: any, increasePerMonth: any) => {
+  const currentDate = new Date();
+  const startDate = new Date(startYear, startMonth - 1); 
+  const monthsPassed = (currentDate.getFullYear() - startDate.getFullYear()) * 12 + (currentDate.getMonth() - startDate.getMonth());
+  return monthsPassed * increasePerMonth;
 };
 
 const Dashboard = () => {
@@ -79,7 +29,7 @@ const Dashboard = () => {
   const [customersTotal, setCustomersTotal] = useState(0);
   const [ordersTotal, setOrdersTotal] = useState(0);
   const [cancelOrdersTotal, setCancelOrdersTotal] = useState(0);
-  const [revenes, setRevenes] = useState([]);
+  const [revenes, setRevenes] = useState<any | null>(null);
 
   const fetchData = async () => {
     try {
@@ -152,13 +102,17 @@ const Dashboard = () => {
         percentDiscounts: discount.PercentDiscounts,
       }));
 
-      const formattedRevene = reveneData
-        .map((revene: any) => ({
-          startDate: revene.StartDate,
-          endDate: revene.EndDate,
-          mostRevenueInTime: revene.MostRevenueInTime,
-          mostQuantiyInTime: revene.MostQuantiyInTime,
-        }));
+      const formattedRevene = {
+        startDate: reveneData.StartDate,
+        endDate: reveneData.EndDate,
+        mostRevenueInTime: reveneData.MostRevenueInTime,
+        mostQuantiyInTime: reveneData.MostQuantiyInTime,
+        orderResults: reveneData.OrderResults.map((order: any) => ({
+          month: order.month,
+          revenue: order.revenue,
+          orderQuantity: order.orderQuantity,
+        })),
+      };
 
       setCustomers(formattedCustomers);
       setOrders(formattedOrders);
@@ -169,12 +123,13 @@ const Dashboard = () => {
       setRevenes(formattedRevene);
 
       const startYear = 2024; 
-      const increaseCustomer = 50; 
-      const increaseOrder = 100; 
-      const increaseCancelOrder = 50; 
-      const totalCustomerKpi = calculateKpiTotal(startYear, increaseCustomer);
-      const totalOrderKpi = calculateKpiTotal(startYear, increaseOrder);
-      const totalCancelOrderKpi = calculateKpiTotal(startYear, increaseCancelOrder);
+      const startMonth = 1;
+      const increaseCustomer = 10; 
+      const increaseOrder = 10; 
+      const increaseCancelOrder = 2; 
+      const totalCustomerKpi = calculateKpiTotal(startYear, startMonth, increaseCustomer);
+      const totalOrderKpi = calculateKpiTotal(startYear, startMonth, increaseOrder);
+      const totalCancelOrderKpi = calculateKpiTotal(startYear, startMonth, increaseCancelOrder);
       setCustomersTotal(totalCustomerKpi);
       setOrdersTotal(totalOrderKpi);
       setCancelOrdersTotal(totalCancelOrderKpi);
@@ -193,7 +148,6 @@ const Dashboard = () => {
       <Styled.AdminContainer>
         <Sidebar />
 
-        {/* <Styled.hehe> */}
           <Styled.AdminPage>
             <Styled.TopPage>
             <Styled.TitlePage>
@@ -219,8 +173,8 @@ const Dashboard = () => {
                 />
                 <Styled.TopMonth>
                   <p className="topMonth_title">Top month</p>
-                  <h2>November 2023</h2>
-                  <p className="topMonth-statisti">96K sold so far</p>
+                  <h2>{revenes?.mostRevenueInTime?.month}</h2>
+                  <p className="topMonth-statisti">{revenes?.mostRevenueInTime?.revenue} sold so far</p>
                 </Styled.TopMonth>
               </Styled.DBContent_1>
 
@@ -271,63 +225,11 @@ const Dashboard = () => {
               </Styled.DBContent_2>
 
               <Styled.DBContent_3>
-                <Styled.ChatGene>
-                  <Styled.ChatGene_Title>
+                <Styled.Element>
+                  <Styled.Ele_Title>
                     <Styled.MainTitle>
                       <h2>Diamonds</h2>
                     </Styled.MainTitle>
-                    <Link to="/admin/client-caring">
-                      <Styled.ViewAll>
-                        <p>View All</p>
-                        <ArrowRightOutlined />
-                      </Styled.ViewAll>
-                    </Link>
-                  </Styled.ChatGene_Title>
-                  <Styled.ChatGene_Content>
-                    {diamonds
-                      .slice(0, 4)
-                      .map((diamond: any) => (
-                        <div className="cusChat" key={diamond.diamondID}>
-                          <div className="cusChat_ava-name">
-                            <img
-                              src={diamond.images && diamond.images[0] ? diamond.images[0].url : "default-image-url"}
-                              alt={diamond.diamondName} />
-                            <p>{diamond.diamondName}</p>
-                          </div>
-                          <Link to={`/admin/product/diamond/detail/${diamond.diamondID}`}>
-                            <button className="shell_eleButton">View</button>
-                          </Link>
-                        </div>
-                      ))}
-                  </Styled.ChatGene_Content>
-                  <div className="chatNofi_content"></div>
-                </Styled.ChatGene>
-
-                <Styled.Element>
-                  <Styled.Ele_Title>
-                    <h2>Promotional</h2>
-                    <Link to="/admin/marketing">
-                      <Styled.ViewAll>
-                        <p>View All</p>
-                        <ArrowRightOutlined />
-                      </Styled.ViewAll>
-                    </Link>
-                  </Styled.Ele_Title>
-                  <Styled.Ele_Content>
-                    {shellElements.map((ShellElement, index) => (
-                      <div className="shell_ele" key={index}>
-                        <div className="shell_eleName">
-                          <p>{ShellElement.name}</p>
-                        </div>
-                        <button className="shell_eleButton">View</button>
-                      </div>
-                    ))}
-                  </Styled.Ele_Content>
-                </Styled.Element>
-
-                <Styled.Element>
-                  <Styled.Ele_Title>
-                    <h2>Product</h2>
                     <Link to="/admin/product">
                       <Styled.ViewAll>
                         <p>View All</p>
@@ -335,18 +237,81 @@ const Dashboard = () => {
                       </Styled.ViewAll>
                     </Link>
                   </Styled.Ele_Title>
-
                   <Styled.Ele_Content>
-                    {/* <Styled.Ele_TableTitle>
-                            <p>Name</p>
-                            <p>Action</p>
-                        </Styled.Ele_TableTitle> */}
-                    {ringShellElements.map((ringShellElements, index) => (
-                      <div className="shell_ele" key={index}>
-                        <div className="shell_eleName">
-                          <p>{ringShellElements.name}</p>
+                    {diamonds
+                      .slice(0, 4)
+                      .map((diamond: any) => (
+                        <div className="shell_ele" key={diamond.diamondID}>
+                          <div className="shell_eleName">
+                            {/* <img
+                              src={diamond.images && diamond.images[0] ? diamond.images[0].url : "default-image-url"}
+                              alt={diamond.diamondName} /> */}
+                            <p>{diamond.diamondName}</p>
+                          </div>
+                          <Link to={`/admin/product/diamond/detail/${diamond.diamondID}`}>
+                            <button className="shell_eleButton">View</button>
+                          </Link>
                         </div>
+                      ))}
+                  </Styled.Ele_Content>
+                </Styled.Element>
+
+                <Styled.Element>
+                  <Styled.Ele_Title>
+                    <Styled.MainTitle>
+                      <h2>Jewelrys</h2>
+                    </Styled.MainTitle>
+                    <Link to="/admin/product/jewelry">
+                      <Styled.ViewAll>
+                        <p>View All</p>
+                        <ArrowRightOutlined />
+                      </Styled.ViewAll>
+                    </Link>
+                  </Styled.Ele_Title>
+                  <Styled.Ele_Content>
+                    {jewelrys
+                      .slice(0, 4)
+                      .map((jewelry: any) => (
+                        <div className="shell_ele" key={jewelry.jewelryID}>
+                          <div className="shell_eleName">
+                            {/* <img
+                              src={jewelry.images && jewelry.images[0] ? jewelry.images[0].url : "default-image-url"}
+                              alt={jewelry.jewelryName} /> */}
+                            <p>{jewelry.jewelryName}</p>
+                          </div>
+                          <Link to={`/admin/product/jewelry/detail/${jewelry.jewelryID}`}>
+                            <button className="shell_eleButton">View</button>
+                          </Link>
+                        </div>
+                      ))}
+                  </Styled.Ele_Content>
+                  <div className="chatNofi_content"></div>
+                </Styled.Element>
+
+                <Styled.Element>
+                  <Styled.Ele_Title>
+                    <h2>Promotional</h2>
+                    <Link to="/admin/marketing/discount">
+                      <Styled.ViewAll>
+                        <p>View All</p>
+                        <ArrowRightOutlined />
+                      </Styled.ViewAll>
+                    </Link>
+                  </Styled.Ele_Title>
+                  <Styled.Ele_Content>
+                    {discounts
+                    .slice(0, 4)
+                    .map((discount: any) => (
+                      <div className="shell_ele" key={discount.discountID}>
+                        <div className="shell_eleName">
+                          <p>{discount.discountName}</p>
+                        </div>
+                        {/* <div className="shell_elePercent">
+                          <p>{discount.percentDiscounts}%</p>
+                        </div> */}
+                        <Link to={`/admin/marketing/discount/detail/${discount.discountID}`}>
                         <button className="shell_eleButton">View</button>
+                        </Link>
                       </div>
                     ))}
                   </Styled.Ele_Content>

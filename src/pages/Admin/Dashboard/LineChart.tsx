@@ -1,32 +1,32 @@
 // import React from "react";
 import { ResponsiveLine } from "@nivo/line";
-import mockLineData from "./data";
+// import mockLineData from "./data";
 // import * as Styled from "./Dashboard.styled";
 // import { mockLineData } from "./data";
 import { showReveneSummary } from "@/services/orderAPI";
 import { useEffect, useState } from "react";
 
 
-const addNewMonthData = (lineData: any) => {
-    const currentDate = new Date();
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const currentMonth = monthNames[currentDate.getMonth()];
-    const currentYear = currentDate.getFullYear();
-    const newMonthLabel = `${currentMonth} ${currentYear}`;
+// const addNewMonthData = (lineData: any) => {
+//     const currentDate = new Date();
+//     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+//     const currentMonth = monthNames[currentDate.getMonth()];
+//     const currentYear = currentDate.getFullYear();
+//     const newMonthLabel = `${currentMonth} ${currentYear}`;
 
-    lineData.forEach((line: any) => {
-        const lastEntry = line.data[line.data.length - 1];
-        const lastMonthLabel = lastEntry.x;
+//     lineData.forEach((line: any) => {
+//         const lastEntry = line?.data[line.data.length - 1];
+//         const lastMonthLabel = lastEntry?.x;
 
-        // Only add new data if the last entry is not for the current month
-        if (lastMonthLabel !== newMonthLabel) {
-            const newYValue = Math.floor(Math.random() * 300); // Generate random y value for demo
-            line.data.push({ x: newMonthLabel, y: newYValue });
-        }
-    });
+//         // Only add new data if the last entry is not for the current month
+//         if (lastMonthLabel !== newMonthLabel) {
+//             const newYValue = Math.floor(Math.random() * 300); // Generate random y value for demo
+//             line.data.push({ x: newMonthLabel, y: newYValue });
+//         }
+//     });
 
-    return lineData;
-};
+//     return lineData;
+// };
 
 const LineChart = ({ isDashboard = false }) => {
     const [revenes, setRevenes] = useState<any[]>([]);
@@ -53,7 +53,7 @@ const LineChart = ({ isDashboard = false }) => {
     
       const mockLineData = [
         {
-          id: "Product",
+          id: "Diamond",
           color: lineColors.purple,
           data: revenes.map((revene: any) => ({
             x: revene.month,
@@ -64,7 +64,8 @@ const LineChart = ({ isDashboard = false }) => {
 
 
     const colors = { primary: "#151542" };
-    const data = addNewMonthData(mockLineData);
+    // const data = addNewMonthData(mockLineData);
+    const data = mockLineData;
 
     return (
         <ResponsiveLine

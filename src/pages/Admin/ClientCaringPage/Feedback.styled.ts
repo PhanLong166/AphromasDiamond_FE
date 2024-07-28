@@ -28,6 +28,24 @@ export const AdminPage = styled.div`
   padding-bottom: 55px;
 `;
 
+
+export const TitlePage = styled.div`
+  h1 {
+    font-size: 22px;
+    font-weight: 36px;
+    color: #151542;
+    margin: 30px 0px 0px 0px;
+    padding-bottom: 7px;
+  }
+
+  p {
+    color: #92929d;
+    font-size: 13px;
+    margin: 0px 0px 0px 0px;
+  }
+`;
+
+
 export const AdPageContent = styled.div`
   width: 100%;
   background-color: #ffffff;

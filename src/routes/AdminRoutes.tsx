@@ -64,10 +64,9 @@ const AdminRoutes = {
 
         { path: config.routes.admin.product, element: <Diamond /> },
         { path: config.routes.admin.diamondDetail, element: <DiamondDetail /> },
-        { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
         { path: config.routes.admin.jewelryDetail, element: <JewelryDetail /> },
-        { path: config.routes.admin.addProduct, element: <AddProduct /> },
-        { path: config.routes.admin.addJewelry, element: <AddJewelry /> },
+        { path: config.routes.admin.addProduct, element: <AddJewelry /> },
+        { path: config.routes.admin.AddCustomJewelry, element: <AddProduct /> },
         { path: config.routes.admin.jewelryProduct, element: <Jewelry /> },
         { path: config.routes.admin.ringSettingProduct, element: <JewelrySetting /> },
         { path: config.routes.admin.ringSettingDetail, element: <JewelrySettingDetail /> },

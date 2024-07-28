@@ -3,32 +3,32 @@ import { Navigate } from "react-router-dom";
 
 import StaffLayout from "@/layouts/StaffLayout"
 
-import Order from "@/routes/Staff/SalesStaff/OrderPage/Order";
-import PendingOrder from "@/routes/Staff/SalesStaff/OrderPage/Pending/Pending";
-import AcceptedOrder from "@/routes/Staff/SalesStaff/OrderPage/Accepted/Accepted";
-import DeliveringOrder from "@/routes/Staff/SalesStaff/OrderPage/Delivering/Delivering";
-import AssignedOrder from "@/routes/Staff/SalesStaff/OrderPage/Assigned/Assigned";
-import DeliveredOrder from "@/routes/Staff/SalesStaff/OrderPage/Delivered/Delivered";
-import OrderDetail from "@/routes/Staff/SalesStaff/OrderPage/OrderDetail";
-import CompletedOrder from "@/routes/Staff/SalesStaff/OrderPage/Completed/Completed";
-import CancelledOrder from "@/routes/Staff/SalesStaff/OrderPage/Cancelled/Cancelled";
+import Order from "@/pages/Staff/SalesStaff/OrderPage/Order";
+import PendingOrder from "@/pages/Staff/SalesStaff/OrderPage/Pending/Pending";
+import AcceptedOrder from "@/pages/Staff/SalesStaff/OrderPage/Accepted/Accepted";
+import DeliveringOrder from "@/pages/Staff/SalesStaff/OrderPage/Delivering/Delivering";
+import AssignedOrder from "@/pages/Staff/SalesStaff/OrderPage/Assigned/Assigned";
+import DeliveredOrder from "@/pages/Staff/SalesStaff/OrderPage/Delivered/Delivered";
+import OrderDetail from "@/pages/Staff/SalesStaff/OrderPage/OrderDetail";
+import CompletedOrder from "@/pages/Staff/SalesStaff/OrderPage/Completed/Completed";
+import CancelledOrder from "@/pages/Staff/SalesStaff/OrderPage/Cancelled/Cancelled";
 
-import Diamond from "@/routes/Staff/SalesStaff/ProductPage/Diamond/Diamond";
-import DiamondDetail from "@/routes/Staff/SalesStaff/ProductPage/Detail/DiamondDetail";
-import Jewelry from "@/routes/Staff/SalesStaff/ProductPage/Jewelry/Jewelry";
-import JewelryDetail from "@/routes/Staff/SalesStaff/ProductPage/Detail/JewelryDetail";
-import RingSetting from "@/routes/Staff/SalesStaff/ProductPage/Jewelry Setting/RingSetting";
-import JewelrySettingDetail from "@/routes/Staff/SalesStaff/ProductPage/Detail/SettingDetail";
-import ProductType from "@/routes/Staff/SalesStaff/ProductPage/JewelryType/JewelryType";
-import Material from "@/routes/Staff/SalesStaff/ProductPage/Material/Material";
-import Collection from "@/routes/Staff/SalesStaff/MarketingPage/Collection/Collection";
-import CollectionDetail from "@/routes/Staff/SalesStaff/MarketingPage/Detail/CollectionDetail";
-import ProductPromotion from "@/routes/Staff/SalesStaff/MarketingPage/ProductPromotion/ProductPromotion";
-import ProductPromotionDetail from "@/routes/Staff/SalesStaff/MarketingPage/Detail/ProductPromotionDetail";
-import BillPromotion from "@/routes/Staff/SalesStaff/MarketingPage/BillPromotion/BillPromotion";
-import Messages from "@/routes/Staff/SalesStaff/ClientCaringPage/Message";
-import FeedbackSale from "@/routes/Staff/SalesStaff/ClientCaringPage/FeedbackSale";
-import FeedbackCompleted from "@/routes/Staff/SalesStaff/ClientCaringPage/FeedbackCompleted";
+import Diamond from "@/pages/Staff/SalesStaff/ProductPage/Diamond/Diamond";
+import DiamondDetail from "@/pages/Staff/SalesStaff/ProductPage/Detail/DiamondDetail";
+import Jewelry from "@/pages/Staff/SalesStaff/ProductPage/Jewelry/Jewelry";
+import JewelryDetail from "@/pages/Staff/SalesStaff/ProductPage/Detail/JewelryDetail";
+import RingSetting from "@/pages/Staff/SalesStaff/ProductPage/Jewelry Setting/RingSetting";
+import JewelrySettingDetail from "@/pages/Staff/SalesStaff/ProductPage/Detail/SettingDetail";
+import ProductType from "@/pages/Staff/SalesStaff/ProductPage/JewelryType/JewelryType";
+import Material from "@/pages/Staff/SalesStaff/ProductPage/Material/Material";
+import Collection from "@/pages/Staff/SalesStaff/MarketingPage/Collection/Collection";
+import CollectionDetail from "@/pages/Staff/SalesStaff/MarketingPage/Detail/CollectionDetail";
+import ProductPromotion from "@/pages/Staff/SalesStaff/MarketingPage/ProductPromotion/ProductPromotion";
+import ProductPromotionDetail from "@/pages/Staff/SalesStaff/MarketingPage/Detail/ProductPromotionDetail";
+import BillPromotion from "@/pages/Staff/SalesStaff/MarketingPage/BillPromotion/BillPromotion";
+import Messages from "@/pages/Staff/SalesStaff/ClientCaringPage/Message";
+import FeedbackSale from "@/pages/Staff/SalesStaff/ClientCaringPage/FeedbackSale";
+import FeedbackCompleted from "@/pages/Staff/SalesStaff/ClientCaringPage/FeedbackCompleted";
 
 import useAuth from "@/hooks/useAuth";
 import { Role } from "@/utils/enum";
