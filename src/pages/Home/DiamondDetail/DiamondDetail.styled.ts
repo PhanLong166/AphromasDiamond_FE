@@ -733,10 +733,13 @@ export const Review = styled.div`
       .reply {
         margin-left: 92px;
         background-color: #f1f1f1;
-        width: fit-content;
         padding: 10px;
         border-radius: 10px;
-        margin-top: 10px;
+        margin-top: -15px;
+        width: 100%;
+        justify-content: center;
+        height: fit-content;
+        padding-top: 5px;
 
         p {
           margin-top: 5px;
