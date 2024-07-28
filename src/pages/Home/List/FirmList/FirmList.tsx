@@ -254,7 +254,7 @@ const FirmList: React.FC = () => {
   const currentFirmData = firmData[jewelryFirm];
   const [wishList, setWishList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
+  const pageSize = 12;
 
   const handleChangePage = (page: any) => {
     setCurrentPage(page);

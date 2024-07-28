@@ -8,7 +8,7 @@ import {
   LeftFAQ,
   CustomBreadcrumb,
   StyledCollapse,
-  // StyledPagination,
+  StyledPagination,
 } from "./AllDiamond.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -36,6 +36,8 @@ const AllDiamond: React.FC = () => {
   const [diamonds, setDiamonds] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const [wishList, setWishList] = useState<string[]>([]);
+  const [currentPage, setCurrentPage] = useState(1);
+  const pageSize = 12;
   // const [filteredDiamonds, setFilteredDiamonds] = useState([]);
 
   const toggleWishList = (productId: string) => {
@@ -45,6 +47,11 @@ const AllDiamond: React.FC = () => {
         : [...prev, productId]
     );
   };
+
+  const handleChangePage = (page: any) => {
+    setCurrentPage(page);
+  };
+
 
   useEffect(() => {
     const fetchData = async () => {
@@ -122,7 +129,8 @@ const AllDiamond: React.FC = () => {
       />
       <List>
         <Row gutter={[16, 16]}>
-          {diamonds.map((diamond) => (
+          {diamonds.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+            .map((diamond: any) => (
             <Col key={diamond.id} span={6}>
               <Card
                 style={{ borderRadius: "0" }}
@@ -191,12 +199,12 @@ const AllDiamond: React.FC = () => {
           ))}
         </Row>
       </List>
-      {/* <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={diamonds.length}
-        onChange={handleChangePage}
-      /> */}
+      <StyledPagination
+          current={currentPage}
+          pageSize={pageSize}
+          total={diamonds.length}
+          onChange={handleChangePage}
+        />
       <FAQs>
         <LeftFAQ>
           <h2>FAQs ABOUT PRODUCT</h2>
