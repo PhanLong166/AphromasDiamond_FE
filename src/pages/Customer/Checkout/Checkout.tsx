@@ -34,7 +34,6 @@ const Checkout: React.FC = () => {
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
   const [selectedVoucher, setSelectedVoucher] = useState<any | null>(null);
-  const VoucherID = useAppSelector((state) => state.order.VoucherID);
   const ShippingFee = useAppSelector((state) => state.order.Shippingfee);
   const TotalPrice = useAppSelector((state) => state.order.Total);
   const [api, contextHolder] = notification.useNotification();
@@ -104,7 +103,7 @@ const Checkout: React.FC = () => {
         Email: Customer?.Email,
         Address: `${values.addressDetails}, ${wardName}, ${districtName}, ${provinceName}`,
         Shippingfee: ShippingFee,
-        VoucherID: VoucherID !== selectedVoucher.VoucherID ? VoucherID : undefined
+        VoucherID: selectedVoucher.VoucherID ? selectedVoucher.VoucherID : undefined
       }
 
       const responeOrder = await createOrder(requestBodyOrder);
@@ -112,6 +111,7 @@ const Checkout: React.FC = () => {
 
       const getOrderID = responeOrder.data.data.OrderID;
       dispatch(orderSlice.actions.setOrderID(getOrderID));
+      localStorage.setItem("CurrentOrderID", JSON.stringify(responeOrder.data.data.OrderID));
       console.log(getOrderID);
       const getOrderLine = await showAllOrderLineForAdmin();
       getOrderLine.data.data.filter((

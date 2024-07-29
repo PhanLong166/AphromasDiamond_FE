@@ -10,23 +10,50 @@ import { Container } from "./ThankPage.styled";
 import { Link, useNavigate } from "react-router-dom";
 import config from "@/config";
 import { useAppSelector } from "@/hooks";
-import { orderDetail } from "@/services/orderAPI";
+import { orderDetail, updateOrder } from "@/services/orderAPI";
+import { captureOrderPayPal } from "@/services/paymentAPI";
+import { OrderStatus } from "@/utils/enum";
 
 const ThankPageSuccess: React.FC = () => {
   const orderID = useAppSelector((state) => state.order.OrderID);
   const [order, setOrder] = useState<any>(null);
+  const [currentOrderID, setCurrentOrderID] = useState(0);
   const navigate = useNavigate();
 
   useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const token = params.get('token');
+
+    const currentOrderID = Number(localStorage.getItem("CurrentOrderID"));
+    setCurrentOrderID(currentOrderID);
+    console.log(currentOrderID);
+
     const fetchData = async () => {
       //Get order info
       const orderResponse = await orderDetail(orderID);
       setOrder(orderResponse.data.data);
     }
-    
     fetchData();
-  }, [])
-  
+
+    const capturePayment = async () => {
+      if (token) {
+        const capturePayment = await captureOrderPayPal(token);
+        if (capturePayment.data.status === "COMPLETED") {
+          const orderDetailData = await orderDetail(currentOrderID);
+          const getOrderDetail = orderDetailData.data.data
+          setOrder(getOrderDetail);
+
+          await updateOrder(currentOrderID, {
+            IsPayed: true,
+            IsActive: true,
+            OrderStatus: OrderStatus.PENDING
+          });
+        }
+      }
+    }
+    capturePayment();
+  }, [location.search])
+
   return (
     <Container>
       <div className="thank-page-success-container">
@@ -125,9 +152,9 @@ const ThankPageSuccess: React.FC = () => {
             <Link to={config.routes.public.home}>
               <button className="home">HOME</button>
             </Link>
-            <button 
+            <button
               className="track"
-              onClick={() => navigate(`${config.routes.customer.orderDetails}?orderId=${orderID}`)}
+              onClick={() => navigate(`${config.routes.customer.orderDetails}?orderId=${orderID || currentOrderID}`)}
             >
               TRACK ORDER
             </button>
