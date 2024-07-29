@@ -33,6 +33,7 @@ const Checkout: React.FC = () => {
   const [selectedDistrict, setSelectedDistrict] = useState<number | null>(null);
   const navigate = useNavigate();
   const dispatch = useAppDispatch();
+  const [selectedVoucher, setSelectedVoucher] = useState<any | null>(null);
   const VoucherID = useAppSelector((state) => state.order.VoucherID);
   const ShippingFee = useAppSelector((state) => state.order.Shippingfee);
   const TotalPrice = useAppSelector((state) => state.order.Total);
@@ -103,7 +104,7 @@ const Checkout: React.FC = () => {
         Email: Customer?.Email,
         Address: `${values.addressDetails}, ${wardName}, ${districtName}, ${provinceName}`,
         Shippingfee: ShippingFee,
-        VoucherID: VoucherID !== 0 ? VoucherID : undefined
+        VoucherID: VoucherID !== selectedVoucher.VoucherID ? VoucherID : undefined
       }
 
       const responeOrder = await createOrder(requestBodyOrder);
