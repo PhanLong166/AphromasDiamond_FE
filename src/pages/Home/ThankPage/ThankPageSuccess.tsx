@@ -68,7 +68,7 @@ const ThankPageSuccess: React.FC = () => {
 
                       <div className="content">
                         <p className="label">AMOUNT</p>
-                        <p className="info">${order?.TotalPrice}</p>
+                        <p className="info">${order?.VoucherPrice}</p>
                       </div>
 
                       <div className="content end">

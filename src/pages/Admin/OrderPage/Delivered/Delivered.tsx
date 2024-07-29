@@ -92,6 +92,9 @@ const columns: TableColumnsType<any> = [
     dataIndex: "orderDate",
     defaultSortOrder: "descend",
     sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
+    render: (_, { orderDate }) => {
+      return <>{orderDate.replace("T", " ").replace(".000Z", " ")}</>
+    }, 
   },
   {
     title: "Customer",

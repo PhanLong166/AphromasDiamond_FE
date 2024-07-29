@@ -1,32 +1,71 @@
 // import React from "react";
 import { ResponsiveLine } from "@nivo/line";
+// import mockLineData from "./data";
 // import * as Styled from "./Dashboard.styled";
-import { mockLineData } from "./data";
+// import { mockLineData } from "./data";
+import { showReveneSummary } from "@/services/orderAPI";
+import { useEffect, useState } from "react";
 
-const addNewMonthData = (lineData: any) => {
-    const currentDate = new Date();
-    const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
-    const currentMonth = monthNames[currentDate.getMonth()];
-    const currentYear = currentDate.getFullYear();
-    const newMonthLabel = `${currentMonth} ${currentYear}`;
 
-    lineData.forEach((line: any) => {
-        const lastEntry = line.data[line.data.length - 1];
-        const lastMonthLabel = lastEntry.x;
+// const addNewMonthData = (lineData: any) => {
+//     const currentDate = new Date();
+//     const monthNames = ["Jan", "Feb", "Mar", "Apr", "May", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"];
+//     const currentMonth = monthNames[currentDate.getMonth()];
+//     const currentYear = currentDate.getFullYear();
+//     const newMonthLabel = `${currentMonth} ${currentYear}`;
 
-        // Only add new data if the last entry is not for the current month
-        if (lastMonthLabel !== newMonthLabel) {
-            const newYValue = Math.floor(Math.random() * 300); // Generate random y value for demo
-            line.data.push({ x: newMonthLabel, y: newYValue });
-        }
-    });
+//     lineData.forEach((line: any) => {
+//         const lastEntry = line?.data[line.data.length - 1];
+//         const lastMonthLabel = lastEntry?.x;
 
-    return lineData;
-};
+//         // Only add new data if the last entry is not for the current month
+//         if (lastMonthLabel !== newMonthLabel) {
+//             const newYValue = Math.floor(Math.random() * 300); // Generate random y value for demo
+//             line.data.push({ x: newMonthLabel, y: newYValue });
+//         }
+//     });
+
+//     return lineData;
+// };
 
 const LineChart = ({ isDashboard = false }) => {
+    const [revenes, setRevenes] = useState<any[]>([]);
+    const fetchData = async () => {
+        try {
+          const responseRevenes = await showReveneSummary();
+          const reveneData = responseRevenes.data.data;
+          const formattedOrders = reveneData.OrderResults.map((order: any) => ({
+            month: order.month,
+            revenue: order.revenue,
+          }));
+    
+          setRevenes(formattedOrders);
+        } catch (error) {
+          console.error("Failed to fetch info:", error);
+        }
+      };
+    
+      useEffect(() => {
+        fetchData();
+      }, []);
+    
+      const lineColors = { green: "#15F5BA", pink: "#FF9EAA", purple: "#912BBC" };
+    
+      const mockLineData = [
+        {
+          id: "Diamond",
+          color: lineColors.purple,
+          data: revenes.map((revene: any) => ({
+            x: revene.month,
+            y: revene.revenue,
+          })),
+        },
+      ];
+
+
     const colors = { primary: "#151542" };
-    const data = addNewMonthData(mockLineData);
+    // const data = addNewMonthData(mockLineData);
+    const data = mockLineData;
 
     return (
         <ResponsiveLine

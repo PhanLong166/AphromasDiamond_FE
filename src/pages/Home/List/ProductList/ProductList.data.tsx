@@ -1,11 +1,12 @@
 import { products } from "../../shared/ListOfProducts";
 
- const excludedCategories = [
-    "wedding-ring",
-    "engagement-ring",
-    "men-engagement-ring",
-    "men-wedding-ring",
-  ];
+const excludedCategories = [
+  "Wedding Ring",
+  "Engagement Ring",
+  "Men Engagement Ring",
+  "Men Wedding Ring",
+];
+
 
   export const jewelryData: Record<string, any> = {
     bracelet: {
@@ -79,7 +80,7 @@ import { products } from "../../shared/ListOfProducts";
       title: "Earrings",
       description:
         "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
-      products: products.filter((product) => product.categories === "earrings"),
+      products: products.filter((product) => product.categories === "earring"),
       faqs: [
         {
           key: "1",
