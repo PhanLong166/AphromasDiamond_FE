@@ -103,7 +103,6 @@ const OrderDetail: React.FC = () => {
   const [reviewedDiamonds, setReviewedDiamonds] = useState<Set<number>>(
     new Set()
   );
-  console.log("Reviewed Diamonds:", reviewedDiamonds);
   const [reviewedProducts, setReviewedProducts] = useState<Set<number>>(
     new Set()
   );
@@ -269,13 +268,7 @@ const OrderDetail: React.FC = () => {
     }
   }, [orderId]); // Chạy khi orderId thay đổi
 
-  const totalDiamondPrice = Object.values(diamondDetails).reduce(
-    (sum, diamond: any) => sum + parseFloat(diamond.Price),
-    0
-  );
-  console.log("Product Details:", productDetails);
-  console.log("Diamond Details:", diamondDetails);
-  console.log("Total diamond price:", totalDiamondPrice);
+  
 
   const columns: TableColumnGroupType<
     DiamondDetail | ProductDetail | ColumnType<DiamondDetail | ProductDetail>
@@ -366,17 +359,20 @@ const OrderDetail: React.FC = () => {
       ],
     },
   ];
+  
 
   const handleFeedbackCreate = (values: any) => {
     console.log("Feedback submitted: ", values);
-    console.log( values.productId);
-    console.log( values.diamondId);
+    
     const { diamondId, productId } = values;
+    console.log( "product",productId);
+    console.log( "Diamond",diamondId);
     setIsModalVisible(false);
     if (diamondId) {
       setReviewedDiamonds((prev) => {
         const updated = new Set(prev);
         updated.add(diamondId);
+        console.log("Updated Diamond IDs:", updated); 
         return updated;
       });
     } 
@@ -385,6 +381,7 @@ const OrderDetail: React.FC = () => {
       setReviewedProducts((prev) => {
         const updated = new Set(prev);
         updated.add(productId);
+        console.log("Updated Product IDs:", updated);
         return updated;
       });
     }
@@ -451,6 +448,7 @@ const OrderDetail: React.FC = () => {
             diamondId={selectedDiamondID}
             productId={selectedProductID}
           />
+          
         </ProductsWrapper>
 
         <OrderInfo>
