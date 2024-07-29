@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  List,
-  StyledPagination,
-} from "./WeddingDesignerList.styled";
+import { Container, List } from "./WeddingDesignerList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -57,83 +53,154 @@ const WeddingDesignerList: React.FC = () => {
     fetchData();
   }, []);
 
-
   const designerData: Record<string, any> = {
     zaczacposen: {
       title: "Wedding Ring of Zac Zac Posen",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.brand === "Zac Zac Posen" && product.jewelryType.includes("Wedding Ring")),
+      products: products.filter(
+        (product) =>
+          product.brand === "Zac Zac Posen" &&
+          product.jewelryType.includes("Wedding Ring")
+      ),
       faqs: [
         {
           key: "1",
           label: "What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $900 to $1000 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $900 to $1000 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20grown%20diamonds.jpeg?alt=media&token=63d86a3e-c0cb-48ea-a8e7-38e650e17425",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20grown%20diamonds.jpeg?alt=media&token=63d86a3e-c0cb-48ea-a8e7-38e650e17425",
     },
     bellavaughan: {
       title: "Wedding Ring of Bella Vaughan",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.brand === "Bella Vaughan" && product.jewelryType.includes("Wedding Ring")),
+      products: products.filter(
+        (product) =>
+          product.brand === "Bella Vaughan" &&
+          product.jewelryType.includes("Wedding Ring")
+      ),
       faqs: [
         {
           key: "1",
           label: "What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $700 to $800 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $700 to $800 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBrandBvl.jpg?alt=media&token=344f0091-7993-435a-9fc1-e6f689f0e976",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBrandBvl.jpg?alt=media&token=344f0091-7993-435a-9fc1-e6f689f0e976",
     },
     bluenile: {
       title: "Wedding Ring of Blue Nile Studio",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.brand === "Blue Nile Studio" && product.jewelryType.includes("Wedding Ring")),
+      products: products.filter(
+        (product) =>
+          product.brand === "Blue Nile Studio" &&
+          product.jewelryType.includes("Wedding Ring")
+      ),
       faqs: [
         {
           key: "1",
           label: "What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $500 to $600 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $500 to $600 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBlue%20Nile%20diamond%20jewelry.jpeg?alt=media&token=79f02baa-b4cf-4368-b838-2c7baa50d305",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FBlue%20Nile%20diamond%20jewelry.jpeg?alt=media&token=79f02baa-b4cf-4368-b838-2c7baa50d305",
     },
     thegallerycollection: {
       title: "Wedding Ring of The Gallery Collection",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-      products: products.filter((product) => product.brand === "The Gallery Collection" && product.jewelryType.includes("Wedding Ring")),
+      products: products.filter(
+        (product) =>
+          product.brand === "The Gallery Collection" &&
+          product.jewelryType.includes("Wedding Ring")
+      ),
       faqs: [
         {
           key: "1",
           label: "What is the average cost of a womens diamond wedding ring?",
-          children: <p> Our women's diamond rings range from $276 to $56,024 depending on several factors, including the type of metal and diamond carat weight.</p>,
+          children: (
+            <p>
+              {" "}
+              Our women's diamond rings range from $276 to $56,024 depending on
+              several factors, including the type of metal and diamond carat
+              weight.
+            </p>
+          ),
         },
         {
           key: "2",
           label: "Can weddings rings be diamond rings?",
-          children: <p> Yes, diamond rings make perfect weddings rings and engagement rings.</p>,
+          children: (
+            <p>
+              {" "}
+              Yes, diamond rings make perfect weddings rings and engagement
+              rings.
+            </p>
+          ),
         },
       ],
-      bannerImage: "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Flab_diamonds_sale_banner.6a518.jpg?alt=media&token=b7d30ece-f543-4890-b7de-7c37e1286dfb",
+      bannerImage:
+        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2Flab_diamonds_sale_banner.6a518.jpg?alt=media&token=b7d30ece-f543-4890-b7de-7c37e1286dfb",
     },
   };
 
@@ -144,12 +211,6 @@ const WeddingDesignerList: React.FC = () => {
   const currentDesignerData = designerData[designer];
 
   const [wishList, setWishList] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
-
-  const handleChangePage = (page: any) => {
-    setCurrentPage(page);
-  };
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -197,25 +258,32 @@ const WeddingDesignerList: React.FC = () => {
                 hoverable
                 className="product-card"
                 cover={
-                  <>
-                    <Link to={`/product/${product.id}`}>
-                      <img
-                        style={{ borderRadius: "0" }}
-                        src={product.images[0]}
-                        alt={product.name}
-                        className="product-image"
-                        onMouseOver={(e) =>
-                          (e.currentTarget.src = product.images[2])
-                        }
-                        onMouseOut={(e) =>
-                          (e.currentTarget.src = product.images[0])
-                        }
-                      />
-                    </Link>
-                    {product.salePrice && (
-                      <div className="sale-badge">SALE</div>
-                    )}
-                  </>
+                  product.images.length > 0 ? (
+                    <>
+                      <Link to={`/product/${product.id}`}>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={product.images[0]?.url || ""}
+                          alt={product.name}
+                          className="product-image"
+                          onMouseOver={(e) =>
+                            (e.currentTarget.src =
+                              product.images[1]?.url ||
+                              product.images[0]?.url ||
+                              "")
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src = product.images[0]?.url || "")
+                          }
+                        />
+                      </Link>
+                      {product.salePrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  ) : (
+                    <div>No Image Available</div>
+                  )
                 }
               >
                 <div className="product-info">
@@ -237,11 +305,11 @@ const WeddingDesignerList: React.FC = () => {
                   </Title>
                   <div className="price-container">
                     <Text className="product-price">
-                      ${product.salePrice ? product.salePrice : product.price}
+                      ${product.firstPrice + product.totalDiamondPrice}
                     </Text>
                     {product.salePrice && (
                       <Text delete className="product-sale-price">
-                        ${product.price}
+                        ${product.totalDiamondPrice}
                       </Text>
                     )}
                   </div>
@@ -267,12 +335,6 @@ const WeddingDesignerList: React.FC = () => {
           </Col>
         </Row>
       </List>
-      <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={currentDesignerData.products.length}
-        onChange={handleChangePage}
-      />
       <FAQ title={currentDesignerData.title} faqs={faqs} />
     </Container>
   );
