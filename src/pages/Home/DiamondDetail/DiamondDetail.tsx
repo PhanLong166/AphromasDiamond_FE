@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import Link from "@/components/Link";
-import { Card, Col, notification, Row, Typography } from "antd";
+import { Card, Col, notification, Row, Typography, Empty } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 
@@ -94,7 +94,6 @@ const DiamondDetails: React.FC = () => {
     );
   };
 
-
   //PARAM
   const { id } = useParams<{ id: string }>();
   const getParamsID = id ? parseInt(id) : 0;
@@ -105,6 +104,8 @@ const DiamondDetails: React.FC = () => {
   const [cartList, setCartList] = useState<any[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [api, contextHolder] = notification.useNotification();
+  const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
+  const [diamondId, setDiamondId] = useState<number | null>(null);
 
   const openNotification = async (type: NotificationType, message: string) => {
     api[type]({
@@ -112,10 +113,6 @@ const DiamondDetails: React.FC = () => {
       description: message,
     });
   };
-
-  const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
-
-  const [diamondId, setDiamondId] = useState<number | null>(null);
 
   useEffect(() => {
     const fetchDiamondDetails = async () => {
@@ -125,7 +122,8 @@ const DiamondDetails: React.FC = () => {
         if (response.status === 200) {
           const product = response.data.data;
           setFoundProduct(product);
-          setDiamondId(product.DiamondID); // Lưu diamondId từ API
+          const diamondId = product.DiamondID; // Lưu diamondId từ API
+          setDiamondId(diamondId);
 
           if (product.usingImage && product.usingImage.length > 0) {
             const mainImageUrl = getImage(product.usingImage[0].UsingImageID);
@@ -207,6 +205,7 @@ const DiamondDetails: React.FC = () => {
               date: new Date(feedback.CommentTime).toLocaleDateString(),
               highlight: "For AD",
               comment: feedback.Comment,
+              diamondId: feedback.DiamondID,
             }))
           );
         } else {
@@ -251,11 +250,16 @@ const DiamondDetails: React.FC = () => {
     setMainImage(src);
     setSelectedThumb(index);
   };
-
+  const matchingReviews = reviewsData.filter(
+    (review) => foundProduct && foundProduct.DiamondID === review.diamondId
+  );
   //Avg rating
   const totalReviews = reviewsData.length;
   const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
   const averageRating = totalRating / totalReviews;
+  const summaryRating =
+    matchingReviews.length > 0 ? averageRating.toFixed(1) : "0.0";
+  const reviewsCount = matchingReviews.length > 0 ? reviewsData.length : 0;
 
   const handleAddToCart = async () => {
     if (role) {
@@ -535,41 +539,67 @@ const DiamondDetails: React.FC = () => {
             >
               {/* Review content */}
               <Review>
-              <div className="head-review">
-                  <div className="sum-rating">
-                    <strong>{averageRating.toFixed(1)}</strong>
-                    <span>{reviewsData.length} reviews</span>
-                  </div>
-                </div>
-                <div className="body-review">
-                  {reviewsData.map((review, index) => (
-                    <div key={index} className="profile">
-                      <div className="thumb-name">
-                        <div className="image">
-                          <img src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2FRemove-bg.ai_1722105671395.png?alt=media&token=441a4bb8-0da2-4426-ad91-cdbfd9c9115c" alt="" />
-                        </div>
-                        <div className="grouping">
-                          <div className="name">{review.name}</div>
-                          <div className="rating">
-                            {Array.from({ length: review.rating }, (_, i) => (
-                             <StarFilled
-                             key={i}
-                             style={{ color: "#D8A25A", fontSize: "16px" }}
-                           />
-                            ))}
-                          </div>
-                        </div>
-                      </div>
-                      <div className="comment reply">
-                        <strong>{review.highlight}</strong>
-                        <p className="grey-color">{review.comment}</p>
-                        <div className="date grey-color">
-                            On {review.date}
-                          </div>
+                {reviewsData.length > 0 ? (
+                  <div className="reviews-section">
+                    <div className="head-review">
+                      <div className="sum-rating">
+                        <strong>{summaryRating}</strong>
+                        <span>
+                          {reviewsCount}{" "}
+                          {reviewsCount === 1 ? "review" : "reviews"}
+                        </span>
                       </div>
                     </div>
-                  ))}
-                </div>
+                    <hr style={{ width: "112%", marginBottom: "-10px" }} />
+                    <div className="body-review">
+                      {matchingReviews.length > 0 ? (
+                        matchingReviews.map((review, index) => (
+                          <div key={index} className="profile">
+                            <div className="thumb-name">
+                              <div className="image">
+                                <img
+                                  src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2FRemove-bg.ai_1722105671395.png?alt=media&token=441a4bb8-0da2-4426-ad91-cdbfd9c9115c"
+                                  alt=""
+                                />
+                              </div>
+                              <div className="grouping">
+                                <div className="name">{review.name}</div>
+                                <div className="rating">
+                                  {Array.from(
+                                    { length: review.rating },
+                                    (_, i) => (
+                                      <StarFilled
+                                        key={i}
+                                        style={{
+                                          color: "#D8A25A",
+                                          fontSize: "16px",
+                                        }}
+                                      />
+                                    )
+                                  )}
+                                </div>
+                              </div>
+                            </div>
+                            <div className="comment reply">
+                              <strong>{review.highlight}</strong>
+                              <p className="grey-color">{review.comment}</p>
+                              <div className="date grey-color">
+                                On {review.date}
+                              </div>
+                            </div>
+                          </div>
+                        ))
+                      ) : (
+                        <Empty
+                          style={{ marginTop: "30px" }}
+                          description="No reviews available"
+                        />
+                      )}
+                    </div>
+                  </div>
+                ) : (
+                  <Empty description="No reviews available" />
+                )}
                 <StyledPagination defaultCurrent={1} total={10} />
               </Review>
             </ProductAbout>

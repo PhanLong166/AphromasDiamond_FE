@@ -124,6 +124,7 @@ const FilterSortDiamond = () => {
     setCutRange([0, 3]);
   };
 
+
   useEffect(() => {
     const fetchData = async () => {
       const params = {
@@ -138,10 +139,10 @@ const FilterSortDiamond = () => {
         page: 1,
       };
 
-      console.log(diamondData);
+      const queryString = new URLSearchParams().toString();
 
       try {
-        const response = await showDiamonds(params);
+        const response = await showDiamonds(queryString);
         // Handle response from API
         setDiamondData(response.data);
         console.log(response);
