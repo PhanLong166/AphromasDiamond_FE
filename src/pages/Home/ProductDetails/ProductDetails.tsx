@@ -4,7 +4,7 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-import { products, Product } from "../shared/ListOfProducts";
+// import { products, Product } from "../shared/ListOfProducts";
 import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
 import {
   Body,
@@ -31,9 +31,9 @@ import {
   ProductPrice,
   ButtonContainer,
   Button,
-  Shipping,
-  ShippingList,
-  ShippingItem,
+  // Shipping,
+  // ShippingList,
+  // ShippingItem,
   CurrentPrice,
   BeforePrice,
   Discount,
@@ -43,13 +43,14 @@ import {
   TextBlock,
   DotGrid,
   ListBlock,
-  Review,
+  // Review,
   ProductSection,
   ButtonAdd,
   Space,
   List,
   // ProductSectionViewed,
-  StyledPagination,
+  // StyledPagination,
+  Condition,
   CustomBreadcrumb,
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
@@ -57,8 +58,10 @@ import { useNavigate } from "react-router-dom";
 // import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 // import { get } from "@/services/apiCaller";
 // import { showAllMaterial } from "@/services/materialAPI";
-// import { showAllSize } from "@/services/sizeAPI";
-
+import { showAllSize } from "@/services/sizeAPI";
+import { getProductDetails, showAllProduct } from "@/services/productAPI";
+import { getImage } from "@/services/imageAPI";
+import { showAllFeedback } from "@/services/feedBackAPI";
 const ProductDetails: React.FC = () => {
   //tab description + cmt
   const [activeTab, setActiveTab] = useState("product-description");
@@ -68,44 +71,44 @@ const ProductDetails: React.FC = () => {
   };
 
   //data cmt
-  const reviewsData = [
-    {
-      name: "Olivia Williams",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt1.jpg?alt=media&token=fda03330-bebc-42a9-a7aa-568f2f9cdb9f",
-      rating: 5,
-      date: "November 10, 2021",
-      highlight: "Awesome Product",
-      comment:
-        "Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-    {
-      name: "Phoenix Knight",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt2.jpg?alt=media&token=31ba6ae3-17f5-4f7e-b1b3-d316d7019068",
-      rating: 4,
-      date: "March 7, 2022",
-      highlight: "Awesome Product",
-      comment:
-        "This diamond ring is truly magnificent and captivating, capturing attention with its radiant brilliance and undeniable allure.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-    {
-      name: "Serena Sterling",
-      avatar:
-        "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
-      rating: 5,
-      date: "October 16, 2022",
-      highlight: "Awesome Product",
-      comment:
-        "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
-      reply:
-        " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-    },
-  ];
+  // const reviewsData = [
+  //   {
+  //     name: "Olivia Williams",
+  //     avatar:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt1.jpg?alt=media&token=fda03330-bebc-42a9-a7aa-568f2f9cdb9f",
+  //     rating: 5,
+  //     date: "November 10, 2021",
+  //     highlight: "Awesome Product",
+  //     comment:
+  //       "Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
+  //     reply:
+  //       " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
+  //   },
+  //   {
+  //     name: "Phoenix Knight",
+  //     avatar:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt2.jpg?alt=media&token=31ba6ae3-17f5-4f7e-b1b3-d316d7019068",
+  //     rating: 4,
+  //     date: "March 7, 2022",
+  //     highlight: "Awesome Product",
+  //     comment:
+  //       "This diamond ring is truly magnificent and captivating, capturing attention with its radiant brilliance and undeniable allure.",
+  //     reply:
+  //       " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
+  //   },
+  //   {
+  //     name: "Serena Sterling",
+  //     avatar:
+  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
+  //     rating: 5,
+  //     date: "October 16, 2022",
+  //     highlight: "Awesome Product",
+  //     comment:
+  //       "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
+  //     reply:
+  //       " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
+  //   },
+  // ];
 
   //Metal
   const metalData = [
@@ -152,48 +155,40 @@ const ProductDetails: React.FC = () => {
   // }, []);
 
   //Avg rating
-  const totalReviews = reviewsData.length;
-  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
-  const averageRating = totalRating / totalReviews;
-  //size
-  const sizes = [8, 10, 12, 14, 16, 18];
-
+  // const totalReviews = reviewsData.length;
+  // const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  // const averageRating = totalRating / totalReviews;
+  const [sizes, setSizes] = useState<any[]>([]);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
-  const handleClick = (size: number) => {
-    setSelectedSize(size);
+  useEffect(() => {
+    const fetchSizes = async () => {
+      try {
+        const response = await showAllSize();
+        if (response.status === 200) {
+          setSizes(response.data.data);
+          if (response.data.data.length > 0) {
+            setSelectedSize(response.data.data[0].sizeId);
+          }
+        }
+      } catch (error) {
+        console.error("Error fetching sizes:", error);
+      }
+    };
+
+    fetchSizes();
+  }, []);
+
+  const handleClick = (sizeId: number) => {
+    setSelectedSize(sizeId);
+    // Handle any other logic related to selecting a size, such as updating UI or making API calls
   };
-  // const [sizes, setSizes] = useState<any[]>([]); // Replace 'any' with a more specific type if possible
-  // const [selectedSize, setSelectedSize] = useState<number | null>(null);
-
-  // useEffect(() => {
-  //   const fetchSizes = async () => {
-  //     try {
-  //       const response = await showAllSize(); // Assuming this function fetches sizes from the API
-  //       if (response.status === 200) {
-  //         setSizes(response.data.data); // Assuming the sizes array is in 'data' property of the response
-  //         if (response.data.data.length > 0) {
-  //           setSelectedSize(response.data.data[0].sizeId); // Assuming 'sizeId' is the property of each size object
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error('Error fetching sizes:', error);
-  //     }
-  //   };
-
-  //   fetchSizes();
-  // }, []);
-
-  // const handleClick = (sizeId: number) => {
-  //   setSelectedSize(sizeId);
-  //   // Handle any other logic related to selecting a size, such as updating UI or making API calls
-  // };
 
   //inscription
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [inscription, setInscription] = useState<string>("");
   const [resetModal, setResetModal] = useState<boolean>(false);
-
+  const [reviewsData, setReviewsData] = useState<any[]>([]);
   const showModal = () => {
     setResetModal(false);
     setIsModalVisible(true);
@@ -229,43 +224,135 @@ const ProductDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
-  const [foundProduct, setFoundProduct] = useState<Product | null>(null);
+  const [foundProduct, setFoundProduct] = useState<any | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
-
-  const [sameBrandProducts, setSameBrandProducts] = useState<Product[]>([]);
-
+  const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
+  const [productId, setProductId] = useState<number | null>(null);
+  const [isLoading, setIsLoading] = useState(true);
   useEffect(() => {
-    const product = products.find((product) => product.id === id);
-    if (product) {
-      setFoundProduct(product);
-      setMainImage(product.images[0]);
-      setSelectedThumb(0);
+    const fetchProductDetails = async () => {
+      try {
+        console.log("Fetching product details...");
+        const response = await getProductDetails(Number(id));
+        if (response.status === 200) {
+          const product = response.data.data;
+          setFoundProduct(product);
+          const productId = product.ProductID;
+          setProductId(productId);
 
-      const filteredProducts = products.filter(
-        (p) => p.firm === product.firm && p.id !== product.id
-      );
+          if (product.UsingImage && product.UsingImage.length > 0) {
+            const mainImageUrl = getImage(product.UsingImage[0].UsingImageID);
+            setMainImage(mainImageUrl);
+          } else {
+            setMainImage("");
+          }
+          setSelectedThumb(0);
 
-      const maxProductsToShow = 4;
-      const productsToShow =
-        filteredProducts.length <= maxProductsToShow
-          ? filteredProducts
-          : filteredProducts
-              .sort(() => 0.5 - Math.random())
-              .slice(0, maxProductsToShow);
+          const weightCarat = product.WeightCarat;
+          const params = { weightCarat };
+          console.log(params);
+          const sameWeightProductsResponse = await showAllProduct();
 
-      setSameBrandProducts(productsToShow);
-    } else {
-      setFoundProduct(null);
-    }
-  }, [id, products]);
+          if (sameWeightProductsResponse.status === 200) {
+            if (
+              sameWeightProductsResponse.data &&
+              Array.isArray(sameWeightProductsResponse.data.data)
+            ) {
+              const fetchedDiamonds = sameWeightProductsResponse.data.data.map(
+                (jewelry: any) => ({
+                  id: jewelry.ProductID,
+                  name: jewelry.Name,
+                  brand: jewelry.Brand,
+                  totalDiamondPrice: jewelry.TotalDiamondPrice,
+                  firstPrice: jewelry.FirstPrice,
+                  salePrice: jewelry.SalePrice,
+                  jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
+                  images: jewelry.UsingImage.map((image: any) => ({
+                    id: image.UsingImageID,
+                    url: getImage(image.UsingImageID),
+                  })),
+                })
+              );
+
+              const maxProductsToShow = 4;
+
+              // Assuming you have a variable for the current brand
+              const currentBrand = product.Brand;
+
+              // Filter products by the current brand
+              const sameBrandProducts = fetchedDiamonds.filter(
+                (item: any) =>
+                  item.brand === currentBrand && item.id !== productId
+              );
+
+              const productsToShow =
+                sameBrandProducts.length <= maxProductsToShow
+                  ? sameBrandProducts
+                  : sameBrandProducts
+                      .sort(() => 0.5 - Math.random())
+                      .slice(0, maxProductsToShow);
+
+              setSameBrandProducts(productsToShow);
+            } else {
+              setSameBrandProducts([]);
+            }
+          } else {
+            setSameBrandProducts([]);
+          }
+
+          // Call fetchFeedbackDetail if diamondId is set
+          if (productId !== null) {
+            await fetchFeedbackDetail(productId);
+          }
+        } else {
+          setFoundProduct(null);
+        }
+      } catch (error) {
+        console.error("Failed to fetch diamond details:", error);
+        setFoundProduct(null);
+      } finally {
+        setIsLoading(false);
+        console.log('Loading: ', isLoading);
+      }
+    };
+
+    const fetchFeedbackDetail = async (productId: number) => {
+      try {
+        console.log("Fetching feedback details for product ID:", productId);
+        const response = await showAllFeedback(productId);
+        if (response.status === 200) {
+          setReviewsData(
+            response.data.data.map((feedback: any) => ({
+              name: feedback.account ? feedback.account.Name : "Anonymous",
+              rating: feedback.Stars,
+              date: new Date(feedback.CommentTime).toLocaleDateString(),
+              highlight: "For AD",
+              comment: feedback.Comment,
+              diamondId: feedback.DiamondID,
+            }))
+          );
+          console.log('Review: ', reviewsData);
+        } else {
+          console.error("Error fetching feedback:", response.statusText);
+        }
+      } catch (error) {
+        console.error("Failed to fetch feedback details:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchProductDetails();
+  }, [id, productId]);
 
   if (!foundProduct) {
     return <div>Product not found</div>;
   }
 
   const thumbnailImages =
-    foundProduct?.images.filter((src): src is string => !!src) || [];
+    foundProduct?.UsingImage?.map((img: any) => getImage(img.UsingImageID)) ||
+    [];
   const changeImage = (src: string, index: number) => {
     setMainImage(src);
     setSelectedThumb(index);
@@ -276,13 +363,6 @@ const ProductDetails: React.FC = () => {
     setMetalType(type);
   };
 
-  //2 same
-
-  // const recentlyProductIds = ["20", "3", "16", "2"];
-  // const recentlyViewedProducts = products.filter((product) =>
-  //   recentlyProductIds.includes(product.id)
-  // );
-
   return (
     <Body>
       <div>
@@ -291,7 +371,9 @@ const ProductDetails: React.FC = () => {
           items={[
             { title: "Home", href: "/" },
             { title: "All Product", href: "/all" },
-            { title: `${foundProduct.type} - #${foundProduct.id}` },
+            {
+              title: `${foundProduct.JewelrySetting.jewelryType.Name} - #${foundProduct.ProductID}`,
+            },
           ]}
         />
       </div>
@@ -303,7 +385,7 @@ const ProductDetails: React.FC = () => {
                 <ImageContainer>
                   <OuterThumb>
                     <ThumbnailImage>
-                      {thumbnailImages.map((src, index) => (
+                      {thumbnailImages.map((src: any, index: any) => (
                         <Item
                           key={index}
                           className={selectedThumb === index ? "selected" : ""}
@@ -325,24 +407,30 @@ const ProductDetails: React.FC = () => {
             <ProductDetail>
               <Entry>
                 <Heading>
-                  <Title className="main-title">{foundProduct.name}</Title>
+                  <Title className="main-title">{foundProduct.Name}</Title>
                   <ProductRating>
-                    {[...Array(foundProduct.star)].map((_, i) => (
+                    {Array.from({ length: foundProduct.Stars }, (_, i) => (
                       <StarFilled key={i} />
                     ))}
                   </ProductRating>
                 </Heading>
                 <ProductInfo>
                   <div className="wrap">
-                    <div className="info-box">{foundProduct.clarity}</div>
-                    <div className="info-box">{foundProduct.carat}</div>
-                    <div className="info-box">{foundProduct.color}</div>
+                    <div className="info-box">
+                      {foundProduct.JewelrySetting.jewelryType.Name}
+                    </div>
+                    <div className="info-box">
+                      {foundProduct.JewelrySetting.DiamondShape}
+                    </div>
+                    <div className="info-box">
+                      {foundProduct.JewelrySetting.Name}
+                    </div>
                   </div>
                 </ProductInfo>
-                {foundProduct.categories.toLowerCase() !==
-                  "men-engagement-ring" &&
-                  foundProduct.categories.toLowerCase() !==
-                    "men-wedding-ring" && (
+                {foundProduct.JewelrySetting.jewelryType.Name !==
+                  "Men Engagement Ring" &&
+                  foundProduct.JewelrySetting.jewelryType.Name !==
+                    "Men Wedding Ring" && (
                     <ProductMetal>
                       <span className="fill">Metal Type: {metalType}</span>
                       <div className="wrap">
@@ -362,7 +450,7 @@ const ProductDetails: React.FC = () => {
                       </div>
                     </ProductMetal>
                   )}
-                {foundProduct.type.toLowerCase() === "ring" && (
+                {foundProduct.JewelrySetting.jewelryType.Name === "Ring" && (
                   <>
                     <div>
                       <RingSizeContainer>
@@ -426,10 +514,8 @@ const ProductDetails: React.FC = () => {
                   <div className="product-group">
                     <div className="product-price">
                       <CurrentPrice>
-                        $
-                        {foundProduct.salePrice
-                          ? foundProduct.salePrice
-                          : foundProduct.price}
+                        ${foundProduct.FirstPrice + foundProduct.TotalDiamondPrice}
+                       
                       </CurrentPrice>
                       {foundProduct.salePrice && (
                         <div className="wrap">
@@ -442,6 +528,12 @@ const ProductDetails: React.FC = () => {
                 </ProductPrice>
               </Entry>
               <div className="outlet">
+              <Condition>
+                    <div className="payment-options-box">
+                      <h3>Tip for Free Shipping:</h3>
+                      <li>Free shipping on orders of 2 or more items</li>
+                    </div>
+                  </Condition>
                 <ButtonContainer>
                   <ButtonAdd className="add" onClick={() => navigate("/cart")}>
                     ADD TO CART
@@ -450,7 +542,7 @@ const ProductDetails: React.FC = () => {
                     <span>CHECKOUT</span>
                   </Button>
                 </ButtonContainer>
-                <Shipping>
+                {/* <Shipping>
                   <ShippingList>
                     <ShippingItem>
                       <span>Free shipping & return</span>
@@ -460,7 +552,7 @@ const ProductDetails: React.FC = () => {
                       <span className="delivery"> 01 - 07 Jan, 2024</span>
                     </ShippingItem>
                   </ShippingList>
-                </Shipping>
+                </Shipping> */}
               </div>
             </ProductDetail>
           </Wrap>
@@ -498,24 +590,23 @@ const ProductDetails: React.FC = () => {
           >
             {/* Product detail content */}
             <TextBlock>
-              <h3>{foundProduct.name}</h3>
-              <p>{foundProduct.description}</p>
-              <p>{foundProduct.description}</p>
+              <h3>{foundProduct.Name}</h3>
+              <p>{foundProduct.Description}</p>
+              <p>{foundProduct.Description}</p>
             </TextBlock>
             <DotGrid>
               <div className="wrapper2">
                 <ListBlock>
                   <h4>What is this?</h4>
                   <ul>
-                    <li>ID Number: {foundProduct.id}</li>
-                    <li>Firm: {foundProduct.firm}</li>
-                    <li>Width: {foundProduct.width}</li>
-                    <li>Quantity: {foundProduct.quantity}</li>
-                    <li>Shape: {foundProduct.shape}</li>
-                    <li>Total Carat (Average): {foundProduct.carat}</li>
-                    <li>Color: {foundProduct.color}</li>
-                    <li>Clarity: {foundProduct.clarity}</li>
-                    <li>Setting Type: {foundProduct.type}</li>
+                    <li>ID Number: {foundProduct.ProductID}</li>
+                    <li>Firm: {foundProduct.Brand}</li>
+                    <li>Type: {foundProduct.JewelrySetting.jewelryType.Name}</li>
+                    <li>Diamond Shape: {foundProduct.JewelrySetting.DiamondShape}</li>
+                    <li>Quantity: {foundProduct.TotalQuantityJewelrySettingVariants}</li>
+                    <li>Collection: {foundProduct?.CollectionID}</li>
+                    <li>Setting: {foundProduct.JewelrySetting.Name}</li>
+
                   </ul>
                 </ListBlock>
                 <ListBlock>
@@ -542,7 +633,7 @@ const ProductDetails: React.FC = () => {
             className={activeTab === "product-review" ? "active" : "hide"}
           >
             {/* Review content */}
-            <Review>
+            {/* <Review>
               <div className="head-review">
                 <div className="sum-rating">
                   <strong>{averageRating.toFixed(1)}</strong>
@@ -582,7 +673,7 @@ const ProductDetails: React.FC = () => {
                 ))}
               </div>
               <StyledPagination defaultCurrent={1} total={10} />
-            </Review>
+            </Review> */}
           </ProductAbout>
         </div>
       </Contain>
@@ -595,34 +686,45 @@ const ProductDetails: React.FC = () => {
             {sameBrandProducts.map((product) => (
               <Col key={product.id} span={6}>
                 <Card
+                  key={product.id}
                   style={{ borderRadius: "0" }}
                   hoverable
                   className="product-card"
                   cover={
-                    <>
-                      <Link to={`/product/${product.id}`}>
-                        <img
-                          style={{ borderRadius: "0" }}
-                          src={product.images[0]}
-                          alt={product.name}
-                          className="product-image"
-                          onMouseOver={(e) =>
-                            (e.currentTarget.src = product.images[2])
-                          }
-                          onMouseOut={(e) =>
-                            (e.currentTarget.src = product.images[0])
-                          }
-                        />
-                      </Link>
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
+                    product.images.length > 0 ? (
+                      <>
+                        <Link to={`/product/${product.id}`}>
+                          <img
+                            style={{ borderRadius: "0" }}
+                            src={product.images[0]?.url || ""}
+                            alt={product.name}
+                            className="product-image"
+                            onMouseOver={(e) =>
+                              (e.currentTarget.src =
+                                product.images[1]?.url ||
+                                product.images[0]?.url ||
+                                "")
+                            }
+                            onMouseOut={(e) =>
+                              (e.currentTarget.src =
+                                product.images[0]?.url || "")
+                            }
+                          />
+                        </Link>
+                        {product.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
+                    ) : (
+                      <div>No Image Available</div>
+                    )
                   }
                 >
                   <div className="product-info">
                     <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`}>{product.name}</Link>
+                      <Link to={`/product/${product.id}`}>
+                        <div>{product.name}</div>
+                      </Link>
                       {wishList.includes(product.id) ? (
                         <HeartFilled
                           className="wishlist-icon"
@@ -637,11 +739,11 @@ const ProductDetails: React.FC = () => {
                     </Title>
                     <div className="price-container">
                       <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
+                        ${product.firstPrice + product.totalDiamondPrice}
                       </Text>
                       {product.salePrice && (
                         <Text delete className="product-sale-price">
-                          ${product.price}
+                          ${product.totalDiamondPrice}
                         </Text>
                       )}
                     </div>
@@ -652,72 +754,6 @@ const ProductDetails: React.FC = () => {
           </Row>
         </List>
       </ProductSection>
-      {/* <ProductSectionViewed>
-        <Title>
-          <h2>RECENTLY VIEWED</h2>
-        </Title>
-        <List>
-          <Row gutter={[16, 16]}>
-            {recentlyViewedProducts.map((product) => (
-              <Col key={product.id} span={6}>
-                <Card
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    <>
-                      <Link to={`/product/${product.id}`}>
-                        <img
-                          style={{ borderRadius: "0" }}
-                          src={product.images[0]}
-                          alt={product.name}
-                          className="product-image"
-                          onMouseOver={(e) =>
-                            (e.currentTarget.src = product.images[2])
-                          }
-                          onMouseOut={(e) =>
-                            (e.currentTarget.src = product.images[0])
-                          }
-                        />
-                      </Link>
-                      {product.salePrice && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                    </>
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`}>{product.name}</Link>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
-                      <Text className="product-price">
-                        ${product.salePrice ? product.salePrice : product.price}
-                      </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.price}
-                        </Text>
-                      )}
-                    </div>
-                  </div>
-                </Card>
-              </Col>
-            ))}
-          </Row>
-        </List>
-      </ProductSectionViewed> */}
     </Body>
   );
 };

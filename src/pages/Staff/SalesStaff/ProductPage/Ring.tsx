@@ -1,4 +1,4 @@
-import * as Styled from "../ProductPage/Ring.styled";
+import * as Styled from "./Ring.styled";
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {

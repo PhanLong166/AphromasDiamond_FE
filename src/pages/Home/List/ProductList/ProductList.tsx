@@ -1,9 +1,5 @@
 import React, { useState, useEffect } from "react";
-import {
-  Container,
-  List,
-  StyledPagination,
-} from "./ProductList.styled";
+import { Container, List, StyledPagination } from "./ProductList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -43,8 +39,10 @@ const ProductList: React.FC = () => {
             name: jewelry.Name,
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
-            salePrice: jewelry.SalePrice, // Assuming there's a salePrice field
-            jewelryType: jewelry.JewelrySetting?.jewelryType?.Name, // Ensure correct nesting
+            firstPrice: jewelry.FirstPrice,
+            salePrice: jewelry.SalePrice,
+            type: jewelry.JewelrySetting.jewelryType.Name,
+            jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
               id: image.UsingImageID,
               url: getImage(image.UsingImageID),
@@ -65,13 +63,14 @@ const ProductList: React.FC = () => {
     fetchData();
   }, []);
 
-
   const jewelryData: Record<string, any> = {
     bracelet: {
       title: "Bracelet",
       description:
         "Elevate your style with our diamond bracelets, crafted to perfection in yellow gold, white gold, rose gold, or platinum. Each bracelet features meticulously set diamonds that sparkle with every movement, offering a luxurious and timeless accessory for any occasion. Whether worn alone as a statement piece or layered with other jewelry, our bracelets are designed to enhance your beauty and express your individuality with sophistication and grace.",
-      products: products.filter((product) => product.jewelryType === "Bracelet"),
+      products: products.filter(
+        (product) => product.jewelryType === "Bracelet"
+      ),
       faqs: [
         {
           key: "1",
@@ -105,7 +104,9 @@ const ProductList: React.FC = () => {
       title: "Necklace",
       description:
         "Adorn yourself with our exquisite diamond necklaces, crafted to capture attention and admiration. Set in yellow gold, white gold, rose gold, or platinum, each necklace showcases the beauty of diamonds in designs that range from classic to contemporary, making them a stunning addition to any jewelry collection. Whether worn as a centerpiece for formal occasions or as an everyday luxury, our necklaces are designed to complement your style and elevate your look with timeless elegance.",
-      products: products.filter((product) => product.jewelryType === "Necklace"),
+      products: products.filter(
+        (product) => product.jewelryType === "Necklace"
+      ),
       faqs: [
         {
           key: "1",
@@ -138,7 +139,9 @@ const ProductList: React.FC = () => {
       title: "Earrings",
       description:
         "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
-      products: products.filter((product) => product.jewelryType === "Earrings"),
+      products: products.filter(
+        (product) => product.jewelryType === "Earring"
+      ),
       faqs: [
         {
           key: "1",
@@ -171,11 +174,11 @@ const ProductList: React.FC = () => {
       title: "Rings Setting",
       description:
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
-        products: products.filter(
-          (product) =>
-            product.type === "Ring" &&
-            !excludedCategories.includes(product.jewelryType)
-        ),
+      products: products.filter(
+        (product) =>
+          product.type === "Ring" &&
+          !excludedCategories.includes(product.jewelryType)
+      ),
       faqs: [
         {
           key: "1",
@@ -205,7 +208,6 @@ const ProductList: React.FC = () => {
         "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/BannerProductList%2FLab%20grown%20diamonds.jpeg?alt=media&token=63d86a3e-c0cb-48ea-a8e7-38e650e17425",
     },
   };
-
 
   if (!jewelryType || !jewelryData[jewelryType]) {
     return <div>Invalid jewelry type selected.</div>;
@@ -245,7 +247,7 @@ const ProductList: React.FC = () => {
   return (
     <Container>
       <div>
-      <Breadcrumb
+        <Breadcrumb
           items={[
             { title: "Home", href: "/" },
             { title: currentJewelryData.title },
@@ -253,10 +255,10 @@ const ProductList: React.FC = () => {
         />
       </div>
       <Banner
-      bannerImage={currentJewelryData.bannerImage}
-      title={currentJewelryData.title}
-      description={currentJewelryData.description}
-    />
+        bannerImage={currentJewelryData.bannerImage}
+        title={currentJewelryData.title}
+        description={currentJewelryData.description}
+      />
       <FilterSort />
       <hr
         style={{
@@ -268,66 +270,76 @@ const ProductList: React.FC = () => {
       />
       <List>
         <Row gutter={[16, 16]}>
-          {currentJewelryData.products.map((product: any) => (
-            <Col key={product.id} span={6}>
-              <Card
-                key={product.id}
-                style={{ borderRadius: "0" }}
-                hoverable
-                className="product-card"
-                cover={
-                  <>
-                    <Link to={`/product/${product.id}`}>
-                      <img
-                        style={{ borderRadius: "0" }}
-                        src={product.images[0]}
-                        alt={product.name}
-                        className="product-image"
-                        onMouseOver={(e) =>
-                          (e.currentTarget.src = product.images[2])
-                        }
-                        onMouseOut={(e) =>
-                          (e.currentTarget.src = product.images[0])
-                        }
-                      />
-                    </Link>
-                    {product.salePrice && (
-                      <div className="sale-badge">SALE</div>
-                    )}
-                  </>
-                }
-              >
-                <div className="product-info">
-                  <Title level={4} className="product-name">
-                    <Link to={`/product/${product.id}`}>
-                      <div>{product.name}</div>
-                    </Link>
-                    {wishList.includes(product.id) ? (
-                      <HeartFilled
-                        className="wishlist-icon"
-                        onClick={() => toggleWishList(product.id)}
-                      />
+          {currentJewelryData.products
+            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
+            .map((product: any) => (
+              <Col key={product.id} span={6}>
+                <Card
+                  key={product.id}
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    product.images.length > 0 ? (
+                      <>
+                        <Link to={`/product/${product.id}`}>
+                          <img
+                            style={{ borderRadius: "0" }}
+                            src={product.images[0]?.url || ""}
+                            alt={product.name}
+                            className="product-image"
+                            onMouseOver={(e) =>
+                              (e.currentTarget.src =
+                                product.images[1]?.url ||
+                                product.images[0]?.url ||
+                                "")
+                            }
+                            onMouseOut={(e) =>
+                              (e.currentTarget.src =
+                                product.images[0]?.url || "")
+                            }
+                          />
+                        </Link>
+                        {product.salePrice && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                      </>
                     ) : (
-                      <HeartOutlined
-                        className="wishlist-icon"
-                        onClick={() => toggleWishList(product.id)}
-                      />
-                    )}
-                  </Title>
-                  <div className="price-container">
-                    <Text className="product-price">
-                      ${product.salePrice ? product.salePrice : product.price}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.price}
+                      <div>No Image Available</div>
+                    )
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      <Link to={`/product/${product.id}`}>
+                        <div>{product.name}</div>
+                      </Link>
+                      {wishList.includes(product.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(product.id)}
+                        />
+                      )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        ${product.firstPrice + product.totalDiamondPrice}
                       </Text>
-                    )}
+                      {product.salePrice && (
+                        <Text delete className="product-sale-price">
+                          ${product.totalDiamondPrice}
+                        </Text>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Card>
-            </Col>
-          ))}
+                </Card>
+              </Col>
+            ))}
           <Col span={6}>
             <Card className="show-all-card">
               <div className="show-all-content">

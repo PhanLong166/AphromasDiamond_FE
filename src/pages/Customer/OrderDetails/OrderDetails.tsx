@@ -15,12 +15,12 @@ import { getImage } from "@/services/imageAPI";
 import { orderDetail, showAllOrder } from "@/services/orderAPI";
 import useAuth from "@/hooks/useAuth";
 import { getProductDetails } from "@/services/productAPI";
-import { ColumnType } from "antd/lib/table";
+// import { ColumnType } from "antd/lib/table";
 
-interface OrderDetailsDataType {
-  DiamondID: number;
-  ProductID: number;
-}
+// interface OrderDetailsDataType {
+//   DiamondID: number;
+//   ProductID: number;
+// }
 
 interface DiamondDetail {
   DiamondID: number;
@@ -271,8 +271,8 @@ const OrderDetail: React.FC = () => {
   
 
   const columns: TableColumnGroupType<
-    DiamondDetail | ProductDetail | ColumnType<DiamondDetail | ProductDetail>
-  > = [
+    DiamondDetail | ProductDetail
+  >[] = [
     {
       title: "Product",
       children: [
@@ -302,7 +302,7 @@ const OrderDetail: React.FC = () => {
           dataIndex: "Price",
           key: "Price",
           render: (price: number) => formatPrice(price),
-          sorter: (a: { Price: number }, b: { Price: number }) =>
+          sorter: (a: any, b: any) =>
             a.Price - b.Price,
           sortDirections: ["descend", "ascend"],
           // width: "8%",
@@ -310,50 +310,54 @@ const OrderDetail: React.FC = () => {
         {
           title: "Action",
           key: "action",
-          render: (_: any, record: OrderDetailsDataType) => {
-            const isReviewedDiamond = reviewedDiamonds.has(record.DiamondID);
-            const isReviewedProduct = reviewedProducts.has(record.ProductID);
+          render: (_: any, record: DiamondDetail | ProductDetail) => {
+            const isReviewedDiamond = reviewedDiamonds.has((record as DiamondDetail).DiamondID);
+            const isReviewedProduct = reviewedProducts.has((record as ProductDetail).ProductID);
 
             const shouldShowFeedback = order?.OrderStatus === "Completed";
-            if (record.DiamondID) {
+            if ((record as DiamondDetail).DiamondID) {
               // Show feedback button only for diamonds if not reviewed
-              return shouldShowFeedback && !isReviewedDiamond ? (
-                <Space size="middle">
-                  <Button
-                    type="link"
-                    onClick={() => {
-                      setSelectedDiamondID(record.DiamondID);
-                      setSelectedProductID(null); // Ensure only Diamond ID is set
-                      setIsModalVisible(true);
-                    }}
-                  >
-                    Feedback for Diamond
-                  </Button>
-                </Space>
-              ) : isReviewedDiamond ? (
-                <span>Feedback Given</span>
-              ) : null;
-            } else if (record.ProductID) {
+              return (
+                shouldShowFeedback && !isReviewedDiamond ? (
+                  <Space size="middle">
+                    <Button
+                      type="link"
+                      onClick={() => {
+                        setSelectedDiamondID((record as DiamondDetail).DiamondID);
+                        setSelectedProductID(null); // Ensure only Diamond ID is set
+                        setIsModalVisible(true);
+                      }}
+                    >
+                      Feedback for Diamond
+                    </Button>
+                  </Space>
+                ) : isReviewedDiamond ? (
+                  <span>Feedback Given</span>
+                ) : <></>
+              )
+            } else if ((record as ProductDetail).ProductID) {
               // Show feedback button only for products if not reviewed
-              return shouldShowFeedback && !isReviewedProduct ? (
-                <Space size="middle">
-                  <Button
-                    type="link"
-                    onClick={() => {
-                      setSelectedDiamondID(null); // Ensure only Product ID is set
-                      setSelectedProductID(record.ProductID);
-                      setIsModalVisible(true);
-                    }}
-                  >
-                    Feedback for Product
-                  </Button>
-                </Space>
-              ) : isReviewedProduct ? (
-                <span>Feedback Given</span>
-              ) : null;
+              return (
+                shouldShowFeedback && !isReviewedProduct ? (
+                  <Space size="middle">
+                    <Button
+                      type="link"
+                      onClick={() => {
+                        setSelectedDiamondID(null); // Ensure only Product ID is set
+                        setSelectedProductID((record as ProductDetail).ProductID);
+                        setIsModalVisible(true);
+                      }}
+                    >
+                      Feedback for Product
+                    </Button>
+                  </Space>
+                ) : isReviewedProduct ? (
+                  <span>Feedback Given</span>
+                ) : <></>
+              )
             }
 
-            return null;
+            return <></>;
           },
         },
       ],

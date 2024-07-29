@@ -3,7 +3,8 @@ import { customSlice } from "@/layouts/MainLayout/slice/customRingSlice";
 import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 import uploadSlice from "@/pages/Admin/ProductPage/Diamond/components/slice";
 import uploadSliceSetting from "@/pages/Admin/ProductPage/Jewelry Setting/components/slice";
-import { uploadSliceProduct } from "@/pages/Admin/ProductPage/Jewelry/components/AddDiaJewComponent/slice";
+import { uploadSliceDiaProduct } from "@/pages/Admin/ProductPage/Jewelry/components/AddDiaJewComponent/slice";
+import uploadSliceReguProduct from "@/pages/Admin/ProductPage/Jewelry/components/AddReguComponent/slice";
 import { configureStore } from "@reduxjs/toolkit";
 
 export const store = configureStore({
@@ -12,7 +13,8 @@ export const store = configureStore({
         customRing: customSlice.reducer,
         upload: uploadSlice.reducer,
         uploadSetting: uploadSliceSetting.reducer,
-        uploadProduct: uploadSliceProduct.reducer,
+        uploadDiaProduct: uploadSliceDiaProduct.reducer,
+        uploadReguProduct: uploadSliceReguProduct.reducer,
         order: orderSlice.reducer,
     },
     middleware: (getDefaultMiddleWare) => 

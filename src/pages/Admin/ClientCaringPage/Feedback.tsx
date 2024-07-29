@@ -1,5 +1,5 @@
 import * as Styled from "../ClientCaringPage/Feedback.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   SearchOutlined,
 } from "@ant-design/icons";
@@ -11,132 +11,18 @@ import {
   Popconfirm,
   Table,
   Rate,
-  Space,
-  Button
+  notification
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import ClientCaringMenu from "../../../components/Admin/ClientCaringMenu/ClientCaringMenu";
+import { deleteFeedback, showFeedbacks } from "@/services/feedBackAPI";
 
-interface Item {
-  key: React.Key;
-  feedbackID: string;
-  date: Date;
-  productName: string;
-  customer: string;
-  description: string;
-  star: number;
-  to: string[];
-}
-
-const originData: Item[] = [
-  {
-    key: "1",
-    feedbackID: "12345121",
-    date: new Date("2023-06-01"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 5,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "2",
-    feedbackID: "12345122",
-    date: new Date("2023-06-02"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "3",
-    feedbackID: "12345123",
-    date: new Date("2023-06-03"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "4",
-    feedbackID: "12345124",
-    date: new Date("2023-06-04"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "5",
-    feedbackID: "12345125",
-    date: new Date("2023-06-05"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "6",
-    feedbackID: "12345126",
-    date: new Date("2023-06-06"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "7",
-    feedbackID: "12345127",
-    date: new Date("2023-06-07"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "8",
-    feedbackID: "12345128",
-    date: new Date("2023-06-08"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "9",
-    feedbackID: "12345129",
-    date: new Date("2023-06-09"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-  {
-    key: "10",
-    feedbackID: "12345130",
-    date: new Date("2023-06-10"),
-    productName: "1.00 Carat H-VS2 Emerald Cut Diamond",
-    customer: "Ajmal Abdul Rahiman",
-    description: "Thank you for sharing your wonderful feedback! It's truly rewarding to know that you're satisfied with our product. We appreciate your support and hope to see you again soon!",
-    star: 4,
-    to: ["https://example.com/"],
-  },
-];
 
 interface EditableCellProps {
   editing: boolean;
   dataIndex: string;
   title: React.ReactNode;
   inputType: "number" | "text";
-  record: Item;
+  record: any;
   index: number;
   children: React.ReactNode;
 }
@@ -155,8 +41,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
+        name={dataIndex.toString()}
+        style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -176,78 +62,99 @@ const EditableCell: React.FC<EditableCellProps> = ({
 
 
 const Feedback = () => {
-    
   const [form] = Form.useForm();
-  const [data, setData] = useState<Item[]>(originData);
+  const [feedbacks, setFeedbacks] = useState<any[]>([]);
+  const [api, contextHolder] = notification.useNotification();
 
-  const handleDelete = (key: React.Key) => {
-    const newData = data.filter((item) => item.key !== key);
-    setData(newData);
+  
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} manager successfully` : error,
+    });
   };
 
-  const columns: TableColumnsType<Item> = [
+  
+  const fetchData = async () => {
+    try {
+      const response = await showFeedbacks();
+      const { data } = response.data;
+
+      const formattedFeedbacks = data.map((feedback: any) => ({
+        key: feedback.FeedbackID,
+        feedbackID: feedback.FeedbackID,
+        stars: feedback.Stars,
+        comment: feedback.Comment,
+        commentTime: feedback.CommentTime,
+        diamondID: feedback.DiamondID,
+        account: feedback.account.Name,
+      }));
+      setFeedbacks(formattedFeedbacks);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+  const handleDelete = async (feedbackID: number) => {
+    try {
+      await deleteFeedback(feedbackID);
+      openNotification("success", "Delete", "");
+      fetchData();
+    } catch (error: any) {
+      console.error("Failed to delete feedback:", error);
+      openNotification("error", "Delete", error.message);
+    }
+  };
+
+  const columns: TableColumnsType<any> = [
     {
       title: "ID",
       dataIndex: "feedbackID",
-      // editable: true,
-      sorter: (a, b) => a.feedbackID.localeCompare(b.feedbackID),
+      sorter: (a, b) => parseInt(a.feedbackID) - parseInt(b.feedbackID),
     },
     {
       title: "Date",
-      dataIndex: "date",
+      dataIndex: "commentTime",
       defaultSortOrder: "descend",
-      sorter: (a, b) => a.date.getTime() - b.date.getTime(),
-      render: (date: Date) => date.toLocaleDateString(),
-    },
+      sorter: (a, b) => new Date(a.commentTime).getTime() - new Date(b.commentTime).getTime(),
+      render: (date) => new Date(date).toLocaleDateString(),
+    },    
     {
       title: "Product Name",
-      dataIndex: "productName",
-      // editable: true,
-      // sorter: (a, b) => a.productName.length - b.productName.length,
+      dataIndex: "diamondID",
     },
     {
       title: "Customer Name",
-      dataIndex: "customer",
-      // editable: true,
-      // sorter: (a, b) => a.customer.length - b.customer.length,
+      dataIndex: "account",
     },
     {
-      title: "Description",
-      dataIndex: "description",
-      // editable: true,
+      title: "Comment",
+      dataIndex: "comment",
     },
     {
       title: "Star",
-      dataIndex: "star",
-      // editable: true,
-      sorter: (a, b) => a.star - b.star,
-      render: (_, record) => <Rate disabled defaultValue={record.star} />
-    },
-    {
-      title: "Action",
-      key: "to",
-      render: (_, record) => (
-        <Space size="middle">
-          {record.to.map((link, index) => (
-            <a
-              href={link}
-              target="_blank"
-              rel="noopener noreferrer"
-              key={index}
-              className="view-link"
-            >
-              <Button className="confirmBtn">View</Button>
-            </a>
-          ))}
-        </Space>
-      ),
+      dataIndex: "stars",
+      sorter: (a, b) => a.stars - b.stars,
+      render: (_, record) => <Rate disabled defaultValue={record.stars} />
     },
     {
       title: "Delete",
       dataIndex: "delete",
       className: "TextAlign",
-      render: (_, record) =>
-        originData.length >= 1 ? (
+      render: (_: unknown, record: any) =>
+        feedbacks.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
             onConfirm={() => handleDelete(record.key)}
@@ -272,12 +179,17 @@ const Feedback = () => {
 
   return (
     <>
+    {contextHolder}
     <Styled.GlobalStyle/>
       <Styled.FeedbackAdminArea>
         <Sidebar />
 
         <Styled.AdminPage>
-          <ClientCaringMenu />
+          {/* <ClientCaringMenu /> */}
+          <Styled.TitlePage>
+            <h1>Client Caring</h1>
+            <p>Advice to customers</p>
+          </Styled.TitlePage>
 
           <Styled.AdPageContent>
           <Styled.AdPageContent_Head>
@@ -305,7 +217,7 @@ const Feedback = () => {
                     },
                   }}
                   bordered
-                  dataSource={data}
+                  dataSource={feedbacks}
                   columns={columns}
                   rowClassName="editable-row"
                   pagination={{

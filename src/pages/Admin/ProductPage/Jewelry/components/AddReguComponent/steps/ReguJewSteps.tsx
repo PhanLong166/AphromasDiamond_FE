@@ -5,6 +5,8 @@ import { NotificationInstance } from "antd/es/notification/interface";
 import ProductImageUpload from "../upload/ReguJewImage.upload";
 import UploadButton from "../button/ReguProductButton.upload";
 import AddProductForm from "../form/ReguJewForm";
+import { ReguJewelryField } from "../form/ReguJewForm.field";
+import SettingUpload from "../upload/JewelrySetting.upload";
 
 type ProductStepsType = {
     title: string;
@@ -15,11 +17,8 @@ type ProductStepsProps = {
     api: NotificationInstance;
     fileList: UploadFile[];
     setFileList: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
-    docsList?: UploadFile[];
-    setDocsList?: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
     onChangeImg: (value: any) => void;
     onPreview: (value: any) => void;
-    setIsAdding?: (values: any) => void;
     fetchData: () => Promise<void>
 }
 
@@ -41,6 +40,17 @@ const ProductSteps = ({
             title: 'Information',
             content: (
                 <AddProductForm
+                    fields={ReguJewelryField}
+                    form={form}
+                />
+            )
+        },
+        {
+            title: 'Information',
+            content: (
+                <SettingUpload
+                    form={form}
+                    api={api}
                 />
             )
         },

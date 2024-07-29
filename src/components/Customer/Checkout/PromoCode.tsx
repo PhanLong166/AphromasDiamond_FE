@@ -4,6 +4,8 @@ import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Select } from "antd";
 import { showAllVoucher } from "@/services/voucherAPI";
+import { useAppDispatch } from "@/hooks";
+import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 interface PromoCodeSectionProps {
   onApplyVoucher: (discount: number, voucherID: number) => void;
 }
@@ -13,6 +15,7 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
   const [selectedVoucher, setSelectedVoucher] = useState<Voucher | null>(null);
   const [error, setError] = useState("");
   const [availableVouchers, setAvailableVouchers] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
 
   // const handleSelectVoucher = (voucher: Voucher) => {
   //   localStorage.setItem("selectedVoucher", JSON.stringify(voucher));
@@ -59,8 +62,8 @@ const handleApplyClick = () => {
     const discount = parseFloat(selectedVoucher.PercentDiscounts);
     console.log("Selected Voucher:", selectedVoucher);
     console.log("Discount Value:", discount);
+    dispatch(orderSlice.actions.setVoucherID(selectedVoucher.VoucherID));
 
-   
     if (!isNaN(discount) && discount > 0) {
       onApplyVoucher(discount, selectedVoucher.VoucherID);
       setError(""); 
