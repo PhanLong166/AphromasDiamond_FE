@@ -98,6 +98,10 @@ const OrderDetail: React.FC = () => {
   const [totalPrice, setTotalPrice] = useState<number>(0);
   const [shippingFee, setShippingFee] = useState<number>(0);
   const [order, setOrder] = useState<any>(null);
+  const [discount, setDiscount] = useState(0);
+  const [subTotal, setSubTotal] = useState(0);
+  const [discountPrice, setDiscountPrice] = useState(0);
+  const [paymentMethod, setPaymentMethod] = useState("");
   const { AccountID } = useAuth();
 
   const [reviewedDiamonds, setReviewedDiamonds] = useState<Set<number>>(
@@ -134,18 +138,31 @@ const OrderDetail: React.FC = () => {
         setOrder(order);
 
         //Price Order
-        const priceRes = await orderDetail(order.OrderID);
+        const res = await orderDetail(order.OrderID);
+        const priceRes = res.data.data;
+        console.log(res.data.data);
+        const paymentMethod = priceRes.PaymentID;
+        setPaymentMethod(paymentMethod);
+        if (priceRes.VoucherPrice) {
+          const shippingFee = Number(res.data.data.Shippingfee);
+          setShippingFee(shippingFee);
 
-        if (priceRes.data.data.VoucherPrice) {
-          const totalVoucherPrice = priceRes.data.data.VoucherPrice;
+          const totalVoucherPrice = Number(priceRes.VoucherPrice) + shippingFee;
+          console.log(totalVoucherPrice);
           setTotalPrice(totalVoucherPrice);
-        } else {
-          const totalPrice = priceRes.data.data.Price;
-          setTotalPrice(totalPrice);
+
+          const totalPrice = priceRes.Price;
+          if (priceRes.VoucherID) {
+            const discount = (totalVoucherPrice / totalPrice) * 10;
+            setDiscount(discount);
+
+            const discountPrice = totalPrice - totalVoucherPrice;
+            setDiscountPrice(discountPrice);
+          }
+          const subTtotal = totalPrice;
+          setSubTotal(subTtotal);
         }
         //
-        const shippingFee = order.Shippingfee || 0;
-        setShippingFee(shippingFee);
       } else {
         console.log("No order found with OrderID:", orderId);
       }
@@ -268,11 +285,7 @@ const OrderDetail: React.FC = () => {
     }
   }, [orderId]); // Chạy khi orderId thay đổi
 
-  
-
-  const columns: TableColumnGroupType<
-    DiamondDetail | ProductDetail
-  >[] = [
+  const columns: TableColumnGroupType<DiamondDetail | ProductDetail>[] = [
     {
       title: "Product",
       children: [
@@ -302,8 +315,7 @@ const OrderDetail: React.FC = () => {
           dataIndex: "Price",
           key: "Price",
           render: (price: number) => formatPrice(price),
-          sorter: (a: any, b: any) =>
-            a.Price - b.Price,
+          sorter: (a: any, b: any) => a.Price - b.Price,
           sortDirections: ["descend", "ascend"],
           // width: "8%",
         },
@@ -311,50 +323,54 @@ const OrderDetail: React.FC = () => {
           title: "Action",
           key: "action",
           render: (_: any, record: DiamondDetail | ProductDetail) => {
-            const isReviewedDiamond = reviewedDiamonds.has((record as DiamondDetail).DiamondID);
-            const isReviewedProduct = reviewedProducts.has((record as ProductDetail).ProductID);
+            const isReviewedDiamond = reviewedDiamonds.has(
+              (record as DiamondDetail).DiamondID
+            );
+            const isReviewedProduct = reviewedProducts.has(
+              (record as ProductDetail).ProductID
+            );
 
             const shouldShowFeedback = order?.OrderStatus === "Completed";
             if ((record as DiamondDetail).DiamondID) {
               // Show feedback button only for diamonds if not reviewed
-              return (
-                shouldShowFeedback && !isReviewedDiamond ? (
-                  <Space size="middle">
-                    <Button
-                      type="link"
-                      onClick={() => {
-                        setSelectedDiamondID((record as DiamondDetail).DiamondID);
-                        setSelectedProductID(null); // Ensure only Diamond ID is set
-                        setIsModalVisible(true);
-                      }}
-                    >
-                      Feedback for Diamond
-                    </Button>
-                  </Space>
-                ) : isReviewedDiamond ? (
-                  <span>Feedback Given</span>
-                ) : <></>
-              )
+              return shouldShowFeedback && !isReviewedDiamond ? (
+                <Space size="middle">
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      setSelectedDiamondID((record as DiamondDetail).DiamondID);
+                      setSelectedProductID(null); // Ensure only Diamond ID is set
+                      setIsModalVisible(true);
+                    }}
+                  >
+                    Feedback
+                  </Button>
+                </Space>
+              ) : isReviewedDiamond ? (
+                <span>Feedback Given</span>
+              ) : (
+                <></>
+              );
             } else if ((record as ProductDetail).ProductID) {
               // Show feedback button only for products if not reviewed
-              return (
-                shouldShowFeedback && !isReviewedProduct ? (
-                  <Space size="middle">
-                    <Button
-                      type="link"
-                      onClick={() => {
-                        setSelectedDiamondID(null); // Ensure only Product ID is set
-                        setSelectedProductID((record as ProductDetail).ProductID);
-                        setIsModalVisible(true);
-                      }}
-                    >
-                      Feedback for Product
-                    </Button>
-                  </Space>
-                ) : isReviewedProduct ? (
-                  <span>Feedback Given</span>
-                ) : <></>
-              )
+              return shouldShowFeedback && !isReviewedProduct ? (
+                <Space size="middle">
+                  <Button
+                    type="link"
+                    onClick={() => {
+                      setSelectedDiamondID(null); // Ensure only Product ID is set
+                      setSelectedProductID((record as ProductDetail).ProductID);
+                      setIsModalVisible(true);
+                    }}
+                  >
+                    Feedback
+                  </Button>
+                </Space>
+              ) : isReviewedProduct ? (
+                <span>Feedback Given</span>
+              ) : (
+                <></>
+              );
             }
 
             return <></>;
@@ -363,41 +379,62 @@ const OrderDetail: React.FC = () => {
       ],
     },
   ];
-  
 
   const handleFeedbackCreate = (values: any) => {
     console.log("Feedback submitted: ", values);
-    
-    const { diamondId, productId } = values;
-    console.log( "product",productId);
-    console.log( "Diamond",diamondId);
+
+    const { DiamondID, ProductID } = values;
+    console.log(values.DiamondID);
+
     setIsModalVisible(false);
-    if (diamondId) {
+    if (DiamondID) {
       setReviewedDiamonds((prev) => {
         const updated = new Set(prev);
-        updated.add(diamondId);
-        console.log("Updated Diamond IDs:", updated); 
+        updated.add(DiamondID);
+        console.log("Updated Diamond IDs:", updated);
         return updated;
       });
-    } 
-  
-    if (productId) {
+    }
+
+    if (ProductID) {
       setReviewedProducts((prev) => {
         const updated = new Set(prev);
-        updated.add(productId);
+        updated.add(ProductID);
         console.log("Updated Product IDs:", updated);
         return updated;
       });
     }
+
     notification.success({
       message: "Feedback Submitted",
       description: "Thank you for your feedback!",
     });
   };
   useEffect(() => {
-    console.log("Reviewed Diamonds:", reviewedDiamonds);
-    console.log("Reviewed Products:", reviewedProducts);
+    localStorage.setItem(
+      "reviewedDiamonds",
+      JSON.stringify(Array.from(reviewedDiamonds))
+    );
+    localStorage.setItem(
+      "reviewedProducts",
+      JSON.stringify(Array.from(reviewedProducts))
+    );
   }, [reviewedDiamonds, reviewedProducts]);
+
+  // useEffect(() => {
+  //   const savedReviewedDiamonds = localStorage.getItem("reviewedDiamonds");
+  //   const savedReviewedProducts = localStorage.getItem("reviewedProducts");
+  //   console.log(localStorage.getItem("reviewedDiamonds"));
+  //   console.log(localStorage.getItem("reviewedProducts"));
+
+  //   if (savedReviewedDiamonds) {
+  //     setReviewedDiamonds(new Set(JSON.parse(savedReviewedDiamonds)));
+  //   }
+
+  //   if (savedReviewedProducts) {
+  //     setReviewedProducts(new Set(JSON.parse(savedReviewedProducts)));
+  //   }
+  // }, []);
 
   return (
     <MainContainer>
@@ -452,7 +489,6 @@ const OrderDetail: React.FC = () => {
             diamondId={selectedDiamondID}
             productId={selectedProductID}
           />
-          
         </ProductsWrapper>
 
         <OrderInfo>
@@ -461,20 +497,36 @@ const OrderDetail: React.FC = () => {
             <img
               style={{ width: "150px", objectFit: "contain", maxWidth: "100%" }}
               className="payment-method"
-              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2F122290830_132545211952745_2371548508191512996_n.jpg?alt=media&token=13186094-eb53-4e6c-98a0-1e7fe06b3664"
+              src={
+                paymentMethod === "COD"
+                  ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FCheckout%2FPayment%20-%20Img%2F122290830_132545211952745_2371548508191512996_n.jpg?alt=media&token=13186094-eb53-4e6c-98a0-1e7fe06b3664"
+                  : paymentMethod === "Paypal"
+                  ? "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Customer%2FOrderDetails%2FPaypal.png?alt=media&token=239e4919-44d4-4018-98ed-abcd2ff4a350"
+                  : ""
+              }
               alt="Payment method"
             />
           </Row>
           <Column>
-            {/* <InfoText>Discount: 10%</InfoText>
-            <InfoText>VAT: 10%</InfoText> */}
+            <InfoTextBold>
+              Discount: -({discount.toFixed(0) || 0}%):
+              <span>-{discountPrice.toFixed(2) || 0}</span>
+            </InfoTextBold>
+
             <InfoText>
-              Shipping: {shippingFee > 0 ? formatPrice(shippingFee) : "Free"}
+              <div> Shipping:</div>
+              <div> {shippingFee > 0 ? formatPrice(shippingFee) : "Free"}</div>
             </InfoText>
+            <InfoText>
+              <div> Subtotal:</div>
+              <div> {formatPrice(subTotal)}</div>
+            </InfoText>
+
             <br />
-            <InfoText style={{ color: "red" }}>
-              Total: {formatPrice(totalPrice)}
-            </InfoText>
+            <InfoTextBold style={{ color: "red" }}>
+              <div> Total:</div>
+              <div> {formatPrice(totalPrice)}</div>
+            </InfoTextBold>
           </Column>
         </OrderInfo>
         <EditButton>
@@ -618,6 +670,25 @@ const InfoText = styled.p`
   color: #151542;
   margin-top: 20px;
   font-size: 18px;
+  display: flex;
+  justify-content: space-between; /* Căn chỉnh các phần tử con */
+  align-items: center;
+
+  @media (max-width: 768px) {
+    margin-top: 10px;
+    font-size: 16px;
+  }
+`;
+
+const InfoTextBold = styled.p`
+  color: #151542;
+  margin-top: 20px;
+  font-size: 18px;
+  /* font-weight: bold; */
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 10px;
 
   @media (max-width: 768px) {
     margin-top: 10px;
@@ -642,7 +713,7 @@ const Row = styled.div`
 const Column = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: flex-end;
+  width: 270px;
 
   @media (max-width: 768px) {
     align-items: flex-start;

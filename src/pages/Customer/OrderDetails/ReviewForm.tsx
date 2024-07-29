@@ -56,6 +56,9 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 
       await createFeedback(feedbackData);
       onCreate(feedbackData);
+
+      form.resetFields();
+
     } catch (error) {
       console.error("Error submitting feedback:", error);
     }
@@ -91,10 +94,10 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           <Input.TextArea rows={4} />
         </Form.Item>
         <Form.Item name="diamondId" style={{ display: "none" }}>
-          <Input />
+          <Input  type="hidden"/>
         </Form.Item>
         <Form.Item name="productId" style={{ display: "none" }}>
-          <Input />
+          <Input type="hidden" />
         </Form.Item>
       </Form>
     </Modal>
