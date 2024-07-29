@@ -3,12 +3,13 @@ import { products } from "./../shared/ListOfProducts";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 
 import { Section, Container, Heading, List, StyledPagination, CustomBreadcrumb } from "./AllWeddingRing.styled";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Spin  } from "antd";
 import FilterSort from "@/components/FilterSort/FilterSort";
 import { Link } from "react-router-dom";
 const { Title, Text } = Typography;
 
 const AllWeddingRing: React.FC = () => {
+  const [loading, setLoading] = useState(true);
   const includedCategoryKeyword = "wedding-ring";
 
   const [filteredProducts] = useState(
@@ -49,6 +50,21 @@ const AllWeddingRing: React.FC = () => {
   // const handleProductClick = (id: any) => {
   //   navigate(`${config.routes.public.product}/${id}`);
   // };
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        <Spin tip="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <Section>

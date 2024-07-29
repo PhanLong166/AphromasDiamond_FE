@@ -9,7 +9,7 @@ import {
   StyledPagination,
   CustomBreadcrumb,
 } from "./AllEngagementRing.styled";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Spin } from "antd";
 import FilterSort from "@/components/FilterSort/FilterSort";
 import { Link } from "react-router-dom";
 import { showAllProduct } from "@/services/productAPI";
@@ -94,6 +94,22 @@ const AllEngagementRing: React.FC = () => {
     );
     setFilteredProducts(filtered);
   }, [products]);
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        <Spin tip="Loading..." />
+      </div>
+    );
+  }
 
   return (
     <Section>
