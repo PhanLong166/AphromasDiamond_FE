@@ -10,6 +10,7 @@ interface ReviewFormProps {
   orderId: string | null; 
   accountId: number | null; 
   diamondId: number | null; 
+  productId: number | null;
 }
 
 const ReviewForm: React.FC<ReviewFormProps> = ({
@@ -19,24 +20,38 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
   orderId,
   accountId,
   diamondId,
+  productId,
 }) => {
   const [form] = Form.useForm();
 
+  React.useEffect(() => {
+    form.setFieldsValue({
+      diamondId: diamondId || null,
+      productId: productId || null,
+    });
+  }, [diamondId, productId, form]);
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
+      console.log("Values before submission: ", values);
+  
+      if (!diamondId && !productId) {
+        throw new Error("No valid ID for feedback");
+      }
+      
+  
       const feedbackData = {
         Stars: values.stars,
         Comment: values.comment,
         CommentTime: new Date().toISOString(),
         IsActive: true,
-        DiamondID: diamondId,
+        DiamondID: diamondId || null,  
         JewelrySettingID: null, 
         OrderID: orderId,
         AccountID: accountId,
-        ProductID: null, 
+        ProductID: productId || null,
       };
-
+  
       await createFeedback(feedbackData);
       onCreate(feedbackData);
     } catch (error) {

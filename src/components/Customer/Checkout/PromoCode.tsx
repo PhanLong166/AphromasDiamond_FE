@@ -3,47 +3,78 @@ import { DownOutlined } from "@ant-design/icons";
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import { Select } from "antd";
-import { diamondvouchers} from "../Data/data";
+import { showAllVoucher } from "@/services/voucherAPI";
+import { useAppDispatch } from "@/hooks";
+import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 interface PromoCodeSectionProps {
-  onApplyVoucher: (discount: number) => void;
+  onApplyVoucher: (discount: number, voucherID: number) => void;
 }
 
 const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
-  const [selectedVoucher, setSelectedVoucher] = useState<string | null>(null);
+  const [selectedVoucher, setSelectedVoucher] = useState<Voucher | null>(null);
   const [error, setError] = useState("");
   const [availableVouchers, setAvailableVouchers] = useState<any[]>([]);
+  const dispatch = useAppDispatch();
+
+  // const handleSelectVoucher = (voucher: Voucher) => {
+  //   localStorage.setItem("selectedVoucher", JSON.stringify(voucher));
+  // }
+  // console.log(selectedVoucher);
+  // console.log(handleSelectVoucher);
+
+  interface Voucher {
+    buttonLabel: string | null;
+    VoucherID: number;
+    VoucherCode: string;
+    Description: string;
+    StartDate: string;
+    EndDate: string;
+    PercentDiscounts: string; 
+  }
+
   const toggleCollapse = () => {
     setIsCollapsed(!isCollapsed);
   };
-  useEffect(() => {
-    // Set all vouchers as available regardless of product type
-    const allVouchers = [...diamondvouchers, ];
-    setAvailableVouchers(allVouchers.filter(voucher => !voucher.used));
-  }, []);
 
-  const handleApplyClick = () => {
-    const voucher = availableVouchers.find(voucher => voucher.buttonLabel === selectedVoucher);
-    if (voucher) {
-      const discount = parseFloat(voucher.price);
-      onApplyVoucher(discount);
-
-      // Mark voucher as used
-      const updatedVouchers = availableVouchers.map(v => {
-        if (v.buttonLabel === selectedVoucher) {
-          return { ...v, used: true };
-        }
-        return v;
-      });
-
-      setAvailableVouchers(updatedVouchers);
-      setSelectedVoucher(null);
-      setError("");
-    } else {
-      setError("Please select a valid promo code");
+  const getAllVouchers = async () => {
+    try {
+      const { data } = await showAllVoucher();
+      const filteredVouchers = filterValidVouchers(data.data);
+      
+      setAvailableVouchers(filteredVouchers);
+      console.log(availableVouchers);
+    } catch (error) {
+      console.error(error);
     }
   };
+  useEffect(() => {
+    getAllVouchers();
+  }, []);
 
+  const filterValidVouchers = (vouchers: Voucher[]) => {
+    const currentDate = new Date();
+    return vouchers.filter((voucher) => new Date(voucher.EndDate) > currentDate);
+  };
+
+const handleApplyClick = () => {
+  if (selectedVoucher) {
+    const discount = parseFloat(selectedVoucher.PercentDiscounts);
+    console.log("Selected Voucher:", selectedVoucher);
+    console.log("Discount Value:", discount);
+    dispatch(orderSlice.actions.setVoucherID(selectedVoucher.VoucherID));
+
+    if (!isNaN(discount) && discount > 0) {
+      onApplyVoucher(discount, selectedVoucher.VoucherID);
+      setError(""); 
+      localStorage.setItem("selectedVoucher", JSON.stringify(selectedVoucher));
+    } else {
+      setError("Invalid discount value");
+    }
+  } else {
+    setError("Please select a valid promo code");
+  }
+};
 
   return (
     <PromoCodeContainer>
@@ -56,19 +87,19 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
             allowClear
             placeholder="Select a promo code"
             style={{ width: '100%' }}
+           
             onChange={(value) => {
-              if (value === undefined) {
-                setSelectedVoucher(null);
+              const voucher = availableVouchers.find(v => v.Description === value);
+              setSelectedVoucher(voucher || null);
+              if (!voucher) {
                 setError("");
-                onApplyVoucher(0); // Không thực hiện discount khi giá trị bị xóa
-              } else {
-                setSelectedVoucher(value as string);
+                onApplyVoucher(0, 0); 
               }
             }}
           >
             {availableVouchers.map(voucher => (
-              <Select.Option key={voucher.buttonLabel} value={voucher.buttonLabel}>
-                {voucher.eventTitle} - {voucher.buttonLabel}
+              <Select.Option key={voucher.VoucherID} value={voucher.Description}>
+                {voucher.Description}
               </Select.Option>
             ))}
           </Select>

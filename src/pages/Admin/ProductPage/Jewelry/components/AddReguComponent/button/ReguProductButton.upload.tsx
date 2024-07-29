@@ -16,10 +16,10 @@ const UploadButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     setCurrent,
     api
 }) => {
-    const ProductID = useAppSelector((state) => state.uploadProduct.ProductID);
-    const imageUploadList = useAppSelector((state) => state.uploadProduct.imageUploadList);
+    const ProductID = useAppSelector((state) => state.uploadReguProduct.ProductID);
+    const imageUploadList = useAppSelector((state) => state.uploadReguProduct.imageUploadList);
 
-    const uploadDiamondImage = async () => {
+    const uploadProductImage = async () => {
         try {
             await uploadImage(imageUploadList, ProductID);
             api.success({
@@ -40,7 +40,7 @@ const UploadButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
             <Button
                 type="primary"
                 htmlType="submit"
-                onClick={uploadDiamondImage}
+                onClick={uploadProductImage}
             >
                 {children}
             </Button>

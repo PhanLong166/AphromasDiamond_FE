@@ -5,6 +5,9 @@ import { NotificationInstance } from "antd/es/notification/interface";
 import ProductImageUpload from "../upload/ReguJewImage.upload";
 import UploadButton from "../button/ReguProductButton.upload";
 import AddProductForm from "../form/ReguJewForm";
+import { ReguJewelryField } from "../form/ReguJewForm.field";
+import { useNavigate } from "react-router-dom";
+import config from "@/config";
 
 type ProductStepsType = {
     title: string;
@@ -15,11 +18,8 @@ type ProductStepsProps = {
     api: NotificationInstance;
     fileList: UploadFile[];
     setFileList: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
-    docsList?: UploadFile[];
-    setDocsList?: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
     onChangeImg: (value: any) => void;
     onPreview: (value: any) => void;
-    setIsAdding?: (values: any) => void;
     fetchData: () => Promise<void>
 }
 
@@ -35,12 +35,15 @@ const ProductSteps = ({
     const [current, setCurrent] = useState(0);
     const [form] = Form.useForm();
     const [imageForm] = Form.useForm();
+    const navigate = useNavigate();
 
     const steps: ProductStepsType[] = [
         {
             title: 'Information',
             content: (
                 <AddProductForm
+                    fields={ReguJewelryField}
+                    form={form}
                 />
             )
         },
@@ -113,6 +116,7 @@ const ProductSteps = ({
                 {current === steps.length - 1 && (
                     <Button type="primary" onClick={() => {
                         fetchData();
+                        navigate(config.routes.admin.jewelryProduct);
                     }}>
                         Done
                     </Button>

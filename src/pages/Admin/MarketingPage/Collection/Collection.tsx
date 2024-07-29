@@ -50,8 +50,8 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-        name={dataIndex.toString()}
-        style={{ margin: 0 }}
+          name={dataIndex.toString()}
+          style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -88,7 +88,7 @@ const Collection = () => {
   const isEditing = (record: any) => record.key === editingKey;
   const [products, setProducts] = useState<any[]>([]);
 
-  
+
   type NotificationType = "success" | "info" | "warning" | "error";
 
   const openNotification = (
@@ -114,16 +114,16 @@ const Collection = () => {
       const formattedCollections = data.map((collection: any) => ({
         key: collection.CollectionID,
         collectionID: collection.CollectionID,
-          collectionName: collection.CollectionName,
-          description: collection.Description,
-          debutTime: collection.DebutTime,
+        collectionName: collection.CollectionName,
+        description: collection.Description,
+        debutTime: collection.DebutTime,
       }));
 
       const formattedProducts = productData
-      .filter((product: any) => (product.CollectionID !== null))
-      .map((product: any) => ({
-        productName: product.Name,
-      }));
+        .filter((product: any) => (product.CollectionID !== null))
+        .map((product: any) => ({
+          productName: product.Name,
+        }));
 
       setCollections(formattedCollections);
       setProducts(formattedProducts);
@@ -209,11 +209,11 @@ const Collection = () => {
     },
     {
       title: "Debut Date",
-      dataIndex: "debutDate",
+      dataIndex: "debutTime",
       editable: true,
-      onChange:{onChangeDate},
+      onChange: { onChangeDate },
       sorter: (a: any, b: any) =>
-        a.debutDate.length - b.debutDate.length,
+        a.debutTime.length - b.debutTime.length,
     },
     {
       title: "Product Quantity",
@@ -276,13 +276,13 @@ const Collection = () => {
     },
     {
       title: "Delete",
-      dataIndex: "collectionID",
+      dataIndex: "delete",
       className: "TextAlign",
       render: (record: any) =>
         collections.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.collectionID)}
+            onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -290,7 +290,7 @@ const Collection = () => {
     },
   ];
 
-  
+
   const mergedColumns = columns.map((col) => {
     if (!col.editable) {
       return col;
@@ -338,8 +338,8 @@ const Collection = () => {
   const handleCancel = () => {
     setIsAdding(false);
   };
-  
-  
+
+
   // SUBMIT FORM
   interface SubmitButtonProps {
     form: FormInstance;
@@ -392,7 +392,7 @@ const Collection = () => {
 
   return (
     <>
-          {contextHolder}
+      {contextHolder}
 
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
@@ -425,12 +425,12 @@ const Collection = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Collection</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Collection</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -531,25 +531,25 @@ const Collection = () => {
                         />
                       </Form.Item>
                     </Styled.FormItem> */}
-                  
 
-                  <Styled.ActionBtn>
-                    <Form.Item>
-                      <Space>
-                      <SubmitButton form={form}> 
-                        <SaveOutlined />
-                        Save
-                      </SubmitButton>
-                        <Button
-                          onClick={handleCancel}
-                          className="CancelBtn"
-                          style={{ marginLeft: "10px" }}
-                        >
-                          Cancel
-                        </Button>
-                      </Space>
-                    </Form.Item>
-                  </Styled.ActionBtn>
+
+                    <Styled.ActionBtn>
+                      <Form.Item>
+                        <Space>
+                          <SubmitButton form={form}>
+                            <SaveOutlined />
+                            Save
+                          </SubmitButton>
+                          <Button
+                            onClick={handleCancel}
+                            className="CancelBtn"
+                            style={{ marginLeft: "10px" }}
+                          >
+                            Cancel
+                          </Button>
+                        </Space>
+                      </Form.Item>
+                    </Styled.ActionBtn>
                   </Form>
                 </>
               ) : (
@@ -561,10 +561,10 @@ const Collection = () => {
                       },
                     }}
                     bordered
-                    dataSource={mergedColumns}
-                    columns={columns}
+                    dataSource={collections}
+                    columns={mergedColumns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} 
+                    pagination={{ pageSize: 6 }}
                     onChange={onChangeTable}
                   />
                 </Form>

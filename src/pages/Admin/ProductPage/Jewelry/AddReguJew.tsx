@@ -1,11 +1,8 @@
 import { useEffect, useState } from "react";
 import * as Styled from "./Jewelry.styled";
-// import { useState } from "react";
 import {
-  // Form,
   notification,
 } from "antd";
-// import { Link } from "react-router-dom";
 
 import type { UploadProps, GetProp, UploadFile } from "antd";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
@@ -17,9 +14,8 @@ import { showAllProduct } from "@/services/jewelryAPI";
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];
 
 const AddProduct = () => {
-  // const [form] = Form.useForm();
   const [api, contextHolder] = notification.useNotification();
-  const [products, setProducts] = useState<any>([]); 
+  const [products, setProducts] = useState<any>([]);
 
 
   const fetchData = async () => {
@@ -27,7 +23,7 @@ const AddProduct = () => {
       const responseJewelrys = await showAllProduct();
       const jewelrysData = responseJewelrys.data;
 
-      const formattedJewelrys = await Promise.all(jewelrysData?.map(async (jewelry: any) => ({
+      const formattedJewelryList = jewelrysData?.map((jewelry: any) => ({
         jewelryID: jewelry.ProductID,
         jewelryName: jewelry.Name,
         inscription: jewelry.Inscription,
@@ -39,50 +35,50 @@ const AddProduct = () => {
         collectionID: jewelry.CollectionID,
         discountID: jewelry.DiscountID,
         totalQuantitySettingVariants: jewelry.TotalQuantityJewelrySettingVariants,
-        images: await Promise.all(jewelry.UsingImage.map(async (image: any) => ({
+        images: jewelry.UsingImage.map((image: any) => ({
           id: image.UsingImageID,
           name: image.Name,
-          url: await getImage(image.UsingImageID),
-        }))),
-      })));
+          url: getImage(image.UsingImageID),
+        })),
+      }));
 
-      console.log("Formatted Jewelry:", formattedJewelrys);
-      setProducts(formattedJewelrys);
+      setProducts(formattedJewelryList);
       console.log(products);
     } catch (error) {
-      console.error("Failed to fetch Jewelrys:", error);
+      console.error("Failed to fetch Products:", error);
     }
   };
 
   useEffect(() => {
     fetchData();
   }, []);
-// UPLOAD IMAGES
-const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-const onChangeImg: UploadProps["onChange"] = ({ fileList: newFileList }) => {
-  setFileList(newFileList);
-};
+  // UPLOAD IMAGES
+  const [fileList, setFileList] = useState<UploadFile[]>([]);
 
-const onPreview = async (file: UploadFile) => {
-  let src = file.url as string;
-  if (!src) {
-    src = await new Promise((resolve) => {
-      const reader = new FileReader();
-      reader.readAsDataURL(file.originFileObj as FileType);
-      reader.onload = () => resolve(reader.result as string);
-    });
-  }
-  const image = new Image();
-  image.src = src;
-  const imgWindow = window.open(src);
-  imgWindow?.document.write(image.outerHTML);
-};
+  const onChangeImg: UploadProps["onChange"] = ({ fileList: newFileList }) => {
+    setFileList(newFileList);
+  };
+
+  const onPreview = async (file: UploadFile) => {
+    let src = file.url as string;
+    if (!src) {
+      src = await new Promise((resolve) => {
+        const reader = new FileReader();
+        reader.readAsDataURL(file.originFileObj as FileType);
+        reader.onload = () => resolve(reader.result as string);
+      });
+    }
+    const image = new Image();
+    image.src = src;
+    const imgWindow = window.open(src);
+    imgWindow?.document.write(image.outerHTML);
+  };
 
 
   return (
     <>
-          {contextHolder}
+      {contextHolder}
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -91,14 +87,13 @@ const onPreview = async (file: UploadFile) => {
           <ProductMenu />
 
           <Styled.AdPageArea>
-          <ProductSteps
+            <ProductSteps
               api={api}
               fileList={fileList}
               setFileList={setFileList}
               onChangeImg={onChangeImg}
               onPreview={onPreview}
               fetchData={fetchData}
-              
             />
           </Styled.AdPageArea>
         </Styled.AdminPage>

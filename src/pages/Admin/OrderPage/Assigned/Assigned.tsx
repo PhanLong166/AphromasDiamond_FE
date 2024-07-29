@@ -38,6 +38,7 @@ const AssignedOrder = () => {
         accountDeliveryID: order.AccountDeliveryID,
         accountSaleID: order.AccountSaleID,
         voucherID: order.VoucherID,
+        deliveryID: order.AccountDeliveryID
       }));
 
       const formattedAccounts = accountData
@@ -83,6 +84,9 @@ const columns: TableColumnsType<any> = [
     dataIndex: "orderDate",
     defaultSortOrder: "descend",
     sorter: (a, b) => a.orderDate.localeCompare(b.orderDate),
+    render: (_, { orderDate }) => {
+      return <>{orderDate.replace("T", " ").replace(".000Z", " ")}</>
+    }, 
   },
   {
     title: "Customer",
@@ -95,12 +99,17 @@ const columns: TableColumnsType<any> = [
       return customerAccount ? customerAccount.accountName : null;
     },
   },
-  // {
-  //   title: "Total",
-  //   dataIndex: "total",
-  //   defaultSortOrder: "descend",
-  //   sorter: (a, b) => a.total - b.total,
-  // },
+  {
+    title: "Delivery Staff",
+    dataIndex: "deliveryID",
+    showSorterTooltip: { target: "full-header" },
+    sorter: (a, b) => a.AccountDeliveryID.length - b.AccountDeliveryID.length,
+    sortDirections: ["descend"],
+    render: (_, record) => {
+      const deliveryAccount = accounts.find((account: any) => account.accountID === record.deliveryID);
+      return deliveryAccount ? deliveryAccount.accountName : null;
+    },
+  },
   {
     title: "Status",
     key: "orderStatus",

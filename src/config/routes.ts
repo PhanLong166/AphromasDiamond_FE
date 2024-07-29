@@ -81,7 +81,7 @@ const routes = {
     jewelryProduct: "/admin/product/jewelry",
     jewelryDetail: "/admin/product/jewelry/detail/:id",
     addProduct: "/admin/product/jewelry/add/regular-jewelry",
-    addJewelry: "/admin/product/jewelry/add/diamond-jewelry",
+    AddCustomJewelry: "/admin/product/jewelry/add/diamond-jewelry",
     ringSettingProduct: "/admin/product/jewelry-setting",
     ringSettingDetail: "/admin/product/jewelry-setting/detail/:id",
     jewelryTypeProduct: "/admin/product/jewelry-type",

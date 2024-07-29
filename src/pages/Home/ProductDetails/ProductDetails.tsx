@@ -31,9 +31,9 @@ import {
   ProductPrice,
   ButtonContainer,
   Button,
-  Shipping,
-  ShippingList,
-  ShippingItem,
+  // Shipping,
+  // ShippingList,
+  // ShippingItem,
   CurrentPrice,
   BeforePrice,
   Discount,
@@ -171,6 +171,7 @@ const ProductDetails: React.FC = () => {
 
           const weightCarat = product.WeightCarat;
           const params = { weightCarat };
+          console.log(params);
           const sameWeightProductsResponse = await showAllProduct();
 
           if (sameWeightProductsResponse.status === 200) {
@@ -232,6 +233,7 @@ const ProductDetails: React.FC = () => {
         setFoundProduct(null);
       } finally {
         setIsLoading(false);
+        console.log('Loading: ', isLoading);
       }
     };
 
@@ -250,6 +252,7 @@ const ProductDetails: React.FC = () => {
               diamondId: feedback.DiamondID,
             }))
           );
+          console.log('Review: ', reviewsData);
         } else {
           console.error("Error fetching feedback:", response.statusText);
         }

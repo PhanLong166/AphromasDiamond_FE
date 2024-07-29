@@ -18,6 +18,7 @@ export type OrderAPIProps = {
     ReasonReturn?: string;
     Note?: string;
     IsActive: boolean;
+    VoucherID?: number;
 }
 
 export const showAllOrder = () => {
@@ -26,6 +27,10 @@ export const showAllOrder = () => {
 
 export const showOrdersPage = () => {
     return get(`/order/showOrders`);
+}
+
+export const showReveneSummary = () => {
+    return post(`/order/summarize`);
 }
 
 export const orderDetail = (id: number) => {
@@ -40,7 +45,7 @@ export const createOrder = (order: object) => {
     return post(`/order/create`, order);
 }
 
-export const updateOrder = (id: number, order: object) => {
+export const updateOrder = (id: number, order: Partial<OrderAPIProps>) => {
     return put(`/order/update/${id}`, order);
 }
 

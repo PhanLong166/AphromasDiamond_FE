@@ -138,6 +138,7 @@ const FilterSortDiamond = () => {
         Shape: shapeSelected ? [shapeSelected] : [],
         page: 1,
       };
+      console.log('Params: ', params);
 
       const queryString = new URLSearchParams().toString();
 
@@ -145,6 +146,7 @@ const FilterSortDiamond = () => {
         const response = await showDiamonds(queryString);
         // Handle response from API
         setDiamondData(response.data);
+        console.log(diamondData);
         console.log(response);
       } catch (error) {
         console.error("Error fetching diamonds data:", error);

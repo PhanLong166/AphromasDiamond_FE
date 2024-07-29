@@ -3,7 +3,7 @@ import { Button, Form, FormInstance } from "antd";
 import { NotificationInstance } from "antd/es/notification/interface";
 import React, { useState } from "react";
 import uploadSlice from "../slice";
-import { createProduct } from "@/services/jewelryAPI";
+import { createProduct } from "@/services/productAPI";
 
 interface SubmitButtonProps {
     form: FormInstance;
@@ -40,8 +40,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
     const addProduct = async (productValues: object) => {
         try {
-            const { data } = await createProduct(productValues);
-            if (data.statusCode !== 200) throw new Error(data.message);
+            const { data, status } = await createProduct(productValues);
+            if (status !== 201) throw new Error(data.message);
             else {
                 api.success({
                     message: 'Notification',

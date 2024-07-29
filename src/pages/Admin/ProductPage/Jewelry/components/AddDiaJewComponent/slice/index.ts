@@ -3,12 +3,12 @@ import { createSlice } from "@reduxjs/toolkit";
 export const initialState = {
     ProductID: 0,
     imageUploadList: [],
-    docsUploadList: []
+    JewelrySettingID: 0,
 }
 
 export const name = 'upload';
 
-export const uploadSliceProduct = createSlice({
+export const uploadSliceDiaProduct = createSlice({
     name,
     initialState,
     reducers: {
@@ -18,12 +18,9 @@ export const uploadSliceProduct = createSlice({
         setImageUploadList: (state, action) => {
             state.imageUploadList = action.payload;
         },
-        setDocsUploadList: (state, action) => {
-            state.docsUploadList = action.payload;
-        },
     }
 });
 
-export const { setProductID, setImageUploadList, setDocsUploadList } = uploadSliceProduct.actions;
+export const { setProductID, setImageUploadList } = uploadSliceDiaProduct.actions;
 
-export default uploadSliceProduct;
+export default uploadSliceDiaProduct;
