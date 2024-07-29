@@ -159,7 +159,7 @@ const ProductPromotion = () => {
     setSelectedProducts(value);
   }
   const handleChangeDiamond = (value: any) => {
-    setSelectedDiamond(value);
+    setSelectedDiamonds(value);
   }
   // useEffect(()=>{
   //   const fetchData = async ()=> {
