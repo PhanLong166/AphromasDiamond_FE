@@ -70,46 +70,6 @@ const ProductDetails: React.FC = () => {
     setActiveTab(tabId);
   };
 
-  //data cmt
-  // const reviewsData = [
-  //   {
-  //     name: "Olivia Williams",
-  //     avatar:
-  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt1.jpg?alt=media&token=fda03330-bebc-42a9-a7aa-568f2f9cdb9f",
-  //     rating: 5,
-  //     date: "November 10, 2021",
-  //     highlight: "Awesome Product",
-  //     comment:
-  //       "Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-  //     reply:
-  //       " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-  //   },
-  //   {
-  //     name: "Phoenix Knight",
-  //     avatar:
-  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt2.jpg?alt=media&token=31ba6ae3-17f5-4f7e-b1b3-d316d7019068",
-  //     rating: 4,
-  //     date: "March 7, 2022",
-  //     highlight: "Awesome Product",
-  //     comment:
-  //       "This diamond ring is truly magnificent and captivating, capturing attention with its radiant brilliance and undeniable allure.",
-  //     reply:
-  //       " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-  //   },
-  //   {
-  //     name: "Serena Sterling",
-  //     avatar:
-  //       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2Favt3.jpg?alt=media&token=ade8454c-a9da-4cdc-89a3-74ebf5b5e387",
-  //     rating: 5,
-  //     date: "October 16, 2022",
-  //     highlight: "Awesome Product",
-  //     comment:
-  //       "The diamond on this ring has excellent clarity and radiance, capturing and refracting light in a mesmerizing display of brilliance and fire.",
-  //     reply:
-  //       " Absolutely love my new diamond ring! It's elegant, timeless, and the perfect addition to my jewelry collection.",
-  //   },
-  // ];
-
   //Metal
   const metalData = [
     { id: "yellow", label: "14k", type: "14K Yellow Gold" },
@@ -119,45 +79,6 @@ const ProductDetails: React.FC = () => {
   ];
   const [selectedMetal, setSelectedMetal] = useState("");
   const [metalType, setMetalType] = useState("");
-
-  // interface MetalData {
-  //   id: string;
-  //   label: string;
-  //   type: string;
-  // }
-
-  // const [metalData, setMetalData] = useState<MetalData[]>([]);
-  // const [selectedMetal, setSelectedMetal] = useState("");
-  // const [metalType, setMetalType] = useState("");
-  // useEffect(() => {
-  //   const fetchMetalData = async () => {
-  //     try {
-  //       const response = await showAllMaterial();
-  //       if (response.status === 200) {
-  //         const apiData = response.data.data; // Accessing the correct data array
-  //         const mappedData = apiData.map((item: any) => ({
-  //           id: item.Name.toLowerCase().replace(/ /g, ""),
-  //           label: item.Name.includes("14K") ? "14k" : "Pt",
-  //           type: item.Name,
-  //         }));
-  //         setMetalData(mappedData);
-  //         if (mappedData.length > 0) {
-  //           setSelectedMetal(mappedData[0].id);
-  //           setMetalType(mappedData[0].type);
-  //         }
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching metal data:", error);
-  //     }
-  //   };
-
-  //   fetchMetalData();
-  // }, []);
-
-  //Avg rating
-  // const totalReviews = reviewsData.length;
-  // const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
-  // const averageRating = totalRating / totalReviews;
   const [sizes, setSizes] = useState<any[]>([]);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
 
@@ -181,7 +102,6 @@ const ProductDetails: React.FC = () => {
 
   const handleClick = (sizeId: number) => {
     setSelectedSize(sizeId);
-    // Handle any other logic related to selecting a size, such as updating UI or making API calls
   };
 
   //inscription
@@ -459,13 +379,13 @@ const ProductDetails: React.FC = () => {
                       <div className="button-container">
                         {sizes.map((size) => (
                           <button
-                            key={size}
+                            key={size.SizeValue}
                             className={`size-button ${
-                              selectedSize === size ? "selected" : ""
+                              selectedSize === size.SizeValue ? "selected" : ""
                             }`}
-                            onClick={() => handleClick(size)}
+                            onClick={() => handleClick(size.SizeValue)}
                           >
-                            {size}
+                            {size.SizeValue}
                           </button>
                         ))}
                       </div>
@@ -511,8 +431,9 @@ const ProductDetails: React.FC = () => {
                   <div className="product-group">
                     <div className="product-price">
                       <CurrentPrice>
-                        ${foundProduct.FirstPrice + foundProduct.TotalDiamondPrice}
-                       
+                        $
+                        {foundProduct.FirstPrice +
+                          foundProduct.TotalDiamondPrice}
                       </CurrentPrice>
                       {foundProduct.salePrice && (
                         <div className="wrap">
@@ -525,12 +446,12 @@ const ProductDetails: React.FC = () => {
                 </ProductPrice>
               </Entry>
               <div className="outlet">
-              <Condition>
-                    <div className="payment-options-box">
-                      <h3>Tip for Free Shipping:</h3>
-                      <li>Free shipping on orders of 2 or more items</li>
-                    </div>
-                  </Condition>
+                <Condition>
+                  <div className="payment-options-box">
+                    <h3>Tip for Free Shipping:</h3>
+                    <li>Free shipping on orders of 2 or more items</li>
+                  </div>
+                </Condition>
                 <ButtonContainer>
                   <ButtonAdd className="add" onClick={() => navigate("/cart")}>
                     ADD TO CART
@@ -598,12 +519,18 @@ const ProductDetails: React.FC = () => {
                   <ul>
                     <li>ID Number: {foundProduct.ProductID}</li>
                     <li>Firm: {foundProduct.Brand}</li>
-                    <li>Type: {foundProduct.JewelrySetting.jewelryType.Name}</li>
-                    <li>Diamond Shape: {foundProduct.JewelrySetting.DiamondShape}</li>
-                    <li>Quantity: {foundProduct.TotalQuantityJewelrySettingVariants}</li>
+                    <li>
+                      Type: {foundProduct.JewelrySetting.jewelryType.Name}
+                    </li>
+                    <li>
+                      Diamond Shape: {foundProduct.JewelrySetting.DiamondShape}
+                    </li>
+                    <li>
+                      Quantity:{" "}
+                      {foundProduct.TotalQuantityJewelrySettingVariants}
+                    </li>
                     <li>Collection: {foundProduct?.CollectionID}</li>
                     <li>Setting: {foundProduct.JewelrySetting.Name}</li>
-
                   </ul>
                 </ListBlock>
                 <ListBlock>
