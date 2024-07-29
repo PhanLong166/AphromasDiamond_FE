@@ -386,7 +386,7 @@ const OrderDetail = () => {
                             allowClear
                             options={delivery.map((item: any) => ({
                               value: item.AccountDeliveryID,
-                              label: item.DeliveryName
+                              label: `${item.DeliveryName} (Orders: ${item.OrderNumber})`
                             }))}
                           />
                         </Modal>

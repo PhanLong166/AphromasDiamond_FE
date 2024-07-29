@@ -45,15 +45,4 @@ export const ReguJewelryField: FieldType[] = [
                 options={Brand_Option}
             />
     },
-    // {
-    //     key: 3,
-    //     label: "Jewelry Setting",
-    //     name: "JewelrySetting",
-    //     rules: [
-    //         {
-    //             required: true
-    //         }
-    //     ],
-    //     children: <></>
-    // }
 ]

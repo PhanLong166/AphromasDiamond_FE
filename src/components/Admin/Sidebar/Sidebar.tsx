@@ -17,6 +17,7 @@ import config from "@/config";
 import cookieUtils from "@/services/cookieUtils";
 import useAuth from "@/hooks/useAuth";
 import { getAccountDetail } from "@/services/accountApi";
+import { Role } from "@/utils/enum";
 
 const Sidebar = () => {
   const { AccountID, role } = useAuth();
@@ -195,7 +196,7 @@ const Sidebar = () => {
               </div>
             </Styled.SBContent>
 
-            {userInfo?.role === "ADMIN" && (
+            {role === Role.ADMIN && (
               <Styled.SBContent>
                 <div
                   className={`btn ${active === "Manager" ? "active-line" : ""}`}
