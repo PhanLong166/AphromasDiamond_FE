@@ -1,5 +1,5 @@
 import * as Styled from "./ProductDetail.styled";
-import React, { useState, useEffect } from "react";
+import { useState, useEffect } from "react";
 import {
   Button,
   Modal,

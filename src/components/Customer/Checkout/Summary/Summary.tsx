@@ -50,6 +50,7 @@ const Summary: React.FC = () => {
     setVoucherID(voucherID);
   };
   console.log(discount);
+  console.log(voucherID);
 
   const fetchData = React.useCallback(async () => {
     try {

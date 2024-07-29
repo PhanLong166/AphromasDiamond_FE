@@ -5,7 +5,7 @@ import type { UploadProps, GetProp, UploadFile } from "antd";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import ProductSteps from "./components/AddDiaJewComponent/steps/DiaJewSteps";
-import { getImage } from "@/services/imageAPI";
+// import { getImage } from "@/services/imageAPI";
 import { showAllProduct } from "@/services/jewelryAPI";
 
 type FileType = Parameters<GetProp<UploadProps, "beforeUpload">>[0];

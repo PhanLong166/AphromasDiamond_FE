@@ -124,7 +124,7 @@ const Pending = () => {
         OrderStatus: OrderStatus.ACCEPTED,
         IsActive: true,
         IsPayed: false,
-        AccountSaleID: AccountID,
+        AccountSaleID: AccountID ? AccountID : undefined,
       });
       if(data.statusCode !== 200) throw new Error(data.message);
       api.success({

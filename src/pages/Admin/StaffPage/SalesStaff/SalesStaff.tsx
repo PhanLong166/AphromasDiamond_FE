@@ -14,6 +14,7 @@ import {
   Table,
   Button,
   notification,
+  Typography,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
@@ -197,34 +198,34 @@ const SalesStaff = () => {
       dataIndex: "email",
       editable: true,
     },
-    // {
-    //   title: "Edit",
-    //   dataIndex: "edit",
-    //   className: "TextAlign SmallSize",
-    //   render: (_: unknown, record: any) => {
-    //     const editable = isEditing(record);
-    //     return editable ? (
-    //       <span>
-    //         <Typography.Link
-    //           onClick={() => save(record.key)}
-    //           style={{ marginRight: 8 }}
-    //         >
-    //           Save
-    //         </Typography.Link>
-    //         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-    //           <a>Cancel</a>
-    //         </Popconfirm>
-    //       </span>
-    //     ) : (
-    //       <Typography.Link
-    //         disabled={editingName !== ""}
-    //         onClick={() => edit(record)}
-    //       >
-    //         Edit
-    //       </Typography.Link>
-    //     );
-    //   },
-    // },
+    {
+      title: "Edit",
+      dataIndex: "edit",
+      className: "TextAlign SmallSize",
+      render: (_: unknown, record: any) => {
+        const editable = isEditing(record);
+        return editable ? (
+          <span>
+            <Typography.Link
+              onClick={() => save(record.key)}
+              style={{ marginRight: 8 }}
+            >
+              Save
+            </Typography.Link>
+            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+              <a>Cancel</a>
+            </Popconfirm>
+          </span>
+        ) : (
+          <Typography.Link
+            disabled={editingName !== ""}
+            onClick={() => edit(record)}
+          >
+            Edit
+          </Typography.Link>
+        );
+      },
+    },
     {
       title: "Delete",
       dataIndex: "delete",

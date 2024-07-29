@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 
 const mockLineData = () => {
 
-  const [revenes, setRevenes] = useState([]);
+  const [revenes, setRevenes] = useState<any>([]);
 
   const fetchData = async () => {
     try {
@@ -31,7 +31,7 @@ const mockLineData = () => {
       id: "Diamond",
       color: colors.purple,
       data: [
-        { x: {revenes.month}, y: {revenes.revenue} },
+        { x: revenes.month, y: revenes.revenue },
 
         // { x: "Nov 2023", y: 35 },
         // { x: "Dec 2023", y: 14 },

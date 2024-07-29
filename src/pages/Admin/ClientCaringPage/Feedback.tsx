@@ -118,7 +118,7 @@ const Feedback = () => {
     }
   };
 
-  const columns: TableColumnsType<Item> = [
+  const columns: TableColumnsType<any> = [
     {
       title: "ID",
       dataIndex: "feedbackID",
