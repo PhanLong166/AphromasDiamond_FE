@@ -4,7 +4,6 @@ import { CloseOutlined } from "@ant-design/icons";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
-// import { products, Product } from "../shared/ListOfProducts";
 import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
 import {
   Body,

@@ -14,7 +14,6 @@ import FilterSort from "@/components/FilterSort/FilterSort";
 import { Link } from "react-router-dom";
 import { showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
-
 const { Title, Text } = Typography;
 
 const AllEngagementRing: React.FC = () => {
@@ -155,25 +154,33 @@ const AllEngagementRing: React.FC = () => {
                     hoverable
                     className="product-card"
                     cover={
-                      <>
-                        <Link to={`/product/${product.id}`}>
-                          <img
-                            style={{ borderRadius: "0" }}
-                            src={product.images[0]}
-                            alt={product.name}
-                            className="product-image"
-                            onMouseOver={(e) =>
-                              (e.currentTarget.src = product.images[2])
-                            }
-                            onMouseOut={(e) =>
-                              (e.currentTarget.src = product.images[0])
-                            }
-                          />
-                        </Link>
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                      </>
+                      product.images.length > 0 ? (
+                        <>
+                          <Link to={`/product/${product.id}`}>
+                            <img
+                              style={{ borderRadius: "0" }}
+                              src={product.images[0]?.url || ""}
+                              alt={product.name}
+                              className="product-image"
+                              onMouseOver={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[1]?.url ||
+                                  product.images[0]?.url ||
+                                  "")
+                              }
+                              onMouseOut={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[0]?.url || "")
+                              }
+                            />
+                          </Link>
+                          {product.salePrice && (
+                            <div className="sale-badge">SALE</div>
+                          )}
+                        </>
+                      ) : (
+                        <div>No Image Available</div>
+                      )
                     }
                   >
                     <div className="product-info">
@@ -195,14 +202,11 @@ const AllEngagementRing: React.FC = () => {
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
-                          $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                          ${product.firstPrice + product.totalDiamondPrice}
                         </Text>
                         {product.salePrice && (
                           <Text delete className="product-sale-price">
-                            ${product.price}
+                            ${product.totalDiamondPrice}
                           </Text>
                         )}
                       </div>
