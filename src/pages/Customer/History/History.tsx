@@ -22,11 +22,13 @@ interface DataType {
   OrderDate: string;
   CompleteDate: string;
   CustomerID: string | null;
-  OrderStatus: string; // Thêm OrderStatus vào đây nếu chưa có
+  OrderStatus: string;
   IsActive: boolean;
   AccountDeliveryID: string | null;
   AccountSaleID: string | null;
   TotalPrice?: string;
+  VoucherPrice?: string;
+  Shippingfee?: number;
 }
 
 const formatPrice = (price: number | bigint) => {
@@ -41,7 +43,6 @@ const formatDateTime = (dateTime: string) => {
     year: "numeric",
     month: "long",
     day: "2-digit",
-
   }).format(new Date(dateTime));
 };
 const fetchAllOrder = async (AccountID: number) => {
@@ -138,14 +139,19 @@ const History = () => {
     {
       title: "Order Date",
       dataIndex: "OrderDate",
-      render : (text) => formatDateTime(text),
+      render: (text) => formatDateTime(text),
       sorter: (a: DataType, b: DataType) =>
         a.OrderDate.localeCompare(b.OrderDate),
     },
     {
       title: "Total Price",
       dataIndex: "TotalPrice",
-      render: (text) => formatPrice(text),
+      render: (_, record) => {
+        const price = record.VoucherPrice  || record.TotalPrice ;
+        const shippingFee = record.Shippingfee || 0;
+        const totalPrice = parseFloat(price || "0") + shippingFee;
+        return formatPrice(Number(totalPrice || 0));
+      },
       sorter: (a: DataType, b: DataType) =>
         parseFloat(a.TotalPrice || "0") - parseFloat(b.TotalPrice || "0"),
     },

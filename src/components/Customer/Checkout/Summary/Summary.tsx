@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 /* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import styled from "styled-components";
@@ -36,6 +37,7 @@ const CartItem: React.FC<CartItemProps> = ({ name, image, sku, price }) => (
 
 const Summary: React.FC = () => {
   const [discount, setDiscount] = useState(0);
+  const [voucherID, setVoucherID] = useState<number | undefined>(undefined);
   const [orderLineItems, setOrderLineItems] = useState<any[]>([]);
   const [diamondList, setDiamondList] = useState<any[]>([]);
   const [productList, setProductList] = useState<any[]>([]);
@@ -43,8 +45,9 @@ const Summary: React.FC = () => {
   const [customer, setCustomer] = useState<any>();
   const dispatch = useAppDispatch()
 
-  const onApplyVoucher = (discount: number) => {
+  const onApplyVoucher = (discount: number, voucherID: number) => {
     setDiscount(discount);
+    setVoucherID(voucherID);
   };
   console.log(discount);
 

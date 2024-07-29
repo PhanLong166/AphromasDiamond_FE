@@ -45,7 +45,7 @@ export const createOrder = (order: object) => {
     return post(`/order/create`, order);
 }
 
-export const updateOrder = (id: number, order: object) => {
+export const updateOrder = (id: number, order: Partial<OrderAPIProps>) => {
     return put(`/order/update/${id}`, order);
 }
 

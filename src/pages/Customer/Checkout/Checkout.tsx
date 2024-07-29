@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import * as React from "react";
 import styled from "styled-components";
 import { Link, useNavigate } from "react-router-dom";
@@ -37,7 +38,6 @@ const Checkout: React.FC = () => {
   const TotalPrice = useAppSelector((state) => state.order.Total);
   const [api, contextHolder] = notification.useNotification();
 
-
   const fetchProvincesData = async () => {
     try {
       const data = await getProvinces();
@@ -60,6 +60,23 @@ const Checkout: React.FC = () => {
     getCustomerDetail();
     fetchProvincesData();
   }, [Customer?.CustomerID, AccountID]);
+
+  // React.useEffect(() => {
+  //   const voucher = localStorage.getItem("selectedVoucher");
+  //   if (voucher) {
+  //     setSelectedVoucher(JSON.parse(voucher));
+  //     console.log(selectedVoucher);
+  //   }
+  // }, []);
+  React.useEffect(() => {
+    getCustomerDetail();
+    fetchProvincesData();
+    // Retrieve selected voucher from local storage
+    const voucher = localStorage.getItem("selectedVoucher");
+    if (voucher) {
+      setSelectedVoucher(JSON.parse(voucher));
+    }
+  }, [AccountID]);
 
   const onFinish = async (values: any) => {
     try {

@@ -1,9 +1,17 @@
 import styled from "styled-components";
-import { Space, Table, Modal, TableColumnsType, Tag, TableProps } from "antd";
+import {
+  Space,
+  Table,
+  Modal,
+  TableColumnsType,
+  Tag,
+  TableProps,
+  Button,
+} from "antd";
 import AccountCus from "@/components/Customer/Account Details/AccountCus";
 import { useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
-import { orderRelation, showAllOrder } from "@/services/orderAPI";
+import { orderRelation, showAllOrder, updateOrder } from "@/services/orderAPI";
 import { showAllAccounts } from "@/services/accountApi";
 import useAuth from "@/hooks/useAuth";
 // import DropdownButton from './DropdownButton';
@@ -27,6 +35,8 @@ interface DataType {
   AccountDeliveryID: string | null;
   AccountSaleID: string | null;
   TotalPrice?: string;
+  VoucherPrice?: string;
+  Shippingfee?: number; 
 }
 
 const formatPrice = (price: number | bigint) => {
@@ -41,7 +51,6 @@ const formatDateTime = (dateTime: string) => {
     year: "numeric",
     month: "long",
     day: "2-digit",
-
   }).format(new Date(dateTime));
 };
 
@@ -75,7 +84,12 @@ const fetchAllOrder = async (AccountID: number) => {
     const detailedOrders = await Promise.all(
       customerOrders.map(async (order: DataType) => {
         const detailedOrder = await fetchOrderRelation(order.OrderID);
-        return { ...order, TotalPrice: detailedOrder.TotalPrice };
+
+        return {
+          ...order,
+          TotalPrice: detailedOrder.TotalPrice,
+          // VoucherPrice: detailedOrder.VoucherPrice,
+        };
       })
     );
 
@@ -88,6 +102,7 @@ const fetchAllOrder = async (AccountID: number) => {
   }
 };
 
+
 const fetchOrderRelation = async (id: number) => {
   try {
     const { data } = await orderRelation(id);
@@ -99,8 +114,22 @@ const fetchOrderRelation = async (id: number) => {
   }
 };
 
+const handleComfirm = async (orderID: number) => {
+  try {
+    const order = {
+      OrderStatus: "Completed",
+      IsPayed: true,
+      IsActive: true,
+    };
+    await updateOrder(orderID, order);
+  } catch (error) {
+    console.error(error);
+  }
+};
+
 const OrderList = () => {
   const [showModal, setShowModal] = useState(false);
+  const [selectedOrderID, setSelectedOrderID] = useState<number | null>(null);
   const [orders, setOrders] = useState<DataType[]>([]);
   const navigate = useNavigate();
   const { AccountID } = useAuth();
@@ -117,7 +146,9 @@ const OrderList = () => {
   }, [AccountID]);
   const handleOk = () => {
     setShowModal(false);
-    // Handle the actual cancel logic here
+    if (selectedOrderID) {
+      handleComfirm(selectedOrderID);
+    }
   };
 
   const handleCancel = () => {
@@ -140,7 +171,12 @@ const OrderList = () => {
     {
       title: "Total Price",
       dataIndex: "TotalPrice",
-      render: (text) => formatPrice(text),
+      render: (_, record) => {
+        const price = record.VoucherPrice  || record.TotalPrice ;
+        const shippingFee = record.Shippingfee || 0;
+        const totalPrice = parseFloat(price || "0") + shippingFee;
+        return formatPrice(Number(totalPrice || 0));
+      },
       sorter: (a: DataType, b: DataType) =>
         parseFloat(a.TotalPrice || "0") - parseFloat(b.TotalPrice || "0"),
     },
@@ -184,6 +220,17 @@ const OrderList = () => {
           >
             View
           </a>
+          {record.OrderStatus === "Delivered" && (
+            <Button
+              type="primary"
+              onClick={() => {
+                setSelectedOrderID(record.OrderID);
+                setShowModal(true);
+              }}
+            >
+              Confirm
+            </Button>
+          )}
         </Space>
       ),
       width: 134,
@@ -205,12 +252,12 @@ const OrderList = () => {
         </TableContainer>
       </Section>
       <Modal
-        title="Cancel Order"
+        title="Comfirm Order"
         visible={showModal}
         onOk={handleOk}
         onCancel={handleCancel}
       >
-        <p>Are you sure you want to cancel this order?</p>
+        <p>Are you sure you want to comfirm this order?</p>
       </Modal>
     </main>
   );
