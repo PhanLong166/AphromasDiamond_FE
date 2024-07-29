@@ -195,7 +195,7 @@ const Sidebar = () => {
               </div>
             </Styled.SBContent>
 
-            {userInfo?.role !== "ROLE_MANAGER" && (
+            {userInfo?.role === "ADMIN" && (
               <Styled.SBContent>
                 <div
                   className={`btn ${active === "Manager" ? "active-line" : ""}`}

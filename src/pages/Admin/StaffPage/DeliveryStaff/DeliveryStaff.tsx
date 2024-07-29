@@ -255,7 +255,7 @@
 //   };
 
 
-  
+
 // // SUBMIT FORM
 // interface SubmitButtonProps {
 //   form: FormInstance;
@@ -333,7 +333,7 @@
 //                     // onFinish={onFinish}
 //                     // scrollToFirstError
 //                   >
-                    
+
 //                     <Styled.FormItem>
 //                       <Form.Item name="radio-group" label="Staff Type">
 //                         <Radio.Group>
@@ -632,45 +632,45 @@ const SalesStaff = () => {
       editable: true,
     },
     {
-            title: "Detail",
-            key: "detail",
-            className: "TextAlign",
-            render: (_: any, staffID: any ) => (
-              <Space size="middle">
-                <Link to={`/admin/staff/delivery-staff/detail/${staffID}`}>
-                <EyeOutlined />
-                </Link>
-              </Space>
-            ),
-          },
-    {
-      title: "Edit",
-      dataIndex: "edit",
-      className: "TextAlign SmallSize",
-      render: (_: unknown, record: any) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingName !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-        );
-      },
+      title: "Detail",
+      key: "detail",
+      className: "TextAlign",
+      render: (_: any, staffID: any) => (
+        <Space size="middle">
+          <Link to={`/admin/staff/delivery-staff/detail/${staffID}`}>
+            <EyeOutlined />
+          </Link>
+        </Space>
+      ),
     },
+    // {
+    //   title: "Edit",
+    //   dataIndex: "edit",
+    //   className: "TextAlign SmallSize",
+    //   render: (_: unknown, record: any) => {
+    //     const editable = isEditing(record);
+    //     return editable ? (
+    //       <span>
+    //         <Typography.Link
+    //           onClick={() => save(record.key)}
+    //           style={{ marginRight: 8 }}
+    //         >
+    //           Save
+    //         </Typography.Link>
+    //         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+    //           <a>Cancel</a>
+    //         </Popconfirm>
+    //       </span>
+    //     ) : (
+    //       <Typography.Link
+    //         disabled={editingName !== ""}
+    //         onClick={() => edit(record)}
+    //       >
+    //         Edit
+    //       </Typography.Link>
+    //     );
+    //   },
+    // },
     {
       title: "Delete",
       dataIndex: "delete",
@@ -792,8 +792,8 @@ const SalesStaff = () => {
 
   return (
     <>
-          {contextHolder}
-          <Styled.GlobalStyle />
+      {contextHolder}
+      <Styled.GlobalStyle />
       <Styled.AdminArea>
         <Sidebar />
 
@@ -824,12 +824,12 @@ const SalesStaff = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Staff</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Staff</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>

@@ -330,13 +330,13 @@ export const ChatGene_Content = styled.div`
   .cusChat_ava-name {
     display: flex;
     align-items: center;
-    font-size: 14px;
+    font-size: 10px;
     font-weight: 500;
   }
   .cusChat_ava-name img {
-    width: 32px;
-    height: 32px;
-    border-radius: 100%;
+    width: 20px;
+    height: 20px;
+    border-radius: 0%;
     margin-right: 10px;
   }
   .cusChat_link {
@@ -350,6 +350,8 @@ export const Element = styled.div`
   background-color: ${theme.color.secondary};
   border-radius: 16px;
   padding: 25px 20px 15px 25px;
+      overflow: auto;
+
 `;
 
 export const Ele_Title = styled.div`
@@ -368,6 +370,7 @@ display: flex;
 flex-direction: column;
   justify-content: space-around;
 
+
   p {
     margin: 0px 0px 0px 0px;
   }
@@ -379,8 +382,7 @@ flex-direction: column;
     margin: 0px 0px 17px 0px;
   }
   .shell_eleName p {
-    font-size: 14px;
-    // font-weight: 600;
+    font-size: 13px;
     color: ${theme.color.primary};
   }
   .shell_eleButton {

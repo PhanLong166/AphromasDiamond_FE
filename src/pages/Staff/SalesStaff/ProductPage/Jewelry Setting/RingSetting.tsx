@@ -1,4 +1,4 @@
-import * as Styled from "../Jewelry Setting/RingSetting.styled";
+import * as Styled from "./RingSetting.styled";
 import React, { useState } from "react";
 import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";

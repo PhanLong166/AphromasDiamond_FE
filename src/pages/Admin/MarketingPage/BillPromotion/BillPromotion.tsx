@@ -489,8 +489,8 @@ const BillPromotion = () => {
                       },
                     }}
                     bordered
-                    dataSource={mergedColumns}
-                    columns={columns}
+                    dataSource={vouchers}
+                    columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
                       onChange: cancel,
