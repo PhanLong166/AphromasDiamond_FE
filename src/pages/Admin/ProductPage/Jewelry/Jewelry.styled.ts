@@ -259,7 +259,7 @@ export const FormChoice = styled.div`
 `;
 
 export const FormItem = styled.div`
-  width: 30%;
+  // width: 30%;
   height: 57px;
   margin-bottom: 30px;
 

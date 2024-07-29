@@ -40,8 +40,8 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
 
     const addProduct = async (productValues: object) => {
         try {
-            const { data } = await createProduct(productValues);
-            if (data.statusCode !== 200) throw new Error(data.message);
+            const { data, status } = await createProduct(productValues);
+            if (status !== 201) throw new Error(data.message);
             else {
                 api.success({
                     message: 'Notification',

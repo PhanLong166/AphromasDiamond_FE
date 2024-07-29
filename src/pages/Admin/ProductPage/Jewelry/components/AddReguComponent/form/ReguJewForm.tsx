@@ -3,6 +3,7 @@ import { FieldType } from "@/components/AuthForm/AuthForm.fields";
 import { Form } from "antd";
 import { FormInstance } from "antd/lib";
 import * as Styled from "../../../Jewelry.styled";
+import SettingUpload from "../upload/JewelrySetting.upload";
 
 type ReguJewelryFormProps = {
     fields: FieldType[];
@@ -30,6 +31,7 @@ const AddProductForm = ({
                 </Form.Item>
             </Styled.FormItem>
         ))}
+        <SettingUpload/>
     </Form>
 )
 
