@@ -336,9 +336,19 @@ const ProductDetails: React.FC = () => {
                     <div className="info-box">
                       {foundProduct.JewelrySetting.jewelryType.Name}
                     </div>
-                    <div className="info-box">
-                      {foundProduct.JewelrySetting.DiamondShape}
-                    </div>
+                    {/* <div>
+                      {foundProduct.JewelrySetting.jewelryType.Name.includes(
+                        "men"
+                      ) ? (
+                        <div className="info-box">
+                          {foundProduct?.JewelrySettingVariant?.Material[0]?.Name}
+                        </div>
+                      ) : (
+                        <div className="info-box">
+                          {foundProduct.JewelrySetting.DiamondShape}
+                        </div>
+                      )}
+                    </div> */}
                     <div className="info-box">
                       {foundProduct.JewelrySetting.Name}
                     </div>
