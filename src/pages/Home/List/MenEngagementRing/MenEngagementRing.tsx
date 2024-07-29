@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, List, StyledPagination } from "./MenEngagementRing.styled";
+import { Container, List } from "./MenEngagementRing.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
@@ -213,13 +213,7 @@ const MenEngagementRing: React.FC = () => {
   const currentMenEngagementData = menEngagementData[ringMetal];
 
   const [wishList, setWishList] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
-
-  const handleChangePage = (page: any) => {
-    setCurrentPage(page);
-  };
-
+  
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
     if (savedWishList) {
@@ -343,12 +337,6 @@ const MenEngagementRing: React.FC = () => {
           </Col>
         </Row>
       </List>
-      <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={currentMenEngagementData.products.length}
-        onChange={handleChangePage}
-      />
 
       <FAQ title={currentMenEngagementData.title} faqs={faqs} />
     </Container>
