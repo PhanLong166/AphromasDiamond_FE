@@ -167,8 +167,8 @@ const DiamondDetails: React.FC = () => {
                 fetchedDiamonds.length <= maxProductsToShow
                   ? fetchedDiamonds
                   : fetchedDiamonds
-                      .sort(() => 0.5 - Math.random())
-                      .slice(0, maxProductsToShow);
+                    .sort(() => 0.5 - Math.random())
+                    .slice(0, maxProductsToShow);
 
               setSameBrandProducts(productsToShow);
             } else {
@@ -296,8 +296,35 @@ const DiamondDetails: React.FC = () => {
     // navigate(config.routes.customer.cart);
   };
 
-  const handleCheckout = () => {
+  const handleCheckout = async () => {
     if (role) {
+      try {
+        const OrderLineChild: OrderLineBody = {
+          Quantity: 1,
+          DiamondID: getParamsID,
+          CustomerID: user?.CustomerID,
+          ProductID: null,
+          OrderID: null,
+        };
+
+        if (cartList.find((cart) => cart.DiamondID === getParamsID)) {
+          api.warning({
+            message: "Notification",
+            description: "The product is already in your cart",
+          });
+        } else {
+          const { data } = await createOrderLine(OrderLineChild);
+          if (data.statusCode === 404) throw new Error("Network error");
+          if (data.statusCode !== 200) throw new Error(data.message);
+          await openNotification(
+            "success",
+            "The product has been successfully added to the cart"
+          );
+          navigate(config.routes.customer.cart);
+        }
+      } catch (error: any) {
+        await openNotification("error", error.message || "Server error");
+      }
       navigate(config.routes.customer.checkout);
     } else navigate(config.routes.public.login);
   };
@@ -413,7 +440,7 @@ const DiamondDetails: React.FC = () => {
                         <CurrentPrice>
                           $
                           {foundProduct.DiscountPrice &&
-                          foundProduct.DiscountPrice !== foundProduct.Price
+                            foundProduct.DiscountPrice !== foundProduct.Price
                             ? foundProduct.DiscountPrice
                             : foundProduct.Price}
                         </CurrentPrice>
@@ -630,10 +657,10 @@ const DiamondDetails: React.FC = () => {
                             alt={diamond.name}
                             className="product-image"
                             onMouseOut={(e) =>
-                              (e.currentTarget.src =
-                                diamond.images && diamond.images.length > 0
-                                  ? diamond.images[0].url
-                                  : "/default-image.jpg")
+                            (e.currentTarget.src =
+                              diamond.images && diamond.images.length > 0
+                                ? diamond.images[0].url
+                                : "/default-image.jpg")
                             }
                           />
                         </Link>

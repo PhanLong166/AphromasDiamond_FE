@@ -104,8 +104,9 @@ const Cart = () => {
   };
 
   const [discount, setDiscount] = useState(0);
-  const onApplyVoucher = (discount: number) => {
+  const onApplyVoucher = (discount: number, voucherID: number) => {
     setDiscount(discount);
+    localStorage.setItem("selectedVoucher", JSON.stringify({ discount, voucherID }));
   };
 
   const calculateTotal = (

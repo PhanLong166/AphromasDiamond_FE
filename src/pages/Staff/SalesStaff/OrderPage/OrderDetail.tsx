@@ -6,6 +6,12 @@ import { Button, Empty, Modal, Tag } from "antd";
 import { Link, useParams } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import { orderDetail } from "@/services/orderAPI";
+import paypal from '@/assets/logo/payment/paypal.png';
+import cod from '@/assets/logo/payment/cod.jpg';
+import { showAllOrderLineForAdmin } from "@/services/orderLineAPI";
+import { getDiamondDetails } from "@/services/diamondAPI";
+import { getImage } from "@/services/imageAPI";
+import { PaymentMethodEnum } from "@/utils/enum";
 
 // const { Option } = Select;
 
@@ -33,36 +39,12 @@ const getStatusTag = (status: string) => {
   );
 };
 
-interface OrderLine {
-  lineID: number;
-  lineImg: string;
-  lineName: string;
-  size: string;
-  quantity: number;
-  price: number;
-}
-
-const orderLineData: OrderLine[] = [
-  {
-    lineID: 123,
-    lineImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    lineName:
-      "Double Row Diamond Chevron Engagement Ring In 14k (1/3 Ct. Tw.) 1.37 Carat H-VS2 Marquise Cut Diamond",
-    size: "8", //8, 10, 12, 14, 16
-    quantity: 1,
-    price: 5.03,
-  },
-  {
-    lineID: 123,
-    lineImg:
-      "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fshell.png?alt=media&token=5986b57a-3027-4a31-8da7-47ec1b6abf89",
-    lineName: "Aquamarine Stud Earrings In 14k White Gold (7mm)",
-    size: "8",
-    quantity: 2,
-    price: 4.0,
-  },
-];
+const formatPrice = (price: number | bigint) => {
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+  }).format(price)}`;
+};
 
 const OrderDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -70,25 +52,79 @@ const OrderDetail = () => {
   const [activeOrder, setActiveOrder] = useState<any>(null);
 
   const [orderStatus, setOrderStatus] = useState(activeOrder?.status || "");
+  const [diamondDetails, setDiamondDetails] = useState<{ [key: string]: any }>({});
+
+  const fetchData = async () => {
+    const orderResponse = await orderDetail(Number(id));
+    setActiveOrder(orderResponse.data.data);
+    console.log(activeOrder);
+  };
+
+  const fetchAllOrderLine = async () => {
+    try {
+      const res = await showAllOrderLineForAdmin();
+
+      if (res.data.data) {
+        const filteredOrders = res.data.data.filter(
+          (order: { OrderID: number }) =>
+            order.OrderID === parseInt(id || "", 10)
+        );
+
+        if (filteredOrders.length > 0) {
+          fetchDiamondDetails(filteredOrders);
+        } else {
+          console.log("No orders found with OrderID:", id);
+        }
+      }
+    } catch (error) {
+      console.error("Error fetching order lines:", error);
+    }
+  };
+
+  const fetchDiamondDetails = async (orders: any) => {
+    try {
+      const details: { [key: string]: any } = {};
+      for (const order of orders) {
+        if (order.DiamondID) {
+          const res = await getDiamondDetails(order.DiamondID);
+          const diamond = res.data.data;
+
+          let diamondImage = "https://via.placeholder.com/150";
+
+          if (diamond.usingImage && diamond.usingImage.length > 0) {
+            const imageIDPromises = diamond.usingImage.map(
+              async (image: any) => {
+                try {
+                  const imageRes = getImage(image.UsingImageID);
+                  return imageRes || image.url;
+                } catch (error) {
+                  console.error("Error fetching image:", error);
+                  return image.url;
+                }
+              }
+            );
+            const imageURLs = await Promise.all(imageIDPromises);
+            diamondImage = imageURLs[0];
+          }
+
+          details[order.DiamondID] = {
+            ...diamond,
+            UsingImage: diamondImage,
+          };
+        }
+      }
+      setDiamondDetails(details);
+    } catch (error) {
+      console.error("Error fetching diamond details:", error);
+    }
+  };
 
   useEffect(() => {
-    const fetchData = async () => {
-      const orderResponse = await orderDetail(Number(id));
-      setActiveOrder(orderResponse.data.data);
-      console.log(activeOrder);
-    };
-    fetchData();
-  }, [])
-
-  // Calculate the total price of the order lines
-  const totalPrice = orderLineData.reduce(
-    (acc, line) => acc + line.price * line.quantity,
-    0
-  );
-  const vat = totalPrice * 0.1; // VAT is 10% of the total price
-  const shippingFee = 5; // Assuming a fixed shipping fee for demonstration
-  const discount = 0; // Assuming no discount for demonstration
-  const totalAmount = totalPrice + vat + shippingFee - discount;
+    if (id) {
+      fetchData();
+      fetchAllOrderLine();
+    }
+  }, [id]);
 
   // DELETE ORDER FROM PENDING STATUS
   const [isModalVisible_Pending, setIsModalVisible_Pending] = useState(false);
@@ -129,20 +165,22 @@ const OrderDetail = () => {
                     <Styled.OrderInfor>
                       <Styled.OrderDate>
                         <p>Invoice Date:</p>
-                        <p className="orderDate">{activeOrder.date}</p>
+                        <p className="orderDate">
+                          {activeOrder.OrderDate.replace("T", " ").replace(".000Z", "")}
+                        </p>
                       </Styled.OrderDate>
                       <Styled.OrderStatus>
                         <p>Status</p>
-                        <div>{getStatusTag(orderStatus)}</div>
+                        <div>{getStatusTag(activeOrder.OrderStatus)}</div>
                       </Styled.OrderStatus>
                     </Styled.OrderInfor>
 
                     <Styled.CustomerInfor_Container>
                       <Styled.CustomerInfor>
-                        <p>Nguyen Van A</p>
-                        <p>0837250913</p>
-                        <p>nguyenvana@gmail.com</p>
-                        <p>123A Hoang Dieu 2, Linh Trung, Thu Duc, Viet Nam</p>
+                        <p>{activeOrder.NameReceived}</p>
+                        <p>{activeOrder.PhoneNumber}</p>
+                        <p>{activeOrder.Email}</p>
+                        <p>{activeOrder.Address}</p>
                       </Styled.CustomerInfor>
                     </Styled.CustomerInfor_Container>
                   </Styled.PageDetail_Infor>
@@ -150,7 +188,7 @@ const OrderDetail = () => {
 
                 <Styled.PageContent_Bot>
                   <Styled.PageDetail_Title>
-                    <p>Order ID - {activeOrder.orderID}</p>
+                    <p>Order ID - #{activeOrder.OrderID}</p>
                   </Styled.PageDetail_Title>
 
                   <Styled.OrderDetail_Infor>
@@ -162,19 +200,21 @@ const OrderDetail = () => {
                         <p className="productPrice">Price</p>
                       </Styled.OrderLine_ListHead>
                       <Styled.OrderLine>
-                        {orderLineData.map((line) => (
+                        {activeOrder.orderLine.map((line: any) => (
                           <div key={line.lineID}>
                             <Styled.ProductElement>
                               <img
-                                src={line.lineImg}
-                                alt={line.lineName}
+                                src={diamondDetails[Number(id)]?.UsingImage}
+                                alt="Image placeholder"
                                 /*style={{ width: "60px", height: "50px" }}*/ className="productImg"
                               />
-                              <div className="productName">{line.lineName}</div>
+                              <div className="productName">{line.diamond.Name}</div>
                               <div className="productQuant">
-                                {line.quantity}
+                                {line.Quantity}
                               </div>
-                              <div className="productPrice">${line.price}</div>
+                              <div className="productPrice">
+                                {formatPrice(line.Price)}
+                              </div>
                             </Styled.ProductElement>
                           </div>
                         ))}
@@ -183,28 +223,32 @@ const OrderDetail = () => {
                     <Styled.OrderTotal>
                       <Styled.Payment>
                         <p>Payment method</p>
-                        <img
-                          src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FOrder%2FmomoLogo.png?alt=media&token=ba97df7d-0328-4da9-90b6-4eb379143c9d"
-                          alt="MOMO"
-                        />
+                        {activeOrder.PaymentID === PaymentMethodEnum.PAYPAL && (
+                          <img src={paypal} 
+                          alt="Paypal" style={{ width: "100px", height: "auto" }} />
+                        )}
+                        {activeOrder.PaymentID === PaymentMethodEnum.COD && (
+                          <img src={cod}
+                          alt="COD" style={{ width: "100px", height: "auto" }} />
+                        )}
                       </Styled.Payment>
                       <Styled.Amount>
                         <Styled.OtherCosts>
                           <p>% discount</p>
-                          <p>${discount.toFixed(2)}</p>
-                        </Styled.OtherCosts>
-                        <Styled.OtherCosts>
-                          <p>VAT</p>
-                          <p>${vat.toFixed(2)}</p>
+                          <p>- {formatPrice(activeOrder.Price - activeOrder.VoucherPrice)}</p>
                         </Styled.OtherCosts>
                         <Styled.OtherCosts>
                           <p>Shipping fee</p>
-                          <p>${shippingFee.toFixed(2)}</p>
+                          <p>{formatPrice(activeOrder.Shippingfee)}</p>
+                        </Styled.OtherCosts>
+                        <Styled.OtherCosts>
+                          <p>Subtotal</p>
+                          <p>{formatPrice(activeOrder.Price)}</p>
                         </Styled.OtherCosts>
                         <Styled.Total>
                           <p>Total</p>
                           <p className="totalAmount">
-                            ${totalAmount.toFixed(2)}
+                            {formatPrice(activeOrder.VoucherPrice)}
                           </p>
                         </Styled.Total>
                       </Styled.Amount>
@@ -247,7 +291,7 @@ const OrderDetail = () => {
                 </Styled.ActionBtn>
               </>
             ) : (
-              <Empty/>
+              <Empty />
             )}
           </Styled.PageContent>
         </Styled.AdminPage>

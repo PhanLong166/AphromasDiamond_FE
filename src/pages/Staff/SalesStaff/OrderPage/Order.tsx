@@ -50,6 +50,9 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "total",
     defaultSortOrder: "descend",
     sorter: (a: DataType, b: DataType) => a.total - b.total,
+    render: (_, { total }) => {
+      return <>${total}</>
+    }
   },
   {
     title: "Status",
@@ -93,6 +96,7 @@ const columns: TableColumnsType<DataType> = [
     title: "Detail",
     key: "detail",
     className: "TextAlign",
+    dataIndex: "orderID",
     render: (_, { orderID }) => (
       <Space size="middle">
         <Link to={`/sales-staff/order/detail/${orderID}`}>
@@ -135,7 +139,7 @@ const Order = () => {
           orderID: order.OrderID,
           date: order.OrderDate,
           cusName: order.NameReceived,
-          total: order.Price,
+          total: order.VoucherPrice,
           status: order.OrderStatus,
         }))
       setOrder(formatOrderList);

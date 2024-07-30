@@ -4,6 +4,7 @@ import styled from 'styled-components';
 import { Form, Input, Select } from 'antd';
 import paypal from '@/assets/logo/payment/paypal.png';
 import cod from '@/assets/logo/payment/cod.jpg';
+import { Loading3QuartersOutlined } from '@ant-design/icons';
 
 const { Option } = Select;
 
@@ -16,6 +17,7 @@ const AddressDetails: React.FC<{
   onProvinceChange: (provinceId: unknown) => void;
   onDistrictChange: (districtId: unknown) => void;
   onFinish: (values: any) => void;
+  loading: boolean;
 }> = ({
   provinces,
   districts,
@@ -25,6 +27,7 @@ const AddressDetails: React.FC<{
   onProvinceChange,
   onDistrictChange,
   onFinish,
+  loading
 }) => {
     const [form] = Form.useForm();
     const [selectedPaymentMethod, setSelectedPaymentMethod] = useState<string | null>(null);
@@ -220,8 +223,12 @@ const AddressDetails: React.FC<{
 
           <Form.Item>
             <Editbtn>
-              <Btn className='btn' type="submit">
-                Continue
+              <Btn 
+                className='btn' 
+                type="submit"
+                disabled={loading}
+              >
+                {loading ? <Loading3QuartersOutlined spin/> : "Continue"}
               </Btn>
             </Editbtn>
           </Form.Item>

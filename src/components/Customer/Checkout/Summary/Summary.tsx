@@ -48,6 +48,7 @@ const Summary: React.FC = () => {
   const onApplyVoucher = (discount: number, voucherID: number) => {
     setDiscount(discount);
     setVoucherID(voucherID);
+    localStorage.setItem("selectedVoucher", JSON.stringify({ discount, voucherID }));
   };
   console.log(discount);
   console.log(voucherID);

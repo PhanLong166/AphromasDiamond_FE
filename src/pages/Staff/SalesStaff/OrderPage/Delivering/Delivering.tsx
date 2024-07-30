@@ -9,6 +9,7 @@ import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
 import { showAllOrder } from "@/services/orderAPI";
 import { OrderStatus } from "@/utils/enum";
+import { showAllAccounts } from "@/services/accountApi";
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -24,7 +25,7 @@ const columns: TableColumnsType<DataType> = [
     sorter: (a, b) => new Date(a.date).getTime() - new Date(b.date).getTime(),
     render: (_, { date }) => {
       return <>{date.replace("T", " ").replace(".000Z", " ")}</>
-    } 
+    }
   },
   {
     title: "Customer",
@@ -49,6 +50,11 @@ const columns: TableColumnsType<DataType> = [
       record.deliveryStaff.indexOf(value as string) === 0,
     sorter: (a, b) => a.deliveryStaff.length - b.deliveryStaff.length,
     sortDirections: ["descend"],
+    render: (_, { deliveryStaff }) => {
+      return (
+        <>{deliveryStaff}</>
+      )
+    }
   },
   {
     title: "Status",
@@ -119,6 +125,7 @@ const DeliveringOrder = () => {
   const fetchData = async () => {
     // Get order list
     const orderList = await showAllOrder();
+    const accountListData = await showAllAccounts();
     const formatOrderList = orderList.data.data
       .filter((order: any) => order.OrderStatus === OrderStatus.DELIVERING)
       .map((order: any) => ({
@@ -127,6 +134,7 @@ const DeliveringOrder = () => {
         cusName: order.NameReceived,
         total: order.Price,
         status: order.OrderStatus,
+        deliveryStaff: accountListData.data.data.find((account: any) => account.AccountID === order.AccountDeliveryID).Name
       }))
     setOrder(formatOrderList);
   };
@@ -137,7 +145,7 @@ const DeliveringOrder = () => {
 
   return (
     <>
-    <Styled.GlobalStyle/>
+      <Styled.GlobalStyle />
       <Styled.OrderAdminArea>
         <Sidebar />
 
@@ -146,7 +154,7 @@ const DeliveringOrder = () => {
 
           <Styled.OrderContent>
             <Styled.AdPageContent_Head>
-            <Styled.SearchArea>
+              <Styled.SearchArea>
                 <Input
                   className="searchInput"
                   type="text"
