@@ -71,10 +71,11 @@ const Checkout: React.FC = () => {
   React.useEffect(() => {
     getCustomerDetail();
     fetchProvincesData();
-    // Retrieve selected voucher from local storage
+    
     const voucher = localStorage.getItem("selectedVoucher");
     if (voucher) {
       setSelectedVoucher(JSON.parse(voucher));
+      
     }
   }, [AccountID]);
 
@@ -103,7 +104,7 @@ const Checkout: React.FC = () => {
         Email: Customer?.Email,
         Address: `${values.addressDetails}, ${wardName}, ${districtName}, ${provinceName}`,
         Shippingfee: ShippingFee,
-        VoucherID: selectedVoucher.VoucherID ? selectedVoucher.VoucherID : undefined
+        VoucherID:  selectedVoucher?.VoucherID || null
       }
 
       const responeOrder = await createOrder(requestBodyOrder);

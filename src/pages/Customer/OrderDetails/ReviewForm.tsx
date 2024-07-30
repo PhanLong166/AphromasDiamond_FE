@@ -7,9 +7,9 @@ interface ReviewFormProps {
   visible: boolean;
   onCreate: (values: any) => void;
   onCancel: () => void;
-  orderId: string | null; 
-  accountId: number | null; 
-  diamondId: number | null; 
+  orderId: string | null;
+  accountId: number | null;
+  diamondId: number | null;
   productId: number | null;
 }
 
@@ -24,36 +24,41 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
 }) => {
   const [form] = Form.useForm();
 
-  React.useEffect(() => {
+   React.useEffect(() => {
     form.setFieldsValue({
       diamondId: diamondId || null,
       productId: productId || null,
     });
+    console.log("Diamond ID in form: ", diamondId);
+    console.log("Product ID in form: ", productId);
   }, [diamondId, productId, form]);
   const handleSubmit = async () => {
     try {
       const values = await form.validateFields();
       console.log("Values before submission: ", values);
-  
+
       if (!diamondId && !productId) {
         throw new Error("No valid ID for feedback");
       }
-      
-  
+
       const feedbackData = {
         Stars: values.stars,
         Comment: values.comment,
         CommentTime: new Date().toISOString(),
         IsActive: true,
-        DiamondID: diamondId || null,  
-        JewelrySettingID: null, 
+        DiamondID: values.diamondId ||diamondId || null,
+        JewelrySettingID: null,
         OrderID: orderId,
         AccountID: accountId,
-        ProductID: productId || null,
+        ProductID:  values.productId || productId || null,
       };
-  
+      
+
       await createFeedback(feedbackData);
       onCreate(feedbackData);
+
+      form.resetFields();
+
     } catch (error) {
       console.error("Error submitting feedback:", error);
     }
@@ -87,6 +92,12 @@ const ReviewForm: React.FC<ReviewFormProps> = ({
           rules={[{ required: true, message: "Please write a comment" }]}
         >
           <Input.TextArea rows={4} />
+        </Form.Item>
+        <Form.Item name="diamondId" style={{ display: "none" }}>
+          <Input  type="hidden"/>
+        </Form.Item>
+        <Form.Item name="productId" style={{ display: "none" }}>
+          <Input type="hidden" />
         </Form.Item>
       </Form>
     </Modal>

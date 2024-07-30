@@ -10,7 +10,9 @@ interface PromoCodeSectionProps {
   onApplyVoucher: (discount: number, voucherID: number) => void;
 }
 
-const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) => {
+const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({
+  onApplyVoucher,
+}) => {
   const [isCollapsed, setIsCollapsed] = useState(true);
   const [selectedVoucher, setSelectedVoucher] = useState<Voucher | null>(null);
   const [error, setError] = useState("");
@@ -30,7 +32,7 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
     Description: string;
     StartDate: string;
     EndDate: string;
-    PercentDiscounts: string; 
+    PercentDiscounts: string;
   }
 
   const toggleCollapse = () => {
@@ -41,7 +43,7 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
     try {
       const { data } = await showAllVoucher();
       const filteredVouchers = filterValidVouchers(data.data);
-      
+
       setAvailableVouchers(filteredVouchers);
       console.log(availableVouchers);
     } catch (error) {
@@ -54,58 +56,75 @@ const PromoCodeSection: React.FC<PromoCodeSectionProps> = ({ onApplyVoucher }) =
 
   const filterValidVouchers = (vouchers: Voucher[]) => {
     const currentDate = new Date();
-    return vouchers.filter((voucher) => new Date(voucher.EndDate) > currentDate);
+    return vouchers.filter(
+      (voucher) => new Date(voucher.EndDate) > currentDate
+    );
   };
 
-const handleApplyClick = () => {
-  if (selectedVoucher) {
-    const discount = parseFloat(selectedVoucher.PercentDiscounts);
-    console.log("Selected Voucher:", selectedVoucher);
-    console.log("Discount Value:", discount);
-    dispatch(orderSlice.actions.setVoucherID(selectedVoucher.VoucherID));
+  const handleApplyClick = () => {
+    if (selectedVoucher) {
+      const discount = parseFloat(selectedVoucher.PercentDiscounts);
+      console.log("Selected Voucher:", selectedVoucher);
+      console.log("VoucherID", selectedVoucher.VoucherID);
+      console.log("Discount Value:", discount);
 
-    if (!isNaN(discount) && discount > 0) {
-      onApplyVoucher(discount, selectedVoucher.VoucherID);
-      setError(""); 
-      localStorage.setItem("selectedVoucher", JSON.stringify(selectedVoucher));
+      localStorage.removeItem("selectedVoucher");
+
+      dispatch(orderSlice.actions.setVoucherID(selectedVoucher.VoucherID));
+
+      if (!isNaN(discount) && discount > 0) {
+        onApplyVoucher(discount, selectedVoucher.VoucherID);
+        setError("");
+        localStorage.setItem(
+          "selectedVoucher",
+          JSON.stringify(selectedVoucher)
+        );
+      } else {
+        setError("Invalid discount value");
+      }
     } else {
-      setError("Invalid discount value");
+      setError("Please select a valid promo code");
+      localStorage.removeItem("selectedVoucher");
+      onApplyVoucher(0, 0);
     }
-  } else {
-    setError("Please select a valid promo code");
-  }
-};
+  };
 
   return (
     <PromoCodeContainer>
       <CollapseButton onClick={toggleCollapse}>
-        Promo Code <span><DownOutlined /></span>
+        Promo Code{" "}
+        <span>
+          <DownOutlined />
+        </span>
       </CollapseButton>
       {!isCollapsed && (
         <PromoForm>
           <Select
             allowClear
             placeholder="Select a promo code"
-            style={{ width: '100%' }}
-           
+            style={{ width: "100%" }}
             onChange={(value) => {
-              const voucher = availableVouchers.find(v => v.Description === value);
+              const voucher = availableVouchers.find(
+                (v) => v.Description === value
+              );
               setSelectedVoucher(voucher || null);
               if (!voucher) {
                 setError("");
-                onApplyVoucher(0, 0); 
+                onApplyVoucher(0, 0);
+                localStorage.removeItem("selectedVoucher");
               }
             }}
           >
-            {availableVouchers.map(voucher => (
-              <Select.Option key={voucher.VoucherID} value={voucher.Description}>
+            {availableVouchers.map((voucher) => (
+              <Select.Option
+                key={voucher.VoucherID}
+                value={voucher.Description}
+              >
                 {voucher.Description}
               </Select.Option>
             ))}
           </Select>
-          <BtnApply  onClick={handleApplyClick}>
-            Apply
-          </BtnApply>
+          <BtnApply onClick={handleApplyClick}>Apply</BtnApply>
           {error && <ErrorText>{error}</ErrorText>}
         </PromoForm>
       )}
@@ -126,16 +145,16 @@ const BtnApply = styled.div`
   align-items: center;
   height: 34px;
   font-size: 15px;
-    padding: 7px 20px;
-    background-color: #151542;
-    color: #ffffff;
-    border: 1px solid #151542;
-    cursor: pointer;
-    transition: background-color 0.3s ease;
-    font-family: "Gantari", sans-serif;
-    font-weight: 400;
-    transition: all 0.45s ease;
-    &:hover {
+  padding: 7px 20px;
+  background-color: #151542;
+  color: #ffffff;
+  border: 1px solid #151542;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  font-family: "Gantari", sans-serif;
+  font-weight: 400;
+  transition: all 0.45s ease;
+  &:hover {
     color: #000000;
     background-color: #efefef;
     transition: all 0.45s ease;
@@ -158,5 +177,5 @@ const PromoForm = styled.div`
 
 const ErrorText = styled.p`
   color: red;
- font-size: 17px;
+  font-size: 17px;
 `;
