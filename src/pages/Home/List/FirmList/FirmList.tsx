@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Container, List, StyledPagination } from "./FirmList.styled";
+import { Container, List } from "./FirmList.styled";
 
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
@@ -253,12 +253,6 @@ const FirmList: React.FC = () => {
 
   const currentFirmData = firmData[jewelryFirm];
   const [wishList, setWishList] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 12;
-
-  const handleChangePage = (page: any) => {
-    setCurrentPage(page);
-  };
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -298,9 +292,7 @@ const FirmList: React.FC = () => {
       />
       <List>
         <Row gutter={[16, 16]}>
-          {currentFirmData.products
-            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
-            .map((product: any) => (
+          {currentFirmData.products.map((product: any) => (
               <Col key={product.id} span={6}>
                 <Card
                   key={product.id}
@@ -386,27 +378,6 @@ const FirmList: React.FC = () => {
           </Col>
         </Row>
       </List>
-      <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={currentFirmData.products.length}
-        onChange={handleChangePage}
-      />
-
-      {/* <FAQs>
-        <LeftFAQ>
-          <h2>FAQs about {currentFirmData.title}</h2>
-        </LeftFAQ>
-        <StyledCollapse
-          items={faqs.map((faq: any) => ({
-            key: faq.key,
-            label: faq.label,
-            children: <p>{faq.children}</p>,
-          }))}
-          defaultActiveKey={["1"]}
-          onChange={onChange}
-        />
-      </FAQs> */}
       <FAQ title={currentFirmData.title} faqs={faqs} />
     </Container>
   );

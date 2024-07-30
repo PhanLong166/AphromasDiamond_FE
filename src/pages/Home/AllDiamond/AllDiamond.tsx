@@ -1,4 +1,3 @@
-
 import React, { useEffect, useState } from "react";
 import {
   Section,
@@ -10,7 +9,7 @@ import {
   StyledCollapse,
   StyledPagination,
 } from "./AllDiamond.styled";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Spin } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
@@ -51,7 +50,6 @@ const AllDiamond: React.FC = () => {
   const handleChangePage = (page: any) => {
     setCurrentPage(page);
   };
-
 
   useEffect(() => {
     const fetchData = async () => {
@@ -95,11 +93,25 @@ const AllDiamond: React.FC = () => {
         console.error("Error fetching diamonds:", error);
       }
     };
-    console.log(loading);
 
     fetchData();
   }, []);
 
+  if (loading) {
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        <Spin tip="Loading..." />
+      </div>
+    );
+  }
   return (
     <Section>
       <div>
@@ -129,82 +141,83 @@ const AllDiamond: React.FC = () => {
       />
       <List>
         <Row gutter={[16, 16]}>
-          {diamonds.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+          {diamonds
+            .slice((currentPage - 1) * pageSize, currentPage * pageSize)
             .map((diamond: any) => (
-            <Col key={diamond.id} span={6}>
-              <Card
-                style={{ borderRadius: "0" }}
-                hoverable
-                className="product-card"
-                cover={
-                  <>
-                    <Link to={`/diamond/${diamond.id}`}>
-                      <img
-                        style={{ borderRadius: "0" }}
-                        src={
-                          diamond.images && diamond.images.length > 0
-                            ? diamond.images[0].url
-                            : "/default-image.jpg"
-                        }
-                        alt={diamond.name}
-                        className="product-image"
-                        onMouseOut={(e) =>
-                          (e.currentTarget.src =
+              <Col key={diamond.id} span={6}>
+                <Card
+                  style={{ borderRadius: "0" }}
+                  hoverable
+                  className="product-card"
+                  cover={
+                    <>
+                      <Link to={`/diamond/${diamond.id}`}>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={
                             diamond.images && diamond.images.length > 0
                               ? diamond.images[0].url
-                              : "/default-image.jpg")
-                        }
-                      />
-                    </Link>
-                    {diamond.discountPrice &&
-                      diamond.discountPrice !== diamond.price && (
-                        <div className="sale-badge">SALE</div>
-                      )}
-                  </>
-                }
-              >
-                <div className="product-info">
-                  <Title level={4} className="product-name">
-                    <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
-                    {wishList.includes(diamond.id) ? (
-                      <HeartFilled
-                        className="wishlist-icon"
-                        onClick={() => toggleWishList(diamond.id)}
-                      />
-                    ) : (
-                      <HeartOutlined
-                        className="wishlist-icon"
-                        onClick={() => toggleWishList(diamond.id)}
-                      />
-                    )}
-                  </Title>
-                  <div className="price-container">
-                    <Text className="product-price">
-                      $
+                              : "/default-image.jpg"
+                          }
+                          alt={diamond.name}
+                          className="product-image"
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src =
+                              diamond.images && diamond.images.length > 0
+                                ? diamond.images[0].url
+                                : "/default-image.jpg")
+                          }
+                        />
+                      </Link>
                       {diamond.discountPrice &&
-                      diamond.discountPrice !== diamond.price
-                        ? diamond.discountPrice
-                        : diamond.price}
-                    </Text>
-                    {diamond.discountPrice &&
-                      diamond.discountPrice !== diamond.price && (
-                        <Text delete className="product-sale-price">
-                          ${diamond.price}
-                        </Text>
+                        diamond.discountPrice !== diamond.price && (
+                          <div className="sale-badge">SALE</div>
+                        )}
+                    </>
+                  }
+                >
+                  <div className="product-info">
+                    <Title level={4} className="product-name">
+                      <Link to={`/diamond/${diamond.id}`}>{diamond.name}</Link>
+                      {wishList.includes(diamond.id) ? (
+                        <HeartFilled
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(diamond.id)}
+                        />
+                      ) : (
+                        <HeartOutlined
+                          className="wishlist-icon"
+                          onClick={() => toggleWishList(diamond.id)}
+                        />
                       )}
+                    </Title>
+                    <div className="price-container">
+                      <Text className="product-price">
+                        $
+                        {diamond.discountPrice &&
+                        diamond.discountPrice !== diamond.price
+                          ? diamond.discountPrice
+                          : diamond.price}
+                      </Text>
+                      {diamond.discountPrice &&
+                        diamond.discountPrice !== diamond.price && (
+                          <Text delete className="product-sale-price">
+                            ${diamond.price}
+                          </Text>
+                        )}
+                    </div>
                   </div>
-                </div>
-              </Card>
-            </Col>
-          ))}
+                </Card>
+              </Col>
+            ))}
         </Row>
       </List>
       <StyledPagination
-          current={currentPage}
-          pageSize={pageSize}
-          total={diamonds.length}
-          onChange={handleChangePage}
-        />
+        current={currentPage}
+        pageSize={pageSize}
+        total={diamonds.length}
+        onChange={handleChangePage}
+      />
       <FAQs>
         <LeftFAQ>
           <h2>FAQs ABOUT PRODUCT</h2>

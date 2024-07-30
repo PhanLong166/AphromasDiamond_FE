@@ -174,7 +174,7 @@ import {
   StyledPagination,
   CustomBreadcrumb,
 } from "./AllProduct.styled";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Spin } from "antd";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
 import { Link } from "react-router-dom";
@@ -211,9 +211,9 @@ const AllProduct: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice, 
+            salePrice: jewelry.SalePrice,
             type: jewelry.JewelrySetting.jewelryType.Name,
-            jewelryType: jewelry.JewelrySetting?.jewelryType?.Name, 
+            jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
               id: image.UsingImageID,
               url: getImage(image.UsingImageID),
@@ -266,7 +266,19 @@ const AllProduct: React.FC = () => {
   };
 
   if (loading) {
-    return <div>Loading...</div>;
+    return (
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          height: "100vh",
+          flexDirection: "column",
+        }}
+      >
+        <Spin tip="Loading..." />
+      </div>
+    );
   }
 
   return (
@@ -357,8 +369,7 @@ const AllProduct: React.FC = () => {
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
-                          $
-                          {product.firstPrice + product.totalDiamondPrice}
+                          ${product.firstPrice + product.totalDiamondPrice}
                         </Text>
                         {product.salePrice && (
                           <Text delete className="product-sale-price">
@@ -384,5 +395,3 @@ const AllProduct: React.FC = () => {
 };
 
 export default AllProduct;
-
-
