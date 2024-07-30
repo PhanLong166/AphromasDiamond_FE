@@ -3,7 +3,7 @@ import { useEffect, useState } from "react";
 import { Button, Modal, notification, Select, Table, TableColumnsType, Tag } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { Link, useParams } from "react-router-dom";
-import { orderDetail, updateOrder } from "@/services/orderAPI";
+import { orderDetail, showAllOrder, updateOrder } from "@/services/orderAPI";
 import paypalLogo from '@/assets/logo/payment/paypal.png';
 import { OrderStatus, PaymentMethodEnum, Role } from "@/utils/enum";
 import { showAllAccounts } from "@/services/accountApi";
@@ -47,7 +47,7 @@ const OrderDetail = () => {
   const [activeOrder, setActiveOrder] = useState<any>(null);
   const [orderStatus, setOrderStatus] = useState('');
   const [accountList, setAccountList] = useState<any[]>([]);
-  const [orderList] = useState<any[]>([]);
+  const [orderList, setOrderList] = useState<any[]>([]);
   const [delivery, setDelivery] = useState<any[]>([]);
   const [selectedStaff, setSelectedStaff] = useState<any>(null);
   const [api, contextHolder] = notification.useNotification();
@@ -61,6 +61,9 @@ const OrderDetail = () => {
       const { data } = await orderDetail(Number(id));
       setActiveOrder(data.data);
       setOrderStatus(data.data.OrderStatus);
+
+      const orderListData = await showAllOrder();
+      setOrderList(orderListData.data.data);
 
       const accountRes = await showAllAccounts();
       setAccountList(
@@ -112,7 +115,7 @@ const OrderDetail = () => {
             const imageIDPromises = diamond.usingImage.map(
               async (image: any) => {
                 try {
-                  const imageRes = await getImage(image.UsingImageID);
+                  const imageRes = getImage(image.UsingImageID);
                   return imageRes || image.url;
                 } catch (error) {
                   console.error("Error fetching image:", error);

@@ -44,6 +44,7 @@ export const ProductField: FieldType[] = [
                 className="formItem"
                 placeholder="Select Brand"
                 options={Brand_Option}
+                allowClear
             />
     },
     {
@@ -58,7 +59,8 @@ export const ProductField: FieldType[] = [
         children:
             <Select
                 className="formItem"
-                placeholder="Select Color"
+                placeholder="Select Collection"
+                allowClear
                 // options={}
             />
     },
@@ -75,6 +77,7 @@ export const ProductField: FieldType[] = [
             <Select
                 className="formItem"
                 placeholder="Select Discount"
+                allowClear
                 // options={}
             />
     },
