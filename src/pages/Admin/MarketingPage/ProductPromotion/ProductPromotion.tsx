@@ -21,11 +21,14 @@ import {
   Popconfirm,
   Typography,
   notification,
+  Select,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
 import { showAllDiscount, createDiscount, updateDiscount, deleteDiscount } from "@/services/discountAPI";
 import { showAllProduct } from "@/services/productAPI";
+import { showAllDiamond } from "@/services/diamondAPI";
+import { setSelectedDiamond } from "@/layouts/MainLayout/slice/customRingSlice";
 
 interface EditableCellProps {
   editing: boolean;
@@ -50,8 +53,8 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-        name={dataIndex.toString()}
-        style={{ margin: 0 }}
+          name={dataIndex.toString()}
+          style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -89,8 +92,14 @@ const ProductPromotion = () => {
   const [editingKey, setEditingKey] = useState<React.Key>("");
   const isEditing = (record: any) => record.key === editingKey;
   const [products, setProducts] = useState<any[]>([]);
+  const [productUpdate, setProductUpdate] = useState<any[]>([]);
+  const [diamondUpdate, setDiamondUpdate] = useState<any[]>([]);
   const [api, contextHolder] = notification.useNotification();
-  
+
+  const [selectedProducts, setSelectedProducts] = useState([]);
+  const [selectedDiamonds, setSelectedDiamonds] = useState([]);
+
+
   type NotificationType = "success" | "info" | "warning" | "error";
 
   const openNotification = (
@@ -109,9 +118,11 @@ const ProductPromotion = () => {
     try {
       const response = await showAllDiscount();
       const responseProduct = await showAllProduct();
+      const responseDiamond = await showAllDiamond();
 
       const { data } = response.data;
       const { data: productData } = responseProduct.data;
+      const { data: diamondData } = responseDiamond.data;
 
       const formattedDiscounts = data.map((discount: any) => ({
         key: discount.DiscountID,
@@ -124,23 +135,43 @@ const ProductPromotion = () => {
       }));
 
       const formattedProducts = productData
-      .filter((product: any) => (product.DiscountID !== null))
-      .map((product: any) => ({
-        productName: product.Name,
-      }));
+        .filter((product: any) => (product.DiscountID !== null))
+        .map((product: any) => ({
+          productName: product.Name,
+        }));
 
       setDiscounts(formattedDiscounts);
       setProducts(formattedProducts);
+      setProductUpdate(productData);
+      setDiamondUpdate(diamondData);
+      console.log("Product data: ", productData)
     } catch (error) {
       console.error("Failed to fetch types:", error);
     }
   };
 
+
   useEffect(() => {
     fetchData();
   }, []);
 
-  
+  const handleChangeProduct = (value: any) => {
+    setSelectedProducts(value);
+  }
+  const handleChangeDiamond = (value: any) => {
+    setSelectedDiamonds(value);
+  }
+  // useEffect(()=>{
+  //   const fetchData = async ()=> {
+  //     try{
+  //       const dataProduct = 
+  //     }
+  //     catch(error){
+  //       console.log(error)
+  //     }
+  //   }
+  // },[]);
+
   // EDIT
   const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
@@ -225,14 +256,14 @@ const ProductPromotion = () => {
     {
       title: "Start Date",
       dataIndex: "startDate",
-      onChange:{onChangeDate},
+      onChange: { onChangeDate },
       sorter: (a: any, b: any) =>
         a.startDate.length - b.startDate.length,
     },
     {
       title: "End Date",
       dataIndex: "endDate",
-      onChange:{onChangeDate},
+      onChange: { onChangeDate },
       sorter: (a: any, b: any) =>
         a.endDate.length - b.endDate.length,
     },
@@ -359,8 +390,8 @@ const ProductPromotion = () => {
   const handleCancel = () => {
     setIsAdding(false);
   };
-  
-  
+
+
   // SUBMIT FORM
   interface SubmitButtonProps {
     form: FormInstance;
@@ -413,7 +444,7 @@ const ProductPromotion = () => {
 
   return (
     <>
-              {contextHolder}
+      {contextHolder}
 
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
@@ -446,12 +477,12 @@ const ProductPromotion = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Collection</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Collection</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -461,7 +492,7 @@ const ProductPromotion = () => {
                     form={form}
                     layout="vertical"
                     className="AdPageContent_Content"
-                    // autoComplete="off"
+                  // autoComplete="off"
                   >
                     <Styled.FormItem>
                       <Form.Item
@@ -531,46 +562,69 @@ const ProductPromotion = () => {
                       >
                         <Input.TextArea className="formItem" />
                       </Form.Item>
-                    </Styled.FormDescript>
-                    {/* <Styled.FormItem>
-                      <Form.Item
-                        label="Product in Promotion"
-                        name="Product"
-                        rules={[{ required: true }]}
-                      >
-                        <Select
-                          className="formItem"
-                          mode="multiple"
-                          allowClear
-                          placeholder="Select Product"
-                          options={productData.map((product) => ({
-                            value: product.jewelryID,
-                            label:
-                              product.jewelryID + ": " + product.jewelryName,
-                          }))}
-                          onChange={handleChange}
-                        />
-                      </Form.Item>
-                    </Styled.FormItem> */}
-                  
 
-                  <Styled.ActionBtn>
-                    <Form.Item>
-                      <Space>
-                        <SubmitButton form={form}>
-                          <SaveOutlined />
-                          Save
-                        </SubmitButton>
-                        <Button
-                          onClick={handleCancel}
-                          className="CancelBtn"
-                          style={{ marginLeft: "10px" }}
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Product in Promotion"
+                          name="Products"
+                          rules={[{ required: false }]}
                         >
-                          Cancel
-                        </Button>
-                      </Space>
-                    </Form.Item>
-                  </Styled.ActionBtn>
+                          <Select
+                            className="formItem"
+                            mode="multiple"
+                            allowClear
+                            placeholder="Select Product"
+                            options={productUpdate.map((product) => ({
+                              value: product.ProductID,
+                              label:
+                                product.ProductID + ": " + product.Name,
+                            }))}
+                            // Ensure the value is bound to state
+                            onChange={handleChangeProduct}
+                            value={selectedProducts}
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                      <Styled.FormItem>
+                        <Form.Item
+                          label="Diamond in Promotion"
+                          name="Diamonds"
+                          rules={[{ required: false }]}
+                        >
+                          <Select
+                            className="formItem"
+                            mode="multiple"
+                            allowClear
+                            placeholder="Select Diamond"
+                            options={diamondUpdate.map((diamond) => ({
+                              value: diamond.DiamondID,
+                              label:
+                                diamond.DiamondID + ": " + diamond.Name,
+                            }))}
+                            // Ensure the value is bound to state
+                            onChange={handleChangeDiamond}
+                            value={selectedDiamonds}
+                          />
+                        </Form.Item>
+                      </Styled.FormItem>
+                    </Styled.FormDescript>
+                    <Styled.ActionBtn>
+                      <Form.Item>
+                        <Space>
+                          <SubmitButton form={form}>
+                            <SaveOutlined />
+                            Save
+                          </SubmitButton>
+                          <Button
+                            onClick={handleCancel}
+                            className="CancelBtn"
+                            style={{ marginLeft: "10px" }}
+                          >
+                            Cancel
+                          </Button>
+                        </Space>
+                      </Form.Item>
+                    </Styled.ActionBtn>
                   </Form>
                 </>
               ) : (
@@ -585,7 +639,7 @@ const ProductPromotion = () => {
                     dataSource={discounts}
                     columns={mergedColumns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} 
+                    pagination={{ pageSize: 6 }}
                     onChange={onChangeTable}
                   />
                 </Form>
