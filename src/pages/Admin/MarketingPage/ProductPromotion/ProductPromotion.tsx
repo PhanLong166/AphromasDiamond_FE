@@ -28,7 +28,7 @@ import MarketingMenu from "@/components/Admin/MarketingMenu/MarketingMenu";
 import { showAllDiscount, createDiscount, updateDiscount, deleteDiscount } from "@/services/discountAPI";
 import { showAllProduct } from "@/services/productAPI";
 import { showAllDiamond } from "@/services/diamondAPI";
-import { setSelectedDiamond } from "@/layouts/MainLayout/slice/customRingSlice";
+// import { setSelectedDiamond } from "@/layouts/MainLayout/slice/customRingSlice";
 
 interface EditableCellProps {
   editing: boolean;
