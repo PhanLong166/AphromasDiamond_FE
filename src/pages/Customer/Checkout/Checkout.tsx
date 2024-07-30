@@ -37,6 +37,7 @@ const Checkout: React.FC = () => {
   const ShippingFee = useAppSelector((state) => state.order.Shippingfee);
   const TotalPrice = useAppSelector((state) => state.order.Total);
   const [api, contextHolder] = notification.useNotification();
+  const [loading, setLoading] = useState(false);
 
   const fetchProvincesData = async () => {
     try {
@@ -80,6 +81,7 @@ const Checkout: React.FC = () => {
   }, [AccountID]);
 
   const onFinish = async (values: any) => {
+    setLoading(true);
     try {
       //Convert address
       const provinceData = await getProvinces();
@@ -146,6 +148,8 @@ const Checkout: React.FC = () => {
         message: 'Error',
         description: error.message || 'An error occured'
       });
+    } finally {
+      setLoading(false);
     }
   }
 
@@ -214,6 +218,7 @@ const Checkout: React.FC = () => {
               selectedDistrict={selectedDistrict}
               onProvinceChange={handleProvinceChange}
               onDistrictChange={handleDistrictChange}
+              loading={loading}
             />
           </Formm>
           <StyledSummary />
