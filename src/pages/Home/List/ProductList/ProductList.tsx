@@ -24,8 +24,6 @@ const ProductList: React.FC = () => {
   ];
 
   const [products, setProducts] = useState<any[]>([]);
-  // const [loading, setLoading] = useState(true);
-  // const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
 
   useEffect(() => {
     const fetchData = async () => {

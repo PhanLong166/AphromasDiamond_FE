@@ -548,6 +548,10 @@ const ProductDetails: React.FC = () => {
                       {foundProduct.TotalQuantityJewelrySettingVariants}
                     </li>
                     <li>Setting: {foundProduct.JewelrySetting.Name}</li>
+                    {foundProduct.Discount &&
+                      foundProduct.Discount.DiscountID && (
+                        <li>Promotion: {foundProduct.Discount.Name}</li>
+                      )}
                   </ul>
                 </ListBlock>
                 <ListBlock>
