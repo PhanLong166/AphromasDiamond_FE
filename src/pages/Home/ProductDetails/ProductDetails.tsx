@@ -182,7 +182,7 @@ const ProductDetails: React.FC = () => {
                   brand: jewelry.Brand,
                   totalDiamondPrice: jewelry.TotalDiamondPrice,
                   firstPrice: jewelry.FirstPrice,
-                  salePrice: jewelry.SalePrice,
+                  discountFirstPrice: jewelry.DiscountFirstPrice,
                   jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
                   images: jewelry.UsingImage.map((image: any) => ({
                     id: image.UsingImageID,
@@ -390,7 +390,7 @@ const ProductDetails: React.FC = () => {
                     </ProductMetal>
                   )}
                 {foundProduct.JewelrySetting.jewelryType.Name.includes(
-                  "Rings"
+                  "Ring"
                 ) && (
                   <>
                     <div>
@@ -454,14 +454,15 @@ const ProductDetails: React.FC = () => {
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>
-                        $
-                        {foundProduct.FirstPrice}
-                      </CurrentPrice>
+                      <CurrentPrice>${foundProduct.FirstPrice}</CurrentPrice>
                       {foundProduct.DiscountFirstPrice && (
                         <div className="wrap">
-                          <BeforePrice>${foundProduct.DiscountFirstPrice}</BeforePrice>
-                          <Discount>- {foundProduct.Discount.PercentDiscounts}%</Discount>
+                          <BeforePrice>
+                            ${foundProduct.DiscountFirstPrice}
+                          </BeforePrice>
+                          <Discount>
+                            - {foundProduct.Discount.PercentDiscounts}%
+                          </Discount>
                         </div>
                       )}
                     </div>
@@ -674,7 +675,7 @@ const ProductDetails: React.FC = () => {
                             }
                           />
                         </Link>
-                        {product.salePrice && (
+                        {product.discountFirstPrice && (
                           <div className="sale-badge">SALE</div>
                         )}
                       </>
@@ -701,12 +702,18 @@ const ProductDetails: React.FC = () => {
                       )}
                     </Title>
                     <div className="price-container">
-                      <Text className="product-price">
-                        ${product.firstPrice + product.totalDiamondPrice}
-                      </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.totalDiamondPrice}
+                      {product.discountFirstPrice ? (
+                        <>
+                          <Text className="product-price">
+                            ${product.discountFirstPrice}
+                          </Text>
+                          <Text delete className="product-sale-price">
+                            ${product.firstPrice}
+                          </Text>
+                        </>
+                      ) : (
+                        <Text className="product-price">
+                          ${product.firstPrice}
                         </Text>
                       )}
                     </div>

@@ -75,6 +75,7 @@ const DiamondList: React.FC = () => {
             isActive: item.IsActive,
             clarity: item.Clarity,
             shape: item.Shape,
+            discountPrice: item.DiscountPrice,
             images: item.usingImage.map((image: any) => ({
               id: image.UsingImageID,
               name: image.Name,
@@ -516,9 +517,10 @@ const DiamondList: React.FC = () => {
                         }
                       />
                     </Link>
-                    {diamond.salePrice && (
-                      <div className="sale-badge">SALE</div>
-                    )}
+                    {diamond.discountPrice &&
+                      diamond.discountPrice !== diamond.price && (
+                        <div className="sale-badge">SALE</div>
+                      )}
                   </>
                 }
               >
@@ -539,13 +541,18 @@ const DiamondList: React.FC = () => {
                   </Title>
                   <div className="price-container">
                     <Text className="product-price">
-                      ${diamond.salePrice ? diamond.salePrice : diamond.price}
+                      $
+                      {diamond.discountPrice &&
+                      diamond.discountPrice !== diamond.price
+                        ? diamond.discountPrice
+                        : diamond.price}
                     </Text>
-                    {diamond.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${diamond.price}
-                      </Text>
-                    )}
+                    {diamond.discountPrice &&
+                      diamond.discountPrice !== diamond.price && (
+                        <Text delete className="product-sale-price">
+                          ${diamond.price}
+                        </Text>
+                      )}
                   </div>
                 </div>
               </Card>

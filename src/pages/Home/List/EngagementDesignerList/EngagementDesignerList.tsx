@@ -35,7 +35,7 @@ const EngagementDesignerList: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
@@ -216,12 +216,6 @@ const EngagementDesignerList: React.FC = () => {
   const currentDesignerData = designerData[designer];
 
   const [wishList, setWishList] = useState<string[]>([]);
-  // const [currentPage, setCurrentPage] = useState(1);
-  // const pageSize = 8;
-
-  // const handleChangePage = (page: any) => {
-  //   setCurrentPage(page);
-  // };
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -288,7 +282,7 @@ const EngagementDesignerList: React.FC = () => {
                           }
                         />
                       </Link>
-                      {product.salePrice && (
+                      {product.discountFirstPrice && (
                         <div className="sale-badge">SALE</div>
                       )}
                     </>
@@ -315,12 +309,18 @@ const EngagementDesignerList: React.FC = () => {
                     )}
                   </Title>
                   <div className="price-container">
-                    <Text className="product-price">
-                      ${product.firstPrice + product.totalDiamondPrice}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.totalDiamondPrice}
+                    {product.discountFirstPrice ? (
+                      <>
+                        <Text className="product-price">
+                          ${product.discountFirstPrice}
+                        </Text>
+                        <Text delete className="product-sale-price">
+                          ${product.firstPrice}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text className="product-price">
+                        ${product.firstPrice}
                       </Text>
                     )}
                   </div>

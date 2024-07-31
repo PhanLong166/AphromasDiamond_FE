@@ -42,6 +42,7 @@ const CutterList: React.FC = () => {
             clarity: item.Clarity,
             shape: item.Shape,
             cutter: item.Cutter,
+            discountPrice: item.DiscountPrice,
             images: item.usingImage.map((image: any) => ({
               id: image.UsingImageID,
               name: image.Name,
@@ -276,18 +277,6 @@ const CutterList: React.FC = () => {
   return (
     <Container>
       <div>
-        {/* <CustomBreadcrumb
-          separator=">"
-          items={[
-            {
-              title: "Home",
-              href: "/",
-            },
-            {
-              title: currentCutterData.title,
-            },
-          ]}
-        /> */}
         <Breadcrumb
           items={[
             { title: "Home", href: "/" },
@@ -295,19 +284,6 @@ const CutterList: React.FC = () => {
           ]}
         />
       </div>
-      {/* <Banner
-        style={{ backgroundImage: `url(${currentCutterData.bannerImage})` }}
-      >
-        <div className="bannerContent">
-          <LeftSection>
-            <h2>{currentCutterData.title}</h2>
-            <div className="subheading">{currentCutterData.description}</div>
-            <button className="consult-button button_slide slide_right">
-              <span>CONTACT US FOR CONSULTATION</span>
-            </button>
-          </LeftSection>
-        </div>
-      </Banner> */}
       <Banner
         bannerImage={currentCutterData.bannerImage}
         title={currentCutterData.title}

@@ -40,7 +40,7 @@ const ProductList: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
@@ -139,9 +139,7 @@ const ProductList: React.FC = () => {
       title: "Earrings",
       description:
         "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
-      products: products.filter(
-        (product) => product.jewelryType === "Earring"
-      ),
+      products: products.filter((product) => product.jewelryType === "Earring"),
       faqs: [
         {
           key: "1",
@@ -176,7 +174,7 @@ const ProductList: React.FC = () => {
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
         (product) =>
-          product.type === "Ring" &&
+          product.type === "Rings" &&
           !excludedCategories.includes(product.jewelryType)
       ),
       faqs: [
@@ -300,7 +298,7 @@ const ProductList: React.FC = () => {
                             }
                           />
                         </Link>
-                        {product.salePrice && (
+                        {product.discountFirstPrice && (
                           <div className="sale-badge">SALE</div>
                         )}
                       </>
@@ -327,12 +325,18 @@ const ProductList: React.FC = () => {
                       )}
                     </Title>
                     <div className="price-container">
-                      <Text className="product-price">
-                        ${product.firstPrice + product.totalDiamondPrice}
-                      </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.totalDiamondPrice}
+                      {product.discountFirstPrice ? (
+                        <>
+                          <Text className="product-price">
+                            ${product.discountFirstPrice}
+                          </Text>
+                          <Text delete className="product-sale-price">
+                            ${product.firstPrice}
+                          </Text>
+                        </>
+                      ) : (
+                        <Text className="product-price">
+                          ${product.firstPrice}
                         </Text>
                       )}
                     </div>

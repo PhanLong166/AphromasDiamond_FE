@@ -201,12 +201,18 @@ const AllProduct: React.FC = () => {
                         )}
                       </Title>
                       <div className="price-container">
-                        <Text className="product-price">
-                          ${product.firstPrice}
-                        </Text>
-                        {product.discountFirstPrice && (
-                          <Text delete className="product-sale-price">
-                            ${product.discountFirstPrice}
+                        {product.discountFirstPrice ? (
+                          <>
+                            <Text className="product-price">
+                              ${product.discountFirstPrice}
+                            </Text>
+                            <Text delete className="product-sale-price">
+                              ${product.firstPrice}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text className="product-price">
+                            ${product.firstPrice}
                           </Text>
                         )}
                       </div>
