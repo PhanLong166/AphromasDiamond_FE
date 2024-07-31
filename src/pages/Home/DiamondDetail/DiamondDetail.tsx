@@ -167,8 +167,8 @@ const DiamondDetails: React.FC = () => {
                 fetchedDiamonds.length <= maxProductsToShow
                   ? fetchedDiamonds
                   : fetchedDiamonds
-                    .sort(() => 0.5 - Math.random())
-                    .slice(0, maxProductsToShow);
+                      .sort(() => 0.5 - Math.random())
+                      .slice(0, maxProductsToShow);
 
               setSameBrandProducts(productsToShow);
             } else {
@@ -254,12 +254,15 @@ const DiamondDetails: React.FC = () => {
     (review) => foundProduct && foundProduct.DiamondID === review.diamondId
   );
   //Avg rating
-  const totalReviews = reviewsData.length;
-  const totalRating = reviewsData.reduce((acc, curr) => acc + curr.rating, 0);
+  const totalReviews = matchingReviews.length;
+  const totalRating = matchingReviews.reduce(
+    (acc, curr) => acc + curr.rating,
+    0
+  );
   const averageRating = totalRating / totalReviews;
   const summaryRating =
     matchingReviews.length > 0 ? averageRating.toFixed(1) : "0.0";
-  const reviewsCount = matchingReviews.length > 0 ? reviewsData.length : 0;
+  const reviewsCount = matchingReviews.length > 0 ? matchingReviews.length : 0;
 
   const handleAddToCart = async () => {
     if (role) {
@@ -385,10 +388,13 @@ const DiamondDetails: React.FC = () => {
                   <Heading>
                     <Title className="main-title">{foundProduct.Name}</Title>
 
-                    <ProductRating>
+                    {/* <ProductRating>
                       {Array.from({ length: foundProduct.Stars }, (_, i) => (
                         <StarFilled key={i} />
                       ))}
+                    </ProductRating> */}
+                    <ProductRating>
+                      {foundProduct.Stars} <StarFilled />
                     </ProductRating>
                   </Heading>
                   <ProductInfo>
@@ -440,7 +446,7 @@ const DiamondDetails: React.FC = () => {
                         <CurrentPrice>
                           $
                           {foundProduct.DiscountPrice &&
-                            foundProduct.DiscountPrice !== foundProduct.Price
+                          foundProduct.DiscountPrice !== foundProduct.Price
                             ? foundProduct.DiscountPrice
                             : foundProduct.Price}
                         </CurrentPrice>
@@ -476,13 +482,6 @@ const DiamondDetails: React.FC = () => {
                       <span>CHECKOUT</span>
                     </Button>
                   </ButtonContainer>
-                  {/* <Shipping>
-                    <ShippingList>
-                      <ShippingItem>
-                        <span>Free shipping & return</span>
-                      </ShippingItem>
-                    </ShippingList>
-                  </Shipping> */}
                 </div>
               </ProductDetail>
             </Wrap>
@@ -657,10 +656,10 @@ const DiamondDetails: React.FC = () => {
                             alt={diamond.name}
                             className="product-image"
                             onMouseOut={(e) =>
-                            (e.currentTarget.src =
-                              diamond.images && diamond.images.length > 0
-                                ? diamond.images[0].url
-                                : "/default-image.jpg")
+                              (e.currentTarget.src =
+                                diamond.images && diamond.images.length > 0
+                                  ? diamond.images[0].url
+                                  : "/default-image.jpg")
                             }
                           />
                         </Link>
