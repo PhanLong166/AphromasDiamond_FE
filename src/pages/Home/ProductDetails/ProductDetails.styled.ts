@@ -688,11 +688,11 @@ export const Review = styled.div`
     display: flex;
     align-items: center;
     justify-content: space-between;
-    margin-bottom: 30px;
-    border-bottom: 1px solid ${theme.color.primary};
+    // border-bottom: 1px solid ${theme.color.primary};
     padding-top: 10px;
     padding-bottom: 5px;
     justify-content: space-between;
+    text-align: center;
 
     .view-all-button {
       background-color: ${theme.color.primary};
@@ -737,12 +737,14 @@ export const Review = styled.div`
     }
   }
 
+
+
   .body-review {
     margin: 0 auto;
     max-width: 800px;
 
     .profile {
-      margin-top: 30px;
+      margin-top: 15px;
 
       .thumb-name {
         display: flex;
@@ -808,10 +810,13 @@ export const Review = styled.div`
       .reply {
         margin-left: 92px;
         background-color: #f1f1f1;
-        width: fit-content;
         padding: 10px;
         border-radius: 10px;
-        margin-top: 10px;
+        margin-top: -15px;
+        width: 100%;
+        justify-content: center;
+        height: fit-content;
+        padding-top: 5px;
 
         p {
           margin-top: 5px;

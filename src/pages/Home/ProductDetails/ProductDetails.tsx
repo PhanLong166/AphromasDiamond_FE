@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
-import { Card, Col, Row, Typography } from "antd";
+import { Card, Col, Row, Typography, Empty } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
@@ -42,13 +42,13 @@ import {
   TextBlock,
   DotGrid,
   ListBlock,
-  // Review,
+  Review,
   ProductSection,
   ButtonAdd,
   Space,
   List,
   // ProductSectionViewed,
-  // StyledPagination,
+  StyledPagination,
   Condition,
   CustomBreadcrumb,
 } from "./ProductDetails.styled";
@@ -232,7 +232,7 @@ const ProductDetails: React.FC = () => {
         setFoundProduct(null);
       } finally {
         setIsLoading(false);
-        console.log('Loading: ', isLoading);
+        console.log("Loading: ", isLoading);
       }
     };
 
@@ -248,10 +248,10 @@ const ProductDetails: React.FC = () => {
               date: new Date(feedback.CommentTime).toLocaleDateString(),
               highlight: "For AD",
               comment: feedback.Comment,
-              diamondId: feedback.DiamondID,
+              productId: feedback.ProductID,
             }))
           );
-          console.log('Review: ', reviewsData);
+          console.log("Review: ", reviewsData);
         } else {
           console.error("Error fetching feedback:", response.statusText);
         }
@@ -281,6 +281,20 @@ const ProductDetails: React.FC = () => {
     setSelectedMetal(id);
     setMetalType(type);
   };
+
+  const matchingReviews = reviewsData.filter(
+    (review) => foundProduct && foundProduct.ProductID === review.productId
+  );
+  //Avg rating
+  const totalReviews = matchingReviews.length;
+  const totalRating = matchingReviews.reduce(
+    (acc, curr) => acc + curr.rating,
+    0
+  );
+  const averageRating = totalRating / totalReviews;
+  const summaryRating =
+    matchingReviews.length > 0 ? averageRating.toFixed(1) : "0.0";
+  const reviewsCount = matchingReviews.length > 0 ? matchingReviews.length : 0;
 
   return (
     <Body>
@@ -327,11 +341,14 @@ const ProductDetails: React.FC = () => {
               <Entry>
                 <Heading>
                   <Title className="main-title">{foundProduct.Name}</Title>
-                  <ProductRating>
+                  {/* <ProductRating>
                     {Array.from({ length: foundProduct.Stars }, (_, i) => (
                       <StarFilled key={i} />
                     ))}
-                  </ProductRating>
+                  </ProductRating> */}
+                   <ProductRating>
+                      {foundProduct.Stars} <StarFilled />
+                    </ProductRating>
                 </Heading>
                 <ProductInfo>
                   <div className="wrap">
@@ -472,17 +489,6 @@ const ProductDetails: React.FC = () => {
                     <span>CHECKOUT</span>
                   </Button>
                 </ButtonContainer>
-                {/* <Shipping>
-                  <ShippingList>
-                    <ShippingItem>
-                      <span>Free shipping & return</span>
-                    </ShippingItem>
-                    <ShippingItem>
-                      <span>Estimate delivery: &#160;</span>
-                      <span className="delivery"> 01 - 07 Jan, 2024</span>
-                    </ShippingItem>
-                  </ShippingList>
-                </Shipping> */}
               </div>
             </ProductDetail>
           </Wrap>
@@ -569,47 +575,70 @@ const ProductDetails: React.FC = () => {
             className={activeTab === "product-review" ? "active" : "hide"}
           >
             {/* Review content */}
-            {/* <Review>
-              <div className="head-review">
-                <div className="sum-rating">
-                  <strong>{averageRating.toFixed(1)}</strong>
-                  <span>{reviewsData.length} reviews</span>
-                </div>
-              </div>
-              <div className="body-review">
-                {reviewsData.map((review, index) => (
-                  <div key={index} className="profile">
-                    <div className="thumb-name">
-                      <div className="image">
-                        <img src={review.avatar} alt="" />
-                      </div>
-                      <div className="grouping">
-                        <div className="name">{review.name}</div>
-                        <div className="rating">
-                          {[...Array(review.rating)].map((_, i) => (
-                            <StarFilled
-                              key={i}
-                              style={{ color: "#D8A25A", fontSize: "16px" }}
-                            />
-                          ))}
-                        </div>
-                        <div className="date grey-color">On {review.date}</div>
-                      </div>
-                    </div>
-                    <div className="comment">
-                      <strong>{review.highlight}</strong>
-                      <p className="grey-color">{review.comment}</p>
-                    </div>
-                    <div className="reply">
-                      <strong>Seller's Feedback</strong>
-                      <p className="grey-color">{review.reply}</p>
-                      <div className="date grey-color">On {review.date}</div>
+            <Review>
+              {reviewsData.length > 0 ? (
+                <div className="reviews-section">
+                  <div className="head-review">
+                    <div className="sum-rating">
+                      <strong>{summaryRating}</strong>
+                      <span>
+                        {reviewsCount}{" "}
+                        {reviewsCount === 1 ? "review" : "reviews"}
+                      </span>
                     </div>
                   </div>
-                ))}
-              </div>
+                  <hr style={{ width: "112%", marginBottom: "-10px" }} />
+                  <div className="body-review">
+                    {matchingReviews.length > 0 ? (
+                      matchingReviews.map((review, index) => (
+                        <div key={index} className="profile">
+                          <div className="thumb-name">
+                            <div className="image">
+                              <img
+                                src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Details%2FRemove-bg.ai_1722105671395.png?alt=media&token=441a4bb8-0da2-4426-ad91-cdbfd9c9115c"
+                                alt=""
+                              />
+                            </div>
+                            <div className="grouping">
+                              <div className="name">{review.name}</div>
+                              <div className="rating">
+                                {Array.from(
+                                  { length: review.rating },
+                                  (_, i) => (
+                                    <StarFilled
+                                      key={i}
+                                      style={{
+                                        color: "#D8A25A",
+                                        fontSize: "16px",
+                                      }}
+                                    />
+                                  )
+                                )}
+                              </div>
+                            </div>
+                          </div>
+                          <div className="comment reply">
+                            <strong>{review.highlight}</strong>
+                            <p className="grey-color">{review.comment}</p>
+                            <div className="date grey-color">
+                              On {review.date}
+                            </div>
+                          </div>
+                        </div>
+                      ))
+                    ) : (
+                      <Empty
+                        style={{ marginTop: "30px" }}
+                        description="No reviews available"
+                      />
+                    )}
+                  </div>
+                </div>
+              ) : (
+                <Empty description="No reviews available" />
+              )}
               <StyledPagination defaultCurrent={1} total={10} />
-            </Review> */}
+            </Review>
           </ProductAbout>
         </div>
       </Contain>
