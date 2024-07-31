@@ -50,9 +50,8 @@ import { Link, useNavigate } from "react-router-dom";
 import { Carousel } from "antd";
 import config from "@/config";
 import { useDocumentTitle } from "@/hooks";
-import { products } from "./shared/ListOfProducts";
-
-
+import { showAllProduct } from "@/services/productAPI";
+import { getImage } from "@/services/imageAPI";
 
 const categories = [
   {
@@ -193,7 +192,6 @@ const shapes = [
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2Fmarquiseshape.jpg?alt=media&token=bb18d51b-1230-4829-a677-2ec98998b215",
     title: "Marquise",
   },
-
 ];
 
 const brand = [
@@ -210,46 +208,28 @@ const brand = [
     title: "Cartier",
   },
   {
-    href: `${config.routes.public.firmList.replace(":jewelryFirm", "HarryWinston")}`,
+    href: `${config.routes.public.firmList.replace(
+      ":jewelryFirm",
+      "HarryWinston"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FHarryWinston.png?alt=media&token=55b3feaa-45ca-406d-bdb1-bf11582eeeba",
     title: "Harry Winston",
   },
   {
-    href: `${config.routes.public.firmList.replace(":jewelryFirm", "Tiffany&Co")}`,
+    href: `${config.routes.public.firmList.replace(
+      ":jewelryFirm",
+      "Tiffany&Co"
+    )}`,
     imgSrc:
       "https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Home%2FTiffany%26Co..png?alt=media&token=f9e75673-a2bc-4b37-9ffc-589ddc1fca20",
     title: "Tiffany & Co.",
   },
-
 ];
 
 const Home: React.FC = () => {
   useDocumentTitle("Aphromas Diamond");
 
-  const pageSize = 4;
-  const [current, setCurrent] = useState(1);
-   
-
-  const handlePageChange = (page: any) => {
-    setCurrent(page);
-  };
-
-  const excludedCategories = [
-    "wedding-ring",
-    "engagement-ring",
-    "men-engagement-ring",
-    "men-wedding-ring",
-  ];
-
-  const [filteredProducts] = useState(
-    products.filter(product => !excludedCategories.includes(product.categories))
-  );
-
-  const paginatedProducts = filteredProducts.slice(
-    (current - 1) * pageSize,
-    current * pageSize
-  );
   const [wishList, setWishList] = useState<number[]>([]);
 
   useEffect(() => {
@@ -261,7 +241,7 @@ const Home: React.FC = () => {
 
   useEffect(() => {
     sessionStorage.setItem("wishlist", JSON.stringify(wishList));
-  }, [wishList]); 
+  }, [wishList]);
 
   // const toggleWishList = (productId: number) => {
   //   setWishList((prev) =>
@@ -271,7 +251,78 @@ const Home: React.FC = () => {
   //   );
   // };
 
+  const [products, setProducts] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
+  const [current, setCurrent] = useState(1);
+  const pageSize = 4;
   const navigate = useNavigate();
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await showAllProduct();
+        console.log("API response:", response.data.data);
+
+        if (response && response.data && Array.isArray(response.data.data)) {
+          const fetchedProducts = response.data.data.map((jewelry: any) => ({
+            id: jewelry.ProductID,
+            name: jewelry.Name,
+            brand: jewelry.Brand,
+            star: jewelry.Stars,
+            totalDiamondPrice: jewelry.TotalDiamondPrice,
+            firstPrice: jewelry.FirstPrice,
+            salePrice: jewelry.SalePrice,
+            type: jewelry.JewelrySetting.jewelryType.Name,
+            jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
+            images: jewelry.UsingImage.map((image: any) => ({
+              id: image.UsingImageID,
+              url: getImage(image.UsingImageID),
+            })),
+          }));
+
+          console.log(fetchedProducts);
+          console.log(loading);
+          setProducts(fetchedProducts);
+          setLoading(false);
+        } else {
+          console.error("Unexpected API response format:", response.data);
+        }
+      } catch (error) {
+        console.error("Error fetching products:", error);
+      }
+    };
+
+    fetchData();
+  }, []);
+
+  const handlePageChange = (page: any) => {
+    setCurrent(page);
+  };
+
+  const excludedCategories = [
+    "Wedding Ring",
+    "Engagement Ring",
+    "Men Engagement Ring",
+    "Men Wedding Ring",
+  ];
+
+  useEffect(() => {
+    const filtered = products.filter(
+      (product) => !excludedCategories.includes(product.type)
+    );
+
+    const sortedAndLimited = filtered
+      .sort((a, b) => b.star - a.star)
+      .slice(0, 8);
+
+    setFilteredProducts(sortedAndLimited);
+  }, [products]);
+
+  const paginatedProducts = filteredProducts.slice(
+    (current - 1) * pageSize,
+    current * pageSize
+  );
 
   return (
     <Body>
@@ -294,7 +345,12 @@ const Home: React.FC = () => {
               >
                 SHOP ALL
               </button>
-              <button className="shopSale"  onClick={() => navigate(config.routes.public.sale)}>SHOP SALE JEWELRY</button>
+              <button
+                className="shopSale"
+                onClick={() => navigate(config.routes.public.sale)}
+              >
+                SHOP SALE JEWELRY
+              </button>
             </Button>
           </BannerContent>
         </Banner>
@@ -382,7 +438,9 @@ const Home: React.FC = () => {
                     wardrobe, or find the perfect gift, now is the perfect time
                     to save big!
                   </StyledText>
-                  <ButtonSale  onClick={() => navigate(config.routes.public.sale)}>
+                  <ButtonSale
+                    onClick={() => navigate(config.routes.public.sale)}
+                  >
                     <button>SHOP NOW</button>
                   </ButtonSale>
                 </StyledContent>
@@ -427,31 +485,39 @@ const Home: React.FC = () => {
                     hoverable
                     className="product-card"
                     cover={
-                      <>
-                       <Link to={`/product/${product.id}`} >
-                        <img
-                          style={{ borderRadius: "0" }}
-                          src={product.images[0]}
-                          alt={product.name}
-                          className="product-image"
-                          onMouseOver={(e) =>
-                            (e.currentTarget.src = product.images[2])
-                          }
-                          onMouseOut={(e) =>
-                            (e.currentTarget.src = product.images[0])
-                          }
-                        />
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                        </Link>
-                      </>
+                      product.images.length > 0 ? (
+                        <>
+                          <Link to={`/product/${product.id}`}>
+                            <img
+                              style={{ borderRadius: "0" }}
+                              src={product.images[0]?.url || ""}
+                              alt={product.name}
+                              className="product-image"
+                              onMouseOver={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[1]?.url ||
+                                  product.images[0]?.url ||
+                                  "")
+                              }
+                              onMouseOut={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[0]?.url || "")
+                              }
+                            />
+                          </Link>
+                          {product.salePrice && (
+                            <div className="sale-badge">SALE</div>
+                          )}
+                        </>
+                      ) : (
+                        <div>No Image Available</div>
+                      )
                     }
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} >
-                        {product.name}
+                        <Link to={`/product/${product.id}`}>
+                          <div>{product.name}</div>
                         </Link>
                         {wishList.includes(parseInt(product.id)) ? (
                           <HeartFilled
@@ -467,14 +533,11 @@ const Home: React.FC = () => {
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
-                          $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                          ${product.firstPrice + product.totalDiamondPrice}
                         </Text>
                         {product.salePrice && (
                           <Text delete className="product-sale-price">
-                            ${product.price}
+                            ${product.totalDiamondPrice}
                           </Text>
                         )}
                       </div>
@@ -503,31 +566,39 @@ const Home: React.FC = () => {
                     hoverable
                     className="product-card"
                     cover={
-                      <>
-                      <Link to={`/product/${product.id}`} >
-                        <img
-                          style={{ borderRadius: "0" }}
-                          src={product.images[0]}
-                          alt={product.name}
-                          className="product-image"
-                          onMouseOver={(e) =>
-                            (e.currentTarget.src = product.images[2])
-                          }
-                          onMouseOut={(e) =>
-                            (e.currentTarget.src = product.images[0])
-                          }
-                        />
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
-                        </Link>
-                      </>
+                      product.images.length > 0 ? (
+                        <>
+                          <Link to={`/product/${product.id}`}>
+                            <img
+                              style={{ borderRadius: "0" }}
+                              src={product.images[0]?.url || ""}
+                              alt={product.name}
+                              className="product-image"
+                              onMouseOver={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[1]?.url ||
+                                  product.images[0]?.url ||
+                                  "")
+                              }
+                              onMouseOut={(e) =>
+                                (e.currentTarget.src =
+                                  product.images[0]?.url || "")
+                              }
+                            />
+                          </Link>
+                          {product.salePrice && (
+                            <div className="sale-badge">SALE</div>
+                          )}
+                        </>
+                      ) : (
+                        <div>No Image Available</div>
+                      )
                     }
                   >
                     <div className="product-info">
                       <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`} >
-                        {product.name}
+                        <Link to={`/product/${product.id}`}>
+                          <div>{product.name}</div>
                         </Link>
                         {wishList.includes(parseInt(product.id)) ? (
                           <HeartFilled
@@ -543,14 +614,11 @@ const Home: React.FC = () => {
                       </Title>
                       <div className="price-container">
                         <Text className="product-price">
-                          $
-                          {product.salePrice
-                            ? product.salePrice
-                            : product.price}
+                          ${product.firstPrice + product.totalDiamondPrice}
                         </Text>
                         {product.salePrice && (
                           <Text delete className="product-sale-price">
-                            ${product.price}
+                            ${product.totalDiamondPrice}
                           </Text>
                         )}
                       </div>
@@ -570,7 +638,11 @@ const Home: React.FC = () => {
                   <Title level={2} style={{ color: "white" }}>
                     The brilliance of diamond masterpieces!
                   </Title>
-                  <button onClick={() => navigate(config.routes.public.allProduct)}>SHOP NOW!</button>
+                  <button
+                    onClick={() => navigate(config.routes.public.allProduct)}
+                  >
+                    SHOP NOW!
+                  </button>
                 </div>
               </div>
             </Col>
@@ -579,7 +651,7 @@ const Home: React.FC = () => {
                 className="pageBest"
                 current={current}
                 pageSize={pageSize}
-                total={paginatedProducts.length}
+                total={filteredProducts.length}
                 onChange={handlePageChange}
               />
             </Col>
