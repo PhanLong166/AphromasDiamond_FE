@@ -335,11 +335,6 @@ function Learn4cs() {
           <h6 className="in-this-article">IN THIS ARTICLE</h6>
           <Link href="#section2" title="01 The Importance of the 4Cs" />
           <Link href="#section3" title="02 A Breakdown of the 4Cs" />
-          <Link href="#cut" title="Cut" />
-          <Link href="#color" title="Color" />
-          <Link href="#clarity" title="Clarity" />
-          <Link href="#carat" title="Carat" />
-          <Link href="#shape" title="Shape" />
         </Anchor>
       </Layout>
     </Container>

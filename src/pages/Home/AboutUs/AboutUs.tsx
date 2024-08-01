@@ -16,7 +16,6 @@ import {
   TeamImageCo,
   ImageService,
   Service,
-  ServiceButton,
   Why,
   Commitment,
   Customer,
@@ -390,9 +389,6 @@ const About = () => {
                   exceptional experience.
                 </p>
                 <br />
-                <ServiceButton>
-                  <button>LEARN MORE</button>
-                </ServiceButton>
               </div>
             </Col>
             <Col lg={12}>

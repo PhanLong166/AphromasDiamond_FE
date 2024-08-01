@@ -64,7 +64,7 @@ const FirmList: React.FC = () => {
     Bvlgari: {
       title: "Bvlgari Firm",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Bvlgari is known for its bold and luxurious jewelry that combines innovative design with high-quality craftsmanship. With a distinctive style that often incorporates vibrant gemstones and unique patterns, Bvlgari’s pieces make a strong statement of elegance and opulence. The brand's jewelry is celebrated for its glamorous aesthetic and exceptional artistry.",
       products: products.filter(
         (product) =>
           product.brand === "Bvlgari" &&
@@ -101,7 +101,7 @@ const FirmList: React.FC = () => {
     HarryWinston: {
       title: "Harry Winston Firm",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Harry Winston is renowned for its exceptional and opulent jewelry, characterized by its exquisite diamonds and masterful craftsmanship. Known as the King of Diamonds, Harry Winston's pieces feature breathtaking designs and unparalleled brilliance. Each creation reflects the brand's dedication to luxury and sophistication, making it a symbol of high-end elegance.",
       products: products.filter(
         (product) =>
           product.brand === "Harry Winston" &&
@@ -138,7 +138,7 @@ const FirmList: React.FC = () => {
     "Tiffany&Co": {
       title: "Tiffany & Co Firm",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Tiffany & Co. is synonymous with timeless elegance and unparalleled quality. The brand's jewelry collection features classic designs and exquisite craftsmanship, with a focus on high-quality gemstones and precious metals. Tiffany's pieces are renowned for their sophistication and enduring beauty, making them iconic symbols of luxury and style.",
       products: products.filter(
         (product) =>
           product.brand === "Tiffany & Co" &&
@@ -175,7 +175,7 @@ const FirmList: React.FC = () => {
     Cartier: {
       title: "Cartier Firm",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Cartier is celebrated for its elegant and luxurious jewelry, which combines classic design with modern flair. Known for its meticulous craftsmanship and innovative use of gemstones, Cartier's pieces embody sophistication and refinement. The brand's jewelry is a testament to its rich heritage and commitment to timeless elegance.",
       products: products.filter(
         (product) =>
           product.brand === "Cartier" &&
@@ -212,7 +212,7 @@ const FirmList: React.FC = () => {
     "VanCleef&Arpels": {
       title: "Van Cleef & Arpels Firm",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Van Cleef & Arpels is renowned for its exquisite jewelry, which blends timeless elegance with innovative design. Each piece is crafted with meticulous attention to detail, featuring stunning gemstones and intricate settings. The brand's creations are celebrated for their unique artistry and sophisticated charm, making them coveted treasures for any collection.",
       products: products.filter(
         (product) =>
           product.brand === "Van Cleef & Arpels" &&

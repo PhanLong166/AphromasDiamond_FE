@@ -18,6 +18,72 @@ export const StyledPagination = styled(Pagination)`
 `;
 
 export const Container = styled.div``;
+export const Banner = styled.section`
+  background-image: url("https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Final%2FWedding%20Rings%20(1).jpeg?alt=media&token=56950e3a-aa97-446f-998f-dedc0cf009e6");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  max-width: 1400px;
+  margin: 20px auto;
+`;
+
+export const LeftSection = styled.div`
+  max-width: 1600px;
+  margin: 100px 60px;
+
+  h2 {
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 500;
+    color: #45413e;
+    font-family: "Gantari", sans-serif;
+  }
+
+  h1 {
+    font-size: 45px;
+    margin-bottom: 10px;
+    font-family: "Gantari", sans-serif;
+    text-align: left;
+    font-weight: 500;
+    color: #45413e;
+  }
+
+  .subheading {
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-align: left;
+    font-family: "Gantari", sans-serif;
+    color: #45413e;
+    width: 60%;
+  }
+
+  .consult-button {
+    padding: 15px 20px;
+    background-color: #efe2d4;
+    color: ${theme.color.primary};
+    border: 1px solid;
+    cursor: pointer;
+    font-size: 14px;
+
+    font-family: "Gantari", sans-serif;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .button_slide {
+    letter-spacing: 1px;
+    cursor: pointer;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+  }
+  .slide_right:hover {
+    box-shadow: inset 400px 0 0 0 ${theme.color.primary};
+    color: #efe2d4;
+  }
+`;
 
 export const Heading = styled.div`
   h2 {

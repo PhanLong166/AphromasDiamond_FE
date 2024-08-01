@@ -58,7 +58,7 @@ const WeddingList: React.FC = () => {
     "round-wedding-ring": {
       title: "Round Diamond Wedding Rings",
       description:
-        "Propose with timeless style when you design a handcrafted ring with a round brilliant diamond. Round diamonds are the most popular choice at AD because of their traditional look and incredible sparkle. This shape is also the most versatile, pairing seamlessly with virtually every setting style offered at AD.",
+        "The round brilliant cut diamond ring is a timeless classic, celebrated for its exceptional sparkle and brilliance. With 58 facets designed to maximize light reflection, this shape remains a popular choice for its versatility and enduring elegance.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Round"
@@ -95,7 +95,7 @@ const WeddingList: React.FC = () => {
     "princess-wedding-ring": {
       title: "Princess Diamond Wedding Rings",
       description:
-        " Discover the allure of our princess-cut diamond rings, characterized by their clean lines and modern elegance. Available in yellow gold, white gold, rose gold, or platinum settings, these rings are meticulously crafted to capture the essence of grace and luxury, making them ideal for celebrating milestones and special moments. Each ring reflects precision craftsmanship and a contemporary aesthetic, perfect for those who appreciate refined beauty with a touch of glamour.",
+        "A princess cut diamond ring offers a modern twist with its square or rectangular shape and clean, sharp lines. Known for its contemporary appeal and stunning sparkle, this cut combines sophistication with a bold edge, making it a favorite for those seeking a unique statement.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Princess"
@@ -132,7 +132,7 @@ const WeddingList: React.FC = () => {
     "heart-wedding-ring": {
       title: "Heart Diamond Wedding Rings",
       description:
-        "Symbolizing romance and devotion, our heart-shaped diamond rings are a testament to everlasting love. Expertly set in yellow gold, white gold, rose gold, or platinum, each ring is a blend of artistry and emotion, making it a perfect expression of love and affection. With their timeless design and exquisite detailing, these rings are cherished heirlooms that symbolize the deep bond between two individuals.",
+        "The heart cut diamond ring is a truly romantic choice, featuring a distinctive heart shape that symbolizes love and affection. With its unique and playful design, this cut offers a stunning and sentimental option for a memorable and cherished piece.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Heart"
@@ -169,7 +169,7 @@ const WeddingList: React.FC = () => {
     "oval-wedding-ring": {
       title: "Oval Diamond Wedding Rings",
       description:
-        "Embrace the distinctive beauty of our oval-shaped diamond rings, known for their timeless appeal and unique charm. Available in yellow gold, white gold, rose gold, or platinum settings, these rings exude sophistication and allure, making them a captivating choice for those who appreciate classic elegance with a modern twist. Each ring is meticulously crafted to enhance the diamond's natural brilliance and fire, creating a piece that stands out with understated elegance and grace.",
+        "The oval cut diamond ring features an elongated shape that exudes elegance and grace. With its similar brilliance to the round cut but with a distinctive twist, the oval cut creates the illusion of greater size and a refined, sophisticated look.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Oval"
@@ -206,7 +206,7 @@ const WeddingList: React.FC = () => {
     "cushion-wedding-ring": {
       title: "Cushion Diamond Wedding Rings",
       description:
-        "Our cushion-cut diamond rings combine classic charm with contemporary flair. Featuring square-shaped diamonds set in yellow gold, white gold, rose gold, or platinum, these rings are crafted to highlight the diamond's brilliance and fire, making them a stunning choice for those who desire a blend of tradition and luxury. Each ring is designed with meticulous attention to detail, ensuring a piece that is both timeless and distinctive, perfect for making a statement of enduring elegance.",
+        "The cushion cut diamond ring combines a square or rectangular shape with rounded corners, giving it a soft and romantic appearance. This vintage-inspired cut enhances the diamond's brilliance and offers a warm, classic feel with its distinctive sparkle.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Cushion"
@@ -243,7 +243,7 @@ const WeddingList: React.FC = () => {
     "emerald-wedding-ring": {
       title: "Emerald Diamond Wedding Rings",
       description:
-        "Make a statement with our emerald-cut diamond rings, renowned for their striking beauty and bold presence. Set in yellow gold, white gold, rose gold, or platinum, these rings showcase the diamond's clarity and geometric elegance, offering a timeless and sophisticated look for any occasion. Each ring is crafted with precision to enhance the diamond's natural allure, making it a symbol of luxury and refinement that will be cherished for generations.",
+        "An emerald cut diamond ring showcases a rectangular shape with stepped facets that highlight clarity and elegance. Its unique cut provides a sophisticated, vintage appeal, emphasizing the diamond's depth and purity with a refined, timeless charm.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Emerald"
@@ -280,7 +280,7 @@ const WeddingList: React.FC = () => {
     "asscher-wedding-ring": {
       title: "Asscher Diamond Wedding Rings",
       description:
-        "Experience luxury with our asscher-cut diamond rings, distinguished by their octagonal shape and Art Deco-inspired design. Crafted in yellow gold, white gold, rose gold, or platinum, these rings exude vintage charm and modern sophistication, making them a captivating choice for those who appreciate classic elegance with a touch of glamour. Each ring is a testament to superior craftsmanship and timeless design, ideal for marking life's most special moments with style and grace.",
+        "The asscher cut diamond ring features a square shape with beveled corners and a stepped faceting pattern. Known for its vintage-inspired elegance and captivating depth, this cut offers a unique and glamorous touch to any jewelry collection.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Asscher"
@@ -317,7 +317,7 @@ const WeddingList: React.FC = () => {
     "marquise-wedding-ring": {
       title: "Marquise Diamond Wedding Rings",
       description:
-        "Celebrate elegance with our marquise-cut diamond rings, distinguished by their elongated shape and graceful curves. Available in yellow gold, white gold, rose gold, or platinum settings, these rings offer a unique blend of vintage charm and contemporary allure, making them an exquisite choice for those who seek timeless beauty and refined craftsmanship. Each ring is crafted with precision to accentuate the diamond's brilliance, creating a piece that embodies sophistication and grace.",
+        "The marquise cut diamond ring features an elongated, boat-like shape with pointed ends, designed to maximize carat weight and create the illusion of a larger stone. This shape is perfect for those seeking a dramatic and elegant look with a touch of flair.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Marquise"
@@ -354,7 +354,7 @@ const WeddingList: React.FC = () => {
     "radiant-wedding-ring": {
       title: "Radiant Diamond Wedding Rings",
       description:
-        "Our radiant-cut diamond rings are designed to dazzle and delight. Featuring a rectangular shape that maximizes brilliance, these rings are set in yellow gold, white gold, rose gold, or platinum, capturing the essence of sophistication and luxury with every facet. Each ring is meticulously crafted to reflect the diamond's radiance and fire, creating a piece that stands out as a symbol of elegance and refinement, perfect for celebrating love and achievement.",
+        "The radiant cut diamond ring combines the elegance of the emerald cut with the brilliance of the round cut. Featuring cropped corners and a faceted design, this shape offers a vibrant sparkle and a modern, sophisticated appeal.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Radiant"
@@ -391,7 +391,7 @@ const WeddingList: React.FC = () => {
     "pear-wedding-ring": {
       title: "Pear Diamond Wedding Rings",
       description:
-        "Embrace elegance with our pear-shaped diamond rings, admired for their graceful silhouette and feminine allure. Set in yellow gold, white gold, rose gold, or platinum, these rings are designed to reflect the diamond's natural brilliance and sophistication, making them a perfect symbol of everlasting love and refinement. Each ring is a testament to exceptional craftsmanship and timeless design, ideal for marking life's most cherished moments with elegance and style.",
+        "A pear cut diamond ring blends the brilliance of a round cut with the unique shape of a teardrop. This shape offers a romantic and elegant look, with its elongated form and graceful curves creating a stunning and eye-catching centerpiece.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Wedding Ring" && product.shape === "Pear"

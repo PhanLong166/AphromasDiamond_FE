@@ -1,18 +1,13 @@
 import React, { useState, useEffect } from "react";
 import {
   Container,
-  // Banner,
-  // LeftSection,
   List,
-  StyledPagination,
-  // CustomBreadcrumb,
 } from "./CutterList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-// import { cutterData } from "./CutterList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Banner from "@/components/Banner/Banner";
@@ -27,7 +22,7 @@ const CutterList: React.FC = () => {
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const response = await showAllDiamond(); // Call the function to get the promise
+        const response = await showAllDiamond(); 
         console.log("API response:", response.data.data);
 
         if (response && response.data && Array.isArray(response.data.data)) {
@@ -67,7 +62,7 @@ const CutterList: React.FC = () => {
     debeers: {
       title: "Cutter - De Beers Group",
       description:
-        "Elevate your style with our diamond bracelets, crafted to perfection in yellow gold, white gold, rose gold, or platinum. Each bracelet features meticulously set diamonds that sparkle with every movement, offering a luxurious and timeless accessory for any occasion. Whether worn alone as a statement piece or layered with other jewelry, our bracelets are designed to enhance your beauty and express your individuality with sophistication and grace.",
+        "De Beers Group is a renowned name in the diamond industry, celebrated for its legacy of excellence and innovation. As a leading diamond cutter, De Beers is known for its meticulous craftsmanship and ability to produce some of the world's most exquisite and sought-after diamonds. The brand is synonymous with quality, prestige, and a commitment to creating exceptional gemstones that stand the test of time.",
       diamonds: diamonds.filter(
         (diamond) => diamond.cutter === "De Beers Group"
       ),
@@ -103,7 +98,7 @@ const CutterList: React.FC = () => {
     arlosa: {
       title: "Cutter - Arlosa",
       description:
-        "Adorn yourself with our exquisite diamond necklaces, crafted to capture attention and admiration. Set in yellow gold, white gold, rose gold, or platinum, each necklace showcases the beauty of diamonds in designs that range from classic to contemporary, making them a stunning addition to any jewelry collection. Whether worn as a centerpiece for formal occasions or as an everyday luxury, our necklaces are designed to complement your style and elevate your look with timeless elegance.",
+        "Arlosa is a distinguished diamond cutter renowned for its exceptional craftsmanship and innovative designs. Known for its meticulous attention to detail, Arlosa transforms high-quality rough diamonds into exquisite gemstones with unparalleled precision. The company is celebrated for its commitment to excellence and creating stunning diamonds that embody both beauty and brilliance.",
       diamonds: diamonds.filter((diamond) => diamond.cutter === "Arlosa"),
       faqs: [
         {
@@ -136,7 +131,7 @@ const CutterList: React.FC = () => {
     riotinto: {
       title: "Cutter - Rio Tinto Diamonds",
       description:
-        "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
+        " Rio Tinto Diamonds is a leading global producer of high-quality diamonds, known for its ethical mining practices and exceptional gemstones. With a commitment to sustainability and responsible sourcing, Rio Tinto Diamonds offers a range of beautifully cut diamonds that exemplify brilliance and quality. Their diamonds are celebrated for their purity, craftsmanship, and contribution to ethical luxury.",
       diamonds: diamonds.filter(
         (diamond) => diamond.cutter === "Rio Tinto Diamonds"
       ),
@@ -171,7 +166,7 @@ const CutterList: React.FC = () => {
     petra: {
       title: "Cutter - Petra Diamonds",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Petra Diamonds is a prominent diamond mining company with a reputation for producing high-quality diamonds. Headquartered in London, Petra operates several key mines across Africa, including in South Africa and Tanzania. Known for its commitment to sustainable and ethical mining practices, Petra Diamonds is recognized for its impressive portfolio of diamonds, including rare and valuable stones. The company focuses on delivering excellence in diamond production while contributing positively to the communities where it operates.",
       diamonds: diamonds.filter(
         (diamond) => diamond.cutter === "Petra Diamonds"
       ),
@@ -206,7 +201,7 @@ const CutterList: React.FC = () => {
     lucara: {
       title: "Cutter - Lucara Diamond",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Lucara Diamond Corporation is a leading diamond exploration and mining company known for its commitment to exceptional quality and innovation. Based in Vancouver, Lucara operates the Karowe Mine in Botswana, renowned for producing some of the world's most remarkable diamonds, including the historic 1,109-carat Lesedi La Rona. The company is dedicated to responsible mining practices and strives to deliver unparalleled value through its premium diamond production.",
       diamonds: diamonds.filter(
         (diamond) => diamond.cutter === "Lucara Diamond"
       ),
@@ -246,12 +241,6 @@ const CutterList: React.FC = () => {
 
   const currentCutterData = cutterData[diamondCutter];
   const [wishList, setWishList] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
-
-  const handleChangePage = (page: any) => {
-    setCurrentPage(page);
-  };
 
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
@@ -376,12 +365,6 @@ const CutterList: React.FC = () => {
           </Col>
         </Row>
       </List>
-      <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={currentCutterData.diamonds.length}
-        onChange={handleChangePage}
-      />
 
       <FAQ title={currentCutterData.title} faqs={faqs} />
     </Container>

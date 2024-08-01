@@ -3,13 +3,13 @@ import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 import {
   Section,
   Container,
-  Heading,
   List,
   StyledPagination,
   CustomBreadcrumb,
+  Banner,
+  LeftSection,
 } from "./AllWeddingRing.styled";
 import { Card, Col, Row, Typography, Spin } from "antd";
-import FilterSort from "@/components/FilterSort/FilterSort";
 import { Link } from "react-router-dom";
 import { showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
@@ -126,10 +126,25 @@ const AllWeddingRing: React.FC = () => {
         />
       </div>
       <Container className="wide">
-        <Heading>
-          <h2>ALL WEDDING RINGS</h2>
-        </Heading>
-        <FilterSort />
+        <Banner>
+          <div className="bannerContent">
+            <LeftSection>
+              <h2>BECAUSE YOUR OCCASION IS BRILLIANT</h2>
+              <h1>All Wedding Ring</h1>
+              <div className="subheading">
+                Welcome to our Wedding Ring Collection, where eternal love meets
+                timeless elegance. Each ring in our collection is designed to be
+                a symbol of your enduring commitment and shared journey. From
+                classic bands to intricate designs, our wedding rings are
+                crafted with the finest materials to ensure lasting beauty and
+                durability. Explore our selection to find the perfect ring that
+                resonates with your unique love story and celebrates your
+                special day. Let us help you find a wedding ring that will be
+                cherished forever.
+              </div>
+            </LeftSection>
+          </div>
+        </Banner>
         <hr
           style={{
             maxWidth: "1400px",
