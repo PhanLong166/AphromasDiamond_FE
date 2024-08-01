@@ -16,7 +16,7 @@ import { orderSlice } from "@/layouts/MainLayout/slice/orderSlice";
 interface CartItemProps {
   name: string;
   image: string;
-  sku: string;
+  sku?: string;
   price: string;
 }
 
@@ -57,7 +57,7 @@ const Summary: React.FC = () => {
     try {
       const customerResponse = await getCustomer(AccountID || 0);
       setCustomer(customerResponse.data.data);
-      
+
       const { data } = await showAllOrderLineForAdmin();
       if (data.statusCode !== 200) throw new Error();
 
@@ -111,11 +111,7 @@ const Summary: React.FC = () => {
   const subtotalNumber = () => {
     let temp = 0;
     orderLineItems.map(async (item) => {
-      const currentProduct = productList.find((product) => product.ProductID === item.ProductID);
-      if (!currentProduct) {
-        const currentDiamond = diamondList.find((diamond) => diamond.DiamondID === item.DiamondID);
-        temp += parseFloat(currentDiamond?.Price);
-      }
+      temp += item.DiscountPrice;
     })
     return temp;
   }
@@ -139,16 +135,28 @@ const Summary: React.FC = () => {
         </Link>
       </ItemNumber>
       {orderLineItems.map((item: any, index: any) => {
-        const diamond = diamondList.find(d => d && d.DiamondID === item.DiamondID);
-        return (
-          <CartItem
-            key={index}
-            name={diamond ? diamond.Name : item.name}
-            image={diamond ? getImage(diamond.usingImage[0]?.UsingImageID) : item.image}
-            sku={item.sku}
-            price={diamond ? diamond.Price : 0}
-          />
-        );
+        if (item?.DiamondID) {
+          const diamond = diamondList.find(d => d && d.DiamondID === item.DiamondID);
+          return (
+            <CartItem
+              key={index}
+              name={diamond ? diamond.Name : item.name}
+              image={diamond ? getImage(diamond.usingImage[0]?.UsingImageID) : item.image}
+              sku={item.sku}
+              price={diamond ? diamond.Price : 0}
+            />
+          );
+        } else {
+          const product = productList.find(p => p && p.ProductID === item.ProductID);
+          return (
+            <CartItem
+              key={index}
+              name={product ? product.Name : ""}
+              image={product ? getImage(product.UsingImage[0]?.UsingImageID) : ""}
+              price={item.DiscountPrice}
+            />
+          )
+        }
       })}
       <EditTotal>
         {" "}

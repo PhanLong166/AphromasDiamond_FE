@@ -7,7 +7,7 @@ import PromoCodeSection from "../../../components/Customer/Checkout/PromoCode";
 import { useAppDispatch, useDocumentTitle } from "@/hooks";
 import { useEffect, useState } from "react";
 import CartItem from "@/components/Customer/Cart/CartItem";
-import { deleteOrderLine, showAllOrderLineForAdmin } from "@/services/orderLineAPI";
+import { deleteOrderLine, OrderLineDetail, showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 import { getDiamondDetails, showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import useAuth from "@/hooks/useAuth";
@@ -16,6 +16,7 @@ import config from "@/config";
 import { Empty, notification } from "antd";
 import { cartSlice } from "@/layouts/MainLayout/slice/cartSlice";
 import { showAllProduct } from "@/services/jewelryAPI";
+import { getProductDetails } from "@/services/productAPI";
 
 const Cart = () => {
   useDocumentTitle("Cart | Aphromas Diamond");
@@ -61,23 +62,36 @@ const Cart = () => {
 
       // Dùng Promise.all để đảm bảo tất cả các yêu cầu API được thực hiện và trả về đầy đủ trước khi tiếp tục
       const detailedCartItems = await Promise.all(
-        cartItems.map(async (item: { DiamondID: number }) => {
+        cartItems.map(async (item: { 
+            DiamondID: number, 
+            ProductID: number,
+            OrderLineID: number
+          }) => {
           // Gọi API để lấy thông tin chi tiết về kim cương dựa vào DiamondID
-          // console.log(item)
           const { data: diamondDetails } = await getDiamondDetails(
             item.DiamondID
           );
+
+          const { data: productDetails } = await getProductDetails(
+            item.ProductID
+          );
+
+          const { data: orderlineDetails } = await OrderLineDetail(
+            item.OrderLineID
+          );
           console.log('a', diamondDetails?.data?.usingImage)
-          // const usingImageID = diamondDetails.data.usingImage[0].usingImageID;
-          // console.log(usingImageID)
-          // const imagesDiamond = await getImageDiamond(usingImageID);
+
           if (diamondDetails && diamondDetails.data && diamondDetails.data.usingImage) {
             const usingImageID = diamondDetails.data.usingImage[0];
             const imageDiamond = getImage(usingImageID?.UsingImageID ? usingImageID.UsingImageID : null);
             const type = diamondDetails.data.WeightCarat ? "diamond" : "ring";
             return { ...item, diamondDetails: diamondDetails.data, type, imageDiamond };
           } else {
-            return { ...item, diamondDetails: diamondDetails?.data, type: "unknown", imageDiamond: null };
+            return { 
+              ...item, 
+              productDetails: productDetails?.data,
+              orderlineDetails: orderlineDetails?.data?.JewelrySettingVariantID
+            };
           }
         })
       );
@@ -124,7 +138,16 @@ const Cart = () => {
   const subtotal = () => {
     let total = 0;
     cartItems.map((item) => {
-      total += parseFloat(item?.diamondDetails?.Price);
+      if(item.DiamondID) total += parseFloat(item?.diamondDetails?.Price) 
+      else {
+        const finalPrice = Number(
+          (item?.productDetails?.TotalDiamondPrice +
+          item?.productDetails?.JewelrySetting?.jewelrySettingVariant?.
+          find((itemJewelry: any) => itemJewelry.JewelrySettingVariantID === item?.orderlineDetails)?.Price)
+          *((100 - item?.productDetails?.Discount?.PercentDiscounts) / 100)
+        )
+        total += finalPrice;
+      }
     });
     return total;
   }
@@ -189,6 +212,7 @@ const Cart = () => {
                         key={index}
                         OrderLineID={item.OrderLineID}
                         DiamondID={item.DiamondID}
+                        ProductID={item.ProductID}
                         designer={
                           item.diamondDetails?.Designer ||
                           "No description available"

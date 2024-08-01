@@ -189,9 +189,13 @@ const ProductDetails: React.FC = () => {
         setFoundProduct({
           ...product,
           FinalPrice: Number(
-            product.TotalDiamondPrice +
-            product.JewelrySetting?.jewelrySettingVariant?.find((item: any) => item.MaterialJewelryID === Number(selectedMetal))?.Price
-            ,
+            (product.TotalDiamondPrice +
+            product.JewelrySetting?.jewelrySettingVariant?.find((item: any) => item.MaterialJewelryID === Number(selectedMetal))?.Price)
+          ),
+          DiscountFinalPrice: Number(
+            (product.TotalDiamondPrice +
+            product.JewelrySetting?.jewelrySettingVariant?.find((item: any) => item.MaterialJewelryID === Number(selectedMetal))?.Price)
+            *((100 - product?.Discount?.PercentDiscounts) / 100)
           )
         });
         const productId = product.ProductID;
@@ -566,11 +570,11 @@ const ProductDetails: React.FC = () => {
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>${foundProduct.FinalPrice}</CurrentPrice>
+                      <CurrentPrice>${foundProduct.DiscountFinalPrice}</CurrentPrice>
                       {foundProduct.DiscountFirstPrice && (
                         <div className="wrap">
                           <BeforePrice>
-                            ${foundProduct.FirstPrice}
+                            ${foundProduct.DiscouFirstPrice}
                           </BeforePrice>
                           <Discount>
                             - {foundProduct.Discount?.PercentDiscounts}%

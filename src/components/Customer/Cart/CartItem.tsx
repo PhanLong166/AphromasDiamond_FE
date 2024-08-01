@@ -1,14 +1,18 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
-import { Select, Button, Flex, Tag } from 'antd'; // Import Select nếu bạn sử dụng từ ant design
+import { Button, Flex, Tag } from 'antd'; // Import Select nếu bạn sử dụng từ ant design
 import { useNavigate } from "react-router-dom";
 import config from "@/config";
 import * as Styled from './CartItem.styled';
 import { useEffect, useState } from 'react';
 import { getDiamondDetails } from '@/services/diamondAPI';
+import { getProductDetails } from '@/services/productAPI';
+import { getImage } from '@/services/imageAPI';
+import { OrderLineDetail } from '@/services/orderLineAPI';
 
 type CartItemProps = {
   OrderLineID: number;
-  DiamondID: number;
+  DiamondID?: number;
+  ProductID?: number;
   name: string;
   designer: string;
   price: number;
@@ -17,28 +21,43 @@ type CartItemProps = {
   handleRemove?: () => void
 }
 const CartItem = ({
-  type,
+  // type,
   name,
   designer,
   price,
   images,
   DiamondID,
+  ProductID,
+  OrderLineID,
   handleRemove
 }: CartItemProps) => {
   const navigate = useNavigate();
   const [diamond, setDiamond] = useState<any>();
+  const [product, setProduct] = useState<any>();
+  const [orderline, setOrderline] = useState<any>();
 
   const handleView = () => {
     navigate(config.routes.public.diamondDetail.replace(':id', `${DiamondID}`));
   }
 
   useEffect(() => {
-    const fetchData = async () => {
-      const { data } = await getDiamondDetails(DiamondID);
+    const fetchOrderlineData = async () => {
+      const { data } = await OrderLineDetail(OrderLineID ? OrderLineID : 0);
+      setOrderline(data.data);
+    }
+    fetchOrderlineData();
+
+    const fetchDiamondData = async () => {
+      const { data } = await getDiamondDetails(DiamondID ? DiamondID : 0);
       setDiamond(data.data);
     }
+    fetchDiamondData();
 
-    fetchData();
+    const fetchProductData = async () => {
+      const { data } = await getProductDetails(ProductID ? ProductID : 0);
+      setProduct(data.data);
+    }
+    fetchProductData();
   }, [])
 
   return (
@@ -50,23 +69,28 @@ const CartItem = ({
         </Flex>
       </Styled.ActionText>
 
-      <Styled.ItemDetails>
-        <Styled.ItemInfo>
-          {/* <ItemImage src={image} alt='default-image.jpg' /> */}
-          {images && images.length > 0 && (
-            <Styled.ItemImage src={images} alt='Image.png' />
-          )}
-        </Styled.ItemInfo>
-        <Styled.ItemDescription>
-          <Styled.ProductDescription>
-            <Styled.ItemType>{name}</Styled.ItemType>
-            <Styled.Description>By {designer}</Styled.Description>
-            {type === 'diamond' ? (
+      {diamond && (
+        <Styled.ItemDetails>
+          <Styled.ItemInfo>
+            {/* <ItemImage src={image} alt='default-image.jpg' /> */}
+            {images && images.length > 0 && (
+              <Styled.ItemImage src={images} alt='Image' />
+            )}
+          </Styled.ItemInfo>
+          <Styled.ItemDescription>
+            <Styled.ProductDescription>
+              <Styled.ItemType>{name}</Styled.ItemType>
+              <Styled.Description>By {designer}</Styled.Description>
               <div>
                 {diamond ? (
-                  [diamond.Clarity, diamond.Color, diamond.Cut, diamond.WeightCarat].map((property, index) => (
-                    <Tag 
-                      key={index} 
+                  [
+                    diamond.Clarity, 
+                    diamond.Color, 
+                    diamond.Cut, 
+                    diamond.WeightCarat
+                  ].map((property, index) => (
+                    <Tag
+                      key={index}
                       bordered={false}
                       color='processing'
                     >
@@ -75,20 +99,54 @@ const CartItem = ({
                   ))
                 ) : ''}
               </div>
-            ) : (
-              <>
-                <div>{name}</div>
-                <Select
-                  placeholder="Ring Size"
-                  style={{ width: 120, marginTop: '3rem' }}
-                // options={ringOptions}
-                />
-              </>
+            </Styled.ProductDescription>
+          </Styled.ItemDescription>
+          <Styled.ItemPrice>${price}</Styled.ItemPrice>
+        </Styled.ItemDetails>
+      )}
+
+      {product && (
+        <Styled.ItemDetails>
+          <Styled.ItemInfo>
+            {getImage(product?.UsingImage[0]?.UsingImageID) && (
+              <Styled.ItemImage src={getImage(product?.UsingImage[0]?.UsingImageID)} alt='Image' />
             )}
-          </Styled.ProductDescription>
-        </Styled.ItemDescription>
-        <Styled.ItemPrice>${price}</Styled.ItemPrice>
-      </Styled.ItemDetails>
+          </Styled.ItemInfo>
+          <Styled.ItemDescription>
+            <Styled.ProductDescription>
+              <Styled.ItemType>{product?.Name}</Styled.ItemType>
+              <Styled.Description>By {product?.Brand}</Styled.Description>
+              <div>
+                {orderline ? (
+                  [
+                    orderline?.Inscription, 
+                    orderline?.SizeID, 
+                    orderline?.JewelrySettingVariantID,
+                  ].map((property, index) => (
+                    <Tag
+                      key={index}
+                      bordered={false}
+                      color='processing'
+                    >
+                      {property}
+                    </Tag>
+                  ))
+                ) : ''}
+              </div>
+            </Styled.ProductDescription>
+          </Styled.ItemDescription>
+          <Styled.ItemPrice>
+            ${
+              Number(
+                (product.TotalDiamondPrice +
+                product.JewelrySetting?.jewelrySettingVariant?.
+                find((item: any) => item.JewelrySettingVariantID === orderline?.JewelrySettingVariantID)?.Price)
+                *((100 - product?.Discount?.PercentDiscounts) / 100)
+              )
+            }
+          </Styled.ItemPrice>
+        </Styled.ItemDetails>
+      )}
 
     </Styled.ItemContainer>
   );
