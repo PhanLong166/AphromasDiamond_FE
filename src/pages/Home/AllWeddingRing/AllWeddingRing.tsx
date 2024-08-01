@@ -58,7 +58,7 @@ const AllWeddingRing: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
@@ -93,9 +93,6 @@ const AllWeddingRing: React.FC = () => {
     setCurrentPage(page);
   };
 
-  // const handleProductClick = (id: any) => {
-  //   navigate(`${config.routes.public.product}/${id}`);
-  // };
   if (loading) {
     return (
       <div
@@ -114,8 +111,6 @@ const AllWeddingRing: React.FC = () => {
 
   return (
     <Section>
-      {/* <Button onClick={() => navigate("/wishlist")}>Go to Wishlist</Button> */}
-
       <div>
         <CustomBreadcrumb
           separator=">"
@@ -123,10 +118,6 @@ const AllWeddingRing: React.FC = () => {
             {
               title: "Home",
               href: "/",
-            },
-            {
-              title: "Round Ring",
-              href: "/list",
             },
             {
               title: "All Product",
@@ -178,7 +169,7 @@ const AllWeddingRing: React.FC = () => {
                               }
                             />
                           </Link>
-                          {product.salePrice && (
+                          {product.discountFirstPrice && (
                             <div className="sale-badge">SALE</div>
                           )}
                         </>
@@ -205,12 +196,18 @@ const AllWeddingRing: React.FC = () => {
                         )}
                       </Title>
                       <div className="price-container">
-                        <Text className="product-price">
-                          ${product.firstPrice + product.totalDiamondPrice}
-                        </Text>
-                        {product.salePrice && (
-                          <Text delete className="product-sale-price">
-                            ${product.totalDiamondPrice}
+                        {product.discountFirstPrice ? (
+                          <>
+                            <Text className="product-price">
+                              ${product.discountFirstPrice}
+                            </Text>
+                            <Text delete className="product-sale-price">
+                              ${product.firstPrice}
+                            </Text>
+                          </>
+                        ) : (
+                          <Text className="product-price">
+                            ${product.firstPrice}
                           </Text>
                         )}
                       </div>
