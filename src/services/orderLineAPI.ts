@@ -6,6 +6,10 @@ export interface OrderLineBody {
     DiamondID?: number | null;
     ProductID?: number | null;
     CustomerID?: number | null;
+    Inscription?: string | null;
+    InscriptionFont?: string | null;
+    JewelrySettingVariantID?: number | null;
+    SizeID?: number | null;
 }
 
 export const showAllOrderLineForAdmin = () => {
