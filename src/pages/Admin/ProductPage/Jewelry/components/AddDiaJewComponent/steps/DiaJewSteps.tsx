@@ -5,6 +5,9 @@ import { NotificationInstance } from "antd/es/notification/interface";
 import ProductImageUpload from "../upload/DiaJewImage.upload";
 import UploadButton from "../button/DiaProductButton.upload";
 import AddProductForm from "../form/DiaJewForm";
+import { useNavigate } from "react-router-dom";
+import { DiaJewelryField } from "../form/DiaJewFrom.field";
+import config from "@/config";
 
 type ProductStepsType = {
     title: string;
@@ -32,12 +35,15 @@ const ProductSteps = ({
     const [current, setCurrent] = useState(0);
     const [form] = Form.useForm();
     const [imageForm] = Form.useForm();
+    const navigate = useNavigate();
 
     const steps: ProductStepsType[] = [
         {
             title: 'Information',
             content: (
                 <AddProductForm
+                    fields={DiaJewelryField}
+                    form={form}
                 />
             )
         },
@@ -110,6 +116,7 @@ const ProductSteps = ({
                 {current === steps.length - 1 && (
                     <Button type="primary" onClick={() => {
                         fetchData();
+                        navigate(config.routes.admin.jewelryProduct);
                     }}>
                         Done
                     </Button>

@@ -3,7 +3,7 @@ import { Input, Select } from "antd";
 import TextArea from "antd/es/input/TextArea";
 import { Brand_Option } from "../../../Jewelry.type";
 
-export const ProductField: FieldType[] = [
+export const DiaJewelryField: FieldType[] = [
     {
         key: 1,
         label: "Product Name",
@@ -48,52 +48,18 @@ export const ProductField: FieldType[] = [
             />
     },
     {
-        key: 3,
-        label: "Collection",
-        name: "Collection",
-        rules: [
-            {
-                required: true
-            }
-        ],
-        children:
-            <Select
-                className="formItem"
-                placeholder="Select Collection"
-                allowClear
-                // options={}
-            />
-    },
-    {
-        key: 4,
-        label: "Discount",
-        name: "Discount",
-        rules: [
-            {
-                required: true
-            }
-        ],
-        children:
-            <Select
-                className="formItem"
-                placeholder="Select Discount"
-                allowClear
-                // options={}
-            />
-    },
-    {
         key: 5,
         label: "Description",
-        name: "Inscription",
+        name: "Description",
         rules: [
             {
                 required: true,
                 message: "Description is required.",
             },
             {
-                pattern: /^[a-zA-Z0-9\s()-.]*$/,
+                max: 300,
                 message:
-                    "Only alphabet, numbers, (), - and . are allowed.",
+                    "Jewelry Name must be at most 300 characters long.",
             },
             {
                 whitespace: true,
@@ -102,7 +68,7 @@ export const ProductField: FieldType[] = [
         ],
         children:
             <TextArea
-                placeholder="Inscription"
+                placeholder="Fill Description"
                 allowClear
             />
     },
