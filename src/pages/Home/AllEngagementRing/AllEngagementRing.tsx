@@ -3,14 +3,13 @@ import { HeartFilled, HeartOutlined } from "@ant-design/icons";
 
 import {
   Section,
-  Container,
-  Heading,
   List,
   StyledPagination,
   CustomBreadcrumb,
+  Banner,
+  LeftSection,
 } from "./AllEngagementRing.styled";
 import { Card, Col, Row, Typography, Spin } from "antd";
-import FilterSort from "@/components/FilterSort/FilterSort";
 import { Link } from "react-router-dom";
 import { showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
@@ -130,11 +129,29 @@ const AllEngagementRing: React.FC = () => {
           ]}
         />
       </div>
-      <Container className="wide">
-        <Heading>
-          <h2>ALL ENGAGEMENTS RINGS</h2>
-        </Heading>
-        <FilterSort />
+    
+        <Banner>
+          <div className="bannerContent">
+            <LeftSection>
+              <h2>YOUR JOURNEY BEGINS HERE</h2>
+              <h1>All Engagement Ring</h1>
+              <div className="subheading">
+                Welcome to our Engagement Ring Collection, where love and
+                commitment are celebrated with timeless elegance and unmatched
+                craftsmanship. Each ring in our collection is meticulously
+                designed to symbolize the unique bond between you and your
+                partner. From classic solitaires to intricate vintage designs,
+                our selection offers a variety of styles to suit every taste.
+                Crafted with the finest diamonds and precious metals, our
+                engagement rings are made to last a lifetime. Explore our
+                collection and find the perfect ring to mark the beginning of
+                your beautiful journey together. Let us help you make your
+                proposal unforgettable with a ring that captures your love
+                story.
+              </div>
+            </LeftSection>
+          </div>
+        </Banner>
         <hr
           style={{
             maxWidth: "1400px",
@@ -228,7 +245,7 @@ const AllEngagementRing: React.FC = () => {
           total={filteredProducts.length}
           onChange={handleChangePage}
         />
-      </Container>
+    
     </Section>
   );
 };

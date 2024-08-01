@@ -671,12 +671,12 @@ const Home: React.FC = () => {
             </h6>
             <Button>
               <button
-                onClick={() => navigate(config.routes.public.collectionInfo)}
+                onClick={() => navigate(config.routes.public.allProduct)}
               >
                 SHOPPING NOW!
               </button>
-              <button onClick={() => navigate(config.routes.public.collection)}>
-                ALL COLLECTION
+              <button onClick={() => navigate(config.routes.public.sale)}>
+                ALL SHOP SALE
               </button>
             </Button>
           </Banner4Container>
