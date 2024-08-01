@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { Link, useParams } from "react-router-dom";
 import { CloseOutlined } from "@ant-design/icons";
-import { Card, Col, Row, Typography, Empty } from "antd";
+import { Card, Col, Row, Typography, Empty, Rate, notification } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 const { Title, Text } = Typography;
 import InscriptionModal from "@/components/InscriptionModal/InscriptionModal";
@@ -58,6 +58,9 @@ import { showAllSize } from "@/services/sizeAPI";
 import { getProductDetails, showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
 import { showAllFeedback } from "@/services/feedBackAPI";
+import useAuth from "@/hooks/useAuth";
+import config from "@/config";
+import { createOrderLine, OrderLineBody, showAllOrderLineForAdmin } from "@/services/orderLineAPI";
 const ProductDetails: React.FC = () => {
   //tab description + cmt
   const [activeTab, setActiveTab] = useState("product-description");
@@ -68,12 +71,12 @@ const ProductDetails: React.FC = () => {
 
   //Metal
   const metalData = [
-    { id: "yellow", label: "14k", type: "14K Yellow Gold" },
-    { id: "white", label: "14k", type: "14K White Gold" },
-    { id: "rose", label: "14k", type: "14K Rose Gold" },
-    { id: "platinum", label: "Pt", type: "Platinum" },
+    { id: 1, key: "yellow", label: "14k", type: "14K Yellow Gold" },
+    { id: 2, key: "white", label: "14k", type: "14K White Gold" },
+    { id: 3, key: "rose", label: "14k", type: "14K Rose Gold" },
+    { id: 4, key: "platinum", label: "Pt", type: "Platinum" },
   ];
-  const [selectedMetal, setSelectedMetal] = useState("");
+  const [selectedMetal, setSelectedMetal] = useState(1);
   const [metalType, setMetalType] = useState("");
   const [sizes, setSizes] = useState<any[]>([]);
   const [selectedSize, setSelectedSize] = useState<number | null>(null);
@@ -140,125 +143,225 @@ const ProductDetails: React.FC = () => {
 
   //PARAM
   const { id } = useParams<{ id: string }>();
+  const { role, user } = useAuth();
   const [foundProduct, setFoundProduct] = useState<any | null>(null);
   const [mainImage, setMainImage] = useState("");
   const [selectedThumb, setSelectedThumb] = useState(0);
   const [sameBrandProducts, setSameBrandProducts] = useState<any[]>([]);
   const [productId, setProductId] = useState<number | null>(null);
   const [isLoading, setIsLoading] = useState(true);
-  useEffect(() => {
-    const fetchProductDetails = async () => {
-      try {
-        console.log("Fetching product details...");
-        const response = await getProductDetails(Number(id));
-        if (response.status === 200) {
-          const product = response.data.data;
-          setFoundProduct(product);
-          const productId = product.ProductID;
-          setProductId(productId);
+  const [jewelrySettingVariant, setJewelrySettingVariant] = useState(0);
+  const [cartList, setCartList] = useState<any[]>([]);
+  const [api, contextHolder] = notification.useNotification();
 
-          if (product.UsingImage && product.UsingImage.length > 0) {
-            const mainImageUrl = getImage(product.UsingImage[0].UsingImageID);
-            setMainImage(mainImageUrl);
-          } else {
-            setMainImage("");
-          }
-          setSelectedThumb(0);
+  const fetchFeedbackDetail = async (productId: number) => {
+    try {
+      console.log("Fetching feedback details for product ID:", productId);
+      const response = await showAllFeedback(productId);
+      if (response.status === 200) {
+        setReviewsData(
+          response.data.data.map((feedback: any) => ({
+            name: feedback.account ? feedback.account.Name : "Anonymous",
+            rating: feedback.Stars,
+            date: new Date(feedback.CommentTime).toLocaleDateString(),
+            highlight: "For AD",
+            comment: feedback.Comment,
+            productId: feedback.ProductID,
+          }))
+        );
+        console.log("Review: ", reviewsData);
+      } else {
+        console.error("Error fetching feedback:", response.statusText);
+      }
+    } catch (error) {
+      console.error("Failed to fetch feedback details:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-          const weightCarat = product.WeightCarat;
-          const params = { weightCarat };
-          console.log(params);
-          const sameWeightProductsResponse = await showAllProduct();
+  const fetchProductDetails = async () => {
+    try {
+      console.log("Fetching product details...");
+      const response = await getProductDetails(Number(id));
+      if (response.status === 200) {
+        const product = response.data.data;
+        setFoundProduct({
+          ...product,
+          FinalPrice: Number(
+            product.TotalDiamondPrice +
+            product.JewelrySetting?.jewelrySettingVariant?.find((item: any) => item.MaterialJewelryID === Number(selectedMetal))?.Price
+            ,
+          )
+        });
+        const productId = product.ProductID;
+        setProductId(productId);
 
-          if (sameWeightProductsResponse.status === 200) {
-            if (
-              sameWeightProductsResponse.data &&
-              Array.isArray(sameWeightProductsResponse.data.data)
-            ) {
-              const fetchedDiamonds = sameWeightProductsResponse.data.data.map(
-                (jewelry: any) => ({
-                  id: jewelry.ProductID,
-                  name: jewelry.Name,
-                  brand: jewelry.Brand,
-                  totalDiamondPrice: jewelry.TotalDiamondPrice,
-                  firstPrice: jewelry.FirstPrice,
-                  discountFirstPrice: jewelry.DiscountFirstPrice,
-                  jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
-                  images: jewelry.UsingImage.map((image: any) => ({
-                    id: image.UsingImageID,
-                    url: getImage(image.UsingImageID),
-                  })),
-                })
-              );
+        if (product.UsingImage && product.UsingImage.length > 0) {
+          const mainImageUrl = getImage(product.UsingImage[0].UsingImageID);
+          setMainImage(mainImageUrl);
+        } else {
+          setMainImage("");
+        }
+        setSelectedThumb(0);
 
-              const maxProductsToShow = 4;
+        const weightCarat = product.WeightCarat;
+        const params = { weightCarat };
+        console.log(params);
+        const sameWeightProductsResponse = await showAllProduct();
 
-              // Assuming you have a variable for the current brand
-              const currentBrand = product.Brand;
+        if (sameWeightProductsResponse.status === 200) {
+          if (
+            sameWeightProductsResponse.data &&
+            Array.isArray(sameWeightProductsResponse.data.data)
+          ) {
+            const fetchedDiamonds = sameWeightProductsResponse.data.data.map(
+              (jewelry: any) => ({
+                id: jewelry.ProductID,
+                name: jewelry.Name,
+                brand: jewelry.Brand,
+                totalDiamondPrice: jewelry.TotalDiamondPrice,
+                firstPrice: jewelry.FirstPrice,
+                discountFirstPrice: jewelry.DiscountFirstPrice,
+                jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
+                images: jewelry.UsingImage.map((image: any) => ({
+                  id: image.UsingImageID,
+                  url: getImage(image.UsingImageID),
+                })),
+              })
+            );
 
-              // Filter products by the current brand
-              const sameBrandProducts = fetchedDiamonds.filter(
-                (item: any) =>
-                  item.brand === currentBrand && item.id !== productId
-              );
+            const maxProductsToShow = 4;
 
-              const productsToShow =
-                sameBrandProducts.length <= maxProductsToShow
-                  ? sameBrandProducts
-                  : sameBrandProducts
-                      .sort(() => 0.5 - Math.random())
-                      .slice(0, maxProductsToShow);
+            // Assuming you have a variable for the current brand
+            const currentBrand = product.Brand;
 
-              setSameBrandProducts(productsToShow);
-            } else {
-              setSameBrandProducts([]);
-            }
+            // Filter products by the current brand
+            const sameBrandProducts = fetchedDiamonds.filter(
+              (item: any) =>
+                item.brand === currentBrand && item.id !== productId
+            );
+
+            const productsToShow =
+              sameBrandProducts.length <= maxProductsToShow
+                ? sameBrandProducts
+                : sameBrandProducts
+                  .sort(() => 0.5 - Math.random())
+                  .slice(0, maxProductsToShow);
+
+            setSameBrandProducts(productsToShow);
           } else {
             setSameBrandProducts([]);
           }
-          if (productId !== null) {
-            await fetchFeedbackDetail(productId);
-          }
         } else {
-          setFoundProduct(null);
+          setSameBrandProducts([]);
         }
-      } catch (error) {
-        console.error("Failed to fetch diamond details:", error);
+        if (productId !== null) {
+          await fetchFeedbackDetail(productId);
+        }
+      } else {
         setFoundProduct(null);
-      } finally {
-        setIsLoading(false);
-        console.log("Loading: ", isLoading);
       }
-    };
+    } catch (error) {
+      console.error("Failed to fetch diamond details:", error);
+      setFoundProduct(null);
+    } finally {
+      setIsLoading(false);
+      console.log("Loading: ", isLoading);
+    }
+  };
 
-    const fetchFeedbackDetail = async (productId: number) => {
-      try {
-        console.log("Fetching feedback details for product ID:", productId);
-        const response = await showAllFeedback(productId);
-        if (response.status === 200) {
-          setReviewsData(
-            response.data.data.map((feedback: any) => ({
-              name: feedback.account ? feedback.account.Name : "Anonymous",
-              rating: feedback.Stars,
-              date: new Date(feedback.CommentTime).toLocaleDateString(),
-              highlight: "For AD",
-              comment: feedback.Comment,
-              productId: feedback.ProductID,
-            }))
-          );
-          console.log("Review: ", reviewsData);
-        } else {
-          console.error("Error fetching feedback:", response.statusText);
-        }
-      } catch (error) {
-        console.error("Failed to fetch feedback details:", error);
-      } finally {
-        setIsLoading(false);
-      }
-    };
-
+  useEffect(() => {
     fetchProductDetails();
   }, [id, productId]);
+
+  useEffect(() => {
+    const fetchCart = async () => {
+      const orderlines = await showAllOrderLineForAdmin();
+      const cartItems = orderlines.data.data.filter(
+        (item: any) =>
+          item.OrderID === null && item.CustomerID === user?.CustomerID
+      );
+      setCartList(cartItems);
+    };
+
+    fetchCart();
+  }, [id])
+
+  const handleAddToCart = async () => {
+    if (role) {
+      try {
+        const OrderLineChild: OrderLineBody = {
+          Quantity: 1,
+          DiamondID: null,
+          CustomerID: user?.CustomerID,
+          ProductID: Number(id),
+          OrderID: null,
+          Inscription: inscription !== "" ? inscription : null,
+          InscriptionFont: null,
+          JewelrySettingVariantID: jewelrySettingVariant,
+          SizeID: selectedSize
+        }
+
+        if (cartList.find((cart) => cart.ProductID === id)) {
+          api.warning({
+            message: "Notification",
+            description: "The product is already in your cart",
+          });
+        } else {
+          const { data } = await createOrderLine(OrderLineChild);
+          if (data.statusCode === 404) throw new Error("Network error");
+          if (data.statusCode !== 200) throw new Error(data.message);
+          navigate(config.routes.customer.cart);
+        }
+      } catch (error: any) {
+        api.error({
+          message: 'Error',
+          description: error.message || 'An error occurred'
+        });
+      }
+    } else {
+      navigate(config.routes.public.login);
+    }
+  }
+
+  const handleCheckout = async () => {
+    if (role) {
+      try {
+        const OrderLineChild: OrderLineBody = {
+          Quantity: 1,
+          DiamondID: null,
+          CustomerID: user?.CustomerID,
+          ProductID: Number(id),
+          OrderID: null,
+          Inscription: inscription !== "" ? inscription : null,
+          InscriptionFont: null,
+          JewelrySettingVariantID: jewelrySettingVariant,
+          SizeID: selectedSize
+        }
+
+        if (cartList.find((cart) => cart.ProductID === id)) {
+          api.warning({
+            message: "Notification",
+            description: "The product is already in your cart",
+          });
+        } else {
+          const { data } = await createOrderLine(OrderLineChild);
+          if (data.statusCode === 404) throw new Error("Network error");
+          if (data.statusCode !== 200) throw new Error(data.message);
+          navigate(config.routes.customer.cart);
+        }
+      } catch (error: any) {
+        api.error({
+          message: 'Error',
+          description: error.message || 'An error occurred'
+        });
+      }
+      navigate(config.routes.customer.checkout);
+    } else {
+      navigate(config.routes.public.login);
+    }
+  }
 
   if (!foundProduct) {
     return <div>Product not found</div>;
@@ -275,6 +378,13 @@ const ProductDetails: React.FC = () => {
   const handleButtonClick = (id: any, type: any) => {
     setSelectedMetal(id);
     setMetalType(type);
+    fetchProductDetails();
+    const JewelrySettingVariantID = Number(
+      foundProduct?.JewelrySetting?.jewelrySettingVariant?.
+      find((item: any) => item.MaterialJewelryID === Number(selectedMetal))?.
+      JewelrySettingVariantID
+    );
+    setJewelrySettingVariant(JewelrySettingVariantID);
   };
 
   const matchingReviews = reviewsData.filter(
@@ -293,6 +403,7 @@ const ProductDetails: React.FC = () => {
 
   return (
     <Body>
+      {contextHolder}
       <div>
         <CustomBreadcrumb
           separator=">"
@@ -337,7 +448,10 @@ const ProductDetails: React.FC = () => {
                 <Heading>
                   <Title className="main-title">{foundProduct.Name}</Title>
                   <ProductRating>
-                    {foundProduct.Stars} <StarFilled />
+                    {foundProduct.Stars === 0 ? <>
+                      {foundProduct.Stars}
+                      <Rate disabled defaultValue={foundProduct.Stars} />
+                    </> : "No reviews"}
                   </ProductRating>
                 </Heading>
                 <ProductInfo>
@@ -369,16 +483,15 @@ const ProductDetails: React.FC = () => {
                 {foundProduct.JewelrySetting.jewelryType.Name !==
                   "Men Engagement Ring" &&
                   foundProduct.JewelrySetting.jewelryType.Name !==
-                    "Men Wedding Ring" && (
+                  "Men Wedding Ring" && (
                     <ProductMetal>
                       <span className="fill">Metal Type: {metalType}</span>
                       <div className="wrap">
                         {metalData.map((metal) => (
                           <button
                             key={metal.id}
-                            className={`metal-button ${metal.id} ${
-                              selectedMetal === metal.id ? "selected" : ""
-                            }`}
+                            className={`metal-button ${metal.key} ${selectedMetal === metal.id ? "selected" : ""
+                              }`}
                             onClick={() =>
                               handleButtonClick(metal.id, metal.type)
                             }
@@ -392,76 +505,75 @@ const ProductDetails: React.FC = () => {
                 {foundProduct.JewelrySetting.jewelryType.Name.includes(
                   "Ring"
                 ) && (
-                  <>
-                    <div>
-                      <RingSizeContainer>
-                        <RingSize>Select size</RingSize>
-                        <RingSizeHelp href="/find-ring-size">
-                          Ring size help
-                        </RingSizeHelp>
-                      </RingSizeContainer>
-                      <div className="button-container">
-                        {sizes.map((size) => (
-                          <button
-                            key={size.SizeValue}
-                            className={`size-button ${
-                              selectedSize === size.SizeValue ? "selected" : ""
-                            }`}
-                            onClick={() => handleClick(size.SizeValue)}
-                          >
-                            {parseInt(size.SizeValue)}
-                          </button>
-                        ))}
+                    <>
+                      <div>
+                        <RingSizeContainer>
+                          <RingSize>Select size</RingSize>
+                          <RingSizeHelp href="/find-ring-size">
+                            Ring size help
+                          </RingSizeHelp>
+                        </RingSizeContainer>
+                        <div className="button-container">
+                          {sizes.map((size) => (
+                            <button
+                              key={size.SizeValue}
+                              className={`size-button ${selectedSize === size.SizeID ? "selected" : ""
+                                }`}
+                              onClick={() => handleClick(size.SizeID)}
+                            >
+                              {parseInt(size.SizeValue)}
+                            </button>
+                          ))}
+                        </div>
                       </div>
-                    </div>
 
-                    <div className="inscription-container">
-                      {inscription ? (
-                        <Space>
-                          <span className="inscription">Your inscription</span>:{" "}
-                          <span
-                            className="inscription-content"
-                            onClick={showModal}
-                          >
-                            {inscription}
-                          </span>
-                          <CloseOutlined
-                            style={{
-                              fontSize: "12px",
-                              marginLeft: "3px",
-                              cursor: "pointer",
-                              backgroundColor: "#eee",
-                              borderRadius: "50%",
-                              color: "#DB7F67",
-                            }}
-                            onClick={handleDelete}
-                          />
-                        </Space>
-                      ) : (
-                        <Button onClick={showModal}>
-                          + Add free inscription
-                        </Button>
-                      )}
-                      <InscriptionModal
-                        visible={isModalVisible}
-                        onClose={handleClose}
-                        onSave={handleSave}
-                        reset={resetModal}
-                      />
-                    </div>
-                  </>
-                )}
+                      <div className="inscription-container">
+                        {inscription ? (
+                          <Space>
+                            <span className="inscription">Your inscription</span>:{" "}
+                            <span
+                              className="inscription-content"
+                              onClick={showModal}
+                            >
+                              {inscription}
+                            </span>
+                            <CloseOutlined
+                              style={{
+                                fontSize: "12px",
+                                marginLeft: "3px",
+                                cursor: "pointer",
+                                backgroundColor: "#eee",
+                                borderRadius: "50%",
+                                color: "#DB7F67",
+                              }}
+                              onClick={handleDelete}
+                            />
+                          </Space>
+                        ) : (
+                          <Button onClick={showModal}>
+                            + Add free inscription
+                          </Button>
+                        )}
+                        <InscriptionModal
+                          visible={isModalVisible}
+                          onClose={handleClose}
+                          onSave={handleSave}
+                          reset={resetModal}
+                        />
+                      </div>
+                    </>
+                  )}
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>${foundProduct.FirstPrice}</CurrentPrice>
+                      <CurrentPrice>${foundProduct.FinalPrice}</CurrentPrice>
                       {foundProduct.DiscountFirstPrice && (
                         <div className="wrap">
                           <BeforePrice>
-                            ${foundProduct.DiscountFirstPrice}
+                            ${foundProduct.FirstPrice}
                           </BeforePrice>
                           <Discount>
-                            - {foundProduct.Discount.PercentDiscounts}%
+                            - {foundProduct.Discount?.PercentDiscounts}%
                           </Discount>
                         </div>
                       )}
@@ -477,10 +589,13 @@ const ProductDetails: React.FC = () => {
                   </div>
                 </Condition>
                 <ButtonContainer>
-                  <ButtonAdd className="add" onClick={() => navigate("/cart")}>
+                  <ButtonAdd className="add" onClick={handleAddToCart}>
                     ADD TO CART
                   </ButtonAdd>
-                  <Button className="checkout button_slide slide_right">
+                  <Button 
+                    className="checkout button_slide slide_right"
+                    onClick={handleCheckout}
+                  >
                     <span>CHECKOUT</span>
                   </Button>
                 </ButtonContainer>
@@ -538,11 +653,11 @@ const ProductDetails: React.FC = () => {
                     {!foundProduct.JewelrySetting.jewelryType.Name.includes(
                       "Men"
                     ) && (
-                      <li>
-                        Diamond Shape:{" "}
-                        {foundProduct.JewelrySetting.DiamondShape}
-                      </li>
-                    )}
+                        <li>
+                          Diamond Shape:{" "}
+                          {foundProduct.JewelrySetting.DiamondShape}
+                        </li>
+                      )}
                     <li>
                       Quantity:{" "}
                       {foundProduct.TotalQuantityJewelrySettingVariants}
@@ -668,14 +783,14 @@ const ProductDetails: React.FC = () => {
                             alt={product.name}
                             className="product-image"
                             onMouseOver={(e) =>
-                              (e.currentTarget.src =
-                                product.images[1]?.url ||
-                                product.images[0]?.url ||
-                                "")
+                            (e.currentTarget.src =
+                              product.images[1]?.url ||
+                              product.images[0]?.url ||
+                              "")
                             }
                             onMouseOut={(e) =>
-                              (e.currentTarget.src =
-                                product.images[0]?.url || "")
+                            (e.currentTarget.src =
+                              product.images[0]?.url || "")
                             }
                           />
                         </Link>

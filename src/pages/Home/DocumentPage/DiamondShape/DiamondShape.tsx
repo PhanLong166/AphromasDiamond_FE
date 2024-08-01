@@ -52,25 +52,6 @@ function DiamondShape() {
                 popularity recently because they create beautiful and
                 distinctive designs.
               </p>
-              {/* <div className="content tip para">
-                MEET THE EXPERT
-                <ul style={{ listStyle: "initial" }} className="detail">
-                  <li></li>
-                  <li></li>
-                </ul>
-              </div> */}
-
-              {/* <div>
-                <p>
-                  RELATED: {""}
-                  <span
-                    className="here"
-                    onClick={() => navigate(config.routes.public.allProduct)}
-                  >
-                    Top 10 ...
-                  </span>
-                </p>
-              </div> */}
             </div>
             <div id="section2">
               <h3>1. Round Cut Diamond</h3>
@@ -585,11 +566,6 @@ function DiamondShape() {
           <Link href="#section4" title="03 Asscher Cut Diamond" />
           <Link href="#section5" title="04 Radiant Cut Diamond" />
           <Link href="#section6" title="05 Cushion Cut Diamond" />
-          <Link href="#section7" title="06 Emerald Cut Diamond" />
-          <Link href="#section8" title="07 Marquise Cut Diamond" />
-          <Link href="#section9" title="08 Oval Cut Diamond" />
-          <Link href="#section10" title="09 Pear Cut Diamond" />
-          <Link href="#section11" title="10 Heart Cut Diamond" />
         </Anchor>
       </Layout>
     </Container>

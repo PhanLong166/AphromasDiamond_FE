@@ -2,19 +2,18 @@ import { theme } from "../../themes";
 import styled from "styled-components";
 
 export const Banner = styled.section`
-    no-repeat center center;
+ background-repeat: no-repeat;
+  background-position: center center;
   background-size: cover;
   display: flex;
-  .bannerContent {
   max-width: 1400px;
-  margin: 0 auto;
-  }
+  margin: 20px auto;
 `;
 
 export const LeftSection = styled.div`
-  width: 50%;
   max-width: 1600px;
-  margin: 100px 0;
+  margin: 100px 60px;
+  width: 50%;
 
   h2 {
     font-size: 50px;
@@ -31,7 +30,7 @@ export const LeftSection = styled.div`
     line-height: 1.5;
     text-align: left;
     font-family: "Gantari", sans-serif;
-    color: #45413e;
+    color: ${theme.color.primary};
   }
 
   .consult-button {

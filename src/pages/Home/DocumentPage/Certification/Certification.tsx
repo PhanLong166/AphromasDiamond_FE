@@ -209,11 +209,6 @@ function Certification() {
             title="03 Understanding Diamond Grading Reports"
           />
           <Link href="#section5" title="04 How to Read a Diamond Certificate" />
-          <Link href="#section6" title="05 Review A Sample GIA Report" />
-          <Link
-            href="#section7"
-            title="06 How To Use A GIA Diamond Certificate"
-          />
         </Anchor>
       </Layout>
     </Container>

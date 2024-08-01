@@ -2,14 +2,14 @@ import React, { useState, useEffect } from "react";
 import {
   Section,
   Container,
-  Heading,
   List,
   StyledPagination,
   CustomBreadcrumb,
+  Banner,
+  LeftSection,
 } from "./AllProduct.styled";
 import { Card, Col, Row, Typography, Spin } from "antd";
 import { HeartFilled, HeartOutlined } from "@ant-design/icons";
-import FilterSortJewelry from "@/components/FilterSortJewelry/FilterSortJewelry";
 import { Link } from "react-router-dom";
 import { showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
@@ -132,10 +132,27 @@ const AllProduct: React.FC = () => {
         />
       </div>
       <Container className="wide">
-        <Heading>
-          <h2>ALL JEWELRY</h2>
-        </Heading>
-        <FilterSortJewelry />
+        <Banner>
+          <div className="bannerContent">
+            <LeftSection>
+              <h2>FOR LIFE'S MOST JOYFUL OCCASIONS</h2>
+              <h1>All Jewelry</h1>
+              <div className="subheading">
+                Welcome to our All Jewelry Collection, where timeless elegance
+                meets exquisite craftsmanship. Whether you're searching for a
+                stunning ring, a delicate bracelet, an elegant necklace, or
+                dazzling earrings, our diverse selection has something for every
+                taste and occasion. Each piece is meticulously crafted to
+                enhance your unique style and make every moment memorable. From
+                classic designs to contemporary masterpieces, explore our
+                collection and find the perfect jewelry to elevate your look and
+                express your individuality. Discover the beauty and
+                sophistication that our jewelry brings, making every day a
+                special occasion.
+              </div>
+            </LeftSection>
+          </div>
+        </Banner>
         <hr
           style={{
             maxWidth: "1400px",

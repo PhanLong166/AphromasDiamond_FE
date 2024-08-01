@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Container, List, StyledPagination } from "./DiamondList.styled";
+import { Container, List } from "./DiamondList.styled";
 import { Card, Col, Row, Typography } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-// import { diamondData } from "./DiamondList.data";
 import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import FAQ from "@/components/FAQs/FAQs";
@@ -18,45 +17,6 @@ const DiamondList: React.FC = () => {
   const [diamonds, setDiamonds] = useState<any[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   console.log(loading);
-  // useEffect(() => {
-  //   const fetchData = async () => {
-  //     try {
-  //       const response = await showDiamonds({ page: 1 });
-  //       console.log("API response:", response.data.data);
-
-  //       if (response && response.data && Array.isArray(response.data.data)) {
-  //         const fetchedDiamonds = response.data.data.map((item: any) => ({
-  //           id: item.DiamondID,
-  //           name: item.Name,
-  //           cut: item.Cut,
-  //           shape: item.Shape,
-  //           price: item.Price,
-  //           color: item.Color,
-  //           description: item.Description,
-  //           isActive: item.IsActive,
-  //           clarity: item.Clarity,
-  //           images: item.usingImage.map((image: any) => ({
-  //             id: image.UsingImageID,
-  //             name: image.Name,
-  //             url: getImage(image.UsingImageID),
-  //           })),
-  //         }));
-
-  //         console.log(fetchedDiamonds);
-
-  //         setDiamonds(fetchedDiamonds);
-  //         setLoading(false);
-  //       } else {
-  //         console.error("Unexpected API response format:", response.data);
-  //       }
-  //     } catch (error) {
-  //       console.error("Error fetching diamonds:", error);
-  //     }
-  //   };
-  //   console.log(loading);
-
-  //   fetchData();
-  // }, []);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -101,30 +61,57 @@ const DiamondList: React.FC = () => {
     "round-shape": {
       title: "Round Diamonds",
       description:
-        "Our exquisite round diamond rings are crafted to perfection, showcasing the brilliance of diamonds set in yellow gold, white gold, rose gold, or platinum. Each piece radiates timeless elegance and sophistication, making it a cherished symbol of enduring love and commitment. Whether for a proposal or a milestone anniversary, these rings are designed to captivate hearts and inspire lasting memories.",
+        "The round brilliant cut diamond is celebrated for its unmatched sparkle and brilliance. With 58 meticulously cut facets, it maximizes light reflection and delivers a dazzling display. Its timeless and versatile shape makes it a classic choice for any engagement or special occasion.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Round"),
       faqs: [
         {
           key: "1",
           label:
-            "Round Diamond What is the average cost of a womens diamond wedding ring?",
+            "What makes round diamonds the most popular choice for engagement rings?",
           children: (
             <p>
               {" "}
-              Our women's diamond rings range from $900 to $1000 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
+              Round diamonds are highly favored for their brilliant cut, which
+              maximizes light reflection, giving them unparalleled sparkle and
+              brilliance.
             </p>
           ),
         },
         {
           key: "2",
-          label: "Can weddings rings be diamond rings?",
+          label: "How is the quality of a round diamond determined?",
           children: (
             <p>
               {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
+              The quality of a round diamond is assessed based on the 4 Cs:
+              Carat (weight), Cut (shape and quality of the cut), Color (absence
+              of color), and Clarity (absence of internal and external flaws).
+            </p>
+          ),
+        },
+        {
+          key: "3",
+          label: "What settings are best suited for round diamonds?",
+          children: (
+            <p>
+              {" "}
+              Round diamonds are versatile and look stunning in a variety of
+              settings, including solitaire, halo, three-stone, and vintage
+              settings, each enhancing the stone's natural brilliance in unique
+              ways.
+            </p>
+          ),
+        },
+        {
+          key: "4",
+          label: "How do I care for and clean my round diamond jewelry?",
+          children: (
+            <p>
+              {" "}
+              To maintain the sparkle of your round diamond, clean it regularly
+              using a soft brush and mild soap, avoid harsh chemicals, and store
+              it separately to prevent scratches. Regular professional cleaning
+              is also recommended.
             </p>
           ),
         },
@@ -135,30 +122,30 @@ const DiamondList: React.FC = () => {
     "princess-shape": {
       title: "Princess Diamonds",
       description:
-        " Discover the allure of our princess-cut diamond rings, characterized by their clean lines and modern elegance. Available in yellow gold, white gold, rose gold, or platinum settings, these rings are meticulously crafted to capture the essence of grace and luxury, making them ideal for celebrating milestones and special moments. Each ring reflects precision craftsmanship and a contemporary aesthetic, perfect for those who appreciate refined beauty with a touch of glamour.",
+        "The princess cut diamond features a contemporary square or rectangular shape with sharp, clean lines. Known for its modern appeal and vibrant sparkle, this cut highlights the diamond's brilliance in a unique and stylish way, making it a popular choice for a bold and elegant look.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Princess"),
       faqs: [
         {
           key: "1",
-          label:
-            "Princess Diamond What is the average cost of a womens diamond wedding ring?",
+          label: "How is the quality of a princess diamond assessed?",
           children: (
             <p>
               {" "}
-              Our women's diamond rings range from $900 to $1000 depending on
-              several factors, including the type of metal and diamond carat
-              weight.
+              The quality is determined by the 4 Cs: Carat (weight), Cut
+              (quality of the cut), Color (absence of color), and Clarity
+              (absence of internal and external flaws).
             </p>
           ),
         },
         {
           key: "2",
-          label: "Can weddings rings be diamond rings?",
+          label: "What sets princess diamonds apart?",
           children: (
             <p>
               {" "}
-              Yes, diamond rings make perfect weddings rings and engagement
-              rings.
+              Princess diamonds are known for their square shape with pointed
+              corners and brilliant faceting, offering a modern and elegant
+              look.
             </p>
           ),
         },
@@ -169,7 +156,7 @@ const DiamondList: React.FC = () => {
     "heart-shape": {
       title: "Heart Diamonds",
       description:
-        "Symbolizing romance and devotion, our heart-shaped diamond rings are a testament to everlasting love. Expertly set in yellow gold, white gold, rose gold, or platinum, each ring is a blend of artistry and emotion, making it a perfect expression of love and affection. With their timeless design and exquisite detailing, these rings are cherished heirlooms that symbolize the deep bond between two individuals.",
+        "The heart cut diamond is a symbol of love and romance, featuring a distinctive heart shape. This cut combines elegance with a playful design, offering a sentimental and eye-catching gemstone that represents deep affection and makes for a memorable and cherished piece.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Heart"),
       faqs: [
         {
@@ -203,7 +190,7 @@ const DiamondList: React.FC = () => {
     "oval-shape": {
       title: "Oval Diamonds",
       description:
-        "Embrace the distinctive beauty of our oval-shaped diamond rings, known for their timeless appeal and unique charm. Available in yellow gold, white gold, rose gold, or platinum settings, these rings exude sophistication and allure, making them a captivating choice for those who appreciate classic elegance with a modern twist. Each ring is meticulously crafted to enhance the diamond's natural brilliance and fire, creating a piece that stands out with understated elegance and grace.",
+        "The oval cut diamond combines the brilliance of a round cut with an elongated, graceful shape. This cut enhances the diamond’s size appearance while offering a sophisticated and elegant look. Its unique form makes it a standout choice for those seeking a refined and distinctive gemstone.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Oval"),
       faqs: [
         {
@@ -237,7 +224,7 @@ const DiamondList: React.FC = () => {
     "cushion-shape": {
       title: "Cushion Diamonds",
       description:
-        "Our cushion-cut diamond rings combine classic charm with contemporary flair. Featuring square-shaped diamonds set in yellow gold, white gold, rose gold, or platinum, these rings are crafted to highlight the diamond's brilliance and fire, making them a stunning choice for those who desire a blend of tradition and luxury. Each ring is designed with meticulous attention to detail, ensuring a piece that is both timeless and distinctive, perfect for making a statement of enduring elegance.",
+        "The cushion cut diamond has a classic shape with rounded corners, giving it a soft and romantic feel. This cut’s unique faceting pattern enhances the diamond’s brilliance and warmth, making it a beloved choice for its vintage-inspired elegance and timeless appeal.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Cushion"),
       faqs: [
         {
@@ -271,7 +258,7 @@ const DiamondList: React.FC = () => {
     "emerald-shape": {
       title: "Emerald Diamonds",
       description:
-        "Make a statement with our emerald-cut diamond rings, renowned for their striking beauty and bold presence. Set in yellow gold, white gold, rose gold, or platinum, these rings showcase the diamond's clarity and geometric elegance, offering a timeless and sophisticated look for any occasion. Each ring is crafted with precision to enhance the diamond's natural allure, making it a symbol of luxury and refinement that will be cherished for generations.",
+        "The emerald cut diamond is known for its rectangular shape and stepped facets that emphasize clarity and elegance. This cut offers a sophisticated, vintage-inspired look, showcasing the diamond’s natural beauty with a striking, refined appearance.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Emerald"),
       faqs: [
         {
@@ -305,7 +292,7 @@ const DiamondList: React.FC = () => {
     "asscher-shape": {
       title: "Asscher Diamonds",
       description:
-        "Experience luxury with our asscher-cut diamond rings, distinguished by their octagonal shape and Art Deco-inspired design. Crafted in yellow gold, white gold, rose gold, or platinum, these rings exude vintage charm and modern sophistication, making them a captivating choice for those who appreciate classic elegance with a touch of glamour. Each ring is a testament to superior craftsmanship and timeless design, ideal for marking life's most special moments with style and grace.",
+        "The asscher cut diamond features a square shape with beveled corners and a stepped faceting pattern. This cut combines vintage charm with modern sophistication, creating a captivating and elegant appearance that highlights the diamond’s depth and clarity.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Asscher"),
       faqs: [
         {
@@ -339,7 +326,7 @@ const DiamondList: React.FC = () => {
     "marquise-shape": {
       title: "Marquise Diamonds",
       description:
-        "Celebrate elegance with our marquise-cut diamond rings, distinguished by their elongated shape and graceful curves. Available in yellow gold, white gold, rose gold, or platinum settings, these rings offer a unique blend of vintage charm and contemporary allure, making them an exquisite choice for those who seek timeless beauty and refined craftsmanship. Each ring is crafted with precision to accentuate the diamond's brilliance, creating a piece that embodies sophistication and grace.",
+        "The marquise cut diamond is distinguished by its elongated, boat-like shape with pointed ends. Designed to maximize carat weight, this cut creates a dramatic and elegant look, offering a striking and unique visual impact that makes it a favorite for standout jewelry pieces.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Marquise"),
       faqs: [
         {
@@ -373,7 +360,7 @@ const DiamondList: React.FC = () => {
     "radiant-shape": {
       title: "Radiant Diamonds",
       description:
-        "Our radiant-cut diamond rings are designed to dazzle and delight. Featuring a rectangular shape that maximizes brilliance, these rings are set in yellow gold, white gold, rose gold, or platinum, capturing the essence of sophistication and luxury with every facet. Each ring is meticulously crafted to reflect the diamond's radiance and fire, creating a piece that stands out as a symbol of elegance and refinement, perfect for celebrating love and achievement.",
+        "The radiant cut diamond merges the elegance of the emerald cut with the brilliance of the round cut. With cropped corners and a faceted design, this cut provides a vibrant sparkle and a modern, sophisticated look that captures attention with its dynamic beauty.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Radiant"),
       faqs: [
         {
@@ -407,7 +394,7 @@ const DiamondList: React.FC = () => {
     "pear-shape": {
       title: "Pear Diamonds",
       description:
-        "Embrace elegance with our pear-shaped diamond rings, admired for their graceful silhouette and feminine allure. Set in yellow gold, white gold, rose gold, or platinum, these rings are designed to reflect the diamond's natural brilliance and sophistication, making them a perfect symbol of everlasting love and refinement. Each ring is a testament to exceptional craftsmanship and timeless design, ideal for marking life's most cherished moments with elegance and style.",
+        "The pear cut diamond features a teardrop shape that combines the brilliance of a round cut with an elongated form. This cut offers a graceful and elegant look, with its unique shape enhancing the diamond’s sparkle and making it a charming choice for those seeking a touch of romance.",
       diamonds: diamonds.filter((diamond) => diamond.shape === "Pear"),
       faqs: [
         {
@@ -446,13 +433,7 @@ const DiamondList: React.FC = () => {
 
   const currentDiamondData = diamondData[diamondShape];
   const [wishList, setWishList] = useState<string[]>([]);
-  const [currentPage, setCurrentPage] = useState(1);
-  const pageSize = 8;
-
-  const handleChangePage = (page: any) => {
-    setCurrentPage(page);
-  };
-
+  
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
     if (savedWishList) {
@@ -576,13 +557,6 @@ const DiamondList: React.FC = () => {
           </Col>
         </Row>
       </List>
-      <StyledPagination
-        current={currentPage}
-        pageSize={pageSize}
-        total={currentDiamondData.diamonds.length}
-        onChange={handleChangePage}
-      />
-
       <FAQ title={currentDiamondData.title} faqs={faqs} />
     </Container>
   );

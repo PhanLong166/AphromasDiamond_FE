@@ -5,7 +5,6 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-// import { menEngagementData } from "./MenEngagementRing.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Banner from "@/components/Banner/Banner";
@@ -60,7 +59,7 @@ const MenEngagementRing: React.FC = () => {
     "white-gold": {
       title: "Men's White Gold Engagement Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A white gold engagement ring for men offers a sleek and contemporary look with its cool, silvery sheen. The metal’s sophisticated appearance and durability make it an excellent choice for those seeking a modern yet timeless symbol of commitment. Its understated elegance and versatile style ensure it complements any personal taste and stands the test of time.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&
@@ -97,7 +96,7 @@ const MenEngagementRing: React.FC = () => {
     "yellow-gold": {
       title: "Men's Yellow Gold Engagement Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A yellow gold engagement ring for men combines classic elegance with a warm, radiant glow. This traditional metal provides a timeless and distinguished look, making it a perfect choice for those who appreciate enduring beauty and sophistication. The rich, golden hue of yellow gold adds a touch of luxury and tradition to any engagement ring.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&
@@ -134,7 +133,7 @@ const MenEngagementRing: React.FC = () => {
     "rose-gold": {
       title: "Men's Rose Gold Engagement Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A rose gold engagement ring for men features a unique and stylish pinkish hue that offers a romantic and contemporary twist. The metal’s warm and distinctive color provides a modern yet timeless appeal, making it an ideal choice for those who want an engagement ring that stands out with both elegance and individuality.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&
@@ -171,7 +170,7 @@ const MenEngagementRing: React.FC = () => {
     platinum: {
       title: "Men's Platinum Engagement Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A platinum engagement ring for men is renowned for its exceptional durability and luxurious, silvery-white finish. The metal’s strength and timeless elegance make it an ideal choice for a lasting symbol of commitment. With its understated sophistication and enduring quality, platinum offers a classic and refined option for any engagement ring.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&

@@ -5,7 +5,6 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-// import { menWeddingData } from "./MenWeddingRing.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Banner from "@/components/Banner/Banner";
@@ -60,7 +59,7 @@ const MenWeddingRing: React.FC = () => {
     "white-gold": {
       title: "Men's White Gold Wedding Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A white gold wedding ring for men exudes modern sophistication with its sleek, silvery appearance. Known for its durability and subtle elegance, white gold offers a timeless and versatile choice that complements any style. Its refined finish and contemporary appeal make it a perfect symbol of enduring commitment and class.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Wedding Ring" && product.materialId === 3
@@ -96,7 +95,7 @@ const MenWeddingRing: React.FC = () => {
     "yellow-gold": {
       title: "Men's Yellow Gold Wedding Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A yellow gold wedding ring for men combines classic charm with lasting durability. Its warm, rich tone provides a traditional yet sophisticated look, making it a timeless choice for any groom. Yellow gold’s enduring appeal and elegance ensure that it remains a cherished symbol of love and commitment.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Wedding Ring" && product.materialId === 1
@@ -132,7 +131,7 @@ const MenWeddingRing: React.FC = () => {
     "rose-gold": {
       title: "Men's Rose Gold Wedding Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A rose gold wedding ring for men offers a unique and stylish alternative with its warm, pinkish hue. This modern yet timeless metal provides a distinct and romantic touch, blending elegance with a contemporary twist. Rose gold’s romantic and refined appearance makes it a standout choice for a wedding band that is both distinctive and enduring.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Wedding Ring" && product.materialId === 2
@@ -168,7 +167,7 @@ const MenWeddingRing: React.FC = () => {
     platinum: {
       title: "Men's Platinum Wedding Bands",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A platinum wedding ring for men stands out for its exceptional durability and luxurious, silvery-white shine. Known for its strength and timeless appeal, platinum offers a sophisticated and elegant choice that will last a lifetime. Its weighty, precious quality and understated brilliance make it a perfect symbol of enduring love and commitment.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Wedding Ring" && product.materialId === 4

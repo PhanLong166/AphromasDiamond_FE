@@ -58,7 +58,7 @@ const EngagementList: React.FC = () => {
     "round-engagement-ring": {
       title: "Round Diamond Engagement Rings",
       description:
-        "Propose with timeless style when you design a handcrafted ring with a round brilliant diamond. Round diamonds are the most popular choice at AD because of their traditional look and incredible sparkle. This shape is also the most versatile, pairing seamlessly with virtually every setting style offered at AD.",
+        "The round brilliant cut diamond ring is a quintessential choice, renowned for its timeless elegance and exceptional sparkle. Featuring a classic round shape with 58 precisely cut facets, this design maximizes light reflection and brilliance. Its versatility makes it a popular choice for various settings and styles, ensuring it remains a favorite for those seeking a ring that combines tradition with breathtaking radiance.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" && product.shape === "Round"
@@ -95,7 +95,7 @@ const EngagementList: React.FC = () => {
     "princess-engagement-ring": {
       title: "Princess Diamond Engagement Rings",
       description:
-        " Discover the allure of our princess-cut diamond rings, characterized by their clean lines and modern elegance. Available in yellow gold, white gold, rose gold, or platinum settings, these rings are meticulously crafted to capture the essence of grace and luxury, making them ideal for celebrating milestones and special moments. Each ring reflects precision craftsmanship and a contemporary aesthetic, perfect for those who appreciate refined beauty with a touch of glamour.",
+        "A princess cut diamond ring offers a contemporary twist on traditional designs with its bold square or rectangular shape and sharp, clean lines. This modern cut is known for its impressive brilliance and fire, which are highlighted by its unique faceting pattern. The princess cut’s geometric elegance and striking visual impact make it an ideal choice for those who appreciate a blend of sophistication and modern flair.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" &&
@@ -133,7 +133,7 @@ const EngagementList: React.FC = () => {
     "heart-engagement-ring": {
       title: "Heart Diamond Engagement Rings",
       description:
-        "Symbolizing romance and devotion, our heart-shaped diamond rings are a testament to everlasting love. Expertly set in yellow gold, white gold, rose gold, or platinum, each ring is a blend of artistry and emotion, making it a perfect expression of love and affection. With their timeless design and exquisite detailing, these rings are cherished heirlooms that symbolize the deep bond between two individuals.",
+        "The heart cut diamond ring is a truly romantic and symbolic choice, featuring a distinctive heart shape that represents love and affection. This unique cut combines elegance with a playful design, creating a memorable and sentimental piece. The heart cut’s charming and eye-catching appearance makes it an ideal choice for expressing deep feelings and celebrating a special bond.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" && product.shape === "Heart"
@@ -170,7 +170,7 @@ const EngagementList: React.FC = () => {
     "oval-engagement-ring": {
       title: "Oval Diamond Engagement Rings",
       description:
-        "Embrace the distinctive beauty of our oval-shaped diamond rings, known for their timeless appeal and unique charm. Available in yellow gold, white gold, rose gold, or platinum settings, these rings exude sophistication and allure, making them a captivating choice for those who appreciate classic elegance with a modern twist. Each ring is meticulously crafted to enhance the diamond's natural brilliance and fire, creating a piece that stands out with understated elegance and grace.",
+        "The oval cut diamond ring features an elongated shape that exudes grace and elegance. Its unique form combines the brilliance of the round cut with an elongated silhouette, creating a stunning visual effect. The oval cut is known for its ability to enhance the diamond’s size appearance, offering a refined and sophisticated look that complements various settings and styles with its elegant charm.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" && product.shape === "Oval"
@@ -207,7 +207,7 @@ const EngagementList: React.FC = () => {
     "cushion-engagement-ring": {
       title: "Cushion Diamond Engagement Rings",
       description:
-        "Our cushion-cut diamond rings combine classic charm with contemporary flair. Featuring square-shaped diamonds set in yellow gold, white gold, rose gold, or platinum, these rings are crafted to highlight the diamond's brilliance and fire, making them a stunning choice for those who desire a blend of tradition and luxury. Each ring is designed with meticulous attention to detail, ensuring a piece that is both timeless and distinctive, perfect for making a statement of enduring elegance.",
+        "The cushion cut diamond ring blends a square or rectangular shape with softly rounded corners, offering a romantic and vintage-inspired look. This cut is renowned for its captivating sparkle and warmth, achieved through its unique faceting pattern. The cushion cut’s classic appeal and timeless charm make it an enduring choice for those who value both beauty and sentimentality in their jewelry.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" &&
@@ -245,7 +245,7 @@ const EngagementList: React.FC = () => {
     "emerald-engagement-ring": {
       title: "Emerald Diamond Engagement Rings",
       description:
-        "Make a statement with our emerald-cut diamond rings, renowned for their striking beauty and bold presence. Set in yellow gold, white gold, rose gold, or platinum, these rings showcase the diamond's clarity and geometric elegance, offering a timeless and sophisticated look for any occasion. Each ring is crafted with precision to enhance the diamond's natural allure, making it a symbol of luxury and refinement that will be cherished for generations.",
+        "An emerald cut diamond ring showcases a rectangular shape with broad, flat facets arranged in a step-like fashion. This cut highlights the diamond's clarity and depth, creating a sophisticated and timeless appeal. Its unique design emphasizes the diamond’s natural beauty with a vintage-inspired elegance, making it a distinguished choice for those who appreciate classic and understated luxury.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" &&
@@ -283,7 +283,7 @@ const EngagementList: React.FC = () => {
     "asscher-engagement-ring": {
       title: "Asscher Diamond Engagement Rings",
       description:
-        "Experience luxury with our asscher-cut diamond rings, distinguished by their octagonal shape and Art Deco-inspired design. Crafted in yellow gold, white gold, rose gold, or platinum, these rings exude vintage charm and modern sophistication, making them a captivating choice for those who appreciate classic elegance with a touch of glamour. Each ring is a testament to superior craftsmanship and timeless design, ideal for marking life's most special moments with style and grace.",
+        "The asscher cut diamond ring features a square shape with cropped corners and a distinctive stepped faceting pattern. Known for its vintage-inspired charm, this cut combines old-world elegance with a contemporary edge. The asscher cut's captivating depth and precision create a stunning visual impact, making it a perfect choice for those who seek a glamorous and unique statement piece.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" &&
@@ -321,7 +321,7 @@ const EngagementList: React.FC = () => {
     "marquise-engagement-ring": {
       title: "Marquise Diamond Engagement Rings",
       description:
-        "Celebrate elegance with our marquise-cut diamond rings, distinguished by their elongated shape and graceful curves. Available in yellow gold, white gold, rose gold, or platinum settings, these rings offer a unique blend of vintage charm and contemporary allure, making them an exquisite choice for those who seek timeless beauty and refined craftsmanship. Each ring is crafted with precision to accentuate the diamond's brilliance, creating a piece that embodies sophistication and grace.",
+        "The marquise cut diamond ring features an elongated shape with pointed ends, designed to maximize the carat weight and create an impressive visual effect. Its unique form creates the illusion of a larger stone and adds a touch of drama and sophistication. The marquise cut’s elegant and striking appearance makes it an excellent choice for those seeking a ring with a bold and distinctive character.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" &&
@@ -359,7 +359,7 @@ const EngagementList: React.FC = () => {
     "radiant-engagement-ring": {
       title: "Radiant Diamond Engagement Rings",
       description:
-        "Our radiant-cut diamond rings are designed to dazzle and delight. Featuring a rectangular shape that maximizes brilliance, these rings are set in yellow gold, white gold, rose gold, or platinum, capturing the essence of sophistication and luxury with every facet. Each ring is meticulously crafted to reflect the diamond's radiance and fire, creating a piece that stands out as a symbol of elegance and refinement, perfect for celebrating love and achievement.",
+        "The radiant cut diamond ring merges the refined elegance of the emerald cut with the brilliance of the round cut. Featuring cropped corners and a faceted design, this cut offers a vibrant and scintillating sparkle. The radiant cut’s modern and sophisticated appearance makes it an ideal choice for those who desire a striking and dynamic look with exceptional radiance.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" &&
@@ -397,7 +397,7 @@ const EngagementList: React.FC = () => {
     "pear-engagement-ring": {
       title: "Pear Diamond Engagement Rings",
       description:
-        "Embrace elegance with our pear-shaped diamond rings, admired for their graceful silhouette and feminine allure. Set in yellow gold, white gold, rose gold, or platinum, these rings are designed to reflect the diamond's natural brilliance and sophistication, making them a perfect symbol of everlasting love and refinement. Each ring is a testament to exceptional craftsmanship and timeless design, ideal for marking life's most cherished moments with elegance and style.",
+        "A pear cut diamond ring combines the brilliance of a round cut with the distinctive shape of a teardrop. This cut offers a graceful and elegant look, with its elongated form creating a stunning and eye-catching centerpiece. The pear cut's unique shape enhances the diamond’s sparkle and visual appeal, making it a perfect choice for those who appreciate a blend of romance and sophistication.",
       products: products.filter(
         (product) =>
           product.jewelryType === "Engagement Ring" && product.shape === "Pear"
