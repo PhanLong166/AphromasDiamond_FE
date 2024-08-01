@@ -31,7 +31,7 @@ const MenWeddingRing: React.FC = () => {
             shape: jewelry.JewelrySetting.DiamondShape,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             materialId:
               jewelry.JewelrySetting.jewelrySettingVariant[0].MaterialJewelryID,
             type: jewelry.JewelrySetting.jewelryType.Name,
@@ -276,7 +276,7 @@ const MenWeddingRing: React.FC = () => {
                           }
                         />
                       </Link>
-                      {product.salePrice && (
+                      {product.discountFirstPrice && (
                         <div className="sale-badge">SALE</div>
                       )}
                     </>
@@ -303,12 +303,18 @@ const MenWeddingRing: React.FC = () => {
                     )}
                   </Title>
                   <div className="price-container">
-                    <Text className="product-price">
-                      ${product.firstPrice + product.totalDiamondPrice}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.totalDiamondPrice}
+                    {product.discountFirstPrice ? (
+                      <>
+                        <Text className="product-price">
+                          ${product.discountFirstPrice}
+                        </Text>
+                        <Text delete className="product-sale-price">
+                          ${product.firstPrice}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text className="product-price">
+                        ${product.firstPrice}
                       </Text>
                     )}
                   </div>

@@ -31,7 +31,7 @@ const DiamondRingList: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             shape: jewelry.JewelrySetting.DiamondShape,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
@@ -61,7 +61,8 @@ const DiamondRingList: React.FC = () => {
       description:
         "Our exquisite round diamond rings are crafted to perfection, showcasing the brilliance of diamonds set in yellow gold, white gold, rose gold, or platinum. Each piece radiates timeless elegance and sophistication, making it a cherished symbol of enduring love and commitment. Whether for a proposal or a milestone anniversary, these rings are designed to captivate hearts and inspire lasting memories.",
       products: products.filter(
-        (product) => product.jewelryType === "Ring" && product.shape === "Round"
+        (product) =>
+          product.jewelryType === "Rings" && product.shape === "Round"
       ),
       faqs: [
         {
@@ -98,7 +99,7 @@ const DiamondRingList: React.FC = () => {
         " Discover the allure of our princess-cut diamond rings, characterized by their clean lines and modern elegance. Available in yellow gold, white gold, rose gold, or platinum settings, these rings are meticulously crafted to capture the essence of grace and luxury, making them ideal for celebrating milestones and special moments. Each ring reflects precision craftsmanship and a contemporary aesthetic, perfect for those who appreciate refined beauty with a touch of glamour.",
       products: products.filter(
         (product) =>
-          product.jewelryType === "Ring" && product.shape === "Princess"
+          product.jewelryType === "Rings" && product.shape === "Princess"
       ),
       faqs: [
         {
@@ -134,7 +135,8 @@ const DiamondRingList: React.FC = () => {
       description:
         "Symbolizing romance and devotion, our heart-shaped diamond rings are a testament to everlasting love. Expertly set in yellow gold, white gold, rose gold, or platinum, each ring is a blend of artistry and emotion, making it a perfect expression of love and affection. With their timeless design and exquisite detailing, these rings are cherished heirlooms that symbolize the deep bond between two individuals.",
       products: products.filter(
-        (product) => product.jewelryType === "Ring" && product.shape === "Heart"
+        (product) =>
+          product.jewelryType === "Rings" && product.shape === "Heart"
       ),
       faqs: [
         {
@@ -170,7 +172,7 @@ const DiamondRingList: React.FC = () => {
       description:
         "Embrace the distinctive beauty of our oval-shaped diamond rings, known for their timeless appeal and unique charm. Available in yellow gold, white gold, rose gold, or platinum settings, these rings exude sophistication and allure, making them a captivating choice for those who appreciate classic elegance with a modern twist. Each ring is meticulously crafted to enhance the diamond's natural brilliance and fire, creating a piece that stands out with understated elegance and grace.",
       products: products.filter(
-        (product) => product.jewelryType === "Ring" && product.shape === "Oval"
+        (product) => product.jewelryType === "Rings" && product.shape === "Oval"
       ),
       faqs: [
         {
@@ -207,7 +209,7 @@ const DiamondRingList: React.FC = () => {
         "Our cushion-cut diamond rings combine classic charm with contemporary flair. Featuring square-shaped diamonds set in yellow gold, white gold, rose gold, or platinum, these rings are crafted to highlight the diamond's brilliance and fire, making them a stunning choice for those who desire a blend of tradition and luxury. Each ring is designed with meticulous attention to detail, ensuring a piece that is both timeless and distinctive, perfect for making a statement of enduring elegance.",
       products: products.filter(
         (product) =>
-          product.jewelryType === "Ring" && product.shape === "Cushion"
+          product.jewelryType === "Rings" && product.shape === "Cushion"
       ),
       faqs: [
         {
@@ -244,7 +246,7 @@ const DiamondRingList: React.FC = () => {
         "Make a statement with our emerald-cut diamond rings, renowned for their striking beauty and bold presence. Set in yellow gold, white gold, rose gold, or platinum, these rings showcase the diamond's clarity and geometric elegance, offering a timeless and sophisticated look for any occasion. Each ring is crafted with precision to enhance the diamond's natural allure, making it a symbol of luxury and refinement that will be cherished for generations.",
       products: products.filter(
         (product) =>
-          product.jewelryType === "Ring" && product.shape === "Emerald"
+          product.jewelryType === "Rings" && product.shape === "Emerald"
       ),
       faqs: [
         {
@@ -281,7 +283,7 @@ const DiamondRingList: React.FC = () => {
         "Experience luxury with our asscher-cut diamond rings, distinguished by their octagonal shape and Art Deco-inspired design. Crafted in yellow gold, white gold, rose gold, or platinum, these rings exude vintage charm and modern sophistication, making them a captivating choice for those who appreciate classic elegance with a touch of glamour. Each ring is a testament to superior craftsmanship and timeless design, ideal for marking life's most special moments with style and grace.",
       products: products.filter(
         (product) =>
-          product.jewelryType === "Ring" && product.shape === "Asscher"
+          product.jewelryType === "Rings" && product.shape === "Asscher"
       ),
       faqs: [
         {
@@ -318,7 +320,7 @@ const DiamondRingList: React.FC = () => {
         "Celebrate elegance with our marquise-cut diamond rings, distinguished by their elongated shape and graceful curves. Available in yellow gold, white gold, rose gold, or platinum settings, these rings offer a unique blend of vintage charm and contemporary allure, making them an exquisite choice for those who seek timeless beauty and refined craftsmanship. Each ring is crafted with precision to accentuate the diamond's brilliance, creating a piece that embodies sophistication and grace.",
       products: products.filter(
         (product) =>
-          product.jewelryType === "Ring" && product.shape === "Marquise"
+          product.jewelryType === "Rings" && product.shape === "Marquise"
       ),
       faqs: [
         {
@@ -355,7 +357,7 @@ const DiamondRingList: React.FC = () => {
         "Our radiant-cut diamond rings are designed to dazzle and delight. Featuring a rectangular shape that maximizes brilliance, these rings are set in yellow gold, white gold, rose gold, or platinum, capturing the essence of sophistication and luxury with every facet. Each ring is meticulously crafted to reflect the diamond's radiance and fire, creating a piece that stands out as a symbol of elegance and refinement, perfect for celebrating love and achievement.",
       products: products.filter(
         (product) =>
-          product.jewelryType === "Ring" && product.shape === "Radiant"
+          product.jewelryType === "Rings" && product.shape === "Radiant"
       ),
       faqs: [
         {
@@ -391,7 +393,7 @@ const DiamondRingList: React.FC = () => {
       description:
         "Embrace elegance with our pear-shaped diamond rings, admired for their graceful silhouette and feminine allure. Set in yellow gold, white gold, rose gold, or platinum, these rings are designed to reflect the diamond's natural brilliance and sophistication, making them a perfect symbol of everlasting love and refinement. Each ring is a testament to exceptional craftsmanship and timeless design, ideal for marking life's most cherished moments with elegance and style.",
       products: products.filter(
-        (product) => product.jewelryType === "Ring" && product.shape === "Pear"
+        (product) => product.jewelryType === "Rings" && product.shape === "Pear"
       ),
       faqs: [
         {
@@ -497,7 +499,7 @@ const DiamondRingList: React.FC = () => {
                           }
                         />
                       </Link>
-                      {product.salePrice && (
+                      {product.discountFirstPrice && (
                         <div className="sale-badge">SALE</div>
                       )}
                     </>
@@ -524,12 +526,18 @@ const DiamondRingList: React.FC = () => {
                     )}
                   </Title>
                   <div className="price-container">
-                    <Text className="product-price">
-                      ${product.firstPrice + product.totalDiamondPrice}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.totalDiamondPrice}
+                    {product.discountFirstPrice ? (
+                      <>
+                        <Text className="product-price">
+                          ${product.discountFirstPrice}
+                        </Text>
+                        <Text delete className="product-sale-price">
+                          ${product.firstPrice}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text className="product-price">
+                        ${product.firstPrice}
                       </Text>
                     )}
                   </div>

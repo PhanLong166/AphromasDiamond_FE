@@ -37,7 +37,7 @@ const FirmList: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
@@ -293,73 +293,78 @@ const FirmList: React.FC = () => {
       <List>
         <Row gutter={[16, 16]}>
           {currentFirmData.products.map((product: any) => (
-              <Col key={product.id} span={6}>
-                <Card
-                  key={product.id}
-                  style={{ borderRadius: "0" }}
-                  hoverable
-                  className="product-card"
-                  cover={
-                    product.images.length > 0 ? (
+            <Col key={product.id} span={6}>
+              <Card
+                key={product.id}
+                style={{ borderRadius: "0" }}
+                hoverable
+                className="product-card"
+                cover={
+                  product.images.length > 0 ? (
+                    <>
+                      <Link to={`/product/${product.id}`}>
+                        <img
+                          style={{ borderRadius: "0" }}
+                          src={product.images[0]?.url || ""}
+                          alt={product.name}
+                          className="product-image"
+                          onMouseOver={(e) =>
+                            (e.currentTarget.src =
+                              product.images[1]?.url ||
+                              product.images[0]?.url ||
+                              "")
+                          }
+                          onMouseOut={(e) =>
+                            (e.currentTarget.src = product.images[0]?.url || "")
+                          }
+                        />
+                      </Link>
+                      {product.discountFirstPrice && (
+                        <div className="sale-badge">SALE</div>
+                      )}
+                    </>
+                  ) : (
+                    <div>No Image Available</div>
+                  )
+                }
+              >
+                <div className="product-info">
+                  <Title level={4} className="product-name">
+                    <Link to={`/product/${product.id}`}>
+                      <div>{product.name}</div>
+                    </Link>
+                    {wishList.includes(product.id) ? (
+                      <HeartFilled
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    ) : (
+                      <HeartOutlined
+                        className="wishlist-icon"
+                        onClick={() => toggleWishList(product.id)}
+                      />
+                    )}
+                  </Title>
+                  <div className="price-container">
+                    {product.discountFirstPrice ? (
                       <>
-                        <Link to={`/product/${product.id}`}>
-                          <img
-                            style={{ borderRadius: "0" }}
-                            src={product.images[0]?.url || ""}
-                            alt={product.name}
-                            className="product-image"
-                            onMouseOver={(e) =>
-                              (e.currentTarget.src =
-                                product.images[1]?.url ||
-                                product.images[0]?.url ||
-                                "")
-                            }
-                            onMouseOut={(e) =>
-                              (e.currentTarget.src =
-                                product.images[0]?.url || "")
-                            }
-                          />
-                        </Link>
-                        {product.salePrice && (
-                          <div className="sale-badge">SALE</div>
-                        )}
+                        <Text className="product-price">
+                          ${product.discountFirstPrice}
+                        </Text>
+                        <Text delete className="product-sale-price">
+                          ${product.firstPrice}
+                        </Text>
                       </>
                     ) : (
-                      <div>No Image Available</div>
-                    )
-                  }
-                >
-                  <div className="product-info">
-                    <Title level={4} className="product-name">
-                      <Link to={`/product/${product.id}`}>
-                        <div>{product.name}</div>
-                      </Link>
-                      {wishList.includes(product.id) ? (
-                        <HeartFilled
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      ) : (
-                        <HeartOutlined
-                          className="wishlist-icon"
-                          onClick={() => toggleWishList(product.id)}
-                        />
-                      )}
-                    </Title>
-                    <div className="price-container">
                       <Text className="product-price">
-                        ${product.firstPrice + product.totalDiamondPrice}
+                        ${product.firstPrice}
                       </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.totalDiamondPrice}
-                        </Text>
-                      )}
-                    </div>
+                    )}
                   </div>
-                </Card>
-              </Col>
-            ))}
+                </div>
+              </Card>
+            </Col>
+          ))}
           <Col span={6}>
             <Card className="show-all-card">
               <div className="show-all-content">

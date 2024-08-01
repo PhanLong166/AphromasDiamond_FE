@@ -54,9 +54,6 @@ import {
 } from "./ProductDetails.styled";
 import { StarFilled } from "@ant-design/icons";
 import { useNavigate } from "react-router-dom";
-// import { showAllJewelryType } from "@/services/jewelryTypeAPI";
-// import { get } from "@/services/apiCaller";
-// import { showAllMaterial } from "@/services/materialAPI";
 import { showAllSize } from "@/services/sizeAPI";
 import { getProductDetails, showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
@@ -185,7 +182,7 @@ const ProductDetails: React.FC = () => {
                   brand: jewelry.Brand,
                   totalDiamondPrice: jewelry.TotalDiamondPrice,
                   firstPrice: jewelry.FirstPrice,
-                  salePrice: jewelry.SalePrice,
+                  discountFirstPrice: jewelry.DiscountFirstPrice,
                   jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
                   images: jewelry.UsingImage.map((image: any) => ({
                     id: image.UsingImageID,
@@ -219,8 +216,6 @@ const ProductDetails: React.FC = () => {
           } else {
             setSameBrandProducts([]);
           }
-
-          // Call fetchFeedbackDetail if diamondId is set
           if (productId !== null) {
             await fetchFeedbackDetail(productId);
           }
@@ -341,33 +336,31 @@ const ProductDetails: React.FC = () => {
               <Entry>
                 <Heading>
                   <Title className="main-title">{foundProduct.Name}</Title>
-                  {/* <ProductRating>
-                    {Array.from({ length: foundProduct.Stars }, (_, i) => (
-                      <StarFilled key={i} />
-                    ))}
-                  </ProductRating> */}
-                   <ProductRating>
-                      {foundProduct.Stars} <StarFilled />
-                    </ProductRating>
+                  <ProductRating>
+                    {foundProduct.Stars} <StarFilled />
+                  </ProductRating>
                 </Heading>
                 <ProductInfo>
                   <div className="wrap">
                     <div className="info-box">
                       {foundProduct.JewelrySetting.jewelryType.Name}
                     </div>
-                    {/* <div>
+                    <div>
                       {foundProduct.JewelrySetting.jewelryType.Name.includes(
-                        "men"
+                        "Men"
                       ) ? (
                         <div className="info-box">
-                          {foundProduct?.JewelrySettingVariant?.Material[0]?.Name}
+                          {
+                            foundProduct?.JewelrySetting
+                              ?.jewelrySettingVariant[0]?.materialJewelry.Name
+                          }
                         </div>
                       ) : (
                         <div className="info-box">
                           {foundProduct.JewelrySetting.DiamondShape}
                         </div>
                       )}
-                    </div> */}
+                    </div>
                     <div className="info-box">
                       {foundProduct.JewelrySetting.Name}
                     </div>
@@ -396,7 +389,9 @@ const ProductDetails: React.FC = () => {
                       </div>
                     </ProductMetal>
                   )}
-                {foundProduct.JewelrySetting.jewelryType.Name === "Ring" && (
+                {foundProduct.JewelrySetting.jewelryType.Name.includes(
+                  "Ring"
+                ) && (
                   <>
                     <div>
                       <RingSizeContainer>
@@ -414,7 +409,7 @@ const ProductDetails: React.FC = () => {
                             }`}
                             onClick={() => handleClick(size.SizeValue)}
                           >
-                            {size.SizeValue}
+                            {parseInt(size.SizeValue)}
                           </button>
                         ))}
                       </div>
@@ -459,15 +454,15 @@ const ProductDetails: React.FC = () => {
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>
-                        $
-                        {foundProduct.FirstPrice +
-                          foundProduct.TotalDiamondPrice}
-                      </CurrentPrice>
-                      {foundProduct.salePrice && (
+                      <CurrentPrice>${foundProduct.FirstPrice}</CurrentPrice>
+                      {foundProduct.DiscountFirstPrice && (
                         <div className="wrap">
-                          <BeforePrice>${foundProduct.price}</BeforePrice>
-                          <Discount>- {foundProduct.percentSale}</Discount>
+                          <BeforePrice>
+                            ${foundProduct.DiscountFirstPrice}
+                          </BeforePrice>
+                          <Discount>
+                            - {foundProduct.Discount.PercentDiscounts}%
+                          </Discount>
                         </div>
                       )}
                     </div>
@@ -540,15 +535,23 @@ const ProductDetails: React.FC = () => {
                     <li>
                       Type: {foundProduct.JewelrySetting.jewelryType.Name}
                     </li>
-                    <li>
-                      Diamond Shape: {foundProduct.JewelrySetting.DiamondShape}
-                    </li>
+                    {!foundProduct.JewelrySetting.jewelryType.Name.includes(
+                      "Men"
+                    ) && (
+                      <li>
+                        Diamond Shape:{" "}
+                        {foundProduct.JewelrySetting.DiamondShape}
+                      </li>
+                    )}
                     <li>
                       Quantity:{" "}
                       {foundProduct.TotalQuantityJewelrySettingVariants}
                     </li>
-                    <li>Collection: {foundProduct?.CollectionID}</li>
                     <li>Setting: {foundProduct.JewelrySetting.Name}</li>
+                    {foundProduct.Discount &&
+                      foundProduct.Discount.DiscountID && (
+                        <li>Promotion: {foundProduct.Discount.Name}</li>
+                      )}
                   </ul>
                 </ListBlock>
                 <ListBlock>
@@ -676,7 +679,7 @@ const ProductDetails: React.FC = () => {
                             }
                           />
                         </Link>
-                        {product.salePrice && (
+                        {product.discountFirstPrice && (
                           <div className="sale-badge">SALE</div>
                         )}
                       </>
@@ -703,12 +706,18 @@ const ProductDetails: React.FC = () => {
                       )}
                     </Title>
                     <div className="price-container">
-                      <Text className="product-price">
-                        ${product.firstPrice + product.totalDiamondPrice}
-                      </Text>
-                      {product.salePrice && (
-                        <Text delete className="product-sale-price">
-                          ${product.totalDiamondPrice}
+                      {product.discountFirstPrice ? (
+                        <>
+                          <Text className="product-price">
+                            ${product.discountFirstPrice}
+                          </Text>
+                          <Text delete className="product-sale-price">
+                            ${product.firstPrice}
+                          </Text>
+                        </>
+                      ) : (
+                        <Text className="product-price">
+                          ${product.firstPrice}
                         </Text>
                       )}
                     </div>

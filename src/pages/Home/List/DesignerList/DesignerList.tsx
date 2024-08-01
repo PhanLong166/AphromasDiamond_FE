@@ -13,12 +13,6 @@ import { showAllProduct } from "@/services/productAPI";
 import { getImage } from "@/services/imageAPI";
 
 const DesignerList: React.FC = () => {
-  // const excludedCategories = [
-  //   "Wedding Ring",
-  //   "Engagement Ring",
-  //   "Men Engagement Ring",
-  //   "Men Wedding Ring",
-  // ];
   const { designer } = useParams<{ designer: string }>();
   const [products, setProducts] = useState<any[]>([]);
   const navigate = useNavigate();
@@ -36,7 +30,7 @@ const DesignerList: React.FC = () => {
             brand: jewelry.Brand,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
@@ -67,7 +61,7 @@ const DesignerList: React.FC = () => {
       products: products.filter(
         (product) =>
           product.brand === "Van Cleef & Arpels" &&
-          product.jewelryType === "Ring"
+          product.jewelryType === "Rings"
       ),
       faqs: [
         {
@@ -103,7 +97,8 @@ const DesignerList: React.FC = () => {
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
         (product) =>
-          product.designer === "Harry Winston" && product.jewelryType === "Ring"
+          product.designer === "Harry Winston" &&
+          product.jewelryType === "Rings"
       ),
       faqs: [
         {
@@ -139,7 +134,7 @@ const DesignerList: React.FC = () => {
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
         (product) =>
-          product.designer === "Cartier" && product.jewelryType === "Ring"
+          product.designer === "Cartier" && product.jewelryType === "Rings"
       ),
       faqs: [
         {
@@ -175,7 +170,7 @@ const DesignerList: React.FC = () => {
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
         (product) =>
-          product.designer === "Tiffany & Co" && product.jewelryType === "Ring"
+          product.designer === "Tiffany & Co" && product.jewelryType === "Rings"
       ),
       faqs: [
         {
@@ -211,7 +206,7 @@ const DesignerList: React.FC = () => {
         "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
       products: products.filter(
         (product) =>
-          product.designer === " Bvlgari" && product.jewelryType === "Ring"
+          product.designer === " Bvlgari" && product.jewelryType === "Rings"
       ),
       faqs: [
         {
@@ -316,7 +311,7 @@ const DesignerList: React.FC = () => {
                           }
                         />
                       </Link>
-                      {product.salePrice && (
+                      {product.discountFirstPrice && (
                         <div className="sale-badge">SALE</div>
                       )}
                     </>
@@ -343,12 +338,18 @@ const DesignerList: React.FC = () => {
                     )}
                   </Title>
                   <div className="price-container">
-                    <Text className="product-price">
-                      ${product.firstPrice + product.totalDiamondPrice}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.totalDiamondPrice}
+                    {product.discountFirstPrice ? (
+                      <>
+                        <Text className="product-price">
+                          ${product.discountFirstPrice}
+                        </Text>
+                        <Text delete className="product-sale-price">
+                          ${product.firstPrice}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text className="product-price">
+                        ${product.firstPrice}
                       </Text>
                     )}
                   </div>

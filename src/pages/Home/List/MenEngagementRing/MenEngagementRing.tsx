@@ -31,8 +31,9 @@ const MenEngagementRing: React.FC = () => {
             shape: jewelry.JewelrySetting.DiamondShape,
             totalDiamondPrice: jewelry.TotalDiamondPrice,
             firstPrice: jewelry.FirstPrice,
-            salePrice: jewelry.SalePrice,
-            materialId: jewelry.JewelrySetting.jewelrySettingVariant[0].MaterialJewelryID,
+            discountFirstPrice: jewelry.DiscountFirstPrice,
+            materialId:
+              jewelry.JewelrySetting.jewelrySettingVariant[0].MaterialJewelryID,
             type: jewelry.JewelrySetting.jewelryType.Name,
             jewelryType: jewelry.JewelrySetting?.jewelryType?.Name,
             images: jewelry.UsingImage.map((image: any) => ({
@@ -100,7 +101,7 @@ const MenEngagementRing: React.FC = () => {
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&
-        product.materialId === 1
+          product.materialId === 1
       ),
       faqs: [
         {
@@ -137,7 +138,7 @@ const MenEngagementRing: React.FC = () => {
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&
-        product.materialId === 2
+          product.materialId === 2
       ),
       faqs: [
         {
@@ -174,7 +175,7 @@ const MenEngagementRing: React.FC = () => {
       products: products.filter(
         (product) =>
           product.jewelryType === "Men Engagement Ring" &&
-        product.materialId === 4
+          product.materialId === 4
       ),
       faqs: [
         {
@@ -213,7 +214,7 @@ const MenEngagementRing: React.FC = () => {
   const currentMenEngagementData = menEngagementData[ringMetal];
 
   const [wishList, setWishList] = useState<string[]>([]);
-  
+
   useEffect(() => {
     const savedWishList = sessionStorage.getItem("wishlist");
     if (savedWishList) {
@@ -279,7 +280,7 @@ const MenEngagementRing: React.FC = () => {
                           }
                         />
                       </Link>
-                      {product.salePrice && (
+                      {product.discountFirstPrice && (
                         <div className="sale-badge">SALE</div>
                       )}
                     </>
@@ -306,12 +307,18 @@ const MenEngagementRing: React.FC = () => {
                     )}
                   </Title>
                   <div className="price-container">
-                    <Text className="product-price">
-                      ${product.firstPrice + product.totalDiamondPrice}
-                    </Text>
-                    {product.salePrice && (
-                      <Text delete className="product-sale-price">
-                        ${product.totalDiamondPrice}
+                    {product.discountFirstPrice ? (
+                      <>
+                        <Text className="product-price">
+                          ${product.discountFirstPrice}
+                        </Text>
+                        <Text delete className="product-sale-price">
+                          ${product.firstPrice}
+                        </Text>
+                      </>
+                    ) : (
+                      <Text className="product-price">
+                        ${product.firstPrice}
                       </Text>
                     )}
                   </div>
