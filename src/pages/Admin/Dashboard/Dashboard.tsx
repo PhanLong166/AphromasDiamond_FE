@@ -21,11 +21,11 @@ const calculateKpiTotal = (startYear: any, startMonth: any, increasePerMonth: an
 
 const Dashboard = () => {
   const [orders, setOrders] = useState([]);
-  const [cancelOrders, setCancelOrders] = useState([]);
-  const [customers, setCustomers] = useState([]);
-  const [discounts, setDiscounts] = useState([]);
-  const [diamonds, setDiamonds] = useState([]);
-  const [jewelrys, setJewelrys] = useState([]);
+  const [cancelOrders, setCancelOrders] = useState<any[]>([]);
+  const [customers, setCustomers] = useState<any[]>([]);
+  const [discounts, setDiscounts] = useState<any[]>([]);
+  const [diamonds, setDiamonds] = useState<any[]>([]);
+  const [jewelrys, setJewelrys] = useState<any[]>([]);
   const [customersTotal, setCustomersTotal] = useState(0);
   const [ordersTotal, setOrdersTotal] = useState(0);
   const [cancelOrdersTotal, setCancelOrdersTotal] = useState(0);

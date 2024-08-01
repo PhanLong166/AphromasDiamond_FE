@@ -19,7 +19,12 @@ const onChange: TableProps<DataType>["onChange"] = (
   console.log("params", pagination, filters, sorter, extra);
 };
 
-
+const formatPrice = (price: number | bigint) => {
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+  }).format(price)}`;
+};
 
 const Pending = () => {
   const [searchText, setSearchText] = useState("");
@@ -69,10 +74,34 @@ const Pending = () => {
       sortDirections: ["descend"],
     },
     {
+      title: "Phone number",
+      dataIndex: "phoneNumber",
+      showSorterTooltip: { target: "full-header" },
+      sorter: (a: DataType, b: DataType) => a.phoneNumber.length - b.phoneNumber.length,
+      sortDirections: ["descend"],
+    },
+    {
+      title: "Address",
+      dataIndex: "address",
+      showSorterTooltip: { target: "full-header" },
+      sorter: (a: DataType, b: DataType) => a.address.length - b.address.length,
+      sortDirections: ["descend"],
+    },
+    {
       title: "Total",
       dataIndex: "total",
       defaultSortOrder: "descend",
       sorter: (a: DataType, b: DataType) => a.total - b.total,
+      render: (_, {total}) => {
+        return <>{formatPrice(total)}</>
+      }
+    },
+    {
+      title: "Payment method",
+      dataIndex: "paymentMethod",
+      render: (_, { paymentMethod }) => {
+        return <>{paymentMethod}</>
+      }
     },
     {
       title: "Status",
@@ -152,6 +181,10 @@ const Pending = () => {
         cusName: order.NameReceived,
         total: order.Price,
         status: order.OrderStatus,
+        address: order.Address,
+        phoneNumber: order.PhoneNumber,
+        isPaid: order.IsPayed,
+        paymentMethod: order.PaymentID
       }))
     setOrder(formatOrderList);
   };

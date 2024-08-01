@@ -7,6 +7,7 @@ import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import OrderMenu from "../../../../components/Admin/OrderMenu/OrderMenu";
 import { Link } from "react-router-dom";
 import { showAllOrder } from "@/services/orderAPI";
+import { showAllAccounts } from "@/services/accountApi";
 
 const DeliveringOrder = () => {
   const [searchText, setSearchText] = useState("");
@@ -15,6 +16,7 @@ const DeliveringOrder = () => {
   const fetchData = async () => {
     try {
       const response = await showAllOrder();
+      const accountResponse = await showAllAccounts();
       console.log('API response:', response);
       const { data } = response.data;
       const formattedOrders = data
@@ -22,14 +24,14 @@ const DeliveringOrder = () => {
       .map((order: any) => ({
         orderID: order.OrderID,
         orderDate: order.OrderDate,
-        customerID: order.CustomerID,
+        customerID: order.NameReceived,
         orderStatus: order.OrderStatus,
         completeDate: order.CompleteDate,
         isPayed: order.IsPayed,
         shippingfee: order.Shippingfee,
         note: order.Note,
         isActive: order.IsActive,
-        accountDeliveryID: order.AccountDeliveryID,
+        accountDeliveryID: accountResponse.data.data.find((account: any) => account.AccountID === order.AccountDeliveryID).Name,
         accountSaleID: order.AccountSaleID,
         voucherID: order.VoucherID,
       }));
@@ -81,7 +83,7 @@ const columns: TableColumnsType<any> = [
   },
   {
     title: "Delivery Staff",
-    dataIndex: "AccountDeliveryID",
+    dataIndex: "accountDeliveryID",
     showSorterTooltip: { target: "full-header" },
     sorter: (a, b) => a.AccountDeliveryID.length - b.AccountDeliveryID.length,
     sortDirections: ["descend"],

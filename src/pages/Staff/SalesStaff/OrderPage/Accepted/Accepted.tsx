@@ -10,6 +10,13 @@ import OrderMenu from "@/components/Staff/SalesStaff/OrderMenu/OrderMenu";
 import { showAllOrder } from "@/services/orderAPI";
 import { OrderStatus } from "@/utils/enum";
 
+const formatPrice = (price: number | bigint) => {
+  return `$ ${new Intl.NumberFormat("en-US", {
+    style: "decimal",
+    minimumFractionDigits: 0,
+  }).format(price)}`;
+};
+
 const columns: TableColumnsType<DataType> = [
   {
     title: "Order ID",
@@ -38,6 +45,9 @@ const columns: TableColumnsType<DataType> = [
     dataIndex: "total",
     defaultSortOrder: "descend",
     sorter: (a, b) => a.total - b.total,
+    render: (_, { total }) => {
+      return <>{formatPrice(total)}</>
+    }
   },
   {
     title: "Status",

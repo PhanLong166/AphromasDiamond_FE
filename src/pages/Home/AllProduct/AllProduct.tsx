@@ -192,7 +192,7 @@ const AllProduct: React.FC = () => {
   ];
 
   const [products, setProducts] = useState<any[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [filteredProducts, setFilteredProducts] = useState<any[]>([]);
   const [wishList, setWishList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
@@ -200,6 +200,7 @@ const AllProduct: React.FC = () => {
 
   useEffect(() => {
     const fetchData = async () => {
+      setLoading(true);
       try {
         const response = await showAllProduct();
         console.log("API response:", response.data.data);

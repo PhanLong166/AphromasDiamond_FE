@@ -35,7 +35,7 @@ const CompletedOrder = () => {
         shippingfee: order.Shippingfee,
         note: order.Note,
         isActive: order.IsActive,
-        accountDeliveryID: order.AccountDeliveryID,
+        accountDeliveryID: responseAccounts.data.data.find((account: any) => account.AccountID === order.AccountDeliveryID).Name,
         accountSaleID: order.AccountSaleID,
         voucherID: order.VoucherID,
       }));
@@ -96,7 +96,7 @@ const columns: TableColumnsType<any> = [
   },
   {
     title: "Delivery Staff",
-    dataIndex: "AccountDeliveryID",
+    dataIndex: "accountDeliveryID",
     showSorterTooltip: { target: "full-header" },
     sorter: (a, b) => a.AccountDeliveryID.length - b.AccountDeliveryID.length,
     sortDirections: ["descend"],

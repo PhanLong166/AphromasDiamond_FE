@@ -13,7 +13,6 @@ const DeliveredOrder = () => {
   const [searchText, setSearchText] = useState("");
   const [orders, setOrders] = useState([]);
   const [accounts, setAccounts] = useState<any>([]);
-  const [delistaffs, setDelistaffs] = useState<any>([]);
 
   const fetchData = async () => {
     try {
@@ -36,7 +35,7 @@ const DeliveredOrder = () => {
         shippingfee: order.Shippingfee,
         note: order.Note,
         isActive: order.IsActive,
-        accountDeliveryID: order.AccountDeliveryID,
+        accountDeliveryID: responseAccounts.data.data.find((account: any) => account.AccountID === order.AccountDeliveryID).Name,
         accountSaleID: order.AccountSaleID,
         voucherID: order.VoucherID,
       }));
@@ -48,18 +47,9 @@ const DeliveredOrder = () => {
         customerID_Acc: account.CustomerID
       }));
 
-      const formattedDeliStaffs = accountData
-      .filter((order: any) => (order.Role === "ROLE_DELIVERY_STAFF"))
-      .map((account: any) => ({
-        accountID: account.AccountID,
-        accountName: account.Name,
-        role: account.Role
-      }));
-
       console.log('Formatted Orders:', formattedOrders); // Log formatted diamonds
       setOrders(formattedOrders);
       setAccounts(formattedAccounts);
-      setDelistaffs(formattedDeliStaffs);
     } catch (error) {
       console.error("Failed to fetch orders:", error);
     }
@@ -113,10 +103,6 @@ const columns: TableColumnsType<any> = [
     showSorterTooltip: { target: "full-header" },
     sorter: (a, b) => a.accountDeliveryID.length - b.accountDeliveryID.length,
     sortDirections: ["descend"],
-    render: (_, record) => {
-      const customerAccount = delistaffs.find((account: any) => account.accountID === record.accountID);
-      return customerAccount ? customerAccount.accountName : null;
-    },
   },
   // {
   //   title: "Total",

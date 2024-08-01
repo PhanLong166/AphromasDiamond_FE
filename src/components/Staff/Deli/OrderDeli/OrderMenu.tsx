@@ -60,12 +60,6 @@ const OrderMenu = () => {
                                         <h3>Delivered</h3>
                                     </Link>
                                 </Styled.OrderCatalog_Ele>
-                                <Styled.OrderCatalog_Ele className={active === 'Return' ? 'active' : ''}>
-                                    <div className={`btn ${active === 'Return' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Return')}></div>
-                                    <Link to="/delivery-staff/delivery-return">
-                                        <h3>Return</h3>
-                                    </Link>
-                                </Styled.OrderCatalog_Ele>
                                 <Styled.OrderCatalog_Ele className={active === 'Completed' ? 'active' : ''}>
                                     <div className={`btn ${active === 'Completed' ? 'adMenu_active-line' : 'adMenu_line'}`} onClick={() => handleSetActive('Completed')}></div>
                                     <Link to="/delivery-staff/delivery-completed">

@@ -3,14 +3,14 @@ import { useState } from "react";
 import { Space, Table, Tag, Input } from "antd";
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType, TableProps } from "antd";
-import { data, DataType } from "../OrderData";
+import { DataType } from "../OrderData";
 import { Link } from "react-router-dom";
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import OrderMenu from "@/components/Admin/OrderMenu/OrderMenu";
 
 
 
-const filteredData = data.filter((item) => item.status === "Assigned");
+// const filteredData = data.filter((item) => item.status === "Assigned");
 
 const columns: TableColumnsType<DataType> = [
   {
@@ -144,7 +144,7 @@ const AssignedOrder = () => {
               <Table
                 className="table"
                 columns={columns}
-                dataSource={filteredData}
+                dataSource={[]}
                 pagination={{ pageSize: 6 }} // Add pagination here
                 onChange={onChange}
                 showSorterTooltip={{ target: "sorter-icon" }}
