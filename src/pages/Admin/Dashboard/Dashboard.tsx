@@ -105,6 +105,7 @@ const Dashboard = () => {
       const formattedRevene = {
         startDate: reveneData.StartDate,
         endDate: reveneData.EndDate,
+        totalRevenueInTime: reveneData.TotalRevenueInTime,
         mostRevenueInTime: reveneData.MostRevenueInTime,
         mostQuantiyInTime: reveneData.MostQuantiyInTime,
         orderResults: reveneData.OrderResults.map((order: any) => ({
@@ -183,7 +184,7 @@ const Dashboard = () => {
                   <Styled.Revenue_Title>
                     <h2>Revenue Report</h2>
                     {/* <p className="revenueTotal">{`$${data.revene}`}</p> */}
-                    <p className="revenueTotal">1222</p>
+                    <p className="revenueTotal">{revenes?.totalRevenueInTime}$</p>
                   </Styled.Revenue_Title>
                   <Styled.Revenue_Content>
                     <LineChart isDashboard={true} />

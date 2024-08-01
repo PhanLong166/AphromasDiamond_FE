@@ -45,4 +45,26 @@ export const ReguJewelryField: FieldType[] = [
                 options={Brand_Option}
             />
     },
+    {
+        key: 3,
+        label: "Description",
+        name: "Description",
+        rules: [
+            {
+                required: true,
+                message: "Jewelry Name is required.",
+            },
+            {
+                max: 300,
+                message:
+                    "Jewelry Name must be at most 300 characters long.",
+            },
+            {
+                whitespace: true,
+                message: "Not only has whitespace.",
+            },
+        ],
+        children:
+            <Input className="formItem" placeholder="Fill Description" />
+    },
 ]
