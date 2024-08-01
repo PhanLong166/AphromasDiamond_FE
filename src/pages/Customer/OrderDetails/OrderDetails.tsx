@@ -36,6 +36,7 @@ interface ProductDetail {
   Description: string;
   Price: number;
   UsingImage?: string;
+  Inscription?: string;
 }
 
 const StatusTag = ({ status }: { status: string }) => {
@@ -95,13 +96,12 @@ const OrderDetail: React.FC = () => {
   const [productDetails, setProductDetails] = useState<{
     [key: number]: ProductDetail;
   }>({});
-  const [totalPrice, setTotalPrice] = useState<number>(0);
   const [shippingFee, setShippingFee] = useState<number>(0);
   const [order, setOrder] = useState<any>(null);
   const [discount, setDiscount] = useState(0);
   const [subTotal, setSubTotal] = useState(0);
-  const [discountPrice, setDiscountPrice] = useState(0);
   const [paymentMethod, setPaymentMethod] = useState("");
+  
   const { AccountID } = useAuth();
 
   const [reviewedDiamonds, setReviewedDiamonds] = useState<Set<number>>(
@@ -147,20 +147,16 @@ const OrderDetail: React.FC = () => {
           const shippingFee = Number(res.data.data.Shippingfee);
           setShippingFee(shippingFee);
 
-          const totalVoucherPrice = Number(priceRes.VoucherPrice) + shippingFee;
-          console.log(totalVoucherPrice);
-          setTotalPrice(totalVoucherPrice);
+          const totalVoucherPrice = Number(priceRes.VoucherPrice);
 
           const totalPrice = priceRes.Price;
           if (priceRes.VoucherID) {
-            const discount = (totalVoucherPrice / totalPrice) * 10;
+            const discount = parseInt(
+              ((totalVoucherPrice / totalPrice) * 10).toFixed(0)
+            );
+            console.log(discount);
             setDiscount(discount);
-
-            const discountPrice = totalPrice - totalVoucherPrice;
-            setDiscountPrice(discountPrice);
           }
-          const subTtotal = totalPrice;
-          setSubTotal(subTtotal);
         }
         //
       } else {
@@ -200,13 +196,14 @@ const OrderDetail: React.FC = () => {
     try {
       const diamondDetails: { [key: number]: DiamondDetail } = {};
       const productDetails: { [key: number]: ProductDetail } = {};
+      let subTotal = 0;
 
       console.log(orders);
       for (const order of orders) {
         if (order.DiamondID) {
           const res = await getDiamondDetails(order.DiamondID);
           const diamond = res.data.data;
-          console.log(diamond);
+          console.log(diamond.Price);
           let diamondImage = "https://via.placeholder.com/150";
 
           if (diamond.usingImage && diamond.usingImage.length > 0) {
@@ -229,17 +226,30 @@ const OrderDetail: React.FC = () => {
             ...diamond,
             UsingImage: diamondImage,
           };
+          subTotal += Number(diamond.Price || 0);
         } else if (order.ProductID) {
           const [orderLineRes, productRes] = await Promise.all([
             OrderLineDetail(order.OrderLineID),
             getProductDetails(order.ProductID),
           ]);
-          const productPrice = orderLineRes.data.data.Price;
-          console.log(productPrice);
-          const productData = productRes.data.data;
-          console.log(productData);
+          console.log(orderLineRes.data.data);
+          const jewelrySettingVariantPrice =
+            productRes.data.data.JewelrySetting.jewelrySettingVariant[0].Price;
+          // console.log(productRes.data.data.JewelrySetting.jewelrySettingVariant[0].Price);
+          const inscription = orderLineRes.data.data.Inscription;
+          const totalDimondPrice = productRes.data.data.TotalDiamondPrice;
 
-          console.log(order.ProductID);
+          const productPrice =
+            orderLineRes.data.data.DiscountPrice +
+            totalDimondPrice +
+            jewelrySettingVariantPrice;
+
+          // console.log(totalDimondPrice)
+          // console.log(productPrice);
+          const productData = productRes.data.data;
+          // console.log(productData);
+
+          // console.log(order.ProductID);
 
           let productImage = "https://via.placeholder.com/150";
           console.log(productData.UsingImage);
@@ -263,12 +273,15 @@ const OrderDetail: React.FC = () => {
             ...productData,
             UsingImage: productImage,
             Price: productPrice,
+            Inscription: inscription,
           };
+          subTotal += productPrice || 0;
         }
       }
       console.log("Before setting state:", { productDetails });
       setDiamondDetails(diamondDetails);
       setProductDetails(productDetails);
+      setSubTotal(subTotal);
       console.log("State updated", { diamondDetails, productDetails });
     } catch (error) {
       console.error("Error fetching details:", error);
@@ -285,6 +298,9 @@ const OrderDetail: React.FC = () => {
     }
   }, [orderId]); // Chạy khi orderId thay đổi
 
+  const hasProductID = (data: (DiamondDetail | ProductDetail)[]) =>
+    data.some((item) => 'ProductID' in item);
+
   const columns: TableColumnGroupType<DiamondDetail | ProductDetail>[] = [
     {
       title: "Product",
@@ -293,6 +309,7 @@ const OrderDetail: React.FC = () => {
           title: "Image",
           dataIndex: "UsingImage",
           key: "UsingImage",
+          // width: "20%",
           render: (usingImage: string | undefined) =>
             usingImage ? (
               <img
@@ -310,6 +327,16 @@ const OrderDetail: React.FC = () => {
           key: "Name",
           // width: "10%",
         },
+       ...(hasProductID([
+        
+        ...Object.values(productDetails),
+      ]) ? [
+        {
+          title: "Product Inscription",
+          dataIndex: "Inscription",
+          key: "Inscription",
+        }
+      ] : []),
         {
           title: "Price",
           dataIndex: "Price",
@@ -510,7 +537,7 @@ const OrderDetail: React.FC = () => {
           <Column>
             <InfoTextBold>
               Discount: -({discount.toFixed(0) || 0}%):
-              <span>-{discountPrice.toFixed(2) || 0}</span>
+              <span>{formatPrice((subTotal * discount) / 100) || 0}</span>
             </InfoTextBold>
 
             <InfoText>
@@ -525,7 +552,15 @@ const OrderDetail: React.FC = () => {
             <br />
             <InfoTextBold style={{ color: "red" }}>
               <div> Total:</div>
-              <div> {formatPrice(totalPrice)}</div>
+              <div>
+                {" "}
+                {formatPrice(
+                  subTotal - (subTotal * discount) / 100 + shippingFee
+                )}
+              </div>
+              {paymentMethod === "PayPal" && (
+                <div style={{ color: "green" }}>Payment Received</div>
+              )}
             </InfoTextBold>
           </Column>
         </OrderInfo>
