@@ -655,9 +655,6 @@ function WeddingEdu() {
           <Link href="#section4" title="03 Perfect Wedding Ring" />
           <Link href="#section5" title="04 Shopping Tips" />
           <Link href="#section6" title="05 Wedding Ring Styles" />
-          <Link href="#section7" title="06 Men's Wedding Rings" />
-          <Link href="#section8" title="07 Take care Wedding Rings" />
-          <Link href="#section9" title="08 Finding Your Ring Size " />
         </Anchor>
       </Layout>
     </Container>

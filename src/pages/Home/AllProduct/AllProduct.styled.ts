@@ -18,14 +18,70 @@ export const StyledPagination = styled(Pagination)`
 `;
 export const Container = styled.div``;
 
-export const Heading = styled.div`
+export const Banner = styled.section`
+  background-image: url("https://dam.bluenile.com/images/public/20464/Blue%20Nile%20diamond%20jewelry.jpeg");
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+  display: flex;
+  max-width: 1400px;
+  margin: 20px auto;
+`;
+
+export const LeftSection = styled.div`
+  max-width: 1600px;
+  margin: 100px 60px;
+
   h2 {
-    font-size: 32px;
-    text-align: center;
-    margin: 50px auto;
+    font-size: 25px;
+    margin-bottom: 10px;
+    text-align: left;
+    font-weight: 500;
+    color: #45413e;
     font-family: "Gantari", sans-serif;
+  }
+
+  h1 {
+    font-size: 45px;
+    margin-bottom: 10px;
+    font-family: "Gantari", sans-serif;
+    text-align: left;
+    font-weight: 500;
+    color: #45413e;
+  }
+
+  .subheading {
+    font-size: 15px;
+    margin-bottom: 10px;
+    line-height: 1.5;
+    text-align: left;
+    font-family: "Gantari", sans-serif;
+    color: #45413e;
+    width: 60%;
+  }
+
+  .consult-button {
+    padding: 15px 20px;
+    background-color: #efe2d4;
     color: ${theme.color.primary};
-    font-weight: 700;
+    border: 1px solid;
+    cursor: pointer;
+    font-size: 14px;
+
+    font-family: "Gantari", sans-serif;
+    margin-top: 10px;
+    font-weight: 500;
+  }
+  .button_slide {
+    letter-spacing: 1px;
+    cursor: pointer;
+    -webkit-transition: ease-out 0.4s;
+    -moz-transition: ease-out 0.4s;
+    transition: ease-out 0.4s;
+  }
+  .slide_right:hover {
+    box-shadow: inset 400px 0 0 0 ${theme.color.primary};
+    color: #efe2d4;
   }
 `;
 

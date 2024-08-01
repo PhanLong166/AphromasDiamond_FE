@@ -26,12 +26,8 @@ import {
   ProductPrice,
   ButtonContainer,
   Button,
-  // Shipping,
-  // ShippingList,
-  // ShippingItem,
   CurrentPrice,
   BeforePrice,
-  // Discount,
   Contain,
   Tabbed,
   ProductAbout,
@@ -65,7 +61,6 @@ import { showAllFeedback } from "@/services/feedBackAPI";
 type NotificationType = "success" | "error";
 
 const DiamondDetails: React.FC = () => {
-  //tab description + cmt
   const [activeTab, setActiveTab] = useState("product-description");
 
   const showTab = (tabId: string) => {
@@ -83,7 +78,6 @@ const DiamondDetails: React.FC = () => {
 
   const navigate = useNavigate();
 
-  //wishlist
   const [wishList, setWishList] = useState<string[]>([]);
 
   const toggleWishList = (productId: string) => {
@@ -122,7 +116,7 @@ const DiamondDetails: React.FC = () => {
         if (response.status === 200) {
           const product = response.data.data;
           setFoundProduct(product);
-          const diamondId = product.DiamondID; // Lưu diamondId từ API
+          const diamondId = product.DiamondID; 
           setDiamondId(diamondId);
 
           if (product.usingImage && product.usingImage.length > 0) {
@@ -178,8 +172,6 @@ const DiamondDetails: React.FC = () => {
           } else {
             setSameBrandProducts([]);
           }
-
-          // Call fetchFeedbackDetail if diamondId is set
           if (diamondId !== null) {
             await fetchFeedbackDetail(diamondId);
           }
@@ -297,7 +289,6 @@ const DiamondDetails: React.FC = () => {
     } else {
       navigate(config.routes.public.login);
     }
-    // navigate(config.routes.customer.cart);
   };
 
   const handleCheckout = async () => {
@@ -388,12 +379,6 @@ const DiamondDetails: React.FC = () => {
                 <Entry>
                   <Heading>
                     <Title className="main-title">{foundProduct.Name}</Title>
-
-                    {/* <ProductRating>
-                      {Array.from({ length: foundProduct.Stars }, (_, i) => (
-                        <StarFilled key={i} />
-                      ))}
-                    </ProductRating> */}
                     <ProductRating>
                       {foundProduct.Stars} <StarFilled />
                     </ProductRating>
@@ -455,9 +440,6 @@ const DiamondDetails: React.FC = () => {
                           foundProduct.DiscountPrice !== foundProduct.Price && (
                             <div className="wrap">
                               <BeforePrice>${foundProduct.Price}</BeforePrice>
-                              {/* <Discount>
-                                - {foundProduct?.DiscountID?.PercentDiscount}
-                              </Discount> */}
                             </div>
                           )}
                       </div>

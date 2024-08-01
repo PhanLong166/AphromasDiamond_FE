@@ -62,7 +62,7 @@ const EngagementDesignerList: React.FC = () => {
     zaczacposen: {
       title: "Engagement Ring of Zac Zac Posen",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Zac Posen’s jewelry collection is renowned for its bold and innovative designs that blend high fashion with luxurious craftsmanship. Each piece reflects the brand’s commitment to elegance and modern sophistication, featuring unique details and intricate artistry. Zac Posen’s jewelry adds a touch of glamour and contemporary flair to any ensemble, making it a standout choice for those who appreciate distinctive and stylish adornments.",
       products: products.filter(
         (product) =>
           product.brand === "Zac Zac Posen" &&
@@ -99,7 +99,7 @@ const EngagementDesignerList: React.FC = () => {
     bellavaughan: {
       title: "Engagement Ring of Bella Vaughan",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Bella Vaughan’s jewelry collection is celebrated for its timeless elegance and refined craftsmanship. Known for its classic designs with a modern twist, Bella Vaughan creates pieces that feature intricate detailing and high-quality materials. Each piece embodies sophistication and grace, offering a touch of luxury that enhances any look with understated beauty and lasting appeal.",
       products: products.filter(
         (product) =>
           product.brand === "Bella Vaughan" &&
@@ -136,7 +136,7 @@ const EngagementDesignerList: React.FC = () => {
     bluenile: {
       title: "Engagement Ring of Blue Nile Studio",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "Blue Nile Studio offers a diverse and stylish range of fine jewelry, known for its commitment to quality and innovation. Featuring a blend of classic and contemporary designs, Blue Nile Studio’s pieces are crafted with precision and care, using the finest materials. The collection highlights elegant simplicity and modern sophistication, making it an excellent choice for those seeking beautiful and enduring jewelry.",
       products: products.filter(
         (product) =>
           product.brand === "Blue Nile Studio" &&
@@ -173,7 +173,7 @@ const EngagementDesignerList: React.FC = () => {
     thegallerycollection: {
       title: "Engagement Ring of The Gallery Collection",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "The Gallery Collection is renowned for its exquisite craftsmanship and artistic designs. Featuring a range of stunning jewelry pieces, each creation showcases exceptional quality and attention to detail. The collection blends classic elegance with contemporary style, offering unique and sophisticated options that make a statement and reflect timeless beauty.",
       products: products.filter(
         (product) =>
           product.brand === "The Gallery Collection" &&

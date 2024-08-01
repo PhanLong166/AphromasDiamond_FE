@@ -407,7 +407,6 @@ function NecklaceEdu() {
           <Link href="#section4" title="03 Diamond Quality" />
           <Link href="#section5" title="04 Chain Types" />
           <Link href="#section6" title="05 Right Length" />
-          <Link href="#section7" title="06 Care and Maintenance" />
         </Anchor>
       </Layout>
     </Container>

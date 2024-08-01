@@ -1,17 +1,17 @@
 import React, { useEffect, useState } from "react";
 import {
   Section,
-  Heading,
   List,
   FAQs,
   LeftFAQ,
   CustomBreadcrumb,
   StyledCollapse,
   StyledPagination,
+  Banner,
+  LeftSection,
 } from "./AllDiamond.styled";
 import { Card, Col, Row, Typography, Spin } from "antd";
 import { HeartOutlined, HeartFilled } from "@ant-design/icons";
-import FilterSortDiamond from "@/components/FilterSortDiamond/FilterSortDiamond";
 import { labels, texts } from "./AllDiamond.props";
 import { useDocumentTitle } from "@/hooks";
 import { showAllDiamond } from "@/services/diamondAPI";
@@ -37,7 +37,6 @@ const AllDiamond: React.FC = () => {
   const [wishList, setWishList] = useState<string[]>([]);
   const [currentPage, setCurrentPage] = useState(1);
   const pageSize = 12;
-  // const [filteredDiamonds, setFilteredDiamonds] = useState([]);
 
   const toggleWishList = (productId: string) => {
     setWishList((prev) =>
@@ -128,10 +127,23 @@ const AllDiamond: React.FC = () => {
           ]}
         />
       </div>
-      <Heading>
-        <h2>ALL DIAMONDS</h2>
-      </Heading>
-      <FilterSortDiamond />
+      <Banner>
+        <div className="bannerContent">
+          <LeftSection>
+            <h2>ALL DIAMONDS</h2>
+            <h1>Because Your Occasion is Brilliant</h1>
+            <div className="subheading">
+              Cherished for their unique beauty and timeless elegance, diamonds
+              are the ultimate way to mark your moment and create a sparkling
+              memory. Each diamond, with its distinct brilliance, captures the
+              essence of your special occasion, making it unforgettable. Whether
+              it's a symbol of love or a personal achievement, a diamond
+              elevates the significance of life's precious events, turning them
+              into lasting, luminous milestones.
+            </div>
+          </LeftSection>
+        </div>
+      </Banner>
       <hr
         style={{
           maxWidth: "1400px",
@@ -220,7 +232,7 @@ const AllDiamond: React.FC = () => {
       />
       <FAQs>
         <LeftFAQ>
-          <h2>FAQs ABOUT PRODUCT</h2>
+          <h2>FAQs ABOUT DIAMONDS</h2>
         </LeftFAQ>
         <StyledCollapse
           items={items}

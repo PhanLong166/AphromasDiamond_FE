@@ -5,8 +5,6 @@ import { HeartOutlined, HeartFilled } from "@ant-design/icons";
 import { Link, useNavigate, useParams } from "react-router-dom";
 const { Title, Text } = Typography;
 import config from "@/config";
-import FilterSort from "@/components/FilterSort/FilterSort";
-// import { jewelryData } from "./ProductList.data";
 import FAQ from "@/components/FAQs/FAQs";
 import Breadcrumb from "@/components/Breadcrumb/Breadcrumb";
 import Banner from "@/components/Banner/Banner";
@@ -65,7 +63,7 @@ const ProductList: React.FC = () => {
     bracelet: {
       title: "Bracelet",
       description:
-        "Elevate your style with our diamond bracelets, crafted to perfection in yellow gold, white gold, rose gold, or platinum. Each bracelet features meticulously set diamonds that sparkle with every movement, offering a luxurious and timeless accessory for any occasion. Whether worn alone as a statement piece or layered with other jewelry, our bracelets are designed to enhance your beauty and express your individuality with sophistication and grace.",
+        "A diamond bracelet combines the luxurious allure of diamonds with the elegance of fine jewelry. Featuring a range of designs from delicate tennis bracelets to bold statement pieces, diamond bracelets add a touch of glamour to any ensemble. The timeless sparkle of diamonds ensures that this piece remains a sophisticated and versatile accessory.",
       products: products.filter(
         (product) => product.jewelryType === "Bracelet"
       ),
@@ -101,7 +99,7 @@ const ProductList: React.FC = () => {
     necklace: {
       title: "Necklace",
       description:
-        "Adorn yourself with our exquisite diamond necklaces, crafted to capture attention and admiration. Set in yellow gold, white gold, rose gold, or platinum, each necklace showcases the beauty of diamonds in designs that range from classic to contemporary, making them a stunning addition to any jewelry collection. Whether worn as a centerpiece for formal occasions or as an everyday luxury, our necklaces are designed to complement your style and elevate your look with timeless elegance.",
+        "A diamond necklace is a classic piece of jewelry that offers exceptional elegance and sparkle. With designs ranging from simple, understated pendants to elaborate, statement pieces, a diamond necklace enhances any outfit with its luminous brilliance. Its timeless appeal makes it a cherished addition to any jewelry collection, perfect for celebrating special moments.",
       products: products.filter(
         (product) => product.jewelryType === "Necklace"
       ),
@@ -136,7 +134,7 @@ const ProductList: React.FC = () => {
     earrings: {
       title: "Earrings",
       description:
-        "Make a statement with our diamond earrings, designed to enhance your natural beauty and style. Available in yellow gold, white gold, rose gold, or platinum settings, each pair of earrings features sparkling diamonds that add a touch of glamour and sophistication to any ensemble. Whether worn for a special occasion or as an everyday indulgence, our earrings are crafted with precision to reflect your unique personality and enhance your presence with timeless elegance and refinement.",
+        "A diamond earring exudes sophistication and charm, offering a radiant touch to any outfit. Available in various styles, from simple studs to elegant drop designs, diamond earrings are designed to capture light and enhance the wearer's natural beauty. Their sparkling brilliance makes them a versatile accessory, perfect for both everyday wear and special occasions.",
       products: products.filter((product) => product.jewelryType === "Earring"),
       faqs: [
         {
@@ -169,7 +167,7 @@ const ProductList: React.FC = () => {
     ring: {
       title: "Rings Setting",
       description:
-        "Our collection of diamond rings embodies timeless elegance and craftsmanship, each piece meticulously crafted to capture the essence of sophistication and beauty. Whether showcasing the brilliance of round, princess, or cushion-cut diamonds, set in luxurious yellow gold, white gold, rose gold, or platinum settings, each ring tells a story of love and commitment. From classic solitaire designs to intricate halo settings, our rings are designed to celebrate life's most precious moments with enduring style and grace, making them cherished symbols of eternal love and unforgettable milestones.",
+        "A diamond ring is a stunning symbol of elegance and luxury, featuring the timeless brilliance of a finely cut diamond. Whether set in a classic solitaire or a more intricate design, a diamond ring captures light with exceptional sparkle and clarity. Its enduring beauty makes it a perfect choice for special occasions and a cherished piece in any jewelry collection.",
       products: products.filter(
         (product) =>
           product.type === "Rings" &&
@@ -255,7 +253,6 @@ const ProductList: React.FC = () => {
         title={currentJewelryData.title}
         description={currentJewelryData.description}
       />
-      <FilterSort />
       <hr
         style={{
           maxWidth: "1400px",
