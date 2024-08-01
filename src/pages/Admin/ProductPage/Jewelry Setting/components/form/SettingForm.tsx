@@ -1,6 +1,7 @@
 import { FieldType } from "@/components/AuthForm/AuthForm.fields";
 import { Form, FormInstance } from "antd";
 import * as Styled from "../../RingSetting.styled";
+import VariantUpload from "../upload/Variant.upload";
 
 type SettingFormProps = {
     fields: FieldType[];
@@ -28,6 +29,7 @@ const SettingForm = ({
                 </Form.Item>
             </Styled.FormItem>
         ))}
+        <VariantUpload/>
     </Form>
 )
 

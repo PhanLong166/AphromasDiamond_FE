@@ -16,7 +16,7 @@ const UploadButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
     setCurrent,
     api
 }) => {
-    const JewelrySettingID = useAppSelector((state) => state.uploadSetting.JewelryID);
+    const JewelrySettingID = useAppSelector((state) => state.uploadSetting.JewelrySettingID);
     const imageUploadList = useAppSelector((state) => state.uploadSetting.imageUploadList);
 
     const uploadSettingImage = async () => {

@@ -26,7 +26,6 @@ interface EditableCellProps {
   inputType: "number" | "text";
   record: any;
   index: number;
-  // children: React.ReactNode;
 }
 
 const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
@@ -34,8 +33,6 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
   dataIndex,
   title,
   inputType,
-  // record,
-  // index,
   children,
   ...restProps
 }) => {
@@ -45,8 +42,8 @@ const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-        name={dataIndex.toString()}
-        style={{ margin: 0 }}
+          name={dataIndex.toString()}
+          style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -115,7 +112,7 @@ const BillPromotion = () => {
     fetchData();
   }, []);
 
-  
+
   // EDIT
   const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
@@ -178,7 +175,6 @@ const BillPromotion = () => {
     }
   };
 
-
   const columns = [
     {
       title: "Voucher ID",
@@ -201,16 +197,25 @@ const BillPromotion = () => {
     {
       title: "Start Date",
       dataIndex: "startDate",
-      editable: true,
-      onChange:{onChangeDate},
-      sorter: (a: any, b: any) => a.startDate.length - b.startDate.length,
+      // editable: true,
+      onChange: { onChangeDate },
+      render: (_, { startDate }: any) => {
+        return <>{startDate.replace("T", " ").replace(".000Z", " ")}</>
+      },
+      sorter: (a: any, b: any) =>
+        a.startDate.length - b.startDate.length,
+      
     },
     {
       title: "End Date",
       dataIndex: "endDate",
-      editable: true,
-      onChange:{onChangeDate},
-      sorter: (a: any, b: any) => a.endDate.length - b.endDate.length,
+      // editable: true,
+      onChange: { onChangeDate },
+      render: (_, { endDate }: any) => {
+        return <>{endDate.replace("T", " ").replace(".000Z", " ")}</>
+      },
+      sorter: (a: any, b: any) =>
+        a.endDate.length - b.endDate.length,
     },
     {
       title: "Description",
@@ -247,13 +252,13 @@ const BillPromotion = () => {
     },
     {
       title: "Delete",
-      dataIndex: "voucherID",
+      dataIndex: "delete",
       className: "TextAlign",
-      render: (record: any) =>
+      render: (_: unknown, record: any) =>
         vouchers.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.voucherID)}
+            onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -269,22 +274,13 @@ const BillPromotion = () => {
       ...col,
       onCell: (record: any) => ({
         record,
-        inputType: col.dataIndex === "text",
+        inputType: col.dataIndex === "percentDiscounts" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),
       }),
     };
   });
-
-  // const onChangeTable: TableProps<any>["onChange"] = (
-  //   pagination,
-  //   filters,
-  //   sorter,
-  //   extra
-  // ) => {
-  //   console.log("params", pagination, filters, sorter, extra);
-  // };
 
   // SEARCH AREA
   const onSearch = (value: string) => {
@@ -306,9 +302,9 @@ const BillPromotion = () => {
   const handleCancel = () => {
     setIsAdding(false);
   };
-  
 
-  
+
+
   // SUBMIT FORM
   interface SubmitButtonProps {
     form: FormInstance;
@@ -364,10 +360,8 @@ const BillPromotion = () => {
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
-
         <Styled.AdminPage>
           <MarketingMenu />
-
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
               {(!isAdding && (
@@ -376,7 +370,6 @@ const BillPromotion = () => {
                     <Input
                       className="searchInput"
                       type="text"
-                      // size="large"
                       placeholder="Search here..."
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
@@ -392,12 +385,12 @@ const BillPromotion = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Promotion</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Promotion</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -407,7 +400,6 @@ const BillPromotion = () => {
                     form={form}
                     layout="vertical"
                     className="AdPageContent_Content"
-                    // autoComplete="off"
                   >
                     <Styled.FormItem>
                       <Form.Item

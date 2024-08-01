@@ -9,11 +9,11 @@ const MarketingMenu = () => {
     useEffect(() => {
         const path = location.pathname;
         if (path === "/admin/marketing") {
-          setActive("Collection");
-        } else if (path.startsWith("/admin/marketing/collection/")) {
-          setActive("Collection");
-        } else if (path === "/admin/marketing/discount") {
           setActive("ProductPromotion");
+        // } else if (path.startsWith("/admin/marketing/collection/")) {
+        //   setActive("Collection");
+        // } else if (path === "/admin/marketing/discount") {
+        //   setActive("ProductPromotion");
         } else if (path.startsWith("/admin/marketing/discount/")) {
           setActive("ProductPromotion");
         } else if (path === "/admin/marketing/voucher") {
@@ -36,7 +36,7 @@ const MarketingMenu = () => {
             </Styled.TitlePage>
 
             <Styled.MiniCatalog>
-              <Styled.MiniCatalog_Ele
+              {/* <Styled.MiniCatalog_Ele
                 className={active === "Collection" ? "active" : ""}
               >
                 <div
@@ -50,7 +50,7 @@ const MarketingMenu = () => {
                 <Link to="/admin/marketing">
                   <h3>Collection</h3>
                 </Link>
-              </Styled.MiniCatalog_Ele>
+              </Styled.MiniCatalog_Ele> */}
               <Styled.MiniCatalog_Ele
                 className={active === "ProductPromotion" ? "active" : ""}
               >
@@ -62,7 +62,7 @@ const MarketingMenu = () => {
                   } `}
                   onClick={() => handleSetActive("ProductPromotion")}
                 ></div>
-                <Link to="/admin/marketing/discount">
+                <Link to="/admin/marketing">
                   <h3>Product Promotion</h3>
                 </Link>
               </Styled.MiniCatalog_Ele>

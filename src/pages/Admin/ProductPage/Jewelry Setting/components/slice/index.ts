@@ -1,13 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 export const initialState = {
-    JewelryID: 0,
-    settingVariantList: [],
+    JewelrySettingID: 0,
+    // settingVariantList: [],
+    JewelrySettingVariantID: 0,
     imageUploadList: [],
-    // Certificate: {
-    //     Name: '',
-    //     DiamondID: 0
-    // }
 }
 
 export const name = 'upload';
@@ -16,11 +13,11 @@ export const uploadSliceSetting = createSlice({
     name,
     initialState,
     reducers: {
-        setJewelryID: (state, action) => {
-            state.JewelryID = action.payload;
+        setJewelrySettingID: (state, action) => {
+            state.JewelrySettingID = action.payload;
         },
-        setSettingVariantList: (state, action) => {
-            state.settingVariantList = action.payload;
+        setJewelrySettingVariantID: (state, action) => {
+            state.JewelrySettingVariantID = action.payload;
         },
         setImageUploadList: (state, action) => {
             state.imageUploadList = action.payload;
@@ -34,6 +31,6 @@ export const uploadSliceSetting = createSlice({
     }
 });
 
-export const { setJewelryID, setSettingVariantList, setImageUploadList } = uploadSliceSetting.actions;
+export const { setJewelrySettingID, setJewelrySettingVariantID, setImageUploadList } = uploadSliceSetting.actions;
 
 export default uploadSliceSetting;

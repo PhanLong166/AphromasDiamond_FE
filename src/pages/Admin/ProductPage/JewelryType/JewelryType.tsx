@@ -67,9 +67,7 @@ const JewelryType = () => {
   const [isAdding, setIsAdding] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [types, setTypes] = useState<any[]>([]);
-  // const [types, setTypes] = useState([]);
-  // const [editingKey, setEditingKey] = useState<React.Key>("");
-  const [editingKey, setEditingKey] = useState("");
+  const [editingKey, setEditingKey] = useState<React.Key>("");
   const isEditing = (record: any) => record.key === editingKey;
 
   type NotificationType = "success" | "info" | "warning" | "error";
@@ -105,13 +103,14 @@ const JewelryType = () => {
     fetchData();
   }, []);
 
+
+  // EDIT
   const edit = (record: Partial<any> & { key: React.Key }) => {
     form.setFieldsValue({
-      jewelryTypeID: "",
       jewelryTypeName: "",
       ...record,
     });
-    setEditingKey(String(record.key));
+    setEditingKey(record.key);
   };
 
   const cancel = () => {
@@ -149,16 +148,14 @@ const JewelryType = () => {
     }
   };
 
-  const handleDelete = async (key: number) => {
+  const handleDelete = async (jewelryTypeID: number) => {
     try {
-      const itemToDelete = types.find((item) => item.key === key);
-      await deleteJewelryType(itemToDelete.jewelryTypeID);
-      const newData = types.filter((item) => item.key !== key);
-      setTypes(newData);
-      fetchData();
+      await deleteJewelryType(jewelryTypeID);
       openNotification("success", "Delete", "");
-    } catch (error) {
-      openNotification("error", "Delete", "Failed to delete type");
+      fetchData();
+    } catch (error: any) {
+      console.error("Failed to delete type:", error);
+      openNotification("error", "Delete", error.message);
     }
   };
   
@@ -167,7 +164,6 @@ const JewelryType = () => {
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
-      editable: true,
       sorter: (a: any, b: any) =>
         parseInt(a.materialJewelryID) - parseInt(b.materialJewelryID),
     },
@@ -181,7 +177,7 @@ const JewelryType = () => {
     {
       title: "Edit",
       dataIndex: "edit",
-      className: "TextAlign",
+      className: "TextAlign SmallSize",
       render: (_: unknown, record: any) => {
         const editable = isEditing(record);
         return editable ? (
@@ -214,7 +210,7 @@ const JewelryType = () => {
         types.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.jewelryTypeID)}
+            onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
           </Popconfirm>
