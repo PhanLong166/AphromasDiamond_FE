@@ -132,7 +132,9 @@ const DiamondDetail = () => {
   // DELETE
   const handleDelete = async () => {
     try {
-      const response = await deleteDiamond(activeDiamond.DiamondID);
+      const response = await updateDiamond(activeDiamond.DiamondID, {
+        IsActive: false,
+      });
       console.log("Delete Response:", response.data);
       if (response.status === 200) {
         openNotification("success", "Delete", "");

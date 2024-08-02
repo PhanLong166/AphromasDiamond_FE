@@ -33,14 +33,12 @@ import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 
 const calculateProductPrice = (
   diamondPrice: number,
-  jewelrySettingVariants: any[]
+  totalJewelrySettingPrice: number,
+  discount: number
 ): number => {
-  const totalJewelrySettingPrice = jewelrySettingVariants.reduce(
-    (total: number, variant: any) => total + Number(variant.Price),
-    0
-  );
-  return totalJewelrySettingPrice + diamondPrice;
+  return ((totalJewelrySettingPrice + diamondPrice) * (100 - discount) / 100);
 };
+
 
 const PriceCalculation = (
   <div>
@@ -88,6 +86,12 @@ const JewelryDetail = () => {
     });
   };
 
+  const JewelryPriceCalculation = (
+    <div>
+      (Diamond Price + Price of each Material Setting) * (100 - discount) / 100
+    </div>
+  );
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -96,7 +100,7 @@ const JewelryDetail = () => {
         const responseSettingList = await showAllSetting();
         const responseMaterial = await showAllMaterial();
         const responseSize = await showAllSize();
-        const responseCollection = await showAllCollection();
+        // const responseCollection = await showAllCollection();
         const responseDiscount = await showAllDiscount();
         const responseType = await showAllJewelryType();
 
@@ -105,7 +109,7 @@ const JewelryDetail = () => {
         const { data: settingListData } = responseSettingList.data;
         const { data: materialsData } = responseMaterial.data;
         const { data: sizeData } = responseSize.data;
-        const { data: collectionData } = responseCollection.data;
+        // const { data: collectionData } = responseCollection.data;
         const { data: discountData } = responseDiscount.data;
         const { data: typeData } = responseType.data;
 
@@ -139,10 +143,10 @@ const JewelryDetail = () => {
           sizeValue: size.SizeValue,
         }));
 
-        const formattedCollections = collectionData.map((collection: any) => ({
-          collectionID: collection.CollectionID,
-          collectionName: collection.CollectionName,
-        }));
+        // const formattedCollections = collectionData.map((collection: any) => ({
+        //   collectionID: collection.CollectionID,
+        //   collectionName: collection.CollectionName,
+        // }));
 
         const formattedDiscounts = discountData.map((discount: any) => ({
           discountID: discount.DiscountID,
@@ -161,7 +165,7 @@ const JewelryDetail = () => {
         setAllSettings(formattedSettingList);
         setAllMaterials(formattedMaterials);
         setAllSizes(formattedSizes);
-        setAllCollections(formattedCollections);
+        // setAllCollections(formattedCollections);
         setAllDiscounts(formattedDiscounts);
         setAllTypes(formattedTypes);
 
@@ -355,26 +359,6 @@ const JewelryDetail = () => {
         ),
     },
     {
-      title: "Size Value",
-      dataIndex: "SizeID",
-      render: (text: string, record: any) =>
-        isEditing ? (
-          <Select
-            placeholder="Select Size"
-            value={record.SizeID}
-            onChange={(value) => handleSaveVariant({ ...record, SizeID: value })}
-          >
-            {allSizes.map((size: any) => (
-              <Select.Option key={size.sizeID} value={size.sizeID}>
-                {size.sizeValue}
-              </Select.Option>
-            ))}
-          </Select>
-        ) : (
-          record.size?.sizeValue || text
-        ),
-    },
-    {
       title: "Weight",
       dataIndex: "Weight",
       key: "Weight",
@@ -431,12 +415,6 @@ const JewelryDetail = () => {
         record.MaterialJewelryID,
     },
     {
-      title: "Size Value",
-      dataIndex: "sizeID",
-      render: (_: unknown, record: any) =>
-        record.SizeID,
-    },
-    {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
@@ -448,7 +426,7 @@ const JewelryDetail = () => {
         <>
           Jewelry Price
           <Popover
-            content={PriceCalculation}
+            content={JewelryPriceCalculation}
             title="Price Calculation"
             trigger="click"
           >
@@ -456,10 +434,15 @@ const JewelryDetail = () => {
           </Popover>
         </>
       ),
-      dataIndex: calculateProductPrice(
-        activeProduct?.TotalDiamondPrice || 0,
-        activeProduct?.JewelrySetting?.jewelrySettingVariant?.Price || []
-      ),
+      render: (record: any) => {
+        const diamondPrice = activeProduct?.TotalDiamondPrice || 0;
+        const discount = activeProduct?.Discount?.PercentDiscounts || 0;
+        const variantPrice = record.Price;
+
+        const price = calculateProductPrice(diamondPrice, variantPrice, discount);
+
+        return price.toFixed(2);
+      },
     },
   ];
 
@@ -831,15 +814,17 @@ const JewelryDetail = () => {
                             </Styled.InforLine>
                           ) : null}
 
-                          <Styled.InforLine>
-                            <p className="InforLine_Title">
-                              Discount (%)
-                            </p>
-                            {allDiscounts.map((discount: any) => (
-                              activeProduct?.DiscountID === discount.DiscountID ? (
-                                <p>{discount.Name}</p>
-                              ) : (<p>Null</p>)))}
-                          </Styled.InforLine>
+                          {activeProduct?.DiscountID ? (
+
+                            <Styled.InforLine>
+                              <p className="InforLine_Title">
+                                Discount (%)
+                              </p>
+                              {
+                                activeProduct?.Discount?.PercentDiscounts
+                              }
+                            </Styled.InforLine>
+                          ) : null}
                         </Styled.ProductContent>
                       </Styled.PageDetail_Infor>
                       <Styled.MaterialTable>
@@ -1075,10 +1060,7 @@ const JewelryDetail = () => {
                             <p className="InforLine_Title">
                               Jewelry Setting Type
                             </p>
-                            {allTypes.map((type: any) => (
-                              activeProduct.JewelrySetting?.JewelryTypeID === type.JewelryTypeID ? (
-                                <p>{type.Name}</p>
-                              ) : (<p>Null</p>)))}
+                            {activeProduct?.JewelrySetting?.jewelryType?.Name}
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">
@@ -1090,7 +1072,7 @@ const JewelryDetail = () => {
                             <p className="InforLine_Title">
                               Auxiliary Cost
                             </p>
-                            <p>{activeProduct?.JewelrySetting?.auxiliaryCost}</p>
+                            <p>{activeProduct?.JewelrySetting?.AuxiliaryCost}</p>
                           </Styled.InforLine>
                           <Styled.InforLine>
                             <p className="InforLine_Title">Product Cost</p>
