@@ -140,13 +140,7 @@ const Cart = () => {
     cartItems.map((item) => {
       if(item.DiamondID) total += parseFloat(item?.diamondDetails?.Price) 
       else {
-        const finalPrice = Number(
-          (item?.productDetails?.TotalDiamondPrice +
-          item?.productDetails?.JewelrySetting?.jewelrySettingVariant?.
-          find((itemJewelry: any) => itemJewelry.JewelrySettingVariantID === item?.orderlineDetails)?.Price)
-          *((100 - item?.productDetails?.Discount?.PercentDiscounts) / 100)
-        )
-        total += finalPrice;
+        total += item?.DiscountPrice;
       }
     });
     return total;

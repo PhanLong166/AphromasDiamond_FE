@@ -8,6 +8,7 @@ import { getDiamondDetails } from '@/services/diamondAPI';
 import { getProductDetails } from '@/services/productAPI';
 import { getImage } from '@/services/imageAPI';
 import { OrderLineDetail } from '@/services/orderLineAPI';
+import { showAllSize } from '@/services/sizeAPI';
 
 type CartItemProps = {
   OrderLineID: number;
@@ -35,6 +36,7 @@ const CartItem = ({
   const [diamond, setDiamond] = useState<any>();
   const [product, setProduct] = useState<any>();
   const [orderline, setOrderline] = useState<any>();
+  const [sizes, setSizes] = useState<any[]>([]);
 
   const handleView = () => {
     navigate(config.routes.public.diamondDetail.replace(':id', `${DiamondID}`));
@@ -58,6 +60,12 @@ const CartItem = ({
       setProduct(data.data);
     }
     fetchProductData();
+
+    const fetchSizesData = async () => {
+      const { data } = await showAllSize();
+      setSizes(data.data);
+    }
+    fetchSizesData();
   }, [])
 
   return (
@@ -84,9 +92,9 @@ const CartItem = ({
               <div>
                 {diamond ? (
                   [
-                    diamond.Clarity, 
-                    diamond.Color, 
-                    diamond.Cut, 
+                    diamond.Clarity,
+                    diamond.Color,
+                    diamond.Cut,
                     diamond.WeightCarat
                   ].map((property, index) => (
                     <Tag
@@ -118,31 +126,48 @@ const CartItem = ({
               <Styled.Description>By {product?.Brand}</Styled.Description>
               <div>
                 {orderline ? (
-                  [
-                    orderline?.Inscription, 
-                    orderline?.SizeID, 
-                    orderline?.JewelrySettingVariantID,
-                  ].map((property, index) => (
-                    <Tag
-                      key={index}
-                      bordered={false}
-                      color='processing'
-                    >
-                      {property}
+                  // [
+                  //   orderline?.Inscription, 
+                  //   orderline?.SizeID, 
+                  //   orderline?.JewelrySettingVariantID,
+                  // ].map((property, index) => (
+                  //   <Tag
+                  //     key={index}
+                  //     bordered={false}
+                  //     color='processing'
+                  //   >
+                  //     {property}
+                  //   </Tag>
+                  // ))
+                  <>
+                    {orderline?.Inscription && (
+                      <Tag bordered={false} color='processing'>
+                        Inscription: {orderline?.Inscription}
+                      </Tag>
+                    )}
+                    {orderline?.SizeID && (
+                      <Tag bordered={false} color='processing'>
+                        Size: {sizes.find((size: any) => size.SizeID === orderline?.SizeID)?.SizeValue}
+                      </Tag>
+                    )}
+                    {orderline?.JewelrySettingVariantID && (
+                      <Tag bordered={false} color='processing'>
+                      {
+                        product?.JewelrySetting?.jewelrySettingVariant?.
+                          find((item: any) => item.JewelrySettingVariantID === orderline?.JewelrySettingVariantID)?.
+                          materialJewelry?.Name
+                      }
                     </Tag>
-                  ))
+                    )}
+                  </>
+
                 ) : ''}
               </div>
             </Styled.ProductDescription>
           </Styled.ItemDescription>
           <Styled.ItemPrice>
             ${
-              Number(
-                (product.TotalDiamondPrice +
-                product.JewelrySetting?.jewelrySettingVariant?.
-                find((item: any) => item.JewelrySettingVariantID === orderline?.JewelrySettingVariantID)?.Price)
-                *((100 - product?.Discount?.PercentDiscounts) / 100)
-              )
+              orderline?.DiscountPrice
             }
           </Styled.ItemPrice>
         </Styled.ItemDetails>

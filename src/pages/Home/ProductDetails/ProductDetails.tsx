@@ -303,7 +303,7 @@ const ProductDetails: React.FC = () => {
           OrderID: null,
           Inscription: inscription !== "" ? inscription : null,
           InscriptionFont: null,
-          JewelrySettingVariantID: jewelrySettingVariant,
+          JewelrySettingVariantID: jewelrySettingVariant !== 0 ? jewelrySettingVariant : null,
           SizeID: selectedSize
         }
 
@@ -570,11 +570,11 @@ const ProductDetails: React.FC = () => {
                 <ProductPrice>
                   <div className="product-group">
                     <div className="product-price">
-                      <CurrentPrice>${foundProduct.DiscountFinalPrice}</CurrentPrice>
-                      {foundProduct.DiscountFirstPrice && (
+                      <CurrentPrice>${foundProduct.DiscountFinalPrice.toFixed(2)}</CurrentPrice>
+                      {foundProduct.FirstPrice && (
                         <div className="wrap">
                           <BeforePrice>
-                            ${foundProduct.DiscouFirstPrice}
+                            ${foundProduct.FinalPrice}
                           </BeforePrice>
                           <Discount>
                             - {foundProduct.Discount?.PercentDiscounts}%
