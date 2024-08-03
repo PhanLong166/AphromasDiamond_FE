@@ -67,7 +67,7 @@ export const DBContent_1 = styled.div`
 `;
 
 export const StatistiBox = styled.div`
-  width: 20.5%;
+  width: 32.5%;
   height: 150px;
   background-color: ${theme.color.secondary};
   border-radius: 16px;

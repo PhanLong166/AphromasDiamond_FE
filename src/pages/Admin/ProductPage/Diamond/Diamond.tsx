@@ -48,7 +48,7 @@ const Diamond = () => {
   useDocumentTitle('Diamond | Aphromas Diamond');
 
   const [searchText, setSearchText] = useState("");
-  const [currency, setCurrency] = useState<"VND" | "USD">("VND");
+  const [currency, setCurrency] = useState<"VND" | "USD">("USD");
   const [isAdding, setIsAdding] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   // const [diamonds, setDiamonds] = useState<any[]>([]);
@@ -114,16 +114,16 @@ const Diamond = () => {
 
 
   // Change Currency
-  const handleCurrencyChange = (value: "VND" | "USD") => {
+  const handleCurrencyChange = (value: "USD" | "VND") => {
     setCurrency(value);
   };
 
   const convertPrice = (
     price: number,
     exchangeRate: number,
-    currency: "VND" | "USD"
+    currency: "USD" | "VND"
   ) => {
-    if (currency === "USD") {
+    if (currency === "VND") {
       return price * exchangeRate;
     }
     return price;
@@ -277,16 +277,6 @@ const Diamond = () => {
                         prefix={<SearchOutlined className="searchIcon" />}
                       />
                     </Styled.SearchArea>
-
-                    <Select
-                      defaultValue="VND"
-                      style={{ width: 120, height: "45px" }}
-                      onChange={handleCurrencyChange}
-                      options={[
-                        { value: "VND", label: "VND" },
-                        { value: "USD", label: "USD" },
-                      ]}
-                    />
                   </Styled.AdPageContent_HeadLeft>
 
                   <Styled.AddButton>

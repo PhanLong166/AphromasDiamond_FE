@@ -180,7 +180,7 @@ const JewelryDetail = () => {
         // DISPLAY DIAMOND IMAGE
         const selectedDiamondImages = formattedDiamondList.find(
           (diamond: any) =>
-            diamond.diamondID === productData?.Diamond?.DiamondID
+            diamond.DiamondID === productData?.Diamond?.DiamondID
         )?.images;
         if (selectedDiamondImages && selectedDiamondImages.length > 0) {
           setDiamondMainImage(selectedDiamondImages[0].url);
@@ -192,7 +192,7 @@ const JewelryDetail = () => {
         // DISPLAY JEWELRY SETTING IMAGE
         const selectedSettingImages = formattedSettingList.find(
           (setting: any) =>
-            setting.jewelrySettingID === settingListData.JewelrySettingID
+            setting.JewelrySettingID === settingListData.JewelrySettingID
         )?.images;
         if (selectedSettingImages && selectedSettingImages.length > 0) {
           setSettingMainImage(selectedSettingImages[0].url);
@@ -848,9 +848,9 @@ const JewelryDetail = () => {
                             <Styled.ImageContainer>
                               <Styled.OuterThumb>
                                 <Styled.ThumbnailImage>
-                                  {activeProduct?.Diamond?.usingImage?.map(
+                                  {diamond[0]?.usingImage?.map(
                                     (image: any, index: any) => {
-                                      const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
+                                      const imageUrl = `http://localhost:3000/usingImage/${image?.UsingImageID}`;
                                       return (
                                         <Styled.Item
                                           key={index}

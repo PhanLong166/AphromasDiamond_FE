@@ -167,11 +167,11 @@ const Dashboard = () => {
                   label="Total Orders"
                   total={(orders.length * 100 / ordersTotal).toFixed(2)}
                 />
-                <StatistiBox
+                {/* <StatistiBox
                   value={cancelOrders.length}
                   label="Cancel Orders"
                   total={(cancelOrders.length * 100 / cancelOrdersTotal).toFixed(2)}
-                />
+                /> */}
                 <Styled.TopMonth>
                   <p className="topMonth_title">Top month</p>
                   <h2>{revenes?.mostRevenueInTime?.month}</h2>
@@ -292,7 +292,7 @@ const Dashboard = () => {
                 <Styled.Element>
                   <Styled.Ele_Title>
                     <h2>Promotional</h2>
-                    <Link to="/admin/marketing/discount">
+                    <Link to="/admin/marketing">
                       <Styled.ViewAll>
                         <p>View All</p>
                         <ArrowRightOutlined />
@@ -307,12 +307,12 @@ const Dashboard = () => {
                         <div className="shell_eleName">
                           <p>{discount.discountName}</p>
                         </div>
-                        {/* <div className="shell_elePercent">
+                        <div className="shell_elePercent">
                           <p>{discount.percentDiscounts}%</p>
-                        </div> */}
-                        <Link to={`/admin/marketing/discount/detail/${discount.discountID}`}>
+                        </div>
+                        {/* <Link to={`/admin/marketing/discount/detail/${discount.discountID}`}>
                         <button className="shell_eleButton">View</button>
-                        </Link>
+                        </Link> */}
                       </div>
                     ))}
                   </Styled.Ele_Content>
