@@ -1,6 +1,5 @@
 import { FieldType } from "@/components/AuthForm/AuthForm.fields";
-import { Input, InputNumber, Select, Switch } from "antd";
-import { ShapeType } from "../../../Diamond/Diamond.type";
+import { Input, InputNumber, Switch } from "antd";
 
 export const SettingField: FieldType[] = [
     {
@@ -31,22 +30,6 @@ export const SettingField: FieldType[] = [
     },
     {
         key: 2,
-        label: "Diamond Shape",
-        name: "DiamondShape",
-        rules: [
-            {
-                required: true
-            }
-        ],
-        children:
-            <Select
-                className="formItem"
-                placeholder="Select Shape"
-                options={ShapeType}
-            />
-    },
-    {
-        key: 3,
         label: "Production Cost",
         name: "ProductionCost",
         rules: [
@@ -64,46 +47,46 @@ export const SettingField: FieldType[] = [
         ],
         children: <InputNumber className="formItem" placeholder="4,080" />
     },
+    // {
+    //     key: 3,
+    //     label: "Auxiliary Cost",
+    //     name: "AuxiliaryCost",
+    //     rules: [
+    //         {
+    //             required: true,
+    //             message: "Auxiliary Cost is required.",
+    //         },
+    //         {
+    //             type: "number",
+    //             min: 0,
+    //             max: 1000000,
+    //             message:
+    //                 "Must be a positive number and less than or equal to $1,000,000 USD.",
+    //         },
+    //     ],
+    //     children: <InputNumber className="formItem" placeholder="4,080" />
+    // },
+    // {
+    //     key: 4,
+    //     label: "Charge Rate (%)",
+    //     name: "ChargeRate",
+    //     rules: [
+    //         {
+    //             required: true,
+    //             message: "Rate is required.",
+    //         },
+    //         {
+    //             type: "number",
+    //             min: 1,
+    //             max: 300,
+    //             message:
+    //                 "Must be a positive number and less than or equal to 300",
+    //         },
+    //     ],
+    //     children: <InputNumber className="formItem" placeholder="150" />
+    // },
     {
         key: 3,
-        label: "Auxiliary Cost",
-        name: "AuxiliaryCost",
-        rules: [
-            {
-                required: true,
-                message: "Auxiliary Cost is required.",
-            },
-            {
-                type: "number",
-                min: 0,
-                max: 1000000,
-                message:
-                    "Must be a positive number and less than or equal to $1,000,000 USD.",
-            },
-        ],
-        children: <InputNumber className="formItem" placeholder="4,080" />
-    },
-    {
-        key: 4,
-        label: "Charge Rate (%)",
-        name: "ChargeRate",
-        rules: [
-            {
-                required: true,
-                message: "Rate is required.",
-            },
-            {
-                type: "number",
-                min: 1,
-                max: 300,
-                message:
-                    "Must be a positive number and less than or equal to 300",
-            },
-        ],
-        children: <InputNumber className="formItem" placeholder="150" />
-    },
-    {
-        key: 16,
         label: "Active",
         name: "IsActive",
         rules: [],

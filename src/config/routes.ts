@@ -86,7 +86,7 @@ const routes = {
     ringSettingDetail: "/admin/product/jewelry-setting/detail/:id",
     jewelryTypeProduct: "/admin/product/jewelry-type",
     materialProduct: "/admin/product/material",
-    collection: "/admin/marketing",
+    marketing: "/admin/marketing",
     collectionDetail: "/admin/marketing/collection/detail/:id",
     discount: "/admin/marketing/discount",
     discountDetail: "/admin/marketing/discount/detail/:id",

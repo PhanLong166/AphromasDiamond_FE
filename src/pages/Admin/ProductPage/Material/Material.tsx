@@ -25,6 +25,7 @@ import {
   showAllMaterial,
   updateMaterial,
 } from "@/services/materialAPI";
+import { TableProps } from "antd/lib";
 
 interface EditableCellProps {
   editing: boolean;
@@ -95,7 +96,6 @@ const Material = () => {
   const fetchData = async () => {
     try {
       const response = await showAllMaterial();
-      // console.log("API response:", response);
       const { data } = response.data;
       const formattedTypes = data.map((material: any) => ({
         key: material.MaterialJewelryID,
@@ -104,7 +104,6 @@ const Material = () => {
         sellPrice: material.SellPrice,
         updateTime: material.UpdateTime,
       }));
-      // console.log("Formatted Types:", formattedTypes);
       setMaterials(formattedTypes);
     } catch (error) {
       console.error("Failed to fetch types:", error);
@@ -192,6 +191,9 @@ const Material = () => {
     {
       title: "Update Time",
       dataIndex: "updateTime",
+      render: (_, { updateTime }: any) => {
+        return <>{updateTime.replace("T", " ").replace(".000Z", " ")}</>
+      },
       sorter: (a: any, b: any) => new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime(),
     },
     {
@@ -224,13 +226,13 @@ const Material = () => {
     },
     {
       title: "Delete",
-      dataIndex: "materialJewelryID",
+      dataIndex: "delete",
       className: "TextAlign",
-      render: (record: any) =>
+      render: (_: unknown, record: any) =>
         materials.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.materialJewelryID)}
+            onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -253,6 +255,15 @@ const Material = () => {
       }),
     };
   });
+
+  const onChangeTable: TableProps<any>["onChange"] = (
+    pagination,
+    filters,
+    sorter,
+    extra
+  ) => {
+    console.log("params", pagination, filters, sorter, extra);
+  };
 
   // SEARCH AREA
   const onSearch = (value: string) => {
@@ -363,12 +374,12 @@ const Material = () => {
                   </Styled.AddButton>
                 </>
               )) || (
-                <>
-                  <Styled.AddContent_Title>
-                    <p>Add Material</p>
-                  </Styled.AddContent_Title>
-                </>
-              )}
+                  <>
+                    <Styled.AddContent_Title>
+                      <p>Add Material</p>
+                    </Styled.AddContent_Title>
+                  </>
+                )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
@@ -378,7 +389,7 @@ const Material = () => {
                     form={form}
                     layout="vertical"
                     className="AdPageContent_Content"
-                    // onFinish={() => console.log("Form submitted")}
+                  // onFinish={() => console.log("Form submitted")}
                   >
                     <Styled.FormItem>
                       <Form.Item
@@ -454,9 +465,9 @@ const Material = () => {
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
-                      onChange: cancel,
                       pageSize: 6,
                     }}
+                    onChange={onChangeTable}
                   />
                 </Form>
               )}

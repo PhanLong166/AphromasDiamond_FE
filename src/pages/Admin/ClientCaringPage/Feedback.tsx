@@ -14,7 +14,7 @@ import {
   notification
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import { deleteFeedback, showFeedbacks } from "@/services/feedBackAPI";
+import { deleteFeedback, showFeedbacks, updateFeedback } from "@/services/feedBackAPI";
 
 
 interface EditableCellProps {
@@ -87,7 +87,9 @@ const Feedback = () => {
       const response = await showFeedbacks();
       const { data } = response.data;
 
-      const formattedFeedbacks = data.map((feedback: any) => ({
+      const formattedFeedbacks = data
+      .filter((feedback: any) => (feedback.IsActive))
+      .map((feedback: any) => ({
         key: feedback.FeedbackID,
         feedbackID: feedback.FeedbackID,
         stars: feedback.Stars,
@@ -109,14 +111,22 @@ const Feedback = () => {
 
   const handleDelete = async (feedbackID: number) => {
     try {
-      await deleteFeedback(feedbackID);
-      openNotification("success", "Delete", "");
-      fetchData();
+      const response = await updateFeedback(feedbackID, {
+        IsActive: false,
+      });
+      console.log("Delete Response:", response.data);
+      if (response.status === 200) {
+        openNotification("success", "Delete", "");
+        fetchData();
+      } else {
+        openNotification("error", "Delete", "Failed to delete diamond.");
+      }
     } catch (error: any) {
-      console.error("Failed to delete feedback:", error);
+      console.error("Failed to delete diamond:", error);
       openNotification("error", "Delete", error.message);
     }
   };
+
 
   const columns: TableColumnsType<any> = [
     {

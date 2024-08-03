@@ -53,7 +53,7 @@ const LineChart = ({ isDashboard = false }) => {
     
       const mockLineData = [
         {
-          id: "Diamond",
+          id: "Product",
           color: lineColors.purple,
           data: revenes.map((revene: any) => ({
             x: revene.month,

@@ -3,7 +3,7 @@ import React, { useEffect, useState } from "react";
 // import { Link } from "react-router-dom";
 import { SearchOutlined, PlusCircleOutlined, SaveOutlined } from "@ant-design/icons";
 import type { FormInstance } from "antd";
-import { Form, Input, InputNumber, Popconfirm, Table, Typography, Button, notification } from "antd";
+import { Form, Input, InputNumber, Popconfirm, Table, Button, notification } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 import { SortOrder } from "antd/es/table/interface";
 import { deleteAccount, register, showAllAccounts, updateAccount } from "@/services/authAPI";
@@ -54,7 +54,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const Manager = () => {
   const [form] = Form.useForm();
   const [managers, setManagers] = useState<any[]>([]);
-  const [editingName, setEditingName] = useState<string>("");
+  // const [editingName, setEditingName] = useState<string>("");
   const [isAdding, setIsAdding] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [searchText, setSearchText] = useState("");
@@ -101,53 +101,53 @@ const Manager = () => {
 
 
   // EDIT
-  const isEditing = (record: any) => record.managerName === editingName;
+  // const isEditing = (record: any) => record.managerName === editingName;
 
-  const edit = (record: Partial<any> & { managerName: string }) => {
-    form.setFieldsValue({
-      // managerName: "",
-      email: "",
-      ...record,
-    });
-    setEditingName(record.managerName);
-  };
+  // const edit = (record: Partial<any> & { managerName: string }) => {
+  //   form.setFieldsValue({
+  //     // managerName: "",
+  //     email: "",
+  //     ...record,
+  //   });
+  //   setEditingName(record.managerName);
+  // };
 
-  const cancel = () => {
-    setEditingName("");
-  };
+  // const cancel = () => {
+  //   setEditingName("");
+  // };
 
-  const save = async (managerName: string) => {
-    try {
-      const row = (await form.validateFields()) as any;
-      const newData = [...managers];
-      const index = newData.findIndex((item) => managerName === item.managerName);
+  // const save = async (managerName: string) => {
+  //   try {
+  //     const row = (await form.validateFields()) as any;
+  //     const newData = [...managers];
+  //     const index = newData.findIndex((item) => managerName === item.managerName);
 
-      if (index > -1) {
-        const item = newData[index];
-        const updatedItem = {
-          Name: row.managerName,
-          Email: row.email,
-          PhoneNumber: item.phoneNumber,
-          CustomerID: item.CustomerID,
-          Role: item.role
-        };
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setManagers(newData);
-        await updateAccount(item.managerName, updatedItem);
-        openNotification("success", "Update", "");
-      } else {
-        newData.push(row);
-        setManagers(newData);
-        openNotification("error", "Update", "Failed to update manager");
-      }
-      setEditingName("");
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+  //     if (index > -1) {
+  //       const item = newData[index];
+  //       const updatedItem = {
+  //         Name: row.managerName,
+  //         Email: row.email,
+  //         PhoneNumber: item.phoneNumber,
+  //         CustomerID: item.CustomerID,
+  //         Role: item.role
+  //       };
+  //       newData.splice(index, 1, {
+  //         ...item,
+  //         ...row,
+  //       });
+  //       setManagers(newData);
+  //       await updateAccount(item.managerName, updatedItem);
+  //       openNotification("success", "Update", "");
+  //     } else {
+  //       newData.push(row);
+  //       setManagers(newData);
+  //       openNotification("error", "Update", "Failed to update manager");
+  //     }
+  //     setEditingName("");
+  //   } catch (errInfo) {
+  //     console.log("Validate Failed:", errInfo);
+  //   }
+  // };
 
   const handleDelete = async (managerID: number) => {
     try {
@@ -157,6 +157,24 @@ const Manager = () => {
     } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
+    }
+  };
+
+  const handleBan = async (email: string) => {
+    try {
+      const response = await updateAccount(email, {
+        Role: "ROLE_BAN",
+      });
+      console.log("Ban Response:", response.data);
+      if (response.status === 200) {
+        openNotification("success", "Ban", "Staff has been banned successfully.");
+        fetchData();
+      } else {
+        openNotification("error", "Ban", "Failed to ban staff.");
+      }
+    } catch (error: any) {
+      console.error("Failed to ban staff:", error);
+      openNotification("error", "Ban", error.message);
     }
   };
 
@@ -179,34 +197,34 @@ const Manager = () => {
       dataIndex: "email",
       editable: true,
     },
-    {
-      title: "Edit",
-      dataIndex: "edit",
-      className: "TextAlign SmallSize",
-      render: (_: unknown, record: any) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.managerName)}
-              style={{ marginRight: 8 }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingName !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-        );
-      },
-    },
+    // {
+    //   title: "Edit",
+    //   dataIndex: "edit",
+    //   className: "TextAlign SmallSize",
+    //   render: (_: unknown, record: any) => {
+    //     const editable = isEditing(record);
+    //     return editable ? (
+    //       <span>
+    //         <Typography.Link
+    //           onClick={() => save(record.managerName)}
+    //           style={{ marginRight: 8 }}
+    //         >
+    //           Save
+    //         </Typography.Link>
+    //         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+    //           <a>Cancel</a>
+    //         </Popconfirm>
+    //       </span>
+    //     ) : (
+    //       <Typography.Link
+    //         disabled={editingName !== ""}
+    //         onClick={() => edit(record)}
+    //       >
+    //         Edit
+    //       </Typography.Link>
+    //     );
+    //   },
+    // },
     {
       title: "Delete",
       dataIndex: "delete",
@@ -218,6 +236,20 @@ const Manager = () => {
             onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
+          </Popconfirm>
+        ) : null,
+    },
+    {
+      title: "Ban",
+      dataIndex: "ban",
+      className: "TextAlign",
+      render: (_: unknown, record: any) =>
+        managers.length >= 1 ? (
+          <Popconfirm
+            title="Sure to ban?"
+            onConfirm={() => handleBan(record.email)}
+          >
+            <a>Ban</a>
           </Popconfirm>
         ) : null,
     },
@@ -234,7 +266,7 @@ const Manager = () => {
         inputType: col.dataIndex === "phoneNumber" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
-        editing: isEditing(record),
+        // editing: isEditing(record),
       }),
     };
   });
@@ -435,7 +467,7 @@ const SubmitButton: React.FC<React.PropsWithChildren<SubmitButtonProps>> = ({
                   columns={mergedColumns}
                   rowClassName="editable-row"
                   pagination={{
-                    onChange: cancel,
+                    // onChange: cancel,
                     pageSize: 6,
                   }}
                 />

@@ -67,7 +67,7 @@ export const DBContent_1 = styled.div`
 `;
 
 export const StatistiBox = styled.div`
-  width: 20.5%;
+  width: 32.5%;
   height: 150px;
   background-color: ${theme.color.secondary};
   border-radius: 16px;
@@ -382,8 +382,13 @@ flex-direction: column;
     margin: 0px 0px 17px 0px;
   }
   .shell_eleName p {
-    font-size: 13px;
+    font-size: 15px;
     color: ${theme.color.primary};
+  }
+  .shell_elePercent p{
+      font-size: 20px;
+      font-weight: 600;
+
   }
   .shell_eleButton {
     color: ${theme.color.primary};

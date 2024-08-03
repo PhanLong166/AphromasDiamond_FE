@@ -17,11 +17,10 @@ type SettingStepsProps = {
   api: NotificationInstance;
   fileList: UploadFile[];
   setFileList: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
-//   docsList: UploadFile[];
-//   setDocsList: React.Dispatch<SetStateAction<UploadFile<any>[]>>;
   onChangeImg: (value: any) => void;
   onPreview: (value: any) => void;
   setIsAdding: (values: any) => void;
+  fetchData: () => Promise<void>
 };
 
 const SettingSteps = ({
@@ -40,13 +39,14 @@ const SettingSteps = ({
 
   const steps: SettingStepsType[] = [
     {
-      title: "Information",
-      content: <SettingForm fields={SettingField} form={form} />,
-    },
-    // {
-    //   title: "Information",
-    //   content: <MaterialTable form={tableForm} />,
-    // },
+      title: 'Information',
+      content: (
+          <SettingForm
+              fields={SettingField}
+              form={form}
+          />
+      )
+  },
     {
       title: "Image",
       content: (
