@@ -115,7 +115,7 @@ const BillPromotion = () => {
       dataIndex: "startDate",
       // editable: true,
       onChange: { onChangeDate },
-      render: (_, { startDate }: any) => {
+      render: (_: any, { startDate }: any) => {
         return <>{startDate.replace("T", " ").replace(".000Z", " ")}</>
       },
       sorter: (a: any, b: any) =>
@@ -127,7 +127,7 @@ const BillPromotion = () => {
       dataIndex: "endDate",
       // editable: true,
       onChange: { onChangeDate },
-      render: (_, { endDate }: any) => {
+      render: (_: any, { endDate }: any) => {
         return <>{endDate.replace("T", " ").replace(".000Z", " ")}</>
       },
       sorter: (a: any, b: any) =>

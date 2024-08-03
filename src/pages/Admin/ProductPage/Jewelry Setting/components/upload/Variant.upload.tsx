@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { Button, Form, Input, Popconfirm, Popover, Select, Table, TableColumnsType } from "antd";
+import { Button, Input, Popconfirm, Popover, Select, Table, TableColumnsType } from "antd";
 import { useAppDispatch } from "@/hooks";
 import { uploadSliceSetting } from "../slice";
 import { showAllMaterial } from "@/services/materialAPI";
@@ -113,7 +113,7 @@ const VariantUpload = () => {
             dataIndex: "materialID",
             key: "materialID",
             // editable: true,
-            render: (text, record) => (
+            render: (_: any, record) => (
                 <Select
                     placeholder="Select Material"
                     value={record.materialID}

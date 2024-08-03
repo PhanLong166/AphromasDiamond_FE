@@ -1,11 +1,10 @@
 import * as Styled from "./Customer.styled";
 import React, { useEffect, useState } from "react";
-import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
+import { SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Form, Input, InputNumber, notification, Popconfirm, Space, Table } from "antd";
+import { Form, Input, InputNumber, notification, Popconfirm, Table } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 // import { customerData, CustomerDataType } from "./CustomerData";
-import { Link } from "react-router-dom";
 import { showAllAccounts, updateAccount } from "@/services/authAPI";
 
 

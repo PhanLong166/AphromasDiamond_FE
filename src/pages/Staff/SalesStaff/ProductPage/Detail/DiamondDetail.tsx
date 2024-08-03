@@ -1,10 +1,9 @@
 import * as Styled from "./ProductDetail.styled";
 import { useEffect, useState } from "react";
-import { Button, Modal, Form, Input, Select, notification } from "antd";
+import { Modal, notification } from "antd";
 import { useNavigate, useParams } from "react-router-dom";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
-import { SaveOutlined } from "@ant-design/icons";
 import {
   getDiamondDetails,
   updateDiamond,
@@ -16,8 +15,6 @@ const DiamondDetail = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeDiamond, setActiveDiamond] = useState<any | null>(null);
-  const [isEditing, setIsEditing] = useState(false);
-  const [editedDiamond, setEditedDiamond] = useState<any | null>(null);
   const [isModalVisibleGIA, setIsModalVisibleGIA] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [diamondMainImage, setDiamondMainImage] = useState("");
@@ -45,7 +42,6 @@ const DiamondDetail = () => {
         console.log("API Response:", response.data.data);
         const diamondData = response.data.data;
         setActiveDiamond(diamondData);
-        setEditedDiamond(diamondData);
         if (diamondData.usingImage && diamondData.usingImage.length > 0) {
           const mainImageURL = `http://localhost:3000/usingImage/${diamondData.usingImage[0].UsingImageID}`;
           setDiamondMainImage(mainImageURL);
@@ -76,54 +72,6 @@ const DiamondDetail = () => {
   const handleCancelGIA = () => {
     setIsModalVisibleGIA(false);
   };
-
-  // EDIT
-  const cancelEditing = () => {
-    setIsEditing(false);
-  };
-
-  const handleFieldChange = (fieldName: keyof any, value: any) => {
-    if (editedDiamond) {
-      setEditedDiamond({
-        ...editedDiamond,
-        [fieldName]: value,
-      });
-    }
-  };
-
-  const saveChanges = async () => {
-    try {
-      const updateData = { ...editedDiamond };
-      console.log(`Updating diamond with ID: ${activeDiamond.DiamondID}`);
-      console.log("Update Data:", updateData);
-      const response = await updateDiamond(
-        editedDiamond.DiamondID,
-        editedDiamond
-      );
-      console.log("Update Response:", response);
-
-      // Check if the update was successful
-      if (response.status === 200) {
-        const updatedDiamondResponse = await getDiamondDetails(
-          editedDiamond.DiamondID
-        );
-        setActiveDiamond(updatedDiamondResponse.data.data);
-        setEditedDiamond(updatedDiamondResponse.data.data);
-        openNotification("success", "Update", "");
-        setIsEditing(false);
-      } else {
-        openNotification("error", "Update", "Failed to update diamond.");
-      }
-    } catch (error: any) {
-      console.error("Error updating diamond:", error);
-      openNotification("error", "Update", error.message);
-    }
-  };
-
-  // DELETE
-  // const showModal = () => {
-  //   setIsModalVisible(true);
-  // };
 
   const handleDelete = async () => {
     try {

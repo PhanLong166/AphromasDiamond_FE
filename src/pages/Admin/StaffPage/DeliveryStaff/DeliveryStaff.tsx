@@ -23,6 +23,7 @@ import {
   deleteAccount,
   register,
   showAllAccounts,
+  updateAccount,
 } from "@/services/authAPI";
 
 interface EditableCellProps {

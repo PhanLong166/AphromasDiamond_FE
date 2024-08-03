@@ -130,7 +130,7 @@ const Material = () => {
     {
       title: "Update Time",
       dataIndex: "updateTime",
-      render: (_, { updateTime }: any) => {
+      render: (_: any, { updateTime }: any) => {
         return <>{updateTime.replace("T", " ").replace(".000Z", " ")}</>
       },
       sorter: (a: any, b: any) => new Date(a.updateTime).getTime() - new Date(b.updateTime).getTime(),

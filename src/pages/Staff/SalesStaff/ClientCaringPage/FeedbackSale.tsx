@@ -98,8 +98,9 @@ const Feedback = () => {
         account: feedback.account.Name,
       }));
       setFeedbacks(formattedFeedbacks);
-    } catch (error) {
+    } catch (error: any) {
       console.error("Failed to fetch types:", error);
+      openNotification('error', 'Fetch notificaion', error.message)
     }
   };
 

@@ -164,7 +164,6 @@ const JewelryType = () => {
                     columns={mergedColumns}
                     rowClassName="editable-row"
                     pagination={{
-                      onChange: cancel,
                       pageSize: 6,
                     }}
                   />

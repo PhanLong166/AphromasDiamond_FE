@@ -14,7 +14,7 @@ import {
   notification
 } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
-import { deleteFeedback, showFeedbacks, updateFeedback } from "@/services/feedBackAPI";
+import { showFeedbacks, updateFeedback } from "@/services/feedBackAPI";
 
 
 interface EditableCellProps {
