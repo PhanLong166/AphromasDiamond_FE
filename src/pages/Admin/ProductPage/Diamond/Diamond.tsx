@@ -5,7 +5,6 @@ import {
   Table,
   Input,
   Button,
-  Select,
   Space,
   notification,
 } from "antd";
@@ -117,6 +116,7 @@ const Diamond = () => {
   const handleCurrencyChange = (value: "USD" | "VND") => {
     setCurrency(value);
   };
+  handleCurrencyChange("USD");
 
   const convertPrice = (
     price: number,
