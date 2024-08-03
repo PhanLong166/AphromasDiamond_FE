@@ -1,63 +1,162 @@
 import * as Styled from "./BillPromotion.styled";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { SearchOutlined } from "@ant-design/icons";
-import type { TableProps, TableColumnsType } from "antd";
 import {
   Form,
   Input,
+  InputNumber,
   Table,
 } from "antd";
-import { voucherData, VoucherDataType } from "../MarketingData";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
+import { showAllVoucher } from "@/services/voucherAPI";
+import { DatePickerProps } from "antd/lib";
 import MarketingMenu from "@/components/Staff/SalesStaff/MarketingMenu/MarketingMenu";
 
+interface EditableCellProps {
+  editing: boolean;
+  dataIndex: keyof any;
+  title: React.ReactNode;
+  inputType: "number" | "text";
+  record: any;
+  index: number;
+}
 
-const onChange: TableProps<VoucherDataType>["onChange"] = (
-  pagination,
-  filters,
-  sorter,
-  extra
-) => {
-  console.log("params", pagination, filters, sorter, extra);
+const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  children,
+  ...restProps
+}) => {
+  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex.toString()}
+          style={{ margin: 0 }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
 };
 
 
+// DATE PICK
+const onChangeDate: DatePickerProps["onChange"] = (date, dateString) => {
+  console.log(date, dateString);
+};
+
 const BillPromotion = () => {
   const [form] = Form.useForm();
-  const [data] = useState<VoucherDataType[]>(voucherData);
+  const [searchText, setSearchText] = useState("");
+  const [editingKey] = useState<React.Key>("");
+  const isEditing = (record: any) => record.key === editingKey;
+  const [vouchers, setVouchers] = useState<any[]>([]);
 
-  const columns: TableColumnsType<VoucherDataType> = [
+  const fetchData = async () => {
+    try {
+      const response = await showAllVoucher();
+      const { data } = response.data;
+      const formattedVoucher = data.map((voucher: any) => ({
+        key: voucher.VoucherID,
+        voucherID: voucher.VoucherID,
+        voucherCode: voucher.VoucherCode,
+        percentDiscounts: voucher.PercentDiscounts,
+        startDate: voucher.StartDate,
+        endDate: voucher.EndDate,
+        description: voucher.Description,
+      }));
+      setVouchers(formattedVoucher);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+
+  const columns = [
     {
       title: "Voucher ID",
       dataIndex: "voucherID",
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.voucherID.localeCompare(b.voucherID),
+      editable: true,
+      sorter: (a: any, b: any) => parseInt(a.voucherID) - parseInt(b.voucherID),
     },
     {
-      title: "Voucher Name",
+      title: "Voucher Code",
       dataIndex: "voucherCode",
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.voucherCode.length - b.voucherCode.length,
+      editable: true,
+      sorter: (a: any, b: any) => a.voucherCode.length - b.voucherCode.length,
     },
     {
       title: "% discount",
-      dataIndex: "discountPercent",
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.discountPercent - b.discountPercent,
+      dataIndex: "percentDiscounts",
+      editable: true,
+      sorter: (a: any, b: any) => a.percentDiscounts - b.percentDiscounts,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.startDate.length - b.startDate.length,
+      // editable: true,
+      onChange: { onChangeDate },
+      render: (_, { startDate }: any) => {
+        return <>{startDate.replace("T", " ").replace(".000Z", " ")}</>
+      },
+      sorter: (a: any, b: any) =>
+        a.startDate.length - b.startDate.length,
+      
     },
     {
       title: "End Date",
       dataIndex: "endDate",
-      sorter: (a: VoucherDataType, b: VoucherDataType) => a.endDate.length - b.endDate.length,
+      // editable: true,
+      onChange: { onChangeDate },
+      render: (_, { endDate }: any) => {
+        return <>{endDate.replace("T", " ").replace(".000Z", " ")}</>
+      },
+      sorter: (a: any, b: any) =>
+        a.endDate.length - b.endDate.length,
+    },
+    {
+      title: "Description",
+      dataIndex: "description",
+      editable: true,
     },
   ];
 
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record: any) => ({
+        record,
+        inputType: col.dataIndex === "percentDiscounts" ? "number" : "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
-// SEARCH AREA
-  const [searchText, setSearchText] = useState("");
-
+  // SEARCH AREA
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -68,22 +167,22 @@ const BillPromotion = () => {
     }
   };
 
+
+
+
   return (
     <>
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
-
         <Styled.AdminPage>
           <MarketingMenu />
-
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
                   <Styled.SearchArea>
                     <Input
                       className="searchInput"
                       type="text"
-                      // size="large"
                       placeholder="Search here..."
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
@@ -91,18 +190,25 @@ const BillPromotion = () => {
                       prefix={<SearchOutlined className="searchIcon" />}
                     />
                   </Styled.SearchArea>
+                  
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
                 <Form form={form} component={false}>
                   <Table
+                    components={{
+                      body: {
+                        cell: EditableCell,
+                      },
+                    }}
                     bordered
-                    dataSource={data}
-                    columns={columns}
+                    dataSource={vouchers}
+                    columns={mergedColumns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} // Add pagination here
-                    onChange={onChange}
-                    showSorterTooltip={{ target: "sorter-icon" }}
+                    pagination={{
+                      // onChange: cancel,
+                      pageSize: 6,
+                    }}
                   />
                 </Form>
             </Styled.AdminTable>

@@ -77,9 +77,7 @@ export const PageDetail_Infor = styled.div`
   justify-content: space-between;
 `;
 
-export const MaterialTable = styled.div`
-
-`;
+export const MaterialTable = styled.div``;
 
 export const OrderInfor = styled.div`
   width: 30%;
@@ -112,12 +110,12 @@ export const ProductImg = styled.div`
   }
 
   .GIAExport {
-    width: 20%;
+    width: 100%;
   }
 `;
 
 export const ProductContent = styled.div`
-  width: 40%;
+  width: 45%;
   display: flex;
   flex-direction: column;
   font-size: 14px;
@@ -128,12 +126,16 @@ export const ProductContent = styled.div`
     justify-content: space-between;
 
     label {
-    width: 700px;
+      width: 700px;
     }
 
     input {
       width: 100%;
     }
+  }
+
+  .error {
+    color: red;
   }
 `;
 
@@ -143,23 +145,22 @@ export const SignaInfor = styled.div`
 `;
 
 export const InforLine = styled.div`
-display: flex;
-justify-content: space-between;
-margin-bottom: 20px;
- .InforLine_Title {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 20px;
+  .InforLine_Title {
     font-weight: 600;
- }
+  }
 `;
 
 export const InforLine_Descrip = styled.div`
-margin-bottom: 20px;
- .InforLine_Title {
+  margin-bottom: 20px;
+  .InforLine_Title {
     font-weight: 600;
     margin-bottom: 10px;
- }
-width: 100%;
+  }
+  width: 100%;
 `;
-
 
 // /* -------------------- BOT DETAIL =============== */
 
@@ -310,8 +311,6 @@ export const ActionBtn = styled.div`
   margin-top: 25px;
   display: flex;
   justify-content: space-between;
-
-
 `;
 
 export const ActionBtn_Left = styled.div`
@@ -327,7 +326,122 @@ export const ActionBtn_Left = styled.div`
 
 export const ActionBtn_Right = styled.div`
   .DeleteBtn {
-    background-color: #DE5353;
+    background-color: #de5353;
     color: #ffffff;
+  }
+`;
+
+export const FormDescript = styled.div`
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  p {
+    margin-bottom: 10px;
+  }
+`;
+
+// -----------------------------------------------------
+
+export const ImageContainer = styled.div`
+  display: flex;
+  // align-items: center;
+  width: 50%;
+`;
+
+export const OuterThumb = styled.div`
+  display: flex;
+  margin-bottom: 10px;
+  gap: 10px;
+  width: 40%;
+  margin-right: 20px;
+  flex-direction: row-reverse;
+`;
+
+export const ThumbnailImage = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+`;
+
+export const Item = styled.div`
+  width: 100px;
+  height: 100px;
+  overflow: hidden;
+  cursor: pointer;
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+  img:hover {
+    border: solid 1px #b1b1b1;
+  }
+`;
+
+export const OuterMain = styled.div`
+  // margin-bottom: 10px;
+  display: flex;
+  justify-content: center;
+  // align-items: center;
+  flex-grow: 1;
+  // width: 58%;
+`;
+
+export const MainImage = styled.div`
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  img {
+    width: 80%;
+    margin-bottom: 10px;
+  }
+
+  .GIAExport {
+    width: 20%;
+  }
+`;
+
+export const ProductMetal = styled.div`
+  display: flex;
+  // flex-direction: column;
+  align-items: center;
+  margin-bottom: 20px;
+  .wrap {
+    display: flex;
+    gap: 10px;
+  }
+  .metal-button {
+    cursor: pointer;
+    border: 1px solid #ccc;
+    padding: 5px 10px;
+    &.selected {
+      border-color: #000;
+    }
+  }
+
+  button.white {
+    background-color: #d9d9d9;
+  }
+
+  button.yellow {
+    background-color: #d8a25a;
+  }
+
+  button.rose {
+    background-color: #f4cfc6;
+  }
+
+  button.platinum {
+    background-color: #696969;
+  }
+
+  button.selected,
+  button:hover:not(.selected) {
+    box-shadow: inset 0 0 0 4px #fff;
+  }
+  button[disabled] {
+    pointer-events: none;
+    opacity: 0.5;
   }
 `;
