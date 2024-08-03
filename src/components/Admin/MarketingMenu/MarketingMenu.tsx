@@ -10,6 +10,10 @@ const MarketingMenu = () => {
         const path = location.pathname;
         if (path === "/admin/marketing") {
           setActive("ProductPromotion");
+        // } else if (path.startsWith("/admin/marketing/collection/")) {
+        //   setActive("Collection");
+        // } else if (path === "/admin/marketing/discount") {
+        //   setActive("ProductPromotion");
         } else if (path.startsWith("/admin/marketing/discount/")) {
           setActive("ProductPromotion");
         } else if (path === "/admin/marketing/voucher") {

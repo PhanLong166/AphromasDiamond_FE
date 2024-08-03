@@ -138,6 +138,7 @@ const ProductPromotion = () => {
         .filter((product: any) => (product.DiscountID !== null))
         .map((product: any) => ({
           productName: product.Name,
+          discountID: product.DiscountID,
         }));
 
       setDiscounts(formattedDiscounts);
@@ -239,31 +240,42 @@ const ProductPromotion = () => {
       title: "Promotion ID",
       dataIndex: "discountID",
       sorter: (a: any, b: any) =>
-        a.discountID.localeCompare(b.discountID),
+        parseInt(a.discountID) - parseInt(b.discountID),
     },
     {
       title: "Promotion Name",
       dataIndex: "discountName",
+      editable: true,
       sorter: (a: any, b: any) =>
         a.discountName.length - b.discountName.length,
     },
     {
       title: "% discount",
       dataIndex: "percentDiscounts",
+      editable: true,
       sorter: (a: any, b: any) =>
         a.percentDiscounts - b.percentDiscounts,
     },
     {
       title: "Start Date",
       dataIndex: "startDate",
+      // editable: true,
       onChange: { onChangeDate },
+      render: (_, { startDate }: any) => {
+        return <>{startDate.replace("T", " ").replace(".000Z", " ")}</>
+      },
       sorter: (a: any, b: any) =>
         a.startDate.length - b.startDate.length,
+      
     },
     {
       title: "End Date",
       dataIndex: "endDate",
+      // editable: true,
       onChange: { onChangeDate },
+      render: (_, { endDate }: any) => {
+        return <>{endDate.replace("T", " ").replace(".000Z", " ")}</>
+      },
       sorter: (a: any, b: any) =>
         a.endDate.length - b.endDate.length,
     },
@@ -271,12 +283,7 @@ const ProductPromotion = () => {
       title: "Product Quantity",
       dataIndex: "discountID",
       render: (_: any, record: any) => {
-        let count = 0;
-        products.forEach((discount) => {
-          if (discount.discountID === record.discountID) {
-            count++;
-          }
-        });
+        const count = products.filter(product => product.discountID === record.discountID).length;
         return count;
       },
       sorter: (a: any, b: any) => a.count.length - b.count.length,
@@ -285,6 +292,7 @@ const ProductPromotion = () => {
       title: "Description",
       dataIndex: "description",
       editable: true,
+      width: "15%",
     },
     // {
     //   title: "Detail",
@@ -328,13 +336,13 @@ const ProductPromotion = () => {
     },
     {
       title: "Delete",
-      dataIndex: "discountID",
+      dataIndex: "delete",
       className: "TextAlign",
-      render: (record: any) =>
+      render: (_: unknown, record: any) =>
         discounts.length >= 1 ? (
           <Popconfirm
             title="Sure to delete?"
-            onConfirm={() => handleDelete(record.discountID)}
+            onConfirm={() => handleDelete(record.key)}
           >
             <a>Delete</a>
           </Popconfirm>
@@ -350,7 +358,7 @@ const ProductPromotion = () => {
       ...col,
       onCell: (record: any) => ({
         record,
-        inputType: col.dataIndex === "text",
+        inputType: col.dataIndex === "percentDiscounts" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
         editing: isEditing(record),

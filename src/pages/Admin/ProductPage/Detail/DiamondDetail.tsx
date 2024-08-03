@@ -14,12 +14,10 @@ import {
 import {
   getDiamondDetails,
   updateDiamond,
-  deleteDiamond,
 } from "@/services/diamondAPI";
+import { getImage } from "@/services/imageAPI";
 
 const DiamondDetail = () => {
-  // const getParamsID = id ? parseInt(id) : 0;
-  // const { role } = useAuth();
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const [activeDiamond, setActiveDiamond] = useState<any | null>(null);
@@ -68,7 +66,7 @@ const DiamondDetail = () => {
   }, [id]);
 
   useEffect(() => {
-    console.log("Active Diamond:", activeDiamond); // Thêm dòng này để kiểm tra state
+    console.log("Active Diamond:", activeDiamond);
   }, [activeDiamond]);
 
   // GIA
@@ -85,7 +83,6 @@ const DiamondDetail = () => {
   };
 
   // EDIT
-
   const cancelEditing = () => {
     setIsEditing(false);
   };
@@ -112,7 +109,6 @@ const DiamondDetail = () => {
 
       // Check if the update was successful
       if (response.status === 200) {
-        // Fetch the updated diamond details
         const updatedDiamondResponse = await getDiamondDetails(
           editedDiamond.DiamondID
         );
@@ -130,6 +126,10 @@ const DiamondDetail = () => {
   };
 
   // DELETE
+  const showModal = () => {
+    setIsModalVisible(true);
+  };
+
   const handleDelete = async () => {
     try {
       const response = await updateDiamond(activeDiamond.DiamondID, {
@@ -149,10 +149,6 @@ const DiamondDetail = () => {
     }
   };
 
-  const showModal = () => {
-    setIsModalVisible(true);
-  };
-
   const handleCancel = () => {
     setIsModalVisible(false);
   };
@@ -170,7 +166,6 @@ const DiamondDetail = () => {
   return (
     <>
       {contextHolder}
-
       <Styled.GlobalStyle />
       <Styled.PageAdminArea>
         <Sidebar />
@@ -215,30 +210,25 @@ const DiamondDetail = () => {
                             <Styled.ImageContainer>
                               <Styled.OuterThumb>
                                 <Styled.ThumbnailImage>
-                                  {activeDiamond.usingImage?.map(
-                                    (image: any, index: any) => {
-                                      const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
-                                      return (
-                                        <Styled.Item
-                                          key={index}
-                                          className={
-                                            index === diamondSelectedThumb
-                                              ? "selected"
-                                              : ""
-                                          }
-                                          onClick={() =>
-                                            changeDiamondImage(imageUrl, index)
-                                          }
-                                        >
-                                          <img
-                                            key={index}
-                                            src={imageUrl}
-                                            alt={`Diamond Thumbnail ${index}`}
-                                          />
-                                        </Styled.Item>
-                                      );
-                                    }
-                                  )}
+                                {activeDiamond.usingImage?.map((image: any, index: any) => {
+                                if (image.CertificateID == null) {
+                                  const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
+                                  return (
+                                    <Styled.Item
+                                      key={index}
+                                      className={index === diamondSelectedThumb ? "selected" : ""}
+                                      onClick={() => changeDiamondImage(imageUrl, index)}
+                                    >
+                                      <img
+                                        key={index}
+                                        src={imageUrl}
+                                        alt={`Diamond Thumbnail ${index}`}
+                                      />
+                                    </Styled.Item>
+                                  );
+                                }
+                                return null;
+                              })}
                                 </Styled.ThumbnailImage>
                               </Styled.OuterThumb>
                               <Styled.OuterMain>
@@ -262,7 +252,6 @@ const DiamondDetail = () => {
                               <Form.Item
                                 label="Diamond ID"
                                 className="InforLine_Title"
-                                // name="DiamondID"
                               >
                                 <Input
                                   value={activeDiamond?.DiamondID}
@@ -598,22 +587,6 @@ const DiamondDetail = () => {
                                   }
                                 />
                               </Form.Item>
-                              {/* <Form.Item>
-                              <Button
-                                type="primary"
-                                htmlType="submit"
-                                icon={<SaveOutlined />}
-                              >
-                                Save Changes
-                              </Button>
-                              <Button
-                                type="default"
-                                onClick={cancelEditing}
-                                style={{ marginLeft: "8px" }}
-                              >
-                                Cancel
-                              </Button>
-                            </Form.Item> */}
                             </Styled.ProductContent>
                           </Styled.PageDetail_Infor>
                         </Styled.PageContent_Mid>
@@ -648,20 +621,14 @@ const DiamondDetail = () => {
                         <Styled.ImageContainer>
                           <Styled.OuterThumb>
                             <Styled.ThumbnailImage>
-                              {activeDiamond.usingImage?.map(
-                                (image: any, index: any) => {
+                              {activeDiamond.usingImage?.map((image: any, index: any) => {
+                                if (image.CertificateID == null) {
                                   const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
                                   return (
                                     <Styled.Item
                                       key={index}
-                                      className={
-                                        index === diamondSelectedThumb
-                                          ? "selected"
-                                          : ""
-                                      }
-                                      onClick={() =>
-                                        changeDiamondImage(imageUrl, index)
-                                      }
+                                      className={index === diamondSelectedThumb ? "selected" : ""}
+                                      onClick={() => changeDiamondImage(imageUrl, index)}
                                     >
                                       <img
                                         key={index}
@@ -671,7 +638,8 @@ const DiamondDetail = () => {
                                     </Styled.Item>
                                   );
                                 }
-                              )}
+                                return null;
+                              })}
                             </Styled.ThumbnailImage>
                           </Styled.OuterThumb>
                           <Styled.OuterMain>
@@ -772,10 +740,10 @@ const DiamondDetail = () => {
                             <p className="InforLine_Title">Cutter</p>
                             <span>{activeDiamond.Cutter}</span>
                           </Styled.InforLine>
-                          <Styled.FormDescript>
+                          <Styled.InforLine_Descrip>
                             <p className="InforLine_Title">Description</p>
                             <span>{activeDiamond.Description}</span>
-                          </Styled.FormDescript>
+                          </Styled.InforLine_Descrip>
 
                           <Modal
                             title="Confirm Deletion"
@@ -815,7 +783,10 @@ const DiamondDetail = () => {
                   onCancel={handleCancelGIA}
                 >
                   <img
-                    src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-sample.png?alt=media&token=9ed7ddf5-9d34-4c8c-a3dd-1358b2d636f0"
+                    src={getImage(
+                      activeDiamond?.certificate?.[activeDiamond.certificate.length - 1]?.usingImages[0]
+                        ?.UsingImageID
+                    )}
                     alt="GIA Certificate"
                     style={{ width: "100%" }}
                   />

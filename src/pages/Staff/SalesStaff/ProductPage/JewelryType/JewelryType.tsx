@@ -1,47 +1,119 @@
 import * as Styled from "./JewelryType.styled";
-import React, { useState } from "react";
-import { SearchOutlined } from "@ant-design/icons";
-import type { TableColumnsType, TableProps } from "antd";
+import React, { useEffect, useState } from "react";
+import {
+  SearchOutlined,
+} from "@ant-design/icons";
 import {
   Form,
   Input,
+  InputNumber,
   Table,
 } from "antd";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
-import { jewTypeData, JewTypeDataType } from "../ProductData"; // Import data here
+import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 
+interface EditableCellProps {
+  editing: boolean;
+  dataIndex: keyof any;
+  title: React.ReactNode;
+  inputType: "number" | "text";
+  record: any;
+  index: number;
+  children: React.ReactNode;
+}
 
-const onChange: TableProps<JewTypeDataType>["onChange"] = (
-  pagination,
-  filters,
-  sorter,
-  extra
-) => {
-  console.log("params", pagination, filters, sorter, extra);
+const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
+  editing,
+  dataIndex,
+  title,
+  inputType,
+  children,
+  ...restProps
+}) => {
+  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
+  return (
+    <td {...restProps}>
+      {editing ? (
+        <Form.Item
+          name={dataIndex.toString()}
+          style={{ margin: 0 }}
+          rules={[
+            {
+              required: true,
+              message: `Please Input ${title}!`,
+            },
+          ]}
+        >
+          {inputNode}
+        </Form.Item>
+      ) : (
+        children
+      )}
+    </td>
+  );
 };
-
 
 const JewelryType = () => {
   const [form] = Form.useForm();
- 
-  const columns: TableColumnsType<JewTypeDataType> = [
+  const [searchText, setSearchText] = useState("");
+  const [types, setTypes] = useState<any[]>([]);
+  const [editingKey] = useState<React.Key>("");
+  const isEditing = (record: any) => record.key === editingKey;
+
+
+  const fetchData = async () => {
+    try {
+      const response = await showAllJewelryType();
+      const { data } = response.data;
+      const formattedTypes = data.map((type: any) => ({
+        key: type.JewelryTypeID,
+        jewelryTypeID: type.JewelryTypeID,
+        jewelryTypeName: type.Name,
+      }));
+      setTypes(formattedTypes);
+    } catch (error) {
+      console.error("Failed to fetch types:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+
+  const columns = [
     {
       title: "Jewelry Type ID",
       dataIndex: "jewelryTypeID",
-      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
-        a.jewelryTypeID.localeCompare(b.jewelryTypeID),
+      sorter: (a: any, b: any) =>
+        parseInt(a.materialJewelryID) - parseInt(b.materialJewelryID),
     },
     {
       title: "Jewelry Type Name",
       dataIndex: "jewelryTypeName",
-      sorter: (a: JewTypeDataType, b: JewTypeDataType) =>
+      editable: true,
+      sorter: (a: any, b: any) =>
         a.jewelryTypeName.length - b.jewelryTypeName.length,
-    }
+    },
   ];
 
-// SEARCH AREA
-  const [searchText, setSearchText] = useState("");
+  const mergedColumns = columns.map((col) => {
+    if (!col.editable) {
+      return col;
+    }
+    return {
+      ...col,
+      onCell: (record: any) => ({
+        record,
+        inputType: col.dataIndex === "price" ? "number" : "text",
+        dataIndex: col.dataIndex,
+        title: col.title,
+        editing: isEditing(record),
+      }),
+    };
+  });
 
   const onSearch = (value: string) => {
     console.log("Search:", value);
@@ -56,6 +128,7 @@ const JewelryType = () => {
 
   return (
     <>
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -69,7 +142,6 @@ const JewelryType = () => {
                     <Input
                       className="searchInput"
                       type="text"
-                      // size="large"
                       placeholder="Search here..."
                       value={searchText}
                       onChange={(e) => setSearchText(e.target.value)}
@@ -82,13 +154,20 @@ const JewelryType = () => {
             <Styled.AdminTable>
                 <Form form={form} component={false}>
                   <Table
+                    components={{
+                      body: {
+                        cell: EditableCell,
+                      },
+                    }}
                     bordered
-                    dataSource={jewTypeData}
-                    columns={columns}
+                    dataSource={types}
+                    columns={mergedColumns}
                     rowClassName="editable-row"
-                    pagination={{ pageSize: 6 }} // Add pagination here
-                    onChange={onChange}
-                  />  
+                    pagination={{
+                      onChange: cancel,
+                      pageSize: 6,
+                    }}
+                  />
                 </Form>
             </Styled.AdminTable>
           </Styled.AdPageContent>

@@ -1,96 +1,148 @@
-import * as Styled from "./RingSetting.styled";
-import React, { useState } from "react";
-import { SearchOutlined, EyeOutlined } from "@ant-design/icons";
-import type { TableColumnsType, TableProps } from "antd";
-import { Form, Input, InputNumber, Table, Space } from "antd";
+import * as Styled from "../Jewelry Setting/RingSetting.styled";
+import React, { useEffect, useState } from "react";
+// import { Link } from "react-router-dom";
+import {
+  SearchOutlined,
+  PlusCircleOutlined,
+  EyeOutlined,
+} from "@ant-design/icons";
+import type {
+  TableColumnsType,
+  TableProps,
+} from "antd";
+import {
+  Form,
+  Input,
+  Table,
+  Space,
+  notification,
+} from "antd";
 import Sidebar from "@/components/Staff/SalesStaff/Sidebar/Sidebar";
 import ProductMenu from "@/components/Staff/SalesStaff/ProductMenu/ProductMenu";
-import { SortOrder } from "antd/es/table/interface";
-import { ringData, RingDataType } from "../ProductData"; // Import data here
 import { Link } from "react-router-dom";
-import { JewelryType } from "./RingSetting.type";
+import { showAllSetting } from "@/services/jewelrySettingAPI";
+import { showAllMaterial } from "@/services/materialAPI";
+import { showAllJewelryType } from "@/services/jewelryTypeAPI";
+import { showAllSize } from "@/services/sizeAPI";
+import { getImage } from "@/services/imageAPI";
 
-interface EditableCellProps {
-  editing: boolean;
-  dataIndex: keyof RingDataType;
-  title: React.ReactNode;
-  inputType: "number" | "text";
-  record: RingDataType;
-  index: number;
-  // children: React.ReactNode;
-}
-
-const EditableCell: React.FC<React.PropsWithChildren<EditableCellProps>> = ({
-  editing,
-  dataIndex,
-  title,
-  inputType,
-  // record,
-  // index,
-  children,
-  ...restProps
-}) => {
-  const inputNode = inputType === "number" ? <InputNumber /> : <Input />;
-
-  return (
-    <td {...restProps}>
-      {editing ? (
-        <Form.Item
-          name={dataIndex}
-          style={{ margin: 0 }}
-          rules={[
-            {
-              required: true,
-              message: `Please Input ${title}!`,
-            },
-          ]}
-        >
-          {inputNode}
-        </Form.Item>
-      ) : (
-        children
-      )}
-    </td>
-  );
-};
 
 const JewelrySetting = () => {
   const [form] = Form.useForm();
-  const [data] = useState<RingDataType[]>(ringData);
+  // const [data] = useState<RingDataType[]>(ringData);
+  const [isAdding, setIsAdding] = useState(false);
+  const [searchText, setSearchText] = useState("");
+  const [ contextHolder] = notification.useNotification();
+  const [settings, setSettings] = useState([]);
+  const [setMaterials] = useState<any>([]);
+  const [setJewelryTypes] = useState<any>([]);
+  const [setSizes] = useState<any>([]);
 
-  const columns: TableColumnsType<RingDataType> = [
+
+  const fetchData = async () => {
+    try {
+      const responseSetting = await showAllSetting();
+      const responseMaterial = await showAllMaterial();
+      const responseJewelryType = await showAllJewelryType();
+      const responseSize = await showAllSize();
+
+      const { data: settingsData } = responseSetting.data;
+      const { data: materialsData } = responseMaterial.data;
+      const { data: jewelryTypesData } = responseJewelryType.data;
+      const { data: sizeData } = responseSize.data;
+
+      const formattedSettings = settingsData
+      .filter((setting: any) => (setting.IsActive))
+      .map((setting: any) => ({
+        jewelrySettingID: setting.JewelrySettingID,
+        jewelrySettingName: setting.Name,
+        productID: setting.ProductID,
+        jewelryTypeID: setting.JewelryTypeID,
+        productionCost: setting.ProductionCost,
+        isActive: setting.IsActive === true,
+        jewelrySettingVariant: setting.JewelrySettingVariant.map(
+          (variant: any) => ({
+            variantID: variant.JewelrySettingVariantID,
+            amount: variant.Amount,
+            totalPriceVariant: variant.TotalPriceVariant,
+            // size: {
+            //   sizeID: variant.SizeID,
+            //   sizeValue: variant.SizeValue,
+            //   unitOfMeasure: variant.UnitOfMeasure,
+            // },
+          })
+        ),
+        images: setting.UsingImage.map((image: any) => ({
+          id: image.UsingImageID,
+          name: image.Name,
+          url: getImage(image.UsingImageID),
+        })),
+      }));
+
+      const formattedMaterials = materialsData.map((material: any) => ({
+        materialID: material.MaterialJewelryID,
+        materialName: material.Name,
+        sellPrice: material.SellPrice,
+      }));
+
+      const formattedTypes = jewelryTypesData.map((type: any) => ({
+        typeID: type.JewelryTypeID,
+        typeName: type.Name,
+      }));
+
+      const formattedSizes = sizeData.map((size: any) => ({
+        sizeID: size.SizeID,
+        sizeValue: size.SizeValue,
+      }));
+
+      console.log("Formatted Diamonds:", formattedSettings); // Log formatted diamonds
+      setSettings(formattedSettings);
+      setMaterials(formattedMaterials);
+      setJewelryTypes(formattedTypes);
+      setSizes(formattedSizes);
+    } catch (error) {
+      console.error("Failed to fetch diamonds:", error);
+    }
+  };
+
+  useEffect(() => {
+    fetchData();
+  }, []);
+
+
+  //  CHANGE
+
+  const columns: TableColumnsType<any> = [
     {
       title: "Jewelry Setting ID",
       dataIndex: "jewelrySettingID",
-      sorter: (a: RingDataType, b: RingDataType) =>
-        a.jewelrySettingID.localeCompare(b.jewelrySettingID),
+      defaultSortOrder: "descend",
+      sorter: (a, b) =>
+        parseInt(a.jewelrySettingID) - parseInt(b.jewelrySettingID),
     },
     {
       title: "Image",
       key: "jewelrySettingImg",
       className: "TextAlign",
-      render: (_: unknown, record: RingDataType) => (
-        <img
-          src={record.jewelrySettingImg}
-          alt={record.jewelrySettingName}
-          style={{ width: "50px", height: "50px" }}
-        />
+      render: (_, record) => (
+        <a href="#" target="_blank" rel="noopener noreferrer">
+          <img
+            src={
+              record.images && record.images[0]
+                ? record.images[0].url
+                : "default-image-url"
+            }
+            alt={record.jewelrySettingName}
+            style={{ width: "50px", height: "50px" }}
+          />
+        </a>
       ),
     },
     {
       title: "Jewelry Setting Name",
       dataIndex: "jewelrySettingName",
-      sorter: (a: RingDataType, b: RingDataType) =>
+      sorter: (a, b) =>
         a.jewelrySettingName.length - b.jewelrySettingName.length,
-    },
-    {
-      title: "Type",
-      dataIndex: "type",
-      key: "type",
-      defaultSortOrder: "ascend" as SortOrder,
-      filters: JewelryType,
-      onFilter: (value: boolean | React.Key, record: RingDataType) =>
-        record.type.indexOf(value as string) === 0,
     },
     {
       title: "Detail",
@@ -99,7 +151,7 @@ const JewelrySetting = () => {
       render: (_, { jewelrySettingID }) => (
         <Space size="middle">
           <Link
-            to={`/sales-staff/product/jewelry-setting/detail/${jewelrySettingID}`}
+            to={`/admin/product/jewelry-setting/detail/${jewelrySettingID}`}
           >
             <EyeOutlined />
           </Link>
@@ -108,8 +160,7 @@ const JewelrySetting = () => {
     },
   ];
 
-  const [searchText, setSearchText] = useState("");
-
+  // SEARCH
   const onSearch = (value: string) => {
     console.log("Search:", value);
   };
@@ -120,7 +171,11 @@ const JewelrySetting = () => {
     }
   };
 
-  const onChangeTable: TableProps<RingDataType>["onChange"] = (
+  const handleAddNew = () => {
+    setIsAdding(true);
+  };
+
+  const onChangeTable: TableProps<any>["onChange"] = (
     pagination,
     filters,
     sorter,
@@ -131,6 +186,8 @@ const JewelrySetting = () => {
 
   return (
     <>
+          {contextHolder}
+
       <Styled.GlobalStyle />
       <Styled.ProductAdminArea>
         <Sidebar />
@@ -140,38 +197,50 @@ const JewelrySetting = () => {
 
           <Styled.AdPageContent>
             <Styled.AdPageContent_Head>
-              <Styled.AdPageContent_HeadLeft>
-                <Styled.SearchArea>
-                  <Input
-                    className="searchInput"
-                    type="text"
-                    // size="large"
-                    placeholder="Search here..."
-                    value={searchText}
-                    onChange={(e) => setSearchText(e.target.value)}
-                    onKeyPress={handleKeyPress}
-                    prefix={<SearchOutlined className="searchIcon" />}
-                  />
-                </Styled.SearchArea>
-              </Styled.AdPageContent_HeadLeft>
+              {(!isAdding && (
+                <>
+                  <Styled.AdPageContent_HeadLeft>
+                    <Styled.SearchArea>
+                      <Input
+                        className="searchInput"
+                        type="text"
+                        // size="large"
+                        placeholder="Search here..."
+                        value={searchText}
+                        onChange={(e) => setSearchText(e.target.value)}
+                        onKeyPress={handleKeyPress}
+                        prefix={<SearchOutlined className="searchIcon" />}
+                      />
+                    </Styled.SearchArea>
+                  </Styled.AdPageContent_HeadLeft>
+
+                  <Styled.AddButton>
+                    <button onClick={handleAddNew}>
+                      <PlusCircleOutlined />
+                      Add New Ring Setting
+                    </button>
+                  </Styled.AddButton>
+                </>
+              )) || (
+                <>
+                  <Styled.AddContent_Title>
+                    <p>Add Ring Setting</p>
+                  </Styled.AddContent_Title>
+                </>
+              )}
             </Styled.AdPageContent_Head>
 
             <Styled.AdminTable>
-              <Form form={form} component={false}>
-                <Table
-                  components={{
-                    body: {
-                      cell: EditableCell,
-                    },
-                  }}
-                  bordered
-                  dataSource={data}
-                  columns={columns}
-                  rowClassName="editable-row"
-                  pagination={{ pageSize: 6 }} // Add pagination here
-                  onChange={onChangeTable}
-                />
-              </Form>
+                <Form form={form} component={false}>
+                  <Table
+                    bordered
+                    dataSource={settings}
+                    columns={columns}
+                    rowClassName="editable-row"
+                    pagination={{ pageSize: 6 }}
+                    onChange={onChangeTable}
+                  />
+                </Form>
             </Styled.AdminTable>
           </Styled.AdPageContent>
         </Styled.AdminPage>

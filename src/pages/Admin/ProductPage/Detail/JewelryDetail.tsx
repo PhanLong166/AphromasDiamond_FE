@@ -23,11 +23,9 @@ import { Brand_Option } from "../Jewelry/Jewelry.type";
 import { deleteProduct, getProductDetails } from "@/services/jewelryAPI";
 import { showAllSetting } from "@/services/jewelrySettingAPI";
 import { showAllMaterial } from "@/services/materialAPI";
-import { showAllSize } from "@/services/sizeAPI";
 import { showAllDiamond } from "@/services/diamondAPI";
 import { getImage } from "@/services/imageAPI";
 import { deleteSettingVariant } from "@/services/settingVariantAPI";
-import { showAllCollection } from "@/services/collectionAPI";
 import { showAllDiscount } from "@/services/discountAPI";
 import { showAllJewelryType } from "@/services/jewelryTypeAPI";
 
@@ -40,7 +38,7 @@ const calculateProductPrice = (
 };
 
 
-const PriceCalculation = (
+const SettingPriceCalculation = (
   <div>
     (Weight * Price per Gram + Auxiliary Cost + Production Cost)* Charge Rate
   </div>
@@ -55,15 +53,11 @@ const JewelryDetail = () => {
   const [isModalVisibleGIA, setIsModalVisibleGIA] = useState(false);
   const [isModalVisible, setIsModalVisible] = useState(false);
   const [api, contextHolder] = notification.useNotification();
-  // const [selectedMaterial, setSelectedMaterial] = useState<any>();
-  // const [selectedSize, setSelectedSize] = useState<any>("");
   const [allDiamonds, setAllDiamonds] = useState<any[]>([]);
   const [allSettings, setAllSettings] = useState<any[]>([]);
   const [allTypes, setAllTypes] = useState<any[]>([]);
   const [dataMaterial, setDataMaterial] = useState<any[]>([]);
   const [allMaterials, setAllMaterials] = useState<any[]>([]);
-  const [allSizes, setAllSizes] = useState<any[]>([]);
-  const [allCollections, setAllCollections] = useState<any[]>([]);
   const [allDiscounts, setAllDiscounts] = useState<any[]>([]);
   const [productMainImage, setProductMainImage] = useState("");
   const [productSelectedThumb, setProductSelectedThumb] = useState(0);
@@ -99,8 +93,6 @@ const JewelryDetail = () => {
         const responseDiamondList = await showAllDiamond();
         const responseSettingList = await showAllSetting();
         const responseMaterial = await showAllMaterial();
-        const responseSize = await showAllSize();
-        // const responseCollection = await showAllCollection();
         const responseDiscount = await showAllDiscount();
         const responseType = await showAllJewelryType();
 
@@ -108,20 +100,20 @@ const JewelryDetail = () => {
         const { data: diamondListData } = responseDiamondList.data;
         const { data: settingListData } = responseSettingList.data;
         const { data: materialsData } = responseMaterial.data;
-        const { data: sizeData } = responseSize.data;
-        // const { data: collectionData } = responseCollection.data;
         const { data: discountData } = responseDiscount.data;
         const { data: typeData } = responseType.data;
 
-        const formattedDiamondList = diamondListData.map((diamond: any) => ({
-          diamondID: diamond.DiamondID,
-          diamondName: diamond.Name,
-          images: diamond.usingImage.map((image: any) => ({
-            id: image.UsingImageID,
-            name: image.Name,
-            url: getImage(image.UsingImageID),
-          })),
-        }));
+        const formattedDiamondList = diamondListData
+          .filter((diamond: any) => (diamond.IsActive && diamond.ProductID === null))
+          .map((diamond: any) => ({
+            diamondID: diamond.DiamondID,
+            diamondName: diamond.Name,
+            images: diamond.usingImage.map((image: any) => ({
+              id: image.UsingImageID,
+              name: image.Name,
+              url: getImage(image.UsingImageID),
+            })),
+          }));
 
         const formattedSettingList = settingListData.map((setting: any) => ({
           jewelrySettingID: setting.JewelrySettingID,
@@ -137,16 +129,6 @@ const JewelryDetail = () => {
           materialName: material.Name,
           sellPrice: material.SellPrice,
         }));
-
-        const formattedSizes = sizeData.map((size: any) => ({
-          sizeID: size.SizeID,
-          sizeValue: size.SizeValue,
-        }));
-
-        // const formattedCollections = collectionData.map((collection: any) => ({
-        //   collectionID: collection.CollectionID,
-        //   collectionName: collection.CollectionName,
-        // }));
 
         const formattedDiscounts = discountData.map((discount: any) => ({
           discountID: discount.DiscountID,
@@ -164,8 +146,6 @@ const JewelryDetail = () => {
         setAllDiamonds(formattedDiamondList);
         setAllSettings(formattedSettingList);
         setAllMaterials(formattedMaterials);
-        setAllSizes(formattedSizes);
-        // setAllCollections(formattedCollections);
         setAllDiscounts(formattedDiscounts);
         setAllTypes(formattedTypes);
 
@@ -177,25 +157,19 @@ const JewelryDetail = () => {
         }
         setProductSelectedThumb(0);
 
-        // DISPLAY DIAMOND IMAGE
-        const selectedDiamondImages = formattedDiamondList.find(
-          (diamond: any) =>
-            diamond.DiamondID === productData?.Diamond?.DiamondID
-        )?.images;
-        if (selectedDiamondImages && selectedDiamondImages.length > 0) {
-          setDiamondMainImage(selectedDiamondImages[0].url);
+        // SET DIAMOND MAIN IMAGE
+        if (productData.Diamond[0]?.usingImage && productData.Diamond[0].usingImage.length > 0) {
+          const diamondMainImageURL = `http://localhost:3000/usingImage/${productData.Diamond[0].usingImage[0].UsingImageID}`;
+          setDiamondMainImage(diamondMainImageURL);
         } else {
           setDiamondMainImage("");
         }
         setDiamondSelectedThumb(0);
 
-        // DISPLAY JEWELRY SETTING IMAGE
-        const selectedSettingImages = formattedSettingList.find(
-          (setting: any) =>
-            setting.JewelrySettingID === settingListData.JewelrySettingID
-        )?.images;
-        if (selectedSettingImages && selectedSettingImages.length > 0) {
-          setSettingMainImage(selectedSettingImages[0].url);
+        // SET JEWELRY SETTING MAIN IMAGE
+        if (productData.JewelrySetting?.usingImage && productData.JewelrySetting.usingImage.length > 0) {
+          const settingMainImageURL = `http://localhost:3000/usingImage/${productData.JewelrySetting.usingImage[0].UsingImageID}`;
+          setSettingMainImage(settingMainImageURL);
         } else {
           setSettingMainImage("");
         }
@@ -373,7 +347,7 @@ const JewelryDetail = () => {
         <>
           Jewelry Setting Price
           <Popover
-            content={PriceCalculation}
+            content={SettingPriceCalculation}
             title="Price Calculation"
             trigger="click"
           >
@@ -383,14 +357,6 @@ const JewelryDetail = () => {
       ),
       dataIndex: "Price",
       key: "Price",
-      // render: (record: any) => (
-      //   <EditableCell
-      //     editable={true}
-      //     value={record.Price}
-      //     onChange={(value) => handleSaveVariant({ ...record, Price: value })}
-      //     isEditing={isEditing}
-      //   />
-      // ),
     },
     {
       title: "Operation",
@@ -418,8 +384,6 @@ const JewelryDetail = () => {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
-      // render: (record: any) =>
-      //   record.Quantity,
     },
     {
       title: (
@@ -450,12 +414,12 @@ const JewelryDetail = () => {
   // DELETE JEWELRY
   const handleDelete = async () => {
     try {
-      const response = await deleteProduct(activeProduct.ProductID);
+      const response = await deleteProduct(activeProduct?.ProductID);
       console.log("Delete Response:", response.data);
       if (response.status === 200) {
         openNotification("success", "Delete", "");
         setIsModalVisible(false);
-        navigate("/admin/product");
+        navigate("/admin/product/jewelry");
       } else {
         openNotification("error", "Delete", "Failed to delete jewelry.");
       }
@@ -623,37 +587,23 @@ const JewelryDetail = () => {
                                   ))}
                                 </Select>
                               </Form.Item>
-                              <Form.Item
-                                label="From Collection"
-                                className="InforLine_Title"
-                              >
-                                {allCollections.map((collection: any) => (
-                                  <Select
-                                    value={activeProduct?.CollectionID}
-                                    onChange={(value) => handleSaveVariant({ ...activeProduct, CollectionID: value })}
-                                  >
-                                    <Select.Option key={collection.CollectionID} value={collection.CollectionID}>
-                                      {collection.CollectionName}
-                                    </Select.Option>
-                                  </Select>
-                                ))}
-                              </Form.Item>
-                              <Form.Item
-                                label="Discount (%)"
-                                className="InforLine_Title"
-                              >
-                                {allDiscounts.map((discount: any) => (
-                                  <Select
-                                    value={activeProduct?.DiscountID}
-                                    onChange={(value) => handleSaveVariant({ ...activeProduct, DiscountID: value })}
-                                  >
-                                    <Select.Option key={discount.DiscountID} value={discount.DiscountID}>
-                                      {discount.Name}
-                                    </Select.Option>
-                                  </Select>
-                                ))}
-                              </Form.Item>
-
+                              {activeProduct?.DiscountID ? (
+                                <Form.Item
+                                  label="Discount (%)"
+                                  className="InforLine_Title"
+                                >
+                                  {allDiscounts.map((discount: any) => (
+                                    <Select
+                                      value={activeProduct?.DiscountID}
+                                      onChange={(value) => handleSaveVariant({ ...activeProduct, DiscountID: value })}
+                                    >
+                                      <Select.Option key={discount.DiscountID} value={discount.DiscountID}>
+                                        {discount.Name}
+                                      </Select.Option>
+                                    </Select>
+                                  ))}
+                                </Form.Item>
+                              ) : null}
                             </Styled.ProductContent>
                           </Styled.PageDetail_Infor>
                           <Styled.MaterialTable>
@@ -669,31 +619,35 @@ const JewelryDetail = () => {
                       </>
                     </Form>
 
-                    <Styled.PageContent_Mid>
-                      <Styled.PageDetail_Title>
-                        <p>Diamond Detail</p>
-                      </Styled.PageDetail_Title>
-                      <Styled.PageDetail_Infor>
-                        <Styled.ProductContent>
-                          <Form.Item
-                            label="Diamond ID"
-                            className="InforLine_Title"
-                          >
-                            <Select
-                              value={activeProduct?.Diamond?.DiamondID}
-                              onChange={(value) => handleSaveVariant({ ...activeProduct, DiamondID: value })}
-                              style={{ width: "100%" }}
-                            >
-                              {allDiamonds.map((diamond: any) => (
-                                <Select.Option key={diamond.DiamondID} value={diamond.DiamondID}>
-                                  {diamond.Name}
-                                </Select.Option>
-                              ))}
-                            </Select>
-                          </Form.Item>
-                        </Styled.ProductContent>
-                      </Styled.PageDetail_Infor>
-                    </Styled.PageContent_Mid>
+                    {activeProduct.Diamond?.map(
+                      (diamond: any) =>
+                        diamond.DiamondID != null && (
+                          <Styled.PageContent_Mid key={diamond.DiamondID}>
+                            <Styled.PageDetail_Title>
+                              <p>Diamond Detail</p>
+                            </Styled.PageDetail_Title>
+                            <Styled.PageDetail_Infor>
+                              <Styled.ProductContent>
+                                <Form.Item label="Diamond ID" className="InforLine_Title">
+                                  <Select
+                                    value={activeProduct?.Diamond?.DiamondID}
+                                    onChange={(value) =>
+                                      handleSaveVariant({ ...activeProduct, DiamondID: value })
+                                    }
+                                    style={{ width: "100%" }}
+                                  >
+                                    {allDiamonds.map((diamond: any) => (
+                                      <Select.Option key={diamond.diamondID} value={diamond.diamondID}>
+                                        {diamond.diamondName}
+                                      </Select.Option>
+                                    ))}
+                                  </Select>
+                                </Form.Item>
+                              </Styled.ProductContent>
+                            </Styled.PageDetail_Infor>
+                          </Styled.PageContent_Mid>
+                        )
+                    )}
 
                     <Styled.PageContent_Bot>
                       <Styled.PageDetail_Title>
@@ -803,26 +757,15 @@ const JewelryDetail = () => {
                             <p className="InforLine_Title">Brand</p>
                             <p>{activeProduct?.Brand}</p>
                           </Styled.InforLine>
-                          {activeProduct?.CollectionID ? (
-                            <Styled.InforLine>
-                              <p className="InforLine_Title">From Collection</p>
-                              {allCollections?.map((collection: any) => (
-                                activeProduct?.CollectionID === collection?.CollectionID && (
-                                  <p key={collection?.CollectionID}>{collection.CollectionName}</p>
-                                )
-                              ))}
-                            </Styled.InforLine>
-                          ) : null}
-
                           {activeProduct?.DiscountID ? (
-
                             <Styled.InforLine>
                               <p className="InforLine_Title">
                                 Discount (%)
                               </p>
-                              {
-                                activeProduct?.Discount?.PercentDiscounts
-                              }
+                              {allDiscounts.map((discount: any) => (
+                                activeProduct?.DiscountID === discount.DiscountID ? (
+                                  <p>{discount.Name}</p>
+                                ) : (<p>Null</p>)))}
                             </Styled.InforLine>
                           ) : null}
                         </Styled.ProductContent>
@@ -850,26 +793,29 @@ const JewelryDetail = () => {
                                 <Styled.ThumbnailImage>
                                   {diamond[0]?.usingImage?.map(
                                     (image: any, index: any) => {
-                                      const imageUrl = `http://localhost:3000/usingImage/${image?.UsingImageID}`;
-                                      return (
-                                        <Styled.Item
-                                          key={index}
-                                          className={
-                                            index === diamondSelectedThumb
-                                              ? "selected"
-                                              : ""
-                                          }
-                                          onClick={() =>
-                                            changeDiamondImage(imageUrl, index)
-                                          }
-                                        >
-                                          <img
+                                      if (image.CertificateID == null) {
+                                        const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
+                                        return (
+                                          <Styled.Item
                                             key={index}
-                                            src={imageUrl}
-                                            alt={`Diamond Thumbnail ${index}`}
-                                          />
-                                        </Styled.Item>
-                                      );
+                                            className={
+                                              index === diamondSelectedThumb
+                                                ? "selected"
+                                                : ""
+                                            }
+                                            onClick={() =>
+                                              changeDiamondImage(imageUrl, index)
+                                            }
+                                          >
+                                            <img
+                                              key={index}
+                                              src={imageUrl}
+                                              alt={`Diamond Thumbnail ${index}`}
+                                            />
+                                          </Styled.Item>
+                                        );
+                                      }
+                                      return null;
                                     }
                                   )}
                                 </Styled.ThumbnailImage>
@@ -985,11 +931,17 @@ const JewelryDetail = () => {
                             onCancel={handleCancelGIA}
                             footer={null}
                           >
-                            <img
-                              src="https://firebasestorage.googleapis.com/v0/b/testsaveimage-abb59.appspot.com/o/Admin%2FProduct%2Fgia-sample.png?alt=media&token=9ed7ddf5-9d34-4c8c-a3dd-1358b2d636f0"
-                              alt="GIA Certificate"
-                              style={{ width: "100%" }}
-                            />
+                            {diamond?.certificate?.[diamond.certificate.length - 1]?.usingImages?.[0] ? (
+                              <img
+                                src={getImage(
+                                  diamond.certificate[diamond.certificate.length - 1].usingImages[0].UsingImageID
+                                )}
+                                alt="GIA Certificate"
+                                style={{ width: "100%" }}
+                              />
+                            ) : (
+                              <p>No GIA Certificate available</p>
+                            )}
                           </Modal>
                         </Styled.PageContent_Mid>
                       )
@@ -1056,12 +1008,17 @@ const JewelryDetail = () => {
                               {activeProduct?.JewelrySetting?.Name}
                             </p>
                           </Styled.InforLine>
-                          <Styled.InforLine>
-                            <p className="InforLine_Title">
-                              Jewelry Setting Type
-                            </p>
-                            {activeProduct?.JewelrySetting?.jewelryType?.Name}
-                          </Styled.InforLine>
+                          {activeProduct?.DiscountID ? (
+                            <Styled.InforLine>
+                              <p className="InforLine_Title">
+                                Jewelry Setting Type
+                              </p>
+                              {allTypes.map((type: any) => (
+                                activeProduct.JewelrySetting?.JewelryTypeID === type.JewelryTypeID ? (
+                                  <p>{type.Name}</p>
+                                ) : (<p>Null</p>)))}
+                            </Styled.InforLine>
+                          ) : (null)}
                           <Styled.InforLine>
                             <p className="InforLine_Title">
                               Update Time

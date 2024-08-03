@@ -36,7 +36,6 @@ const Jewelry = () => {
         jewelrySettingID_Jewelry: jewelry.JewelrySettingID,
         accountID: jewelry.AccountID,
         totalDiamondPrice: jewelry.TotalDiamondPrice,
-        collectionID: jewelry.CollectionID,
         discountID: jewelry.DiscountID,
         totalQuantitySettingVariants: jewelry.TotalQuantityJewelrySettingVariants,
         images: jewelry.UsingImage.map((image: any) => ({

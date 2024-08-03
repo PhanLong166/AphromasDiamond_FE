@@ -122,6 +122,7 @@ const Dashboard = () => {
       setDiscounts(formattedDiscounts);
       setCancelOrders(formattedCancelOrders);
       setRevenes(formattedRevene);
+      console.log(cancelOrders,cancelOrdersTotal);
 
       const startYear = 2024; 
       const startMonth = 1;
@@ -211,11 +212,11 @@ const Dashboard = () => {
                         <div className="order_ele" key={order.orderID}>
                           <div className="order_eleInfor">
                             <p className="order_eleID">{order.orderID}</p>
-                            <p className="order_eleCusName">
+                            {/* <p className="order_eleCusName">
                               {order.customerID}
-                            </p>
+                            </p> */}
                           </div>
-                          <p className="order_eleDate">{order.orderDate}</p>
+                          <p className="order_eleDate">{order.orderDate.replace("T", " ").replace(".000Z", " ")}</p>
                           <div className="order_elePrice">
                             ${order.price}
                           </div>

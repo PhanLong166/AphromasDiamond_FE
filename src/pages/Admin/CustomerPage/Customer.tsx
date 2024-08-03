@@ -2,11 +2,11 @@ import * as Styled from "./Customer.styled";
 import React, { useEffect, useState } from "react";
 import { EyeOutlined, SearchOutlined } from "@ant-design/icons";
 import type { TableColumnsType } from "antd";
-import { Form, Input, InputNumber, Space, Table } from "antd";
+import { Form, Input, InputNumber, notification, Popconfirm, Space, Table } from "antd";
 import Sidebar from "../../../components/Admin/Sidebar/Sidebar";
 // import { customerData, CustomerDataType } from "./CustomerData";
 import { Link } from "react-router-dom";
-import { showAllAccounts } from "@/services/authAPI";
+import { showAllAccounts, updateAccount } from "@/services/authAPI";
 
 
 interface EditableCellProps {
@@ -33,8 +33,8 @@ const EditableCell: React.FC<EditableCellProps> = ({
     <td {...restProps}>
       {editing ? (
         <Form.Item
-        name={dataIndex.toString()}
-        style={{ margin: 0 }}
+          name={dataIndex.toString()}
+          style={{ margin: 0 }}
           rules={[
             {
               required: true,
@@ -54,7 +54,22 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const Customer = () => {
   const [form] = Form.useForm();
   const [searchText, setSearchText] = useState("");
-  const [customers, setCustomers] = useState<any[]>();
+  const [customers, setCustomers] = useState<any[]>([]);
+  const [api, contextHolder] = notification.useNotification();
+
+  type NotificationType = "success" | "info" | "warning" | "error";
+
+  const openNotification = (
+    type: NotificationType,
+    method: string,
+    error: string
+  ) => {
+    api[type]({
+      message: type === "success" ? "Notification" : "Error",
+      description:
+        type === "success" ? `${method} manager successfully` : error,
+    });
+  };
 
   const fetchData = async () => {
     try {
@@ -81,6 +96,25 @@ const Customer = () => {
     fetchData();
   }, []);
 
+
+  const handleBan = async (email: string) => {
+    try {
+      const response = await updateAccount(email, {
+        Role: "ROLE_BAN",
+      });
+      console.log("Ban Response:", response.data);
+      if (response.status === 200) {
+        openNotification("success", "Ban", "Staff has been banned successfully.");
+        fetchData();
+      } else {
+        openNotification("error", "Ban", "Failed to ban staff.");
+      }
+    } catch (error: any) {
+      console.error("Failed to ban staff:", error);
+      openNotification("error", "Ban", error.message);
+    }
+  };
+
   const columns: TableColumnsType<any> = [
     {
       title: "Customer ID",
@@ -103,32 +137,32 @@ const Customer = () => {
       // editable: true,
       sorter: (a, b) => a.email.length - b.email.length,
     },
-    {
-      title: "Detail",
-      key: "detail",
-      className: "TextAlign",
-      render: (_, { customerID }) => (
-        <Space size="middle">
-          <Link to={`/admin/customer/detail/${customerID}`}>
-          <EyeOutlined />
-          </Link>
-        </Space>
-      ),
-    },
     // {
-    //   title: "Delete",
-    //   dataIndex: "delete",
+    //   title: "Detail",
+    //   key: "detail",
     //   className: "TextAlign",
-    //   render: (_: unknown, record: CustomerDataType) =>
-    //     customerData.length >= 1 ? (
-    //       <Popconfirm
-    //         title="Sure to delete?"
-    //         onConfirm={() => handleDelete(record.key)}
-    //       >
-    //         <a>Delete</a>
-    //       </Popconfirm>
-    //     ) : null,
+    //   render: (_, { customerID }) => (
+    //     <Space size="middle">
+    //       <Link to={`/admin/customer/detail/${customerID}`}>
+    //         <EyeOutlined />
+    //       </Link>
+    //     </Space>
+    //   ),
     // },
+    {
+      title: "Ban",
+      dataIndex: "ban",
+      className: "TextAlign",
+      render: (_: unknown, record: any) =>
+        customers.length >= 1 ? (
+          <Popconfirm
+            title="Sure to ban?"
+            onConfirm={() => handleBan(record.email)}
+          >
+            <a>Ban</a>
+          </Popconfirm>
+        ) : null,
+    },
   ];
 
 
@@ -145,7 +179,8 @@ const Customer = () => {
 
   return (
     <>
-    <Styled.GlobalStyle/>
+      {contextHolder}
+      <Styled.GlobalStyle />
       <Styled.AdminArea>
         <Sidebar />
 

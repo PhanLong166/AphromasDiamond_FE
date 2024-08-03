@@ -14,7 +14,6 @@ import {
   Table,
   Button,
   notification,
-  Typography,
 } from "antd";
 import Sidebar from "../../../../components/Admin/Sidebar/Sidebar";
 import StaffMenu from "@/components/Admin/SalesStaffMenu/StaffMenu";
@@ -71,7 +70,7 @@ const EditableCell: React.FC<EditableCellProps> = ({
 const SalesStaff = () => {
   const [form] = Form.useForm();
   const [staffs, setStaffs] = useState<any[]>([]);
-  const [editingName, setEditingName] = useState<string>("");
+  // const [editingName, setEditingName] = useState<string>("");
   const [isAdding, setIsAdding] = useState(false);
   const [api, contextHolder] = notification.useNotification();
   const [searchText, setSearchText] = useState("");
@@ -118,55 +117,55 @@ const SalesStaff = () => {
   }, []);
 
   // EDIT
-  const isEditing = (record: any) => record.staffName === editingName;
+  // const isEditing = (record: any) => record.staffName === editingName;
 
-  const edit = (record: Partial<any> & { staffName: string }) => {
-    form.setFieldsValue({
-      // staffName: "",
-      email: "",
-      ...record,
-    });
-    setEditingName(record.staffName);
-  };
+  // const edit = (record: Partial<any> & { staffName: string }) => {
+  //   form.setFieldsValue({
+  //     // staffName: "",
+  //     email: "",
+  //     ...record,
+  //   });
+  //   setEditingName(record.staffName);
+  // };
 
-  const cancel = () => {
-    setEditingName("");
-  };
+  // const cancel = () => {
+  //   setEditingName("");
+  // };
 
-  const save = async (staffName: string) => {
-    try {
-      const row = (await form.validateFields()) as any;
-      const newData = [...staffs];
-      const index = newData.findIndex(
-        (item) => staffName === item.staffName
-      );
+  // const save = async (staffName: string) => {
+  //   try {
+  //     const row = (await form.validateFields()) as any;
+  //     const newData = [...staffs];
+  //     const index = newData.findIndex(
+  //       (item) => staffName === item.staffName
+  //     );
 
-      if (index > -1) {
-        const item = newData[index];
-        const updatedItem = {
-          Name: row.staffName,
-          Email: row.email,
-          PhoneNumber: item.phoneNumber,
-          CustomerID: item.CustomerID,
-          Role: item.role,
-        };
-        newData.splice(index, 1, {
-          ...item,
-          ...row,
-        });
-        setStaffs(newData);
-        await updateAccount(item.staffName, updatedItem);
-        openNotification("success", "Update", "");
-      } else {
-        newData.push(row);
-        setStaffs(newData);
-        openNotification("error", "Update", "Failed to update manager");
-      }
-      setEditingName("");
-    } catch (errInfo) {
-      console.log("Validate Failed:", errInfo);
-    }
-  };
+  //     if (index > -1) {
+  //       const item = newData[index];
+  //       const updatedItem = {
+  //         Name: row.staffName,
+  //         Email: row.email,
+  //         PhoneNumber: item.phoneNumber,
+  //         CustomerID: item.CustomerID,
+  //         Role: item.role,
+  //       };
+  //       newData.splice(index, 1, {
+  //         ...item,
+  //         ...row,
+  //       });
+  //       setStaffs(newData);
+  //       await updateAccount(item.staffName, updatedItem);
+  //       openNotification("success", "Update", "");
+  //     } else {
+  //       newData.push(row);
+  //       setStaffs(newData);
+  //       openNotification("error", "Update", "Failed to update manager");
+  //     }
+  //     setEditingName("");
+  //   } catch (errInfo) {
+  //     console.log("Validate Failed:", errInfo);
+  //   }
+  // };
 
   const handleDelete = async (staffID: number) => {
     try {
@@ -176,6 +175,24 @@ const SalesStaff = () => {
     } catch (error: any) {
       console.error("Failed to delete material:", error);
       openNotification("error", "Delete", error.message);
+    }
+  };
+
+  const handleBan = async (email: string) => {
+    try {
+      const response = await updateAccount(email, {
+        Role: "ROLE_BAN",
+      });
+      console.log("Ban Response:", response.data);
+      if (response.status === 200) {
+        openNotification("success", "Ban", "Staff has been banned successfully.");
+        fetchData();
+      } else {
+        openNotification("error", "Ban", "Failed to ban staff.");
+      }
+    } catch (error: any) {
+      console.error("Failed to ban staff:", error);
+      openNotification("error", "Ban", error.message);
     }
   };
 
@@ -198,34 +215,34 @@ const SalesStaff = () => {
       dataIndex: "email",
       editable: true,
     },
-    {
-      title: "Edit",
-      dataIndex: "edit",
-      className: "TextAlign SmallSize",
-      render: (_: unknown, record: any) => {
-        const editable = isEditing(record);
-        return editable ? (
-          <span>
-            <Typography.Link
-              onClick={() => save(record.key)}
-              style={{ marginRight: 8 }}
-            >
-              Save
-            </Typography.Link>
-            <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
-              <a>Cancel</a>
-            </Popconfirm>
-          </span>
-        ) : (
-          <Typography.Link
-            disabled={editingName !== ""}
-            onClick={() => edit(record)}
-          >
-            Edit
-          </Typography.Link>
-        );
-      },
-    },
+    // {
+    //   title: "Edit",
+    //   dataIndex: "edit",
+    //   className: "TextAlign SmallSize",
+    //   render: (_: unknown, record: any) => {
+    //     const editable = isEditing(record);
+    //     return editable ? (
+    //       <span>
+    //         <Typography.Link
+    //           onClick={() => save(record.key)}
+    //           style={{ marginRight: 8 }}
+    //         >
+    //           Save
+    //         </Typography.Link>
+    //         <Popconfirm title="Sure to cancel?" onConfirm={cancel}>
+    //           <a>Cancel</a>
+    //         </Popconfirm>
+    //       </span>
+    //     ) : (
+    //       <Typography.Link
+    //         disabled={editingName !== ""}
+    //         onClick={() => edit(record)}
+    //       >
+    //         Edit
+    //       </Typography.Link>
+    //     );
+    //   },
+    // },
     {
       title: "Delete",
       dataIndex: "delete",
@@ -248,7 +265,7 @@ const SalesStaff = () => {
         staffs.length >= 1 ? (
           <Popconfirm
             title="Sure to ban?"
-            onConfirm={() => handleDelete(record.key)}
+            onConfirm={() => handleBan(record.email)}
           >
             <a>Ban</a>
           </Popconfirm>
@@ -267,7 +284,7 @@ const SalesStaff = () => {
         inputType: col.dataIndex === "phoneNumber" ? "number" : "text",
         dataIndex: col.dataIndex,
         title: col.title,
-        editing: isEditing(record),
+        // editing: isEditing(record),
       }),
     };
   });
@@ -395,14 +412,6 @@ const SalesStaff = () => {
                     layout="vertical"
                     className="AdPageContent_Content"
                   >
-                    {/* <Styled.FormItem>
-                      <Form.Item name="radio-group" label="Staff Type">
-                        <Radio.Group>
-                          <Radio value="sales">Sales Staff</Radio>
-                          <Radio value="delivery">Delivery Staff</Radio>
-                        </Radio.Group>
-                      </Form.Item>
-                    </Styled.FormItem> */}
                     <Styled.FormItem>
                       <Form.Item
                         name="Name"

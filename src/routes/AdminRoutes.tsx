@@ -75,7 +75,7 @@ const AdminRoutes = {
 
         // { path: config.routes.admin.collection, element: <Collection /> },
         { path: config.routes.admin.collectionDetail, element: <CollectionDetail /> },
-        { path: config.routes.admin.collection, element: <ProductPromotion /> },
+        { path: config.routes.admin.marketing, element: <ProductPromotion /> },
         { path: config.routes.admin.discountDetail, element: <ProductPromotionDetail /> },
         { path: config.routes.admin.voucher, element: <BillPromotion /> },
 

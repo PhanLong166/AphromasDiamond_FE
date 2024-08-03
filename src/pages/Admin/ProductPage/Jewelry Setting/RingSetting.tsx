@@ -77,7 +77,9 @@ const JewelrySetting = () => {
       const { data: jewelryTypesData } = responseJewelryType.data;
       const { data: sizeData } = responseSize.data;
 
-      const formattedSettings = settingsData.map((setting: any) => ({
+      const formattedSettings = settingsData
+      .filter((setting: any) => (setting.IsActive))
+      .map((setting: any) => ({
         jewelrySettingID: setting.JewelrySettingID,
         jewelrySettingName: setting.Name,
         productID: setting.ProductID,
@@ -89,11 +91,11 @@ const JewelrySetting = () => {
             variantID: variant.JewelrySettingVariantID,
             amount: variant.Amount,
             totalPriceVariant: variant.TotalPriceVariant,
-            size: {
-              sizeID: variant.SizeID,
-              sizeValue: variant.SizeValue,
-              unitOfMeasure: variant.UnitOfMeasure,
-            },
+            // size: {
+            //   sizeID: variant.SizeID,
+            //   sizeValue: variant.SizeValue,
+            //   unitOfMeasure: variant.UnitOfMeasure,
+            // },
           })
         ),
         images: setting.UsingImage.map((image: any) => ({
@@ -626,6 +628,7 @@ const JewelrySetting = () => {
                     onChangeImg={onChangeImg}
                     onPreview={onPreview}
                     setIsAdding={setIsAdding}
+                    fetchData={fetchData}
                   />
                 </>
               ) : (

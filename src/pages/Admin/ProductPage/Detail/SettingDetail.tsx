@@ -1,6 +1,6 @@
 import * as Styled from "./SettingDetail.styled";
 import React, { useState, useEffect } from "react";
-import { Link, useParams } from "react-router-dom";
+import { Link, useNavigate, useParams } from "react-router-dom";
 import {
   Button,
   Modal,
@@ -21,15 +21,14 @@ import {
 import Sidebar from "@/components/Admin/Sidebar/Sidebar";
 import ProductMenu from "@/components/Admin/ProductMenu/ProductMenu";
 import {
-  // deleteSetting,
   getSettingDetails,
   showAllSetting,
   updateSetting,
 } from "@/services/jewelrySettingAPI";
 import { showAllMaterial } from "@/services/materialAPI";
-import { showAllSize } from "@/services/sizeAPI";
 import { getImage } from "@/services/imageAPI";
 import { deleteSettingVariant } from "@/services/settingVariantAPI";
+import TypedInputNumber from "antd/es/input-number";
 
 const PriceCalculation = (
   <div>
@@ -39,6 +38,7 @@ const PriceCalculation = (
 
 const JewelrySettingDetail = () => {
   const { id } = useParams<{ id: string }>();
+  const navigate = useNavigate();
   const [activeJewelrySetting, setActiveJewelrySetting] = useState<any | null>(
     null
   );
@@ -51,7 +51,6 @@ const JewelrySettingDetail = () => {
   const [isEditing, setIsEditing] = useState(false);
   const [editedSetting, setEditedSetting] = useState<any | null>(null);
   const [allMaterials, setAllMaterials] = useState<any[]>([]);
-  const [allSizes, setAllSizes] = useState<any[]>([]);
 
   type NotificationType = "success" | "info" | "warning" | "error";
 
@@ -73,12 +72,10 @@ const JewelrySettingDetail = () => {
         const response = await getSettingDetails(Number(id));
         const responseSettingList = await showAllSetting();
         const responseMaterial = await showAllMaterial();
-        const responseSize = await showAllSize();
 
         const jewelrySettingData = response.data.data;
         const { data: settingListData } = responseSettingList.data;
         const { data: materialsData } = responseMaterial.data;
-        const { data: sizeData } = responseSize.data;
 
         const formattedSettingList = settingListData.map((setting: any) => ({
           jewelrySettingID: setting.JewelrySettingID,
@@ -95,13 +92,7 @@ const JewelrySettingDetail = () => {
           sellPrice: material.SellPrice,
         }));
 
-        const formattedSizes = sizeData.map((size: any) => ({
-          sizeID: size.SizeID,
-          sizeValue: size.SizeValue,
-        }));
-
         setAllMaterials(formattedMaterials);
-        setAllSizes(formattedSizes);
 
         if (!jewelrySettingData) {
           throw new Error("Received null or undefined jewelrySettingData");
@@ -177,37 +168,9 @@ const JewelrySettingDetail = () => {
       Quantity: 1,
       Price: newJewelrySettingPrice,
       materialJewelry: allMaterials.find(material => material.materialID === newMaterialID) || {},
-      size: allSizes.find(size => size.sizeID === selectedSize) || {},
     };
 
     setDataMaterial([...dataMaterial, newData]);
-  };
-
-  const EditableCell: React.FC<{
-    editable: boolean;
-    value: any;
-    onChange: (value: any) => void;
-    isEditing: boolean;
-  }> = ({ editable, value: initialValue, onChange, isEditing }) => {
-    const [value, setValue] = useState(initialValue);
-
-    const handleBlur = () => {
-      onChange(value);
-    };
-
-    return (
-      <td>
-        {editable && isEditing ? (
-          <Input
-            value={value}
-            onChange={(e) => setValue(e.target.value)}
-            onBlur={handleBlur}
-          />
-        ) : (
-          value
-        )}
-      </td>
-    );
   };
 
   const columns = [
@@ -233,50 +196,32 @@ const JewelrySettingDetail = () => {
         ),
     },
     {
-      title: "Size Value",
-      dataIndex: "SizeID",
-      render: (text: string, record: any) =>
-        isEditing ? (
-          <Select
-            placeholder="Select Size"
-            value={record.SizeID}
-            onChange={(value) => handleSaveVariant({ ...record, SizeID: value })}
-          >
-            {allSizes.map((size: any) => (
-              <Select.Option key={size.sizeID} value={size.sizeID}>
-                {size.sizeValue}
-              </Select.Option>
-            ))}
-          </Select>
-        ) : (
-          record.size?.sizeValue || text
-        ),
-    },
-    {
       title: "Weight",
       dataIndex: "Weight",
       key: "Weight",
-      render: (record: any) => (
-        <EditableCell
-          editable={true}
-          value={record.Weight}
-          onChange={(value) => handleSaveVariant({ ...record, Weight: value })}
-          isEditing={isEditing}
-        />
-      ),
+      render: (text: string, record: any) =>
+        isEditing ? (
+          <TypedInputNumber
+            value={record.Weight}
+            onChange={(value) => handleSaveVariant({ ...record, Weight: value })}
+          />
+        ) : (
+          record.materialJewelry?.Weight || text
+        ),
     },
     {
       title: "Quantity",
       dataIndex: "Quantity",
       key: "Quantity",
-      render: (record: any) => (
-        <EditableCell
-          editable={true}
-          value={record.Quantity}
-          onChange={(value) => handleSaveVariant({ ...record, Quantity: value })}
-          isEditing={isEditing}
-        />
-      ),
+      render: (text: string, record: any) =>
+        isEditing ? (
+          <TypedInputNumber
+            value={record.Quantity}
+            onChange={(value) => handleSaveVariant({ ...record, Quantity: value })}
+          />
+        ) : (
+          record.materialJewelry?.Quantity || text
+        ),
     },
     {
       title: (
@@ -293,14 +238,14 @@ const JewelrySettingDetail = () => {
       ),
       dataIndex: "Price",
       key: "Price",
-      render: (record: any) => (
-        <EditableCell
-          editable={true}
-          value={record.Price}
-          onChange={(value) => handleSaveVariant({ ...record, Price: value })}
-          isEditing={isEditing}
-        />
-      ),
+      // render: (record: any) => (
+      //   <EditableCell
+      //     editable={true}
+      //     value={record.Price}
+      //     onChange={(value) => handleSaveVariant({ ...record, Price: value })}
+      //     isEditing={isEditing}
+      //   />
+      // ),
     },
     {
       title: "Operation",
@@ -318,13 +263,24 @@ const JewelrySettingDetail = () => {
   ];
 
   // UPDATE JEWELRY SETTING
-
   const handleSave = async () => {
     try {
-      if (editedSetting) {
-        await updateSetting(editedSetting.JewelrySettingID, editedSetting);
+      const response = await updateSetting(activeJewelrySetting.JewelrySettingID, {
+        ...editedSetting,
+        JewelrySettingVariant: dataMaterial.map((variant: any) => ({
+          JewelrySettingVariantID: variant.JewelrySettingVariantID,
+          MaterialJewelryID: variant.MaterialJewelryID,
+          Weight: variant.Weight,
+          Quantity: variant.Quantity,
+          Price: variant.Price,
+        })),
+      });
+      if (response.status === 200) {
         openNotification("success", "Update", "");
         setIsEditing(false);
+        setActiveJewelrySetting(response);
+      } else {
+        openNotification("error", "Update", "Failed to update Setting.");
       }
     } catch (error: any) {
       console.error("Failed to update setting:", error);
@@ -339,8 +295,23 @@ const JewelrySettingDetail = () => {
     setIsModalVisible(true);
   };
 
-  const handleOk = () => {
-    setIsModalVisible(false);
+  const handleDelete = async () => {
+    try {
+      const response = await updateSetting(activeJewelrySetting.JewelrySettingID, {
+        IsActive: false,
+      });
+      console.log("Delete Response:", response.data);
+      if (response.status === 200) {
+        openNotification("success", "Delete", "");
+        setIsModalVisible(false);
+        navigate("/admin/product/jewelry-setting");
+      } else {
+        openNotification("error", "Delete", "Failed to delete Setting.");
+      }
+    } catch (error: any) {
+      console.error("Failed to delete Setting:", error);
+      openNotification("error", "Delete", error.message);
+    }
   };
 
   const handleCancel = () => {
@@ -385,45 +356,45 @@ const JewelrySettingDetail = () => {
                           </Styled.PageDetail_Title>
 
                           <Styled.PageDetail_Infor>
-                          <Styled.ImageContainer>
-                          <Styled.OuterThumb>
-                            <Styled.ThumbnailImage>
-                              {activeJewelrySetting.UsingImage?.map(
-                                (image: any, index: any) => {
-                                  const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
-                                  return (
-                                    <Styled.Item
-                                      key={index}
-                                      className={
-                                        index === settingSelectedThumb
-                                          ? "selected"
-                                          : ""
-                                      }
-                                      onClick={() =>
-                                        changeSettingImage(imageUrl, index)
-                                      }
-                                    >
-                                      <img
-                                        key={index}
-                                        src={imageUrl}
-                                        alt={`Jewelry Setting Thumbnail ${index}`}
-                                      />
-                                    </Styled.Item>
-                                  );
-                                }
-                              )}
-                            </Styled.ThumbnailImage>
-                          </Styled.OuterThumb>
-                          <Styled.OuterMain>
-                            <Styled.MainImage>
-                              <img
-                                id="mainImage"
-                                src={settingMainImage}
-                                alt="Main"
-                              />
-                            </Styled.MainImage>
-                          </Styled.OuterMain>
-                        </Styled.ImageContainer>
+                            <Styled.ImageContainer>
+                              <Styled.OuterThumb>
+                                <Styled.ThumbnailImage>
+                                  {activeJewelrySetting.UsingImage?.map(
+                                    (image: any, index: any) => {
+                                      const imageUrl = `http://localhost:3000/usingImage/${image.UsingImageID}`;
+                                      return (
+                                        <Styled.Item
+                                          key={index}
+                                          className={
+                                            index === settingSelectedThumb
+                                              ? "selected"
+                                              : ""
+                                          }
+                                          onClick={() =>
+                                            changeSettingImage(imageUrl, index)
+                                          }
+                                        >
+                                          <img
+                                            key={index}
+                                            src={imageUrl}
+                                            alt={`Jewelry Setting Thumbnail ${index}`}
+                                          />
+                                        </Styled.Item>
+                                      );
+                                    }
+                                  )}
+                                </Styled.ThumbnailImage>
+                              </Styled.OuterThumb>
+                              <Styled.OuterMain>
+                                <Styled.MainImage>
+                                  <img
+                                    id="mainImage"
+                                    src={settingMainImage}
+                                    alt="Main"
+                                  />
+                                </Styled.MainImage>
+                              </Styled.OuterMain>
+                            </Styled.ImageContainer>
 
                             <Styled.ProductContent>
                               <Form.Item
@@ -481,7 +452,7 @@ const JewelrySettingDetail = () => {
                                       e.target.value
                                     )
                                   }
-                                  style={{width: "100%"}}
+                                  style={{ width: "100%" }}
                                 />
                               </Form.Item>
                             </Styled.ProductContent>
@@ -526,7 +497,7 @@ const JewelrySettingDetail = () => {
                         <p>Jewelry Detail</p>
                       </Styled.PageDetail_Title>
                       <Styled.PageDetail_Infor>
-                      <Styled.ImageContainer>
+                        <Styled.ImageContainer>
                           <Styled.OuterThumb>
                             <Styled.ThumbnailImage>
                               {activeJewelrySetting.UsingImage?.map(
@@ -613,9 +584,9 @@ const JewelrySettingDetail = () => {
                           Delete
                         </Button>
                         <Modal
-                          title="Select Delivery Person"
+                          title="Confirm Deletion"
                           visible={isModalVisible}
-                          onOk={handleOk}
+                          onOk={handleDelete}
                           onCancel={handleCancel}
                         ></Modal>
                       </Styled.ActionBtn_Right>
